@@ -10,11 +10,11 @@
         if (!empty(Auth()->guard('client')->user())) {
             $data = Auth()->guard('client')->user();
         }
-       @endphp
-        @if($data['type'] = 'CLIENT')
-            @include('layouts.include.leftpanel.client-left-sidebar')
-        @else
+        @endphp
+        @if($data['type'] == 'ADMIN')
             @include('layouts.include.leftpanel.admin-left-sidebar')
+        @else
+            @include('layouts.include.leftpanel.client-left-sidebar')
         @endif    
         <div id="page-wrapper" class="gray-bg">
      

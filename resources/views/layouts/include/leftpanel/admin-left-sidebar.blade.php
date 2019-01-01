@@ -23,8 +23,8 @@ $currentRoute = Route::current()->getName();
                     </div>
                 </li>
                 
-                <li>
-                    <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> <span class="fa arrow"></span></a>
+                <li class="{{ ($currentRoute == 'admin-dashboard'  ? 'active' : '') }}">
+                    <a href="javascript:;"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span> </a>
                    <!--  <ul class="nav nav-second-level collapse">
                         <li><a href="index.html">Dashboard v.1</a></li>
                         <li><a href="dashboard_2.html">Dashboard v.2</a></li>
@@ -33,8 +33,9 @@ $currentRoute = Route::current()->getName();
                         <li><a href="dashboard_5.html">Dashboard v.5 </a></li>
                     </ul> -->
                 </li>
-                
-             
+                <li class="{{ ($currentRoute == 'list-demo'  ? 'active' : '') }}">
+                    <a href="{{ route('list-demo') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Demo</span></a>
+                </li>
               <!--   <li class="active">
                     <a href="#"><i class="fa fa-table"></i> <span class="nav-label">Tables</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">

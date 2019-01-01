@@ -8560,3 +8560,6 @@ body.md-skin {
     margin: 0;
   }
 }
+.has-error {
+    border-color: red;
+}
