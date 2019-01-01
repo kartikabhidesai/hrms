@@ -22,9 +22,8 @@ var Demo = function() {
                     }
                 ]
             });
-        $('body').on('click', '.deleteTemplate', function() {
-            $('#templateModel').modal('hide');
-            $('#deleteModel').modal('show');
+        $('body').on('click', '.demoDelete', function() {
+            // $('#deleteModel').modal('show');
             var id = $(this).data('id');
             setTimeout(function() {
                 $('.yes-sure:visible').attr('data-id', id);
@@ -39,8 +38,8 @@ var Demo = function() {
                 headers: {
                     'X-CSRF-TOKEN': $('input[name="_token"]').val(),
                 },
-                url: baseurl + "admin/calls-ajaxAction",
-                data: {'action': 'deleteTemplate', 'data': data},
+                url: baseurl + "admin/demo-ajaxAction",
+                data: {'action': 'deleteDemo', 'data': data},
                 success: function(data) {
                     handleAjaxResponse(data);
                 }
@@ -68,7 +67,7 @@ var Demo = function() {
             'postData': dataArr,
             'hideColumnList': [],
             'noSearchApply': [0],
-            'noSortingApply': [0],
+            'noSortingApply': [3,5],
             'defaultSortColumn': 0,
             'defaultSortOrder': 'desc',
             'setColumnWidth': columnWidth

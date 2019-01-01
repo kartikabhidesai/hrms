@@ -48,18 +48,16 @@ class DemoController extends Controller {
     }
 
 
-    public function deleteTemplate($postData) {
+    public function deleteDemo($postData) {
         if ($postData) {
-            $result = Template::where('id', $postData['id'])->delete();
-
+            $result = Demo::where('id', $postData['id'])->delete();
             if ($result) {
                 $return['status'] = 'success';
-                $return['message'] = 'Template delete successfully.';
+                $return['message'] = 'Record delete successfully.';
 //                $return['redirect'] = route('calls');
                 $return['jscode'] = "setTimeout(function(){
                         $('#deleteModel').modal('hide');
-                        $('#templateModel').modal('show');
-                        $('#template').trigger('click');
+                        $('#dataTables-example').refresh();
                     },1000)";
             } else {
                 $return['status'] = 'error';
@@ -78,8 +76,8 @@ class DemoController extends Controller {
                 $demoList = $objDemo->getData($request);
                 echo json_encode($demoList);
                 break;
-            case 'deleteTemplate':
-                $result = $this->deleteTemplate($request->input('data'));
+            case 'deleteDemo':
+                $result = $this->deleteDemo($request->input('data'));
                 break;
         }
     }

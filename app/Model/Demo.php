@@ -78,7 +78,7 @@ class Demo extends Model {
         foreach ($resultArr as $row) {
            $actionHtml = '';
            $actionHtml .= '<a href="' . route('edit-demo', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
-            $actionHtml .= '<a href="javascript:;" class="link-black text-sm demoDelete" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';
+            $actionHtml .= '<a href="#deleteModel" data-toggle="modal" data-id="'.$row['id'].'" class="link-black text-sm demoDelete" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';
             $nestedData = array();
             $nestedData[] = $row["id"];
             $nestedData[] = $row["first_name"];
