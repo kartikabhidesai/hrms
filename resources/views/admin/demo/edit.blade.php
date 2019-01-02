@@ -5,7 +5,7 @@
 		<div class="col-lg-12">
 			<div class="ibox float-e-margins">
 				<div class="ibox-title">
-					<h5>Add form</h5>
+					<h5>Edit form</h5>
 					<div class="ibox-tools">
 						<a class="collapse-link">
 							<i class="fa fa-chevron-up"></i>
@@ -25,20 +25,22 @@
 					</div>
 				</div>
 				<div class="ibox-content">
-					 {{ Form::open( array('method' => 'post', 'class' => 'form-horizontal','files' => true, 'id' => 'addDemo' )) }}
+					 {{ Form::open( array('method' => 'post', 'class' => 'form-horizontal','files' => true, 'id' => 'editDemo' )) }}
 						<div class="form-group"><label class="col-lg-2 control-label">First Name</label>
 							<div class="col-lg-9">
-								{{ Form::text('first_name', null, array('class' => 'form-control first_name' ,'required')) }}
+								{{ Form::text('first_name', $detail->first_name, array('class' => 'form-control first_name' ,'required')) }}
 							</div>
 						</div>
 						<div class="form-group"><label class="col-lg-2 control-label">Last Name</label>
 							<div class="col-lg-9">
-								{{ Form::text('last_name', null, array('class' => 'form-control last_name' ,'required')) }}
+								{{ Form::text('last_name', $detail->last_name, array('class' => 'form-control last_name' ,'required')) }}
+								
 							</div>
 						</div>
+						{{ Form::hidden('edit_id', $detail->id, array('class' => '')) }}
 						<div class="form-group">
 							<label class="col-lg-2 control-label">File</label>
-								<div class="fileinput fileinput-new input-group col-lg-9" data-provides="fileinput">
+								<div class="fileinput fileinput-new input-group col-lg-7" data-provides="fileinput">
 							    <div class="form-control" data-trigger="fileinput">
 							        <i class="glyphicon glyphicon-file fileinput-exists"></i>
 							    <span class="fileinput-filename"></span>
@@ -55,12 +57,8 @@
                         <div class="form-group">
 						 	<div class="form-group">
 						 		<label class="col-sm-2 control-label">Select</label>
-                                <div class="col-sm-9"><select class="form-control m-b" name="account">
-                                        <option>option 1</option>
-                                        <option>option 2</option>
-                                        <option>option 3</option>
-                                        <option>option 4</option>
-                                    </select>
+                                <div class="col-sm-9">
+                                    {{ Form::select('testarray', $testarray , null, array('class' => 'form-control m-b', 'id' => 'test')) }}
                                 </div>
                             </div>
                         </div>

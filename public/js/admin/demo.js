@@ -55,6 +55,15 @@ var Demo = function() {
         handleFormValidate(form, rules, function(form) {
             handleAjaxFormSubmit(form,true);
         });
+         var form = $('#editDemo');
+        var rules = {
+            first_name: {required: true},
+            last_name: {required: true},
+            
+        };
+        handleFormValidate(form, rules, function(form) {
+            handleAjaxFormSubmit(form,true);
+        });
        
         
        var dataArr = {};

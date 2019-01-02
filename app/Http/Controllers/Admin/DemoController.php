@@ -38,13 +38,39 @@ class DemoController extends Controller {
             echo json_encode($return);
             exit;
         }
-
+        $data['testarray'] = Config::get('constants.testarray');
         $session = $request->session()->all();
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('admin/demo.js', 'ajaxfileupload.js','jquery.form.min.js');
         $data['funinit'] = array('Demo.init()');
         $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
         return view('admin.demo.add', $data);
+    } 
+    public function edit(Request $request,$id) {
+        $data['testarray'] = Config::get('constants.testarray');
+        $data['detail'] = Demo::find($id);
+
+        if ($request->isMethod('post')) {
+            $objDemo = new Demo();
+            $ret = $objDemo->editDemo($request);
+            if ($ret) {
+                $return['status'] = 'success';
+                $return['message'] = 'Record Edited successfully.';
+                $return['redirect'] = route('list-demo');
+            } else {
+                $return['status'] = 'error';
+                $return['message'] = 'something will be wrong.';
+            }
+            echo json_encode($return);
+            exit;
+        }
+
+        $session = $request->session()->all();
+        $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
+        $data['js'] = array('admin/demo.js', 'ajaxfileupload.js','jquery.form.min.js');
+        $data['funinit'] = array('Demo.init()');
+        $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
+        return view('admin.demo.edit', $data);
     }
 
 

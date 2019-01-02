@@ -55,12 +55,8 @@
                         <div class="form-group">
 						 	<div class="form-group">
 						 		<label class="col-sm-2 control-label">Select</label>
-                                <div class="col-sm-9"><select class="form-control m-b" name="account">
-                                        <option>option 1</option>
-                                        <option>option 2</option>
-                                        <option>option 3</option>
-                                        <option>option 4</option>
-                                    </select>
+                                <div class="col-sm-9"> 
+                                	{{ Form::select('testarray', $testarray , null, array('class' => 'form-control m-b', 'id' => 'test')) }}
                                 </div>
                             </div>
                         </div>

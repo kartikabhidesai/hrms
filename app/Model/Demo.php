@@ -35,6 +35,26 @@ class Demo extends Model {
         $objUser->save();
         return TRUE;
     }
+ public function editDemo($request) {
+      
+       $name = '';
+        if($request->file()){
+            $image = $request->file('demo_pic');
+            $name = 'admin'.time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/uploads/client/');
+            $image->move($destinationPath, $name);    
+        }
+        $objUser = Demo::find($request->input('edit_id'));
+        $objUser->first_name = $request->input('first_name');
+        $objUser->last_name = $request->input('last_name');
+        $objUser->user_id = '1';
+        $objUser->gender = $request->input('gender');
+        $objUser->image = $name;
+        $objUser->created_at = date('Y-m-d H:i:s');
+        $objUser->updated_at = date('Y-m-d H:i:s');
+        $objUser->save();
+        return TRUE;
+    }
 
      public function getData($request) {
         $requestData = $_REQUEST;
