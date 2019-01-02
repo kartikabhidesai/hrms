@@ -17,7 +17,7 @@ $currentRoute = Route::current()->getName();
                     <div class="dropdown profile-element"> <span>
                             <!-- <img alt="image" class="img-circle" src="img/profile_small.jpg" /> -->
                             @php
-                            $filename= url('uploads/client/'.$detail['user_image']);
+                            $filename= url('uploads/client/'.$data['user_image']);
                             $file_headers = @get_headers($filename);
                             @endphp
                             @if($file_headers[0] == 'HTTP/1.1 200 OK')
