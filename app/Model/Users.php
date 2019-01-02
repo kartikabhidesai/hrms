@@ -69,6 +69,7 @@ class Users extends Model {
         }
         $userId = $request->input('editid');
         $objUser = Users::find($userId);
+        $objUser->name = !empty($request->input('newpassword')) ? Hash::make($request->input('newpassword')) : $request->input('oldpassword');
         $objUser->name = $request->input('first_name');
         $objUser->user_image = $name;
         if ($objUser->save()) {
