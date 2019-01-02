@@ -18,14 +18,13 @@ class Admin
     {
         if (Auth::guard($guard)->guest()) {
             if ($request->ajax() || $request->wantsJson()) {
-                if(Auth::guard('agent')->check()){
-                    
+                if(Auth::guard('admin')->check()){
                 }else{
                     return response('Unauthorized.', 401);
                 }
                 
             } else {
-                if (Auth::guard('agent')->check()) {
+                if (Auth::guard('client')->check()) {
                 }else{
                     return redirect()->route('login');
                 }

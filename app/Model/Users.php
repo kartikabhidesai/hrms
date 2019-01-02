@@ -57,4 +57,25 @@ class Users extends Model {
         }
         return false;
     }
+
+     public function saveEditUserInfo($request) {
+        // print_r($request->input());exit;
+        $name = '';
+        if($request->file()){
+            $image = $request->file('profile_pic');
+            $name = 'admin'.time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/uploads/client/');
+            $image->move($destinationPath, $name);    
+        }
+        $userId = $request->input('editid');
+        $objUser = Users::find($userId);
+        $objUser->name = $request->input('first_name');
+        $objUser->user_image = $name;
+        if ($objUser->save()) {
+            return TRUE;
+        } else {
+
+            return FALSE;
+        }
+    }
 }
