@@ -1,6 +1,5 @@
 <?php
-
-namespace App\Http\Controllers\Client;
+namespace App\Http\Controllers\Employee;
 
 use App\User;
 use App\Model\Users;
@@ -10,16 +9,15 @@ use Route;
 use APP;
 use Illuminate\Http\Request;
 
-class ClientController extends Controller {
+class EmployeeController extends Controller {
 
     public function __construct() {
-        // parent::__construct();
-        $this->middleware('client');
+        $this->middleware('employee');
     }
 
     public function dashboard() {
         $data['detail'] = $this->loginUser;
-        return view('client.dashboard', $data);
+        return view('employee.dashboard', $data);
     }
 
 }

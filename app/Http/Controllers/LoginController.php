@@ -31,8 +31,10 @@ class LoginController extends Controller {
     public function checkAuth(Request $request) {
         if (auth()->guard('admin')->user()) {
             return redirect()->route('admin-dashboard');
-        } else if (auth()->guard('client')->user()) {
-            return redirect()->route('client-dashboard');
+        } else if (auth()->guard('company')->user()) {
+            return redirect()->route('company-dashboard');
+        }else if (auth()->guard('employee')->user()) {
+            return redirect()->route('employee-dashboard');
         } else {
             return view('auth.login');
         }
@@ -58,17 +60,28 @@ class LoginController extends Controller {
                 Session::push('logindata', $loginData);
                 $request->session()->flash('session_success', 'User Login successfully.');
                 return redirect()->route('user-dashboard');
-            } else if (Auth::guard('client')->attempt(['email' => $request->input('email'), 'password' => $request->input('password'), 'type' => 'CLIENT'])) {
+            } else if (Auth::guard('employee')->attempt(['email' => $request->input('email'), 'password' => $request->input('password'), 'type' => 'EMPLOYEE'])) {
                 $loginData = array(
-                    'name' => Auth::guard('client')->user()->name,
-                    'email' => Auth::guard('client')->user()->email,
-                    'type' => Auth::guard('client')->user()->type,
-                    'id' => Auth::guard('client')->user()->id,
-                    'user_image' => Auth::guard('client')->user()->user_image
+                    'name' => Auth::guard('employee')->user()->name,
+                    'email' => Auth::guard('employee')->user()->email,
+                    'type' => Auth::guard('employee')->user()->type,
+                    'id' => Auth::guard('employee')->user()->id,
+                    'user_image' => Auth::guard('employee')->user()->user_image
                 );
                 Session::push('logindata', $loginData);
                 $request->session()->flash('session_success', 'Customer Login successfully.');
-                return redirect()->route('client-dashboard');
+                return redirect()->route('employee-dashboard');
+            }else if (Auth::guard('company')->attempt(['email' => $request->input('email'), 'password' => $request->input('password'), 'type' => 'COMPANY'])) {
+                $loginData = array(
+                    'name' => Auth::guard('company')->user()->name,
+                    'email' => Auth::guard('company')->user()->email,
+                    'type' => Auth::guard('company')->user()->type,
+                    'id' => Auth::guard('company')->user()->id,
+                    'user_image' => Auth::guard('company')->user()->user_image
+                );
+                Session::push('logindata', $loginData);
+                $request->session()->flash('session_success', 'Company Login successfully.');
+                return redirect()->route('company-dashboard');
             } else if (Auth::guard('admin')->attempt(['email' => $request->input('email'), 'password' =>$request->input('password'), 'type' => 'ADMIN'])) {
                 $loginData = array(
                     'name' => Auth::guard('admin')->user()->name,

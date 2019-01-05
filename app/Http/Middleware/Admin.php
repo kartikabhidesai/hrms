@@ -24,7 +24,7 @@ class Admin
                 }
                 
             } else {
-                if (Auth::guard('client')->check()) {
+                if (Auth::guard('employee')->check() || Auth::guard('company')->check()) {
                 }else{
                     return redirect()->route('login');
                 }

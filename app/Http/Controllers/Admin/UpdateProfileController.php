@@ -35,8 +35,10 @@ class UpdateProfileController extends Controller {
             if ($edituserinfo) {
                 $return['status'] = 'success';
                 $return['message'] = 'User Info Edit successfully.';
-                 if (Auth::guard('client')->check()) {
-                   $return['redirect'] = route('client-dashboard');
+                if (Auth::guard('company')->check()) {
+                   $return['redirect'] = route('company-dashboard');
+                }elseif (Auth::guard('employee')->check()) {
+                   $return['redirect'] = route('employee-dashboard');
                 }else{
                    $return['redirect'] = route('admin-dashboard');
                 }

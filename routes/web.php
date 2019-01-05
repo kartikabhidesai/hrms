@@ -34,7 +34,12 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function() {
     Route::match(['get', 'post'], 'edit-demo/{id}', ['as' => 'edit-demo', 'uses' => 'Admin\DemoController@edit']);
 });
 
-$clientPrefix = "client";
-Route::group(['prefix' => $clientPrefix, 'middleware' => ['client']], function() {
-	Route::match(['get', 'post'], 'client-dashboard', ['as' => 'client-dashboard', 'uses' => 'Client\ClientController@dashboard']);
+$employeePrefix = "employee";
+Route::group(['prefix' => $employeePrefix, 'middleware' => ['employee']], function() {
+	Route::match(['get', 'post'], 'employee-dashboard', ['as' => 'employee-dashboard', 'uses' => 'Employee\EmployeeController@dashboard']);
+});
+
+$companyPrefix = "company";
+Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function() {
+	Route::match(['get', 'post'], 'company-dashboard', ['as' => 'company-dashboard', 'uses' => 'Company\CompanyController@dashboard']);
 });

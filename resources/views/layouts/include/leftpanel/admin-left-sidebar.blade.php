@@ -5,9 +5,15 @@ $currentRoute = Route::current()->getName();
                 if (!empty(Auth()->guard('admin')->user())) {
                 $data = Auth()->guard('admin')->user();
                 }
-                if (!empty(Auth()->guard('client')->user())) {
-                    $data = Auth()->guard('client')->user();
+                if (!empty(Auth()->guard('company')->user())) {
+                    $data = Auth()->guard('company')->user();
                 }
+                if (!empty(Auth()->guard('employee')->user())) {
+                    $data = Auth()->guard('employee')->user();
+                }
+                
+                $filename= url('uploads/client/'.$data['user_image']);
+                $file_headers = @get_headers($filename);
 
 @endphp
   <nav class="navbar-default navbar-static-side" role="navigation">
@@ -15,11 +21,6 @@ $currentRoute = Route::current()->getName();
             <ul class="nav metismenu" id="side-menu">
                 <li class="nav-header">
                     <div class="dropdown profile-element"> <span>
-                            <!-- <img alt="image" class="img-circle" src="img/profile_small.jpg" /> -->
-                            @php
-                            $filename= url('uploads/client/'.$data['user_image']);
-                            $file_headers = @get_headers($filename);
-                            @endphp
                             @if($file_headers[0] == 'HTTP/1.1 200 OK')
                             <img class="img-circle" width="50" src="{{ asset('uploads/client/'.$data['user_image']) }}" alt="User's Profile Picture">
                             @else

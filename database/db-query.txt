@@ -1,0 +1,4 @@
+ALTER TABLE `users` CHANGE `type` `type` ENUM('ADMIN','EMPLOYEE','COMPANY') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'EMPLOYEE' COMMENT '1 => \'ADMIN\',2 => \'EMPLOYEE\',3 => \'COMPANY\'';
+
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `user_image`, `type`, `remember_token`, `created_at`, `updated_at`) VALUES (NULL, 'New Employee', 'company@gmail.com', '$2y$12$SVnRH9z4fFbwGVAslC0umeId8nm6GeG2sitYuYn.cSAJ2REvv3z8G', 'admin1541441707.png', 'COMPANY', 'nm5rm372l2LUOAWixGLZdTVU8Ltp1VZnTnpQIWooWwUc2baR1yYmq0kozcnS', '2018-08-04 18:30:00', '2018-11-06 01:15:07');
+
