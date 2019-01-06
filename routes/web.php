@@ -36,10 +36,15 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function() {
 
 $employeePrefix = "employee";
 Route::group(['prefix' => $employeePrefix, 'middleware' => ['employee']], function() {
-	Route::match(['get', 'post'], 'employee-dashboard', ['as' => 'employee-dashboard', 'uses' => 'Employee\EmployeeController@dashboard']);
+	Route::match(['get', 'post'], 'employee-dashboard', ['as' => 'employee-dashboard', 'uses' => 'Employee\DashboardController@dashboard']);
 });
 
 $companyPrefix = "company";
 Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function() {
 	Route::match(['get', 'post'], 'company-dashboard', ['as' => 'company-dashboard', 'uses' => 'Company\CompanyController@dashboard']);
+
+	Route::match(['get', 'post'], 'employee-list', ['as' => 'employee-list', 'uses' => 'Company\EmployeeController@index']);
+    Route::match(['get', 'post'], 'employee-ajaxAction', ['as' => 'ajaxAction', 'uses' => 'Company\EmployeeController@ajaxAction']);
+    Route::match(['get', 'post'], 'employee-add', ['as' => 'employee-add', 'uses' => 'Company\EmployeeController@add']);
+    Route::match(['get', 'post'], 'employee-edit/{id}', ['as' => 'employee-edit', 'uses' => 'Company\EmployeeController@edit']);
 });

@@ -3,6 +3,7 @@
    
     <script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{!! asset('js/plugins/datapicker/bootstrap-datepicker.js') !!}"></script>
     <script src="{{ asset('js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
     <script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
     <script src="{{ asset('js/plugins/dataTables/datatables.min.js') }}"></script>
@@ -14,9 +15,9 @@
     <!-- Page-Level Scripts -->
   
     <script src="{!! asset('js/plugins/validate/jquery.validate.min.js') !!}" type="text/javascript"></script>
-    <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
     <script src="{!! asset('js/plugins/toastr/toastr.min.js') !!}" type="text/javascript"></script>
     <script src="{!! asset('js/comman_function.js') !!}" type="text/javascript"></script>
+    
     <div id="deleteModel" class="modal fade" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -53,3 +54,5 @@
 </script>
 @section('scripts')
 @show
+
+
