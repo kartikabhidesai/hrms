@@ -741,11 +741,14 @@ $('#show_notification').on('hidden.bs.modal', function () {
 });
 
 function dateFormate(field) {
-
     $(field).datepicker({
         autoclose: true,
+        todayBtn: "linked",
+        keyboardNavigation: false,
+        forceParse: false,
+        calendarWeeks: true,
+        todayHighlight: true,
         format: 'dd-mm-yyyy'
-                //format: 'yyyy-mm-dd'
     });
 }
 

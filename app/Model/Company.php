@@ -103,6 +103,8 @@ class Company extends Model
             "recordsFiltered" => intval($totalFiltered), // total number of records after searching, if there is no searching then totalFiltered = totalData
             "data" => $data   // total data array
         );
+        
+        
 
         return $json_data;
     }
