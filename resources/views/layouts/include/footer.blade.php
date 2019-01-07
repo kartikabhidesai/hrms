@@ -14,7 +14,9 @@
     <!-- Page-Level Scripts -->
   
     <script src="{!! asset('js/plugins/validate/jquery.validate.min.js') !!}" type="text/javascript"></script>
-    <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+<!--    <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>-->
+    <script src="{{ asset('js/plugins/dataTables/dataTables.min.js') }}"></script>
+    
     <script src="{!! asset('js/plugins/toastr/toastr.min.js') !!}" type="text/javascript"></script>
     <script src="{!! asset('js/comman_function.js') !!}" type="text/javascript"></script>
     <div id="deleteModel" class="modal fade" aria-hidden="true">

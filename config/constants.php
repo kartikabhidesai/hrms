@@ -16,6 +16,17 @@ return [
         '3' => 'test3',
         '4' => 'test4',
     ],
+    'status' => [
+        '' => 'Choose an option...',
+        'ACTIVE' => 'ACTIVE',
+        'DE-ACTIVE' => 'DE-ACTIVE',
+    ],
+    'subcription' => [
+        '' => 'Choose an option...',
+        'PREMIUM' => 'PREMIUM',
+        'GOLD' => 'GOLD',
+        'SILVER' => 'SILVER',
+    ],
    
     'ClientPath' => public_path() . '/uploads/client/',
 ];
