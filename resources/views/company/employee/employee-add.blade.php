@@ -17,21 +17,29 @@
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Name</label>
 							<div class="col-lg-9">
-								{{ Form::text('first_name', null, array('placeholder'=>'Name', 'class' => 'form-control first_name' ,'required')) }}
+								{{ Form::text('name', null, array('placeholder'=>'Name', 'class' => 'form-control name' ,'required')) }}
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Father Name</label>
 							<div class="col-lg-9">
-								{{ Form::text('last_name', null, array('placeholder'=>'Father Name', 'class' => 'form-control last_name' ,'required')) }}
+								{{ Form::text('father_name', null, array('placeholder'=>'Father Name', 'class' => 'form-control last_name' ,'required')) }}
 							</div>
 						</div>
 						 	<div class="form-group">
 						 		<label class="col-sm-3 control-label">Gender</label>
                                 <div class="col-sm-9"> 
-                                	{{ Form::select('gender', $testarray , null, array('class' => 'form-control gender', 'id' => 'gender')) }}
+                                	{{ Form::select('gender', $genderArray , null, array('class' => 'form-control gender', 'id' => 'gender')) }}
                                 </div>
                         </div>
+                        <div class="form-group" id="data_1">
+						 		<label class="col-sm-3 control-label">Date Of birth</label>
+                                <div class="col-sm-9"> 
+                                	<div class="input-group date">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="date_of_birth" id="" placeholder="Select Date of joingng" class="form-control" value="">
+                                </div>
+                                </div>
+                            </div>
                         <div class="form-group">
                         	<label class="col-lg-3 control-label">Phone</label>
 							<div class="col-lg-9">
@@ -59,8 +67,7 @@
 						 	<div class="form-group">
 						 		<label class="col-sm-3 control-label">Martial Status</label>
                                 <div class="col-sm-9"> 
-
-                                	{{ Form::select('martial_status', $testarray , null, array('class' => 'form-control martial_status', 'id' => 'martial_status')) }}
+                                {{ Form::select('martial_status', $martialArray , null, array('class' => 'form-control martial_status', 'id' => 'martial_status')) }}
                                 </div>
                             </div>
                         <div class="form-group">
@@ -157,7 +164,13 @@
 						 	<div class="form-group">
 						 		<label class="col-sm-3 control-label">Status</label>
                                 <div class="col-sm-9"> 
-                                	{{ Form::text('status', null, array('class' => 'form-control status' ,'required')) }}
+                                	{{ Form::select('status', $statusArray , null, array('class' => 'form-control status', 'id' => 'status')) }}
+                                </div>
+                        </div>
+                        	<div class="form-group">
+						 		<label class="col-sm-3 control-label">&nbsp;</label>
+                                <div class="col-sm-9"> 
+                                	&nbsp;
                                 </div>
                         </div>
 				</div>

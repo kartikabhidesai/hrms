@@ -16,8 +16,24 @@ return [
         '3' => 'test3',
         '4' => 'test4',
     ],
+    'genderArray' => [
+        '' => 'Choose an gender...',
+        'Male' => 'Male',
+        'Female' => 'Famale',
+    ],
+    'statusArray' => [
+        '' => 'Choose an status...',
+        'Active' => 'Active',
+        'Inactive' => 'Inactive',
+    ], 
+    'martialArray' => [
+        '' => 'Choose an status...',
+        'Married' => 'Married',
+        'Unmarried' => 'Unmarried',
+    ],
    
     'ClientPath' => public_path() . '/uploads/client/',
+    'EmployeePath' => public_path() . '/uploads/employee/',
 ];
 
 

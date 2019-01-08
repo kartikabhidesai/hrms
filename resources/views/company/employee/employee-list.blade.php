@@ -28,10 +28,10 @@
                     </div>
                     <div class="ibox-content">
                     	<div class="table-responsive">
-                    		<table class="table table-striped table-bordered table-hover dataTables-example" id="dataTables-example">
+                    		<table class="table table-striped table-bordered table-hover dataTables-example" id="employeeDatatables">
                     			<thead>
                     				<tr>
-                                        <th>Emain</th>
+                                        <th>Email</th>
                     					<th>Name</th>
                     					<th>Last Name</th>
                     					<th>Gender</th>

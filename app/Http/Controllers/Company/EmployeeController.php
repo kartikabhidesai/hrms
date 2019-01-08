@@ -21,19 +21,19 @@ class EmployeeController extends Controller {
         $session = $request->session()->all();
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/employee.js');
-        $data['funinit'] = array('Company.init()');
+        $data['funinit'] = array('Employee.init()');
         $data['css'] = array('');
         return view('company.employee.employee-list', $data);
     }   
 
     public function add(Request $request) {
          if ($request->isMethod('post')) {
-            $objDemo = new Employee();
-            $ret = $objDemo->addDemo($request);
+            $objEmployee = new Employee();
+            $ret = $objEmployee->addEmployee($request);
             if ($ret) {
                 $return['status'] = 'success';
-                $return['message'] = 'Record created successfully.';
-                $return['redirect'] = route('list-demo');
+                $return['message'] = 'Employee created successfully.';
+                $return['redirect'] = route('employee-list');
             } else {
                 $return['status'] = 'error';
                 $return['message'] = 'something will be wrong.';
@@ -42,6 +42,11 @@ class EmployeeController extends Controller {
             exit;
         }
         $data['testarray'] = Config::get('constants.testarray');
+        $data['statusArray'] = Config::get('constants.statusArray');
+        $data['genderArray'] = Config::get('constants.genderArray');
+        $data['martialArray'] = Config::get('constants.martialArray');
+
+
         $session = $request->session()->all();
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/employee.js', 'ajaxfileupload.js','jquery.form.min.js');
@@ -50,16 +55,13 @@ class EmployeeController extends Controller {
         return view('company.employee.employee-add', $data);
     } 
     public function edit(Request $request,$id) {
-        $data['testarray'] = Config::get('constants.testarray');
-        $data['detail'] = Demo::find($id);
-
         if ($request->isMethod('post')) {
-            $objDemo = new Demo();
-            $ret = $objDemo->editDemo($request);
+            $objEmployee = new Employee();
+            $ret = $objEmployee->addEmployee($request);
             if ($ret) {
                 $return['status'] = 'success';
-                $return['message'] = 'Record Edited successfully.';
-                $return['redirect'] = route('list-demo');
+                $return['message'] = 'Employee created successfully.';
+                $return['redirect'] = route('employee-list');
             } else {
                 $return['status'] = 'error';
                 $return['message'] = 'something will be wrong.';
@@ -67,13 +69,18 @@ class EmployeeController extends Controller {
             echo json_encode($return);
             exit;
         }
+        $data['testarray'] = Config::get('constants.testarray');
+        $data['statusArray'] = Config::get('constants.statusArray');
+        $data['genderArray'] = Config::get('constants.genderArray');
+        $data['martialArray'] = Config::get('constants.martialArray');
+
 
         $session = $request->session()->all();
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
-        $data['js'] = array('admin/demo.js', 'ajaxfileupload.js','jquery.form.min.js');
-        $data['funinit'] = array('Demo.init()');
+        $data['js'] = array('company/employee.js', 'ajaxfileupload.js','jquery.form.min.js');
+        $data['funinit'] = array('Employee.init()');
         $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
-        return view('admin.demo.edit', $data);
+        return view('company.employee.employee-edit', $data);
     }
 
 
@@ -100,8 +107,8 @@ class EmployeeController extends Controller {
         $action = $request->input('action');
         switch ($action) {
             case 'getdatatable':
-                $objDemo = new Demo();
-                $demoList = $objDemo->getData($request);
+                $objEmployee = new Employee();
+                $demoList = $objEmployee->getEmployeeDatatable($request);
                 echo json_encode($demoList);
                 break;
             case 'deleteDemo':

@@ -28,6 +28,7 @@ var Employee = function() {
         dateFormate('.date')
         var form = $('#addEmployee');
         var rules = {
+            name: {required: true},
             first_name: {required: true},
             emp_pic: {required: true},
             Phone: {required: true,number:true},
@@ -57,8 +58,8 @@ var Employee = function() {
        var columnWidth = {"width": "10%", "targets": 0};
        
         var arrList = {
-            'tableID': '#dataTables-example',
-            'ajaxURL': baseurl + "admin/demo-ajaxAction",
+            'tableID': '#employeeDatatables',
+            'ajaxURL': baseurl + "company/employee-ajaxAction",
             'ajaxAction': 'getdatatable',
             'postData': dataArr,
             'hideColumnList': [],
