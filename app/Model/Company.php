@@ -24,7 +24,7 @@ class Company extends Model
             $destinationPath = public_path('/uploads/admin/');
             $image->move($destinationPath, $name);    
         }
-        $objCompany = new Companyies();
+        $objCompany = new Company();
         $objCompany->company_name = $request->input('company_name');
         $objCompany->email = $request->input('email');
         $objCompany->password = $request->input('password');
@@ -82,13 +82,13 @@ class Company extends Model
         $data = array();
         foreach ($resultArr as $row) {
            $actionHtml = '';
-           $actionHtml .= '<a href="' . route('edit-demo', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
+           $actionHtml .= '<a href="' . route('edit-company', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
             $actionHtml .= '<a href="#deleteModel" data-toggle="modal" data-id="'.$row['id'].'" class="link-black text-sm CompanyDelete" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';
             $nestedData = array();
             $nestedData[] = $row["id"];
             $nestedData[] = $row["company_name"];
             $nestedData[] = $row["email"];
-            $nestedData[] = $row["company_image"];
+            $nestedData[] = $row["company_image"]; 
             $nestedData[] = $row["status"];
             $nestedData[] = $row["subcription"];
             $nestedData[] = date('d-m-Y',strtotime($row["expiry_at"]));
@@ -107,6 +107,27 @@ class Company extends Model
         
 
         return $json_data;
+    }
+    
+     public function editCompany($request) {
+      
+       $name = '';
+        if($request->file()){
+            $image = $request->file('demo_pic');
+            $name = 'admin'.time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/uploads/client/');
+            $image->move($destinationPath, $name);    
+        }
+        $objUser = Demo::find($request->input('edit_id'));
+        $objUser->first_name = $request->input('first_name');
+        $objUser->last_name = $request->input('last_name');
+        $objUser->user_id = '1';
+        $objUser->gender = $request->input('gender');
+        $objUser->image = $name;
+        $objUser->created_at = date('Y-m-d H:i:s');
+        $objUser->updated_at = date('Y-m-d H:i:s');
+        $objUser->save();
+        return TRUE;
     }
     
 }
