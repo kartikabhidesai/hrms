@@ -5,11 +5,10 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Company;
-
 use Config;
 
-class ComapnyController extends Controller
-{
+class ComapnyController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
@@ -19,6 +18,7 @@ class ComapnyController extends Controller
         parent::__construct();
         $this->middleware('admin');
     }
+
     public function index(Request $request) {
         $session = $request->session()->all();
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
@@ -33,10 +33,10 @@ class ComapnyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-     public function addNewCompany(Request $request) {
-        
+    public function addNewCompany(Request $request) {
+
         if ($request->isMethod('post')) {
-            
+
             $objCompany = new Company();
             $ret = $objCompany->addCompany($request);
             if ($ret) {
@@ -54,11 +54,11 @@ class ComapnyController extends Controller
         $data['subcription'] = Config::get('constants.subcription');
         $session = $request->session()->all();
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
-        $data['js'] = array('admin/company.js', 'ajaxfileupload.js','jquery.form.min.js');
+        $data['js'] = array('admin/company.js', 'ajaxfileupload.js', 'jquery.form.min.js');
         $data['funinit'] = array('Company.init()');
         $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
         return view('admin.company.add', $data);
-    } 
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -66,7 +66,7 @@ class ComapnyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-     public function deleteCompany($postData) {
+    public function deleteCompany($postData) {
         if ($postData) {
             $result = Company::where('id', $postData['id'])->delete();
             if ($result) {
@@ -85,10 +85,11 @@ class ComapnyController extends Controller
             exit;
         }
     }
+
     public function ajaxAction(Request $request) {
-        
+
         $action = $request->input('action');
-        
+
         switch ($action) {
             case 'getdatatable':
                 $objCompany = new Company();
@@ -101,48 +102,33 @@ class ComapnyController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+    public function edit(Request $request, $id) {
+        $data['status'] = Config::get('constants.status');
+        $data['subcription'] = Config::get('constants.subcription');
+        $data['detail'] = Company::find($id);
+        
+
+        if ($request->isMethod('post')) {
+            $objCompany = new Company();
+            $ret = $objCompany->editCompany($request);
+            if ($ret) {
+                $return['status'] = 'success';
+                $return['message'] = 'Record Edited successfully.';
+                $return['redirect'] = route('list-demo');
+            } else {
+                $return['status'] = 'error';
+                $return['message'] = 'something will be wrong.';
+            }
+            echo json_encode($return);
+            exit;
+        }
+
+        $session = $request->session()->all();
+        $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
+        $data['js'] = array('admin/company.js', 'ajaxfileupload.js', 'jquery.form.min.js');
+        $data['funinit'] = array('Company.init()');
+        $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
+        return view('admin.company.edit', $data);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
