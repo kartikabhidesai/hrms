@@ -16,6 +16,7 @@ return [
         '3' => 'test3',
         '4' => 'test4',
     ],
+
     'genderArray' => [
         '' => 'Choose an gender...',
         'Male' => 'Male',
@@ -30,6 +31,18 @@ return [
         '' => 'Choose an status...',
         'Married' => 'Married',
         'Unmarried' => 'Unmarried',
+],
+    'status' => [
+        '' => 'Choose an option...',
+        'ACTIVE' => 'ACTIVE',
+        'DE-ACTIVE' => 'DE-ACTIVE',
+    ],
+    'subcription' => [
+        '' => 'Choose an option...',
+        'PREMIUM' => 'PREMIUM',
+        'GOLD' => 'GOLD',
+        'SILVER' => 'SILVER',
+
     ],
    
     'ClientPath' => public_path() . '/uploads/client/',

@@ -53,6 +53,7 @@ $currentRoute = Route::current()->getName();
                 </li>
                 <li class="{{ ($currentRoute == 'list-demo'  ? 'active' : '') }}">
                     <a href="{{ route('list-demo') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Demo</span></a>
+                    <a href="{{ route('list-company') }}"><i class="fa fa-industry"></i> <span class="nav-label">Company</span></a>
                 </li>
               <!--   <li class="active">
                     <a href="#"><i class="fa fa-table"></i> <span class="nav-label">Tables</span><span class="fa arrow"></span></a>
