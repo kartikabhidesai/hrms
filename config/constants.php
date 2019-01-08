@@ -43,6 +43,13 @@ return [
         'GOLD' => 'GOLD',
         'SILVER' => 'SILVER',
 
+    ], 
+   
+    'nationalityArray' => [
+        '' => 'Choose an option...',
+        '1' => 'India',
+        '2' => 'USA',
+        '3' => 'UK',
     ],
    
     'ClientPath' => public_path() . '/uploads/client/',

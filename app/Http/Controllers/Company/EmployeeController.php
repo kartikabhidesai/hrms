@@ -55,12 +55,13 @@ class EmployeeController extends Controller {
         return view('company.employee.employee-add', $data);
     } 
     public function edit(Request $request,$id) {
+        $data['details'] = Employee::find($id);
         if ($request->isMethod('post')) {
             $objEmployee = new Employee();
-            $ret = $objEmployee->addEmployee($request);
-            if ($ret) {
+            $res = $objEmployee->editEmployee($request,$id);
+            if ($res) {
                 $return['status'] = 'success';
-                $return['message'] = 'Employee created successfully.';
+                $return['message'] = 'Employee updated successfully.';
                 $return['redirect'] = route('employee-list');
             } else {
                 $return['status'] = 'error';
@@ -69,11 +70,12 @@ class EmployeeController extends Controller {
             echo json_encode($return);
             exit;
         }
+
         $data['testarray'] = Config::get('constants.testarray');
         $data['statusArray'] = Config::get('constants.statusArray');
         $data['genderArray'] = Config::get('constants.genderArray');
         $data['martialArray'] = Config::get('constants.martialArray');
-
+        $data['nationalityArray'] = Config::get('constants.nationalityArray');
 
         $session = $request->session()->all();
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
@@ -84,9 +86,9 @@ class EmployeeController extends Controller {
     }
 
 
-    public function deleteDemo($postData) {
+    public function deleteEmp($postData) {
         if ($postData) {
-            $result = Demo::where('id', $postData['id'])->delete();
+            $result = Employee::where('id', $postData['id'])->delete();
             if ($result) {
                 $return['status'] = 'success';
                 $return['message'] = 'Employee delete successfully.';
@@ -111,8 +113,8 @@ class EmployeeController extends Controller {
                 $demoList = $objEmployee->getEmployeeDatatable($request);
                 echo json_encode($demoList);
                 break;
-            case 'deleteDemo':
-                $result = $this->deleteDemo($request->input('data'));
+            case 'deleteEmp':
+                $result = $this->deleteEmp($request->input('data'));
                 break;
         }
     }

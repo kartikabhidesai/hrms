@@ -1,8 +1,7 @@
 var Employee = function() {
     var handleList = function() {
      
-        $('body').on('click', '.demoDelete', function() {
-            // $('#deleteModel').modal('show');
+        $('body').on('click', '.empDelete', function() {
             var id = $(this).data('id');
             setTimeout(function() {
                 $('.yes-sure:visible').attr('data-id', id);
@@ -17,8 +16,8 @@ var Employee = function() {
                 headers: {
                     'X-CSRF-TOKEN': $('input[name="_token"]').val(),
                 },
-                url: baseurl + "admin/demo-ajaxAction",
-                data: {'action': 'deleteDemo', 'data': data},
+                url: baseurl + "company/employee-ajaxAction",
+                data: {'action': 'deleteEmp', 'data': data},
                 success: function(data) {
                     handleAjaxResponse(data);
                 }
@@ -43,12 +42,10 @@ var Employee = function() {
          var form = $('#editEmployee');
         var rules = {
             first_name: {required: true},
-            emp_pic: {required: true},
             Phone: {required: true,number:true},
             email: {required: true,email:true},
             martial_status: {required: true},
             employee_id: {required: true},
-            newpassword: {required: true},
         };
         handleFormValidate(form, rules, function(form) {
             handleAjaxFormSubmit(form,true);
