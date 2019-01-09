@@ -106,7 +106,9 @@ class LoginController extends Controller {
         return redirect()->route('login');
     }
 
-    public function resetGuard() {
+   
+
+     public function resetGuard() {
         Auth::logout();
         Auth::guard('admin')->logout();
         Auth::guard('company')->logout();
@@ -114,7 +116,6 @@ class LoginController extends Controller {
         Session::forget('logindata');
         Session::forget('userRole');
     }
-
     public function forgotpassword(Request $request) {
 
         if ($request->isMethod('post')) {
