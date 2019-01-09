@@ -106,7 +106,7 @@ class Company extends Model
             $nestedData[] = $row["id"];
             $nestedData[] = $row["company_name"];
             $nestedData[] = $row["email"];
-            $nestedData[] = '<img src="{{URL::asset("'.$row["company_image"].'")}}" alt="Company Pic" height="100" width="100">';
+            // $nestedData[] = '<img src="{{URL::asset("'.$row["company_image"].'")}}" alt="Company Pic" height="100" width="100">';
             $nestedData[] = $row["status"];
             $nestedData[] = $row["subcription"];
             $nestedData[] = date('d-m-Y',strtotime($row["expiry_at"]));
