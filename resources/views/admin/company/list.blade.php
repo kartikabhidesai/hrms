@@ -34,7 +34,7 @@
                                     <th>#id</th>
                                     <th>Company Name</th>
                                     <th>Email</th>
-                                    <th>Photo</th>
+                                    <!-- <th>Photo</th> -->
                                     <th>Status</th>
                                     <th>Subcriptoin</th>
                                     <th>Expiry date</th>

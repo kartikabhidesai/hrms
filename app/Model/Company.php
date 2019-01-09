@@ -16,7 +16,9 @@ use File;
 class Company extends Model
 {
     protected $table = 'comapnies';
-    public function addCompany($request) {
+
+    public function addCompany($request) 
+    {
        //print_r( $request->input());exit;
        $name = '';
         if($request->file()){
@@ -31,7 +33,7 @@ class Company extends Model
         $objCompany = new Company();
         $objCompany->company_name = $request->input('company_name');
         $objCompany->email = $request->input('email');
-        $objCompany->password = $request->input('password');
+        $objCompany->password = Hash::make($request->input('password'));
         $objCompany->status = $request->input('status');
         $objCompany->subcription = $request->input('subcription');
         $objCompany->expiry_at = $request->input('expiry_at');
@@ -39,10 +41,22 @@ class Company extends Model
         $objCompany->created_at = date('Y-m-d H:i:s');
         $objCompany->updated_at = date('Y-m-d H:i:s');
         $objCompany->save();
+
+        /*create new user with email, pwd and type*/
+        $newUser = new Users();
+        $newUser->name = $request->input('company_name');
+        $newUser->email = $request->input('email');
+        $newUser->password = Hash::make($request->input('password'));
+        $newUser->user_image = $name;
+        $newUser->type = 'COMPANY';
+        $newUser->created_at = date('Y-m-d H:i:s');
+        $newUser->updated_at = date('Y-m-d H:i:s');
+        $newUser->save();
         return TRUE;
     }
-     public function getCompanyData($request) {
-        
+
+    public function getCompanyData($request) 
+    {
         $requestData = $_REQUEST;
         $columns = array(
             // datatable column index  => database column name
@@ -92,7 +106,7 @@ class Company extends Model
             $nestedData[] = $row["id"];
             $nestedData[] = $row["company_name"];
             $nestedData[] = $row["email"];
-            $nestedData[] = '<img src="{{URL::asset("'.$row["company_image"].'")}}" alt="Company Pic" height="100" width="100">';
+            // $nestedData[] = '<img src="{{URL::asset("'.$row["company_image"].'")}}" alt="Company Pic" height="100" width="100">';
             $nestedData[] = $row["status"];
             $nestedData[] = $row["subcription"];
             $nestedData[] = date('d-m-Y',strtotime($row["expiry_at"]));
@@ -113,10 +127,21 @@ class Company extends Model
         return $json_data;
     }
     
-     public function editCompany($request) {
+    public function editCompany($request)
+    {
       
        $name = '';
        $objCompany = Company::find($request->input('edit_id'));
+       /*find & update user with email, image*/
+        $updateUser = Users::where('email', $objCompany->email)->first();
+        $updateUser->name = $request->input('company_name');
+        $updateUser->email = $request->input('email');
+        if($request->input('password')) {
+            $objCompany->password = Hash::make($request->input('password'));
+        }
+        $updateUser->user_image = $name;
+        $updateUser->updated_at = date('Y-m-d H:i:s');
+        $updateUser->save();
 
         if($request->file()) {
             $image = $request->file('company_image');
@@ -133,7 +158,7 @@ class Company extends Model
         $objCompany->company_name = $request->input('company_name');
         $objCompany->email = $request->input('email');
         if($request->input('password')) {
-            $objCompany->password = $request->input('password');
+            $objCompany->password = Hash::make($request->input('password'));
         }
         $objCompany->status = $request->input('status');
         $objCompany->subcription = $request->input('subcription');
