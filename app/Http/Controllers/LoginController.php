@@ -109,6 +109,8 @@ class LoginController extends Controller {
     public function resetGuard() {
         Auth::logout();
         Auth::guard('admin')->logout();
+        Auth::guard('company')->logout();
+        Auth::guard('employee')->logout();
         Session::forget('logindata');
         Session::forget('userRole');
     }
