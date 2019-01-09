@@ -41,19 +41,15 @@
                     </div>
 
                     <div class="form-group">
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Status</label>
-                            <div class="col-sm-9"> 
-                                {{ Form::select('status', $status, $detail->status, array('class' => 'form-control m-b', 'id' => 'status','required')) }}
-                            </div>
+                        <label class="col-sm-2 control-label">Status</label>
+                        <div class="col-sm-9"> 
+                            {{ Form::select('status', $status, $detail->status, array('class' => 'form-control m-b', 'id' => 'status','required')) }}
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Subcription</label>
-                            <div class="col-sm-9"> 
-                                {{ Form::select('subcription', $subcription, $detail->subcription, array('class' => 'form-control m-b', 'id' => 'subcription' ,'required')) }}
-                            </div>
+                        <label class="col-sm-2 control-label">Subcription</label>
+                        <div class="col-sm-9"> 
+                            {{ Form::select('subcription', $subcription, $detail->subcription, array('class' => 'form-control m-b', 'id' => 'subcription' ,'required')) }}
                         </div>
                     </div>
                     <div class="form-group">
