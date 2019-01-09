@@ -11,6 +11,7 @@ use App\Model\Sendmail;
 use App\Model\Users;
 use PDF;
 use Config;
+use File;
 
 class Company extends Model
 {
@@ -21,7 +22,10 @@ class Company extends Model
         if($request->file()){
             $image = $request->file('company_image');
             $name = 'admin'.time().'.'.$image->getClientOriginalExtension();
-            $destinationPath = public_path('/uploads/admin/');
+            $destinationPath = public_path('/uploads/admin/company');
+            if (!file_exists($destinationPath)) {
+                File::makeDirectory($destinationPath, $mode = 0777, true, true);
+            }
             $image->move($destinationPath, $name);    
         }
         $objCompany = new Company();
@@ -77,8 +81,8 @@ class Company extends Model
         $totalFiltered = count($temp->get());
 
         $resultArr = $query->skip($requestData['start'])
-                ->take($requestData['length'])
-                ->select('ra.id', 'ra.company_name', 'ra.email', 'ra.company_image', 'ra.status','ra.subcription','ra.expiry_at')->get();
+                           ->take($requestData['length'])
+                           ->select('ra.id', 'ra.company_name', 'ra.email', 'ra.company_image', 'ra.status','ra.subcription','ra.expiry_at')->get();
         $data = array();
         foreach ($resultArr as $row) {
            $actionHtml = '';
@@ -88,7 +92,7 @@ class Company extends Model
             $nestedData[] = $row["id"];
             $nestedData[] = $row["company_name"];
             $nestedData[] = $row["email"];
-            $nestedData[] = $row["company_image"]; 
+            $nestedData[] = '<img src="{{URL::asset("'.$row["company_image"].'")}}" alt="Company Pic" height="100" width="100">';
             $nestedData[] = $row["status"];
             $nestedData[] = $row["subcription"];
             $nestedData[] = date('d-m-Y',strtotime($row["expiry_at"]));
@@ -112,21 +116,31 @@ class Company extends Model
      public function editCompany($request) {
       
        $name = '';
-        if($request->file()){
-            $image = $request->file('demo_pic');
+       $objCompany = Company::find($request->input('edit_id'));
+
+        if($request->file()) {
+            $image = $request->file('company_image');
             $name = 'admin'.time().'.'.$image->getClientOriginalExtension();
-            $destinationPath = public_path('/uploads/client/');
-            $image->move($destinationPath, $name);    
+            $destinationPath = public_path('/uploads/admin/company');
+            $image->move($destinationPath, $name);  
+
+            $existImage = public_path('/uploads/admin/company/').$objCompany->company_image;
+            if (File::exists($existImage)) { // unlink or remove previous company image from folder
+                File::delete($existImage);
+            }
         }
-        $objUser = Demo::find($request->input('edit_id'));
-        $objUser->first_name = $request->input('first_name');
-        $objUser->last_name = $request->input('last_name');
-        $objUser->user_id = '1';
-        $objUser->gender = $request->input('gender');
-        $objUser->image = $name;
-        $objUser->created_at = date('Y-m-d H:i:s');
-        $objUser->updated_at = date('Y-m-d H:i:s');
-        $objUser->save();
+        
+        $objCompany->company_name = $request->input('company_name');
+        $objCompany->email = $request->input('email');
+        if($request->input('password')) {
+            $objCompany->password = $request->input('password');
+        }
+        $objCompany->status = $request->input('status');
+        $objCompany->subcription = $request->input('subcription');
+        $objCompany->expiry_at = $request->input('expiry_at');
+        $objCompany->company_image = $name;
+        $objCompany->updated_at = date('Y-m-d H:i:s');
+        $objCompany->save();
         return TRUE;
     }
     

@@ -13,7 +13,7 @@
                     </div>
                 </div>
                 <div class="ibox-content">
-                    {{ Form::open( array('method' => 'post', 'class' => 'form-horizontal','files' => true, 'id' => 'editDemo' )) }}
+                    {{ Form::open( array('method' => 'post', 'class' => 'form-horizontal','files' => true, 'id' => 'editCompany' )) }}
                     <div class="form-group"><label class="col-lg-2 control-label"> Name</label>
                         <div class="col-lg-9">
                             {{ Form::text('company_name', $detail->company_name, array('class' => 'form-control first_name' ,'required')) }}
@@ -44,7 +44,7 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Status</label>
                             <div class="col-sm-9"> 
-                                {{ Form::select('status', $status, null, array('class' => 'form-control m-b', 'id' => 'status','required')) }}
+                                {{ Form::select('status', $status, $detail->status, array('class' => 'form-control m-b', 'id' => 'status','required')) }}
                             </div>
                         </div>
                     </div>
@@ -52,18 +52,18 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Subcription</label>
                             <div class="col-sm-9"> 
-                                {{ Form::select('subcription', $subcription, null, array('class' => 'form-control m-b', 'id' => 'subcription' ,'required')) }}
+                                {{ Form::select('subcription', $subcription, $detail->subcription, array('class' => 'form-control m-b', 'id' => 'subcription' ,'required')) }}
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Expiry</label>
                         <div class="col-sm-9">
-                            {{ Form::date('expiry_at', null, array('class' => 'form-control expiry_at','required')) }}
+                            {{ Form::date('expiry_at', date('Y-m-d', strtotime($detail->expiry_at)), array('class' => 'form-control expiry_at','required')) }}
 
                         </div>
-                    </div>	
-
+                    </div>  
+                    {{ Form::hidden('edit_id', $detail->id, array('class' => '')) }}
                     <div class="form-group">
                         <div class="col-lg-offset-2 col-lg-9">
                             <button class="btn btn-sm btn-primary" type="submit">Save</button>
@@ -72,7 +72,7 @@
                     {{ Form::close() }}
                 </div>
             </div>
-        </div>	
+        </div>  
     </div>
 </div>
 
