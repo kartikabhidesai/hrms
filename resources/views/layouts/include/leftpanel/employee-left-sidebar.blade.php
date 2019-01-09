@@ -26,6 +26,9 @@ $currentRoute = Route::current()->getName();
                 <li class="active">
                     <a href="{{ route('employee-dashboard') }}"><i class="fa fa-home"></i> <span class="nav-label">Dashboard</span></a>
                 </li>
+                <li>
+                    <a href="{{ route('employee-leave') }}"><i class="fa fa-calendar-check-o"></i> <span class="nav-label">Leave</span></a>
+                </li>
             </ul>
         </div>
     </nav>

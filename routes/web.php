@@ -43,6 +43,7 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function() {
 $employeePrefix = "employee";
 Route::group(['prefix' => $employeePrefix, 'middleware' => ['employee']], function() {
 	Route::match(['get', 'post'], 'employee-dashboard', ['as' => 'employee-dashboard', 'uses' => 'Employee\DashboardController@dashboard']);
+	Route::match(['get', 'post'], 'employee-leave', ['as' => 'employee-leave', 'uses' => 'Employee\LeaveController@index']);
 });
 
 $companyPrefix = "company";
