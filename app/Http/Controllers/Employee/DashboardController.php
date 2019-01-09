@@ -9,7 +9,7 @@ use Route;
 use APP;
 use Illuminate\Http\Request;
 
-class DashbordController extends Controller {
+class DashboardController extends Controller {
 
     public function __construct() {
         $this->middleware('employee');
