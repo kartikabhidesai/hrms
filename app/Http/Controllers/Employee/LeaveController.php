@@ -19,6 +19,11 @@ class LeaveController extends Controller
         $data['js'] = array('employee/leave.js');
         $data['funinit'] = array('Leave.init()');
         $data['css'] = array('');
+        $data['header'] = array(
+            'title' => 'Employee',
+            'breadcrumb' => array(
+                'Home' => route("admin-dashboard"),
+                'Company' => 'Company'));
         return view('employee.leave.list', $data);
     }
 

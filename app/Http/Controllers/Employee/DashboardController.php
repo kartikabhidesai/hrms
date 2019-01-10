@@ -17,6 +17,11 @@ class DashboardController extends Controller {
 
     public function dashboard() {
         $data['detail'] = $this->loginUser;
+        $data['header'] = array(
+            'title' => 'Employee',
+            'breadcrumb' => array(
+                'Home' => route("admin-dashboard"),
+                'Company' => 'Company'));
         return view('employee.dashboard', $data);
     }
 

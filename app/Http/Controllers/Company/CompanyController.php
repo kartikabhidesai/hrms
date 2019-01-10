@@ -17,6 +17,11 @@ class CompanyController extends Controller {
 
     public function dashboard() {
         $data['detail'] = $this->loginUser;
+        $data['header'] = array(
+            'title' => 'Companyies',
+            'breadcrumb' => array(
+                'Home' => route("admin-dashboard"),
+                'Company' => 'Company'));
         return view('company.dashboard', $data);
     }
 

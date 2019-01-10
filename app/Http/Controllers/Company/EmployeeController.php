@@ -23,6 +23,11 @@ class EmployeeController extends Controller {
         $data['js'] = array('company/employee.js');
         $data['funinit'] = array('Employee.init()');
         $data['css'] = array('');
+        $data['header'] = array(
+            'title' => 'Employee',
+            'breadcrumb' => array(
+                'Home' => route("admin-dashboard"),
+                'Company' => 'Company'));
         return view('company.employee.employee-list', $data);
     }   
 
@@ -52,6 +57,11 @@ class EmployeeController extends Controller {
         $data['js'] = array('company/employee.js', 'ajaxfileupload.js','jquery.form.min.js');
         $data['funinit'] = array('Employee.init()');
         $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
+        $data['header'] = array(
+            'title' => 'Employee',
+            'breadcrumb' => array(
+                'Home' => route("admin-dashboard"),
+                'Company' => 'Company'));
         return view('company.employee.employee-add', $data);
     } 
     public function edit(Request $request,$id) {

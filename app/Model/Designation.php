@@ -19,6 +19,10 @@ class Designation extends Model
 {
     protected $table = 'designation';
 
-    
+    /*Relationship for deartment*/
+    public function department()
+    {
+        return $this->belongsTo('App\Model\Department');
+    }
     
 }
