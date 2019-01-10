@@ -123,12 +123,16 @@ class LoginController extends Controller {
             $objUser = new Users();
             $getCustomer = $objUser->passwordReset($request->input('email'));
             if ($getCustomer) {
-                $return['status'] = 'success';
-                $return['message'] = 'Password sent to your e-mail check and login with it';
-                $return['redirect'] = route('login');
+                /*$return['status'] = 'success';
+                $return['message'] = 'Password sent to your e-mail, check and login with it';
+                $return['redirect'] = route('login');*/
+                $request->session()->flash('session_success', 'Password sent to your e-mail, check and login with it');
+                return redirect()->route('login');
             } else {
                 $return['status'] = 'error';
-                $return['message'] = "E-mail does't exists!";
+                $return['message'] = "E-mail doesn't exists!";
+                $request->session()->flash('session_error', "E-mail doesn't exists!");
+                return redirect()->route('forgot-password');
             }
             echo json_encode($return);
             exit;

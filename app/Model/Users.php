@@ -35,25 +35,25 @@ class Users extends Model {
 
     public function passwordReset($email) {
         $result =  Users::select('users.*')->where('users.email', '=', $email)->get()->toArray();
-        if($result){
-           $newpassword = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyzASLKJHGDMNBVCXZPOIUYTREWQ", 6)), 0, 6);;
         
-        $objUser = Users::find($result[0]['id']);
-        $objUser->password = Hash::make($newpassword);
-        $objUser->created_at = date('Y-m-d H:i:s');
-        $objUser->save();
+        if($result){
+           $newpassword = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyzASLKJHGDMNBVCXZPOIUYTREWQ", 6)), 0, 6);
+        
+            $objUser = Users::find($result[0]['id']);
+            $objUser->password = Hash::make($newpassword);
+            $objUser->created_at = date('Y-m-d H:i:s');
+            $objUser->save();
 
-        $mailData['subject'] = 'Forgot password';
-        $mailData['attachment'] = array();
-        // $mailData['mailto'] = 'shaileshvanaliya91@gmail.com';
-        $mailData['mailto'] =  $result[0]['email'];
-        $sendMail = new Sendmail;
-        $mailData['data']['caller_email'] = $result[0]['email'];
-        $mailData['data']['name'] = $result[0]['name'];
-        $mailData['data']['password'] = $newpassword;
-        $mailData['template'] = 'emails.forgot-email';
-        $res = $sendMail->sendSMTPMail($mailData);
-        return true;
+            $mailData['subject'] = 'Forgot password';
+            $mailData['attachment'] = array();
+            $mailData['mailto'] =  $result[0]['email'];
+            $sendMail = new Sendmail;
+            $mailData['data']['caller_email'] = $result[0]['email'];
+            $mailData['data']['name'] = $result[0]['name'];
+            $mailData['data']['password'] = $newpassword;
+            $mailData['template'] = 'emails.forgot-email';
+            $res = $sendMail->sendSMTPMail($mailData);
+            return true;
         }
         return false;
     }

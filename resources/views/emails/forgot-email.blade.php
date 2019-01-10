@@ -1,0 +1,1 @@
+<h1>Hi, your new password is: {{ $data }}</h1>
