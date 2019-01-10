@@ -26,6 +26,11 @@ class ComapnyController extends Controller {
         $data['js'] = array('admin/company.js');
         $data['funinit'] = array('Company.init()');
         $data['css'] = array('');
+        $data['header'] = array(
+            'title' => 'Companyies',
+            'breadcrumb' => array(
+                'Home' => route("admin-dashboard"),
+                'Company' => 'Company'));
         return view('admin.company.list', $data);
     }
 
@@ -58,6 +63,12 @@ class ComapnyController extends Controller {
         $data['js'] = array('admin/company.js', 'ajaxfileupload.js', 'jquery.form.min.js');
         $data['funinit'] = array('Company.init()');
         $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
+        $data['header'] = array(
+            'title' => 'Companyies',
+            'breadcrumb' => array(
+                'Home' => route("admin-dashboard"),
+                'Company' => route("list-company"),
+                'Add Company' => 'Add Company'));
         return view('admin.company.add', $data);
     }
 
@@ -138,6 +149,12 @@ class ComapnyController extends Controller {
         $data['js'] = array('admin/company.js', 'ajaxfileupload.js', 'jquery.form.min.js');
         $data['funinit'] = array('Company.init()');
         $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
+        $data['header'] = array(
+            'title' => 'Companyies',
+            'breadcrumb' => array(
+                'Home' => route("admin-dashboard"),
+                'Company' => route("list-company"), 
+                'Edit Company' => 'Edit Company'));
 
         return view('admin.company.edit', $data);
     }

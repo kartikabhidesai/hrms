@@ -20,7 +20,13 @@ class DemoController extends Controller {
         $data['js'] = array('admin/demo.js');
         $data['funinit'] = array('Demo.init()');
         $data['css'] = array('');
+        $data['header'] = array(
+            'title' => 'Companyies',
+            'breadcrumb' => array(
+                'Home' => route("admin-dashboard"),
+                'Demo' => 'Demo'));
         return view('admin.demo.list', $data);
+        
     }   
 
     public function add(Request $request) {
@@ -44,6 +50,12 @@ class DemoController extends Controller {
         $data['js'] = array('admin/demo.js', 'ajaxfileupload.js','jquery.form.min.js');
         $data['funinit'] = array('Demo.init()');
         $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
+        $data['header'] = array(
+            'title' => 'Companyies',
+            'breadcrumb' => array(
+                'Home' => route("admin-dashboard"),
+                'Demo' => route("list-demo"),
+                'Add Demo' => 'Add Demo',));
         return view('admin.demo.add', $data);
     } 
     public function edit(Request $request,$id) {
@@ -70,6 +82,12 @@ class DemoController extends Controller {
         $data['js'] = array('admin/demo.js', 'ajaxfileupload.js','jquery.form.min.js');
         $data['funinit'] = array('Demo.init()');
         $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
+         $data['header'] = array(
+            'title' => 'Companyies',
+            'breadcrumb' => array(
+                'Home' => route("admin-dashboard"),
+                'Demo' => route("list-demo"),
+                'Edit Demo' => 'Edit Demo',));
         return view('admin.demo.edit', $data);
     }
 

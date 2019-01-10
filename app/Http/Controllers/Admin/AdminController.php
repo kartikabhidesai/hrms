@@ -19,6 +19,10 @@ class AdminController extends Controller {
 
     public function dashboard() {
         $data['detail'] = $this->loginUser;
+        $data['header'] = array(
+            'title' => 'Dashboard',
+            'breadcrumb' => array(
+                'Home' => route("admin-dashboard")));
         return view('admin.dashboard', $data);
     }
 
