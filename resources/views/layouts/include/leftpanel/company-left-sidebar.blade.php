@@ -30,10 +30,9 @@ $session = Session::all();
                     <a href="{{ route('employee-list') }}"><i class="fa fa-user"></i> <span class="nav-label">Employee</span></a>
                 </li>
                 
-                
-                <li class="{{ ($currentRoute == 'department-list' || $currentRoute == 'department-add'   ? 'active' : '') }}">
+                <li class="{{ ($currentRoute == 'department-list' || $currentRoute == 'department-add' || $currentRoute == 'department-edit'  ? 'active' : '') }}">
                     <a href="{{ route('department-list') }}"><i class="fa fa-list"></i>
-                        <span class="nav-label">Department</span></a>
+                    <span class="nav-label">Department</span></a>
                 </li>
             </ul>
         </div>

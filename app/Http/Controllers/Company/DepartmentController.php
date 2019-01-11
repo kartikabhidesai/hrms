@@ -10,6 +10,7 @@ use Auth;
 use Route;
 use APP;
 use Illuminate\Http\Request;
+use Config;
 
 class DepartmentController extends Controller {
 
@@ -61,8 +62,39 @@ class DepartmentController extends Controller {
         return view('company.department.department-add', $data);
     }
     
-    public function edit($id){
-        
+    public function edit(Request $request, $id)
+    {
+        $data['detail'] = Department::with('designation')->find($id);
+
+        if ($request->isMethod('post')) {
+            $objDepartment = new Department();
+            $ret = $objDepartment->editDepartment($request);
+
+            if ($ret) {
+                $return['status'] = 'success';
+                $return['message'] = 'Record Edited successfully.';
+                $return['redirect'] = route('department-list');
+            } else {
+                $return['status'] = 'error';
+                $return['message'] = 'something will be wrong.';
+            }
+
+            echo json_encode($return);
+            exit;
+        }
+
+        $session = $request->session()->all();
+        $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
+        $data['js'] = array('company/department.js');
+        $data['funinit'] = array('Department.init()');
+        $data['css'] = array('');
+        $data['header'] = array(
+            'title' => 'Department',
+            'breadcrumb' => array(
+                'Home' => route("admin-dashboard"),
+                'Company' => 'Company'));
+
+        return view('company.department.department-edit', $data);
     }
 
     public function ajaxAction(Request $request) {

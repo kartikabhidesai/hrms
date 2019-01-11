@@ -14,33 +14,32 @@
 					</div>
 				</div>
 				<div class="ibox-content">
-                                    <div class="form-group">
-                                            <label class="col-lg-2 control-label">Department Name</label>
-                                            <div class="col-lg-10">
-                                                    {{ Form::text('department_name', null, array('placeholder'=>'Department Name', 'class' => 'form-control department_name' ,'required')) }}
-                                            </div>
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                            <label class="col-lg-2 control-label">Designation</label>
-                                            <div class="col-lg-10">
-                                                    {{ Form::text('designation[]', null, array('placeholder'=>'Designation', 'class' => 'form-control designation' ,'required')) }}
-                                            </div>
-                                    </div>
-                                    <div class="add_designation_div">
-                                        <div class="form-group">
-                                            <div class="col-lg-offset-2 col-lg-8">
-                                                <input class="btn btn-sm add_designation" type="button" value="Add More Designation">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                            <div class="col-lg-offset-2 col-lg-10">
-                                                    <button class="btn btn-sm btn-primary" type="submit">Save Department</button>
-                                            </div>
-                                    </div>
-						
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">Department Name</label>
+                        <div class="col-lg-10">
+                                {{ Form::text('department_name', null, array('placeholder'=>'Department Name', 'class' => 'form-control department_name' ,'required')) }}
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">Designation</label>
+                        <div class="col-lg-10">
+                                {{ Form::text('designation[]', null, array('placeholder'=>'Designation', 'class' => 'form-control designation' ,'required')) }}
+                        </div>
+                    </div>
+                    <div class="add_designation_div">
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-8">
+                                <input class="btn btn-sm add_designation" type="button" value="Add More Designation">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                                <button class="btn btn-sm btn-primary" type="submit">Save Department</button>
+                        </div>
+                    </div>
 				</div>
 			</div>
 		</div>	

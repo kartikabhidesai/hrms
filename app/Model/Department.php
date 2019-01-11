@@ -104,4 +104,33 @@ class Department extends Model
     {
         return $this->hasMany('App\Model\Designation');
     }
+
+    public function editDepartment($request)
+    {
+        $name = '';
+        // dd($request->input('designation'));
+        $id = $request->input('edit_id');
+        /*find & update department*/
+        $findDepartment = Department::where('id', $id)->update(['department_name' => $request->department_name, 'updated_at' => date('Y-m-d H:i:s')]);
+
+        /*find & update designations*/
+        $findDesignation = Designation::where('department_id', $id)->get();
+
+        foreach($findDesignation as $designation) {
+            $deleteDesignation = $designation->delete();
+        }
+
+        $designation = $request->input('designation');
+        for($i=0;$i<count($request->input('designation'));$i++){
+            $objDesignation = new Designation();
+            if($designation[$i] != ""){
+                $objDesignation->department_id = $id;
+                $objDesignation->designation_name = $designation[$i];
+                $objDesignation->created_at = date('Y-m-d H:i:s');
+                $objDesignation->updated_at = date('Y-m-d H:i:s');
+                $objDesignation->save();
+            }
+        }
+        return TRUE;
+    }
 }
