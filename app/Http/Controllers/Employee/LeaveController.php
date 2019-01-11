@@ -22,8 +22,9 @@ class LeaveController extends Controller
         $data['header'] = array(
             'title' => 'Employee',
             'breadcrumb' => array(
-                'Home' => route("admin-dashboard"),
-                'Company' => 'Company'));
+                'Home' => route("employee-dashboard"),
+                'Leave' => 'Leave'));
+        
         return view('employee.leave.list', $data);
     }
 
@@ -55,68 +56,47 @@ class LeaveController extends Controller
         $data['js'] = array('employee/leave.js', 'ajaxfileupload.js', 'jquery.form.min.js');
         $data['funinit'] = array('Leave.init()');
         $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
+        $data['header'] = array(
+            'title' => 'Employee',
+            'breadcrumb' => array(
+                'Home' => route("employee-dashboard"),
+                'Leave' => route("employee-leave"),
+                'Add Leave'=>'Add Leave'));
         return view('employee.leave.add', $data);
+    }
+    
+     public function deleteLeave($postData) {
+        if ($postData) {
+            $result = Leave::where('id', $postData['id'])->delete();
+            if ($result) {
+                $return['status'] = 'success';
+                $return['message'] = 'Leave delete successfully.';
+                $return['jscode'] = "setTimeout(function(){
+                        $('#deleteModel').modal('hide');
+                        $('#dataTables-leave').refresh();
+                    },1000)";
+            } else {
+                $return['status'] = 'error';
+                $return['message'] = 'something will be wrong.';
+            }
+            echo json_encode($return);
+            exit;
+        }
     }
 
     public function ajaxAction(Request $request) {
-
         $action = $request->input('action');
-
         switch ($action) {
-            case 'getleavedatatable':
-                
-                $objCompany = new Company();
-                $compnyList = $objCompany->getCompanyData($request);
-                echo json_encode($compnyList);
+            case 'getdatatable':
+                $objLeave = new Leave();
+                $demoList = $objLeave->getLeaveDatatable($request);
+                echo json_encode($demoList);
                 break;
-            case 'deleteCompany':
-                $result = $this->deleteCompany($request->input('data'));
+            case 'deleteLeave':
+                $result = $this->deleteLeave($request->input('data'));
                 break;
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+   
 }

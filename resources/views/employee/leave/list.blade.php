@@ -13,13 +13,14 @@
                 </div>
                 <div class="ibox-content">
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover dataTables-leave" id="dataTables-leave">
+                        <table class="table table-striped table-bordered table-hover dataTables-example" id="dataTables-leave">
                             <thead>
                                 <tr>
                                     <th>#id</th>
                                     <th>Start Date</th>
                                     <th>End Date</th>
                                     <th>Reason</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>

@@ -21,7 +21,7 @@ class DashboardController extends Controller {
             'title' => 'Employee',
             'breadcrumb' => array(
                 'Home' => route("admin-dashboard"),
-                'Company' => 'Company'));
+                'Leave' => 'Leave'));
         return view('employee.dashboard', $data);
     }
 
