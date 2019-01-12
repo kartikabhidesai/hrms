@@ -36,6 +36,15 @@ class Department extends Model
         return true;
     }
     
+    public function getDepartment()
+    {
+         $arrDepartment = Department::
+            // where('company_id', $company_id)
+                pluck('department_name', 'id')
+                ->toArray();
+        return $arrDepartment;
+    }
+
     public function getdatatable()
     {
         $requestData = $_REQUEST;

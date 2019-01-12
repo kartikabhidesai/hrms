@@ -25,4 +25,12 @@ class Designation extends Model
         return $this->belongsTo('App\Model\Department');
     }
     
+    public function getDesignation()
+    {
+         $arrDesignation = Designation::
+            // where('company_id', $company_id)
+                pluck('designation_name', 'id')
+                ->toArray();
+        return $arrDesignation;
+    }
 }

@@ -141,7 +141,7 @@
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Department</label>
 							<div class="col-lg-9">
-								{{ Form::select('department', $testarray , $details->department, array('placeholder'=>'Depatment', 'class' => 'form-control department', 'id' => 'department')) }}
+								{{ Form::select('department', $ArrDepartment , $details->department, array('placeholder'=>'Depatment', 'class' => 'form-control department', 'id' => 'department')) }}
 							</div>
 						</div>
 						<input type="hidden" name="oldpassword" value="{{  $details->password }}">
@@ -149,7 +149,7 @@
 						 	<div class="form-group">
 						 		<label class="col-sm-3 control-label">Designation</label>
                                 <div class="col-sm-9"> 
-                                	{{ Form::select('designation', $testarray , $details->designation, array('placeholder'=>'Designatopn', 'class' => 'form-control designation', 'id' => 'designation')) }}
+                                	{{ Form::select('designation', $ArrDesignation , $details->designation, array('placeholder'=>'Designatopn', 'class' => 'form-control designation', 'id' => 'designation')) }}
                                 </div>
                        		</div>
 						 	<div class="form-group" id="data_1">
