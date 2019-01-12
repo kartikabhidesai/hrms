@@ -16,8 +16,19 @@ class Leave extends Model {
 
     public function addnewleave($request) {
         $objLeave = new Leave();
-        $objLeave->start_date = $request->input('start_date');
-        $objLeave->end_date = $request->input('end_date');
+        $objLeave->start_date = date('Y-m-d',strtotime($request->input('start_date')));
+        $objLeave->end_date = date('Y-m-d',strtotime($request->input('end_date')));
+        $objLeave->reason = $request->input('reason');
+        $objLeave->created_at = date('Y-m-d H:i:s');
+        $objLeave->updated_at = date('Y-m-d H:i:s');
+        $objLeave->save();
+
+        return TRUE;
+    }
+    public function editleave($request) {
+        $objLeave = Leave::find($request->input('editId'));
+        $objLeave->start_date = date('Y-m-d',strtotime($request->input('start_date')));
+        $objLeave->end_date = date('Y-m-d',strtotime($request->input('end_date')));
         $objLeave->reason = $request->input('reason');
         $objLeave->created_at = date('Y-m-d H:i:s');
         $objLeave->updated_at = date('Y-m-d H:i:s');
@@ -68,7 +79,7 @@ class Leave extends Model {
    
         foreach ($resultArr as $row) {
            $actionHtml = $request->input('gender');
-           $actionHtml .= '<a href="' . route('employee-edit', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
+           $actionHtml .= '<a href="' . route('edit-leave', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
             $actionHtml .= '<a href="#deleteModel" data-toggle="modal" data-id="'.$row['id'].'" class="link-black text-sm leaveDelete" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';
             $nestedData = array();
             $nestedData[] = $row["id"];

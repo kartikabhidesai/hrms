@@ -15,24 +15,42 @@
                 </div>
                 <div class="ibox-content">
                     {{ Form::open( array('method' => 'post', 'class' => 'form-horizontal','files' => true, 'id' => 'addLeave' )) }}
-                    <div class="form-group">
+                    <<!-- div class="form-group">
                         <label class="col-sm-2 control-label">Start Date</label>
                         <div class="col-sm-9">
-                         {{ Form::date('start_date', null, array('class' => 'form-control start_date','required')) }}
+                         {{ Form::date('start_date', isset($leaveEdit) && !empty($leaveEdit['start_date']) ? $leaveEdit['start_date'] : '', array('class' => 'form-control start_date','required')) }}
 
                         </div>
-                    </div>	
-                    <div class="form-group">
+                    </div> -->
+                    <input type="hidden" name="editId" value="{{ isset($leaveEdit) && !empty($leaveEdit['id']) ? $leaveEdit['id'] : '' }}">
+                    <div class="form-group" id="data_1">
+                        <label class="col-sm-2 control-label">Start Date</label>
+                        <div class="col-sm-9"> 
+                                    <div class="input-group date">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="start_date" value="{{ isset($leaveEdit) && !empty($leaveEdit['start_date']) ? date('d-m-Y',strtotime( $leaveEdit['start_date'])) : '' }}" id="startDate" placeholder="start date" class="form-control startDate dateField">
+                                </div>
+                        </div>
+                    </div>
+
+                  <!--   <div class="form-group">
                         <label class="col-sm-2 control-label">End Date</label>
                         <div class="col-sm-9">
-                         {{ Form::date('end_date', null, array('class' => 'form-control end_date','required')) }}
+                         {{ Form::date('end_date', isset($leaveEdit) && !empty($leaveEdit['end_date']) ? $leaveEdit['end_date'] : '', array('class' => 'form-control end_date','required')) }}
 
+                        </div>
+                    </div> -->
+                    <div class="form-group" id="data_1">
+                        <label class="col-sm-2 control-label">End Date</label>
+                        <div class="col-sm-9"> 
+                            <div class="input-group date">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="end_date" value="{{ isset($leaveEdit) && !empty($leaveEdit['end_date']) ?  date('d-m-Y',strtotime( $leaveEdit['end_date']))  : '' }}" id="endDate" placeholder="Select End Date " class="form-control endDate dateField">
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Reason</label>
                         <div class="col-sm-9"> 
-                            {{ Form::textarea('reason', null, array('class' => 'form-control reason' ,'required')) }}
+                            {{ Form::textarea('reason', isset($leaveEdit) && !empty($leaveEdit['reason']) ? $leaveEdit['reason'] : '', array('class' => 'form-control reason' ,'required')) }}
                         </div>
                     </div>
                     	

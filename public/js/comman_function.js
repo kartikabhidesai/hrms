@@ -908,6 +908,62 @@ function get_order() {
     }
 }
 
+function checkDateRange(classOrID, startDateID, endDateID, msg) {
+    $(classOrID).change(function() {
+
+        var today = new Date();
+        if (endDateID === 'today') {
+            var startDate = reverseDate(startDateID);
+            if ((Date.parse(startDate) >= Date.parse(today))) {
+                if (msg) {
+                    alert(msg);
+                } else {
+                    alert("Date Must be Less from Today");
+                }
+                $(startDate).val('');
+            }
+        } else if (startDateID === 'today') {
+            var endDate = reverseDate(endDateID);
+            if ((Date.parse(endDate) <= Date.parse(today))) {
+                if (msg) {
+                    alert(msg);
+                } else {
+                    alert("Date Must be Greater from Today");
+                }
+                $(endDateID).val('');
+            }
+        } else {
+            var startDate = reverseDate(startDateID);
+            var endDate = reverseDate(endDateID);
+            if (startDate != '' && endDate != '') {
+                if ((Date.parse(startDate) >= Date.parse(endDate))) {
+                    if (msg) {
+                        alert(msg);
+                    } else {
+                        alert("Date Finish Must be after Date Start");
+                    }
+                    $(endDateID).val('');
+                }
+            }
+        }
+    });
+}
+
+function reverseDate(field) {
+    var OldFormateOfDate = $(field).val();
+    var splitDate = OldFormateOfDate.split(/\D/);
+    var newDate = splitDate.reverse().join('-');
+    return newDate;
+}
+function reverseDateV2(FormateOfDate) {
+    if (FormateOfDate == '' || FormateOfDate == null || typeof FormateOfDate === 'undefined') {
+        var newDate = 'NA';
+    } else {
+        var splitDate = FormateOfDate.split(/\D/);
+        var newDate = splitDate.reverse().join('-');
+    }
+    return newDate;
+}
 
 $(function() 
 {

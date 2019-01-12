@@ -20,7 +20,7 @@ class LeaveController extends Controller
         $data['funinit'] = array('Leave.init()');
         $data['css'] = array('');
         $data['header'] = array(
-            'title' => 'Employee',
+            'title' => 'Leave',
             'breadcrumb' => array(
                 'Home' => route("employee-dashboard"),
                 'Leave' => 'Leave'));
@@ -35,13 +35,13 @@ class LeaveController extends Controller
      */
     public function leaveadd(Request $request)
     {
-         if ($request->isMethod('post')) {
+        if ($request->isMethod('post')) {
 
             $objLeave = new Leave();
             $ret = $objLeave->addnewleave($request);
             if ($ret) {
                 $return['status'] = 'success';
-                $return['message'] = 'Record created successfully.';
+                $return['message'] = 'Leave added successfully.';
                 $return['redirect'] = route('employee-leave');
             } else {
                 $return['status'] = 'error';
@@ -50,18 +50,55 @@ class LeaveController extends Controller
             echo json_encode($return);
             exit;
         }
-       
+
         $session = $request->session()->all();
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('employee/leave.js', 'ajaxfileupload.js', 'jquery.form.min.js');
         $data['funinit'] = array('Leave.init()');
         $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
         $data['header'] = array(
-            'title' => 'Employee',
+            'title' => 'Add Leave',
             'breadcrumb' => array(
                 'Home' => route("employee-dashboard"),
                 'Leave' => route("employee-leave"),
                 'Add Leave'=>'Add Leave'));
+        return view('employee.leave.add', $data);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function leaveedit(Request $request,$id)
+    {
+        if ($request->isMethod('post')) {
+
+            $objLeave = new Leave();
+            $ret = $objLeave->addnewleave($request);
+            if ($ret) {
+                $return['status'] = 'success';
+                $return['message'] = 'Leave updated successfully.';
+                $return['redirect'] = route('employee-leave');
+            } else {
+                $return['status'] = 'error';
+                $return['message'] = 'something will be wrong.';
+            }
+            echo json_encode($return);
+            exit;
+        }
+        $data['leaveEdit'] = Leave::find($id);
+        $session = $request->session()->all();
+        $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
+        $data['js'] = array('employee/leave.js', 'ajaxfileupload.js', 'jquery.form.min.js');
+        $data['funinit'] = array('Leave.init()');
+        $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
+        $data['header'] = array(
+            'title' => 'Edit Leave',
+            'breadcrumb' => array(
+                'Home' => route("employee-dashboard"),
+                'Leave' => route("employee-leave"),
+                'Edit Leave'=>'Edit Leave'));
         return view('employee.leave.add', $data);
     }
     

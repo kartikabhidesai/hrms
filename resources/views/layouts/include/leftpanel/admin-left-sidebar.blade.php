@@ -42,7 +42,7 @@ $currentRoute = Route::current()->getName();
                 </li>
                 
                 <li class="{{ ($currentRoute == 'admin-dashboard'  ? 'active' : '') }}">
-                    <a href="javascript:;"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span> </a>
+                    <a href="{{ route('admin-dashboard') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span> </a>
                    <!--  <ul class="nav nav-second-level collapse">
                         <li><a href="index.html">Dashboard v.1</a></li>
                         <li><a href="dashboard_2.html">Dashboard v.2</a></li>

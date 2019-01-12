@@ -54,6 +54,11 @@ class UpdateProfileController extends Controller {
             echo json_encode($return);
             exit;
         }
+        $data['header'] = array(
+            'title' => 'Employee',
+            'breadcrumb' => array(
+                'Home' => route("admin-dashboard"),
+                'Update Profile' => 'Update Profile'));
         $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js',
             );

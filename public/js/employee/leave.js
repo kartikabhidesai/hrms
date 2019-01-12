@@ -9,7 +9,7 @@ var Leave = function () {
                 $('.yes-sure:visible').attr('data-id', id);
             }, 500);
         })
-
+        checkDateRange('.dateField', '#startDate', '#endDate', 'Start Date Must be Greater From End Date');
         $('body').on('click', '.yes-sure', function () {
             var id = $(this).attr('data-id');
             var data = {id: id, _token: $('#_token').val()};
