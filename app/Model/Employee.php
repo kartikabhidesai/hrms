@@ -15,47 +15,47 @@ use Config;
 class Employee extends Model {
     protected $table = 'employee';
    
-    public function addEmployee($request) {
+    public function addEmployee($request,$userId) {
 
       // print_r( $request->file());
       // print_r( $request->input());exit;
         $emp_pic = '';
-        if($request->file()){
+        if($request->file('emp_pic')){
             $image = $request->file('emp_pic');
             $emp_pic = 'employee'.time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/uploads/client/');
             $image->move($destinationPath, $emp_pic);    
         }
-         $resume = '';
-        if($request->file()){
+        $resume = '';
+        if($request->file('resume')){
             $image = $request->file('resume');
             $resume = 'resume'.time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/uploads/client/');
             $image->move($destinationPath, $resume);    
         }
-         $offer_latter = '';
-        if($request->file()){
+        $offer_latter = '';
+        if($request->file('offer_latter')){
             $image = $request->file('offer_latter');
             $offer_latter = 'offer_latter'.time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/uploads/client/');
             $image->move($destinationPath, $offer_latter);    
         }
         $join_letter = '';
-        if($request->file()){
+        if($request->file('join_letter')){
             $image = $request->file('join_letter');
             $join_letter = 'join_letter'.time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/uploads/client/');
             $image->move($destinationPath, $join_letter);    
         }
         $contect_agre = '';
-        if($request->file()){
+        if($request->file('contect_agre')){
             $image = $request->file('contect_agre');
             $contect_agre = 'contect_agreement'.time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/uploads/client/');
             $image->move($destinationPath, $contect_agre);    
         }  
         $other = '';
-        if($request->file()){
+        if($request->file('other')){
             $image = $request->file('other');
             $other = 'other'.time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/uploads/client/');
@@ -64,6 +64,7 @@ class Employee extends Model {
 
         $objEmployee = new Employee();
         $objEmployee->name = $request->input('name');
+        $objEmployee->user_id = $userId;
         $objEmployee->father_name = $request->input('father_name');
         $objEmployee->date_of_birth = date('Y-m-d',strtotime($request->input('date_of_birth')));
         $objEmployee->gender = $request->input('gender');
@@ -97,7 +98,7 @@ class Employee extends Model {
         $objEmployee->created_at = date('Y-m-d H:i:s');
         $objEmployee->updated_at = date('Y-m-d H:i:s');
         $objEmployee->save();
-        return TRUE;
+        return $objEmployee->id;
     }
 
     public function editEmployee($request,$id) {
@@ -105,7 +106,7 @@ class Employee extends Model {
       // print_r( $request->file());
       // print_r( $request->input());exit;
         $emp_pic = '';
-        if($request->file()){
+        if($request->file('emp_pic')){
             $image = $request->file('emp_pic');
             $emp_pic = 'employee'.time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/uploads/client/');
@@ -184,23 +185,9 @@ class Employee extends Model {
         return TRUE;
     }
 
-    public function editDemo($request) {
-      
-       $name = $request->input('gender');
-        if($request->file()){
-            $image = $request->file('demo_pic');
-            $name = 'admin'.time().'.'.$image->getClientOriginalExtension();
-            $destinationPath = public_path('/uploads/client/');
-            $image->move($destinationPath, $name);    
-        }
-        $objEmployee = Demo::find($request->input('edit_id'));
-        $objEmployee->first_name = $request->input('first_name');
-        $objEmployee->last_name = $request->input('last_name');
-        $objEmployee->user_id = '1';
-        $objEmployee->gender = $request->input('gender');
-        $objEmployee->image = $name;
-        $objEmployee->created_at = date('Y-m-d H:i:s');
-        $objEmployee->updated_at = date('Y-m-d H:i:s');
+    public function updateEmpId($empId,$userId) {
+        $objEmployee = Employee::find($empId);
+        $objEmployee->user_id = $userId;
         $objEmployee->save();
         return TRUE;
     }

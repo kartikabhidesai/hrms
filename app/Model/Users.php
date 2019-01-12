@@ -32,6 +32,23 @@ class Users extends Model {
         $objUser->save();
         return TRUE;
     }
+    public function addEmp($request) {
+        $objUser = new Users();
+         $dublicateCheck = Users::where('email', '=',  $request->input('email'))
+                ->count();
+        if ($dublicateCheck == 0) {
+            $objUser->name = $request->input('name');
+            $objUser->email = $request->input('email');
+            $objUser->type = 'EMPLOYEE';
+            $objUser->password = Hash::make($request->input('password'));
+            $objUser->created_at = date('Y-m-d H:i:s');
+            $objUser->updated_at = date('Y-m-d H:i:s');
+            $objUser->save();
+            return $objUser->id;
+        }else{
+            return false;
+        }
+    }
 
     public function passwordReset($email) {
         $result =  Users::select('users.*')->where('users.email', '=', $email)->get()->toArray();

@@ -24,18 +24,24 @@ class EmployeeController extends Controller {
         $data['funinit'] = array('Employee.init()');
         $data['css'] = array('');
         $data['header'] = array(
-            'title' => 'Employee',
+            'title' => 'Employee List',
             'breadcrumb' => array(
-                'Home' => route("admin-dashboard"),
-                'Company' => 'Company'));
+                'Home' => route("company-dashboard"),
+                'Employee List' => 'Employee List'));
         return view('company.employee.employee-list', $data);
     }   
 
     public function add(Request $request) {
          if ($request->isMethod('post')) {
-            $objEmployee = new Employee();
-            $ret = $objEmployee->addEmployee($request);
-            if ($ret) {
+            $objUsers = new Users();
+            $userId = $objUsers->addEmp($request);
+            if ($userId == false) {
+                $return['status'] = 'error';
+                $return['message'] = 'Email Already Exists.!';
+            }elseif ($userId) {
+                $objEmployee = new Employee();
+                $empId = $objEmployee->addEmployee($request,$userId);
+                // $ret = $objEmployee->updateEmpId($empId,$userId);
                 $return['status'] = 'success';
                 $return['message'] = 'Employee created successfully.';
                 $return['redirect'] = route('employee-list');
@@ -46,11 +52,18 @@ class EmployeeController extends Controller {
             echo json_encode($return);
             exit;
         }
+         $data['header'] = array(
+        'title' => 'Employee Add',
+            'breadcrumb' => array(
+                'Home' => route("company-dashboard"),
+                'Employee List' => route("employee-list"),
+                'Employee Add' => '',
+            ));
         $data['testarray'] = Config::get('constants.testarray');
         $data['statusArray'] = Config::get('constants.statusArray');
         $data['genderArray'] = Config::get('constants.genderArray');
         $data['martialArray'] = Config::get('constants.martialArray');
-
+        $data['nationalityArray'] = Config::get('constants.nationalityArray');
 
         $session = $request->session()->all();
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
@@ -60,7 +73,7 @@ class EmployeeController extends Controller {
         $data['header'] = array(
             'title' => 'Employee',
             'breadcrumb' => array(
-                'Home' => route("admin-dashboard"),
+                'Home' => route("company-dashboard"),
                 'Company' => 'Company'));
         return view('company.employee.employee-add', $data);
     } 
@@ -80,7 +93,13 @@ class EmployeeController extends Controller {
             echo json_encode($return);
             exit;
         }
-
+        $data['header'] = array(
+            'title' => 'Employee Edit',
+            'breadcrumb' => array(
+                'Home' => route("company-dashboard"),
+                'Employee List' => route("employee-list"),
+                'Employee Edit' => '',
+            ));
         $data['testarray'] = Config::get('constants.testarray');
         $data['statusArray'] = Config::get('constants.statusArray');
         $data['genderArray'] = Config::get('constants.genderArray');

@@ -61,7 +61,7 @@
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Nationality</label>
 							<div class="col-lg-9">
-								{{ Form::text('nationality', null, array('placeholder' => 'Nationality', 'class' => 'form-control nationality' ,'required')) }}
+								{{ Form::select('nationality', $nationalityArray , null , array('class' => 'form-control nationality','required', 'id' => 'nationality')) }}
 							</div>
 						</div>
 						 	<div class="form-group">
