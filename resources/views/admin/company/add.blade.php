@@ -38,7 +38,7 @@
                     </div>
                     <div class="form-group"><label class="col-lg-2 control-label">Password</label>
                         <div class="col-lg-9">
-                            {{ Form::text('password', null, array('class' => 'form-control password' ,'required')) }}
+                            <input id="password" type="password" class="form-control" name="password" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -69,13 +69,21 @@
                             {{ Form::select('subcription', $subcription, null, array('class' => 'form-control m-b', 'id' => 'subcription' ,'required')) }}
                         </div>
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label class="col-sm-2 control-label">Expiry</label>
                         <div class="col-sm-9">
                          {{ Form::date('expiry_at', null, array('class' => 'form-control expiry_at','required')) }}
 
                         </div>
-                    </div>	
+                    </div> -->
+                    <div class="form-group" id="data_1">
+                        <label class="col-sm-2 control-label">Expiry Date</label>
+                        <div class="col-sm-9"> 
+                                    <div class="input-group date">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="expiry_at" value="{{ isset($leaveEdit) && !empty($leaveEdit['expiry_at']) ? date('d-m-Y',strtotime( $leaveEdit['start_date'])) : '' }}" id="expiry_at" placeholder="expiry date" class="form-control expiry_at dateField">
+                                </div>
+                        </div>
+                    </div>
                     	
                     <div class="form-group">
                         <div class="col-lg-offset-2 col-lg-9">

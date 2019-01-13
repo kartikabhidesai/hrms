@@ -19,8 +19,14 @@ class Company extends Model
 
     public function addCompany($request) 
     {
-       //print_r( $request->input());exit;
-       $name = '';
+        //Find unique company/user
+        $findCompany = Company::where('email', $request->input('email'))->first();
+        $findUser = Users::where('email', $request->input('email'))->first();
+        if($findCompany || $findUser) {
+            $return['message'] = 'This email is already registerd!';
+            return $return['message'];
+        }
+        $name = '';
         if($request->file()){
             $image = $request->file('company_image');
             $name = 'admin'.time().'.'.$image->getClientOriginalExtension();
@@ -36,7 +42,7 @@ class Company extends Model
         $objCompany->password = Hash::make($request->input('password'));
         $objCompany->status = $request->input('status');
         $objCompany->subcription = $request->input('subcription');
-        $objCompany->expiry_at = $request->input('expiry_at');
+        $objCompany->expiry_at = date('Y-m-d',strtotime($request->input('expiry_at')));
         $objCompany->company_image = $name;
         $objCompany->created_at = date('Y-m-d H:i:s');
         $objCompany->updated_at = date('Y-m-d H:i:s');
@@ -129,10 +135,16 @@ class Company extends Model
     
     public function editCompany($request)
     {
-      
-       $name = '';
-       $objCompany = Company::find($request->input('edit_id'));
-       /*find & update user with email, image*/
+        //Find unique company/user
+        $findCompany = Company::where('email', $request->input('email'))->first();
+        $findUser = Users::where('email', $request->input('email'))->first();
+        if($findCompany || $findUser) {
+            $return['message'] = 'This email is already registerd!';
+            return $return['message'];
+        }
+        $name = '';
+        $objCompany = Company::find($request->input('edit_id'));
+        /*find & update user with email, image*/
         $updateUser = Users::where('email', $objCompany->email)->first();
         $updateUser->name = $request->input('company_name');
         $updateUser->email = $request->input('email');
@@ -162,7 +174,7 @@ class Company extends Model
         }
         $objCompany->status = $request->input('status');
         $objCompany->subcription = $request->input('subcription');
-        $objCompany->expiry_at = $request->input('expiry_at');
+        $objCompany->expiry_at = date('Y-m-d',strtotime($request->input('expiry_at')));
         $objCompany->company_image = $name;
         $objCompany->updated_at = date('Y-m-d H:i:s');
         $objCompany->save();

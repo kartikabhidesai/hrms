@@ -27,7 +27,7 @@ var Company = function() {
                 }
             });
         });
-      
+        dateFormate('.date')
         var form = $('#addCompany');
         var rules = {
             company_name: {required: true},

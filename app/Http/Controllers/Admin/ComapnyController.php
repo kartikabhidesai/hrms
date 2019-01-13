@@ -27,7 +27,7 @@ class ComapnyController extends Controller {
         $data['funinit'] = array('Company.init()');
         $data['css'] = array('');
         $data['header'] = array(
-            'title' => 'Companyies',
+            'title' => 'Company',
             'breadcrumb' => array(
                 'Home' => route("admin-dashboard"),
                 'Company' => 'Company'));
@@ -40,18 +40,17 @@ class ComapnyController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function addNewCompany(Request $request) {
-
         if ($request->isMethod('post')) {
 
             $objCompany = new Company();
             $ret = $objCompany->addCompany($request);
-            if ($ret) {
+            if (!$ret) {
                 $return['status'] = 'success';
                 $return['message'] = 'Record created successfully.';
                 $return['redirect'] = route('list-company');
             } else {
                 $return['status'] = 'error';
-                $return['message'] = 'something will be wrong.';
+                $return['message'] = $ret;
             }
             echo json_encode($return);
             exit;
@@ -64,7 +63,7 @@ class ComapnyController extends Controller {
         $data['funinit'] = array('Company.init()');
         $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
         $data['header'] = array(
-            'title' => 'Companyies',
+            'title' => 'Company',
             'breadcrumb' => array(
                 'Home' => route("admin-dashboard"),
                 'Company' => route("list-company"),
@@ -131,13 +130,13 @@ class ComapnyController extends Controller {
             $objCompany = new Company();
             $ret = $objCompany->editCompany($request);
 
-            if ($ret) {
+            if (!$ret) {
                 $return['status'] = 'success';
                 $return['message'] = 'Record Edited successfully.';
                 $return['redirect'] = route('list-company');
             } else {
                 $return['status'] = 'error';
-                $return['message'] = 'something will be wrong.';
+                $return['message'] = $ret;
             }
 
             echo json_encode($return);
@@ -150,7 +149,7 @@ class ComapnyController extends Controller {
         $data['funinit'] = array('Company.init()');
         $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
         $data['header'] = array(
-            'title' => 'Companyies',
+            'title' => 'Company',
             'breadcrumb' => array(
                 'Home' => route("admin-dashboard"),
                 'Company' => route("list-company"), 

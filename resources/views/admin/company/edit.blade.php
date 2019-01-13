@@ -52,11 +52,19 @@
                             {{ Form::select('subcription', $subcription, $detail->subcription, array('class' => 'form-control m-b', 'id' => 'subcription' ,'required')) }}
                         </div>
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label class="col-sm-2 control-label">Expiry</label>
                         <div class="col-sm-9">
                             {{ Form::date('expiry_at', date('Y-m-d', strtotime($detail->expiry_at)), array('class' => 'form-control expiry_at','required')) }}
 
+                        </div>
+                    </div> -->
+                    <div class="form-group" id="data_1">
+                        <label class="col-sm-2 control-label">Expiry Date</label>
+                        <div class="col-sm-9"> 
+                                    <div class="input-group date">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="expiry_at" value="{{ isset($detail) && !empty($detail['expiry_at']) ? date('d-m-Y',strtotime( $detail['expiry_at'])) : '' }}" id="expiry_at" placeholder="expiry date" class="form-control expiry_at dateField">
+                                </div>
                         </div>
                     </div>  
                     {{ Form::hidden('edit_id', $detail->id, array('class' => '')) }}

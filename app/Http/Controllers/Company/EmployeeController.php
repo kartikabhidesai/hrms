@@ -29,7 +29,7 @@ class EmployeeController extends Controller {
             'title' => 'Employee List',
             'breadcrumb' => array(
                 'Home' => route("company-dashboard"),
-                'Employee List' => 'Employee List'));
+                'Employee' => 'Employee'));
         return view('company.employee.employee-list', $data);
     }   
 
@@ -81,7 +81,8 @@ class EmployeeController extends Controller {
             'title' => 'Employee',
             'breadcrumb' => array(
                 'Home' => route("company-dashboard"),
-                'Company' => 'Company'));
+                'Employee' => route("employee-list"),
+                'Add Employee'=>'Add Employee'));
         return view('company.employee.employee-add', $data);
     } 
     
@@ -102,12 +103,11 @@ class EmployeeController extends Controller {
             exit;
         }
         $data['header'] = array(
-            'title' => 'Employee Edit',
+            'title' => 'Employee',
             'breadcrumb' => array(
                 'Home' => route("company-dashboard"),
-                'Employee List' => route("employee-list"),
-                'Employee Edit' => '',
-            ));
+                'Employee' => route("employee-list"),
+                'Edit Employee'=>'Edit Employee'));
         $data['testarray'] = Config::get('constants.testarray');
         $data['statusArray'] = Config::get('constants.statusArray');
         $data['genderArray'] = Config::get('constants.genderArray');

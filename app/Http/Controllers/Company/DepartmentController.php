@@ -28,8 +28,8 @@ class DepartmentController extends Controller {
         $data['header'] = array(
             'title' => 'Department',
             'breadcrumb' => array(
-                'Home' => route("admin-dashboard"),
-                'Company' => 'Company'));
+                'Home' => route("company-dashboard"),
+                'Department' => 'Department'));
         return view('company.department.department-list', $data);
     }
     
@@ -57,8 +57,9 @@ class DepartmentController extends Controller {
         $data['header'] = array(
             'title' => 'Department',
             'breadcrumb' => array(
-                'Home' => route("admin-dashboard"),
-                'Company' => 'Company'));
+                'Home' => route("company-dashboard"),
+                'Department' => route("department-list"),
+                'Add Department'=>'Add Department'));
         return view('company.department.department-add', $data);
     }
     
@@ -91,8 +92,9 @@ class DepartmentController extends Controller {
         $data['header'] = array(
             'title' => 'Department',
             'breadcrumb' => array(
-                'Home' => route("admin-dashboard"),
-                'Company' => 'Company'));
+                'Home' => route("company-dashboard"),
+                'Department' => route("department-list"),
+                'Edit Department'=>'Edit Department'));
 
         return view('company.department.department-edit', $data);
     }
