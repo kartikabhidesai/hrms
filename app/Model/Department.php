@@ -21,7 +21,11 @@ class Department extends Model
     public function saveDepartment($request){
         
         $id = DB::table('department')->insertGetId(
-            ['department_name' => $request->input('department_name')]);
+                                                    ['department_name' => $request->input('department_name'),
+                                                    'created_at' => date('Y-m-d H:i:s'),
+                                                    'updated_at' => date('Y-m-d H:i:s')
+                                                    ]
+                                                );
         $designation=$request->input('designation');
         for($i=0;$i<count($request->input('designation'));$i++){
             $objDesignation = new Designation();
