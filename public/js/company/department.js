@@ -35,7 +35,7 @@ var Department = function() {
             'postData': dataArr,
             'hideColumnList': [],
             'noSearchApply': [0],
-            'noSortingApply': [3,5],
+            'noSortingApply': [0],
             'defaultSortColumn': 0,
             'defaultSortOrder': 'desc',
             'setColumnWidth': columnWidth

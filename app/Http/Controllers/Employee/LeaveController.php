@@ -75,7 +75,7 @@ class LeaveController extends Controller
         if ($request->isMethod('post')) {
 
             $objLeave = new Leave();
-            $ret = $objLeave->addnewleave($request);
+            $ret = $objLeave->editleave($request);
             if ($ret) {
                 $return['status'] = 'success';
                 $return['message'] = 'Leave updated successfully.';
