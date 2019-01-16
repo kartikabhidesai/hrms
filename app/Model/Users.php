@@ -14,6 +14,7 @@ use App\Model\Service;
 use App\Model\Users;
 use PDF;
 use Config;
+use File;
 
 class Users extends Model {
     protected $table = 'users';
@@ -75,25 +76,37 @@ class Users extends Model {
         return false;
     }
 
-     public function saveEditUserInfo($request) {
-        // print_r($request->input());exit;
+     public function saveEditUserInfo($request, $userId)
+     {
         $name = '';
+        $objUser = Users::find($userId);
         if($request->file()){
+            $existImage = public_path('/uploads/client/').$objUser->user_image;
+            if (File::exists($existImage)) { // unlink or remove previous company image from folder
+                File::delete($existImage);
+            }
             $image = $request->file('profile_pic');
-            $name = 'admin'.time().'.'.$image->getClientOriginalExtension();
+            $name = 'profile_img'.time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/uploads/client/');
             $image->move($destinationPath, $name);    
+            $objUser->user_image = $name;
         }
-        $userId = $request->input('editid');
-        $objUser = Users::find($userId);
-        $objUser->name = !empty($request->input('newpassword')) ? Hash::make($request->input('newpassword')) : $request->input('oldpassword');
+        // $objUser->name = !empty($request->input('newpassword')) ? Hash::make($request->input('newpassword')) : $request->input('oldpassword');
         $objUser->name = $request->input('first_name');
-        $objUser->user_image = $name;
+        
         if ($objUser->save()) {
             return TRUE;
         } else {
 
             return FALSE;
         }
+    }
+
+    public function updatePassword($request, $userId)
+    {
+        $objUser = Users::find($userId);
+        $objUser->password = !empty($request->input('new_password')) ? Hash::make($request->input('new_password')) : $request->input('old_password');
+        $objUser->save();
+        return TRUE;
     }
 }

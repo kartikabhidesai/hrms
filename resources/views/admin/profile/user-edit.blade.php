@@ -40,7 +40,7 @@
 								{{ Form::text('email', $detail->email, array('class' => 'form-control email' ,'readonly'=>'true')) }}
 							</div>
 						</div>	
-						<div class="form-group">
+						<!-- <div class="form-group">
 							<label class="col-lg-2 control-label">Password</label>
 							<div class="col-lg-9">
 								{{ Form::password('newpassword',array('placeholder'=>'Password','class' => 'form-control newpassword','id'=> 'newpassword')) }}
@@ -53,7 +53,7 @@
 								{{ Form::hidden('editid',$detail->id,array()) }}
 								{{ Form::hidden('oldpassword',$detail->password,array()) }}
 							</div>
-						</div>
+						</div> -->
 						<div class="form-group">
 							<label class="col-lg-2 control-label">File</label>
 								<div class="fileinput fileinput-new input-group col-lg-9" data-provides="fileinput">

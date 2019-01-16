@@ -15,7 +15,7 @@
                 </div>
                 <div class="ibox-content">
                     {{ Form::open( array('method' => 'post', 'class' => 'form-horizontal','files' => true, 'id' => 'addLeave' )) }}
-                    <<!-- div class="form-group">
+                    <!-- div class="form-group">
                         <label class="col-sm-2 control-label">Start Date</label>
                         <div class="col-sm-9">
                          {{ Form::date('start_date', isset($leaveEdit) && !empty($leaveEdit['start_date']) ? $leaveEdit['start_date'] : '', array('class' => 'form-control start_date','required')) }}

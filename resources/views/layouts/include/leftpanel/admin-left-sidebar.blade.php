@@ -20,18 +20,19 @@ $currentRoute = Route::current()->getName();
         <div class="sidebar-collapse">
             <ul class="nav metismenu" id="side-menu">
                 <li class="nav-header">
-                    <div class="dropdown profile-element"> <span>
+                    <div class="dropdown profile-element"> 
+                        <span>
                             @if($file_headers[0] == 'HTTP/1.1 200 OK')
                             <img class="img-circle" width="50" src="{{ asset('uploads/client/'.$data['user_image']) }}" alt="User's Profile Picture">
                             @else
                                 <img class="img-circle" width="50" src="{{ asset('uploads/client/no-image.png') }}" alt="User's Profile Picture">
                             @endif
-                             </span>
+                        </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> <span class="text-muted text-xs block"><strong class="font-bold"> {{ $session['logindata'][0]['name'] }} </strong> <b class="caret"></b></span> </span> </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
                             <li><a href="{{ route('update-profile') }}">Update Profile</a></li>
-                            <!-- <li><a href="{{ route('change-password') }}">Change Password</a></li> -->
+                            <li><a href="{{ route('change-password') }}">Change Password</a></li>
                             <li class="divider"></li>
                             <li><a href="{{ route('logout') }}">Logout</a></li>
                         </ul>

@@ -1,14 +1,32 @@
 @php
 $currentRoute = Route::current()->getName();
     $session = Session::all();
+
+    if (!empty(Auth()->guard('admin')->user())) {
+                $data = Auth()->guard('admin')->user();
+                }
+                if (!empty(Auth()->guard('company')->user())) {
+                    $data = Auth()->guard('company')->user();
+                }
+                if (!empty(Auth()->guard('employee')->user())) {
+                    $data = Auth()->guard('employee')->user();
+                }
+                
+                $filename= url('uploads/client/'.$data['user_image']);
+                $file_headers = @get_headers($filename);
 @endphp
   <nav class="navbar-default navbar-static-side" role="navigation">
         <div class="sidebar-collapse">
             <ul class="nav metismenu" id="side-menu">
                 <li class="nav-header">
-                    <div class="dropdown profile-element"> <span>
-                            <img alt="image" class="img-circle" src="img/profile_small.jpg" />
-                             </span>
+                    <div class="dropdown profile-element"> 
+                        <span>
+                            @if($file_headers[0] == 'HTTP/1.1 200 OK')
+                            <img class="img-circle" width="50" src="{{ asset('uploads/client/'.$data['user_image']) }}" alt="User's Profile Picture">
+                            @else
+                                <img class="img-circle" width="50" src="{{ asset('uploads/client/no-image.png') }}" alt="User's Profile Picture">
+                            @endif
+                        </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> <span class="text-muted text-xs block"><strong class="font-bold"> {{ $session['logindata'][0]['name'] }} </strong> <b class="caret"></b></span> </span> </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
