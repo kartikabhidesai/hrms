@@ -21,7 +21,7 @@
                     </div>
                     <div class="form-group"><label class="col-lg-2 control-label">Email</label>
                         <div class="col-lg-9">
-                            {{ Form::text('email', $detail->email, array('class' => 'form-control email' ,'required')) }}
+                            {{ Form::text('email', $detail->email, array('class' => 'form-control email' ,'required', 'readonly'=>"true")) }}
                         </div>
                     </div>
                     <div class="form-group">

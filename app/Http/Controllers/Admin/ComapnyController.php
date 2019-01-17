@@ -134,13 +134,13 @@ class ComapnyController extends Controller {
             $objCompany = new Company();
             $ret = $objCompany->editCompany($request);
 
-            if (!$ret) {
+            if ($ret) {
                 $return['status'] = 'success';
                 $return['message'] = 'Record Edited successfully.';
                 $return['redirect'] = route('list-company');
             } else {
                 $return['status'] = 'error';
-                $return['message'] = $ret;
+                $return['message'] = 'This email is already registerd!';
             }
 
             echo json_encode($return);
