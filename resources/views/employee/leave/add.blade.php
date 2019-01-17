@@ -27,7 +27,7 @@
                         <label class="col-sm-2 control-label">Start Date</label>
                         <div class="col-sm-9"> 
                                     <div class="input-group date">
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="start_date" value="{{ isset($leaveEdit) && !empty($leaveEdit['start_date']) ? date('d-m-Y',strtotime( $leaveEdit['start_date'])) : '' }}" id="startDate" placeholder="start date" class="form-control startDate dateField">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="start_date" value="{{ isset($leaveEdit) && !empty($leaveEdit['start_date']) ? date('d-m-Y',strtotime( $leaveEdit['start_date'])) : '' }}" id="startDate" placeholder="start date" class="form-control startDate dateField" autocomplete="off">
                                 </div>
                         </div>
                     </div>
@@ -43,7 +43,7 @@
                         <label class="col-sm-2 control-label">End Date</label>
                         <div class="col-sm-9"> 
                             <div class="input-group date">
-                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="end_date" value="{{ isset($leaveEdit) && !empty($leaveEdit['end_date']) ?  date('d-m-Y',strtotime( $leaveEdit['end_date']))  : '' }}" id="endDate" placeholder="Select End Date " class="form-control endDate dateField">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="end_date" value="{{ isset($leaveEdit) && !empty($leaveEdit['end_date']) ?  date('d-m-Y',strtotime( $leaveEdit['end_date']))  : '' }}" id="endDate" placeholder="Select End Date " class="form-control endDate dateField" autocomplete="off">
                             </div>
                         </div>
                     </div>
