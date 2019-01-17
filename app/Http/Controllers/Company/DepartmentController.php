@@ -40,7 +40,7 @@ class DepartmentController extends Controller {
 
         if ($request->isMethod('post')) {
             $objDepartment = new Department();
-            $result = $objDepartment->saveDepartment($request,$session['logindata'][0]['id']);
+            $result = $objDepartment->saveDepartment($request);
             if($result) {
                 $return['status'] = 'success';
                 $return['message'] = 'Department created successfully.';

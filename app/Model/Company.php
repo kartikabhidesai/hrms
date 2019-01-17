@@ -36,17 +36,7 @@ class Company extends Model
             }
             $image->move($destinationPath, $name);    
         }
-        $objCompany = new Company();
-        $objCompany->company_name = $request->input('company_name');
-        $objCompany->email = $request->input('email');
-        $objCompany->password = Hash::make($request->input('password'));
-        $objCompany->status = $request->input('status');
-        $objCompany->subcription = $request->input('subcription');
-        $objCompany->expiry_at = date('Y-m-d',strtotime($request->input('expiry_at')));
-        $objCompany->company_image = $name;
-        $objCompany->created_at = date('Y-m-d H:i:s');
-        $objCompany->updated_at = date('Y-m-d H:i:s');
-        $objCompany->save();
+        
 
         /*create new user with email, pwd and type*/
         $newUser = new Users();
@@ -58,6 +48,21 @@ class Company extends Model
         $newUser->created_at = date('Y-m-d H:i:s');
         $newUser->updated_at = date('Y-m-d H:i:s');
         $newUser->save();
+        $userId = $newUser->id;
+
+        $objCompany = new Company();
+        $objCompany->company_name = $request->input('company_name');
+        $objCompany->email = $request->input('email');
+        $objCompany->user_id = $userId;
+        $objCompany->password = Hash::make($request->input('password'));
+        $objCompany->status = $request->input('status');
+        $objCompany->subcription = $request->input('subcription');
+        $objCompany->expiry_at = date('Y-m-d',strtotime($request->input('expiry_at')));
+        $objCompany->company_image = $name;
+        $objCompany->created_at = date('Y-m-d H:i:s');
+        $objCompany->updated_at = date('Y-m-d H:i:s');
+        $objCompany->save();
+
         return TRUE;
     }
 

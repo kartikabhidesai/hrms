@@ -18,7 +18,7 @@ class Department extends Model
 {
     protected $table = 'department';
 
-    public function saveDepartment($request,$company_id)
+    public function saveDepartment($request)
     {    
     	if(Auth::guard('company')->check()) {
     		$userData = Auth::guard('company')->user();
@@ -27,8 +27,7 @@ class Department extends Model
 
         $id = DB::table('department')->insertGetId(
                                                     ['department_name' => $request->input('department_name'),
-                                                    // 'company_id' => $getAuthCompanyId->id,
-                                                    'company_id' => $company_id,
+                                                    'company_id' => $getAuthCompanyId->id,
                                                     'created_at' => date('Y-m-d H:i:s'),
                                                     'updated_at' => date('Y-m-d H:i:s')
                                                     ]
