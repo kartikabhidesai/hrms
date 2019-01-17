@@ -18,7 +18,8 @@ class DepartmentController extends Controller {
         $this->middleware('company');
     }
 
-    public function index(Request $request) {
+    public function index(Request $request) 
+    {
         $session = $request->session()->all();
         
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
@@ -33,27 +34,32 @@ class DepartmentController extends Controller {
         return view('company.department.department-list', $data);
     }
     
-    
-    public function add(Request $request){
-       
+    public function add(Request $request)
+    {
         if ($request->isMethod('post')) {
-           $objDepartment=new Department();
-           $result=$objDepartment->saveDepartment($request);
-           if($result){
+            $objDepartment = new Department();
+            $result = $objDepartment->saveDepartment($request);
+            if($result) {
                 $return['status'] = 'success';
                 $return['message'] = 'Department created successfully.';
-                $return['redirect'] = route('department-list');  
-           }else{
+                $return['redirect'] = route('department-list');
+            } else {
                 $return['status'] = 'error';
-                $return['message'] = 'something will be wrong.';
-           }
-           echo json_encode($return);
-           exit;
+                $return['message'] = 'Something will be wrong.';
+            }
+
+            echo json_encode($return);
+            exit;
         }
+
+        $session = $request->session()->all();
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
-        $data['js'] = array('company/department.js');
+        $data['js'] = array('company/department.js', 'jquery.form.min.js');
         $data['funinit'] = array('Department.add()');
-        $data['css'] = array('');
+        $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
+        $data['css_plugin'] = array(
+                                  'bootstrap-fileinput/bootstrap-fileinput.css',  
+                                );
         $data['header'] = array(
             'title' => 'Department',
             'breadcrumb' => array(
@@ -77,7 +83,7 @@ class DepartmentController extends Controller {
                 $return['redirect'] = route('department-list');
             } else {
                 $return['status'] = 'error';
-                $return['message'] = 'something will be wrong.';
+                $return['message'] = 'Something will be wrong.';
             }
 
             echo json_encode($return);
@@ -86,8 +92,8 @@ class DepartmentController extends Controller {
 
         $session = $request->session()->all();
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
-        $data['js'] = array('company/department.js');
-        $data['funinit'] = array('Department.init()');
+        $data['js'] = array('company/department.js', 'jquery.form.min.js');
+        $data['funinit'] = array('Department.edit()');
         $data['css'] = array('');
         $data['header'] = array(
             'title' => 'Department',
@@ -99,7 +105,8 @@ class DepartmentController extends Controller {
         return view('company.department.department-edit', $data);
     }
 
-    public function ajaxAction(Request $request) {
+    public function ajaxAction(Request $request) 
+    {
         $action = $request->input('action');
         switch ($action) {
             case 'getdatatable':
@@ -124,7 +131,7 @@ class DepartmentController extends Controller {
 
             if ($result) {
                 $return['status'] = 'success';
-                $return['message'] = 'Record delete successfully.';
+                $return['message'] = 'Record deleted successfully.';
                 //$return['redirect'] = route('calls');
                 $return['jscode'] = "setTimeout(function(){
                         $('#deleteModel').modal('hide');
@@ -132,7 +139,7 @@ class DepartmentController extends Controller {
                     },1000)";
             } else {
                 $return['status'] = 'error';
-                $return['message'] = 'something will be wrong.';
+                $return['message'] = 'Something will be wrong.';
             }
             echo json_encode($return);
             exit;

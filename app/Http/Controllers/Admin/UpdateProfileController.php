@@ -31,7 +31,7 @@ class UpdateProfileController extends Controller {
             $edituserinfo = $findUser->saveEditUserInfo($request, $findUser->id);
             if ($edituserinfo) {
                 $return['status'] = 'success';
-                $return['message'] = 'User Info Edit successfully.';
+                $return['message'] = 'Your profile has been edited successfully.';
                 if (Auth::guard('company')->check()) {
                    $return['redirect'] = route('company-dashboard');
                 }elseif (Auth::guard('employee')->check()) {

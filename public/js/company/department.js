@@ -43,7 +43,7 @@ var Department = function() {
         getDataTable(arrList);
     };
     
-    var addlist = function(){
+    var addlist = function() {
         
         var form = $('#department-add');
         var rules = {
@@ -72,8 +72,7 @@ var Department = function() {
         });
     };
 
-    var editlist = function(){
-        alert('x');
+    var editlist = function() {
         var form = $('#department-edit');
         var rules = {
             department_name: {required: true},
@@ -100,6 +99,7 @@ var Department = function() {
             $(this).closest('.removediv').remove();
         });
     };
+
     return {
         init: function() {
             handleList();
@@ -109,6 +109,7 @@ var Department = function() {
         },
         edit :function(){
             editlist();
-        },
+        }
     }
+
 }();

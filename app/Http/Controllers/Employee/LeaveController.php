@@ -110,7 +110,7 @@ class LeaveController extends Controller
                 $return['message'] = 'Leave delete successfully.';
                 $return['jscode'] = "setTimeout(function(){
                         $('#deleteModel').modal('hide');
-                        $('#dataTables-leave').refresh();
+                        $('#dataTables-leave').DataTable().ajax.reload();
                     },1000)";
             } else {
                 $return['status'] = 'error';

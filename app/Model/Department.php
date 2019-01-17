@@ -18,18 +18,19 @@ class Department extends Model
 {
     protected $table = 'department';
 
-    public function saveDepartment($request){
-        
+    public function saveDepartment($request)
+    {    
         $id = DB::table('department')->insertGetId(
                                                     ['department_name' => $request->input('department_name'),
                                                     'created_at' => date('Y-m-d H:i:s'),
                                                     'updated_at' => date('Y-m-d H:i:s')
                                                     ]
                                                 );
-        $designation=$request->input('designation');
-        for($i=0;$i<count($request->input('designation'));$i++){
+        $designation = $request->input('designation');
+        
+        for($i=0;$i<count($request->input('designation'));$i++) {
             $objDesignation = new Designation();
-            if($designation[$i] != ""){
+            if($designation[$i] != "") {
                 $objDesignation->department_id = $id;
                 $objDesignation->designation_name = $designation[$i];
                 $objDesignation->created_at = date('Y-m-d H:i:s');
@@ -37,7 +38,7 @@ class Department extends Model
                 $objDesignation->save();
             }
         }
-        return true;
+        return TRUE;
     }
     
     public function getDepartment()
@@ -121,7 +122,6 @@ class Department extends Model
     public function editDepartment($request)
     {
         $name = '';
-        // dd($request->input('designation'));
         $id = $request->input('edit_id');
         /*find & update department*/
         $findDepartment = Department::where('id', $id)->update(['department_name' => $request->department_name, 'updated_at' => date('Y-m-d H:i:s')]);
