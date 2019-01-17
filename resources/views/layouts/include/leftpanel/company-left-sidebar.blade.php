@@ -24,7 +24,7 @@ if (!empty(Auth()->guard('admin')->user())) {
                             @if($file_headers[0] == 'HTTP/1.1 200 OK')
                             <img class="img-circle" width="50" src="{{ asset('uploads/client/'.$data['user_image']) }}" alt="User's Profile Picture">
                             @else
-                                <img class="img-circle" width="50" src="{{ asset('uploads/client/no-image.png') }}" alt="User's Profile Picture">
+                                <img class="img-circle" width="50" src="{{ asset('img/profile_small.jpg') }}" alt="User's Profile Picture">
                             @endif
                         </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
