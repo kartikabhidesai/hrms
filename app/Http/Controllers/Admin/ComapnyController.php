@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Company;
+use App\Model\Users;
 use Config;
 use File;
 
@@ -44,13 +45,14 @@ class ComapnyController extends Controller {
 
             $objCompany = new Company();
             $ret = $objCompany->addCompany($request);
-            if (!$ret) {
+
+            if ($ret) {
                 $return['status'] = 'success';
                 $return['message'] = 'Record created successfully.';
                 $return['redirect'] = route('list-company');
             } else {
                 $return['status'] = 'error';
-                $return['message'] = $ret;
+                $return['message'] = 'This email is already registerd!';
             }
             echo json_encode($return);
             exit;
@@ -85,6 +87,8 @@ class ComapnyController extends Controller {
             if (File::exists($existImage)) { // unlink or remove previous company image from folder
                 File::delete($existImage);
             }
+            
+            $deleteCompanyUser = Users::where('email', $objCompany->email)->delete();
             $result = $objCompany->delete();
 
             if ($result) {

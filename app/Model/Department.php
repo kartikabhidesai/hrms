@@ -20,8 +20,14 @@ class Department extends Model
 
     public function saveDepartment($request)
     {    
+    	if(Auth::guard('company')->check()) {
+    		$userData = Auth::guard('company')->user();
+    		$getAuthCompanyId = Company::where('email', $userData->email)->first();
+    	}
+
         $id = DB::table('department')->insertGetId(
                                                     ['department_name' => $request->input('department_name'),
+                                                    'company_id' => $getAuthCompanyId->id,
                                                     'created_at' => date('Y-m-d H:i:s'),
                                                     'updated_at' => date('Y-m-d H:i:s')
                                                     ]

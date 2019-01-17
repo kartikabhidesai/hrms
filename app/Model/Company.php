@@ -22,9 +22,9 @@ class Company extends Model
         //Find unique company/user
         $findCompany = Company::where('email', $request->input('email'))->first();
         $findUser = Users::where('email', $request->input('email'))->first();
-        if($findCompany || $findUser) {
-            $return['message'] = 'This email is already registerd!';
-            return $return['message'];
+        
+        if(!empty($findCompany || $findUser)) {
+            return false;
         }
         $name = '';
         if($request->file()){
