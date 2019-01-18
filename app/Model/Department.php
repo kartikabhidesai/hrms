@@ -102,9 +102,11 @@ class Department extends Model
             $actionHtml .= '<a href="#deleteModel" data-toggle="modal" data-id="'.$row['id'].'" class="link-black text-sm deleteDepartment" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';
             $nestedData = array();
             $nestedData[] = $row["department_name"];
+            $desigArr = [];
             foreach ($row->designation as $key => $value) {
-                $nestedData[1][] = $value["designation_name"];
+                $desigArr[] = $value["designation_name"];
             }
+            $nestedData[] = implode(', ', $desigArr);
             $nestedData[] = '1';
             $nestedData[] = $actionHtml;
             $data[] = $nestedData;
@@ -129,6 +131,10 @@ class Department extends Model
     {
         $name = '';
         $id = $request->input('edit_id');
+
+        if($request->input('designation') == null) {
+        	return false;
+        }
         /*find & update department*/
         $findDepartment = Department::where('id', $id)->update(['department_name' => $request->department_name, 'updated_at' => date('Y-m-d H:i:s')]);
 

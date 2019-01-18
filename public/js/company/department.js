@@ -98,6 +98,10 @@ var Department = function() {
         $('body').on('click','.removebtn',function(){
             $(this).closest('.removediv').remove();
         });
+
+        $('body').on('click','.editRemovebtn',function(){
+            $(this).closest('.editRemovediv').remove();
+        });
     };
 
     return {

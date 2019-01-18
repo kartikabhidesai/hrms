@@ -85,7 +85,7 @@ class DepartmentController extends Controller {
                 $return['redirect'] = route('department-list');
             } else {
                 $return['status'] = 'error';
-                $return['message'] = 'Something will be wrong.';
+                $return['message'] = 'Please add any one designation!';
             }
 
             echo json_encode($return);

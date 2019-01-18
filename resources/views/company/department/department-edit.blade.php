@@ -22,13 +22,13 @@
                         </div>
                         <div class="form-group">
                             <label class="col-lg-2 control-label">Designation</label>
-                            <div class="col-lg-10">
+                            <div class="col-lg-10 editRemovediv">
                                 @foreach($detail->designation as $designation)
-                                    <div class="col-lg-8">
+                                    <div class="col-lg-10">
                                         {{ Form::text('designation[]', $designation->designation_name, array('placeholder'=>'Designation', 'class' => 'form-control designation' ,'required', 'style' => 'margin-left:-15px')) }} 
                                     </div>
                                     <div class="col-lg-2">
-                                        <input type="button" class="red form-control removebtn" value="Remove">
+                                        <input type="button" class="red form-control editRemovebtn" value="Remove">
                                     </div>
                                     <br><br><br>
                                 @endforeach
