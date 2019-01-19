@@ -20,11 +20,16 @@ class AttendanceController extends Controller
     {
     	$companyId = $this->loginUser->id;
     	if ($request->isMethod('post')) {
-    		dd($request->all());
     		if($request->department_id == 'all') {
-    			$getEmployees = Employee::where('company_id', $companyId)->get();
+    			$getEmployees = Employee::select('department.name')
+                                            ->join('department', 'employee.department', '=', 'department.id')
+                                            ->join('comapnies', 'department.company_id', '=', 'comapnies.id')   
+                                            ->where('comapnies.user_id', $companyId)
+                                            ->get();
+                // dd($getEmployees);
     		} else {
-    			$getEmployees = Employee::where('department_id', $request->department_id)->get();
+    			$getEmployees = Employee::where('department', $request->department_id)->get();
+                // dd($getEmployees);
     		}
     	}        
         
