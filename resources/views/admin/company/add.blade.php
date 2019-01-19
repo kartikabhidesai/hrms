@@ -51,7 +51,7 @@
                             <span class="input-group-addon btn btn-default btn-file">
                                 <span class="fileinput-new">Select file</span>
                                 <span class="fileinput-exists">Change</span>
-                                <input type="file" name="company_image"/>
+                                <input  type="file" name="company_image"/>
                             </span>
                             <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
                         </div> 

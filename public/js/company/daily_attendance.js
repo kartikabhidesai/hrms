@@ -14,7 +14,34 @@ var DailyAttendance = function () {
         handleFormValidate(form, rules, function (form) {
             handleAjaxFormSubmit(form, true);
         });
-
+        
+        $('body').on('click','.getattdance',function(){
+            $('.department_id').css('border','1px solid #e5e6e7');
+               $('.attendanceDate').css('border','1px solid #e5e6e7');
+           var departentId=$('.department_id').val();
+           var date=$('.attendanceDate').val();
+           var visit="true";
+           if(departentId == '' && date == ''){
+               $('.department_id').css('border','1px solid red');
+               $('.attendanceDate').css('border','1px solid red');
+               visit="false";
+           }else{
+                if(departentId == ''){
+                    $('.department_id').css('border','1px solid red');
+                    visit="false";
+                }
+                if(date == ''){
+                    $('.attendanceDate').css('border','1px solid red');
+                    visit="false";
+                }
+           }
+           
+           if(visit == "true"){
+//               payment_method=sepa&month=01&year=
+               window.location.href = baseurl+"company/daily-attendance?departentId="+departentId+"&date="+date;
+               
+           }
+        });
         var dataArr = {};
         var columnWidth = {"width": "10%", "targets": 0};
 

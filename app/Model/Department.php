@@ -23,7 +23,7 @@ class Department extends Model
     	if(Auth::guard('company')->check()) {
     		$userData = Auth::guard('company')->user();
     		$getAuthCompanyId = Company::where('email', $userData->email)->first();
-    	}
+    	}       
 
         $id = DB::table('department')->insertGetId(
                                                     ['department_name' => $request->input('department_name'),

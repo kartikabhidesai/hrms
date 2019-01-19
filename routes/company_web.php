@@ -30,4 +30,5 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
 
     /*Attendance related routes*/
     Route::match(['get', 'post'], 'daily-attendance', ['as' => 'daily-attendance', 'uses' => 'Company\AttendanceController@dailyAttendance']);
+//    Route::match(['get', 'post'], 'daily-attendance_view', ['as' => 'daily-attendance_view', 'uses' => 'Company\AttendanceController@dailyAttendance']);
 });

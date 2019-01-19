@@ -81,7 +81,8 @@ class Company extends Model
         );
 
         $query = Company::from('comapnies as ra');
-        if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
+        if (!empty($requestData['search']['value'])) {
+            // if there is a search parameter, $requestData['search']['value'] contains search parameter
             $searchVal = $requestData['search']['value'];
             $query->where(function($query) use ($columns, $searchVal, $requestData) {
                         $flag = 0;
@@ -98,7 +99,6 @@ class Company extends Model
                         }
                     });
         }
-
        // print_r($requestData);exit;
         $temp = $query->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir']);
 

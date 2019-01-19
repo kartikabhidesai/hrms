@@ -14,12 +14,19 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Employees By Department </label>
                             <div class="col-sm-9">
-                                <select class="form-control" name="department_id">
+                                <select class="form-control department_id" name="department_id">
                                     <option value="" selected="">Select Employees Of A Department</option>
-                                    <option value="all">All Employees</option>
-                                    @foreach($detail as $department)
-                                        <option value="{{ $department->id }}">{{ $department->department_name }}</option>
-                                    @endforeach
+                                    @if(isset($getEmployees))
+                                        <option value="all" {{ ($departentId == "all" ? 'selected="selected"' : '') }}>All Employees</option>
+                                        @foreach($detail as $department)
+                                        <option value="{{ $department->id }}" {{ ($department->id == $departentId ? 'selected="selected"' : '') }} >{{ $department->department_name }}</option>
+                                        @endforeach
+                                    @else
+                                        <option value="all" >All Employees</option>
+                                        @foreach($detail as $department)
+                                            <option value="{{ $department->id }}" >{{ $department->department_name }}</option>
+                                        @endforeach
+                                    @endif
                                 </select>
                             </div>
                         </div>
@@ -27,20 +34,31 @@
                         <div class="form-group" id="data_1">
                             <label class="col-sm-2 control-label">Date</label>
                             <div class="col-sm-9"> 
-                                <div class="input-group date">
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="date" value="" id="attendanceDate" placeholder="Select Date" class="form-control attendanceDate dateField" autocomplete="off">
+                                 <div class="input-group date">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="date" value="{{ $date }}" id="attendanceDate" placeholder="Select Date" class="attendanceDate form-control attendanceDate dateField" autocomplete="off">
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-lg-offset-2 col-lg-10">
-                                <button class="btn btn-sm btn-primary" type="submit">Manage Attendance</button>
+                                <button class="btn btn-sm btn-primary getattdance" type="button">Manage Attendance</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+               
+             @if(isset($getEmployees))
+                <div class="col-lg-12">
+                       <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>Attendance For {{ $departmentname }}</h5>
+                                <h5 class="pull-right">Date : {{ $date }}</h5>
+                            </div>
+                       </div>
+                </div>
+            @endif
         </div>
     </div>
 @endsection
