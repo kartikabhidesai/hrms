@@ -51,6 +51,10 @@ if (!empty(Auth()->guard('admin')->user())) {
                 <li class="{{ ($currentRoute == 'department-list' || $currentRoute == 'department-add' || $currentRoute == 'department-edit'  ? 'active' : '') }}">
                     <a href="{{ route('department-list') }}"><i class="fa fa-list"></i>
                     <span class="nav-label">Department</span></a>
+                </li> 
+                <li class="{{ ($currentRoute == 'payroll-list' || $currentRoute == 'payroll-emp-detail' || $currentRoute == 'payroll-add' || $currentRoute == 'payroll-edit'  ? 'active' : '') }}">
+                    <a href="{{ route('payroll-list') }}"><i class="fa fa-list"></i>
+                    <span class="nav-label">Payroll</span></a>
                 </li>
 
                 <li class="{{ ($currentRoute == 'daily-attendance' ? 'active' : '') }}">
