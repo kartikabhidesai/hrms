@@ -59,6 +59,8 @@ class Department extends Model
     public function getdatatable()
     {
         $requestData = $_REQUEST;
+        $userData = Auth::guard('company')->user();
+        $companyId = Company::where('email', $userData->email)->first();
         $columns = array(
             // datatable column index  => database column name
             0 => 'department.id',
@@ -67,7 +69,7 @@ class Department extends Model
         );
 
         // $query = Department::join('designation', 'designation.department_id', '=', 'department.id');  /*using join*/
-        $query = Department::with(['designation']); /*using eloquent relationship*/
+        $query = Department::with(['designation'])->where('company_id', $companyId->id); /*using eloquent relationship*/
         // ->groupBy('designation.department_id');
         if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
             $searchVal = $requestData['search']['value'];

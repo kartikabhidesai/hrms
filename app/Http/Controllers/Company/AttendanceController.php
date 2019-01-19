@@ -51,5 +51,28 @@ class AttendanceController extends Controller
       
         return view('company.attendance.daily-attendance', $data);
     }
+
+    public function attendanceReport(Request $request) 
+    {
+    	$userId = $this->loginUser->id;
+        $companyId = Company::select('id')->where('user_id', $userId)->first();
+        $data['detail'] = Department::where('company_id', $companyId['id'])->get();
+
+        if ($request->isMethod('post')) {
+        	dd('x');
+        }
+
+        $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
+        $data['js'] = array('company/attendance_report.js', 'jquery.form.min.js');
+        $data['funinit'] = array('AttendanceReport.init()');
+        $data['css'] = array('');
+        $data['header'] = array(
+            'title' => 'Attendance Report',
+            'breadcrumb' => array(
+                'Home' => route("company-dashboard"),
+                'Attendance Report' => 'Attendance Report'));
+      
+        return view('company.attendance.attendance-report', $data);
+    }
     
 }
