@@ -35,7 +35,7 @@
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Department</label>
 							<div class="col-lg-9">
-								{{ Form::number('father_name', null, array('placeholder'=>'OverTime', 'class' => 'form-control last_name' ,'required')) }}
+								{{ Form::number('father_name', null, array('placeholder'=>'Department', 'class' => 'form-control last_name' ,'required')) }}
 							</div>
 						</div>
 						
@@ -64,28 +64,28 @@
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Housing:</label>
 							<div class="col-lg-8">
-								{{ Form::number('father_name', null, array('placeholder'=>'OverTime', 'class' => 'form-control last_name' ,'required')) }}
+								{{ Form::number('father_name', null, array('placeholder'=>'Housing', 'class' => 'form-control last_name' ,'required')) }}
 							</div>
 							<label class="col-lg-1 control-label">SAR</label>
 						</div>
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Medical:</label>
 							<div class="col-lg-8">
-								{{ Form::number('father_name', null, array('placeholder'=>'OverTime', 'class' => 'form-control last_name' ,'required')) }}
+								{{ Form::number('father_name', null, array('placeholder'=>'Medical', 'class' => 'form-control last_name' ,'required')) }}
 							</div>
 							<label class="col-lg-1 control-label">SAR</label>
 						</div>	
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Transportation:</label>
 							<div class="col-lg-8">
-								{{ Form::number('father_name', null, array('placeholder'=>'OverTime', 'class' => 'form-control last_name' ,'required')) }}
+								{{ Form::number('father_name', null, array('placeholder'=>'Transportation', 'class' => 'form-control last_name' ,'required')) }}
 							</div>
 							<label class="col-lg-1 control-label">SAR</label>
 						</div>	
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Travel:</label>
 							<div class="col-lg-8">
-								{{ Form::number('father_name', null, array('placeholder'=>'OverTime', 'class' => 'form-control last_name' ,'required')) }}
+								{{ Form::number('father_name', null, array('placeholder'=>'Travel', 'class' => 'form-control last_name' ,'required')) }}
 							</div>
 							<label class="col-lg-1 control-label">SAR</label>
 						</div>

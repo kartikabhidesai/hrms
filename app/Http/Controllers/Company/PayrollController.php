@@ -37,6 +37,10 @@ class PayrollController extends Controller {
             'title' => 'Payroll Employee List',
             'breadcrumb' => array(
                 'Home' => route("admin-dashboard")));
+          $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
+        $data['js'] = array('company/employee.js', 'ajaxfileupload.js','jquery.form.min.js');
+        $data['funinit'] = array('Employee.init()');
+        $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
         return view('company.payroll.payroll-add', $data);
     }
 
