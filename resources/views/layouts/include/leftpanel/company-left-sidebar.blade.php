@@ -49,13 +49,18 @@ if (!empty(Auth()->guard('admin')->user())) {
                 </li>
                 
                 <li class="{{ ($currentRoute == 'department-list' || $currentRoute == 'department-add' || $currentRoute == 'department-edit'  ? 'active' : '') }}">
-                    <a href="{{ route('department-list') }}"><i class="fa fa-list"></i>
+                    <a href="{{ route('department-list') }}"><i class="fa fa-address-card"></i>
                     <span class="nav-label">Department</span></a>
                 </li>
 
                 <li class="{{ ($currentRoute == 'daily-attendance' ? 'active' : '') }}">
-                    <a href="{{ route('daily-attendance') }}"><i class="fa fa-list"></i>
+                    <a href="{{ route('daily-attendance') }}"><i class="fa fa-thumb-tack"></i>
                     <span class="nav-label">Daily Attendance</span></a>
+                </li>
+
+                <li class="{{ ($currentRoute == 'attendance-report' ? 'active' : '') }}">
+                    <a href="{{ route('attendance-report') }}"><i class="fa fa-bar-chart"></i>
+                    <span class="nav-label">Attendance Report</span></a>
                 </li>
             </ul>
         </div>
