@@ -6,7 +6,7 @@
 			{{ csrf_field() }}
 			<div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Payroll List</h5>
+                        <h5>Employee List</h5>
                         <div class="ibox-tools">
                              <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         	<!-- <a href="{{ route('employee-add') }}" class="btn btn-primary dim" ><i class="fa fa-plus"> Add</i></a> -->

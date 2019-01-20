@@ -15,10 +15,10 @@ class PayrollController extends Controller {
         $this->middleware('company');
     }
 
-    public function list() {
+    public function index() {
         $data['detail'] = $this->loginUser;
         $data['header'] = array(
-            'title' => 'Payroll List',
+            'title' => 'Employee List',
             'breadcrumb' => array(
                 'Home' => route("admin-dashboard")));
         return view('company.payroll.payroll-list', $data);
@@ -26,7 +26,7 @@ class PayrollController extends Controller {
     public function payrollEmpList() {
         $data['detail'] = $this->loginUser;
         $data['header'] = array(
-            'title' => 'Payroll Employee List',
+            'title' => 'Payroll Ahmed List',
             'breadcrumb' => array(
                 'Home' => route("admin-dashboard")));
         return view('company.payroll.payroll-employee-list', $data);
@@ -34,7 +34,7 @@ class PayrollController extends Controller {
  public function add() {
         $data['detail'] = $this->loginUser;
         $data['header'] = array(
-            'title' => 'Payroll Employee List',
+            'title' => 'Create new payroll for ahmed',
             'breadcrumb' => array(
                 'Home' => route("admin-dashboard")));
           $data['pluginjs'] = array('jQuery/jquery.validate.min.js');

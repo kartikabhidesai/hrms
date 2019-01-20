@@ -33,9 +33,9 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
  // Route::match(['get', 'post'], 'daily-attendance_view', ['as' => 'daily-attendance_view', 'uses' => 'Company\AttendanceController@dailyAttendance']);
     Route::match(['get', 'post'], 'attendance-report', ['as' => 'attendance-report', 'uses' => 'Company\AttendanceController@attendanceReport']);
 
-    Route::match(['get', 'post'], 'payroll-list', ['as' => 'payroll-list', 'uses' => 'Company\PayrollController@list']); 
+    Route::match(['get', 'post'], 'payroll-list', ['as' => 'payroll-list', 'uses' => 'Company\PayrollController@index']); 
     Route::match(['get', 'post'], 'payroll-add', ['as' => 'payroll-add', 'uses' => 'Company\PayrollController@add']);  
-    Route::match(['get', 'post'], 'payroll-edit', ['as' => 'payroll-edit', 'uses' => 'Company\PayrollController@list']);
+    Route::match(['get', 'post'], 'payroll-edit', ['as' => 'payroll-edit', 'uses' => 'Company\PayrollController@index']);
     Route::match(['get', 'post'], 'payroll-emp-detail/{id}', ['as' => 'payroll-emp-detail', 'uses' => 'Company\PayrollController@payrollEmpList']);
 
 });
