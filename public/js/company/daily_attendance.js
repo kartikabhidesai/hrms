@@ -58,7 +58,20 @@ var DailyAttendance = function () {
             'setColumnWidth': columnWidth
         };
         getDataTable(arrList);
+
+        function get_reason_holder(status, employee_id)
+        {
+          alert('x');
+          /*$('#reason_holder_2_' + employee_id).attr('style', 'display: none;');
+
+          if($('#status_1').val() == 2) {
+            $('#reason_holder_' + employee_id).attr('style', 'display: block;');
+          } else {
+            $('#reason_holder_' + employee_id).attr('style', 'display: none;');
+          }*/
+        }
     }
+
     return {
         init: function () {
             handleList();

@@ -21,7 +21,7 @@ class AttendanceController extends Controller
     {
         $data['date']="";
     	$userid = $this->loginUser->id;
-        $companyId = Company::select('id')->where('user_id', $userid)->get();
+        $companyId = Company::select('id')->where('user_id', $userid)->first();
     	if (!empty($request->get('departentId'))) {
             $data['departentId']=$request->get('departentId');
             $data['date']=$request->get('date');
@@ -38,7 +38,11 @@ class AttendanceController extends Controller
                     $data['departmentname']=$departmentname[0]['department_name'];
     		}
     	}
-        $data['detail'] = Department::where('company_id', $companyId[0]['id'])->get();
+        if($companyId) {
+            $data['detail'] = Department::where('company_id', $companyId->id)->get();
+        } else {
+            $data['detail'] = '';
+        }
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/daily_attendance.js', 'jquery.form.min.js');
         $data['funinit'] = array('DailyAttendance.init()');
