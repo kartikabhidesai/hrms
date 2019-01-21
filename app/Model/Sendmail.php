@@ -32,47 +32,47 @@ class Sendmail extends Model
       //        
       //        print_r($dd);
       //        exit;
-      try {
-        $pathToFile = $mailData['attachment'];
+      // try {
+      //   $pathToFile = $mailData['attachment'];
 
-        Mail::send($mailData['template'], ['data' => $mailData['data']['password']], function ($m) use ($mailData,$pathToFile) {
-              $m->from('postmaster@sandboxf48f346bcf6a405d807d048464a939e4.mailgun.org', 'HRMS SAAS');
+      //   Mail::send($mailData['template'], ['data' => $mailData['data']['password']], function ($m) use ($mailData,$pathToFile) {
+      //         $m->from('postmaster@sandboxf48f346bcf6a405d807d048464a939e4.mailgun.org', 'HRMS SAAS');
 
-              //$m->to('abhishekdesai39@gmail.com', "Office Park")->subject($mailData['subject']);
-              $m->to($mailData['mailto'], "HRMS SAAS")->subject($mailData['subject']);
-              //  $m->bcc('info@officepark.group');
-              // print_r($pathToFile);
-              if(!empty($pathToFile)) {
-                for($i=0;$i<count($pathToFile);$i++) {
-                  $m->attach($pathToFile[$i]);
-                }  
-              }
-              //  $m->cc($mailData['bcc']);
-        });
-        return true;
-      }
+      //         //$m->to('abhishekdesai39@gmail.com', "Office Park")->subject($mailData['subject']);
+      //         $m->to($mailData['mailto'], "HRMS SAAS")->subject($mailData['subject']);
+      //         //  $m->bcc('info@officepark.group');
+      //         // print_r($pathToFile);
+      //         if(!empty($pathToFile)) {
+      //           for($i=0;$i<count($pathToFile);$i++) {
+      //             $m->attach($pathToFile[$i]);
+      //           }  
+      //         }
+      //         //  $m->cc($mailData['bcc']);
+      //   });
+      //   return true;
+      // }
 
-      //catch exception
-      catch(\Exception $e) {
-        dd($e->getMessage());
-        return true;
-      }
-      //       $pathToFile = $mailData['attachment'];
-      //      
-      //       $mailsend = Mail::send($mailData['template'], ['data' => $mailData['data']], function ($m) use ($mailData,$pathToFile) {
-      //            $m->from('kartikdesai123@gmail.com', 'Office Park');
-      //
-      //            $m->to($mailData['mailto'], "Office Park")->subject($mailData['subject']);
-      //            if($pathToFile != ""){
-      //                $m->attach($pathToFile);
-      //            }
-      //            
-      //           //  $m->cc($mailData['bcc']);
-      //        });
-      //        if($mailsend){
-      //            return true;
-      //        }else{
-      //            return false;
-      //        }
+      // //catch exception
+      // catch(\Exception $e) {
+      //   dd($e->getMessage());
+      //   return true;
+      // }
+            $pathToFile = $mailData['attachment'];
+           
+            $mailsend = Mail::send($mailData['template'], ['data' => $mailData['data']], function ($m) use ($mailData,$pathToFile) {
+                 $m->from('kartikdesai123@gmail.com', 'Office Park');
+      
+                 $m->to($mailData['mailto'], "Office Park")->subject($mailData['subject']);
+                 if($pathToFile != ""){
+                     // $m->attach($pathToFile);
+                 }
+                 
+                //  $m->cc($mailData['bcc']);
+             });
+             if($mailsend){
+                 return true;
+             }else{
+                 return false;
+             }
   }
 }
