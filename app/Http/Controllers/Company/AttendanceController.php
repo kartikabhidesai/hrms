@@ -21,28 +21,32 @@ class AttendanceController extends Controller
     {
         $data['date']="";
     	$userid = $this->loginUser->id;
-        $companyId = Company::select('id')->where('user_id', $userid)->first();
+        $companyId = Company::select('id')->where('user_id', $userid)->get();
     	if (!empty($request->get('departentId'))) {
-            $data['departentId']=$request->get('departentId');
-            $data['date']=$request->get('date');
+            $data['departentId'] = $request->get('departentId');
+            $data['date'] = $request->get('date');
     		if($request->get('departentId') == 'all') {
-                    $data['departmentname']="All Department";
-                    $data['getEmployees'] = Employee::select('Employee.name','Employee.id')
-                            ->join('department', 'employee.department', '=', 'department.id')
-                            ->join('comapnies', 'department.company_id', '=', 'comapnies.id')   
-                            ->where('comapnies.user_id', $userid)
-                            ->get();
+                $data['departmentname']="All Department";
+                $data['getEmployees'] = Employee::select('Employee.name','Employee.id')
+                                                ->join('department', 'employee.department', '=', 'department.id')
+                                                ->join('comapnies', 'department.company_id', '=', 'comapnies.id')   
+                                                ->where('comapnies.user_id', $userid)
+                                                ->get();
     		} else {
-                    $departmentname = Department::select('department_name')->where('id', $data['departentId'])->get();
-                    $data['getEmployees'] = Employee::where('department', $request->department_id)->get();  
-                    $data['departmentname']=$departmentname[0]['department_name'];
+                $departmentname = Department::select('id', 'department_name')->where('id', $data['departentId'])->first();
+                $data['getEmployees'] = Employee::where('department', $departmentname->id)->get();  
+                $data['departmentname'] = $departmentname[0]['department_name'];
     		}
     	}
-        if($companyId) {
-            $data['detail'] = Department::where('company_id', $companyId->id)->get();
-        } else {
-            $data['detail'] = '';
+        if($request->isMethod('post')) {
+            dd($request->all());
+            /*$saveAttendance = new Attendance;
+            $saveAttendance->date = $request->get('date');
+            $saveAttendance->date = $user_id;
+            $saveAttendance->date = $department_id;
+            $saveAttendance->emp_id = $request->;*/
         }
+        $data['detail'] = Department::where('company_id', $companyId[0]['id'])->get();
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/daily_attendance.js', 'jquery.form.min.js');
         $data['funinit'] = array('DailyAttendance.init()');
