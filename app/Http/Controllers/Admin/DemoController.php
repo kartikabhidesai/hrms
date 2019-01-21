@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\Model\Users;
 use App\Model\Demo;
 use App\Http\Controllers\Controller;
+use App\Model\Sendmail;
 use Illuminate\Http\Request;
 use Config;
 
@@ -124,6 +125,19 @@ class DemoController extends Controller {
                 $result = $this->deleteDemo($request->input('data'));
                 break;
         }
+    }
+
+
+    public function sendMail(){
+        $mailData['subject'] = 'Calls - Sent Email';
+        $mailData['attachment'] = array();
+        $mailData['mailto'] = 'shaileshvanaliya91@gmail.com';
+        // $mailData['mailto'] = $request->input('caller_email');
+        $sendMail = new Sendmail;
+        $mailData['data']['caller_note'] = 'dsad';
+        $mailData['template'] = 'emails.test-mail';
+        $result = $sendMail->sendSMTPMail($mailData);
+        echo $result;exit;
     }
   
 }
