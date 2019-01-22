@@ -17,25 +17,25 @@
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Salary Grade</label>
 							<div class="col-lg-9">
-								{{ Form::number('name', null, array('placeholder'=>'Salary Grade', 'class' => 'form-control name' ,'required')) }}
+								{{ Form::number('salary_grade', null, array('placeholder'=>'Salary Grade', 'class' => 'form-control name' ,'required')) }}
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Basic Salary</label>
 							<div class="col-lg-9">
-								{{ Form::number('father_name', null, array('placeholder'=>'Basic Salary', 'class' => 'form-control last_name' ,'required')) }}
+								{{ Form::number('joining_salary', null, array('placeholder'=>'Basic Salary', 'class' => 'form-control last_name' ,'required')) }}
 							</div>
 						</div>
 							<div class="form-group">
 							<label class="col-lg-3 control-label">OverTime</label>
 							<div class="col-lg-9">
-								{{ Form::number('father_name', null, array('placeholder'=>'OverTime', 'class' => 'form-control last_name' ,'required')) }}
+								{{ Form::number('over_time', null, array('placeholder'=>'OverTime', 'class' => 'form-control last_name' ,'required')) }}
 							</div>
 						</div>	
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Department</label>
 							<div class="col-lg-9">
-								{{ Form::number('father_name', null, array('placeholder'=>'Department', 'class' => 'form-control last_name' ,'required')) }}
+								{{ Form::number('department', null, array('placeholder'=>'Department', 'class' => 'form-control last_name' ,'required')) }}
 							</div>
 						</div>
 						
@@ -43,7 +43,7 @@
 						 		<label class="col-sm-3 control-label">Due Date</label>
                                 <div class="col-sm-9"> 
                                 	<div class="input-group date">
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="date_of_birth" id="" placeholder="Select Date of joingng" class="form-control" value="">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="due_date" id="" placeholder="Select Date of joingng" class="form-control" value="">
                                 </div>
                                 </div>
                             </div>
@@ -64,28 +64,28 @@
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Housing:</label>
 							<div class="col-lg-8">
-								{{ Form::number('father_name', null, array('placeholder'=>'Housing', 'class' => 'form-control last_name' ,'required')) }}
+								{{ Form::number('housing', null, array('placeholder'=>'Housing', 'class' => 'form-control last_name' ,'required')) }}
 							</div>
 							<label class="col-lg-1 control-label">SAR</label>
 						</div>
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Medical:</label>
 							<div class="col-lg-8">
-								{{ Form::number('father_name', null, array('placeholder'=>'Medical', 'class' => 'form-control last_name' ,'required')) }}
+								{{ Form::number('medical', null, array('placeholder'=>'Medical', 'class' => 'form-control last_name' ,'required')) }}
 							</div>
 							<label class="col-lg-1 control-label">SAR</label>
 						</div>	
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Transportation:</label>
 							<div class="col-lg-8">
-								{{ Form::number('father_name', null, array('placeholder'=>'Transportation', 'class' => 'form-control last_name' ,'required')) }}
+								{{ Form::number('transportation', null, array('placeholder'=>'Transportation', 'class' => 'form-control last_name' ,'required')) }}
 							</div>
 							<label class="col-lg-1 control-label">SAR</label>
 						</div>	
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Travel:</label>
 							<div class="col-lg-8">
-								{{ Form::number('father_name', null, array('placeholder'=>'Travel', 'class' => 'form-control last_name' ,'required')) }}
+								{{ Form::number('travel', null, array('placeholder'=>'Travel', 'class' => 'form-control last_name' ,'required')) }}
 							</div>
 							<label class="col-lg-1 control-label">SAR</label>
 						</div>

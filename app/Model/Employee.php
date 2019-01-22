@@ -13,60 +13,61 @@ use PDF;
 use Config;
 
 class Employee extends Model {
-    protected $table = 'employee';
-   
-    public function addEmployee($request,$userId) {
 
-      // print_r( $request->file());
-      // print_r( $request->input());exit;
+    protected $table = 'employee';
+
+    public function addEmployee($request, $userId) {
+
+        // print_r( $request->file());
+        // print_r( $request->input());exit;
         $emp_pic = '';
-        if($request->file('emp_pic')){
+        if ($request->file('emp_pic')) {
             $image = $request->file('emp_pic');
-            $emp_pic = 'employee'.time().'.'.$image->getClientOriginalExtension();
+            $emp_pic = 'employee' . time() . '.' . $image->getClientOriginalExtension();
             $destinationPath = public_path('/uploads/client/');
-            $image->move($destinationPath, $emp_pic);    
+            $image->move($destinationPath, $emp_pic);
         }
         $resume = '';
-        if($request->file('resume')){
+        if ($request->file('resume')) {
             $image = $request->file('resume');
-            $resume = 'resume'.time().'.'.$image->getClientOriginalExtension();
+            $resume = 'resume' . time() . '.' . $image->getClientOriginalExtension();
             $destinationPath = public_path('/uploads/client/');
-            $image->move($destinationPath, $resume);    
+            $image->move($destinationPath, $resume);
         }
         $offer_latter = '';
-        if($request->file('offer_latter')){
+        if ($request->file('offer_latter')) {
             $image = $request->file('offer_latter');
-            $offer_latter = 'offer_latter'.time().'.'.$image->getClientOriginalExtension();
+            $offer_latter = 'offer_latter' . time() . '.' . $image->getClientOriginalExtension();
             $destinationPath = public_path('/uploads/client/');
-            $image->move($destinationPath, $offer_latter);    
+            $image->move($destinationPath, $offer_latter);
         }
         $join_letter = '';
-        if($request->file('join_letter')){
+        if ($request->file('join_letter')) {
             $image = $request->file('join_letter');
-            $join_letter = 'join_letter'.time().'.'.$image->getClientOriginalExtension();
+            $join_letter = 'join_letter' . time() . '.' . $image->getClientOriginalExtension();
             $destinationPath = public_path('/uploads/client/');
-            $image->move($destinationPath, $join_letter);    
+            $image->move($destinationPath, $join_letter);
         }
         $contect_agre = '';
-        if($request->file('contect_agre')){
+        if ($request->file('contect_agre')) {
             $image = $request->file('contect_agre');
-            $contect_agre = 'contect_agreement'.time().'.'.$image->getClientOriginalExtension();
+            $contect_agre = 'contect_agreement' . time() . '.' . $image->getClientOriginalExtension();
             $destinationPath = public_path('/uploads/client/');
-            $image->move($destinationPath, $contect_agre);    
-        }  
+            $image->move($destinationPath, $contect_agre);
+        }
         $other = '';
-        if($request->file('other')){
+        if ($request->file('other')) {
             $image = $request->file('other');
-            $other = 'other'.time().'.'.$image->getClientOriginalExtension();
+            $other = 'other' . time() . '.' . $image->getClientOriginalExtension();
             $destinationPath = public_path('/uploads/client/');
-            $image->move($destinationPath, $other);    
+            $image->move($destinationPath, $other);
         }
 
         $objEmployee = new Employee();
         $objEmployee->name = $request->input('name');
         $objEmployee->user_id = $userId;
         $objEmployee->father_name = $request->input('father_name');
-        $objEmployee->date_of_birth = date('Y-m-d',strtotime($request->input('date_of_birth')));
+        $objEmployee->date_of_birth = date('Y-m-d', strtotime($request->input('date_of_birth')));
         $objEmployee->gender = $request->input('gender');
         $objEmployee->phone = $request->input('phone');
         $objEmployee->local_address = $request->input('local_address');
@@ -77,10 +78,10 @@ class Employee extends Model {
         $objEmployee->email = $request->input('email');
         $objEmployee->password = Hash::make($request->input('newpassword'));
         $objEmployee->employee_id = $request->input('employee_id');
-            
+
         $objEmployee->department = $request->input('department');
         $objEmployee->designation = $request->input('designation');
-        $objEmployee->date_of_joining = date('Y-m-d',strtotime($request->input('doj')));
+        $objEmployee->date_of_joining = date('Y-m-d', strtotime($request->input('doj')));
         $objEmployee->joining_salary = $request->input('join_salary');
         $objEmployee->status = $request->input('status');
 
@@ -101,57 +102,57 @@ class Employee extends Model {
         return $objEmployee->id;
     }
 
-    public function editEmployee($request,$id) {
+    public function editEmployee($request, $id) {
 
-      // print_r( $request->file());
-      // print_r( $request->input());exit;
+        // print_r( $request->file());
+        // print_r( $request->input());exit;
         $emp_pic = '';
-        if($request->file('emp_pic')){
+        if ($request->file('emp_pic')) {
             $image = $request->file('emp_pic');
-            $emp_pic = 'employee'.time().'.'.$image->getClientOriginalExtension();
+            $emp_pic = 'employee' . time() . '.' . $image->getClientOriginalExtension();
             $destinationPath = public_path('/uploads/client/');
-            $image->move($destinationPath, $emp_pic);    
+            $image->move($destinationPath, $emp_pic);
         }
-         $resume = '';
-        if($request->file('resume')){
+        $resume = '';
+        if ($request->file('resume')) {
             $image = $request->file('resume');
-            $resume = 'resume'.time().'.'.$image->getClientOriginalExtension();
+            $resume = 'resume' . time() . '.' . $image->getClientOriginalExtension();
             $destinationPath = public_path('/uploads/client/');
-            $image->move($destinationPath, $resume);    
+            $image->move($destinationPath, $resume);
         }
-         $offer_latter = '';
-        if($request->file('offer_latter')){
+        $offer_latter = '';
+        if ($request->file('offer_latter')) {
             $image = $request->file('offer_latter');
-            $offer_latter = 'offer_latter'.time().'.'.$image->getClientOriginalExtension();
+            $offer_latter = 'offer_latter' . time() . '.' . $image->getClientOriginalExtension();
             $destinationPath = public_path('/uploads/client/');
-            $image->move($destinationPath, $offer_latter);    
+            $image->move($destinationPath, $offer_latter);
         }
         $join_letter = '';
-        if($request->file('join_letter')){
+        if ($request->file('join_letter')) {
             $image = $request->file('join_letter');
-            $join_letter = 'join_letter'.time().'.'.$image->getClientOriginalExtension();
+            $join_letter = 'join_letter' . time() . '.' . $image->getClientOriginalExtension();
             $destinationPath = public_path('/uploads/client/');
-            $image->move($destinationPath, $join_letter);    
+            $image->move($destinationPath, $join_letter);
         }
         $contect_agre = '';
-        if($request->file('contect_agre')){
+        if ($request->file('contect_agre')) {
             $image = $request->file('contect_agre');
-            $contect_agre = 'contect_agreement'.time().'.'.$image->getClientOriginalExtension();
+            $contect_agre = 'contect_agreement' . time() . '.' . $image->getClientOriginalExtension();
             $destinationPath = public_path('/uploads/client/');
-            $image->move($destinationPath, $contect_agre);    
-        }  
+            $image->move($destinationPath, $contect_agre);
+        }
         $other = '';
-        if($request->file('other')){
+        if ($request->file('other')) {
             $image = $request->file('other');
-            $other = 'other'.time().'.'.$image->getClientOriginalExtension();
+            $other = 'other' . time() . '.' . $image->getClientOriginalExtension();
             $destinationPath = public_path('/uploads/client/');
-            $image->move($destinationPath, $other);    
+            $image->move($destinationPath, $other);
         }
 
         $objEmployee = Employee::find($id);
         $objEmployee->name = $request->input('name');
         $objEmployee->father_name = $request->input('father_name');
-        $objEmployee->date_of_birth = date('Y-m-d',strtotime($request->input('date_of_birth')));
+        $objEmployee->date_of_birth = date('Y-m-d', strtotime($request->input('date_of_birth')));
         $objEmployee->gender = $request->input('gender');
         $objEmployee->phone = $request->input('phone');
         $objEmployee->local_address = $request->input('local_address');
@@ -160,11 +161,12 @@ class Employee extends Model {
         $objEmployee->martial_status = $request->input('martial_status');
         $objEmployee->photo = $emp_pic;
         $objEmployee->email = $request->input('email');
-        $objEmployee->password = empty($request->input('newpassword')) ? $request->input('oldpassword') :  Hash::make($request->input('newpassword'));;
+        $objEmployee->password = empty($request->input('newpassword')) ? $request->input('oldpassword') : Hash::make($request->input('newpassword'));
+        ;
         $objEmployee->employee_id = $request->input('employee_id');
         $objEmployee->department = $request->input('department');
         $objEmployee->designation = $request->input('designation');
-        $objEmployee->date_of_joining = date('Y-m-d',strtotime($request->input('doj')));
+        $objEmployee->date_of_joining = date('Y-m-d', strtotime($request->input('doj')));
         $objEmployee->joining_salary = $request->input('join_salary');
         $objEmployee->status = $request->input('status');
 
@@ -185,14 +187,14 @@ class Employee extends Model {
         return TRUE;
     }
 
-    public function updateEmpId($empId,$userId) {
+    public function updateEmpId($empId, $userId) {
         $objEmployee = Employee::find($empId);
         $objEmployee->user_id = $userId;
         $objEmployee->save();
         return TRUE;
     }
 
-     public function getEmployeeDatatable($request) {
+    public function getEmployeeDatatable($request) {
         $requestData = $_REQUEST;
         $columns = array(
             // datatable column index  => database column name
@@ -206,19 +208,19 @@ class Employee extends Model {
         if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
             $searchVal = $requestData['search']['value'];
             $query->where(function($query) use ($columns, $searchVal, $requestData) {
-                   $flag = 0;
-                   foreach ($columns as $key => $value) {
-                  $searchVal = $requestData['search']['value'];
-                  if ($requestData['columns'][$key]['searchable'] == 'true') {
-                      if ($flag == 0) {
-                          $query->where($value, 'like', '%' . $searchVal . '%');
-                          $flag = $flag + 1;
-                      } else {
-                          $query->orWhere($value, 'like', '%' . $searchVal . '%');
-                      }
-                  }
-                   }
-               });
+                $flag = 0;
+                foreach ($columns as $key => $value) {
+                    $searchVal = $requestData['search']['value'];
+                    if ($requestData['columns'][$key]['searchable'] == 'true') {
+                        if ($flag == 0) {
+                            $query->where($value, 'like', '%' . $searchVal . '%');
+                            $flag = $flag + 1;
+                        } else {
+                            $query->orWhere($value, 'like', '%' . $searchVal . '%');
+                        }
+                    }
+                }
+            });
         }
 
         $temp = $query->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir']);
@@ -227,27 +229,27 @@ class Employee extends Model {
         $totalFiltered = count($temp->get());
 
         $resultArr = $query->skip($requestData['start'])
-           ->take($requestData['length'])
-           ->select('ra.id', 'ra.name','ra.father_name', 'ra.photo','ra.phone','ra.email','ra.employee_id','ra.date_of_joining', 'ra.created_at','ra.gender')->get();
+                        ->take($requestData['length'])
+                        ->select('ra.id', 'ra.name', 'ra.father_name', 'ra.photo', 'ra.phone', 'ra.email', 'ra.employee_id', 'ra.date_of_joining', 'ra.created_at', 'ra.gender')->get();
         $data = array();
-   
+
         foreach ($resultArr as $row) {
-           $actionHtml = $request->input('gender');
-           $actionHtml .= '<a href="' . route('employee-edit', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
-            $actionHtml .= '<a href="#deleteModel" data-toggle="modal" data-id="'.$row['id'].'" class="link-black text-sm empDelete" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';
+            $actionHtml = $request->input('gender');
+            $actionHtml .= '<a href="' . route('employee-edit', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
+            $actionHtml .= '<a href="#deleteModel" data-toggle="modal" data-id="' . $row['id'] . '" class="link-black text-sm empDelete" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';
             $nestedData = array();
             $nestedData[] = $row["email"];
             $nestedData[] = $row["name"];
             $nestedData[] = $row["father_name"];
             $nestedData[] = $row["gender"];
-            $nestedData[] = date('d-m-Y',strtotime($row["date_of_joining"]));
+            $nestedData[] = date('d-m-Y', strtotime($row["date_of_joining"]));
             $nestedData[] = $row["phone"];
             $nestedData[] = $row["employee_id"];
-          
+
             $nestedData[] = $actionHtml;
             $data[] = $nestedData;
         }
-       // echo "<pre>";print_r($data);exit;
+        // echo "<pre>";print_r($data);exit;
 
         $json_data = array(
             "draw" => intval($requestData['draw']), // for every request/draw by clientside , they send a number as a parameter, when they recieve a response/data they first check the draw number, so we are sending same number in draw. 
@@ -258,6 +260,17 @@ class Employee extends Model {
 
         return $json_data;
     }
-    
-   
+
+    public function getAllEmployee($id = NULL) {
+
+        if ($id) {
+
+            $result = Employee::select('employee.*')->where('employee.id', '=', $id)->get()->first()->toArray();
+        } else {
+
+            $result = Employee::get();
+        }
+        return $result;
+    }
+
 }
