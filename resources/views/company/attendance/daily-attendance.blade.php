@@ -9,7 +9,7 @@
                         <h5>Manage Attendance Of All Employees</h5>
                     </div>
                     <div class="ibox-content">
-                        {{ Form::open( array('method' => 'post', 'class' => 'form-horizontal', 'id' => 'manageDailyAttendance' )) }}
+                       {{ Form::open( array('method' => 'post', 'class' => 'form-horizontal', 'id' => 'manageDailyAttendance' )) }}  
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Employees By Department </label>
@@ -53,7 +53,7 @@
                     </div>
                 </div>
             </div>
-               
+              
             @if(isset($getEmployees))
                 <div class="col-lg-12">
                    <div class="ibox float-e-margins">
@@ -81,19 +81,20 @@
                                                 <td>{{ ++$key }}</td>
                                                 <td>{{ $getEmployee->name }}</td>
                                                 <td>
-                                                    <select class="form-control emp_rows" name= "status" data-id="{{ $getEmployee->id }}">
-                                                        <option value="1" selected="">Present</option>
-                                                        <option value="2">Absent</option>
+                                                    <select class="form-control emp_rows" name= "attendance[]" data-id="{{ $getEmployee->id }}">
+                                                        <option value="present" selected="">Present</option>
+                                                        <option value="absent">Absent</option>
                                                     </select>   
                                                 </td>
                                                 <td>
                                                     <span style="display: none;" id="reason_holder_{{ $getEmployee->id }}">
-                                                        <input type="text" name="reason_{{ $getEmployee->id }}" class="form-control" value="">
+                                                        <input type="text" name="reason[]" class="form-control" value="">
                                                     </span>
                                                     <span style="display: block;" id="reason_holder_2_{{ $getEmployee->id }}"></span>
                                                 </td>
                                             </tr>
-                                            <input type="hidden" name="attendance_id_{{ $getEmployee->id }}" value="{{ $getEmployee->id }}">
+                                            <input type="hidden" name="emp_id[]" value="{{ $getEmployee->id }}">
+                                            <input type="hidden" name="user_id[]" value="{{ $getEmployee->user_id }}">
                                         @endforeach
                                     @else
                                         <tr>
@@ -104,7 +105,7 @@
                             </table>
                         </div>
 
-                        <input type="hidden" name="number_of_attendances" value="{{ $getEmployees->count() }}">
+                       
                     
                         <center>
                             <button type="submit" class="btn btn-success">

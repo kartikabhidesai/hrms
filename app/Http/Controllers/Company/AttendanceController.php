@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Department;
 use App\Model\Employee;
 use App\Model\Company;
+use App\Model\Attendance;
 use Auth;
 use Route;
 
@@ -27,9 +28,10 @@ class AttendanceController extends Controller
             $data['date'] = $request->get('date');
     		if($request->get('departentId') == 'all') {
                 $data['departmentname']="All Department";
-                $data['getEmployees'] = Employee::select('Employee.name','Employee.id')
+                $data['getEmployees'] = Employee::select('Employee.name','Employee.id','Employee.user_id','attendance.reason','attendance.attendance')
                                                 ->join('department', 'employee.department', '=', 'department.id')
                                                 ->join('comapnies', 'department.company_id', '=', 'comapnies.id')   
+                                                ->leftjoin('attendance', 'employee.user_id', '=', 'attendance.user_id')   
                                                 ->where('comapnies.user_id', $userid)
                                                 ->get();
     		} else {
@@ -39,12 +41,18 @@ class AttendanceController extends Controller
     		}
     	}
         if($request->isMethod('post')) {
-            dd($request->all());
-            /*$saveAttendance = new Attendance;
-            $saveAttendance->date = $request->get('date');
-            $saveAttendance->date = $user_id;
-            $saveAttendance->date = $department_id;
-            $saveAttendance->emp_id = $request->;*/
+            $objAttendance = new Attendance;
+            $result=$objAttendance->saveAttendance($request);
+             if ($result) {
+                $return['status'] = 'success';
+                $return['message'] = 'Attendance created successfully.';
+                $return['redirect'] = route('daily-attendance');
+            } else {
+                $return['status'] = 'error';
+                $return['message'] = 'Something goes to wrong';
+            }
+            echo json_encode($return);
+            exit;
         }
         $data['detail'] = Department::where('company_id', $companyId[0]['id'])->get();
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');

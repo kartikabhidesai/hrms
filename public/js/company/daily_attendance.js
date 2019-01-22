@@ -66,7 +66,7 @@ var DailyAttendance = function () {
       {
         $('#reason_holder_2_' + emp_id).attr('style', 'display: none;');
 
-        if(status == 2) {
+        if(status == "absent") {
           $('#reason_holder_' + emp_id).attr('style', 'display: block;');
         } else {
           $('#reason_holder_' + emp_id).attr('style', 'display: none;');
