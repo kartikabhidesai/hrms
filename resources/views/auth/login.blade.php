@@ -32,7 +32,7 @@
         </div>
             <form class="m-t" role="form" id="login" method="POST" action="{{ route('login') }}">
                 <div class="form-group">
-                    <input type="email" class="form-control" placeholder="email" name="email" required="">
+                    <input type="email" class="form-control" placeholder="email" name="email" required="" autofocus>
                 </div>
                 {{ csrf_field() }}
                 <div class="form-group">

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="wrapper wrapper-content animated fadeInRight">
-	   <div class="row">
+	    <div class="row">
             <div class="col-lg-12">
 			{{ csrf_field() }}
 			    <div class="ibox float-e-margins">
@@ -69,9 +69,55 @@
                                 <button class="btn btn-sm btn-primary getAttdanceReport" type="submit">Show Report</button>
                             </div>
                         </div>
+                        {{ Form::close() }}
                     </div>
                 </div>
             </div>
         </div>
+
+        
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4" style="text-align: center;">
+                        <div class="tile-stats tile-gray">
+                            <div class="icon"><i class="entypo-docs"></i></div>
+                            <h2 style="color: #696969;">Attendance Sheet</h2>
+                            <h3 style="color: #696969;"> Department : Abhay<br>January 2019 </h3>
+                        </div>
+                    </div>
+                    <div class="col-md-4"></div>
+                    <table class="table table-bordered" id="my_table">
+                        <thead>
+                            <tr>
+                                <td style="text-align: center;">
+                                    Employees<i class="entypo-down-thin"></i> |
+                                    Date <i class="entypo-right-thin"></i>
+                                </td>
+                                <td style="text-align: center;">
+                                    Summary<br>( Total Presence / Total Absence ) </td>
+                                    @for($day=1; $day<=cal_days_in_month(CAL_GREGORIAN,1,2019); $day++)
+                                        <td style="text-align: center;">{{ $day }}</td>
+                                    @endfor
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td style="text-align: center;"> Abhay Singh </td>
+                                <td style="text-align: center;"> 0 / 0 </td>
+                                @for($day=1; $day<=cal_days_in_month(CAL_GREGORIAN,1,2019); $day++)
+                                    <td style="text-align: center;"></td>
+                                @endfor
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <center>
+                        <a href="#" class="btn btn-primary" target="_blank"> Print Attendance Sheet </a>
+                    </center>
+                </div>
+            </div>
+        
     </div>
 @endsection

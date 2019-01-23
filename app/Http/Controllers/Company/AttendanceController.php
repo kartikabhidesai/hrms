@@ -28,7 +28,7 @@ class AttendanceController extends Controller
             $dateformate = date('Y-m-d', strtotime($request->get('date')));
             $data['date'] = $request->get('date');
     		if($request->get('departentId') == 'all') {
-                $data['departmentname']="All Department";
+                $data['departmentname'] = "All Department";
                 $data['getEmployees'] = Employee::select('Employee.name','Employee.id','Employee.user_id','attendance.reason','attendance.attendance')
                                                 ->join('department', 'employee.department', '=', 'department.id')
                                                 ->join('comapnies', 'department.company_id', '=', 'comapnies.id')   
@@ -37,7 +37,7 @@ class AttendanceController extends Controller
                                                 ->where('attendance.date', $dateformate)
                                                 ->get();
                     if(count($data['getEmployees']) == 0){
-                       $data['getEmployees'] = Employee::select('Employee.name','Employee.id','Employee.user_id','attendance.reason','attendance.attendance')
+                       $data['getEmployees'] = Employee::select('Employee.name','Employee.id','Employee.user_id')
                                                 ->join('department', 'employee.department', '=', 'department.id')
                                                 ->join('comapnies', 'department.company_id', '=', 'comapnies.id')   
                                                 ->leftjoin('attendance', 'employee.user_id', '=', 'attendance.user_id')   
@@ -55,7 +55,7 @@ class AttendanceController extends Controller
                                                 ->where('attendance.date', $dateformate)
                                                 ->get();
                     if(count($data['getEmployees']) == 0){
-                       $data['getEmployees'] = Employee::select('Employee.name','Employee.id','Employee.user_id','attendance.reason','attendance.attendance')
+                       $data['getEmployees'] = Employee::select('Employee.name','Employee.id','Employee.user_id')
                                                 ->join('department', 'employee.department', '=', 'department.id')
                                                 ->join('comapnies', 'department.company_id', '=', 'comapnies.id')   
                                                 ->leftjoin('attendance', 'employee.user_id', '=', 'attendance.user_id')   
@@ -63,13 +63,13 @@ class AttendanceController extends Controller
                                                 ->where('Employee.department', $departmentname->id)
                                                 ->get();
                     }
-//                    $data['getEmployees'] = Employee::where('department', $departmentname->id)->get();  
+                    // $data['getEmployees'] = Employee::where('department', $departmentname->id)->get();  
                     $data['departmentname'] = $departmentname[0]['department_name'];
     		}
     	}
         if($request->isMethod('post')) {
             $objAttendance = new Attendance;
-            $result=$objAttendance->saveAttendance($request);
+            $result = $objAttendance->saveAttendance($request);
              if ($result) {
                 $return['status'] = 'success';
                 $return['message'] = 'Attendance created successfully.';
@@ -101,8 +101,15 @@ class AttendanceController extends Controller
         $companyId = Company::select('id')->where('user_id', $userId)->first();
         $data['detail'] = Department::where('company_id', $companyId['id'])->get();
 
-        if ($request->isMethod('post')) {
-        	dd('x');
+        if (!empty($request->get('department_id'))) {
+            $departmentName = Department::select('id', 'department_name')->where('id', $request->get('departentId'))->first();
+            
+        	$data['getAttedanceReport'] = Employee::select('name','id','date', 'attendance')  
+                                                    ->where(YEAR('date'), $request->year)
+                                                    ->where(MONTH('date'), $request->month)
+                                                    ->where('department', $departmentName->id)
+                                                    ->get();
+            dd($data['getAttedanceReport']);
         }
 
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
