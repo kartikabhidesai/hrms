@@ -137,7 +137,7 @@ class DemoController extends Controller {
         $mailData['data']['caller_note'] = 'dsad';
         $mailData['template'] = 'emails.test-mail';
         $result = $sendMail->sendSMTPMail($mailData);
-        echo $result;exit;
+        dump($result);exit;
     }
   
 }
