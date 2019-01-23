@@ -11,6 +11,7 @@ use Route;
 use APP;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use App\Model\Payroll;
 
 class PayrollController extends Controller {
 
@@ -42,15 +43,30 @@ class PayrollController extends Controller {
         return view('company.payroll.payroll-employee-list', $data);
     }
 
-    public function add() {
+    public function add(Request $request) {
+
+        if ($request->isMethod('post')) {
+            $payrollobj = new Payroll();
+            $ret = $payrollobj->addnewpayroll($request);
+            if ($ret) {
+                $return['status'] = 'success';
+                $return['message'] = 'Payroll added successfully.';
+                $return['redirect'] = route('payroll-list');
+            } else {
+                $return['status'] = 'error';
+                $return['message'] = 'something will be wrong.';
+            }
+            echo json_encode($return);
+            exit;
+        }
         $data['detail'] = $this->loginUser;
         $data['header'] = array(
             'title' => 'Create new payroll for ahmed',
             'breadcrumb' => array(
                 'Home' => route("admin-dashboard")));
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
-        $data['js'] = array('company/employee.js', 'ajaxfileupload.js', 'jquery.form.min.js');
-        $data['funinit'] = array('Employee.init()');
+        $data['js'] = array('company/payroll.js', 'ajaxfileupload.js', 'jquery.form.min.js');
+        $data['funinit'] = array('Payroll.init()');
         $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
         return view('company.payroll.payroll-add', $data);
     }
