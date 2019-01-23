@@ -16,6 +16,7 @@ use File;
 
 class Attendance extends Model
 {
+    protected $fillable = ['date', 'user_id', 'department_id', 'emp_id', 'attendance', 'reason', 'created_at', 'updated_at'];
     protected $table = 'attendance';
 
     public function saveAttendance($request){
@@ -33,7 +34,7 @@ class Attendance extends Model
 //$user->foo = Input::get('foo');
 //$user->save();
              
-            $saveattendance = Attendance::firstOrNew(array('date' => date('Y-m-d',  strtotime($date)),'department_id'=>$department_id,'user_id'=>$user_id[$i],'emp_id'=>$empid[$i]));
+            $saveattendance = Attendance::firstOrNew(array('date' => date('Y-m-d',  strtotime($date)),'user_id'=>$user_id[$i],'emp_id'=>$empid[$i]));
             //new Attendance();
             $saveattendance->date=date('Y-m-d',  strtotime($date));
             $saveattendance->department_id=$department_id;

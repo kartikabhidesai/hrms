@@ -25,6 +25,7 @@ class AttendanceController extends Controller
         $companyId = Company::select('id')->where('user_id', $userid)->get();
     	if (!empty($request->get('departentId'))) {
             $data['departentId'] = $request->get('departentId');
+            $dateformate = date('Y-m-d', strtotime($request->get('date')));
             $data['date'] = $request->get('date');
     		if($request->get('departentId') == 'all') {
                 $data['departmentname']="All Department";
@@ -33,11 +34,37 @@ class AttendanceController extends Controller
                                                 ->join('comapnies', 'department.company_id', '=', 'comapnies.id')   
                                                 ->leftjoin('attendance', 'employee.user_id', '=', 'attendance.user_id')   
                                                 ->where('comapnies.user_id', $userid)
+                                                ->where('attendance.date', $dateformate)
                                                 ->get();
+                    if(count($data['getEmployees']) == 0){
+                       $data['getEmployees'] = Employee::select('Employee.name','Employee.id','Employee.user_id','attendance.reason','attendance.attendance')
+                                                ->join('department', 'employee.department', '=', 'department.id')
+                                                ->join('comapnies', 'department.company_id', '=', 'comapnies.id')   
+                                                ->leftjoin('attendance', 'employee.user_id', '=', 'attendance.user_id')   
+                                                ->where('comapnies.user_id', $userid)
+                                                ->get();
+                    }
     		} else {
-                $departmentname = Department::select('id', 'department_name')->where('id', $data['departentId'])->first();
-                $data['getEmployees'] = Employee::where('department', $departmentname->id)->get();  
-                $data['departmentname'] = $departmentname[0]['department_name'];
+                    $departmentname = Department::select('id', 'department_name')->where('id', $data['departentId'])->first();
+                    $data['getEmployees'] = Employee::select('Employee.name','Employee.id','Employee.user_id','attendance.reason','attendance.attendance')
+                                                ->join('department', 'employee.department', '=', 'department.id')
+                                                ->join('comapnies', 'department.company_id', '=', 'comapnies.id')   
+                                                ->leftjoin('attendance', 'employee.user_id', '=', 'attendance.user_id')   
+                                                ->where('comapnies.user_id', $userid)
+                                                ->where('Employee.department', $departmentname->id)
+                                                ->where('attendance.date', $dateformate)
+                                                ->get();
+                    if(count($data['getEmployees']) == 0){
+                       $data['getEmployees'] = Employee::select('Employee.name','Employee.id','Employee.user_id','attendance.reason','attendance.attendance')
+                                                ->join('department', 'employee.department', '=', 'department.id')
+                                                ->join('comapnies', 'department.company_id', '=', 'comapnies.id')   
+                                                ->leftjoin('attendance', 'employee.user_id', '=', 'attendance.user_id')   
+                                                ->where('comapnies.user_id', $userid)
+                                                ->where('Employee.department', $departmentname->id)
+                                                ->get();
+                    }
+//                    $data['getEmployees'] = Employee::where('department', $departmentname->id)->get();  
+                    $data['departmentname'] = $departmentname[0]['department_name'];
     		}
     	}
         if($request->isMethod('post')) {

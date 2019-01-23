@@ -82,13 +82,15 @@
                                                 <td>{{ $getEmployee->name }}</td>
                                                 <td>
                                                     <select class="form-control emp_rows" name= "attendance[]" data-id="{{ $getEmployee->id }}">
-                                                        <option value="present" selected="">Present</option>
-                                                        <option value="absent">Absent</option>
+                                                        
+                                                        <option value="present" {{ ($getEmployee->attendance == "present" ? 'selected="selected"' : '') }}>Present</option>
+                                                        <option value="absent" {{ ($getEmployee->attendance == "absent" ? 'selected="selected"' : '') }}>Absent</option>
+                                                        
                                                     </select>   
                                                 </td>
                                                 <td>
-                                                    <span style="display: none;" id="reason_holder_{{ $getEmployee->id }}">
-                                                        <input type="text" name="reason[]" class="form-control" value="">
+                                                    <span  @php if($getEmployee->reason == null) { print_r('style="display: none;"');} @endphp id="reason_holder_{{ $getEmployee->id }}">
+                                                        <input type="text" name="reason[]" class="form-control" value="{{ $getEmployee->reason  }}">
                                                     </span>
                                                     <span style="display: block;" id="reason_holder_2_{{ $getEmployee->id }}"></span>
                                                 </td>
