@@ -34,7 +34,7 @@ class Attendance extends Model
         // $user->foo = Input::get('foo');
         // $user->save();
              
-            $saveattendance = Attendance::firstOrNew(array('date' => date('Y-m-d',  strtotime($date)),'user_id' = >$user_id[$i],'emp_id' => $empid[$i]));
+            $saveattendance = Attendance::firstOrNew(array('date' => date('Y-m-d',  strtotime($date)),'user_id' => $user_id[$i],'emp_id' => $empid[$i]));
             //Save new OR update(if exist) attendance record
             $saveattendance->date = date('Y-m-d', strtotime($date));
             $saveattendance->department_id = $department_id;
