@@ -102,12 +102,13 @@ class AttendanceController extends Controller
         $data['detail'] = Department::where('company_id', $companyId['id'])->get();
 
         if (!empty($request->get('department_id'))) {
-            $departmentName = Department::select('id', 'department_name')->where('id', $request->get('departentId'))->first();
+            $departmentName = Department::select('id', 'department_name')->where('id', $request->get('department_id'))->first();
             
-        	$data['getAttedanceReport'] = Employee::select('name','id','date', 'attendance')  
-                                                    ->where(YEAR('date'), $request->year)
-                                                    ->where(MONTH('date'), $request->month)
-                                                    ->where('department', $departmentName->id)
+        	$data['getAttedanceReport'] = Attendance::select('employee.name', 'attendance.id','attendance.date', 'attendance.attendance')  
+                                                    ->join('employee', 'attendance.emp_id', '=', 'employee.id')
+                                                    ->whereYear('attendance.date', '=', $request->year)
+                                                    ->whereMonth('attendance.date', '=', $request->month)
+                                                    ->where('department_id', $departmentName->id)
                                                     ->get();
             dd($data['getAttedanceReport']);
         }
