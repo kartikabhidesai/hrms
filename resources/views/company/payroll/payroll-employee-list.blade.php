@@ -10,7 +10,7 @@
                     <h5>Payroll Ahmed List</h5>
                     <div class="ibox-tools">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <a href="{{ route('payroll-add') }}" class="btn btn-primary dim" ><i class="fa fa-plus"> Add Payroll</i></a>
+                        <a href="{{ route('payroll-add',array('id' => $empId)) }}" class="btn btn-primary dim" ><i class="fa fa-plus"> Add Payroll</i></a>
                         <!--  <a class="collapse-link">
                              <i class="fa fa-chevron-up"></i>
                          </a>
@@ -71,15 +71,23 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach($arrayPayroll as $tow => $val)
                                 <tr>
-                                    <td>{{$singleemployee['department']}}</td>
-                                    <td>{{$singleemployee['joining_salary']}}</td>
-                                    <td>OverTime static</td>
-                                    <td>Amount per static</td>
+                                    <td>{{ $val['department'] }}</td>
+                                    <td>{{ $val['basic_salary'] }}</td>
+                                    <td>{{ $val['over_time'] }}</td>
                                     <td>Transportation STATIC</td>
+                                    <td>{{$val['transportation']}}</td>
                                     <td>{{$singleemployee['status']}}</td>
-                                    <td><a href="{{ route('payroll-emp-detail',array('id'=>$singleemployee['id'])) }}" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-trash"></i></a></td>
+                                    <td>
+                                       <!--  <a href="{{ route('payroll-emp-detail',array('id'=>$singleemployee['id'])) }}" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-trash"></i></a> -->
+                                       <a href="{{ route('payroll-edit',array('id'=> $val['id'])) }}" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-edit"></i></a>
+                                        <a href="#deleteModel" data-toggle="modal" data-id="{{ $val['id'] }}" class="link-black text-sm empDelete" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>
+                                        </td>
+                                    </td>
+                                    
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

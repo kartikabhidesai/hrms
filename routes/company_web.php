@@ -35,8 +35,8 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
 
     /*Payroll related routes*/
     Route::match(['get', 'post'], 'payroll-list', ['as' => 'payroll-list', 'uses' => 'Company\PayrollController@index']); 
-    Route::match(['get', 'post'], 'payroll-add', ['as' => 'payroll-add', 'uses' => 'Company\PayrollController@add']);  
-    Route::match(['get', 'post'], 'payroll-edit', ['as' => 'payroll-edit', 'uses' => 'Company\PayrollController@index']);
+    Route::match(['get', 'post'], 'payroll-add/{id}', ['as' => 'payroll-add', 'uses' => 'Company\PayrollController@add']);  
+    Route::match(['get', 'post'], 'payroll-edit/{id}', ['as' => 'payroll-edit', 'uses' => 'Company\PayrollController@edit']);
     Route::match(['get', 'post'], 'payroll-emp-detail/{id}', ['as' => 'payroll-emp-detail', 'uses' => 'Company\PayrollController@payrollEmpList']);
-
+    Route::match(['get', 'post'], 'payroll-ajaxAction', ['as' => 'payroll-ajaxAction', 'uses' => 'Company\PayrollController@ajaxAction']);
 });

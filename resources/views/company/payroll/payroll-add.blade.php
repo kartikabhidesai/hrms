@@ -17,33 +17,34 @@
                     <div class="form-group">
                         <label class="col-lg-3 control-label">Salary Grade</label>
                         <div class="col-lg-9">
-                            {{ Form::number('salary_grade', null, array('placeholder'=>'Salary Grade', 'class' => 'form-control' ,'required')) }}
+                            {{ Form::number('salary_grade', isset($arrayPayroll) ? $arrayPayroll['salary_grade'] : '', array('placeholder'=>'Salary Grade', 'class' => 'form-control' ,'required')) }}
                         </div>
                     </div>
+                  
                     <div class="form-group">
                         <label class="col-lg-3 control-label">Basic Salary</label>
                         <div class="col-lg-9">
-                            {{ Form::number('basic_salary', null, array('placeholder'=>'Basic Salary', 'class' => 'form-control' ,'required')) }}
+                            {{ Form::number('basic_salary', isset($arrayPayroll) ? $arrayPayroll['basic_salary'] : '', array('placeholder'=>'Basic Salary', 'class' => 'form-control' ,'required')) }}
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-lg-3 control-label">OverTime</label>
                         <div class="col-lg-9">
-                            {{ Form::number('over_time', null, array('placeholder'=>'OverTime', 'class' => 'form-control' ,'required')) }}
+                            {{ Form::number('over_time', isset($arrayPayroll) ? $arrayPayroll['over_time'] : '', array('placeholder'=>'OverTime', 'class' => 'form-control' ,'required')) }}
                         </div>
                     </div>	
                     <div class="form-group">
                         <label class="col-lg-3 control-label">Department</label>
                         <div class="col-lg-9">
-                            {{ Form::text('department', null, array('placeholder'=>'Department', 'class' => 'form-control last_name' ,'required')) }}
+                            {{ Form::text('department', isset($arrayPayroll) ? $arrayPayroll['department'] : '', array('placeholder'=>'Department', 'class' => 'form-control last_name' ,'required')) }}
                         </div>
                     </div>
-
+  
                     <div class="form-group" id="data_1">
                         <label class="col-sm-3 control-label">Due Date</label>
                         <div class="col-sm-9"> 
                             <div class="input-group date">
-                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="due_date" id="" placeholder="Select Date of joingng" class="form-control" value="">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" value="<?=  isset($arrayPayroll) ? $arrayPayroll['due_date']: '' ?>" name="due_date" id="" placeholder="Select Date of joingng" class="form-control" value="">
                             </div>
                         </div>
                     </div>
@@ -64,31 +65,33 @@
                     <div class="form-group">
                         <label class="col-lg-3 control-label">Housing:</label>
                         <div class="col-lg-8">
-                            {{ Form::text('housing', null, array('placeholder'=>'Housing', 'class' => 'form-control' ,'required')) }}
+                            {{ Form::text('housing',  isset($arrayPayroll) ? $arrayPayroll['housing'] : '', array('placeholder'=>'Housing', 'class' => 'form-control' ,'required')) }}
                         </div>
                         <label class="col-lg-1 control-label">SAR</label>
                     </div>
                     <div class="form-group">
                         <label class="col-lg-3 control-label">Medical:</label>
                         <div class="col-lg-8">
-                            {{ Form::text('medical', null, array('placeholder'=>'Medical', 'class' => 'form-control' ,'required')) }}
+                            {{ Form::text('medical',  isset($arrayPayroll) ? $arrayPayroll['medical'] : '', array('placeholder'=>'Medical', 'class' => 'form-control' ,'required')) }}
                         </div>
                         <label class="col-lg-1 control-label">SAR</label>
                     </div>	
                     <div class="form-group">
                         <label class="col-lg-3 control-label">Transportation:</label>
                         <div class="col-lg-8">
-                            {{ Form::text('transportation', null, array('placeholder'=>'Transportation', 'class' => 'form-control last_name' ,'required')) }}
+                            {{ Form::text('transportation',  isset($arrayPayroll) ? $arrayPayroll['transportation'] : '', array('placeholder'=>'Transportation', 'class' => 'form-control last_name' ,'required')) }}
                         </div>
                         <label class="col-lg-1 control-label">SAR</label>
                     </div>	
                     <div class="form-group">
                         <label class="col-lg-3 control-label">Travel:</label>
                         <div class="col-lg-8">
-                            {{ Form::text('travel', null, array('placeholder'=>'Travel', 'class' => 'form-control last_name' ,'required')) }}
+                            {{ Form::text('travel',  isset($arrayPayroll) ? $arrayPayroll['travel'] : '', array('placeholder'=>'Travel', 'class' => 'form-control last_name' ,'required')) }}
+                            {{ Form::hidden('editId',  isset($arrayPayroll) ? $arrayPayroll['id'] : '', array('placeholder'=>'Travel')) }}
                         </div>
                         <label class="col-lg-1 control-label">SAR</label>
                     </div>
+                      {{ Form::hidden('empId',  isset($arrayPayroll) ?$arrayPayroll['employee_id'] : '', array('placeholder'=>'empId')) }}
                     <div class="form-group">
                         <label class="col-lg-3 control-label">&nbsp;</label>
                         <div class="col-lg-8">
@@ -140,11 +143,16 @@
                         <div class="col-lg-8">
                         </div>
                     </div>
+                     <div class="form-group">
+                        <div class="col-lg-offset-3 col-lg-9">
+                            <button class="btn btn-sm btn-primary" type="submit">Save</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-6">
+        <!-- <div class="col-lg-6">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>Edit Bank Details</h5>
@@ -187,7 +195,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         {{ Form::close() }}
     </div>
 </div>

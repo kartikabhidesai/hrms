@@ -6,7 +6,7 @@
             {{ csrf_field() }}
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Employee List</h5>
+                    <h5>Payroll Employee List</h5>
                     <div class="ibox-tools">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                            <!-- <a href="{{ route('employee-add') }}" class="btn btn-primary dim" ><i class="fa fa-plus"> Add</i></a> -->
@@ -58,7 +58,7 @@
                                     <td>{{$singleemp->department}}</td>
                                     <td>{{$singleemp->joining_salary}}</td>
                                     <td>Grade</td>
-                                    <td>{{$singleemp->date_of_joining}}</td>
+                                    <td>{{ date('d-m-Y',strtotime($singleemp->date_of_joining)) }}</td>
                                     <td> 
                                         <a href="{{ route('payroll-emp-detail',array('id'=>$singleemp->id)) }}" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-eye"></i></a></td>
                                 </tr>
