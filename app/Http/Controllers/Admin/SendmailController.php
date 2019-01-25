@@ -17,7 +17,7 @@ use Route;
 use Illuminate\Http\Request;
 use Config;
 
-class UpdateProfileController extends Controller {
+class SendmailController extends Controller {
 
     public function __construct() {
         parent::__construct();
