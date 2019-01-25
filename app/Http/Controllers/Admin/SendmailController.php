@@ -16,6 +16,7 @@ use Auth;
 use Route;
 use Illuminate\Http\Request;
 use Config;
+use Mail;
 
 class SendmailController extends Controller {
 
