@@ -43,6 +43,7 @@ $pathToFile = '';
 
                     //  $m->cc($mailData['bcc']);
                 });
+                print_r($mailsend);
         if ($mailsend) {
             echo 'done';
         } else {
