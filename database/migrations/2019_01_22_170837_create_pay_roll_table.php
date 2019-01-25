@@ -14,10 +14,10 @@ class CreatePayRollTable extends Migration {
     public function up() {
         Schema::create('pay_roll', function (Blueprint $table) {
             $table->increments('id');
-            $table->float('salary_grade', 8, 2);
-            $table->float('basic_salary', 8, 2);
-            $table->float('over_time', 4, 4);
-            $table->string('department', 255);
+            $table->float('salary_grade', 10, 2);
+            $table->float('basic_salary', 10, 2);
+            $table->decimal('over_time', 10, 2);
+            $table->string('department', 255)->nullable();;
             $table->date('due_date')->nullable();
             $table->string('housing', 255);
             $table->string('medical', 255);
