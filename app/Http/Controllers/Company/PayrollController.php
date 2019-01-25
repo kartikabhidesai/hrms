@@ -87,7 +87,7 @@ class PayrollController extends Controller {
         $payrollObj = new Payroll;
         $arrayPayroll = $payrollObj->getPayrollV2($id);
         $data['arrayPayroll'] = $arrayPayroll[0];
-
+        $data['employee'] = Employee::find($data['arrayPayroll']['employee_id']);
         if($request->ajax()){
         // if ($request->isMethod('post')) {
             $payrollobj = new Payroll();
