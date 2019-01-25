@@ -20,6 +20,7 @@ Route::match(['get', 'post'], 'logout', ['as' => 'logout', 'uses' => 'LoginContr
 Route::match(['get', 'post'], 'forgot-password', ['as' => 'forgot-password', 'uses' => 'LoginController@forgotpassword']);
 Route::match(['get', 'post'], 'change-password', ['as' => 'change-password', 'uses' => 'Admin\UpdateProfileController@changepassword']);
 Route::match(['get', 'post'], 'update-profile', ['as' => 'update-profile', 'uses' => 'Admin\UpdateProfileController@editProfile']);
+Route::match(['get', 'post'], 'send-mail', ['as' => 'update-profile', 'uses' => 'Admin\SendmailController@sendmail']);
 
 $userPrefix = "";
 	Route::group(['prefix' => $userPrefix, 'middleware' => ['auth']], function() {
