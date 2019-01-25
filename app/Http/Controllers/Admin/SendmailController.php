@@ -16,8 +16,9 @@ use Auth;
 use Route;
 use Illuminate\Http\Request;
 use Config;
+use Mail;
 
-class UpdateProfileController extends Controller {
+class SendmailController extends Controller {
 
     public function __construct() {
         parent::__construct();
@@ -29,19 +30,20 @@ class UpdateProfileController extends Controller {
         $mailData['template'] = 'emails.test-mail';
         
         $mailData['attachment'] = array();
-
+$pathToFile = '';
         $mailData['mailto'] = ['kartikdesai123@gmail.com'];
         $mailData['data'] = 'ddd';
         $mailsend = Mail::send($mailData['template'], ['data' => $mailData['data']], function ($m) use ($mailData, $pathToFile) {
-                    $m->from('kartikdesai123@gmail.com', 'Office Park');
+                    $m->from('smtp1@prasadexpo.co.in', 'Office Park');
 
-                    $m->to($mailData['mailto'], "Office Park")->subject($mailData['subject']);
+                    $m->to($mailData['mailto'], "HRMS")->subject($mailData['subject']);
                     if ($pathToFile != "") {
                         // $m->attach($pathToFile);
                     }
 
                     //  $m->cc($mailData['bcc']);
                 });
+        var_dump($mailsend);
         if ($mailsend) {
             echo 'done';
         } else {
