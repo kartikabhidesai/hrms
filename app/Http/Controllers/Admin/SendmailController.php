@@ -30,7 +30,7 @@ class SendmailController extends Controller {
         $mailData['template'] = 'emails.test-mail';
         
         $mailData['attachment'] = array();
-
+$pathToFile = '';
         $mailData['mailto'] = ['kartikdesai123@gmail.com'];
         $mailData['data'] = 'ddd';
         $mailsend = Mail::send($mailData['template'], ['data' => $mailData['data']], function ($m) use ($mailData, $pathToFile) {
