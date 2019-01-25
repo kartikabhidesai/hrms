@@ -7,7 +7,7 @@
             {{ csrf_field() }}
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Payroll Ahmed List</h5>
+                    <h5>Payroll {{ $singleemployee['name'] }} List</h5>
                     <div class="ibox-tools">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <a href="{{ route('payroll-add',array('id' => $empId)) }}" class="btn btn-primary dim" ><i class="fa fa-plus"> Add Payroll</i></a>
@@ -61,24 +61,25 @@
                         <table class="table table-striped table-bordered table-hover dataTables-example" id="payrollDatatables">
                             <thead>
                                 <tr>
-                                    <th>Department</th>
                                     <th>Basic Salary</th>
+                                    <th>Medical</th>
                                     <th>OverTime</th>
-                                    <th>Amount Per</th>
                                     <th>Transportation</th>
                                     <th>Status</th>
+                                    <th>Travel</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($arrayPayroll as $tow => $val)
                                 <tr>
-                                    <td>{{ $val['department'] }}</td>
+                                  
                                     <td>{{ $val['basic_salary'] }}</td>
+                                    <td>{{ $val['medical'] }}</td>
                                     <td>{{ $val['over_time'] }}</td>
-                                    <td>Transportation STATIC</td>
                                     <td>{{$val['transportation']}}</td>
                                     <td>{{$singleemployee['status']}}</td>
+                                    <td>{{$val['travel']}}</td>
                                     <td>
                                        <!--  <a href="{{ route('payroll-emp-detail',array('id'=>$singleemployee['id'])) }}" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-trash"></i></a> -->
                                        <a href="{{ route('payroll-edit',array('id'=> $val['id'])) }}" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-edit"></i></a>

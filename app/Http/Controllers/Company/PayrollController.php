@@ -33,12 +33,14 @@ class PayrollController extends Controller {
 
     public function payrollEmpList($id) {
         $data['detail'] = $this->loginUser;
-        $data['header'] = array(
-            'title' => 'Payroll Ahmed List',
+        $EmpObj = new Employee;
+        $data['singleemployee'] = $EmpObj->getAllEmployee($id);
+         $data['header'] = array(
+            'title' => 'Payroll '. $data['singleemployee']['name'] .' List',
             'breadcrumb' => array(
                 'Home' => route("admin-dashboard")));
         $EmpObj = new Employee;
-        $data['singleemployee'] = $EmpObj->getAllEmployee($id);
+
         $PayrollObj = new Payroll;
         $data['arrayPayroll'] = $PayrollObj->getPayroll($id);
         $data['empId'] = $id;
@@ -68,6 +70,7 @@ class PayrollController extends Controller {
             exit;
         }
 
+        $data['employee'] = Employee::find($id);
         $data['detail'] = $this->loginUser;
         $data['header'] = array(
             'title' => 'Create new payroll',

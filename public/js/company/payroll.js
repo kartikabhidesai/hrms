@@ -1,12 +1,10 @@
 var Payroll = function () {
     var handleList = function () {
-
         var form = $('#addPayroll');
         var rules = {
             salary_grade: {required: true},
             basic_salary: {required: true},
             over_time: {required: true},
-            department: {required: true},
             due_date: {required: true},
             housing: {required: true},
             medical: {required: true},
@@ -18,7 +16,7 @@ var Payroll = function () {
         });
         dateFormate('.date')
         
-$('body').on('click', '.empDelete', function() {
+        $('body').on('click', '.empDelete', function() {
             var id = $(this).data('id');
             setTimeout(function() {
                 $('.yes-sure:visible').attr('data-id', id);

@@ -33,12 +33,13 @@
                             {{ Form::number('over_time', isset($arrayPayroll) ? $arrayPayroll['over_time'] : '', array('placeholder'=>'OverTime', 'class' => 'form-control' ,'required')) }}
                         </div>
                     </div>	
-                    <div class="form-group">
+                  
+                   <!--  <div class="form-group">
                         <label class="col-lg-3 control-label">Department</label>
                         <div class="col-lg-9">
                             {{ Form::text('department', isset($arrayPayroll) ? $arrayPayroll['department'] : '', array('placeholder'=>'Department', 'class' => 'form-control last_name' ,'required')) }}
                         </div>
-                    </div>
+                    </div> -->
   
                     <div class="form-group" id="data_1">
                         <label class="col-sm-3 control-label">Due Date</label>
@@ -98,17 +99,10 @@
                             &nbsp;
                         </div>
                     </div>	
-                    <div class="form-group">
-                        <label class="col-lg-3 control-label">&nbsp;</label>
-                        <div class="col-lg-8">
-                            &nbsp;
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>
-
+ 
         <div class="col-lg-6">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
@@ -126,21 +120,21 @@
                             10 Hours
                         </div>
                     </div>
-                    <div class="form-group">
+                  <!--   <div class="form-group">
                         <label class="col-lg-3 control-label">Department:</label>
                         <div class="col-lg-9">
                         </div>
-                    </div>	
+                    </div>	 -->
                     <div class="form-group">
                         <label class="col-lg-3 control-label">Status:</label>
                         <div class="col-lg-8 m-t-sm">
-                            Active
+                            {{ $employee->status }}
                         </div>
 
                     </div>	
                     <div class="form-group">
                         <label class="col-lg-3 control-label">Employee:</label>
-                        <div class="col-lg-8">
+                        <div class="col-lg-8">{{ $employee->name }}
                         </div>
                     </div>
                      <div class="form-group">

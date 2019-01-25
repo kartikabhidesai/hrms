@@ -138,12 +138,12 @@
 								{{ Form::text('employee_id', $details->employee_id, array('placeholder'=>'Employee Id', 'class' => 'form-control employee_id' ,'required')) }}
 							</div>
 						</div>
-						<div class="form-group">
+						<!-- <div class="form-group">
 							<label class="col-lg-3 control-label">Department</label>
 							<div class="col-lg-9">
 								{{ Form::select('department', $ArrDepartment , $details->department, array('placeholder'=>'Depatment', 'class' => 'form-control department', 'id' => 'department')) }}
 							</div>
-						</div>
+						</div> -->
 						<input type="hidden" name="oldpassword" value="{{  $details->password }}">
 						<input type="hidden" name="editId" value="{{  $details->id }}">
 						 	<div class="form-group">
@@ -172,12 +172,7 @@
                                 	{{ Form::select('status', $statusArray , $details->status, array('class' => 'form-control status', 'id' => 'status')) }}
                                 </div>
                         </div>
-                        <div class="form-group">
-						 		<label class="col-sm-3 control-label">&nbsp;</label>
-                                <div class="col-sm-9"> 
-                                	&nbsp;
-                                </div>
-                        </div>
+                        
 				</div>
 			</div>
 		</div>
