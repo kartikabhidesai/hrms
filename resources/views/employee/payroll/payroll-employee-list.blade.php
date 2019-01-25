@@ -67,7 +67,7 @@
                                     <th>Transportation</th>
                                     <th>Status</th>
                                     <th>Travel</th>
-                                    <th>Action</th>
+                                    <!-- <th>Action</th> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -80,12 +80,11 @@
                                     <td>{{$val['transportation']}}</td>
                                     <td>{{$singleemployee['status']}}</td>
                                     <td>{{$val['travel']}}</td>
-                                    <td>
-                                       <!--  <a href="{{ route('payroll-emp-detail',array('id'=>$singleemployee['id'])) }}" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-trash"></i></a> -->
+                                   <!--  <td>
                                        <a href="{{ route('payroll-edit',array('id'=> $val['id'])) }}" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-edit"></i></a>
                                         <a href="#deleteModel" data-toggle="modal" data-id="{{ $val['id'] }}" class="link-black text-sm empDelete" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>
                                         </td>
-                                    </td>
+                                    </td> -->
                                     
                                 </tr>
                                 @endforeach
