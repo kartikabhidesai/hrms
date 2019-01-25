@@ -14,7 +14,6 @@ class AlterTablePayRollChangeOverTime extends Migration
     public function up()
     {
         Schema::table('pay_roll', function (Blueprint $table) {
-             // $table->decimal('over_time', 4, 2)->change();
         });
     }
 
@@ -26,7 +25,6 @@ class AlterTablePayRollChangeOverTime extends Migration
     public function down()
     {
         Schema::table('pay_roll', function (Blueprint $table) {
-             // $table->dropColumn('over_time');
         });
     }
 }
