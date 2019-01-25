@@ -34,9 +34,9 @@ $pathToFile = '';
         $mailData['mailto'] = ['kartikdesai123@gmail.com'];
         $mailData['data'] = 'ddd';
         $mailsend = Mail::send($mailData['template'], ['data' => $mailData['data']], function ($m) use ($mailData, $pathToFile) {
-                    $m->from('smtp@prasadexpo.co.in', 'Office Park');
+                    $m->from('smtp1@prasadexpo.co.in', 'Office Park');
 
-                    $m->to($mailData['mailto'], "Office Park")->subject($mailData['subject']);
+                    $m->to($mailData['mailto'], "HRMS")->subject($mailData['subject']);
                     if ($pathToFile != "") {
                         // $m->attach($pathToFile);
                     }
