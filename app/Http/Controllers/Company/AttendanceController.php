@@ -97,20 +97,104 @@ class AttendanceController extends Controller
 
     public function attendanceReport(Request $request) 
     {
-    	$userId = $this->loginUser->id;
+        $userId = $this->loginUser->id;
         $companyId = Company::select('id')->where('user_id', $userId)->first();
         $data['detail'] = Department::where('company_id', $companyId['id'])->get();
 
-        if (!empty($request->get('department_id'))) {
-            $departmentName = Department::select('id', 'department_name')->where('id', $request->get('department_id'))->first();
+        if (!empty($request->get('departentId'))) {
+            $data['departentId'] = $request->get('departentId');
+            $data['get_year'] = $request->get('year');
+            $data['get_month'] = $request->get('month');
+
+            if($data['get_month'] == 1) {
+                $data['get_month'] = 'January';
+            } elseif($data['get_month'] == 2) {
+                $data['get_month'] = 'February';
+            } elseif($data['get_month'] == 3) {
+                $data['get_month'] = 'March';
+            } elseif($data['get_month'] == 4) {
+                $data['get_month'] = 'April';
+            } elseif($data['get_month'] == 5) {
+                $data['get_month'] = 'May';
+            } elseif($data['get_month'] == 6) {
+                $data['get_month'] = 'June';
+            } elseif($data['get_month'] == 7) {
+                $data['get_month'] = 'July';
+            } elseif($data['get_month'] == 8) {
+                $data['get_month'] = 'August';
+            } elseif($data['get_month'] == 9) {
+                $data['get_month'] = 'September';
+            } elseif($data['get_month'] == 10) {
+                $data['get_month'] = 'October';
+            } elseif($data['get_month'] == 11) {
+                $data['get_month'] = 'November';
+            } elseif($data['get_month'] == 12) {
+                $data['get_month'] = 'December';
+            }
+
+            if($request->get('departentId') == 'all') {
+                $data['departmentname'] = "All Employees";
+                $departmentName = Department::select('id', 'department_name')->where('id', $request->get('departentId'))->first();
             
-        	$data['getAttedanceReport'] = Attendance::select('employee.name', 'attendance.id','attendance.date', 'attendance.attendance')  
-                                                    ->join('employee', 'attendance.emp_id', '=', 'employee.id')
-                                                    ->whereYear('attendance.date', '=', $request->year)
-                                                    ->whereMonth('attendance.date', '=', $request->month)
-                                                    ->where('department_id', $departmentName->id)
-                                                    ->get();
-            dd($data['getAttedanceReport']);
+                $data['getAttedanceReport'] = Attendance::select('employee.name', 'attendance.id','attendance.date', 'attendance.attendance')  
+                                                        ->join('employee', 'attendance.emp_id', '=', 'employee.id')
+                                                        ->whereYear('attendance.date', '=', $request->year)
+                                                        ->whereMonth('attendance.date', '=', $request->month)
+                                                        // ->where('department_id', $departmentName->id)
+                                                        ->get();
+                if($data['getAttedanceReport']) {
+                    $presentCount = Attendance::select('employee.name', 'attendance.id','attendance.date', 'attendance.attendance')  
+                                                        ->join('employee', 'attendance.emp_id', '=', 'employee.id')
+                                                        ->whereYear('attendance.date', '=', $request->year)
+                                                        ->whereMonth('attendance.date', '=', $request->month)
+                                                        // ->where('department_id', $departmentName->id)
+                                                        ->where('attendance.attendance', 'present')
+                                                        ->get();
+                    $data['presentCount'] = count($presentCount);
+
+                    $absentCount = Attendance::select('employee.name', 'attendance.id','attendance.date', 'attendance.attendance')  
+                                                        ->join('employee', 'attendance.emp_id', '=', 'employee.id')
+                                                        ->whereYear('attendance.date', '=', $request->year)
+                                                        ->whereMonth('attendance.date', '=', $request->month)
+                                                        // ->where('department_id', $departmentName->id)
+                                                        ->where('attendance.attendance', 'absent')
+                                                        ->get();
+                    $data['absentCount'] = count($absentCount);
+                }
+            } else {
+                $departmentName = Department::select('id', 'department_name')->where('id', $request->get('departentId'))->first();
+                $data['departmentname'] = $departmentName['department_name'];
+
+                $data['getAttedanceReport'] = Attendance::select('employee.name', 'attendance.id','attendance.date', 'attendance.attendance')  
+                                                        ->join('employee', 'attendance.emp_id', '=', 'employee.id')
+                                                        ->whereYear('attendance.date', '=', $request->year)
+                                                        ->whereMonth('attendance.date', '=', $request->month)
+                                                        ->where('department_id', $departmentName->id)
+                                                        ->get();
+                                                        // dd($data['getAttedanceReport']);
+                                                        
+                if($data['getAttedanceReport']) {
+                    $presentCount = Attendance::select('employee.name', 'attendance.id','attendance.date', 'attendance.attendance')  
+                                                ->join('employee', 'attendance.emp_id', '=', 'employee.id')
+                                                ->whereYear('attendance.date', '=', $request->year)
+                                                ->whereMonth('attendance.date', '=', $request->month)
+                                                ->where('department_id', $departmentName->id)
+                                                ->where('attendance.attendance', 'present')
+                                                ->get();
+
+                    $data['presentCount'] = count($presentCount);
+
+                    $absentCount = Attendance::select('employee.name', 'attendance.id','attendance.date', 'attendance.attendance')  
+                                                ->join('employee', 'attendance.emp_id', '=', 'employee.id')
+                                                ->whereYear('attendance.date', '=', $request->year)
+                                                ->whereMonth('attendance.date', '=', $request->month)
+                                                ->where('department_id', $departmentName->id)
+                                                ->where('attendance.attendance', 'absent')
+                                                ->get();
+
+                    $data['absentCount'] = count($absentCount);
+                }
+            }
         }
 
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');

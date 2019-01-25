@@ -1,10 +1,10 @@
 @extends('layouts.app')
 @section('content')
     <div class="wrapper wrapper-content animated fadeInRight">
-	    <div class="row">
+        <div class="row">
             <div class="col-lg-12">
-			{{ csrf_field() }}
-			    <div class="ibox float-e-margins">
+            {{ csrf_field() }}
+                <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Attendance Report</h5>
                     </div>
@@ -16,10 +16,10 @@
                             <div class="col-sm-9">
                                 <select class="form-control department_id" name="department_id">
                                     <option value="" selected="">Select Employees Of A Department</option>
-                                    @if(isset($getEmployees))
+                                    @if(isset($getAttedanceReport))
                                         <option value="all" {{ ($departentId == "all" ? 'selected="selected"' : '') }}>All Employees</option>
                                         @foreach($detail as $department)
-                                        <option value="{{ $department->id }}" {{ ($department->id == $departentId ? 'selected="selected"' : '') }} >{{ $department->department_name }}</option>
+                                            <option value="{{ $department->id }}" {{ ($department->id == $departentId ? 'selected="selected"' : '') }} >{{ $department->department_name }}</option>
                                         @endforeach
                                     @else
                                         <option value="all" >All Employees</option>
@@ -36,9 +36,15 @@
                             <div class="col-sm-9"> 
                                 <select class="form-control year" name="year">
                                     <option value="" selected="">Select Year</option>
-                                    @for ($year=2015; $year <= 2099; $year++)
-                                        <option value="{{ $year }}">{{ $year }}</option>
-                                    @endfor
+                                    @if(isset($getAttedanceReport))
+                                        @for ($year=2015; $year <= 2099; $year++)
+                                            <option value="{{ $year }}" {{ ($get_year == $year ? 'selected="selected"' : '') }}>{{ $year }}</option>
+                                        @endfor
+                                        @else
+                                            @for ($year=2015; $year <= 2099; $year++)
+                                            <option value="{{ $year }}">{{ $year }}</option>
+                                        @endfor
+                                    @endif
                                 </select>
                             </div>
                         </div>
@@ -48,25 +54,40 @@
                             <div class="col-sm-9"> 
                                 <select class="form-control month" name="month">
                                     <option value="" selected="">Select Month</option>
-                                    <option value="1">January</option>
-                                    <option value="2">February</option>
-                                    <option value="3">March</option>
-                                    <option value="4">April</option>
-                                    <option value="5">May</option>
-                                    <option value="6">June</option>
-                                    <option value="7">July</option>
-                                    <option value="8">August</option>
-                                    <option value="9">September</option>
-                                    <option value="10">October</option>
-                                    <option value="11">November</option>
-                                    <option value="12">December</option>
+                                    @if(isset($getAttedanceReport))
+                                        <option value="1" {{ ($get_month == 'January' ? 'selected="selected"' : '') }}>January</option>
+                                        <option value="2" {{ ($get_month == 'February' ? 'selected="selected"' : '') }}>February</option>
+                                        <option value="3" {{ ($get_month == 'March' ? 'selected="selected"' : '') }}>March</option>
+                                        <option value="4" {{ ($get_month == 'April' ? 'selected="selected"' : '') }}>April</option>
+                                        <option value="5" {{ ($get_month == 'May' ? 'selected="selected"' : '') }}>May</option>
+                                        <option value="6" {{ ($get_month == 'June' ? 'selected="selected"' : '') }}>June</option>
+                                        <option value="7" {{ ($get_month == 'July' ? 'selected="selected"' : '') }}>July</option>
+                                        <option value="8" {{ ($get_month == 'August' ? 'selected="selected"' : '') }}>August</option>
+                                        <option value="9" {{ ($get_month == 'September' ? 'selected="selected"' : '') }}>September</option>
+                                        <option value="10" {{ ($get_month == 'October' ? 'selected="selected"' : '') }}>October</option>
+                                        <option value="11" {{ ($get_month == 'November' ? 'selected="selected"' : '') }}>November</option>
+                                        <option value="12" {{ ($get_month == 'December' ? 'selected="selected"' : '') }}>December</option>
+                                    @else
+                                        <option value="1">January</option>
+                                        <option value="2">February</option>
+                                        <option value="3">March</option>
+                                        <option value="4">April</option>
+                                        <option value="5">May</option>
+                                        <option value="6">June</option>
+                                        <option value="7">July</option>
+                                        <option value="8">August</option>
+                                        <option value="9">September</option>
+                                        <option value="10">October</option>
+                                        <option value="11">November</option>
+                                        <option value="12">December</option>
+                                    @endif
                                 </select>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-lg-offset-2 col-lg-10">
-                                <button class="btn btn-sm btn-primary getAttdanceReport" type="submit">Show Report</button>
+                                <button class="btn btn-sm btn-primary getAttedanceReport" type="submit">Show Report</button>
                             </div>
                         </div>
                         {{ Form::close() }}
@@ -75,7 +96,7 @@
             </div>
         </div>
 
-        
+        @if(isset($getAttedanceReport))
             <div class="row">
                 <div class="col-md-12">
                     <div class="col-md-4"></div>
@@ -83,7 +104,7 @@
                         <div class="tile-stats tile-gray">
                             <div class="icon"><i class="entypo-docs"></i></div>
                             <h2 style="color: #696969;">Attendance Sheet</h2>
-                            <h3 style="color: #696969;"> Department : Abhay<br>January 2019 </h3>
+                            <h3 style="color: #696969;"> Department : {{ $departmentname }}<br>{{ $get_month }} {{ $get_year }} </h3>
                         </div>
                     </div>
                     <div class="col-md-4"></div>
@@ -103,13 +124,15 @@
                         </thead>
 
                         <tbody>
-                            <tr>
-                                <td style="text-align: center;"> Abhay Singh </td>
-                                <td style="text-align: center;"> 0 / 0 </td>
-                                @for($day=1; $day<=cal_days_in_month(CAL_GREGORIAN,1,2019); $day++)
-                                    <td style="text-align: center;"></td>
-                                @endfor
-                            </tr>
+                            @foreach($getAttedanceReport as $data)
+                                <tr>
+                                    <td style="text-align: center;"> {{ $data->name }} </td>
+                                    <td style="text-align: center;"> {{ $presentCount }} / {{ $absentCount }} </td>
+                                    @for($day=1; $day<=cal_days_in_month(CAL_GREGORIAN,1,2019); $day++)
+                                        <td style="text-align: center;"></td>
+                                    @endfor
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                     
@@ -118,6 +141,6 @@
                     </center>
                 </div>
             </div>
-        
+        @endif
     </div>
 @endsection

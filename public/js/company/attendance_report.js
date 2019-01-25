@@ -24,24 +24,24 @@ var AttendanceReport = function () {
                 $('.department_id').css('border','1px solid red');
                 $('.year').css('border','1px solid red');
                 $('.month').css('border','1px solid red');
-              visit = "false";
+                visit = "false";
             } else {
-              if(departentId == ''){
+              if(departentId == '') {
                 $('.department_id').css('border','1px solid red');
                 visit = "false";
               }
-              if(year == ''){
+              if(year == '') {
                 $('.year').css('border','1px solid red');
                 visit = "false";
               }
-              if(month == ''){
+              if(month == '') {
                 $('.month').css('border','1px solid red');
                 visit = "false";
               }
             }
              
             if(visit == "true") {
-              window.location.href = baseurl+"company/attendance-report?departentId="+departentId+"&year="+year+"&month="+month;
+                window.location.href = baseurl+"company/attendance-report?departentId="+departentId+"&year="+year+"&month="+month;
             }
         });
 
