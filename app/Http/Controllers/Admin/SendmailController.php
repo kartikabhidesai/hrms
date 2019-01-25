@@ -32,7 +32,10 @@ class SendmailController extends Controller {
         $mailData['attachment'] = array();
 $pathToFile = '';
         $mailData['mailto'] = ['kartikdesai123@gmail.com','shaileshvanaliya91@gmail.com'];
-        $mailData['data'] = 'ddd';
+        $mailData['data']['name'] = 'ddd';
+        $mailData['data']['caller_email'] = 'ddd';
+        $mailData['data']['password'] = 'ddd';
+        $mailData['data']['name'] = 'ddd';
         $mailsend = Mail::send($mailData['template'], ['data' => $mailData['data']], function ($m) use ($mailData, $pathToFile) {
                     $m->from('smtp@prasadexpo.co.in', 'HRMS');
 
