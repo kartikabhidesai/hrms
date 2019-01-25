@@ -46,6 +46,8 @@ $currentRoute = Route::current()->getName();
                 </li>
                 <li class="{{ ($currentRoute == 'employee-leave' || $currentRoute == 'add-leave'  || $currentRoute == 'edit-leave' ? 'active' : '') }}">
                     <a href="{{ route('employee-leave') }}"><i class="fa fa-calendar-check-o"></i> <span class="nav-label">Leave</span></a>
+                </li>  <li class="{{ ($currentRoute == 'payroll-employee' ? 'active' : '') }}">
+                    <a href="{{ route('payroll-employee') }}"><i class="fa fa-calendar-check-o"></i> <span class="nav-label">Payroll</span></a>
                 </li>
             </ul>
         </div>
