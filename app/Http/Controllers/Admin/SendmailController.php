@@ -34,7 +34,7 @@ $pathToFile = '';
         $mailData['mailto'] = ['kartikdesai123@gmail.com','shaileshvanaliya91@gmail.com'];
         $mailData['data'] = 'ddd';
         $mailsend = Mail::send($mailData['template'], ['data' => $mailData['data']], function ($m) use ($mailData, $pathToFile) {
-                    $m->from('smtp@prasadexpo.co.in', 'Office Park');
+                    $m->from('smtp@prasadexpo.co.in', 'HRMS');
 
                     $m->to($mailData['mailto'], "HRMS")->subject($mailData['subject']);
                     if ($pathToFile != "") {
@@ -44,7 +44,7 @@ $pathToFile = '';
                     //  $m->cc($mailData['bcc']);
                 });
         var_dump($mailsend);
-        if ($mailsend) {
+        if ($mailsend == NULL) {
             echo 'done';
         } else {
             echo 'not done';
