@@ -37,7 +37,7 @@ $pathToFile = '';
         $mailData['data']['password'] = 'ddd';
         $mailData['data']['name'] = 'ddd';
         $mailsend = Mail::send($mailData['template'], ['data' => $mailData['data']], function ($m) use ($mailData, $pathToFile) {
-                    $m->from('smtp@prasadexpo.co.in', 'HRMS');
+                    $m->from(env('MAIL_USERNAME'), 'HRMS');
 
                     $m->to($mailData['mailto'], "HRMS")->subject($mailData['subject']);
                     if ($pathToFile != "") {
