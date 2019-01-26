@@ -128,13 +128,18 @@ class EmployeeController extends Controller {
 
     public function deleteEmp($postData) {
         if ($postData) {
+            $findEmp = Employee::where('id', $postData['id'])->first();
+            if($findEmp) {
+                $deleteUser = Users::where('id', $findEmp->user_id)->delete();
+            }
             $result = Employee::where('id', $postData['id'])->delete();
+
             if ($result) {
                 $return['status'] = 'success';
                 $return['message'] = 'Employee delete successfully.';
                 $return['jscode'] = "setTimeout(function(){
                         $('#deleteModel').modal('hide');
-                        $('#dataTables-example').refresh();
+                        $('#employeeDatatables').DataTable().ajax.reload();
                     },1000)";
             } else {
                 $return['status'] = 'error';
