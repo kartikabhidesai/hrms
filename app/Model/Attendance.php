@@ -27,6 +27,7 @@ class Attendance extends Model
         $empid = $request->input('emp_id');
         $attendance = $request->input('attendance');
         $reason = $request->input('reason');
+        // dd($reason);
         $user_id = $request->input('user_id');
         
         for($i=0;$i< count($user_id) ; $i++){

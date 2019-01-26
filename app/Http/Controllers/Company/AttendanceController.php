@@ -64,7 +64,7 @@ class AttendanceController extends Controller
                                                 ->get();
                     }
                     // $data['getEmployees'] = Employee::where('department', $departmentname->id)->get();  
-                    $data['departmentname'] = $departmentname[0]['department_name'];
+                    $data['departmentname'] = $departmentname['department_name'];
     		}
     	}
         if($request->isMethod('post')) {
