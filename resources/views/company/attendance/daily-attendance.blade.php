@@ -17,14 +17,14 @@
                                     <select class="form-control department_id" name="department_id">
                                         <option value="" selected="">Select Employees Of A Department</option>
                                         @if(isset($getEmployees))
-                                            <option value="all" {{ ($departentId == "all" ? 'selected="selected"' : '') }}>All Employees</option>
+                                            <!-- <option value="all" {{ ($departentId == "all" ? 'selected="selected"' : '') }}>All Employees</option> -->
                                             @if($detail)
                                                 @foreach($detail as $department)
                                                 <option value="{{ $department->id }}" {{ ($department->id == $departentId ? 'selected="selected"' : '') }} >{{ $department->department_name }}</option>
                                                 @endforeach
                                             @endif
                                         @else
-                                            <option value="all" >All Employees</option>
+                                            <!-- <option value="all" >All Employees</option> -->
                                             @if($detail)
                                                 @foreach($detail as $department)
                                                     <option value="{{ $department->id }}" >{{ $department->department_name }}</option>

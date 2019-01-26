@@ -105,6 +105,7 @@ class AttendanceController extends Controller
             $data['departentId'] = $request->get('departentId');
             $data['get_year'] = $request->get('year');
             $data['get_month'] = $request->get('month');
+            $data['month'] = $request->get('month');
 
             if($data['get_month'] == 1) {
                 $data['get_month'] = 'January';
@@ -142,25 +143,6 @@ class AttendanceController extends Controller
                                                         ->whereMonth('attendance.date', '=', $request->month)
                                                         // ->where('department_id', $departmentName->id)
                                                         ->get();
-                if($data['getAttedanceReport']) {
-                    $presentCount = Attendance::select('employee.name', 'attendance.id','attendance.date', 'attendance.attendance')  
-                                                        ->join('employee', 'attendance.emp_id', '=', 'employee.id')
-                                                        ->whereYear('attendance.date', '=', $request->year)
-                                                        ->whereMonth('attendance.date', '=', $request->month)
-                                                        // ->where('department_id', $departmentName->id)
-                                                        ->where('attendance.attendance', 'present')
-                                                        ->get();
-                    $data['presentCount'] = count($presentCount);
-
-                    $absentCount = Attendance::select('employee.name', 'attendance.id','attendance.date', 'attendance.attendance')  
-                                                        ->join('employee', 'attendance.emp_id', '=', 'employee.id')
-                                                        ->whereYear('attendance.date', '=', $request->year)
-                                                        ->whereMonth('attendance.date', '=', $request->month)
-                                                        // ->where('department_id', $departmentName->id)
-                                                        ->where('attendance.attendance', 'absent')
-                                                        ->get();
-                    $data['absentCount'] = count($absentCount);
-                }
             } else {
                 $departmentName = Department::select('id', 'department_name')->where('id', $request->get('departentId'))->first();
                 $data['departmentname'] = $departmentName['department_name'];
@@ -171,29 +153,7 @@ class AttendanceController extends Controller
                                                         ->whereMonth('attendance.date', '=', $request->month)
                                                         ->where('department_id', $departmentName->id)
                                                         ->get();
-                                                        // dd($data['getAttedanceReport']);
-                                                        
-                if($data['getAttedanceReport']) {
-                    $presentCount = Attendance::select('employee.name', 'attendance.id','attendance.date', 'attendance.attendance')  
-                                                ->join('employee', 'attendance.emp_id', '=', 'employee.id')
-                                                ->whereYear('attendance.date', '=', $request->year)
-                                                ->whereMonth('attendance.date', '=', $request->month)
-                                                ->where('department_id', $departmentName->id)
-                                                ->where('attendance.attendance', 'present')
-                                                ->get();
-
-                    $data['presentCount'] = count($presentCount);
-
-                    $absentCount = Attendance::select('employee.name', 'attendance.id','attendance.date', 'attendance.attendance')  
-                                                ->join('employee', 'attendance.emp_id', '=', 'employee.id')
-                                                ->whereYear('attendance.date', '=', $request->year)
-                                                ->whereMonth('attendance.date', '=', $request->month)
-                                                ->where('department_id', $departmentName->id)
-                                                ->where('attendance.attendance', 'absent')
-                                                ->get();
-
-                    $data['absentCount'] = count($absentCount);
-                }
+                // dd($data['getAttedanceReport']);
             }
         }
 

@@ -112,24 +112,29 @@
                         <thead>
                             <tr>
                                 <td style="text-align: center;">
-                                    Employees<i class="entypo-down-thin"></i> |
-                                    Date <i class="entypo-right-thin"></i>
+                                    Employees <i class="fa fa-arrow-down fa-lg"></i> |
+                                    Date <i class="fa fa-arrow-right fa-lg"></i>
                                 </td>
                                 <td style="text-align: center;">
                                     Summary<br>( Total Presence / Total Absence ) </td>
-                                    @for($day=1; $day<=cal_days_in_month(CAL_GREGORIAN,1,2019); $day++)
+                                    @for($day=1; $day<=cal_days_in_month(CAL_GREGORIAN, $month, $get_year); $day++)
                                         <td style="text-align: center;">{{ $day }}</td>
                                     @endfor
                             </tr>
                         </thead>
 
                         <tbody>
-                            @foreach($getAttedanceReport as $data)
+                            @foreach($getAttedanceReport as $key => $data)
                                 <tr>
                                     <td style="text-align: center;"> {{ $data->name }} </td>
-                                    <td style="text-align: center;"> {{ $presentCount }} / {{ $absentCount }} </td>
-                                    @for($day=1; $day<=cal_days_in_month(CAL_GREGORIAN,1,2019); $day++)
-                                        <td style="text-align: center;"></td>
+                                    <td style="text-align: center;"> {{ $data->attendance }} 0 / 1 </td>
+                                    @for($day=1; $day<=cal_days_in_month(CAL_GREGORIAN, $month, $get_year); $day++)
+                                        @if($data->attendance == 'present')
+                                            <td style="text-align: center;"><i class="fa fa-circle" style="color: #00a651;"></i></td>
+                                        @endif
+                                        @if($data->attendance == 'absent')
+                                            <td style="text-align: center;"><i class="fa fa-circle" style="color: #ee4749;"></i></td>
+                                        @endif
                                     @endfor
                                 </tr>
                             @endforeach
