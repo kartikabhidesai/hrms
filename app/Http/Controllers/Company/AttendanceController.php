@@ -51,7 +51,7 @@ class AttendanceController extends Controller
                                                 ->join('comapnies', 'department.company_id', '=', 'comapnies.id')   
                                                 ->leftjoin('attendance', 'employee.user_id', '=', 'attendance.user_id')   
                                                 ->where('comapnies.user_id', $userid)
-                                                ->where('Employee.department', $departmentname->id)
+                                                ->where('employee.department', $departmentname->id)
                                                 ->where('attendance.date', $dateformate)
                                                 ->get();
                     if(count($data['getEmployees']) == 0){
@@ -60,7 +60,7 @@ class AttendanceController extends Controller
                                                 ->join('comapnies', 'department.company_id', '=', 'comapnies.id')   
                                                 ->leftjoin('attendance', 'employee.user_id', '=', 'attendance.user_id')   
                                                 ->where('comapnies.user_id', $userid)
-                                                ->where('Employee.department', $departmentname->id)
+                                                ->where('employee.department', $departmentname->id)
                                                 ->get();
                     }
                     // $data['getEmployees'] = Employee::where('department', $departmentname->id)->get();  
