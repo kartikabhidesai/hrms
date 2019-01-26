@@ -55,7 +55,7 @@
 
                                 <tr>
                                     <td>{{$singleemp->name}}</td>
-                                    <td>{{$singleemp->department}}</td>
+                                    <td>{{$singleemp->department_name}}</td>
                                     <td>{{$singleemp->joining_salary}}</td>
                                     <td>Grade</td>
                                     <td>{{ date('d-m-Y',strtotime($singleemp->date_of_joining)) }}</td>

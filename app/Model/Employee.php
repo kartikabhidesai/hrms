@@ -265,10 +265,16 @@ class Employee extends Model {
 
         if ($id) {
 
-            $result = Employee::select('employee.*')->where('employee.id', '=', $id)->get()->first()->toArray();
+            $result = Employee::select('employee.*')
+                                ->where('employee.id', '=', $id)
+                                ->get()
+                                ->first()
+                                ->toArray();
         } else {
 
-            $result = Employee::get();
+            $result = Employee::select('employee.*', 'department.department_name')
+                                ->join('department', 'employee.department', '=', 'department.id')
+                                ->get();
         }
         return $result;
     }
