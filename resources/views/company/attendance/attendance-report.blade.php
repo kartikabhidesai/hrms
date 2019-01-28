@@ -17,12 +17,12 @@
                                 <select class="form-control department_id" name="department_id">
                                     <option value="" selected="">Select Employees Of A Department</option>
                                     @if(isset($getAttedanceReport))
-                                        <option value="all" {{ ($departentId == "all" ? 'selected="selected"' : '') }}>All Employees</option>
+                                        <!-- <option value="all" {{ ($departentId == "all" ? 'selected="selected"' : '') }}>All Employees</option> -->
                                         @foreach($detail as $department)
                                             <option value="{{ $department->id }}" {{ ($department->id == $departentId ? 'selected="selected"' : '') }} >{{ $department->department_name }}</option>
                                         @endforeach
                                     @else
-                                        <option value="all" >All Employees</option>
+                                        <!-- <option value="all" >All Employees</option> -->
                                         @foreach($detail as $department)
                                             <option value="{{ $department->id }}" >{{ $department->department_name }}</option>
                                         @endforeach
@@ -124,16 +124,18 @@
                         </thead>
 
                         <tbody>
-                            @foreach($getAttedanceReport as $key => $data)
+                            @foreach($getAttedanceReport as $data)
                                 <tr>
                                     <td style="text-align: center;"> {{ $data->name }} </td>
-                                    <td style="text-align: center;"> {{ $data->attendance }} 0 / 1 </td>
+                                    <td style="text-align: center;"> 0 / 1 </td>
                                     @for($day=1; $day<=cal_days_in_month(CAL_GREGORIAN, $month, $get_year); $day++)
-                                        @if($data->attendance == 'present')
+                                        @if($day == date('j', strtotime($data->date)) && $data->attendance == 'present')
                                             <td style="text-align: center;"><i class="fa fa-circle" style="color: #00a651;"></i></td>
                                         @endif
-                                        @if($data->attendance == 'absent')
+                                        @if($day == date('j', strtotime($data->date)) && $data->attendance == 'absent')
                                             <td style="text-align: center;"><i class="fa fa-circle" style="color: #ee4749;"></i></td>
+                                        @else
+                                            <td style="text-align: center;"></td>
                                         @endif
                                     @endfor
                                 </tr>

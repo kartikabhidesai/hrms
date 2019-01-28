@@ -46,6 +46,7 @@ class AttendanceController extends Controller
                     }
     		} else {
                     $departmentname = Department::select('id', 'department_name')->where('id', $data['departentId'])->first();
+                    
                     $data['getEmployees'] = Employee::select('employee.name','employee.id','employee.user_id','attendance.reason','attendance.attendance')
                                                 ->join('department', 'employee.department', '=', 'department.id')
                                                 ->join('comapnies', 'department.company_id', '=', 'comapnies.id')   
@@ -54,11 +55,13 @@ class AttendanceController extends Controller
                                                 ->where('employee.department', $departmentname->id)
                                                 ->where('attendance.date', $dateformate)
                                                 ->get();
+                                                
                     if(count($data['getEmployees']) == 0){
                        $data['getEmployees'] = Employee::select('employee.name','employee.id','employee.user_id')
+                                                ->groupBy('employee.id')
                                                 ->join('department', 'employee.department', '=', 'department.id')
-                                                ->join('comapnies', 'department.company_id', '=', 'comapnies.id')   
-                                                ->leftjoin('attendance', 'employee.user_id', '=', 'attendance.user_id')   
+                                                ->join('comapnies', 'department.company_id', '=', 'comapnies.id')
+                                                ->join('attendance', 'employee.user_id', '=', 'attendance.user_id')
                                                 ->where('comapnies.user_id', $userid)
                                                 ->where('employee.department', $departmentname->id)
                                                 ->get();
