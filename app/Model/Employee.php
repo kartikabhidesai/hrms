@@ -16,7 +16,7 @@ class Employee extends Model {
 
     protected $table = 'employee';
 
-    public function addEmployee($request, $userId) {
+    public function addEmployee($request, $userId, $companyId) {
 
         // print_r( $request->file());
         // print_r( $request->input());exit;
@@ -66,6 +66,7 @@ class Employee extends Model {
         $objEmployee = new Employee();
         $objEmployee->name = $request->input('name');
         $objEmployee->user_id = $userId;
+        $objEmployee->company_id = $companyId;
         $objEmployee->father_name = $request->input('father_name');
         $objEmployee->date_of_birth = date('Y-m-d', strtotime($request->input('date_of_birth')));
         $objEmployee->gender = $request->input('gender');
@@ -194,7 +195,7 @@ class Employee extends Model {
         return TRUE;
     }
 
-    public function getEmployeeDatatable($request) {
+    public function getEmployeeDatatable($request, $companyId) {
         $requestData = $_REQUEST;
         $columns = array(
             // datatable column index  => database column name
@@ -230,6 +231,7 @@ class Employee extends Model {
 
         $resultArr = $query->skip($requestData['start'])
                         ->take($requestData['length'])
+                        ->where('company_id', $companyId)
                         ->select('ra.id', 'ra.name', 'ra.father_name', 'ra.photo', 'ra.phone', 'ra.email', 'ra.employee_id', 'ra.date_of_joining', 'ra.created_at', 'ra.gender')->get();
         $data = array();
 

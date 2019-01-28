@@ -39,4 +39,9 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
     Route::match(['get', 'post'], 'payroll-edit/{id}', ['as' => 'payroll-edit', 'uses' => 'Company\PayrollController@edit']);
     Route::match(['get', 'post'], 'payroll-emp-detail/{id}', ['as' => 'payroll-emp-detail', 'uses' => 'Company\PayrollController@payrollEmpList']);
     Route::match(['get', 'post'], 'payroll-ajaxAction', ['as' => 'payroll-ajaxAction', 'uses' => 'Company\PayrollController@ajaxAction']);
+
+    /*Send SMS/messages to employees*/
+    Route::match(['get', 'post'], 'sendSMS-ajaxAction', ['as' => 'ajaxAction', 'uses' => 'Company\SendSMSController@ajaxAction']);
+    Route::match(['get', 'post'], 'sms-list', ['as' => 'sms-list', 'uses' => 'Company\SendSMSController@smsList']);
+    Route::match(['get', 'post'], 'new-sms', ['as' => 'new-sms', 'uses' => 'Company\SendSMSController@newSMS']);
 });

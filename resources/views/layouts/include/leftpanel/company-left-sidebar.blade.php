@@ -66,6 +66,11 @@ if (!empty(Auth()->guard('admin')->user())) {
                     <a href="{{ route('attendance-report') }}"><i class="fa fa-bar-chart"></i>
                     <span class="nav-label">Attendance Report</span></a>
                 </li>
+
+                <li class="{{ ($currentRoute == 'sms-list' ? 'active' : '') }} {{ ($currentRoute == 'new-sms' ? 'active' : '') }}">
+                    <a href="{{ route('sms-list') }}"><i class="fa fa-bar-chart"></i>
+                    <span class="nav-label">Send SMS</span></a>
+                </li>
             </ul>
         </div>
     </nav>

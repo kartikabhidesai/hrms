@@ -6,6 +6,7 @@ use App\Model\Users;
 use App\Model\Employee;
 use App\Model\Department;
 use App\Model\Designation;
+use App\Model\Company;
 use App\Http\Controllers\Controller;
 use Auth;
 use Route;
@@ -16,6 +17,7 @@ use Illuminate\Http\Request;
 class EmployeeController extends Controller {
 
     public function __construct() {
+        parent::__construct();
         $this->middleware('company');
     }
 
@@ -36,13 +38,15 @@ class EmployeeController extends Controller {
     public function add(Request $request) {
          if ($request->isMethod('post')) {
             $objUsers = new Users();
+            $userid = $this->loginUser->id;
+            $companyId = Company::select('id')->where('user_id', $userid)->first();
             $userId = $objUsers->addEmp($request);
             if ($userId == false) {
                 $return['status'] = 'error';
                 $return['message'] = 'Email Already Exists.!';
             }elseif ($userId) {
                 $objEmployee = new Employee();
-                $empId = $objEmployee->addEmployee($request,$userId);
+                $empId = $objEmployee->addEmployee($request,$userId, $companyId->id);
                 // $ret = $objEmployee->updateEmpId($empId,$userId);
                 $return['status'] = 'success';
                 $return['message'] = 'Employee created successfully.';
@@ -155,7 +159,9 @@ class EmployeeController extends Controller {
         switch ($action) {
             case 'getdatatable':
                 $objEmployee = new Employee();
-                $demoList = $objEmployee->getEmployeeDatatable($request);
+                $userid = $this->loginUser->id;
+                $companyId = Company::select('id')->where('user_id', $userid)->first();
+                $demoList = $objEmployee->getEmployeeDatatable($request, $companyId->id);
                 echo json_encode($demoList);
                 break;
             case 'deleteEmp':
