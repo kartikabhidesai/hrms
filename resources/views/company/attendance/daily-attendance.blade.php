@@ -90,7 +90,7 @@
                                                 </td>
                                                 <td>
                                                     <span  @php if($getEmployee->reason == null) { print_r('style="display: none;"');} @endphp id="reason_holder_{{ $getEmployee->id }}">
-                                                        <input type="text" name="reason[]" class="form-control" value="{{ $getEmployee->reason  }}">
+                                                        <input type="text" name="reason[]" class="form-control" id="reason_input_{{ $getEmployee->id }}" value="{{ $getEmployee->reason }}">
                                                     </span>
                                                     <span style="display: block;" id="reason_holder_2_{{ $getEmployee->id }}"></span>
                                                 </td>

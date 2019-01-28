@@ -70,6 +70,7 @@ var DailyAttendance = function () {
           $('#reason_holder_' + emp_id).attr('style', 'display: block;');
         } else {
           $('#reason_holder_' + emp_id).attr('style', 'display: none;');
+          $('#reason_input_' + emp_id).attr('value', '');
         }
       }
       /*End hide/show reason input box*/
