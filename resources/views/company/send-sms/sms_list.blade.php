@@ -17,7 +17,7 @@
                             <table class="table table-striped table-bordered table-hover dataTables-example" id="dataTables-sendSMS">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
+                                        <!-- <th>ID</th> -->
                                         <th>Employee Name</th>
                                         <th>Message</th>
                                     </tr>

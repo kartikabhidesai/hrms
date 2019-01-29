@@ -18,9 +18,6 @@ class SendSMSController extends Controller
     public function smsList(Request $request) 
     {
         $session = $request->session()->all();
-        /*$userid = $this->loginUser->id;
-        $companyId = Company::select('id')->where('user_id', $userid)->first();
-        $data['getAllEmpOfCompany'] = Employee::where('company_id', $companyId->id)->get();*/
         
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/send_sms.js');
@@ -30,11 +27,12 @@ class SendSMSController extends Controller
             'title' => 'Send SMS',
             'breadcrumb' => array(
                 'Home' => route("company-dashboard"),
-                'Send SMS' => 'Send SMS'));
+                'SMS List' => 'SMS List'));
         return view('company.send-sms.sms_list', $data);
     }
 
-    public function ajaxAction(Request $request) {
+    public function ajaxAction(Request $request) 
+    {
         $action = $request->input('action');
         switch ($action) {
             case 'getdatatable':
@@ -55,16 +53,31 @@ class SendSMSController extends Controller
         $data['getAllEmpOfCompany'] = Employee::where('company_id', $companyId->id)->get();
 
         if($request->isMethod('post')) {
-        	dd('x');
+            $newSMS = new SendSMS();
+            $result = $newSMS->sendNewSMS($request, $companyId->id);
+
+            if ($result) {
+                $return['status'] = 'success';
+                $return['message'] = 'New SMS sent successfully.';
+                $return['redirect'] = route('sms-list');
+            } else {
+                $return['status'] = 'error';
+                $return['message'] = 'Something went wrong!';
+            }
+
+            echo json_encode($return);
+            exit;
         }
+
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
-        $data['js'] = array('company/send_sms.js');
+        $data['js'] = array('company/send_sms.js', 'jquery.form.min.js');
         $data['funinit'] = array('SendSMS.init()');
         $data['css'] = array('');
         $data['header'] = array(
             'title' => 'Send New SMS',
             'breadcrumb' => array(
                 'Home' => route("company-dashboard"),
+                'SMS List' => route("sms-list"),
                 'Send New SMS' => 'Send New SMS'));
         return view('company.send-sms.send_new_sms', $data);
     }

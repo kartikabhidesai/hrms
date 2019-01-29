@@ -3,10 +3,10 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
-use DB;
-use Auth;
 use App\Model\UserHasPermission;
 use Config;
+use Auth;
+use DB;
 
 class SendSMS extends Model
 {
@@ -14,7 +14,8 @@ class SendSMS extends Model
 
     protected $fillable = ['id', 'emp_id', 'company_id', 'message'];
 
-    public function getSMSDatatable($request, $companyId) {
+    public function getSMSDatatable($request, $companyId) 
+    {
         $requestData = $_REQUEST;
         $columns = array(
             // datatable column index  => database column name
@@ -22,6 +23,7 @@ class SendSMS extends Model
             1 => 'employee_name',
             2 => 'message'
         );
+
         $query = SendSMS::from('send_sms');
 
         if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
@@ -48,22 +50,20 @@ class SendSMS extends Model
         $totalFiltered = count($temp->get());
 
         $resultArr = $query->skip($requestData['start'])
-                        ->take($requestData['length'])
-                        ->where('company_id', $companyId)
-                        ->select('id', 'emp_id', 'message')->get();
+                            ->take($requestData['length'])
+                            ->join('employee', 'send_sms.emp_id', '=', 'employee.id')
+                            ->where('send_sms.company_id', $companyId)
+                            ->select('send_sms.id as id', 'employee.name as employee_name', 'send_sms.message as message')
+                            ->get();
+
         $data = array();
 
         foreach ($resultArr as $row) {
-            $actionHtml = $request->input('gender');
             $nestedData = array();
-            $nestedData[] = $row["id"];
             $nestedData[] = $row["employee_name"];
             $nestedData[] = $row["message"];
-
-            $nestedData[] = $actionHtml;
             $data[] = $nestedData;
         }
-        // echo "<pre>";print_r($data);exit;
 
         $json_data = array(
             "draw" => intval($requestData['draw']), // for every request/draw by clientside , they send a number as a parameter, when they recieve a response/data they first check the draw number, so we are sending same number in draw. 
@@ -73,5 +73,18 @@ class SendSMS extends Model
         );
 
         return $json_data;
+    }
+
+    public function sendNewSMS($request, $companyId)
+    {
+        $newSMS = new SendSMS();
+        $newSMS->emp_id = $request->emp_id;
+        $newSMS->company_id = $companyId;
+        $newSMS->message = $request->message;
+        $newSMS->created_at = date('Y-m-d H:i:s');
+        $newSMS->updated_at = date('Y-m-d H:i:s');
+        $newSMS->save();
+
+        return TRUE;
     }
 }

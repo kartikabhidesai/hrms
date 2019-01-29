@@ -40,7 +40,7 @@ var SendSMS = function () {
             'postData': dataArr,
             'hideColumnList': [],
             'noSearchApply': [0],
-            'noSortingApply': [3],
+            'noSortingApply': [1],
             'defaultSortColumn': 0,
             'defaultSortOrder': 'desc',
             'setColumnWidth': columnWidth

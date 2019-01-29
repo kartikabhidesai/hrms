@@ -26,15 +26,13 @@
                             <div class="form-group" id="data_1">
                                 <label class="col-sm-2 control-label">Message</label>
                                 <div class="col-sm-9"> 
-                                    <textarea class="form-control message" cols="5" rows="4" name="message">
-                                        
-                                    </textarea>
+                                    <textarea class="form-control message" cols="5" rows="4" name="message" required></textarea>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <div class="col-lg-offset-2 col-lg-10">
-                                    <button class="btn btn-sm btn-primary sendSMS" type="button">Send</button>
+                                    <button class="btn btn-sm btn-primary sendSMS" type="submit">Send</button>
                                 </div>
                             </div>
                         
