@@ -15,48 +15,16 @@ use Config;
 class Cmspage extends Model {
     protected $table = 'cms_page';
    
-    public function addDemo($request) {
-      // print_r( $request->input());exit;
-       $name = '';
-        if($request->file()){
-            $image = $request->file('demo_pic');
-            $name = 'admin'.time().'.'.$image->getClientOriginalExtension();
-            $destinationPath = public_path('/uploads/client/');
-            $image->move($destinationPath, $name);    
-        }
-        $objUser = new Demo();
-        $objUser->first_name = $request->input('first_name');
-        $objUser->last_name = $request->input('last_name');
-        $objUser->user_id = '1';
-        $objUser->gender = $request->input('gender');
-        $objUser->image = $name;
-        $objUser->created_at = date('Y-m-d H:i:s');
-        $objUser->updated_at = date('Y-m-d H:i:s');
-        $objUser->save();
-        return TRUE;
-    }
-    public function editDemo($request) {
-      
-       $name = '';
-        if($request->file()){
-            $image = $request->file('demo_pic');
-            $name = 'admin'.time().'.'.$image->getClientOriginalExtension();
-            $destinationPath = public_path('/uploads/client/');
-            $image->move($destinationPath, $name);    
-        }
-        $objUser = Demo::find($request->input('edit_id'));
-        $objUser->first_name = $request->input('first_name');
-        $objUser->last_name = $request->input('last_name');
-        $objUser->user_id = '1';
-        $objUser->gender = $request->input('gender');
-        $objUser->image = $name;
-        $objUser->created_at = date('Y-m-d H:i:s');
-        $objUser->updated_at = date('Y-m-d H:i:s');
-        $objUser->save();
+   
+    public function editCmspage($request) {
+        $objCmspage = Cmspage::find($request->input('edit_id'));
+        $objCmspage->description = $request->input('cms_content');
+        $objCmspage->updated_at = date('Y-m-d H:i:s');
+        $objCmspage->save();
         return TRUE;
     }
 
-     public function getSMSpageData($request) {
+    public function getSMSpageData($request) {
         $requestData = $_REQUEST;
         $columns = array(
             // datatable column index  => database column name
@@ -93,12 +61,13 @@ class Cmspage extends Model {
 
         $resultArr = $query->skip($requestData['start'])
                 ->take($requestData['length'])
-                ->select('ra.id', 'ra.name', 'ra.description', 'ra.created_at')->get();
+                ->select('ra.id', 'ra.name', 'ra.description', 'ra.created_at', 'ra.updated_at')->get();
         $data = array();
         foreach ($resultArr as $row) {
-            // print_r($row);exit;
            $actionHtml = '';
-           // $actionHtml .= '<a href="' . route('edit-cmspage', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
+           $actionHtml .= '<a href="' . route('edit-cmspage', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>'.
+                '<a href="#cmsModel" data-toggle="modal" data-id="'. $row['id'] .'" class="link-black text-sm cmsModel" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-eye"></i></a>';
+
             
             $nestedData = array();
             $nestedData[] = $row["id"];
@@ -116,7 +85,6 @@ class Cmspage extends Model {
             "recordsFiltered" => intval($totalFiltered), // total number of records after searching, if there is no searching then totalFiltered = totalData
             "data" => $data   // total data array
         );
-
         return $json_data;
     }
    

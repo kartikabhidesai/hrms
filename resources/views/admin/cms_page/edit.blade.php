@@ -25,71 +25,48 @@
 					</div>
 				</div>
 				<div class="ibox-content">
-					 {{ Form::open( array('method' => 'post', 'class' => 'form-horizontal','files' => true, 'id' => 'editDemo' )) }}
-						<div class="form-group"><label class="col-lg-2 control-label">First Name</label>
-							<div class="col-lg-9">
-								{{ Form::text('first_name', $detail->first_name, array('class' => 'form-control first_name' ,'required')) }}
+					{{ Form::open( array('method' => 'post', 'class' => 'form-horizontal', 'id' => 'editCms' )) }}
+				
+					<div class="form-group"><label class="col-lg-2 control-label">Description</label>
+						<div class="col-lg-9">
+							<textarea class="summernote" name="cms_content">@php  echo $detail['description'];  @endphp</p></textarea>
+						</div>
+					</div>	
+				<!-- 	<div class="form-group"><label class="col-lg-2 control-label">Last Name</label>
+						<div class="col-lg-9">
+							<div class="ibox-content no-padding">
+								<div class="summernote">
+									<h3>Lorem Ipsum is simply</h3>
+									dummy text of the printing and typesetting industry. <strong>Lorem Ipsum has been the industry's</strong> standard dummy text ever since the 1500s,
+									when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic
+									typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with
+									<br/>
+									<br/>
+									<ul>
+										<li>Remaining essentially unchanged</li>
+										<li>Make a type specimen book</li>
+										<li>Unknown printer</li>
+									</ul>
+								</div>
+
 							</div>
 						</div>
-						<div class="form-group"><label class="col-lg-2 control-label">Last Name</label>
-							<div class="col-lg-9">
-								{{ Form::text('last_name', $detail->last_name, array('class' => 'form-control last_name' ,'required')) }}
-								
-							</div>
+					</div> -->
+
+					{{ Form::hidden('edit_id', $detail->id, array('class' => '')) }}
+					<div class="form-group">
+						<div class="col-lg-offset-2 col-lg-9">
+							<button class="btn btn-sm btn-primary" type="submit">Save</button>
 						</div>
-						{{ Form::hidden('edit_id', $detail->id, array('class' => '')) }}
-						<div class="form-group">
-							<label class="col-lg-2 control-label">File</label>
-								<div class="fileinput fileinput-new input-group col-lg-7" data-provides="fileinput">
-							    <div class="form-control" data-trigger="fileinput">
-							        <i class="glyphicon glyphicon-file fileinput-exists"></i>
-							    <span class="fileinput-filename"></span>
-							    </div>
-							    <span class="input-group-addon btn btn-default btn-file">
-							        <span class="fileinput-new">Select file</span>
-							        <span class="fileinput-exists">Change</span>
-							        <input type="file" name="demo_pic"/>
-							    </span>
-							    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-								</div> 
-						</div>
-						
-                        <div class="form-group">
-						 	<div class="form-group">
-						 		<label class="col-sm-2 control-label">Select</label>
-                                <div class="col-sm-9">
-                                    {{ Form::select('testarray', $testarray , null, array('class' => 'form-control m-b', 'id' => 'test')) }}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-						 	<label class="col-sm-2 control-label">Gender</label>
-                            <div class="col-sm-9">
-                                <label class="radio-inline"> 
-                                {{ Form::radio('gender', 'M', array('class' => 'form-control male' ,'id'=>'male')) }} Male</label>
-                            	<label class="radio-inline">
-                                {{ Form::radio('gender', 'F', array('class' => 'form-control famale' ,'id'=>'famale')) }} Female</label>
-                                    </div>
-                        </div>	
-                        <div class="form-group">
-						 	<label class="col-sm-2 control-label">checkbox</label>
-                            <div class="col-sm-9">
-                                <label class="checkbox-inline"> 
-                                {{ Form::checkbox('hb', 'M', array('class' => 'form-control male' ,'id'=>'male')) }} checkbox1</label>
-                            	<label class="checkbox-inline">
-                                {{ Form::checkbox('hb', 'F', array('class' => 'form-control famale' ,'id'=>'famale')) }} checkbox2</label>
-                                    </div>
-                        </div>	
-						<div class="form-group">
-							<div class="col-lg-offset-2 col-lg-9">
-								<button class="btn btn-sm btn-primary" type="submit">Save</button>
-							</div>
-						</div>
+					</div>
 					{{ Form::close() }}
 				</div>
 			</div>
 		</div>	
 	</div>
+	
+
 </div>
 
 @endsection
+

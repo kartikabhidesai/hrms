@@ -64,7 +64,29 @@
             </div>
         </div>
     </div>
+    <div id="cmsModel" class="modal fade" aria-hidden="true" style="width:100% !important">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h3 class="m-t-none m-b cmsName" ></h3>
+                            <br/>
+                            <div class="description"></div><br/>
+                            <form role="form">
+                                <div>
+                                     <button class="btn btn-sm btn-primary pull-right m-l" data-dismiss="modal">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     @endsection
+
     <script type="text/javascript">
 
     </script>

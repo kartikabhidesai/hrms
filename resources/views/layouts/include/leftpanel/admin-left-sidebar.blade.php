@@ -57,7 +57,7 @@ $currentRoute = Route::current()->getName();
                 </li>
                 <li class="{{ ($currentRoute == 'list-company'  ? 'active' : '') }} {{ ($currentRoute == 'add-company'  ? 'active' : '') }} {{ ($currentRoute == 'edit-company'  ? 'active' : '') }}">
                     <a href="{{ route('list-company') }}"><i class="fa fa-industry"></i> <span class="nav-label">Company</span></a>
-                </li> <li class="{{ ($currentRoute == 'list-cmspage'  ? 'active' : '') }} {{ ($currentRoute == 'add-cmspage'  ? 'active' : '') }} {{ ($currentRoute == 'edit-company'  ? 'active' : '') }}">
+                </li> <li class="{{ ($currentRoute == 'list-cmspage'  ? 'active' : '') }} {{ ($currentRoute == 'edit-cmspage'  ? 'active' : '') }} {{ ($currentRoute == 'edit-company'  ? 'active' : '') }}">
                     <a href="{{ route('list-cmspage') }}"><i class="fa fa-industry"></i> <span class="nav-label">CMS Page</span></a>
                 </li>
               <!--   <li class="active">

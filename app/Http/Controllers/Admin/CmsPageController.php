@@ -30,35 +30,7 @@ class CmsPageController extends Controller {
         
     }   
 
-    public function add(Request $request) {
-         if ($request->isMethod('post')) {
-            $objCmspage = new Cmspage();
-            $ret = $objCmspage->addCmspage($request);
-            if ($ret) {
-                $return['status'] = 'success';
-                $return['message'] = 'Record created successfully.';
-                $return['redirect'] = route('list-Cmspage');
-            } else {
-                $return['status'] = 'error';
-                $return['message'] = 'something will be wrong.';
-            }
-            echo json_encode($return);
-            exit;
-        }
-        $data['testarray'] = Config::get('constants.testarray');
-        $session = $request->session()->all();
-        $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
-        $data['js'] = array('admin/Cmspage.js', 'ajaxfileupload.js','jquery.form.min.js');
-        $data['funinit'] = array('Cmspage.init()');
-        $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
-        $data['header'] = array(
-            'title' => 'Companyies',
-            'breadcrumb' => array(
-                'Home' => route("admin-dashboard"),
-                'Cmspage' => route("list-Cmspage"),
-                'Add Cmspage' => 'Add Cmspage',));
-        return view('admin.Cmspage.add', $data);
-    } 
+   
     public function edit(Request $request,$id) {
         $data['testarray'] = Config::get('constants.testarray');
         $data['detail'] = Cmspage::find($id);
@@ -69,7 +41,7 @@ class CmsPageController extends Controller {
             if ($ret) {
                 $return['status'] = 'success';
                 $return['message'] = 'Record Edited successfully.';
-                $return['redirect'] = route('list-Cmspage');
+                $return['redirect'] = route('list-cmspage');
             } else {
                 $return['status'] = 'error';
                 $return['message'] = 'something will be wrong.';
@@ -80,15 +52,15 @@ class CmsPageController extends Controller {
 
         $session = $request->session()->all();
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
-        $data['js'] = array('admin/Cmspage.js', 'ajaxfileupload.js','jquery.form.min.js');
-        $data['funinit'] = array('Cmspage.init()');
-        $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
+        $data['js'] = array('admin/cms_page.js', 'ajaxfileupload.js', 'jquery.form.min.js', 'plugins/summernote/summernote.min.js');
+        $data['funinit'] = array('Cms_page.init()','Cms_page.init1()');
+        $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css', 'plugins/summernote/summernote.css', 'plugins/summernote/summernote-bs3.css');
          $data['header'] = array(
-            'title' => 'Companyies',
+            'title' => 'Cms Pages',
             'breadcrumb' => array(
                 'Home' => route("admin-dashboard"),
-                'Cmspage' => route("list-Cmspage"),
-                'Edit Cmspage' => 'Edit Cmspage',));
+                'Cmspage' => route("list-cmspage"),
+                'Cms Page Edit' => 'Cms Page Edit'));
         return view('admin.cms_page.edit', $data);
     }
 
@@ -113,6 +85,12 @@ class CmsPageController extends Controller {
         }
     }
 
+    public function getCmsDetails($postData) {
+            $return = Cmspage::find($postData);
+            echo json_encode($return);
+            exit;
+    }
+
     public function ajaxAction(Request $request) {
         $action = $request->input('action');
         switch ($action) {
@@ -123,6 +101,9 @@ class CmsPageController extends Controller {
                 break;
             case 'deleteCmspage':
                 $result = $this->deleteCmspage($request->input('data'));
+                break;
+                case 'getCmsDetails':
+                $result = $this->getCmsDetails($request->input('data'));
                 break;
         }
     }

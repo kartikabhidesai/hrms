@@ -8,6 +8,25 @@ var Cms_page = function() {
                 $('.yes-sure:visible').attr('data-id', id);
             }, 500);
         })
+        $('body').on('click', '.cmsModel', function() {
+           // $('#cmsModel').modal('show');
+           var data = $(this).attr('data-id');
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                },
+                url: baseurl + "admin/cmspage-ajaxAction",
+                data: {'action': 'getCmsDetails', 'data': data},
+                success: function(data) {
+                   var  output = JSON.parse(data);
+                   console.log(output.name)
+                   $('.cmsName').html(output.name);
+                   $('.description').html(output.description);
+                }
+            });
+
+        });
 
         $('body').on('click', '.yes-sure', function() {
             var id = $(this).attr('data-id');
@@ -25,25 +44,13 @@ var Cms_page = function() {
             });
         });
       
-        var form = $('#addDemo');
+        var form = $('#editCms');
         var rules = {
-            first_name: {required: true},
-            last_name: {required: true},
-            demo_pic: {required: true},
+            cms_content: {required: true},
         };
         handleFormValidate(form, rules, function(form) {
             handleAjaxFormSubmit(form,true);
         });
-         var form = $('#editDemo');
-        var rules = {
-            first_name: {required: true},
-            last_name: {required: true},
-            
-        };
-        handleFormValidate(form, rules, function(form) {
-            handleAjaxFormSubmit(form,true);
-        });
-       
         
        var dataArr = {};
        var columnWidth = {"width": "10%", "targets": 0};
@@ -61,10 +68,19 @@ var Cms_page = function() {
             'setColumnWidth': columnWidth
         };
         getDataTable(arrList);
+       
     }
+    var summer = function() {
+         $('.summernote').summernote();
+    }
+
+    summer
+
     return {
         init: function() {
             handleList();
+        },init1: function() {
+            summer();
         }
     }
 }();
