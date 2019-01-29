@@ -41,4 +41,8 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function() {
     Route::match(['get', 'post'], 'edit-company/{id}', ['as' => 'edit-company', 'uses' => 'Admin\ComapnyController@edit']);
     Route::match(['get', 'post'], 'delete-company', ['as' => 'delete-company', 'uses' => 'Admin\ComapnyController@deleteCompany']);
 
+     Route::match(['get', 'post'], 'list-cmspage', ['as' => 'list-cmspage', 'uses' => 'Admin\CmsPageController@index']);
+    Route::match(['get', 'post'], 'cmspage-ajaxAction', ['as' => 'ajaxAction', 'uses' => 'Admin\CmsPageController@ajaxAction']);
+    Route::match(['get', 'post'], 'edit-cmspage/{id}', ['as' => 'edit-cmspage', 'uses' => 'Admin\CmsPageController@edit']);
+
 });
