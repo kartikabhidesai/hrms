@@ -53,7 +53,7 @@ if (!empty(Auth()->guard('admin')->user())) {
                     <span class="nav-label">Department</span></a>
                 </li> 
                 <li class="{{ ($currentRoute == 'payroll-list' || $currentRoute == 'payroll-emp-detail' || $currentRoute == 'payroll-add' || $currentRoute == 'payroll-edit'  ? 'active' : '') }}">
-                    <a href="{{ route('payroll-list') }}"><i class="fa fa-list"></i>
+                    <a href="{{ route('payroll-list') }}"><i class="fa fa-money"></i>
                     <span class="nav-label">Payroll</span></a>
                 </li>
 
@@ -68,7 +68,7 @@ if (!empty(Auth()->guard('admin')->user())) {
                 </li>
 
                 <li class="{{ ($currentRoute == 'sms-list' ? 'active' : '') }} {{ ($currentRoute == 'new-sms' ? 'active' : '') }}">
-                    <a href="{{ route('sms-list') }}"><i class="fa fa-bar-chart"></i>
+                    <a href="{{ route('sms-list') }}"><i class="fa fa-envelope"></i>
                     <span class="nav-label">Send SMS</span></a>
                 </li>
             </ul>
