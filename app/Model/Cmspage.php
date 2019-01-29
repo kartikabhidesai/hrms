@@ -66,7 +66,7 @@ class Cmspage extends Model {
         foreach ($resultArr as $row) {
            $actionHtml = '';
            $actionHtml .= '<a href="' . route('edit-cmspage', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>'.
-                '<a href="#cmsModel" data-toggle="modal" data-id="'. $row['id'] .'" class="link-black text-sm cmsModel" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-eye"></i></a>';
+                '<a href="#cmsModel" data-toggle="modal" data-id="'. $row['id'] .'" class="link-black text-sm cmsModel" data-toggle="tooltip" data-original-title="Preview" > <i class="fa fa-eye"></i></a>';
 
             
             $nestedData = array();
