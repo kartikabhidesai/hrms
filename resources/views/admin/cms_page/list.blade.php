@@ -6,7 +6,7 @@
 			{{ csrf_field() }}
 			<div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Demo Datatables</h5>
+                        <h5>Cms page List</h5>
                         <div class="ibox-tools">
                         	<!-- <a href="{{ route('add-demo') }}" class="btn btn-primary dim" ><i class="fa fa-plus"> Add</i></a> -->
                            <!--  <a class="collapse-link">
