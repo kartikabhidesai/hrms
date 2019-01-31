@@ -26,7 +26,7 @@
                     </div>
                     <div class="form-group">
                         <label class="col-lg-2 control-label">Photo</label>
-                        <div class="fileinput fileinput-new input-group col-lg-9" data-provides="fileinput">
+                        <div class="col-lg-9 fileinput fileinput-new input-group " data-provides="fileinput">
                             <div class="form-control" data-trigger="fileinput">
                                 <i class="glyphicon glyphicon-file fileinput-exists"></i>
                                 <span class="fileinput-filename"></span>
