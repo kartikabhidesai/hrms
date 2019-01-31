@@ -18,6 +18,28 @@ var Updateprofile = function () {
             new_password: {required: true},
             confirm_new_password: {required: true,equalTo: ".new_password"}
         };
+
+        $("#changePassword").validate({
+            ignore: [],
+            rules: {
+                new_password: {
+                    required: true,
+                },
+                confirm_new_password: {
+                    required: true,
+                    equalTo: ".new_password"
+                },
+            },
+            messages: {
+                new_password: {
+                    required: "Please enter password",
+                },
+                confirm_new_password: {
+                    required: "Confirm password must be same as new password",
+                }
+            }
+        });
+        
         handleFormValidate(form, rules, function (form) {
             handleAjaxFormSubmit(form,true);
         });

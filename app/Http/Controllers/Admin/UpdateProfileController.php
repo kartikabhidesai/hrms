@@ -94,7 +94,7 @@ class UpdateProfileController extends Controller {
         $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js',
             );
-        $data['js'] = array('admin/updateprofile.js', 'ajaxfileupload.js','jquery.form.min.js');
+        $data['js'] = array('admin/updateprofile.js','jquery.form.min.js');
         $data['css_plugin'] = array(
           'bootstrap-fileinput/bootstrap-fileinput.css',  
         );
