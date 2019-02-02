@@ -10,7 +10,6 @@
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
                         </a>
-                        
                     </div>
                 </div>
                 <div class="ibox-content">
@@ -19,19 +18,19 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">New Password</label>
                         <div class="col-sm-9">
-                            <input type="password" name="new_password" class="form-control new_password" required>
+                            <input type="password" name="new_password" class="form-control new_password" required value="">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Confirm New Password</label>
-                        <div class="col-sm-9"> 
-                            <input type="password" name="confirm_new_password" class="form-control confirm_new_password" required>
+                        <div class="col-sm-9">
+                            <input type="password" name="confirm_new_password" class="form-control confirm_new_password" required value="">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="col-lg-offset-2 col-lg-9">
-                            <button class="btn btn-sm btn-primary" type="submit">Save</button>
+                            <button class="btn btn-sm btn-primary" type="submit" id="changePwd">Save</button>
                         </div>
                     </div>
                     {{ Form::close() }}

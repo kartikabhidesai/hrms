@@ -73,6 +73,7 @@ class UpdateProfileController extends Controller {
             $loginUser = $this->loginUser;
             $findUser = Users::where('id', $loginUser->id)->first();
             $result = $findUser->updatePassword($request, $loginUser->id);
+
             if($result) {
                 $return['status'] = 'success';
                 $return['message'] = 'Your password has been changed successfully.';
@@ -90,21 +91,20 @@ class UpdateProfileController extends Controller {
             echo json_encode($return);
             exit;
         }
+
         $data['detail'] = $this->loginUser;
         $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js',
             );
-        $data['js'] = array('admin/updateprofile.js','jquery.form.min.js');
-        $data['css_plugin'] = array(
-          'bootstrap-fileinput/bootstrap-fileinput.css',  
-        );
+        $data['js'] = array('admin/updateprofile.js', 'ajaxfileupload.js','jquery.form.min.js');
+        $data['css_plugin'] = array('bootstrap-fileinput/bootstrap-fileinput.css');
         $data['funinit'] = array('Updateprofile.change_password_init()');
+
         $data['header'] = array(
             'title' => 'Change Password',
             'breadcrumb' => array(
-                // 'Home' => route("admin-dashboard"),
-                'Change Password' => route("department-list"),
                 'Change Password'=>'Change Password'));
+
         return view('auth.change-password', $data);
     }
 }
