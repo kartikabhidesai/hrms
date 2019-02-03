@@ -6,7 +6,7 @@
 		<div class="col-lg-6">
 			<div class="ibox float-e-margins">
 				<div class="ibox-title">
-					<h5>Add form</h5>
+					<h5>Basic Details</h5>
 					<div class="ibox-tools">
 						<a class="collapse-link">
 							<i class="fa fa-chevron-up"></i>
@@ -36,7 +36,7 @@
 						 		<label class="col-sm-3 control-label">Date Of birth</label>
                                 <div class="col-sm-9"> 
                                 	<div class="input-group date">
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="date_of_birth" id="" placeholder="Select Date of joingng" class="form-control" value="">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="date_of_birth" id="" placeholder="Select Date of joingng" class="form-control" value="" autocomplete="off">
                                 </div>
                                 </div>
                             </div>
@@ -64,6 +64,40 @@
 								{{ Form::select('nationality', $nationalityArray , null , array('class' => 'form-control nationality','required', 'id' => 'nationality')) }}
 							</div>
 						</div>
+
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Religion</label>
+							<div class="col-lg-9">
+								<select class="form-control dropdown" id="religion" name="religion">
+								    <option value="" selected="selected" disabled="disabled">-- select one --</option>
+								    <option value="African Traditional &amp; Diasporic">African Traditional &amp; Diasporic</option>
+								    <option value="Agnostic">Agnostic</option>
+								    <option value="Atheist">Atheist</option>
+								    <option value="Baha'i">Baha'i</option>
+								    <option value="Buddhism">Buddhism</option>
+								    <option value="Cao Dai">Cao Dai</option>
+								    <option value="Chinese traditional religion">Chinese traditional religion</option>
+								    <option value="Christianity">Christianity</option>
+								    <option value="Hinduism">Hinduism</option>
+								    <option value="Islam">Islam</option>
+								    <option value="Jainism">Jainism</option>
+								    <option value="Juche">Juche</option>
+								    <option value="Judaism">Judaism</option>
+								    <option value="Neo-Paganism">Neo-Paganism</option>
+								    <option value="Nonreligious">Nonreligious</option>
+								    <option value="Rastafarianism">Rastafarianism</option>
+								    <option value="Secular">Secular</option>
+								    <option value="Shinto">Shinto</option>
+								    <option value="Sikhism">Sikhism</option>
+								    <option value="Spiritism">Spiritism</option>
+								    <option value="Tenrikyo">Tenrikyo</option>
+								    <option value="Unitarian-Universalism">Unitarian-Universalism</option>
+								    <option value="Zoroastrianism">Zoroastrianism</option>
+								    <option value="primal-indigenous">primal-indigenous</option>
+								    <option value="Other">Other</option>
+								</select>
+							</div>
+						</div>
 						 	<div class="form-group">
 						 		<label class="col-sm-3 control-label">Martial Status</label>
                                 <div class="col-sm-9"> 
@@ -85,6 +119,96 @@
 							    </span>
 							    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
 								</div> 
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Driver License</label>
+						  	<div class="col-sm-9"> 
+                            	<div class="fileinput fileinput-new input-group " data-provides="fileinput">
+							    	<div class="form-control" data-trigger="fileinput">
+							        	<i class="glyphicon glyphicon-file fileinput-exists"></i>
+							    		<span class="fileinput-filename"></span>
+							    	</div>
+								    <span class="input-group-addon btn btn-default btn-file">
+								        <span class="fileinput-new">Select file</span>
+								        <span class="fileinput-exists">Change</span>
+								        <input type="file" name="driver_license"/>
+								    </span>
+						    		<a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+								</div> 
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-lg-3 control-label">National ID</label>
+								  <div class="col-sm-9"> 
+                                <div class="fileinput fileinput-new input-group " data-provides="fileinput">
+							    <div class="form-control" data-trigger="fileinput">
+							        <i class="glyphicon glyphicon-file fileinput-exists"></i>
+							    <span class="fileinput-filename"></span>
+							    </div>
+							    <span class="input-group-addon btn btn-default btn-file">
+							        <span class="fileinput-new">Select file</span>
+							        <span class="fileinput-exists">Change</span>
+							        <input type="file" name="national_id"/>
+							    </span>
+							    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+								</div> 
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Iqama ID</label>
+								  <div class="col-sm-9"> 
+                                <div class="fileinput fileinput-new input-group " data-provides="fileinput">
+							    <div class="form-control" data-trigger="fileinput">
+							        <i class="glyphicon glyphicon-file fileinput-exists"></i>
+							    <span class="fileinput-filename"></span>
+							    </div>
+							    <span class="input-group-addon btn btn-default btn-file">
+							        <span class="fileinput-new">Select file</span>
+							        <span class="fileinput-exists">Change</span>
+							        <input type="file" name="iqama_id"/>
+							    </span>
+							    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+								</div> 
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Iqama expire date</label>
+							<div class="col-lg-9">
+								<div class="input-group date">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="iqama_expire_date" id="" placeholder="Select Iqama expire date" class="form-control" value=""  autocomplete="off">
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Passport</label>
+								  <div class="col-sm-9"> 
+                                <div class="fileinput fileinput-new input-group " data-provides="fileinput">
+							    <div class="form-control" data-trigger="fileinput">
+							        <i class="glyphicon glyphicon-file fileinput-exists"></i>
+							    <span class="fileinput-filename"></span>
+							    </div>
+							    <span class="input-group-addon btn btn-default btn-file">
+							        <span class="fileinput-new">Select file</span>
+							        <span class="fileinput-exists">Change</span>
+							        <input type="file" name="passport"/>
+							    </span>
+							    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+								</div> 
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Passport Expire Date</label>
+							<div class="col-lg-9">
+								<div class="input-group date">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="passport_expire_date" id="" placeholder="Select passport expire date" class="form-control" value=""  autocomplete="off">
+								</div>
 							</div>
 						</div>
 				</div>
@@ -135,6 +259,14 @@
 								{{ Form::text('employee_id', null, array('placeholder'=>'Employee Id', 'class' => 'form-control employee_id' ,'required')) }}
 							</div>
 						</div>
+
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Job Title</label>
+							<div class="col-lg-9">
+								{{ Form::text('job_title', null, array('placeholder'=>'Job Title', 'class' => 'form-control job_title' ,'required')) }}
+							</div>
+						</div>
+
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Department</label>
 							<div class="col-lg-9">
@@ -151,7 +283,7 @@
 						 		<label class="col-sm-3 control-label">Date Of joining</label>
                                 <div class="col-sm-9"> 
                                 	<div class="input-group date">
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="doj" id="" placeholder="Select Date of joingng" class="form-control" value="">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="doj" id="" placeholder="Select Date of joingng" class="form-control" value=""  autocomplete="off">
                                 </div>
                                 </div>
                             </div>
@@ -161,17 +293,31 @@
                                 	{{ Form::select('join_salary', $testarray , null, array('class' => 'form-control join_salary', 'id' => 'join_salary')) }}
                                 </div>
                         </div> 
-						 	<div class="form-group">
-						 		<label class="col-sm-3 control-label">Status</label>
-                                <div class="col-sm-9"> 
-                                	{{ Form::select('status', $statusArray , null, array('class' => 'form-control status', 'id' => 'status')) }}
-                                </div>
+
+					 	<div class="form-group">
+					 		<label class="col-sm-3 control-label">Status</label>
+                            <div class="col-sm-9"> 
+                            	{{ Form::select('status', $statusArray , null, array('class' => 'form-control status', 'id' => 'status')) }}
+                            </div>
                         </div>
-                        	<div class="form-group">
-						 		<label class="col-sm-3 control-label">&nbsp;</label>
-                                <div class="col-sm-9"> 
-                                	&nbsp;
-                                </div>
+
+                        <div class="form-group">
+							<label class="col-lg-3 control-label">Employee Type</label>
+							<div class="col-lg-9">
+								<select class="form-control employee type" name="employee_type">
+									<option>Select Employee Type</option>
+									<option value="temporary">Temporary</option>
+									<option value="permanent">Permanent</option>
+									<option value="part-time">Part-Time</option>
+								</select>
+							</div>
+						</div>
+
+                    	<div class="form-group">
+					 		<label class="col-sm-3 control-label">&nbsp;</label>
+                            <div class="col-sm-9">
+                            	&nbsp;
+                            </div>
                         </div>
 				</div>
 			</div>

@@ -16,10 +16,8 @@ class Employee extends Model {
 
     protected $table = 'employee';
 
-    public function addEmployee($request, $userId, $companyId) {
-
-        // print_r( $request->file());
-        // print_r( $request->input());exit;
+    public function addEmployee($request, $userId, $companyId) 
+    {
         $emp_pic = '';
         if ($request->file('emp_pic')) {
             $image = $request->file('emp_pic');
@@ -61,6 +59,39 @@ class Employee extends Model {
             $other = 'other' . time() . '.' . $image->getClientOriginalExtension();
             $destinationPath = public_path('/uploads/client/');
             $image->move($destinationPath, $other);
+        }
+
+        /*Store Images to folder for newly fields*/
+        $driver_license = '';
+        if ($request->file('driver_license')) {
+            $image = $request->file('driver_license');
+            $driver_license = 'driver_license' . time() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('/uploads/client/');
+            $image->move($destinationPath, $driver_license);
+        }
+
+        $national_id = '';
+        if ($request->file('national_id')) {
+            $image = $request->file('national_id');
+            $national_id = 'national_id' . time() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('/uploads/client/');
+            $image->move($destinationPath, $national_id);
+        }
+
+        $iqama_id = '';
+        if ($request->file('iqama_id')) {
+            $image = $request->file('iqama_id');
+            $iqama_id = 'iqama_id' . time() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('/uploads/client/');
+            $image->move($destinationPath, $iqama_id);
+        }
+
+        $passport = '';
+        if ($request->file('passport')) {
+            $image = $request->file('passport');
+            $passport = 'passport' . time() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('/uploads/client/');
+            $image->move($destinationPath, $passport);
         }
 
         $objEmployee = new Employee();
@@ -97,16 +128,25 @@ class Employee extends Model {
         $objEmployee->contact_agreement = $contect_agre;
         $objEmployee->other = $other;
 
+        /*Save newly added fields to DB*/
+        $objEmployee->religion = $request->input('religion');
+        $objEmployee->driver_license = $driver_license;
+        $objEmployee->iqama_id = $iqama_id;
+        $objEmployee->iqama_expire_date = date('Y-m-d', strtotime($request->input('iqama_expire_date')));
+        $objEmployee->passport = $passport;
+        $objEmployee->passport_expire_date = date('Y-m-d', strtotime($request->input('passport_expire_date')));
+        $objEmployee->job_title = $request->input('job_title');
+        $objEmployee->employee_type = $request->input('employee_type');
+        $objEmployee->national_id = $national_id;
+
         $objEmployee->created_at = date('Y-m-d H:i:s');
         $objEmployee->updated_at = date('Y-m-d H:i:s');
         $objEmployee->save();
         return $objEmployee->id;
     }
 
-    public function editEmployee($request, $id) {
-
-        // print_r( $request->file());
-        // print_r( $request->input());exit;
+    public function editEmployee($request, $id)
+    {
         $emp_pic = '';
         if ($request->file('emp_pic')) {
             $image = $request->file('emp_pic');
@@ -150,6 +190,39 @@ class Employee extends Model {
             $image->move($destinationPath, $other);
         }
 
+        /*Edit Images to folder for newly fields*/
+        $driver_license = '';
+        if ($request->file('driver_license')) {
+            $image = $request->file('driver_license');
+            $driver_license = 'driver_license' . time() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('/uploads/client/');
+            $image->move($destinationPath, $driver_license);
+        }
+
+        $national_id = '';
+        if ($request->file('national_id')) {
+            $image = $request->file('national_id');
+            $national_id = 'national_id' . time() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('/uploads/client/');
+            $image->move($destinationPath, $national_id);
+        }
+
+        $iqama_id = '';
+        if ($request->file('iqama_id')) {
+            $image = $request->file('iqama_id');
+            $iqama_id = 'iqama_id' . time() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('/uploads/client/');
+            $image->move($destinationPath, $iqama_id);
+        }
+
+        $passport = '';
+        if ($request->file('passport')) {
+            $image = $request->file('passport');
+            $passport = 'passport' . time() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('/uploads/client/');
+            $image->move($destinationPath, $passport);
+        }
+
         $objEmployee = Employee::find($id);
         $objEmployee->name = $request->input('name');
         $objEmployee->father_name = $request->input('father_name');
@@ -181,6 +254,17 @@ class Employee extends Model {
         $objEmployee->joining_letter = $join_letter;
         $objEmployee->contact_agreement = $contect_agre;
         $objEmployee->other = $other;
+
+        /*Edit newly added fields to DB*/
+        $objEmployee->religion = $request->input('religion');
+        $objEmployee->driver_license = $driver_license;
+        $objEmployee->iqama_id = $iqama_id;
+        $objEmployee->iqama_expire_date = date('Y-m-d', strtotime($request->input('iqama_expire_date')));
+        $objEmployee->passport = $passport;
+        $objEmployee->passport_expire_date = date('Y-m-d', strtotime($request->input('passport_expire_date')));
+        $objEmployee->job_title = $request->input('job_title');
+        $objEmployee->employee_type = $request->input('employee_type');
+        $objEmployee->national_id = $national_id;
 
         $objEmployee->created_at = date('Y-m-d H:i:s');
         $objEmployee->updated_at = date('Y-m-d H:i:s');

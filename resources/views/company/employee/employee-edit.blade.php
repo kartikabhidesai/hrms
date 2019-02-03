@@ -6,7 +6,7 @@
 			<div class="col-lg-6">
 			<div class="ibox float-e-margins">
 				<div class="ibox-title">
-					<h5>Add form</h5>
+					<h5>Basic Details</h5>
 					<div class="ibox-tools">
 						<a class="collapse-link">
 							<i class="fa fa-chevron-up"></i>
@@ -60,18 +60,52 @@
 						</div>
 						
 						<div class="form-group">
-						 		<label class="col-sm-3 control-label">Nationality</label>
-                                <div class="col-sm-9"> 
-                                	{{ Form::select('nationality', $nationalityArray , $details->nationality , array('class' => 'form-control nationality', 'id' => 'nationality')) }}
-                                </div>
+					 		<label class="col-sm-3 control-label">Nationality</label>
+                            <div class="col-sm-9"> 
+                            	{{ Form::select('nationality', $nationalityArray , $details->nationality , array('class' => 'form-control nationality', 'id' => 'nationality')) }}
                             </div>
+                        </div>
 
-							<div class="form-group">
-						 		<label class="col-sm-3 control-label">Martial Status</label>
-                                <div class="col-sm-9"> 
-                                {{ Form::select('martial_status', $martialArray , $details->martial_status , array('class' => 'form-control martial_status', 'id' => 'martial_status')) }}
-                                </div>
+                        <div class="form-group">
+							<label class="col-lg-3 control-label">Religion</label>
+							<div class="col-lg-9">
+								<select class="form-control dropdown" id="religion" name="religion">
+								    <option value="" selected="selected" disabled="disabled">-- select one --</option>
+								    <option value="African Traditional &amp; Diasporic" {{ $details->religion == 'African Traditional &amp; Diasporic' ? 'selected' : '' }}>African Traditional &amp; Diasporic</option>
+								    <option value="Agnostic" {{ $details->religion == 'Agnostic' ? 'selected' : '' }}>Agnostic</option>
+								    <option value="Atheist" {{ $details->religion == 'Atheist' ? 'selected' : '' }}>Atheist</option>
+								    <option value="Baha'i" {{ $details->religion == "Baha'i" ? 'selected' : '' }}>Baha'i</option>
+								    <option value="Buddhism" {{ $details->religion == "Buddhism" ? 'selected' : '' }}>Buddhism</option>
+								    <option value="Cao Dai" {{ $details->religion == "Cao Dai" ? 'selected' : '' }}>Cao Dai</option>
+								    <option value="Chinese traditional religion" {{ $details->religion == "Chinese traditional religion" ? 'selected' : '' }}>Chinese traditional religion</option>
+								    <option value="Christianity" {{ $details->religion == "Christianity" ? 'selected' : '' }}>Christianity</option>
+								    <option value="Hinduism" {{ $details->religion == "Hinduism" ? 'selected' : '' }}>Hinduism</option>
+								    <option value="Islam" {{ $details->religion == "Islam" ? 'selected' : '' }}>Islam</option>
+								    <option value="Jainism" {{ $details->religion == "Jainism" ? 'selected' : '' }}>Jainism</option>
+								    <option value="Juche" {{ $details->religion == "Juche" ? 'selected' : '' }}>Juche</option>
+								    <option value="Judaism" {{ $details->religion == "Judaism" ? 'selected' : '' }}>Judaism</option>
+								    <option value="Neo-Paganism" {{ $details->religion == "Neo-Paganism" ? 'selected' : '' }}>Neo-Paganism</option>
+								    <option value="Nonreligious" {{ $details->religion == "Nonreligious" ? 'selected' : '' }}>Nonreligious</option>
+								    <option value="Rastafarianism" {{ $details->religion == "Rastafarianism" ? 'selected' : '' }}>Rastafarianism</option>
+								    <option value="Secular" {{ $details->religion == "Secular" ? 'selected' : '' }}>Secular</option>
+								    <option value="Shinto" {{ $details->religion == "Shinto" ? 'selected' : '' }}>Shinto</option>
+								    <option value="Sikhism" {{ $details->religion == "Sikhism" ? 'selected' : '' }}>Sikhism</option>
+								    <option value="Spiritism" {{ $details->religion == "Spiritism" ? 'selected' : '' }}>Spiritism</option>
+								    <option value="Tenrikyo" {{ $details->religion == "Tenrikyo" ? 'selected' : '' }}>Tenrikyo</option>
+								    <option value="Unitarian-Universalism" {{ $details->religion == "Unitarian-Universalism" ? 'selected' : '' }}>Unitarian-Universalism</option>
+								    <option value="Zoroastrianism" {{ $details->religion == "Zoroastrianism" ? 'selected' : '' }}>Zoroastrianism</option>
+								    <option value="primal-indigenous" {{ $details->religion == "primal-indigenous" ? 'selected' : '' }}>primal-indigenous</option>
+								    <option value="Other" {{ $details->religion == "Other" ? 'selected' : '' }}>Other</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
+					 		<label class="col-sm-3 control-label">Martial Status</label>
+                            <div class="col-sm-9"> 
+                            {{ Form::select('martial_status', $martialArray , $details->martial_status , array('class' => 'form-control martial_status', 'id' => 'martial_status')) }}
                             </div>
+                        </div>
                             
                         <div class="form-group">
 							<label class="col-lg-3 control-label">Photo</label>
@@ -88,6 +122,96 @@
 							    </span>
 							    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
 								</div> 
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Driver License</label>
+						  	<div class="col-sm-9"> 
+                            	<div class="fileinput fileinput-new input-group " data-provides="fileinput">
+							    	<div class="form-control" data-trigger="fileinput">
+							        	<i class="glyphicon glyphicon-file fileinput-exists"></i>
+							    		<span class="fileinput-filename"></span>
+							    	</div>
+								    <span class="input-group-addon btn btn-default btn-file">
+								        <span class="fileinput-new">Select file</span>
+								        <span class="fileinput-exists">Change</span>
+								        <input type="file" name="driver_license"/>
+								    </span>
+						    		<a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+								</div> 
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-lg-3 control-label">National ID</label>
+								  <div class="col-sm-9"> 
+                                <div class="fileinput fileinput-new input-group " data-provides="fileinput">
+							    <div class="form-control" data-trigger="fileinput">
+							        <i class="glyphicon glyphicon-file fileinput-exists"></i>
+							    <span class="fileinput-filename"></span>
+							    </div>
+							    <span class="input-group-addon btn btn-default btn-file">
+							        <span class="fileinput-new">Select file</span>
+							        <span class="fileinput-exists">Change</span>
+							        <input type="file" name="national_id"/>
+							    </span>
+							    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+								</div> 
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Iqama ID</label>
+								  <div class="col-sm-9"> 
+                                <div class="fileinput fileinput-new input-group " data-provides="fileinput">
+							    <div class="form-control" data-trigger="fileinput">
+							        <i class="glyphicon glyphicon-file fileinput-exists"></i>
+							    <span class="fileinput-filename"></span>
+							    </div>
+							    <span class="input-group-addon btn btn-default btn-file">
+							        <span class="fileinput-new">Select file</span>
+							        <span class="fileinput-exists">Change</span>
+							        <input type="file" name="iqama_id"/>
+							    </span>
+							    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+								</div> 
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Iqama expire date</label>
+							<div class="col-lg-9">
+								<div class="input-group date">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="iqama_expire_date" id="" placeholder="Select Iqama expire date" class="form-control" value="{{ date('d-m-Y',strtotime($details->iqama_expire_date)) }}" autocomplete="off">
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Passport</label>
+								  <div class="col-sm-9"> 
+                                <div class="fileinput fileinput-new input-group " data-provides="fileinput">
+							    <div class="form-control" data-trigger="fileinput">
+							        <i class="glyphicon glyphicon-file fileinput-exists"></i>
+							    <span class="fileinput-filename"></span>
+							    </div>
+							    <span class="input-group-addon btn btn-default btn-file">
+							        <span class="fileinput-new">Select file</span>
+							        <span class="fileinput-exists">Change</span>
+							        <input type="file" name="passport"/>
+							    </span>
+							    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+								</div> 
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Passport Expire Date</label>
+							<div class="col-lg-9">
+								<div class="input-group date">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="passport_expire_date" id="" placeholder="Select passport expire date" class="form-control" value="{{ date('d-m-Y',strtotime($details->passport_expire_date)) }}" autocomplete="off">
+								</div>
 							</div>
 						</div>
 				</div>
@@ -138,6 +262,14 @@
 								{{ Form::text('employee_id', $details->employee_id, array('placeholder'=>'Employee Id', 'class' => 'form-control employee_id' ,'required')) }}
 							</div>
 						</div>
+
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Job Title</label>
+							<div class="col-lg-9">
+								{{ Form::text('job_title', $details->job_title, array('placeholder'=>'Job Title', 'class' => 'form-control job_title' ,'required')) }}
+							</div>
+						</div>
+
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Department</label>
 							<div class="col-lg-9">
@@ -172,6 +304,19 @@
                                 	{{ Form::select('status', $statusArray , $details->status, array('class' => 'form-control status', 'id' => 'status')) }}
                                 </div>
                         </div>
+
+                        <div class="form-group">
+							<label class="col-lg-3 control-label">Employee Type</label>
+							<div class="col-lg-9">
+								<select class="form-control employee type" name="employee_type">
+									<option>Select Employee Type</option>
+									<option value="temporary" {{ $details->employee_type == 'temporary' ? 'selected' : '' }}>Temporary</option>
+									<option value="permanent" {{ $details->employee_type == 'permanent' ? 'selected' : '' }}>Permanent</option>
+									<option value="part-time" {{ $details->employee_type == 'part-time' ? 'selected' : '' }}>Part-Time</option>
+								</select>
+							</div>
+						</div>
+
                         <div class="form-group">
 						 		<label class="col-sm-3 control-label">&nbsp;</label>
                                 <div class="col-sm-9"> 
