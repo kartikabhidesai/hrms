@@ -183,7 +183,7 @@
 							<label class="col-lg-3 control-label">Iqama expire date</label>
 							<div class="col-lg-9">
 								<div class="input-group date">
-                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="iqama_expire_date" id="" placeholder="Select Iqama expire date" class="form-control" value="{{ date('d-m-Y',strtotime($details->iqama_expire_date)) }}" autocomplete="off">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="iqama_expire_date" placeholder="Select Iqama expire date" class="form-control" value="{{ date('d-m-Y',strtotime($details->iqama_expire_date)) }}" autocomplete="off">
 								</div>
 							</div>
 						</div>
@@ -210,7 +210,7 @@
 							<label class="col-lg-3 control-label">Passport Expire Date</label>
 							<div class="col-lg-9">
 								<div class="input-group date">
-                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="passport_expire_date" id="" placeholder="Select passport expire date" class="form-control" value="{{ date('d-m-Y',strtotime($details->passport_expire_date)) }}" autocomplete="off">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="passport_expire_date" placeholder="Select passport expire date" class="form-control" value="{{ date('d-m-Y',strtotime($details->passport_expire_date)) }}" autocomplete="off">
 								</div>
 							</div>
 						</div>
@@ -288,7 +288,7 @@
 						 		<label class="col-sm-3 control-label">Date Of joining</label>
                                 <div class="col-sm-9"> 
                                 	<div class="input-group date">
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="doj" id="" placeholder="Select Date of joingng" class="form-control" value="{{  date('d-m-Y',strtotime($details->date_of_joining)) }}">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="doj" placeholder="Select Date of joingng" class="form-control" value="{{  date('d-m-Y',strtotime($details->date_of_joining)) }}">
                                 </div>
                                 </div>
                             </div>
