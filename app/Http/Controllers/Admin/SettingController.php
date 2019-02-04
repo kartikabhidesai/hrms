@@ -17,7 +17,6 @@ class SettingController extends Controller {
         $session = $request->session()->all();
          $objSetting=new Setting();
          $data['setting']=$objSetting->getSetting();
-         
         if($request->isMethod('post')){
             $objSetting=new Setting();
             $result=$objSetting->saveSetting($request);

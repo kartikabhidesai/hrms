@@ -42,32 +42,32 @@
                     
                     <div class="form-group"><label class="col-lg-2 control-label">Date Formate</label>
                         <div class="col-sm-9">
-                            <div><label> <input type="radio" checked="" value="1" id="optionsRadios1" name="dateformate">  January 30,2018 </label></div>
-                            <div><label> <input type="radio" value="2" id="optionsRadios2" name="dateformate"> 30/01/2018</label></div>
-                            <div><label> <input type="radio" value="3" id="optionsRadios2" name="dateformate"> 01/30/2018</label></div>
-                            <div><label> <input type="radio" value="4" id="optionsRadios2" name="dateformate"> Custom  &nbsp;&nbsp;&nbsp;<input  type="text" name="customedate"> &nbsp;&nbsp;&nbsp;January 30,2018</label></div>
+                            <div><label> <input type="radio" value="1" {{ ($setting[0]['dateformate'] == '1' ? 'checked="checked"' : '') }} id="optionsRadios1" name="dateformate">  January 30,2018 </label></div>
+                            <div><label> <input type="radio" value="2" {{ ($setting[0]['dateformate'] == '2' ? 'checked="checked"' : '') }} id="optionsRadios2" name="dateformate"> 30/01/2018</label></div>
+                            <div><label> <input type="radio" value="3" {{ ($setting[0]['dateformate'] == '3' ? 'checked="checked"' : '') }} id="optionsRadios2" name="dateformate"> 01/30/2018</label></div>
+                            <div><label> <input type="radio" value="4" {{ ($setting[0]['dateformate'] == '4' ? 'checked="checked"' : '') }} id="optionsRadios2" value="{{ $setting[0]['siteurl'] }}" name="dateformate"> Custom  &nbsp;&nbsp;&nbsp;<input  type="text" value="{{ $setting[0]['customdate'] }}" name="customdate"> &nbsp;&nbsp;&nbsp;January 30,2018</label></div>
                         </div>
                     </div>
                     
                     <div class="form-group"><label class="col-lg-2 control-label">Time Formate</label>
                         <div class="col-sm-9">
-                            <div><label> <input type="radio" checked="" value="1" id="" name="timeformate">  18:30 </label></div>
-                            <div><label> <input type="radio" value="2" id="" name="timeformate">  06:30 PM</label></div>
-                            <div><label> <input type="radio" value="3" id="" nam7e="timeformate"> Custom &nbsp;&nbsp;&nbsp;<input  type="text" name="custometime"> &nbsp;&nbsp;&nbsp;18:30</label></div>
+                            <div><label> <input type="radio" {{ ($setting[0]['timeformate'] == '1' ? 'checked="checked"' : '') }} value="1" id="" name="timeformate">  18:30 </label></div>
+                            <div><label> <input type="radio" {{ ($setting[0]['timeformate'] == '2' ? 'checked="checked"' : '') }}value="2" id="" name="timeformate">  06:30 PM</label></div>
+                            <div><label> <input type="radio" value="3" {{ ($setting[0]['timeformate'] == '3' ? 'checked="checked"' : '') }}id="" name="timeformate"> Custom &nbsp;&nbsp;&nbsp;<input  type="text" value="{{ $setting[0]['customtime'] }}" name="custometime"> &nbsp;&nbsp;&nbsp;18:30</label></div>
                         </div>
                     </div>
                     
                     <div class="form-group"><label class="col-lg-2 control-label">Week Start</label>
                         <div class="col-sm-9">
                             <select class="form-control" name="startweek" >
-                                 <option value="">Select start of week</option>
-                                <option value="monday">Monday</option>
-                                <option value="tuseday">Tuesday</option>
-                                <option value="wednesday">Wednesday</option>
-                                <option value="thursday">Thursday</option>
-                                <option value="friday">Friday</option>
-                                <option value="saturday">Saturday</option>
-                                <option value="sunday">Sunday</option>
+                                <option value="">Select start of week</option>
+                                <option value="monday" {{ ($setting[0]['weekstart'] == 'monday' ? 'selected="selected"' : '') }}>Monday</option>
+                                <option value="tuseday" {{ ($setting[0]['weekstart'] == 'tuseday' ? 'selected="selected"' : '') }}>Tuesday</option>
+                                <option value="wednesday"  {{ ($setting[0]['weekstart'] == 'wednesday' ? 'selected="selected"' : '') }}>Wednesday</option>
+                                <option value="thursday" {{ ($setting[0]['weekstart'] == 'thursday' ? 'selected="selected"' : '') }}>Thursday</option>
+                                <option value="friday" {{ ($setting[0]['weekstart'] == 'friday' ? 'selected="selected"' : '') }}>Friday</option>
+                                <option value="saturday" {{ ($setting[0]['weekstart'] == 'saturday' ? 'selected="selected"' : '') }}>Saturday</option>
+                                <option value="sunday" {{ ($setting[0]['weekstart'] == 'sunday' ? 'selected="selected"' : '') }}>Sunday</option>
                             </select>
                         </div>
                     </div>
@@ -76,9 +76,9 @@
                         <div class="col-sm-9">
                             <select class="form-control" name="language" >
                                 <option value="">Select Language</option>
-                                <option value="english">English</option>
-                                <option value="trukish">Trukish</option>
-                                <option value="german">German</option>
+                                <option value="english" {{ ($setting[0]['language'] == 'english' ? 'selected="selected"' : '') }}>English</option>
+                                <option value="trukish" {{ ($setting[0]['language'] == 'trukish' ? 'selected="selected"' : '') }}>Trukish</option>
+                                <option value="german" {{ ($setting[0]['language'] == 'german' ? 'selected="selected"' : '') }}>German</option>
                             </select>
                         </div>
                     </div>

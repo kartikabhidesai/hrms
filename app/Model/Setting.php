@@ -25,7 +25,21 @@ class Setting extends Model {
         $saveSetting->timezone=$request->input('timezone');
         
         $saveSetting->dateformate=$request->input('dateformate');
+
+        if($request->input('dateformate') == '4'){
+            $saveSetting->customdate=$request->input('customdate');
+        }else{
+            $saveSetting->customdate='';
+        }
+        
         $saveSetting->timeformate=$request->input('timeformate');
+
+        if($request->input('timeformate') == '3'){
+            $saveSetting->customtime=$request->input('custometime');
+        }  else{
+            $saveSetting->customtime='';
+        } 
+
         $saveSetting->weekstart=$request->input('startweek');
         $saveSetting->language=$request->input('language');
         $saveSetting->siteurl=$request->input('site_address');

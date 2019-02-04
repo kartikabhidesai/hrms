@@ -50,7 +50,7 @@ a[x-apple-data-detectors] {
 div[style*="margin: 16px 0;"] { margin: 0 !important; }
 </style>
 </head>
-<body style="margin: 0 !important; padding: 0; !important background-color: #F1F1F1;" bgcolor="#F1F1F1">
+<body style="margin: 0 !important; padding: 0 !important; background-color: #F1F1F1;" bgcolor="#F1F1F1">
 
 <!-- HIDDEN PREHEADER TEXT -->
 <div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: Open Sans, Helvetica, Arial, sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;">
@@ -72,7 +72,7 @@ div[style*="margin: 16px 0;"] { margin: 0 !important; }
                    </td>
                </tr>
                <tr>
-                   <td align="left" valign="top" style="padding: 50px; font-family: Open Sans, Helvetica, Arial, sans-serif; border-radius: 3px; rgba(0,0,0,.5);" bgcolor="#ffffff">
+                   <td align="left" valign="top" style="padding: 50px; font-family: Open Sans, Helvetica, Arial, sans-serif; border-radius: 3px; " bgcolor="#ffffff">
                        <p style="color: #999999; font-size: 16px; line-height: 26px; margin: 0;">
 
                            Sehr {{ $data['name'] }},<br><br>
