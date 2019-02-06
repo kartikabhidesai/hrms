@@ -57,7 +57,7 @@ if (!empty(Auth()->guard('admin')->user())) {
                     <span class="nav-label">Payroll</span></a>
                 </li>
 
-                <li class="{{ ($currentRoute == 'daily-attendance' ? 'active' : '') }} {{ ($currentRoute == 'attendance-report' ? 'active' : '') }}">
+                <li class="{{ ($currentRoute == 'daily-attendance' ? 'active' : '') }} {{ ($currentRoute == 'attendance-report' ? 'active' : '') }} {{ ($currentRoute == 'time-change-request' ? 'active' : '') }}">
                     <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Attendance</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li class="{{ ($currentRoute == 'daily-attendance' ? 'active' : '') }}">
@@ -67,18 +67,18 @@ if (!empty(Auth()->guard('admin')->user())) {
                         <li class="{{ ($currentRoute == 'attendance-report' ? 'active' : '') }}">
                             <a href="{{ route('attendance-report') }}"><i class="fa fa-bar-chart"></i>
                             <span class="nav-label">Attendance Report</span></a>
-                        </li>  
+                        </li>
+
+                        <li class="{{ ($currentRoute == 'time-change-request' ? 'active' : '') }}">
+                            <a href="{{ route('time-change-request') }}"><i class="fa fa-envelope"></i>
+                            <span class="nav-label">Manage Time Change Request</span></a>
+                        </li>
                     </ul>
                 </li>
 
                 <li class="{{ ($currentRoute == 'sms-list' ? 'active' : '') }} {{ ($currentRoute == 'new-sms' ? 'active' : '') }}">
                     <a href="{{ route('sms-list') }}"><i class="fa fa-envelope"></i>
                     <span class="nav-label">Send SMS</span></a>
-                </li>
-
-                <li class="{{ ($currentRoute == 'time-change-request' ? 'active' : '') }}">
-                    <a href="{{ route('time-change-request') }}"><i class="fa fa-envelope"></i>
-                    <span class="nav-label">Manage Time Change Request</span></a>
                 </li>
             </ul>
         </div>
