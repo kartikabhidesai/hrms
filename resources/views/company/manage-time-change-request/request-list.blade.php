@@ -23,7 +23,8 @@
                                         <th>Department</th>
                                         <th>Date Submitted</th>
                     					<th>Date Requested</th>
-                    					<th>Status</th>
+                                        <th>Status</th>
+                    					<th>Action</th>
                     				</tr>
                     			</thead>
                     			<tbody>
@@ -36,6 +37,10 @@
                                         <td>Sunday (Feb 2, 2019)</td>
                                         <td>From: Apr 03, 2019 To: Apr 04, 2019</td>
                                         <td>Pending</td>
+                                        <td>
+                                            <button type="button" class="btn btn-default" data-toggle="tooltip" title="Approve" data-original-title="Tooltip on top"><i class="fa fa-check"></i></button>
+                                            <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Reject" data-original-title="Tooltip on top"><i class="fa fa-close"></i></button>
+                                        </td>
                                     </tr>
                     			</tbody>
                     		</table>
