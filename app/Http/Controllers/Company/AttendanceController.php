@@ -57,14 +57,22 @@ class AttendanceController extends Controller
                                                 ->get();
                                                 
                     if(count($data['getEmployees']) == 0){
-                       $data['getEmployees'] = Employee::select('employee.name','employee.id','employee.user_id')
+
+                        /*Don't remove this query => It's working*/
+                       /*$data['getEmployees'] = Employee::select('employee.name','employee.id','employee.user_id')
                                                 ->groupBy('employee.id')
                                                 ->join('department', 'employee.department', '=', 'department.id')
                                                 ->join('comapnies', 'department.company_id', '=', 'comapnies.id')
                                                 ->join('attendance', 'employee.user_id', '=', 'attendance.user_id')
                                                 ->where('comapnies.user_id', $userid)
                                                 ->where('employee.department', $departmentname->id)
-                                                ->get();
+                                                ->get();*/
+
+                        $data['getEmployees'] = Employee::select('employee.name','employee.id','employee.user_id')
+                                                        ->where('company_id', $companyId[0]['id'])
+                                                        ->where('employee.department', $departmentname->id)
+                                                        ->get();
+                        
                     }
                     // $data['getEmployees'] = Employee::where('department', $departmentname->id)->get();  
                     $data['departmentname'] = $departmentname['department_name'];
