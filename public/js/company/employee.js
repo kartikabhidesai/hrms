@@ -29,7 +29,7 @@ var Employee = function() {
         var rules = {
             name: {required: true},
             first_name: {required: true},
-            emp_pic: {required: true},
+            // emp_pic: {required: true},
             Phone: {required: true,number:true},
             email: {required: true,email:true},
             martial_status: {required: true},
