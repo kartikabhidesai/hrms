@@ -49,6 +49,9 @@ $currentRoute = Route::current()->getName();
                 </li>  <li class="{{ ($currentRoute == 'payroll-employee' ? 'active' : '') }}">
                     <a href="{{ route('payroll-employee') }}"><i class="fa fa-calendar-check-o"></i> <span class="nav-label">Payroll</span></a>
                 </li>
+                </li>  <li class="{{ ($currentRoute == 'manage-time-change-request' ? 'active' : '') }} {{ ($currentRoute == 'new-time-change-request' ? 'active' : '') }}">
+                    <a href="{{ route('manage-time-change-request') }}"><i class="fa fa-calendar-check-o"></i> <span class="nav-label">Manage Time Change Request</span></a>
+                </li>
             </ul>
         </div>
     </nav>

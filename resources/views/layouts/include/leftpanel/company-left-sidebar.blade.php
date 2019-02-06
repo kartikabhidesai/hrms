@@ -75,6 +75,11 @@ if (!empty(Auth()->guard('admin')->user())) {
                     <a href="{{ route('sms-list') }}"><i class="fa fa-envelope"></i>
                     <span class="nav-label">Send SMS</span></a>
                 </li>
+
+                <li class="{{ ($currentRoute == 'time-change-request' ? 'active' : '') }}">
+                    <a href="{{ route('time-change-request') }}"><i class="fa fa-envelope"></i>
+                    <span class="nav-label">Manage Time Change Request</span></a>
+                </li>
             </ul>
         </div>
     </nav>
