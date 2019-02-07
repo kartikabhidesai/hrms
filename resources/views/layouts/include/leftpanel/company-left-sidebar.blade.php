@@ -57,16 +57,22 @@ if (!empty(Auth()->guard('admin')->user())) {
                     <span class="nav-label">Payroll</span></a>
                 </li>
 
-                <li class="{{ ($currentRoute == 'daily-attendance' ? 'active' : '') }} {{ ($currentRoute == 'attendance-report' ? 'active' : '') }} {{ ($currentRoute == 'time-change-request' ? 'active' : '') }}">
+                <li class="{{ ($currentRoute == 'daily-attendance' ? 'active' : '') }} {{ ($currentRoute == 'attendance-report' ? 'active' : '') }} {{ ($currentRoute == 'time-change-request' ? 'active' : '') }} {{ ($currentRoute == 'manage-attendance-history' ? 'active' : '') }}">
                     <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Attendance</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li class="{{ ($currentRoute == 'daily-attendance' ? 'active' : '') }}">
                             <a href="{{ route('daily-attendance') }}"><i class="fa fa-thumb-tack"></i>
                             <span class="nav-label">Daily Attendance</span></a>
                         </li>
+
                         <li class="{{ ($currentRoute == 'attendance-report' ? 'active' : '') }}">
                             <a href="{{ route('attendance-report') }}"><i class="fa fa-bar-chart"></i>
                             <span class="nav-label">Attendance Report</span></a>
+                        </li>
+
+                        <li class="{{ ($currentRoute == 'manage-attendance-history' ? 'active' : '') }}">
+                            <a href="{{ route('manage-attendance-history') }}"><i class="fa fa-envelope"></i>
+                            <span class="nav-label">Manage Attendance History</span></a>
                         </li>
 
                         <li class="{{ ($currentRoute == 'time-change-request' ? 'active' : '') }}">

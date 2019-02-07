@@ -180,5 +180,20 @@ class AttendanceController extends Controller
       
         return view('company.attendance.attendance-report', $data);
     }
+
+    public function manageAttendanceHistory()
+    {
+        $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
+        $data['js'] = array('company/attendance_history.js', 'jquery.form.min.js');
+        $data['funinit'] = array('AttendanceHIstory.init()');
+        $data['css'] = array('');
+        $data['header'] = array(
+            'title' => 'Manage Attendance History',
+            'breadcrumb' => array(
+                'Home' => route("company-dashboard"),
+                'Manage Attendance History' => 'Manage Attendance History'));
+      
+        return view('company.attendance.manage-attendance-history', $data);
+    }
     
 }
