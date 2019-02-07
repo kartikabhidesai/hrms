@@ -35,6 +35,9 @@ var Employee = function() {
             martial_status: {required: true},
             employee_id: {required: true},
             newpassword: {required: true},
+            join_salary: {required: true},
+            status: {required: true},
+            employee_type: {required: true},
         };
         handleFormValidate(form, rules, function(form) {
             handleAjaxFormSubmit(form,true);

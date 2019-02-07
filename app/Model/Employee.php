@@ -373,10 +373,15 @@ class Employee extends Model {
         return $result;
     }
     
-    public function getUserid($id){
-//        print_r($id);exit;
+    public function getUserid($id)
+    {
         $result = Employee::select('id')
-                ->where('user_id',$id)->get();
-    return $result[0]['id'];
+                            ->where('user_id',$id)->get();
+
+        if(count($result) > 0) {
+            return $result[0]['id'];
+        } else {
+            return false;
+        }
     }
 }
