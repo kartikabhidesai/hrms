@@ -33,8 +33,8 @@ class ManageTimeChangeRequestController extends Controller
         $timeRequestObj = new ManageTimeChangeRequest;
 
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
-        $data['js'] = array('employee/manage_time_change_request.js', 'ajaxfileupload.js', 'jquery.form.min.js');
-        $data['funinit'] = array('ManageTimeChangeRequest.init()');
+        $data['js'] = array('employee/newTimeChangeRequest.js', 'ajaxfileupload.js', 'jquery.form.min.js');
+        $data['funinit'] = array('Timechange.list()');
         $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
 
         return view('employee.manage-time-change-request.request-list', $data);
@@ -79,5 +79,45 @@ class ManageTimeChangeRequestController extends Controller
                 'Manage Time Change Request' => route("manage-time-change-request"),
                 'New Request'=>'New Request'));
         return view('employee.manage-time-change-request.new-request', $data);
+    }
+    
+    public function deleteLeave($postData) {
+        if ($postData) {
+            $result = ManageTimeChangeRequest::where('id', $postData['id'])->delete();
+            if ($result) {
+                $return['status'] = 'success';
+                $return['message'] = 'Manage Time Change Request delete successfully.';
+                 $return['redirect'] = route('manage-time-change-request');
+            } else {
+                $return['status'] = 'error';
+                $return['message'] = 'something will be wrong.';
+            }
+            echo json_encode($return);
+            exit;
+        }
+    }
+    
+    
+    
+    public function ajaxAction(Request $request) 
+    {
+        $action = $request->input('action');
+        
+        switch ($action) {
+            
+            case 'getdatatable':
+               $id = Auth()->guard('employee')->user()['id'];
+                $objEmploye=new Employee();
+                $employeid=$objEmploye->getUserid($id);
+                $objManageList=new ManageTimeChangeRequest();
+                $datalist=$objManageList->getManageTimeChangeList($employeid);
+                echo json_encode($datalist);
+                break;
+            
+            case 'deleteLeave':
+               
+                $result = $this->deleteLeave($request->input('data'));
+                break;
+        }
     }
 }

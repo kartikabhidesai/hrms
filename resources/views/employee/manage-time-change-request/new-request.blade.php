@@ -39,9 +39,13 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Date Of Submit</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="date_of_submit" id="date" value="" class="form-control">
+                                    <div class="input-group from_date">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="date_of_submit" id="date" value="" class="form-control from_date dateField" placeholder="Date Of Submit" autocomplete="off">
+                                    </div>
                                 </div>
                             </div>
+                            
+                            
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">From:</label>
@@ -70,10 +74,10 @@
                                 <div class="col-sm-9">
                                     <select class="c-select form-control" name="typeRequest">
                                         <option value="">Select any option</option>
-                                        <option value="clock_in_times">Clock in times</option>
-                                        <option value="standard_or_basic_hours">Standard or basic hours</option>
-                                        <option value="overtime_hours">Overtime hours</option>
-                                        <option value="absence">Absence</option>
+                                        <option value="Clock in times">Clock in times</option>
+                                        <option value="Standard or basic hours">Standard or basic hours</option>
+                                        <option value="Overtime hours">Overtime hours</option>
+                                        <option value="Absence">Absence</option>
                                     </select>
                                 </div>
                             </div>
@@ -81,14 +85,14 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Total Hours</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="total_hrs" class="form-control">
+                                    <input type="text" name="total_hrs" placeholder="Total Hours" class="form-control">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Description Of Request</label>
                                 <div class="col-sm-9">
-                                    <textarea name="reuest_note" class="form-control" rows="4" cols="4"></textarea>
+                                    <textarea name="reuest_note" class="form-control" placeholder="Description Of Request" rows="4" cols="4"></textarea>
                                 </div>
                             </div>
                         </div>

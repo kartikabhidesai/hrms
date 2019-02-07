@@ -14,24 +14,24 @@
                 </div>
                 <div class="ibox-content">
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover dataTables-example" id="payrollDatatables">
+                        <table class="table table-striped table-bordered table-hover dataTables-example" id="requestlist">
                             <thead>
                                 <tr>
-                                    <th>Date</th>
-                                    <th>Scheduled Hours Type</th>
+                                    
+                                    <th>Name</th>
+                                    <th>Department Name</th>
+                                    <th>Submit Date</th>
+                                    <th>From Date</th>
+                                    <th>To Date</th>
+                                    <th>Request Type</th>
+                                    <th>Total Hours</th>
+                                    <th>Request Description</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>01/01/2019</td>
-                                    <td>Overtime hours</td>
-                                    <td>Approved</td>
-                                    <td> 
-                                        <a href="" class="link-black text-sm" data-toggle="tooltip" data-original-title="Delete"> <i class="fa fa-trash"></i></a>
-                                    </td>
-                                </tr>
+                                
                             </tbody>
                         </table>
                     </div>

@@ -47,4 +47,5 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
 
     /*Manage Time Change Request*/
     Route::match(['get', 'post'], 'time-change-request', ['as' => 'time-change-request', 'uses' => 'Company\ManageTimeChangeRequestController@timeChangeRequest']);
+    
 });

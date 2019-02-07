@@ -24,5 +24,5 @@ Route::group(['prefix' => $employeePrefix, 'middleware' => ['employee']], functi
 
     Route::get('manage-time-change-request', ['as' => 'manage-time-change-request', 'uses' => 'Employee\ManageTimeChangeRequestController@manageTimeChangeRequestList']);
     Route::match(['get', 'post'], 'new-time-change-request', ['as' => 'new-time-change-request', 'uses' => 'Employee\ManageTimeChangeRequestController@newTimeChangeRequest']);
-        
+    Route::match(['get', 'post'], 'requestlist-ajaxAction', ['as' => 'requestlist-ajaxAction', 'uses' => 'Employee\ManageTimeChangeRequestController@ajaxAction']);    
 });
