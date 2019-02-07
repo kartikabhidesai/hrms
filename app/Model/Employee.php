@@ -364,5 +364,19 @@ class Employee extends Model {
         }
         return $result;
     }
-
+    
+    public function getEmploydetails($userId){
+//        print_r($userId);exit;
+        $result = Employee::select('department.department_name','department.id','department.company_id','employee.id')
+                ->join('department', 'employee.department', '=', 'department.id')
+                ->where('employee.user_id',$userId)->get();
+        return $result;
+    }
+    
+    public function getUserid($id){
+//        print_r($id);exit;
+        $result = Employee::select('id')
+                ->where('user_id',$id)->get();
+    return $result[0]['id'];
+    }
 }

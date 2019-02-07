@@ -12,24 +12,34 @@
                     {{ Form::open( array('method' => 'post', 'class' => 'form-horizontal','files' => true, 'id' => 'newTimeChangeRequest' )) }}
 
                         <div class="col-lg-6">
+                            
+                            <div class="form-group" hidden>
+                                <label class="col-sm-2 control-label">Name</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="empid" value="{{ $emp_id }}" class="form-control">
+                                    
+                                    <input type="text" name="company_id" value="{{ $company_id }}" class="form-control">
+                                </div>
+                            </div>
+                            
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Name</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="name" value="John" class="form-control">
+                                    <input type="text" name="name" value="{{ $name }}" class="form-control">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Department</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="department" value="IT" class="form-control">
+                                    <input type="text" name="department" value="{{ $depat_name }}" class="form-control">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Date Of Submit</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="date_of_submit" value="" class="form-control">
+                                    <input type="text" name="date_of_submit" id="date" value="" class="form-control">
                                 </div>
                             </div>
 
@@ -58,8 +68,8 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Type of Request</label>
                                 <div class="col-sm-9">
-                                    <select class="form-control">
-                                        <option>Select any option</option>
+                                    <select class="c-select form-control" name="typeRequest">
+                                        <option value="">Select any option</option>
                                         <option value="clock_in_times">Clock in times</option>
                                         <option value="standard_or_basic_hours">Standard or basic hours</option>
                                         <option value="overtime_hours">Overtime hours</option>
@@ -94,4 +104,14 @@
         </div>
     </div>
 </div>
+<style>
+    input.has-error {
+        border-color: red;
+    }
+    .has-error .select2,.has-error .select2-selection{
+        color: red !important;
+        border-color: red !important;
+    }
+
+</style>
 @endsection
