@@ -17,7 +17,6 @@
                         <table class="table table-striped table-bordered table-hover dataTables-example" id="requestlist">
                             <thead>
                                 <tr>
-                                    
                                     <th>Name</th>
                                     <th>Department Name</th>
                                     <th>Submit Date</th>

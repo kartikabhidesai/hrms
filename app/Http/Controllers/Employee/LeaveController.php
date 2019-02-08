@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Leave;
 use App\Model\Employee;
+use App\Model\Company;
 class LeaveController extends Controller
 {
     /**
@@ -41,7 +42,7 @@ class LeaveController extends Controller
         $empdetails=$objEmployee->getEmploydetails($logindata['id']);
         $data['company_id']=$empdetails[0]->company_id;
         $data['emp_id']=$empdetails[0]->emp_id;
-       
+        $data['dep_id']=$empdetails[0]->dep_id;
         if ($request->isMethod('post')) {
             
             $objLeave = new Leave();
@@ -79,6 +80,13 @@ class LeaveController extends Controller
      */
     public function leaveedit(Request $request,$id)
     {
+        $session = $request->session()->all();
+        $logindata = $session['logindata'][0];
+        $objEmployee=new Employee();
+        $empdetails=$objEmployee->getEmploydetails($logindata['id']);
+        $data['company_id']=$empdetails[0]->company_id;
+        $data['emp_id']=$empdetails[0]->emp_id;
+        $data['dep_id']=$empdetails[0]->dep_id;
         if ($request->isMethod('post')) {
 
             $objLeave = new Leave();
@@ -132,8 +140,11 @@ class LeaveController extends Controller
         $action = $request->input('action');
         switch ($action) {
             case 'getdatatable':
+                $userID = $this->loginUser;
+                $objEmploye=new Employee();
+                $employeid=$objEmploye->getUserid($userID->id);
                 $objLeave = new Leave();
-                $demoList = $objLeave->getLeaveDatatable($request);
+                $demoList = $objLeave->getLeaveDatatable($employeid);
                 echo json_encode($demoList);
                 break;
             case 'deleteLeave':

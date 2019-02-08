@@ -8,6 +8,7 @@ use DB;
 use Auth;
 use App\Model\UserHasPermission;
 use App\Model\Sendmail;
+use App\Model\Company;
 use Config;
 
 class Leave extends Model {
@@ -17,6 +18,7 @@ class Leave extends Model {
     public function addnewleave($request) {
         $objLeave = new Leave();
         $objLeave->emp_id = $request->input('empid');
+        $objLeave->dep_id = $request->input('dep_id');
         $objLeave->cmp_id = $request->input('company_id');
         $objLeave->type_of_req_id = $request->input('typeRequest');
         $objLeave->start_date = date('Y-m-d',strtotime($request->input('start_date')));
@@ -33,7 +35,7 @@ class Leave extends Model {
         $objLeave->start_date = date('Y-m-d',strtotime($request->input('start_date')));
         $objLeave->end_date = date('Y-m-d',strtotime($request->input('end_date')));
         $objLeave->reason = $request->input('reason');
-        $objLeave->created_at = date('Y-m-d H:i:s');
+        $objLeave->type_of_req_id = $request->input('typeRequest');
         $objLeave->updated_at = date('Y-m-d H:i:s');
         $objLeave->save();
 
@@ -41,7 +43,7 @@ class Leave extends Model {
     }
     
 
-    public function getLeaveDatatable($request) {
+    public function getLeaveDatatable($userid) {
         $requestData = $_REQUEST;
         $columns = array(
             // datatable column index  => database column name
@@ -50,8 +52,9 @@ class Leave extends Model {
             2 => 'lv.end_date',
             3 => 'lv.reason',
         );
-        $query = Leave::from('leaves as lv');
-
+        $query = Leave::from('leaves as lv')
+                ->join('department as depart', 'lv.dep_id', '=', 'depart.id')
+                ->where('lv.emp_id',$userid);
         if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
             $searchVal = $requestData['search']['value'];
             $query->where(function($query) use ($columns, $searchVal, $requestData) {
@@ -77,17 +80,18 @@ class Leave extends Model {
 
         $resultArr = $query->skip($requestData['start'])
            ->take($requestData['length'])
-           ->select('lv.id', 'lv.start_date','lv.end_date', 'lv.reason')->get();
+           ->select('depart.department_name','lv.id', 'lv.start_date','lv.end_date','lv.type_of_req_id', 'lv.reason')->get();
         $data = array();
    
         foreach ($resultArr as $row) {
-           $actionHtml = $request->input('gender');
-           $actionHtml .= '<a href="' . route('edit-leave', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
+//           $actionHtml = $request->input('gender');
+           $actionHtml = '<a href="' . route('edit-leave', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
             $actionHtml .= '<a href="#deleteModel" data-toggle="modal" data-id="'.$row['id'].'" class="link-black text-sm leaveDelete" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';
             $nestedData = array();
-            $nestedData[] = $row["id"];
+            $nestedData[] = $row["department_name"];
             $nestedData[] = date('d-m-Y',strtotime($row["start_date"]));
             $nestedData[] = date('d-m-Y',strtotime($row["end_date"]));
+            $nestedData[] = $row["type_of_req_id"];
             $nestedData[] = $row["reason"];
             
             $nestedData[] = $actionHtml;

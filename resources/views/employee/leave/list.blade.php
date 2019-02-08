@@ -16,9 +16,10 @@
                         <table class="table table-striped table-bordered table-hover dataTables-example" id="dataTables-leave">
                             <thead>
                                 <tr>
-                                    <th>#id</th>
+                                    <th>Department Name</th>
                                     <th>Start Date</th>
                                     <th>End Date</th>
+                                    <th>Request Type</th>
                                     <th>Reason</th>
                                     <th>Action</th>
                                 </tr>
@@ -35,6 +36,3 @@
     </div>
 </div>
 @endsection
-<script type="text/javascript">
-
-</script>
