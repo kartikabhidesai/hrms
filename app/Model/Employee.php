@@ -367,9 +367,9 @@ class Employee extends Model {
     
     public function getEmploydetails($userId){
 //        print_r($userId);exit;
-        $result = Employee::select('department.department_name','department.id','department.company_id','employee.id')
-                ->join('department', 'employee.department', '=', 'department.id')
-                ->where('employee.user_id',$userId)->get();
+        $result = Employee::select('department.department_name','department.id as dep_id','employee.name','employee.company_id','employee.id as emp_id')
+                    ->join('department', 'employee.department', '=', 'department.id')
+                    ->where('employee.user_id',$userId)->get();
         return $result;
     }
     

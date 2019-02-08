@@ -40,6 +40,7 @@ class EmployeeController extends Controller {
             $objUsers = new Users();
             $userid = $this->loginUser->id;
             $companyId = Company::select('id')->where('user_id', $userid)->first();
+            
             $userId = $objUsers->addEmp($request);
             if ($userId == false) {
                 $return['status'] = 'error';

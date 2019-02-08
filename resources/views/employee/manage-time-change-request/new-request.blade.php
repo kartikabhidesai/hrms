@@ -17,22 +17,22 @@
                                 <label class="col-sm-2 control-label">Name</label>
                                 <div class="col-sm-9">
                                     <input type="text" name="empid" value="{{ $emp_id }}" class="form-control">
-                                    
                                     <input type="text" name="company_id" value="{{ $company_id }}" class="form-control">
+                                    <input type="text" name="depart_id" value="{{ $dep_id }}" class="form-control">
                                 </div>
                             </div>
                             
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Name</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="name" value="{{ $name }}" class="form-control">
+                                    <input type="text" name="name" value="{{ $name }}" class="form-control" readonly>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Department</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="department" value="{{ $depat_name }}" class="form-control">
+                                    <input type="text" name="department" value="{{ $depat_name }}" class="form-control" readonly>
                                 </div>
                             </div>
 

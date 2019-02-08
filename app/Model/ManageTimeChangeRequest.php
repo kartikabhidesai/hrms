@@ -18,7 +18,7 @@ class ManageTimeChangeRequest extends Model
         $objSavedata->name = $request->input('name');
         $objSavedata->employee_id = $request->input('empid');
         $objSavedata->company_id = $request->input('company_id');
-        $objSavedata->department_id = $request->input('department');
+        $objSavedata->department_id = $request->input('depart_id');
         $objSavedata->from_date = date("Y-m-d", strtotime($request->input('from_date')));
         $objSavedata->to_date = date("Y-m-d", strtotime($request->input('to_date')));
         $objSavedata->date_of_submit = date("Y-m-d", strtotime($request->input('date_of_submit')));
@@ -47,7 +47,9 @@ class ManageTimeChangeRequest extends Model
             9=> 'time_change.status'
         );
          $query = ManageTimeChangeRequest::from('time_change_requests as time_change')
-                ->where('time_change.employee_id',$employeeid);
+                 ->join('department as depart', 'time_change.department_id', '=', 'depart.id')
+                 ->where('time_change.employee_id',$employeeid);
+         
           if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
             $searchVal = $requestData['search']['value'];
             $query->where(function($query) use ($columns, $searchVal, $requestData) {
@@ -72,7 +74,7 @@ class ManageTimeChangeRequest extends Model
         
         $resultArr = $query->skip($requestData['start'])
                     ->take($requestData['length'])
-                    ->select('time_change.id', 'time_change.name','time_change.employee_id', 'time_change.company_id','time_change.department_id', 'time_change.from_date','time_change.to_date', 'time_change.date_of_submit','time_change.request_type', 'time_change.total_hours','time_change.request_description', 'time_change.status')->get();
+                    ->select('depart.department_name','time_change.id', 'time_change.name','time_change.employee_id', 'time_change.company_id','time_change.department_id', 'time_change.from_date','time_change.to_date', 'time_change.date_of_submit','time_change.request_type', 'time_change.total_hours','time_change.request_description', 'time_change.status')->get();
         $data = array();
        
         foreach ($resultArr as $row) {
@@ -89,7 +91,7 @@ class ManageTimeChangeRequest extends Model
             $nestedData = array();
 //            $nestedData[] = $row["id"];
             $nestedData[] = $row["name"];
-            $nestedData[] = $row["department_id"];
+            $nestedData[] = $row["department_name"];
             $nestedData[] = $row["date_of_submit"];
             $nestedData[] = $row["from_date"];
             $nestedData[] = $row["to_date"];
@@ -128,6 +130,7 @@ class ManageTimeChangeRequest extends Model
         ); 
         
         $query = ManageTimeChangeRequest::from('time_change_requests as time_change')
+                ->join('department as depart', 'time_change.department_id', '=', 'depart.id')
                 ->where('time_change.company_id',$companyId);
          if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
             $searchVal = $requestData['search']['value'];
@@ -153,7 +156,7 @@ class ManageTimeChangeRequest extends Model
         
         $resultArr = $query->skip($requestData['start'])
                     ->take($requestData['length'])
-                    ->select('time_change.id', 'time_change.name','time_change.employee_id', 'time_change.company_id','time_change.department_id', 'time_change.from_date','time_change.to_date', 'time_change.date_of_submit','time_change.request_type', 'time_change.total_hours','time_change.request_description', 'time_change.status')->get();
+                    ->select('depart.department_name','time_change.id', 'time_change.name','time_change.employee_id', 'time_change.company_id','time_change.department_id', 'time_change.from_date','time_change.to_date', 'time_change.date_of_submit','time_change.request_type', 'time_change.total_hours','time_change.request_description', 'time_change.status')->get();
         $data = array();
         
         foreach ($resultArr as $row) {
@@ -172,7 +175,7 @@ class ManageTimeChangeRequest extends Model
             $nestedData = array();
 //            $nestedData[] = $row["id"];
             $nestedData[] = $row["name"];
-            $nestedData[] = $row["department_id"];
+            $nestedData[] = $row["department_name"];
             $nestedData[] = $row["date_of_submit"];
             $nestedData[] = $row["from_date"];
             $nestedData[] = $row["to_date"];

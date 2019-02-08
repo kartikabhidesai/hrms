@@ -19,19 +19,12 @@ class ManageTimeChangeRequestController extends Controller
 
     public function manageTimeChangeRequestList() {
     	$id = Auth()->guard('employee')->user()['id'];
-//        $objEmploye=new Employee();
-//        $employeid=$objEmploye->getUserid($id);
-//        $objManageList=new ManageTimeChangeRequest();
-//        $data['list']=$objManageList->getManageTimeChangeList($employeid);
-//        
         $data['detail'] = $this->loginUser;
-        
         $data['header'] = array(
             'title' => 'Manage Time Change Request List',
             'breadcrumb' => array(
                 'Home' => route("employee-dashboard")));
         $timeRequestObj = new ManageTimeChangeRequest;
-
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('employee/newTimeChangeRequest.js', 'ajaxfileupload.js', 'jquery.form.min.js');
         $data['funinit'] = array('Timechange.list()');
@@ -44,13 +37,15 @@ class ManageTimeChangeRequestController extends Controller
     {   
         $session = $request->session()->all();
         $logindata = $session['logindata'][0];
-//        print_r($logindata);die();
+//        print_r($logindata['id']);die();
         $objEmployee=new Employee();
         $empdetails=$objEmployee->getEmploydetails($logindata['id']);
+//        print_r($empdetails);die();
         $data['depat_name']=$empdetails[0]->department_name;
+        $data['dep_id']=$empdetails[0]->dep_id;
         $data['id']=$empdetails[0]->id;
         $data['company_id']=$empdetails[0]->company_id;
-        $data['emp_id']=$empdetails[0]->id;
+        $data['emp_id']=$empdetails[0]->emp_id;
         $data['name']=$logindata['name'];
         
         if ($request->isMethod('post')) {
