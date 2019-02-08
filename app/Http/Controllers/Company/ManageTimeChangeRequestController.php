@@ -39,9 +39,10 @@ class ManageTimeChangeRequestController extends Controller
         switch ($action)
         {
                 case 'getdatatable':
-                    $companyId = Auth()->guard('company')->user()['id'];
+                    $userID = $this->loginUser;
+                    $companyId = Company::select('id')->where('user_id', $userID->id)->first();
                     $objManageList=new ManageTimeChangeRequest();
-                    $datalist=$objManageList->companygetManageTimeChangeList($companyId);
+                    $datalist=$objManageList->companygetManageTimeChangeList($companyId->id);
                     echo json_encode($datalist);
                     break;
                 
