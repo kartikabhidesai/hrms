@@ -27,20 +27,13 @@ var Leave = function () {
         });
 
         dateFormate('.date')
-        var form = $('#addLeave');
-        var rules = {
-            start_date: {required: true},
-            end_date: {required: true},
-            
-        };
-        handleFormValidate(form, rules, function (form) {
-            handleAjaxFormSubmit(form, true);
-        });
+       
         var form = $('#addLeave');
         var rules = {
             start_date: {required: true},
             end_date: {required: true},
             reason: {required: true},
+            typeRequest: {required: true},
         };
         handleFormValidate(form, rules, function (form) {
             handleAjaxFormSubmit(form, true);

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Employee;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Leave;
-
+use App\Model\Employee;
 class LeaveController extends Controller
 {
     /**
@@ -35,8 +35,15 @@ class LeaveController extends Controller
      */
     public function leaveadd(Request $request)
     {
+        $session = $request->session()->all();
+        $logindata = $session['logindata'][0];
+        $objEmployee=new Employee();
+        $empdetails=$objEmployee->getEmploydetails($logindata['id']);
+        $data['company_id']=$empdetails[0]->company_id;
+        $data['emp_id']=$empdetails[0]->emp_id;
+       
         if ($request->isMethod('post')) {
-
+            
             $objLeave = new Leave();
             $ret = $objLeave->addnewleave($request);
             if ($ret) {

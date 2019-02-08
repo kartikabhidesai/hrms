@@ -22,6 +22,14 @@
 
                         </div>
                     </div> -->
+                    <div class="form-group" hidden>
+                                <label class="col-sm-2 control-label">Name</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="empid" value="{{ $emp_id }}" class="form-control">
+                                    <input type="text" name="company_id" value="{{ $company_id }}" class="form-control">
+                                    
+                                </div>
+                    </div>
                     <input type="hidden" name="editId" value="{{ isset($leaveEdit) && !empty($leaveEdit['id']) ? $leaveEdit['id'] : '' }}">
                     <div class="form-group" id="data_1">
                         <label class="col-sm-2 control-label">Start Date</label>
@@ -47,6 +55,19 @@
                             </div>
                         </div>
                     </div>
+                  
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Type of Request</label>
+                        <div class="col-sm-9">
+                            <select class="c-select form-control" name="typeRequest">
+                                <option value="">Select any option</option>
+                                <option value="Clock in times">Clock in times</option>
+                                <option value="Standard or basic hours">Standard or basic hours</option>
+                                <option value="Overtime hours">Overtime hours</option>
+                                <option value="Absence">Absence</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Reason</label>
                         <div class="col-sm-9"> 
@@ -59,11 +80,22 @@
                             <button class="btn btn-sm btn-primary" type="submit">Save</button>
                         </div>
                     </div>
+                  
+                  
                     {{ Form::close() }}
                 </div>
             </div>
         </div>	
     </div>
 </div>
+<style>
+    input.has-error {
+        border-color: red;
+    }
+    .has-error .select2,.has-error .select2-selection{
+        color: red !important;
+        border-color: red !important;
+    }
 
+</style>
 @endsection

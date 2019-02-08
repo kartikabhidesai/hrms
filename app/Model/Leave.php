@@ -16,6 +16,9 @@ class Leave extends Model {
 
     public function addnewleave($request) {
         $objLeave = new Leave();
+        $objLeave->emp_id = $request->input('empid');
+        $objLeave->cmp_id = $request->input('company_id');
+        $objLeave->type_of_req_id = $request->input('typeRequest');
         $objLeave->start_date = date('Y-m-d',strtotime($request->input('start_date')));
         $objLeave->end_date = date('Y-m-d',strtotime($request->input('end_date')));
         $objLeave->reason = $request->input('reason');
