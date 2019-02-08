@@ -25,7 +25,7 @@
                                             <th>Total Hours</th>
                                             <th>Request Description</th>
                                             <th>Status</th>
-                                            <th>Action</th>
+                                            
                                         </tr>
                                     </thead>
                                     <tbody>

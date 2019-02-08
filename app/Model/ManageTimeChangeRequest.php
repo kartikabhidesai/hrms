@@ -158,19 +158,17 @@ class ManageTimeChangeRequest extends Model
         
         foreach ($resultArr as $row) {
             if($row["status"] == NULL){
-                $statusHtml='<span class="label label-warning">Pending</span>';
+                $actionHtml = '<a href="#approveModel" data-toggle="modal" data-id="'.$row['id'].'" title="Approve" class="btn btn-default link-black text-sm approve" data-toggle="tooltip" data-original-title="Approve" ><i class="fa fa-check"></i></a><a href="#disapproveModel" data-toggle="modal" data-id="'.$row['id'].'"  title="Reject" class="btn btn-default link-black text-sm disapprove" data-toggle="tooltip" data-original-title="Approve" ><i class="fa fa-close"></i></a>';
+//                $statusHtml='<span class="label label-warning">Pending</span>';
             }else{
                 if($row["status"] == 'approve'){
-                    $statusHtml='<span class="label label-success">Approve</span>';
+                    $actionHtml='<span class="label label-success">Approve</span>';
                 }else{
-                    $statusHtml='<span class="label label-danger">Rejected</span>';
+                    $actionHtml='<span class="label label-danger">Rejected</span>';
                 }
             }
-//            <a href="#deleteModel" data-toggle="modal" data-id="'.$row['id'].'" class="link-black text-sm requestDelete" data-toggle="tooltip" data-original-title="Approve" ><i class="fa fa-check"></i></a>
-//            <button type="button" class="btn btn-default" data-toggle="tooltip" title="Approve" data-original-title="Tooltip on top"><i class="fa fa-check"></i></button>
-//                                            <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Reject" data-original-title="Tooltip on top"><i class="fa fa-close"></i></button>
             
-            $actionHtml = '<a href="#approveModel" data-toggle="modal" data-id="'.$row['id'].'" title="Approve" class="btn btn-default link-black text-sm approve" data-toggle="tooltip" data-original-title="Approve" ><i class="fa fa-check"></i></a><a href="#disapproveModel" data-toggle="modal" data-id="'.$row['id'].'"  title="Reject" class="btn btn-default link-black text-sm disapprove" data-toggle="tooltip" data-original-title="Approve" ><i class="fa fa-close"></i></a>';
+            
             $nestedData = array();
 //            $nestedData[] = $row["id"];
             $nestedData[] = $row["name"];
@@ -181,7 +179,7 @@ class ManageTimeChangeRequest extends Model
             $nestedData[] = $row["request_type"];
             $nestedData[] = $row["total_hours"];
             $nestedData[] = $row["request_description"];
-            $nestedData[] = $statusHtml;
+//            $nestedData[] = $statusHtml;
             $nestedData[] = $actionHtml;
             $data[] = $nestedData;
         }
@@ -197,15 +195,11 @@ class ManageTimeChangeRequest extends Model
     
     public function approveRequest($id){
        $objSavedata=ManageTimeChangeRequest::where('id',$id)->update(['status'=>'approve','updated_at'=>date('Y-m-d H:i:s')]);
-//       $objSavedata->status = "approve";
-//       $objSavedata->updated_at = date('Y-m-d H:i:s');
        return ($objSavedata);
     }
     
     public function disapproveRequest($id){
         $objSavedata=ManageTimeChangeRequest::where('id',$id)->update(['status'=>'reject','updated_at'=>date('Y-m-d H:i:s')]);
-//        $objSavedata->status = "rejected";
-//        $objSavedata->updated_at = date('Y-m-d H:i:s');
         return ($objSavedata);
     }
   }
