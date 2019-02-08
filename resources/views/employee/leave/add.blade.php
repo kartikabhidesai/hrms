@@ -61,11 +61,20 @@
                         <label class="col-sm-2 control-label">Type of Request</label>
                         <div class="col-sm-9">
                             <select class="c-select form-control" name="typeRequest">
-                                <option value="">Select any option</option>
-                                <option value="Clock in times">Clock in times</option>
-                                <option value="Standard or basic hours">Standard or basic hours</option>
-                                <option value="Overtime hours">Overtime hours</option>
-                                <option value="Absence">Absence</option>
+                                @if(isset($leaveEdit) && !empty($leaveEdit['id']))
+                                    <option value="" >Select any option</option>
+                                    <option value="Clock in times" {{ ( $leaveEdit['type_of_req_id'] == "Clock in times" ? 'selected="selected"' : '') }}>Clock in times</option>
+                                    <option value="Standard or basic hours"  {{ ( $leaveEdit['type_of_req_id'] == "Standard or basic hours" ? 'selected="selected"' : '') }}>Standard or basic hours</option>
+                                    <option value="Overtime hours" {{ ( $leaveEdit['type_of_req_id'] == "Overtime hours" ? 'selected="selected"' : '') }}>Overtime hours</option>
+                                    <option value="Absence" {{ ( $leaveEdit['type_of_req_id'] == "Absence" ? 'selected="selected"' : '') }} >Absence</option>
+                                @else
+                                    <option value="">Select any option</option>
+                                    <option value="Clock in times">Clock in times</option>
+                                    <option value="Standard or basic hours">Standard or basic hours</option>
+                                    <option value="Overtime hours">Overtime hours</option>
+                                    <option value="Absence">Absence</option>
+                                
+                                @endif
                             </select>
                         </div>
                     </div>

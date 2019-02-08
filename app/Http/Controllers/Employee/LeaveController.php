@@ -103,6 +103,7 @@ class LeaveController extends Controller
             exit;
         }
         $data['leaveEdit'] = Leave::find($id);
+       
         $session = $request->session()->all();
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('employee/leave.js', 'ajaxfileupload.js', 'jquery.form.min.js');
