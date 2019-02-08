@@ -13,42 +13,72 @@
                     </div>
                     <div class="ibox-content">
                     	<div class="table-responsive">
-                    		<table class="table table-striped table-bordered table-hover dataTables-example" id="timeChangeRequestDatatables">
-                    			<thead>
-                    				<tr>
-                                        <th>Name</th>
-                    					<th>Type</th>
-                    					<th>Hours Requested</th>
-                    					<th>Hours Available</th>
-                                        <th>Department</th>
-                                        <th>Date Submitted</th>
-                    					<th>Date Requested</th>
-                                        <th>Status</th>
-                    					<th>Action</th>
-                    				</tr>
-                    			</thead>
-                    			<tbody>
-                                    <tr>
-                                        <td>Bill Weeks</td>
-                                        <td>Standard or basic hours</td>
-                                        <td>8h</td>
-                                        <td>8h</td>
-                                        <td>IT</td>
-                                        <td>Sunday (Feb 2, 2019)</td>
-                                        <td>From: Apr 03, 2019 To: Apr 04, 2019</td>
-                                        <td>Pending</td>
-                                        <td>
-                                            <button type="button" class="btn btn-default" data-toggle="tooltip" title="Approve" data-original-title="Tooltip on top"><i class="fa fa-check"></i></button>
-                                            <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Reject" data-original-title="Tooltip on top"><i class="fa fa-close"></i></button>
-                                        </td>
-                                    </tr>
-                    			</tbody>
-                    		</table>
+                            <table class="table table-striped table-bordered table-hover dataTables-example" id="timeChangeRequestDatatables">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Department Name</th>
+                                            <th>Submit Date</th>
+                                            <th>From Date</th>
+                                            <th>To Date</th>
+                                            <th>Request Type</th>
+                                            <th>Total Hours</th>
+                                            <th>Request Description</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                            </table>
                     	</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="approveModel" class="modal fade" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12"><h3 class="m-t-none m-b">Delete Record</h3>
+                            <b>Are You sure want to approve time change request ?</b><br/>
+                            <form role="form">
+                                <div>
+                                    <button class="btn btn-sm btn-primary pull-right m-l" data-dismiss="modal">Cancel</button>
+                                    <button class="btn btn-sm btn-danger pull-right yesapprove m-l" type="button"><strong><i class="fa fa-trash"></i> Approve </strong></button>
+                                </div>
+                            </form>
+                        </div>
 
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <div id="disapproveModel" class="modal fade" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12"><h3 class="m-t-none m-b">Delete Record</h3>
+                            <b>Are You sure want to reject time change request ?</b><br/>
+                            <form role="form">
+                                <div>
+                                    <button class="btn btn-sm btn-primary pull-right m-l" data-dismiss="modal">Cancel</button>
+                                    <button class="btn btn-sm btn-danger pull-right yesreject m-l" type="button"><strong><i class="fa fa-trash"></i> Reject </strong></button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     @endsection
