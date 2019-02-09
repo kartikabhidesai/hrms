@@ -8,6 +8,8 @@ use App\Model\UserHasPermission;
 use App\Model\Sendmail;
 use App\Model\Users;
 use App\Model\Employee;
+use App\Model\AttendanceHistory;
+
 class ManageTimeChangeRequest extends Model
 {
     protected $table = 'time_change_requests';
@@ -27,7 +29,18 @@ class ManageTimeChangeRequest extends Model
         $objSavedata->request_description = $request->input('reuest_note');
         $objSavedata->created_at = date('Y-m-d H:i:s');
         $objSavedata->updated_at = date('Y-m-d H:i:s');
-        return $objSavedata->save();
+        $objSavedata->save();
+
+        /*Save new record in Attendance History table*/
+        $objAttendanceHistory = new AttendanceHistory();
+        $objAttendanceHistory->company_id = $request->input('company_id');
+        $objAttendanceHistory->employee_id = $request->input('empid');
+        $objAttendanceHistory->department_id = $request->input('depart_id');
+        $objAttendanceHistory->leave_id = null;
+        $objAttendanceHistory->time_change_request_id = $objSavedata->id;
+        $objAttendanceHistory->save();
+
+        return TRUE;
     }
     
     public function getManageTimeChangeList($employeeid){

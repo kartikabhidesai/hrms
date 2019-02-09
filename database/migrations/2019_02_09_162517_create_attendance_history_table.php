@@ -17,8 +17,8 @@ class CreateAttendanceHistoryTable extends Migration
             $table->increments('id');
             $table->integer('company_id');
             $table->integer('employee_id');
-            $table->integer('leave_id');
-            $table->integer('time_change_request_id');
+            $table->integer('leave_id')->nullable();
+            $table->integer('time_change_request_id')->nullable();
             $table->timestamps();
         });
     }

@@ -9,6 +9,7 @@ use Auth;
 use App\Model\UserHasPermission;
 use App\Model\Sendmail;
 use App\Model\Company;
+use App\Model\AttendanceHistory;
 use Config;
 
 class Leave extends Model {
@@ -27,6 +28,15 @@ class Leave extends Model {
         $objLeave->created_at = date('Y-m-d H:i:s');
         $objLeave->updated_at = date('Y-m-d H:i:s');
         $objLeave->save();
+
+        /*Save new record in Attendance History table*/
+        $objAttendanceHistory = new AttendanceHistory();
+        $objAttendanceHistory->company_id = $request->input('company_id');
+        $objAttendanceHistory->employee_id = $request->input('empid');
+        $objAttendanceHistory->department_id = $request->input('dep_id');
+        $objAttendanceHistory->leave_id = $objLeave->id;
+        $objAttendanceHistory->time_change_request_id = null;
+        $objAttendanceHistory->save();
 
         return TRUE;
     }

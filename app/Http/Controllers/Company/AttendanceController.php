@@ -8,6 +8,7 @@ use App\Model\Department;
 use App\Model\Employee;
 use App\Model\Company;
 use App\Model\Attendance;
+use App\Model\AttendanceHistory;
 use Auth;
 use Route;
 
@@ -183,9 +184,20 @@ class AttendanceController extends Controller
 
     public function manageAttendanceHistory()
     {
+        /*$userId = $this->loginUser->id;
+        $companyId = Company::select('id')->where('user_id', $userId)->first();
+        $data['historyList'] = AttendanceHIstory::select('employee.name', 'leaves.start_date', 'leaves.end_date', 'leaves.type_of_req_id', 'department.department_name', 'time_change_requests.request_type', 'time_change_requests.from_date', 'time_change_requests.to_date')
+                                                ->join('employee', 'attendance_history.employee_id', '=', 'employee.id')
+                                                ->join('department', 'attendance_history.department_id', '=', 'department.id')
+                                                ->leftjoin('time_change_requests', 'attendance_history.time_change_request_id', '=', 'time_change_requests.id')
+                                                ->leftjoin('leaves', 'attendance_history.leave_id', '=', 'leaves.id')
+                                                ->where('attendance_history.company_id', $companyId->id)
+                                                ->get();
+        dd($data['historyList']);*/
+        
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/attendance_history.js', 'jquery.form.min.js');
-        $data['funinit'] = array('AttendanceHIstory.init()');
+        $data['funinit'] = array('AttendanceHistory.init()');
         $data['css'] = array('');
         $data['header'] = array(
             'title' => 'Manage Attendance History',
@@ -194,6 +206,18 @@ class AttendanceController extends Controller
                 'Manage Attendance History' => 'Manage Attendance History'));
       
         return view('company.attendance.manage-attendance-history', $data);
+    }
+
+    public function ajaxAction(Request $request)
+    {
+        $action = $request->input('action');
+        switch ($action) {
+            case 'getdatatable':
+                $objAttendanceHistory = new AttendanceHistory();
+                $historyList = $objAttendanceHistory->getDataTableForHistoy();
+                echo json_encode($historyList);
+            break;
+        }
     }
     
 }
