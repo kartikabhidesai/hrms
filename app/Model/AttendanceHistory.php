@@ -62,7 +62,7 @@ class AttendanceHistory extends Model
         $data = array();
         foreach ($resultArr as $row) {
             $actionHtml ='';
-            $actionHtml .= '<a href="#" class="link-black text-sm" > Review </a>';
+            $actionHtml .= '<a href="#historyDetailsModel" data-toggle="modal" data-id="'.$row['id'].'"  title="Review" data-toggle="tooltip" data-original-title="Review" >Review</a>';
             $nestedData = array();
             $nestedData[] = $row["start_date"] ? $row["start_date"] : $row["from_date"];
             $nestedData[] = $row["end_date"] ? $row["end_date"] : $row["to_date"];
