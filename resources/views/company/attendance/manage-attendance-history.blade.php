@@ -138,4 +138,24 @@
             </div>
         </div>
     </div>
+
+    <div id="historyDetailsModel" class="modal fade" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12"><h3 class="m-t-none m-b">Details</h3>
+                            <b>Some texts here...</b><br/>
+                            <form role="form">
+                                <div>
+                                    <button class="btn btn-sm btn-primary pull-right m-l" data-dismiss="modal">Close</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
