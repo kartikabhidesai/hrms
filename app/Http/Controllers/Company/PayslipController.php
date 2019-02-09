@@ -10,19 +10,21 @@ use App\Model\Company;
 use App\Model\Attendance;
 use Auth;
 use Route;
+use Config;
 
-class AttendanceHistoryController extends Controller
+class PayslipController extends Controller
 {
 	public function __construct() {
 		parent::__construct();
         $this->middleware('company');
     }
 
-    public function attendanceHistory()
+    public function create()
     {
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
-        $data['js'] = array('company/attendance_history.js', 'jquery.form.min.js','plugins/daterangepicker/daterangepicker.js');
-        $data['funinit'] = array('attendanceHistory.init()');
+        $data['js'] = array('company/pay_slip.js', 'jquery.form.min.js','plugins/daterangepicker/daterangepicker.js');
+        $data['months'] = Config::get('constants.months');
+        $data['funinit'] = array('Paylip.init()');
         $data['css'] = array('');
         $data['header'] = array(
             'title' => 'Manage Attendance History',
@@ -30,7 +32,7 @@ class AttendanceHistoryController extends Controller
                 'Home' => route("company-dashboard"),
                 'Manage Attendance History' => 'Manage Attendance History'));
       
-        return view('company.attendance-history.manage-attendance-history', $data);
+        return view('company.pay-slip.create', $data);
     }
     
 }

@@ -86,10 +86,10 @@ if (!empty(Auth()->guard('admin')->user())) {
                     <a href="{{ route('sms-list') }}"><i class="fa fa-envelope"></i>
                     <span class="nav-label">Send SMS</span></a>
                 </li> 
-                
-                <li class="{{ ($currentRoute == 'attendance-history' ? 'active' : '') }} {{ ($currentRoute == 'new-sms' ? 'active' : '') }}">
-                    <a href="{{ route('attendance-history') }}"><i class="fa fa-history"></i>
-                    <span class="nav-label">Manage Attadance history</span></a>
+
+                <li class="{{ ($currentRoute == 'pay-slip' ? 'active' : '') }} {{ ($currentRoute == 'new-sms' ? 'active' : '') }}">
+                    <a href="{{ route('pay-slip') }}"><i class="fa fa-history"></i>
+                    <span class="nav-label">Pay Slip</span></a>
                 </li>
             </ul>
         </div>

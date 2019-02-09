@@ -51,7 +51,7 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
     Route::match(['get', 'post'], 'time-change-request', ['as' => 'time-change-request', 'uses' => 'Company\ManageTimeChangeRequestController@timeChangeRequest']);
     Route::match(['get', 'post'], 'timeChangeRequest-ajaxAction', ['as' => 'timeChangeRequest-ajaxAction', 'uses' => 'Company\ManageTimeChangeRequestController@ajaxaction']);
     
-     /*Manage Time Change Request*/
-    Route::match(['get', 'post'], 'attendance-history', ['as' => 'attendance-history', 'uses' => 'Company\AttendanceHistoryController@attendanceHistory']);
+    /*Manage Time Change Request*/
+    Route::match(['get', 'post'], 'pay-slip', ['as' => 'pay-slip', 'uses' => 'Company\PayslipController@create']);
     
 });
