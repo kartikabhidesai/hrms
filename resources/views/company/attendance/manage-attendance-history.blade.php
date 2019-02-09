@@ -117,52 +117,19 @@
                     </div>
                     <div class="ibox-content">
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover dataTables-example" id="requestlist">
+                            <table class="table table-striped table-bordered table-hover dataTables-example" id="attendanceHistoryList">
                                 <thead>
                                     <tr>
-                                        <th>Date</th>
-                                        <th>Employee</th>
+                                        <th>From Date</th>
+                                        <th>To Date</th>
+                                        <th>Name Of Employee</th>
                                         <th>Department Name</th>
                                         <th>Type Of Leave</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>2019/01/20</td>
-                                        <td>Employee 1</td>
-                                        <td>IT</td>
-                                        <td>Vacation</td>
-                                        <td><a href="#">Review</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2019/01/20</td>
-                                        <td>Employee 2</td>
-                                        <td>IT</td>
-                                        <td>Vacation</td>
-                                        <td><a href="#">Review</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2019/01/20</td>
-                                        <td>Employee 3</td>
-                                        <td>IT</td>
-                                        <td>Vacation</td>
-                                        <td><a href="#">Review</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2019/01/20</td>
-                                        <td>Employee 4</td>
-                                        <td>IT</td>
-                                        <td>Vacation</td>
-                                        <td><a href="#">Review</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2019/01/20</td>
-                                        <td>Employee 5</td>
-                                        <td>IT</td>
-                                        <td>Vacation</td>
-                                        <td><a href="#">Review</a></td>
-                                    </tr>
+                                    
                                 </tbody>
                             </table>
                         </div>
