@@ -53,5 +53,6 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
     
     /*Manage Time Change Request*/
     Route::match(['get', 'post'], 'pay-slip', ['as' => 'pay-slip', 'uses' => 'Company\PayslipController@create']);
+    Route::match(['get', 'post'], 'create-pdf', ['as' => 'create-pdf', 'uses' => 'Company\PayslipController@createPDF']);
     
 });

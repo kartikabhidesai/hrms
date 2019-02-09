@@ -11,7 +11,7 @@ use App\Model\Attendance;
 use Auth;
 use Route;
 use Config;
-
+use PDF;
 class PayslipController extends Controller
 {
 	public function __construct() {
@@ -35,4 +35,12 @@ class PayslipController extends Controller
         return view('company.pay-slip.create', $data);
     }
     
+    public function createPDF() {
+        $data = array();
+        $target_path = 'pdf/test.pdf';
+        $pdf = PDF::loadView('company.pay-slip.invoice-pdf', $data);
+        return $pdf->stream();
+        exit;
+        return $pdf->download('invoice.pdfV2');
+    }
 }
