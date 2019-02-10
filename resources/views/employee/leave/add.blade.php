@@ -56,14 +56,12 @@
                         <div class="col-sm-9">
                             <select class="c-select form-control" name="typeRequest">
                                 @if(isset($leaveEdit) && !empty($leaveEdit['type_of_req_id']))
-                                
                                     @foreach ($type_of_request as $indexkey=>$val)
                                           <option value="{{ $indexkey }}"  {{ ( $leaveEdit['type_of_req_id'] == $indexkey ? 'selected="selected"' : '') }}>{{ $val }}</option>
                                     @endforeach
-                                    
                                 @else
                                     @foreach ($type_of_request as $indexkey=>$val)
-                                          <option value="{{$indexkey}}">{{ $val }}</option>
+                                          <option value="{{ $indexkey }}">{{ $val }}</option>
                                     @endforeach
                                 @endif
                             </select>
