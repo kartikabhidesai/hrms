@@ -47,7 +47,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Month</label>
                     <div class="col-sm-9">
-                       
+                        {{ Form::select('months', $months , null, array('class' => 'form-control m-b', 'id' => 'test')) }}
                     </div>
                 </div>
 
