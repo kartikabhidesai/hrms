@@ -41,13 +41,7 @@
                         </div>
                     </div>
 
-                  <!--   <div class="form-group">
-                        <label class="col-sm-2 control-label">End Date</label>
-                        <div class="col-sm-9">
-                         {{ Form::date('end_date', isset($leaveEdit) && !empty($leaveEdit['end_date']) ? $leaveEdit['end_date'] : '', array('class' => 'form-control end_date','required')) }}
-
-                        </div>
-                    </div> -->
+   
                     <div class="form-group" id="data_1">
                         <label class="col-sm-2 control-label">End Date</label>
                         <div class="col-sm-9"> 
@@ -61,10 +55,12 @@
                         <label class="col-sm-2 control-label">Type of Request</label>
                         <div class="col-sm-9">
                             <select class="c-select form-control" name="typeRequest">
-                                @if(isset($leaveEdit) && !empty($leaveEdit['id']))
+                                @if(isset($leaveEdit) && !empty($leaveEdit['type_of_req_id']))
+                                
                                     @foreach ($type_of_request as $indexkey=>$val)
-                                          <option value="{{$indexkey}}"  {{ ( $leaveEdit['type_of_req_id'] == $indexkey ? 'selected="selected"' : '') }}>{{ $val }}</option>
+                                          <option value="{{ $indexkey }}"  {{ ( $leaveEdit['type_of_req_id'] == $indexkey ? 'selected="selected"' : '') }}>{{ $val }}</option>
                                     @endforeach
+                                    
                                 @else
                                     @foreach ($type_of_request as $indexkey=>$val)
                                           <option value="{{$indexkey}}">{{ $val }}</option>
