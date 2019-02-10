@@ -1,13 +1,13 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Office Park</title>
+        <title>Pay Slip</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <style>
             .main-header{
                 font-size: 35px;
-                line-height: 35px;
-                text-align: right !important;
+                /*line-height: 35px;
+                text-align: right !important;*/
             }
             .text-undeline{
                 text-decoration: underline;
