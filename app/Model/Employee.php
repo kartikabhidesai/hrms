@@ -366,22 +366,64 @@ class Employee extends Model {
     }
     
     public function getEmploydetails($userId){
-//        print_r($userId);exit;
+       // print_r($userId);exit;
         $result = Employee::select('department.department_name','department.id as dep_id','employee.name','employee.company_id','employee.id as emp_id')
                     ->join('department', 'employee.department', '=', 'department.id')
                     ->where('employee.user_id',$userId)->get();
         return $result;
     }
+    public function getEmployDetailV2($userId, $year, $month, $employee, $department){
+       // print_r($userId);exit;
+        $sql = Employee::select('employee.name','employee.employee_id','employee.company_id','employee.id as emp_id');
+            
+        if (!empty($year) && empty($month)) {
+            $sql->orWhere(function($sql) use($year) {
+                $sql->orWhere(function($sql) use($year) {
+                    $sql->whereBetween('date_of_joining', [date($year . '-01-01'), date($year . '-12-31')]);
+                    });
+            $sql->orWhere(function($sql) use($year) {
+                $sql->whereBetween('date_of_joining', [date($year . '-01-01'), date($year . '-12-31')]);
+                                });
+            });
+        } 
+        if (!empty($year) && !empty($month)) {
+            $sql->orWhere(function($sql) use($year, $month) {
+                $sql->orWhere(function($sql) use($year, $month) {
+                    $sql->whereBetween('date_of_joining', [date($year . '-' . $month . '-01'), date($year . '-' . $month . '-31')]);
+                                });
+                $sql->orWhere(function($sql) use($year, $month) {
+                    $sql->whereBetween('date_of_joining', [date($year . '-' . $month . '-01'), date($year . '-' . $month . '-31')]);
+                });
+            });
+        }
+        if(!empty($employee)){
+            $sql->where('employee.id',$employee);    
+        }
+        if(!empty($department)){
+            $sql->where('employee.department',$department);    
+        }
+        
+        $sql->where('employee.company_id',$userId);
+        $result = $sql->get();
+        return $result;
+    }
     
     public function getUserid($id)
     {
-        $result = Employee::select('id')
-                            ->where('user_id',$id)->get();
-
+        $result = Employee::select('id')->where('user_id',$id)->get();
         if(count($result) > 0) {
             return $result[0]['id'];
         } else {
             return false;
         }
+    }
+
+
+    public function getEmployee($company_id){
+        // echo $company_id;exit;
+        $arrEmployee = Employee::where('company_id', $company_id)
+                            ->pluck('name', 'id')
+                            ->toArray();
+        return $arrEmployee;
     }
 }
