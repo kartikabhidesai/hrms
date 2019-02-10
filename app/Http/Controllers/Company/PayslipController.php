@@ -23,7 +23,7 @@ class PayslipController extends Controller
     {
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/pay_slip.js', 'jquery.form.min.js','plugins/daterangepicker/daterangepicker.js');
-        $data['monthis'] = Config::get('constants.months');
+        $data['monthis'] = Config::get('constants.type_of_request');
         $data['funinit'] = array('Paylip.init()');
         $data['css'] = array('');
         $data['header'] = array(
