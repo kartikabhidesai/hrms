@@ -73,11 +73,9 @@
                                 <label class="col-sm-2 control-label">Type of Request</label>
                                 <div class="col-sm-9">
                                     <select class="c-select form-control" name="typeRequest">
-                                        <option value="">Select any option</option>
-                                        <option value="Clock in times">Clock in times</option>
-                                        <option value="Standard or basic hours">Standard or basic hours</option>
-                                        <option value="Overtime hours">Overtime hours</option>
-                                        <option value="Absence">Absence</option>
+                                        @foreach ($type_of_request as $indexkey=>$val)
+                                          <option value="{{$indexkey}}">{{ $val }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>

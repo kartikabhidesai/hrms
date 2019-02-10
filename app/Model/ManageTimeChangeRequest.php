@@ -9,13 +9,14 @@ use App\Model\Sendmail;
 use App\Model\Users;
 use App\Model\Employee;
 use App\Model\AttendanceHistory;
-
+use Config;
 class ManageTimeChangeRequest extends Model
 {
     protected $table = 'time_change_requests';
     
     public function addnewTimeManage($request,$userDetails){
 //        print_r($request->input());exit;
+        
         $objSavedata=new ManageTimeChangeRequest();
         $objSavedata->name = $request->input('name');
         $objSavedata->employee_id = $request->input('empid');
@@ -89,7 +90,7 @@ class ManageTimeChangeRequest extends Model
                     ->take($requestData['length'])
                     ->select('depart.department_name','time_change.id', 'time_change.name','time_change.employee_id', 'time_change.company_id','time_change.department_id', 'time_change.from_date','time_change.to_date', 'time_change.date_of_submit','time_change.request_type', 'time_change.total_hours','time_change.request_description', 'time_change.status')->get();
         $data = array();
-       
+       $type_of_request=Config::get('constants.type_of_request');
         foreach ($resultArr as $row) {
             if($row["status"] == NULL){
                 $statusHtml='<span class="label label-warning">Pending</span>';
@@ -108,7 +109,7 @@ class ManageTimeChangeRequest extends Model
             $nestedData[] = $row["date_of_submit"];
             $nestedData[] = $row["from_date"];
             $nestedData[] = $row["to_date"];
-            $nestedData[] = $row["request_type"];
+            $nestedData[] = $type_of_request[$row["request_type"]];
             $nestedData[] = $row["total_hours"];
             $nestedData[] = $row["request_description"];
             $nestedData[] = $statusHtml;
@@ -166,7 +167,7 @@ class ManageTimeChangeRequest extends Model
 
         $totalData = count($temp->get());
         $totalFiltered = count($temp->get());
-        
+        $type_of_request=Config::get('constants.type_of_request');
         $resultArr = $query->skip($requestData['start'])
                     ->take($requestData['length'])
                     ->select('depart.department_name','time_change.id', 'time_change.name','time_change.employee_id', 'time_change.company_id','time_change.department_id', 'time_change.from_date','time_change.to_date', 'time_change.date_of_submit','time_change.request_type', 'time_change.total_hours','time_change.request_description', 'time_change.status')->get();
@@ -192,7 +193,7 @@ class ManageTimeChangeRequest extends Model
             $nestedData[] = $row["date_of_submit"];
             $nestedData[] = $row["from_date"];
             $nestedData[] = $row["to_date"];
-            $nestedData[] = $row["request_type"];
+            $nestedData[] = $type_of_request[$row["request_type"]];
             $nestedData[] = $row["total_hours"];
             $nestedData[] = $row["request_description"];
 //            $nestedData[] = $statusHtml;

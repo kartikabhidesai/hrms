@@ -92,7 +92,7 @@ class Leave extends Model {
            ->take($requestData['length'])
            ->select('depart.department_name','lv.id', 'lv.start_date','lv.end_date','lv.type_of_req_id', 'lv.reason')->get();
         $data = array();
-   
+        $type_of_request=Config::get('constants.type_of_request');
         foreach ($resultArr as $row) {
 //           $actionHtml = $request->input('gender');
            $actionHtml = '<a href="' . route('edit-leave', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
@@ -101,7 +101,7 @@ class Leave extends Model {
             $nestedData[] = $row["department_name"];
             $nestedData[] = date('d-m-Y',strtotime($row["start_date"]));
             $nestedData[] = date('d-m-Y',strtotime($row["end_date"]));
-            $nestedData[] = $row["type_of_req_id"];
+            $nestedData[] = $type_of_request[$row["type_of_req_id"]];
             $nestedData[] = $row["reason"];
             
             $nestedData[] = $actionHtml;

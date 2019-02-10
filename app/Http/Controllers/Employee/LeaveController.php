@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Leave;
 use App\Model\Employee;
 use App\Model\Company;
+use Config;
 class LeaveController extends Controller
 {
     /**
@@ -16,6 +17,7 @@ class LeaveController extends Controller
      */
     public function index(Request $request) {
         $session = $request->session()->all();
+        $data['type_of_request']=Config::get('constants.type_of_request');
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('employee/leave.js');
         $data['funinit'] = array('Leave.init()');
@@ -60,6 +62,8 @@ class LeaveController extends Controller
         }
 
         $session = $request->session()->all();
+        $data['type_of_request']=Config::get('constants.type_of_request');
+       
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('employee/leave.js', 'ajaxfileupload.js', 'jquery.form.min.js');
         $data['funinit'] = array('Leave.init()');
@@ -103,7 +107,7 @@ class LeaveController extends Controller
             exit;
         }
         $data['leaveEdit'] = Leave::find($id);
-       
+       $data['type_of_request']=Config::get('constants.type_of_request');
         $session = $request->session()->all();
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('employee/leave.js', 'ajaxfileupload.js', 'jquery.form.min.js');

@@ -5,7 +5,7 @@ namespace App\Model;
 use Illuminate\Database\Eloquent\Model;
 use App\Model\AttendanceHistory;
 use Auth;
-
+use Config;
 class AttendanceHistory extends Model
 {
     protected $table = 'attendance_history';
@@ -51,7 +51,7 @@ class AttendanceHistory extends Model
                 }
             });
         }
-        
+        $type_of_request=Config::get('constants.type_of_request');
         $temp = $query->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir']);
         $totalData = count($temp->get());
         $totalFiltered = count($temp->get());
@@ -68,7 +68,7 @@ class AttendanceHistory extends Model
             $nestedData[] = $row["end_date"] ? $row["end_date"] : $row["to_date"];
             $nestedData[] = $row["name"];
             $nestedData[] = $row["department_name"];
-            $nestedData[] = $row["type_of_req_id"] ? $row["type_of_req_id"] : $row["request_type"];
+            $nestedData[] = $row["type_of_req_id"] ? $row["type_of_req_id"] : $type_of_request[$row["request_type"]];
             $desigArr = [];
             $nestedData[] = $actionHtml;
             $data[] = $nestedData;

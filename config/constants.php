@@ -65,6 +65,14 @@ return [
         '11' => 'November', 
         '12' => 'December'
     ],
+    
+    'type_of_request' =>  [ 
+        ''=>'Select any option',
+        '1'=>'Clock in times',
+        '2'=>'Standard or basic hours',
+        '3'=>'Overtime hours',
+        '4'=>'Absence',
+    ],
 
     'ClientPath' => public_path() . '/uploads/client/',
     'EmployeePath' => public_path() . '/uploads/employee/',

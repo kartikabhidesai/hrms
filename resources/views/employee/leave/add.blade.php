@@ -62,19 +62,28 @@
                         <div class="col-sm-9">
                             <select class="c-select form-control" name="typeRequest">
                                 @if(isset($leaveEdit) && !empty($leaveEdit['id']))
+                                    @foreach ($type_of_request as $indexkey=>$val)
+                                          <option value="{{$indexkey}}"  {{ ( $leaveEdit['type_of_req_id'] == $indexkey ? 'selected="selected"' : '') }}>{{ $val }}</option>
+                                    @endforeach
+                                @else
+                                    @foreach ($type_of_request as $indexkey=>$val)
+                                          <option value="{{$indexkey}}">{{ $val }}</option>
+                                    @endforeach
+                                @endif
+<!--                                @if(isset($leaveEdit) && !empty($leaveEdit['id']))
                                     <option value="" >Select any option</option>
                                     <option value="Clock in times" {{ ( $leaveEdit['type_of_req_id'] == "Clock in times" ? 'selected="selected"' : '') }}>Clock in times</option>
                                     <option value="Standard or basic hours"  {{ ( $leaveEdit['type_of_req_id'] == "Standard or basic hours" ? 'selected="selected"' : '') }}>Standard or basic hours</option>
                                     <option value="Overtime hours" {{ ( $leaveEdit['type_of_req_id'] == "Overtime hours" ? 'selected="selected"' : '') }}>Overtime hours</option>
                                     <option value="Absence" {{ ( $leaveEdit['type_of_req_id'] == "Absence" ? 'selected="selected"' : '') }} >Absence</option>
                                 @else
-                                    <option value="">Select any option</option>
+                                    <option value=""></option>
                                     <option value="Clock in times">Clock in times</option>
                                     <option value="Standard or basic hours">Standard or basic hours</option>
                                     <option value="Overtime hours">Overtime hours</option>
                                     <option value="Absence">Absence</option>
                                 
-                                @endif
+                                @endif-->
                             </select>
                         </div>
                     </div>
