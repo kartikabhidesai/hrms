@@ -165,4 +165,14 @@ class Department extends Model
         }
         return TRUE;
     }
+
+    public function getDepartmentByCompany($company_id)
+    {
+        $arrDepartment = Department::where('company_id', $company_id)
+                            ->pluck('department_name', 'id')
+                            ->toArray();
+        // print_r($arrDepartment);exit;
+        return $arrDepartment;
+    }
+
 }

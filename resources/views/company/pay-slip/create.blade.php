@@ -14,29 +14,21 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Department:</label>
                         <div class="col-sm-9">
-                            <select class="form-control department_id" name="department_id">
-                                @for($i = 2018;$i<= 2022;$i++)
-                                <option value="{{  $i }}">Dep {{  $i }}</option>
-                                @endfor
-                            </select>
+                            {{ Form::select('department', $department , null, array('class' => 'form-control ', 'id' => 'department')) }}
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Employee Name:</label>
                         <div class="col-sm-9">
-                           <select class="form-control department_id" name="department_id">
-                            @for($i = 2018;$i<= 2022;$i++)
-                            <option value="{{  $i }}">Emp {{  $i }}</option>
-                            @endfor
-                        </select>
+                           {{ Form::select('employee', $employee , null, array('class' => 'form-control ', 'id' => 'employee')) }}
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Year</label>
                     <div class="col-sm-9">
-                        <select class="form-control department_id" name="department_id">
+                        <select class="form-control year" id="year" name="year">
                             @for($i = 2018;$i<= 2022;$i++)
                             <option value="{{  $i }}">{{  $i }}</option>
                             @endfor
@@ -47,13 +39,14 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Month</label>
                     <div class="col-sm-9">
-                        {{ Form::select('months', $monthis , null, array('class' => 'form-control m-b', 'id' => 'test')) }}
+                        {{ Form::select('months', $monthis , null, array('class' => 'form-control months', 'id' => 'months')) }}
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-lg-offset-2 col-lg-10">
-                        <button class="btn btn-sm btn-primary getAttedanceReport" type="submit">Apply</button>
+                        <button class="btn btn-sm btn-primary applyBtn" type="button">Apply</button>&nbsp;&nbsp;
+                        <button class="btn btn-sm btn-default clearBtn" type="button">Clear</button>
                     </div>
                 </div>
                 {{ Form::close() }}
@@ -88,15 +81,16 @@
                 </tr>
             </thead>
             <tbody>
-                 @for($i = 1;$i<= 9;$i++)
+
+                @foreach($employDetail as $row => $val)
                     <tr>
                         <td><input type="checkbox" name="checkone"></td>
-                        <td>tess</td>
-                        <td>12 {{ $i }}</td>
+                        <td>{{ $val->name }}</td>
+                        <td>{{ $val->employee_id }}</td>
                         <td></td>
                         <td><a href="#">Review</a></td>
                     </tr>
-                @endfor
+                @endforeach
             </tbody>
         </table>
     </div>
