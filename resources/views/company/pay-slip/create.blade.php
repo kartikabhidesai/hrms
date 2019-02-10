@@ -6,7 +6,7 @@
             {{ csrf_field() }}
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Manage Attendance History</h5>
+                    <h5>Pay Slip</h5>
                 </div>
                 <div class="ibox-content">
                     {{ Form::open( array('method' => 'post', 'class' => 'form-horizontal', 'id' => 'attendanceHistory' )) }}

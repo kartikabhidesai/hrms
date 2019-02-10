@@ -27,10 +27,10 @@ class PayslipController extends Controller
         $data['funinit'] = array('Paylip.init()');
         $data['css'] = array('');
         $data['header'] = array(
-            'title' => 'Manage Attendance History',
+            'title' => 'Pay Slip',
             'breadcrumb' => array(
                 'Home' => route("company-dashboard"),
-                'Manage Attendance History' => 'Manage Attendance History'));
+                'Pay Slip' => 'Pay Slip'));
       
         return view('company.pay-slip.create', $data);
     }
