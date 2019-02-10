@@ -144,8 +144,26 @@
             <div class="modal-content">
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-sm-12"><h3 class="m-t-none m-b">Details</h3>
-                            <b>Some texts here...</b><br/>
+                        <div class="col-sm-12">
+                            <h3 class="type">Type: </h3>
+                            <!-- <p class="m-t-none m-b">Details:</p> -->
+                            <b>Employee Name: </b><span class="m-t-none m-b empName"></span><br/>
+                            <div class="leaveDiv">
+                                <b>Leave Reason: </b><span class="m-t-none m-b leaveReason"></span><br/>
+                            </div>
+                            <div class="dateOfSubmitDiv">
+                                <b>Date Of Submit: </b><span class="m-t-none m-b dateOfSubmit"></span><br/>
+                            </div>
+                            <div class="totalHoursDiv">
+                                <b>Total Hours: </b><span class="m-t-none m-b totalHours"></span><br/>
+                            </div>
+                            <div class="requestDescriptionDiv">
+                                <b>Request Description: </b><span class="m-t-none m-b requestDescription"></span><br/>
+                            </div>
+                            <div class="statusDiv">
+                                <b>Status: </b><span class="m-t-none m-b status"></span><br/>
+                            </div>
+                            
                             <form role="form">
                                 <div>
                                     <button class="btn btn-sm btn-primary pull-right m-l" data-dismiss="modal">Close</button>

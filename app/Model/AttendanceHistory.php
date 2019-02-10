@@ -27,7 +27,7 @@ class AttendanceHistory extends Model
             4 => 'department_name',
         );
 
-        $query = AttendanceHistory::select('employee.name', 'leaves.start_date', 'leaves.end_date', 'leaves.type_of_req_id', 'department.department_name', 'time_change_requests.request_type', 'time_change_requests.from_date', 'time_change_requests.to_date')
+        $query = AttendanceHistory::select('attendance_history.id', 'employee.name', 'leaves.start_date', 'leaves.end_date', 'leaves.type_of_req_id', 'department.department_name', 'time_change_requests.request_type', 'time_change_requests.from_date', 'time_change_requests.to_date')
                                                 ->join('employee', 'attendance_history.employee_id', '=', 'employee.id')
                                                 ->join('department', 'attendance_history.department_id', '=', 'department.id')
                                                 ->leftjoin('time_change_requests', 'attendance_history.time_change_request_id', '=', 'time_change_requests.id')
@@ -58,17 +58,17 @@ class AttendanceHistory extends Model
         $resultArr = $query->skip($requestData['start'])
                             ->take($requestData['length'])
                             ->get();
-		// dd($resultArr);
+		
         $data = array();
         foreach ($resultArr as $row) {
             $actionHtml ='';
-            $actionHtml .= '<a href="#historyDetailsModel" data-toggle="modal" data-id="'.$row['id'].'"  title="Review" data-toggle="tooltip" data-original-title="Review" >Review</a>';
+            $actionHtml .= '<a href="#historyDetailsModel" class="historyDetailsModel" data-toggle="modal" data-id="'.$row['id'].'"  title="Review" data-toggle="tooltip" data-original-title="Review" >Review</a>';
             $nestedData = array();
             $nestedData[] = $row["start_date"] ? $row["start_date"] : $row["from_date"];
             $nestedData[] = $row["end_date"] ? $row["end_date"] : $row["to_date"];
             $nestedData[] = $row["name"];
             $nestedData[] = $row["department_name"];
-            $nestedData[] = $row["type_of_req_id"] ? $row["type_of_req_id"] : $type_of_request[$row["request_type"]];
+            $nestedData[] = $row["type_of_req_id"] ? $type_of_request[$row["type_of_req_id"]] : $type_of_request[$row["request_type"]];
             $desigArr = [];
             $nestedData[] = $actionHtml;
             $data[] = $nestedData;
