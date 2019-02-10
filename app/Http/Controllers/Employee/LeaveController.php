@@ -42,8 +42,8 @@ class LeaveController extends Controller
         $logindata = $session['logindata'][0];
         $objEmployee=new Employee();
         $empdetails=$objEmployee->getEmploydetails($logindata['id']);
-        print_r($empdetails);
-        die();
+//        print_r($empdetails);
+//        die();
         $data['company_id']=$empdetails[0]->company_id;
         $data['emp_id']=$empdetails[0]->emp_id;
         $data['dep_id']=$empdetails[0]->dep_id;
