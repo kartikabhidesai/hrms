@@ -95,6 +95,22 @@ var Advancesalaryrequest = function (){
     }
 
     var approvedReqList = function () {
+
+        var checkedBoxArr = [];
+  
+        $('body').on('click','#approved_chk_id',function(){
+            var checked = $(this).val();
+            if ($(this).is(':checked')) {
+                checkedBoxArr.push(checked);
+            } else {
+                checkedBoxArr.splice($.inArray(checked, tmp), 1);
+            }
+        });
+
+        $('#DownloadButton').on('click', function () {
+            alert(checkedBoxArr);
+        });
+
         var dataArr = {};
         var columnWidth = {"width": "10%", "targets": 0};
         var arrList = {
@@ -103,6 +119,17 @@ var Advancesalaryrequest = function (){
             'ajaxAction': 'getdatatable',
             'postData': dataArr,
             'hideColumnList': [],
+            'columnDefs': [
+                {
+                    'targets': 0,
+                    'checkboxes': {
+                        'selectRow': true
+                    }
+                }
+            ],
+            'select': {
+              'style': 'multi'
+            },
             'noSearchApply': [0],
             'noSortingApply': [3],
             'defaultSortColumn': 0,
@@ -111,6 +138,8 @@ var Advancesalaryrequest = function (){
         };
         getDataTable(arrList);
     };
+
+    
       
     return {
         init: function () {

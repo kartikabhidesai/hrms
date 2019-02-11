@@ -12,6 +12,7 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/plugins/toastr/toastr.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/plugins/datapicker/datepicker3.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/plugins/dataTables/datatables.checkbox.css') }}" rel="stylesheet">
 
     @if (!empty($css)) 
     @foreach ($css as $value) 

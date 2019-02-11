@@ -13,16 +13,19 @@
                             <table class="table table-striped table-bordered table-hover dataTables-example" id="approvedRequestlist">
                                 <thead>
                                     <tr>
+                                        <th></th>
                                         <th>Name</th>
                                         <th>Department Name</th>
                                         <th>Request Date</th>
-                                        <th>Approved Date</th>
+                                        <th>Approval Date</th>
                                         <th>Comments</th>
-                                        <th>Action</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
+                                    <div class="col-lg-12">
+                                        <button id="DownloadButton" type="button">Download as PDF</button>
+                                    </div>
                                 </tbody>
                             </table>
                         </div>

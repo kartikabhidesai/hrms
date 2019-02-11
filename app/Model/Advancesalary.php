@@ -187,7 +187,7 @@ class Advancesalary extends Model
                 $actionHtml = '<a href="#approveModel" data-toggle="modal" data-id="'.$row['id'].'" title="Approve" class="btn btn-default link-black text-sm approve" data-toggle="tooltip" data-original-title="Approve" ><i class="fa fa-check"></i></a><a href="#disapproveModel" data-toggle="modal" data-id="'.$row['id'].'"  title="Reject" class="btn btn-default link-black text-sm disapprove" data-toggle="tooltip" data-original-title="Approve" ><i class="fa fa-close"></i></a>';
             }else{
                 if($row["status"] == 'approve'){
-                    $actionHtml='<span class="label label-success">Approve</span>';
+                    $actionHtml='<span class="label label-success">Approved</span>';
                 }else{
                     $actionHtml='<span class="label label-danger">Rejected</span>';
                 }
@@ -264,12 +264,13 @@ class Advancesalary extends Model
         $type_of_request = Config::get('constants.type_of_request');
         foreach ($resultArr as $row) {
             $nestedData = array();
+            $nestedData[] = '<input type="checkbox" id="approved_chk_id" name="approved_chk_id" value="'.$row['id'].'">';
             $nestedData[] = $row["name"];
             $nestedData[] = $row["department_name"];
             $nestedData[] = date('Y-m-d', strtotime($row["date_of_submit"]));
             $nestedData[] = date('Y-m-d', strtotime($row["updated_at"]));
             $nestedData[] = $row["comments"];
-            $nestedData[] = $row["status"];
+            $nestedData[] = $row["status"] == 'approve' ? '<span class="label label-success">Approved</span>' : $row["status"];
             $data[] = $nestedData;
         }
         $json_data = array(
