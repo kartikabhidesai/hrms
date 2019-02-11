@@ -25,7 +25,9 @@ class PayslipController extends Controller
         $userData = Auth::guard('company')->user();
         $getAuthCompanyId = Company::where('email', $userData->email)->first();
         $companyId = $getAuthCompanyId->id;
-       
+        if ($request->isMethod('post')) {
+            // print_r($request->input());exit;
+        }
         $department = (empty($request->get('department'))) ? '' : $request->get('department');
         $employee = (empty($request->get('employee'))) ? '' : $request->get('employee');
         $year = (empty($request->get('year'))) ? '' : $request->get('year');
