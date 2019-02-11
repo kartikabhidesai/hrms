@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Model\AttendanceHistory;
 use Auth;
 use Config;
+
 class AttendanceHistory extends Model
 {
     protected $table = 'attendance_history';

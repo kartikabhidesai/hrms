@@ -9,6 +9,7 @@ use App\Model\Department;
 use App\Model\Employee;
 use App\Model\Company;
 use App\Model\Attendance;
+use App\Model\AttendanceHistory;
 use Auth;
 use Config;
 use Route;
@@ -77,6 +78,7 @@ class ManageTimeChangeRequestController extends Controller
     
     public function deleteLeave($postData) {
         if ($postData) {
+            $deleteAttendanceHistory = AttendanceHistory::where('time_change_request_id', $postData['id'])->delete();
             $result = ManageTimeChangeRequest::where('id', $postData['id'])->delete();
             if ($result) {
                 $return['status'] = 'success';

@@ -91,10 +91,17 @@ if (!empty(Auth()->guard('admin')->user())) {
                     <a href="{{ route('pay-slip') }}"><i class="fa fa-history"></i>
                     <span class="nav-label">Pay Slip</span></a>
                 </li>
-                
-                <li class="{{ ( $currentRoute == 'campany-advance-salary-request' ? 'active' : '') }} ">
-                    <a href="{{ route('campany-advance-salary-request') }}"><i class="fa fa-money" ></i> <span class="nav-label">Advance Salary Request</span></a>
-                </li>
+                    
+                <li class="{{ ( $currentRoute == 'campany-advance-salary-request' ? 'active' : '') }} {{ ( $currentRoute == 'approved-advance-salary-request' ? 'active' : '') }}">
+                    <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Advance Salary</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li class="{{ ( $currentRoute == 'campany-advance-salary-request' ? 'active' : '') }}">
+                            <a href="{{ route('campany-advance-salary-request') }}"><i class="fa fa-money" ></i> <span class="nav-label">Advance Salary Request</span></a>
+                        </li>
+                        <li class="{{ ( $currentRoute == 'approved-advance-salary-request' ? 'active' : '') }}">
+                            <a href="{{ route('approved-advance-salary-request') }}"><i class="fa fa-money" ></i> <span class="nav-label">Approved Advance Salary</span></a>
+                        </li>
+                    </ul>
             </ul>
         </div>
     </nav>

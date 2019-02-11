@@ -26,7 +26,8 @@ class AdvanceSalaryRequestController extends Controller {
         $data['header'] = array(
             'title' => 'Advance Salary Request List',
             'breadcrumb' => array(
-                'Home / Advanc Salary Request' => route("admin-dashboard")));
+                'Home' => route("company-dashboard"),
+                'Advance Salary Request' => 'Advance Salary Request'));
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/advancesalaryrequest.js');
         $data['funinit'] = array('Advancesalaryrequest.init()');
@@ -79,5 +80,36 @@ class AdvanceSalaryRequestController extends Controller {
                     exit;
                     break;
         }
+    }
+
+    public function approvedRequestList(Request $request)
+    {
+        $data['detail'] = $this->loginUser;
+        $data['header'] = array(
+            'title' => 'Approved Salary Request List',
+            'breadcrumb' => array(
+                'Home' => route("company-dashboard"),
+                'Approved Advance Salary Request' => 'Approved Advance Salary Request'));
+        $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
+        $data['js'] = array('company/advancesalaryrequest.js');
+        $data['funinit'] = array('Advancesalaryrequest.initApprovedReqList()');
+        $data['css'] = array('');
+
+        return view('company.advancesalaryrquest.approved-request-list', $data);
+    }
+
+    public function approvedListAjaxaction(Request $request)
+    {
+        $action = $request->input('action');
+        
+        switch ($action) {
+            case 'getdatatable':
+                $id = Auth()->guard('company')->user()['id'];
+                $companyId = Company::select('id')->where('user_id', $id)->first();
+                $objAdvanceSalary = new Advancesalary();
+                $datalist=$objAdvanceSalary->getCompanyApprovedAdvanceSalaryList($companyId['id']);
+                echo json_encode($datalist);
+                break;
+            }
     }
 }

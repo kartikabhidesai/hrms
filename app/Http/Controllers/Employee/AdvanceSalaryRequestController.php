@@ -25,7 +25,8 @@ class AdvanceSalaryRequestController extends Controller {
         $data['header'] = array(
             'title' => 'Advance Salary Request List',
             'breadcrumb' => array(
-                'Home / Advanc Salary Request' => route("admin-dashboard")));
+                'Home' => route("employee-dashboard"),
+                'Advance Salary Request' => 'Advance Salary Request'));
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('employee/advancesalaryrequest.js');
         $data['funinit'] = array('Advancesalaryrequest.init()');
@@ -58,7 +59,9 @@ class AdvanceSalaryRequestController extends Controller {
         $data['header'] = array(
             'title' => 'New Advance Salary Request List',
             'breadcrumb' => array(
-                'Home / New Advanc Salary Request' => route("admin-dashboard")));
+                'Home' => route("employee-dashboard"),
+                'Advance Salary Request list' => route('advance-salary-request'),
+                'New Advance Salary Request' => 'New Advance Salary Request'));
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('employee/advancesalaryrequest.js','ajaxfileupload.js', 'jquery.form.min.js');
         $data['funinit'] = array('Advancesalaryrequest.add()');
