@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Auth;
 use Route;
 use APP;
+use Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Model\Payroll;
@@ -70,6 +71,7 @@ class PayrollController extends Controller {
             exit;
         }
 
+        $data['monthis'] = Config::get('constants.months');
         $data['employee'] = Employee::find($id);
         $data['detail'] = $this->loginUser;
         $data['header'] = array(
@@ -103,7 +105,7 @@ class PayrollController extends Controller {
             echo json_encode($return);
             exit;
         }
-
+        $data['monthis'] = Config::get('constants.months');
         $data['detail'] = $this->loginUser;
         $data['header'] = array(
             'title' => 'Create new payroll',

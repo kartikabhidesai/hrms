@@ -27,6 +27,8 @@ class Payroll extends Model {
         $objPayroll->medical = $request->input('medical');
         $objPayroll->transportation = $request->input('transportation');
         $objPayroll->travel = $request->input('travel');
+        $objPayroll->month = $request->input('months');
+        $objPayroll->year = $request->input('year');
     
         $objPayroll->created_at = date('Y-m-d H:i:s');
         $objPayroll->updated_at = date('Y-m-d H:i:s');
@@ -46,7 +48,8 @@ class Payroll extends Model {
         $objPayroll->medical = $request->input('medical');
         $objPayroll->transportation = $request->input('transportation');
         $objPayroll->travel = $request->input('travel');
-    
+        $objPayroll->month = $request->input('months');
+        $objPayroll->year = $request->input('year');
         $objPayroll->created_at = date('Y-m-d H:i:s');
         $objPayroll->updated_at = date('Y-m-d H:i:s');
         $objPayroll->save();
