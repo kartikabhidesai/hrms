@@ -16,42 +16,59 @@ class Payroll extends Model {
 
     public function addnewpayroll($request,$id) {
        
-        $objPayroll = new Payroll();
-        $objPayroll->employee_id = $id;
-        $objPayroll->salary_grade = $request->input('salary_grade');
-        $objPayroll->basic_salary = $request->input('basic_salary');
-        $objPayroll->over_time = $request->input('over_time');
-        $objPayroll->department = $request->input('department');
-        $objPayroll->due_date = date('Y-m-d',strtotime($request->input('due_date')));
-        $objPayroll->housing = $request->input('housing');
-        $objPayroll->medical = $request->input('medical');
-        $objPayroll->transportation = $request->input('transportation');
-        $objPayroll->travel = $request->input('travel');
-    
-        $objPayroll->created_at = date('Y-m-d H:i:s');
-        $objPayroll->updated_at = date('Y-m-d H:i:s');
-        $objPayroll->save();
-
-        return TRUE;
+        $result = Payroll::where('employee_id', '=', $id)
+                           ->where('month', '=', $request->input('months'))
+                           ->where('year', '=', $request->input('year'))->count();
+        if($result == 0){
+            $objPayroll = new Payroll();
+            $objPayroll->employee_id = $id;
+            $objPayroll->salary_grade = $request->input('salary_grade');
+            $objPayroll->basic_salary = $request->input('basic_salary');
+            $objPayroll->over_time = $request->input('over_time');
+            $objPayroll->department = $request->input('department');
+            $objPayroll->due_date = date('Y-m-d',strtotime($request->input('due_date')));
+            $objPayroll->housing = $request->input('housing');
+            $objPayroll->medical = $request->input('medical');
+            $objPayroll->transportation = $request->input('transportation');
+            $objPayroll->travel = $request->input('travel');
+            $objPayroll->month = $request->input('months');
+            $objPayroll->year = $request->input('year');
+        
+            $objPayroll->created_at = date('Y-m-d H:i:s');
+            $objPayroll->updated_at = date('Y-m-d H:i:s');
+            $objPayroll->save();
+            return TRUE;    
+        }else{
+            return 'Exists';
+        }
     }
-  public function editPayroll($request,$id) {
-       
-        $objPayroll = Payroll::find($request->input('editId'));
- 		$objPayroll->salary_grade = $request->input('salary_grade');
-        $objPayroll->basic_salary = $request->input('basic_salary');
-        $objPayroll->over_time = $request->input('over_time');
-        $objPayroll->department = $request->input('department');
-        $objPayroll->due_date = date('Y-m-d',strtotime($request->input('due_date')));
-        $objPayroll->housing = $request->input('housing');
-        $objPayroll->medical = $request->input('medical');
-        $objPayroll->transportation = $request->input('transportation');
-        $objPayroll->travel = $request->input('travel');
     
-        $objPayroll->created_at = date('Y-m-d H:i:s');
-        $objPayroll->updated_at = date('Y-m-d H:i:s');
-        $objPayroll->save();
-
-        return TRUE;
+    public function editPayroll($request,$id) {
+        
+        $result = Payroll::where('employee_id', '=', $request->input('empId'))
+                           ->where('id', '!=', $request->input('editId'))
+                           ->where('month', '=', $request->input('months'))
+                           ->where('year', '=', $request->input('year'))->count();
+        if($result == 0){
+            $objPayroll = Payroll::find($request->input('editId'));
+     		$objPayroll->salary_grade = $request->input('salary_grade');
+            $objPayroll->basic_salary = $request->input('basic_salary');
+            $objPayroll->over_time = $request->input('over_time');
+            $objPayroll->department = $request->input('department');
+            $objPayroll->due_date = date('Y-m-d',strtotime($request->input('due_date')));
+            $objPayroll->housing = $request->input('housing');
+            $objPayroll->medical = $request->input('medical');
+            $objPayroll->transportation = $request->input('transportation');
+            $objPayroll->travel = $request->input('travel');
+            $objPayroll->month = $request->input('months');
+            $objPayroll->year = $request->input('year');
+            $objPayroll->created_at = date('Y-m-d H:i:s');
+            $objPayroll->updated_at = date('Y-m-d H:i:s');
+            $objPayroll->save();
+            return TRUE;    
+        }else{
+            return 'Exists';
+        }
     }
 
     public function getPayroll($id) {

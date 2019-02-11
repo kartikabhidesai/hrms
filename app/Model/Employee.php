@@ -387,14 +387,14 @@ class Employee extends Model {
             });
         } 
         if (!empty($year) && !empty($month)) {
-            $sql->orWhere(function($sql) use($year, $month) {
-                $sql->orWhere(function($sql) use($year, $month) {
-                    $sql->whereBetween('date_of_joining', [date($year . '-' . $month . '-01'), date($year . '-' . $month . '-31')]);
-                                });
-                $sql->orWhere(function($sql) use($year, $month) {
-                    $sql->whereBetween('date_of_joining', [date($year . '-' . $month . '-01'), date($year . '-' . $month . '-31')]);
-                });
-            });
+            // $sql->orWhere(function($sql) use($year, $month) {
+            //     $sql->orWhere(function($sql) use($year, $month) {
+            //         $sql->whereBetween('date_of_joining', [date($year . '-' . $month . '-01'), date($year . '-' . $month . '-31')]);
+            //                     });
+            //     $sql->orWhere(function($sql) use($year, $month) {
+            //         $sql->whereBetween('date_of_joining', [date($year . '-' . $month . '-01'), date($year . '-' . $month . '-31')]);
+            //     });
+            // });
         }
         if(!empty($employee)){
             $sql->where('employee.id',$employee);    

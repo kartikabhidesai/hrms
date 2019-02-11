@@ -3,6 +3,37 @@ var Paylip = function () {
   var handleList = function () {
       dateFormate('.date');
 
+      $('body').on('change', '.checkAll', function() {
+           if (this.checked) {
+               $('.empId:checkbox').each(function() {
+                   this.checked = true;
+               });
+           } else {
+               $('.empId:checkbox').each(function() {
+                   this.checked = false;
+               });
+           }
+      });
+
+      $("body").on('click', '.downloadPdf', function() {
+            $("#emparray").val('');
+            var arrEmp = [];
+          
+            $('.empId:checkbox:checked').each(function() {
+                // var invoiceNo = $(this).attr('id');
+                var empId = $(this).val();
+                arrEmp.push(empId);
+                // arrInvoice.push(invoiceNo);
+            });
+            console.log(arrEmp);
+            if (arrEmp.length > 0) {
+                $("#emparray").val(arrEmp);
+                $('#paySlip').submit();
+            } else {
+                alert('Please Select at least one Record');
+            }
+        });
+
        $('body').on('click', '.applyBtn', function() {
             var consult_id = [];
             var department = $('#department option:selected').val();

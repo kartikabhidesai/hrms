@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Auth;
 use Route;
 use APP;
+use Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Model\Payroll;
@@ -55,10 +56,16 @@ class PayrollController extends Controller {
     public function add(Request $request,$id) {
 
         if($request->ajax()){
+            // print_r($request->input());exit;
         // if ($request->isMethod('post')) {
             $payrollobj = new Payroll();
             $ret = $payrollobj->addnewpayroll($request,$id);
-            if ($ret) {
+
+            if ($ret == 'Exists') {
+                $return['status'] = 'error';
+                $return['message'] = 'Payroll Already Exists.';
+                // $return['redirect'] = route('payroll-add',array('id'=> $id));
+            }elseif ($ret) {
                 $return['status'] = 'success';
                 $return['message'] = 'Payroll added successfully.';
                 $return['redirect'] = route('payroll-emp-detail',array('id'=> $id));
@@ -70,6 +77,7 @@ class PayrollController extends Controller {
             exit;
         }
 
+        $data['monthis'] = Config::get('constants.months');
         $data['employee'] = Employee::find($id);
         $data['detail'] = $this->loginUser;
         $data['header'] = array(
@@ -92,9 +100,13 @@ class PayrollController extends Controller {
         // if ($request->isMethod('post')) {
             $payrollobj = new Payroll();
             $ret = $payrollobj->editPayroll($request,$id);
-            if ($ret) {
+            if ($ret == 'Exists' &&  $ret != true) {
+                $return['status'] = 'error';
+                $return['message'] = 'Payroll Already Exists.';
+                // $return['redirect'] = route('payroll-add',array('id'=> $id));
+            }elseif ($ret) {
                 $return['status'] = 'success';
-                $return['message'] = 'Payroll added successfully.';
+                $return['message'] = 'Payroll updated successfully.';
                 $return['redirect'] = route('payroll-emp-detail',array('id'=> $request->input('empId')));
             } else {
                 $return['status'] = 'error';
@@ -103,7 +115,7 @@ class PayrollController extends Controller {
             echo json_encode($return);
             exit;
         }
-
+        $data['monthis'] = Config::get('constants.months');
         $data['detail'] = $this->loginUser;
         $data['header'] = array(
             'title' => 'Create new payroll',

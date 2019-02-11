@@ -9,7 +9,7 @@
                     <h5>Pay Slip</h5>
                 </div>
                 <div class="ibox-content">
-                    {{ Form::open( array('method' => 'post', 'class' => 'form-horizontal', 'id' => 'attendanceHistory' )) }}
+                    {{ Form::open( array('method' => 'post', 'class' => 'form-horizontal', 'id' => 'paySlip' )) }}
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Department:</label>
@@ -24,7 +24,7 @@
                            {{ Form::select('employee', $employee , null, array('class' => 'form-control ', 'id' => 'employee')) }}
                     </div>
                 </div>
-
+                <input type="hidden" name="emparray[]" id="emparray" class="emparray">
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Year</label>
                     <div class="col-sm-9">
@@ -61,11 +61,11 @@
             <label class="col-sm-1 control-label"></label>
             <div class="col-sm-9">
                     <label class="radio-inline">
-                    {{ Form::radio('gender', 'M', array('class' => 'form-control male' ,'id'=>'male')) }} All Employee</label>
+                    {{ Form::radio('empSelectionType', 'All', array('class' => 'form-control male' ,'id'=>'male')) }} All Employee</label>
                     <label class="radio-inline">
-                    {{ Form::radio('gender', 'F', array('class' => 'form-control famale' ,'id'=>'famale')) }} Selected Employees</label>  
-                    <label class="radio-inline">
-                    {{ Form::radio('gender', 'F', array('class' => 'form-control famale' ,'id'=>'famale')) }} Multiple Payslips</label>
+                    {{ Form::radio('empSelectionType', 'Individual', array('class' => 'form-control famale' ,'id'=>'famale')) }} Selected Employees</label>  
+                    <!-- <label class="radio-inline"> -->
+                    <!-- {{ Form::radio('gender', 'F', array('class' => 'form-control famale' ,'id'=>'famale')) }} Multiple Payslips</label> -->
             </div>
         </div>
     </div>
@@ -73,7 +73,7 @@
         <table class="table table-striped table-bordered table-hover dataTables-example" id="requestlist">
             <thead>
                 <tr>
-                    <td><input type="checkbox" name="checkone"></td>
+                    <td><input type="checkbox" class="checkAll" id="checkAll" name="checkAll"></td>
                     <th>Employee Name</th>
                     <th>Employee No</th>
                     <th>Remarks</th>
@@ -84,7 +84,7 @@
 
                 @foreach($employDetail as $row => $val)
                     <tr>
-                        <td><input type="checkbox" name="checkone"></td>
+                        <td><input type="checkbox" value="{{ $val->emp_id }}" class="empId" id="empId" name="empchk[]"></td>
                         <td>{{ $val->name }}</td>
                         <td>{{ $val->employee_id }}</td>
                         <td></td>
@@ -99,15 +99,15 @@
             <label class="col-sm-1 control-label"></label>
             <div class="col-sm-9">
                     <label class="radio-inline">
-                    {{ Form::radio('gender', 'M', array('class' => 'form-control male' ,'id'=>'male')) }} Consolidated Payslip as PDF</label>
+                    {{ Form::radio('generateType', 'PDF', array('class' => 'form-control ' ,'id' => 'payslip_pdf')) }} Consolidated Payslip as PDF</label>
                     <label class="radio-inline">
-                    {{ Form::radio('gender', 'F', array('class' => 'form-control famale' ,'id'=>'famale')) }} Multiple Payslip as Zip</label>  
+                    {{ Form::radio('generateType', 'ZIP', array('class' => 'form-control ' , 'id' => 'payslip_zip')) }} Multiple Payslip as Zip</label>  
             </div>
         </div>
         <div class="form-group col-lg-12">
             <label class="col-sm-1 control-label"></label>
             <div class="col-sm-9">
-             <button class="btn btn-sm btn-primary " type="button">Download Pdf</button>
+             <button class="btn btn-sm btn-primary downloadPdf" type="button">Download Pdf</button>
              <button class="btn btn-sm btn-primary " type="button">Send Mail</button>
             </div>
         </div>

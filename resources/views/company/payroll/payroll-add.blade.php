@@ -20,7 +20,7 @@
                             {{ Form::number('salary_grade', isset($arrayPayroll) ? $arrayPayroll['salary_grade'] : '', array('placeholder'=>'Salary Grade', 'class' => 'form-control' ,'required')) }}
                         </div>
                     </div>
-                  
+
                     <div class="form-group">
                         <label class="col-lg-3 control-label">Basic Salary</label>
                         <div class="col-lg-9">
@@ -33,14 +33,14 @@
                             {{ Form::number('over_time', isset($arrayPayroll) ? $arrayPayroll['over_time'] : '', array('placeholder'=>'OverTime', 'class' => 'form-control' ,'required')) }}
                         </div>
                     </div>	
-                  
+
                    <!--  <div class="form-group">
                         <label class="col-lg-3 control-label">Department</label>
                         <div class="col-lg-9">
                             {{ Form::text('department', isset($arrayPayroll) ? $arrayPayroll['department'] : '', array('placeholder'=>'Department', 'class' => 'form-control last_name' ,'required')) }}
                         </div>
                     </div> -->
-  
+
                     <div class="form-group" id="data_1">
                         <label class="col-sm-3 control-label">Due Date</label>
                         <div class="col-sm-9"> 
@@ -49,6 +49,25 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Month</label>
+                        <div class="col-sm-9">
+                            {{ Form::select('months', $monthis , isset( $arrayPayroll['month']) ? $arrayPayroll['month'] : '', array('class' => 'form-control months', 'id' => 'months')) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Year</label>
+                        <div class="col-sm-9">
+                            <select class="form-control year" id="year" name="year">
+                                @for($i = 2019;$i<= 2022;$i++)
+                                <option <?=  isset($arrayPayroll) && $arrayPayroll['year'] == $i ? 'selected="selected"'  : '' ?> value="{{  $i }}">{{  $i }}</option>
+                                @endfor
+                            </select>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>	
@@ -92,7 +111,7 @@
                         </div>
                         <label class="col-lg-1 control-label">SAR</label>
                     </div>
-                      {{ Form::hidden('empId',  isset($arrayPayroll) ?$arrayPayroll['employee_id'] : '', array('placeholder'=>'empId')) }}
+                    {{ Form::hidden('empId',  isset($arrayPayroll) ?$arrayPayroll['employee_id'] : '', array('placeholder'=>'empId')) }}
                     <div class="form-group">
                         <label class="col-lg-3 control-label">&nbsp;</label>
                         <div class="col-lg-8">
@@ -102,7 +121,7 @@
                 </div>
             </div>
         </div>
- 
+
         <div class="col-lg-6">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
@@ -137,7 +156,7 @@
                         <div class="col-lg-8">{{ $employee->name }}
                         </div>
                     </div>
-                     <div class="form-group">
+                    <div class="form-group">
                         <div class="col-lg-offset-3 col-lg-9">
                             <button class="btn btn-sm btn-primary" type="submit">Save</button>
                         </div>
