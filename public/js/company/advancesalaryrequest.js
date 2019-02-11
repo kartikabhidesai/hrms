@@ -93,6 +93,25 @@ var Advancesalaryrequest = function (){
             handleAjaxFormSubmit(form, true);
         });
     }
+
+    var approvedReqList = function () {
+        var dataArr = {};
+        var columnWidth = {"width": "10%", "targets": 0};
+        var arrList = {
+            'tableID': '#approvedRequestlist',
+            'ajaxURL': baseurl + "company/approved-salary-request-ajaxAction",
+            'ajaxAction': 'getdatatable',
+            'postData': dataArr,
+            'hideColumnList': [],
+            'noSearchApply': [0],
+            'noSortingApply': [3],
+            'defaultSortColumn': 0,
+            'defaultSortOrder': 'desc',
+            'setColumnWidth': columnWidth
+        };
+        getDataTable(arrList);
+    };
+      
     return {
         init: function () {
             handleList();
@@ -102,6 +121,9 @@ var Advancesalaryrequest = function (){
         },
         edit:function(){
             editRequest();
+        },
+        initApprovedReqList:function(){
+            approvedReqList();
         },
     }
 }();

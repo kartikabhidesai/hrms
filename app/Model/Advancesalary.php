@@ -18,6 +18,7 @@ use File;
 class Advancesalary extends Model
 {
     protected $fillable = ['name', 'employee_id', 'company_id', 'department_id', 'date_of_submit', 'comments','file_name', 'created_at', 'updated_at'];
+
     protected $table = 'advance_salary_request';
     
     public function addSalaryRequest($request){
@@ -217,5 +218,66 @@ class Advancesalary extends Model
     public function disapproveRequest($id){
         $objSavedata=Advancesalary::where('id',$id)->update(['status'=>'reject','updated_at'=>date('Y-m-d H:i:s')]);
         return ($objSavedata);
+    }
+
+    public function getCompanyApprovedAdvanceSalaryList($companyId){
+        $requestData = $_REQUEST;
+        $columns = array(
+            0 => 'advance_salary.name',
+            1 => 'advance_salary.department_name',            
+            2 => 'advance_salary.date_of_submit',
+            3 => 'advance_salary.updated_at',
+            4 => 'advance_salary.comments',
+            5 => 'advance_salary.action'
+        );
+         $query = ManageTimeChangeRequest::from('advance_salary_request as advance_salary')
+                                         ->join('department as depart', 'advance_salary.department_id', '=', 'depart.id')
+                                         ->where('advance_salary.company_id',$companyId)
+                                         ->where('advance_salary.status', 'approve');
+         
+          if (!empty($requestData['search']['value'])) {
+            $searchVal = $requestData['search']['value'];
+            $query->where(function($query) use ($columns, $searchVal, $requestData) {
+                    $flag = 0;
+                    foreach ($columns as $key => $value) {
+                      $searchVal = $requestData['search']['value'];
+                      if ($requestData['columns'][$key]['searchable'] == 'true') {
+                          if ($flag == 0) {
+                              $query->where($value, 'like', '%' . $searchVal . '%');
+                              $flag = $flag + 1;
+                          } else {
+                              $query->orWhere($value, 'like', '%' . $searchVal . '%');
+                          }
+                      }
+                    }
+               });
+        }
+        $temp = $query->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir']);
+
+        $totalData = count($temp->get());
+        $totalFiltered = count($temp->get());
+        
+        $resultArr = $query->skip($requestData['start'])
+                            ->take($requestData['length'])
+                            ->select('depart.department_name','advance_salary.status','advance_salary.id', 'advance_salary.name','advance_salary.employee_id', 'advance_salary.company_id','advance_salary.department_id', 'advance_salary.date_of_submit','advance_salary.comments', 'advance_salary.updated_at', 'advance_salary.status')->get();
+        $data = array();
+        $type_of_request = Config::get('constants.type_of_request');
+        foreach ($resultArr as $row) {
+            $nestedData = array();
+            $nestedData[] = $row["name"];
+            $nestedData[] = $row["department_name"];
+            $nestedData[] = date('Y-m-d', strtotime($row["date_of_submit"]));
+            $nestedData[] = date('Y-m-d', strtotime($row["updated_at"]));
+            $nestedData[] = $row["comments"];
+            $nestedData[] = $row["status"];
+            $data[] = $nestedData;
+        }
+        $json_data = array(
+          "draw" => intval($requestData['draw']),
+          "recordsTotal" => intval($totalData),
+          "recordsFiltered" => intval($totalFiltered),
+          "data" => $data
+        );
+        return $json_data;
     }
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Leave;
 use App\Model\Employee;
 use App\Model\Company;
+use App\Model\AttendanceHistory;
 use Config;
 class LeaveController extends Controller
 {
@@ -126,6 +127,7 @@ class LeaveController extends Controller
     
      public function deleteLeave($postData) {
         if ($postData) {
+            $deleteAttendanceHistory = AttendanceHistory::where('leave_id', $postData['id'])->delete();
             $result = Leave::where('id', $postData['id'])->delete();
             if ($result) {
                 $return['status'] = 'success';
