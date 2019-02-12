@@ -91,6 +91,10 @@ if (!empty(Auth()->guard('admin')->user())) {
                     <a href="{{ route('pay-slip') }}"><i class="fa fa-history"></i>
                     <span class="nav-label">Pay Slip</span></a>
                 </li>
+                
+                <li class="{{ ( $currentRoute == 'campany-advance-salary-request' ? 'active' : '') }} ">
+                    <a href="{{ route('campany-advance-salary-request') }}"><i class="fa fa-money" ></i> <span class="nav-label">Advance Salary Request</span></a>
+                </li>
             </ul>
         </div>
     </nav>

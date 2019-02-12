@@ -37,9 +37,10 @@ class AdvanceSalaryRequestController extends Controller {
     public function newRequest(Request $request){
         $session = $request->session()->all();
         $logindata = $session['logindata'][0];
+        
         $objEmployee=new Employee();
         $data['empdetails']=$objEmployee->getEmploydetails($logindata['id']);       
-        
+       
         if ($request->isMethod('post')) {
             $objNewSalaryRequest= new Advancesalary();
             $result=$objNewSalaryRequest->addSalaryRequest($request);
@@ -69,6 +70,7 @@ class AdvanceSalaryRequestController extends Controller {
     public function editRequest(Request $request,$id){
         $session = $request->session()->all();
         $logindata = $session['logindata'][0];
+        
         $objEmployee=new Employee();
         $data['empdetails']=$objEmployee->getEmploydetails($logindata['id']);       
         
@@ -123,15 +125,13 @@ class AdvanceSalaryRequestController extends Controller {
             
             case 'getdatatable':
                 $id = Auth()->guard('employee')->user()['id'];
+                
                 $objEmploye=new Employee();
                 $employeid=$objEmploye->getUserid($id);
-                
                 $objAdvanceSalary=new Advancesalary();
                 $datalist=$objAdvanceSalary->getAdvanceSalaryList($employeid);
-                
                 echo json_encode($datalist);
                 break;
-            
             case 'deleteLeave':
                 $result = $this->deleteLeave($request->input('data'));
                 break;

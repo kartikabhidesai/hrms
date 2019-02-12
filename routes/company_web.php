@@ -54,5 +54,8 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
     /*Manage Time Change Request*/
     Route::match(['get', 'post'], 'pay-slip', ['as' => 'pay-slip', 'uses' => 'Company\PayslipController@create']);
     Route::match(['get', 'post'], 'create-pdf', ['as' => 'create-pdf', 'uses' => 'Company\PayslipController@createPDF']);
-    
+
+    //campany-advance-salary-request//advance-salary-request-ajaxAction
+    Route::match(['get', 'post'], 'campany-advance-salary-request', ['as' => 'campany-advance-salary-request', 'uses' => 'Company\AdvanceSalaryRequestController@requestList']);
+    Route::match(['get', 'post'], 'advance-salary-request-ajaxAction', ['as' => 'advance-salary-request-ajaxAction', 'uses' => 'Company\AdvanceSalaryRequestController@ajaxaction']);
 });

@@ -138,4 +138,84 @@ class Advancesalary extends Model
          $objEditAdvaceSalary->updated_at = date('Y-m-d H:i:s');
          return($objEditAdvaceSalary->save());
     }
+    
+    public function getCompanyAdvanceSalaryList($companyId){
+        $requestData = $_REQUEST;
+        $columns = array(
+            // datatable column index  => database column name
+            0 => 'advance_salary.name',
+            1 => 'advance_salary.department_name',            
+            2 => 'advance_salary.date_of_submit',
+            3 => 'advance_salary.comments',
+            4 => 'advance_salary.status',
+            
+        );
+         $query = ManageTimeChangeRequest::from('advance_salary_request as advance_salary')
+                 ->join('department as depart', 'advance_salary.department_id', '=', 'depart.id')
+                 ->where('advance_salary.company_id',$companyId);
+         
+          if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
+            $searchVal = $requestData['search']['value'];
+            $query->where(function($query) use ($columns, $searchVal, $requestData) {
+                   $flag = 0;
+                   foreach ($columns as $key => $value) {
+                  $searchVal = $requestData['search']['value'];
+                  if ($requestData['columns'][$key]['searchable'] == 'true') {
+                      if ($flag == 0) {
+                          $query->where($value, 'like', '%' . $searchVal . '%');
+                          $flag = $flag + 1;
+                      } else {
+                          $query->orWhere($value, 'like', '%' . $searchVal . '%');
+                      }
+                  }
+                   }
+               });
+        }
+      $temp = $query->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir']);
+
+        $totalData = count($temp->get());
+        $totalFiltered = count($temp->get());
+        
+        $resultArr = $query->skip($requestData['start'])
+                    ->take($requestData['length'])
+                    ->select('depart.department_name','advance_salary.status','advance_salary.id', 'advance_salary.name','advance_salary.employee_id', 'advance_salary.company_id','advance_salary.department_id', 'advance_salary.date_of_submit','advance_salary.comments')->get();
+        $data = array();
+       $type_of_request=Config::get('constants.type_of_request');
+        foreach ($resultArr as $row) {
+            if($row["status"] == NULL){
+                $actionHtml = '<a href="#approveModel" data-toggle="modal" data-id="'.$row['id'].'" title="Approve" class="btn btn-default link-black text-sm approve" data-toggle="tooltip" data-original-title="Approve" ><i class="fa fa-check"></i></a><a href="#disapproveModel" data-toggle="modal" data-id="'.$row['id'].'"  title="Reject" class="btn btn-default link-black text-sm disapprove" data-toggle="tooltip" data-original-title="Approve" ><i class="fa fa-close"></i></a>';
+            }else{
+                if($row["status"] == 'approve'){
+                    $actionHtml='<span class="label label-success">Approve</span>';
+                }else{
+                    $actionHtml='<span class="label label-danger">Rejected</span>';
+                }
+            }
+            
+            $nestedData = array();
+            $nestedData[] = $row["name"];
+            $nestedData[] = $row["department_name"];
+            $nestedData[] = date('Y-m-d',strtotime($row["date_of_submit"]));
+            $nestedData[] = $row["comments"];
+            $nestedData[] = $actionHtml;
+            $data[] = $nestedData;
+        }
+        $json_data = array(
+            "draw" => intval($requestData['draw']), // for every request/draw by clientside , they send a number as a parameter, when they recieve a response/data they first check the draw number, so we are sending same number in draw. 
+            "recordsTotal" => intval($totalData), // total number of records
+            "recordsFiltered" => intval($totalFiltered), // total number of records after searching, if there is no searching then totalFiltered = totalData
+            "data" => $data   // total data array
+        );
+        return $json_data;
+    }
+    
+    public function approveRequest($id){
+       $objSavedata=Advancesalary::where('id',$id)->update(['status'=>'approve','updated_at'=>date('Y-m-d H:i:s')]);
+       return ($objSavedata);
+    }
+    
+    public function disapproveRequest($id){
+        $objSavedata=Advancesalary::where('id',$id)->update(['status'=>'reject','updated_at'=>date('Y-m-d H:i:s')]);
+        return ($objSavedata);
+    }
 }
