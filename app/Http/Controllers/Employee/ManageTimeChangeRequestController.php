@@ -38,10 +38,8 @@ class ManageTimeChangeRequestController extends Controller
     {   
         $session = $request->session()->all();
         $logindata = $session['logindata'][0];
-//        print_r($logindata['id']);die();
         $objEmployee=new Employee();
         $empdetails=$objEmployee->getEmploydetails($logindata['id']);
-//        print_r($empdetails);die();
         $data['depat_name']=$empdetails[0]->department_name;
         $data['dep_id']=$empdetails[0]->dep_id;
         $data['id']=$empdetails[0]->id;
@@ -64,7 +62,6 @@ class ManageTimeChangeRequestController extends Controller
             echo json_encode($return);
             exit;
         }
-    	
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('employee/newTimeChangeRequest.js', 'ajaxfileupload.js', 'jquery.form.min.js');
         $data['funinit'] = array('Timechange.init()');
@@ -103,7 +100,7 @@ class ManageTimeChangeRequestController extends Controller
         switch ($action) {
             
             case 'getdatatable':
-               $id = Auth()->guard('employee')->user()['id'];
+                $id = Auth()->guard('employee')->user()['id'];
                 $objEmploye=new Employee();
                 $employeid=$objEmploye->getUserid($id);
                 $objManageList=new ManageTimeChangeRequest();
@@ -112,7 +109,6 @@ class ManageTimeChangeRequestController extends Controller
                 break;
             
             case 'deleteLeave':
-               
                 $result = $this->deleteLeave($request->input('data'));
                 break;
         }

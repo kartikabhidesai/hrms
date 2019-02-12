@@ -25,4 +25,9 @@ Route::group(['prefix' => $employeePrefix, 'middleware' => ['employee']], functi
     Route::get('manage-time-change-request', ['as' => 'manage-time-change-request', 'uses' => 'Employee\ManageTimeChangeRequestController@manageTimeChangeRequestList']);
     Route::match(['get', 'post'], 'new-time-change-request', ['as' => 'new-time-change-request', 'uses' => 'Employee\ManageTimeChangeRequestController@newTimeChangeRequest']);
     Route::match(['get', 'post'], 'requestlist-ajaxAction', ['as' => 'requestlist-ajaxAction', 'uses' => 'Employee\ManageTimeChangeRequestController@ajaxAction']);    
+//    edit-advance-salary-request
+    Route::match(['get', 'post'], 'advance-salary-request', ['as' => 'advance-salary-request', 'uses' => 'Employee\AdvanceSalaryRequestController@requestList']);    
+    Route::match(['get', 'post'], 'new-advance-salary-request', ['as' => 'new-advance-salary-request', 'uses' => 'Employee\AdvanceSalaryRequestController@newRequest']);    
+    Route::match(['get', 'post'], 'advance-salary-request-ajaxAction', ['as' => 'advance-salary-request-ajaxAction', 'uses' => 'Employee\AdvanceSalaryRequestController@ajaxAction']);    
+    Route::match(['get', 'post'], 'edit-advance-salary-request/{id}', ['as' => 'edit-advance-salary-request', 'uses' => 'Employee\AdvanceSalaryRequestController@editRequest']);    
 });

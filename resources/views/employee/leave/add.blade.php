@@ -15,20 +15,13 @@
                 </div>
                 <div class="ibox-content">
                     {{ Form::open( array('method' => 'post', 'class' => 'form-horizontal','files' => true, 'id' => 'addLeave' )) }}
-                    <!-- div class="form-group">
-                        <label class="col-sm-2 control-label">Start Date</label>
-                        <div class="col-sm-9">
-                         {{ Form::date('start_date', isset($leaveEdit) && !empty($leaveEdit['start_date']) ? $leaveEdit['start_date'] : '', array('class' => 'form-control start_date','required')) }}
-
-                        </div>
-                    </div> -->
+              
                     <div class="form-group" hidden>
                                 <label class="col-sm-2 control-label">Name</label>
                                 <div class="col-sm-9">
                                     <input type="text" name="empid" value="{{ $emp_id }}" class="form-control">
                                     <input type="text" name="company_id" value="{{ $company_id }}" class="form-control">
                                     <input type="text" name="dep_id" value="{{ $dep_id }}" class="form-control">
-                                    
                                 </div>
                     </div>
                     <input type="hidden" name="editId" value="{{ isset($leaveEdit) && !empty($leaveEdit['id']) ? $leaveEdit['id'] : '' }}">

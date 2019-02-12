@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AleteLeavesTable extends Migration
+class AddStatusColoumAdvanceSalaryRequest extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,9 @@ class AleteLeavesTable extends Migration
      */
     public function up()
     {
-        Schema::table('leaves', function (Blueprint $table) {
-            $table->dropColumn('type_of_req_id');
-            //
-//             $table->integer('type_of_req_id')->after('dep_id');
-            
+        Schema::table('advance_salary_request', function (Blueprint $table) {
+            $table->string('status')->after('file_name')->nullable();
         });
-      
     }
 
     /**
@@ -29,9 +25,8 @@ class AleteLeavesTable extends Migration
      */
     public function down()
     {
-        Schema::table('leaves', function (Blueprint $table) {
+        Schema::table('advance_salary_request', function (Blueprint $table) {
             //
-//            $table->dropColumn('type_of_req_id');
         });
     }
 }
