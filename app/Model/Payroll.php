@@ -17,8 +17,9 @@ class Payroll extends Model {
     public function addnewpayroll($request,$id) {
        
         $result = Payroll::where('employee_id', '=', $id)
-                           ->where('month', '=', $request->input('months'))
-                           ->where('year', '=', $request->input('year'))->count();
+                ->where('month', '=', $request->input('months'))
+                ->where('year', '=', $request->input('year'))->count();
+
         if($result == 0){
             $objPayroll = new Payroll();
             $objPayroll->employee_id = $id;
@@ -77,6 +78,20 @@ class Payroll extends Model {
 
     public function getPayrollV2($id) {
        return Payroll::select('pay_roll.*')->where('id', '=', $id)->get()->toArray();
+    }
+    public function getPayslipPdfDetail($postData,$id) {
+        // echo 'Call Model';
+        // print_r($postData);exit;
+        $result = Payroll::select('pay_roll.*','employee.id as emp_id','employee.name as empName','comapnies.company_name')
+                    ->leftjoin('employee', 'employee.id', '=', 'pay_roll.employee_id')
+                    ->leftjoin('department', 'employee.department', '=', 'department.id')
+                    ->leftjoin('comapnies', 'comapnies.id', '=', 'employee.company_id')
+                    ->where('pay_roll.month',$postData['months'])
+                    ->where('pay_roll.year',$postData['year'])
+                    ->where('pay_roll.employee_id',$id)
+                    ->get()->toArray();
+        // print_r($result);exit; 
+        return $result;
     }
 
 }

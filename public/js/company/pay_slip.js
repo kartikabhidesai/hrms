@@ -18,7 +18,7 @@ var Paylip = function () {
       $("body").on('click', '.downloadPdf', function() {
             $("#emparray").val('');
             var arrEmp = [];
-          
+            alert()
             $('.empId:checkbox:checked').each(function() {
                 // var invoiceNo = $(this).attr('id');
                 var empId = $(this).val();
@@ -32,6 +32,11 @@ var Paylip = function () {
             } else {
                 alert('Please Select at least one Record');
             }
+        });
+
+
+        $("body").on('change', '.empSelectionType', function() {
+            $('.checkAll').trigger('click');
         });
 
        $('body').on('click', '.applyBtn', function() {

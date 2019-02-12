@@ -9,6 +9,7 @@ use App\Model\Employee;
 use App\Model\Company;
 use App\Model\Designation;
 use App\Model\Attendance;
+use App\Model\Payroll;
 use Auth;
 use Route;
 use Config;
@@ -26,7 +27,24 @@ class PayslipController extends Controller
         $getAuthCompanyId = Company::where('email', $userData->email)->first();
         $companyId = $getAuthCompanyId->id;
         if ($request->isMethod('post')) {
-            // print_r($request->input());exit;
+            $postData = $request->input();
+            $empArray = $postData['empchk'];
+            $dataPdf = array();
+            foreach ($empArray as $key => $value) {
+                $objPayroll = new Payroll();
+                $employeeArr = $objPayroll->getPayslipPdfDetail($postData,$value);
+                   // print_r($employeeArr);
+                if(!empty($employeeArr)){
+                    $dataPdf[] = $employeeArr[0];
+                }
+            }
+            if(count($dataPdf) > 0){
+                $data['empPdfArray'] = $dataPdf;
+                $file= date('d-m-YHis')."payslip.pdf";
+               // $file= public_path(). "/uploads/admin/info.pdf";
+                $pdf = PDF::loadView('company.pay-slip.invoice-pdf', $data);
+                return $pdf->download($file);    
+            }
         }
         $department = (empty($request->get('department'))) ? '' : $request->get('department');
         $employee = (empty($request->get('employee'))) ? '' : $request->get('employee');
@@ -61,5 +79,24 @@ class PayslipController extends Controller
         $file= public_path(). "/uploads/admin/info.pdf";
         $pdf = PDF::loadView('company.pay-slip.invoice-pdf', $data);
         return $pdf->download($file);
+    } 
+    
+    public function generatePdf($postData){
+         $data = array();
+        $file= public_path(). "/uploads/admin/info.pdf";
+        $pdf = PDF::loadView('company.pay-slip.invoice-pdf', $data);
+        return $pdf->download($file);
+        // $empArray = $postData['emparray'];
+        // // foreach ($empArray as $key => $value) {
+        //     $data = array();
+        //     $objPayroll = new Payroll();
+        //     $data['employeeArr'] = $objPayroll->getPayslipPdfDetail($postData);
+        //     // if(!empty($data['employeeArr'])){
+        //         $file= public_path(). "/uploads/admin/info.pdf";
+        //         $pdf = PDF::loadView('company.pay-slip.invoice-pdf', $data);
+        //         return $pdf->download($file);    
+        //     // }
+        // // }
     }
+
 }
