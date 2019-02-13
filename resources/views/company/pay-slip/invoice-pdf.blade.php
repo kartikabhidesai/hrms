@@ -36,7 +36,7 @@
                     <td class="main-header"><span >HRMS</span></td>
                 </tr>
                 <tr>
-                    <td  colspan="2"><h2>Payslip</h2><b>Net Pay 23,54</b></td>
+                    <td  colspan="2"><h2>Payslip</h2><b>Net Pay {{ $employeeArr['salary_grade'] + $employeeArr['basic_salary']  + $employeeArr['over_time'] + $employeeArr['housing']+ $employeeArr['medical'] + $employeeArr['transportation'] + $employeeArr['travel'] }}</b></td>
                     <td >Employee Name  <br/>{{ $employeeArr['empName'] }}</td>
                     <td >Company Name <br/>{{ $employeeArr['company_name'] }}</td>
                     <td >payroll Date <br/> {{ date('d-m-Y',strtotime($employeeArr['due_date'])) }}</td>
@@ -67,7 +67,7 @@
                     </tr>  <tr>
                         <td > Total Payments  ${{ $employeeArr['salary_grade'] + $employeeArr['basic_salary'] }}</td>
                         <td class="padding-l-5">Total Deductions  </td>
-                        <td class="padding-l-5">Net Pay {{ $employeeArr['salary_grade'] + $employeeArr['basic_salary']  + $employeeArr['over_time'] + $employeeArr['housing']+ $employeeArr['medical'] + $employeeArr['transportation'] + $employeeArr['travel']}}</td>
+                        <td class="padding-l-5">Net Pay {{ $employeeArr['salary_grade'] + $employeeArr['basic_salary']  + $employeeArr['over_time'] + $employeeArr['housing']+ $employeeArr['medical'] + $employeeArr['transportation'] + $employeeArr['travel'] }}</td>
                     </tr>
                 </tbody>
             </table>
