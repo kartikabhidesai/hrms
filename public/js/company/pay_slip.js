@@ -18,7 +18,6 @@ var Paylip = function () {
       $("body").on('click', '.downloadPdf', function() {
             $("#emparray").val('');
             var arrEmp = [];
-            alert()
             $('.empId:checkbox:checked').each(function() {
                 // var invoiceNo = $(this).attr('id');
                 var empId = $(this).val();
