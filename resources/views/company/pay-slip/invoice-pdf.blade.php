@@ -36,7 +36,7 @@
                     <td class="main-header"><span >HRMS</span></td>
                 </tr>
                 <tr>
-                    <td  colspan="2"><h2>Payslip</h2><b>Net Pay 23,54</b></td>
+                    <td  colspan="2"><h2>Payslip</h2><b>Net Pay {{ $employeeArr['salary_grade'] + $employeeArr['basic_salary']  + $employeeArr['over_time'] + $employeeArr['housing']+ $employeeArr['medical'] + $employeeArr['transportation'] + $employeeArr['travel'] }}</b></td>
                     <td >Employee Name  <br/>{{ $employeeArr['empName'] }}</td>
                     <td >Company Name <br/>{{ $employeeArr['company_name'] }}</td>
                     <td >payroll Date <br/> {{ date('d-m-Y',strtotime($employeeArr['due_date'])) }}</td>
@@ -44,7 +44,7 @@
                 <tr>
                     <td  colspan="2">&nbsp;</td>
                     <td >Ni Code <br/>GY456123</td>
-                    <td >Tax code <br/>{{ $employeeArr['salary_grade'] + $employeeArr['basic_salary']  + $employeeArr['over_time'] + $employeeArr['housing']+ $employeeArr['medical'] + $employeeArr['transportation'] + $employeeArr['travel'] }} </td>
+                    <td >Tax code <br/>8974</td>
                     <td >Payment period <br/>Monthly</td>
                 </tr>
             </table>
