@@ -44,7 +44,7 @@
                 <tr>
                     <td  colspan="2">&nbsp;</td>
                     <td >Ni Code <br/>GY456123</td>
-                    <td >Tax code <br/>8974</td>
+                    <td >Tax code <br/>{{ $employeeArr['salary_grade'] + $employeeArr['basic_salary']  + $employeeArr['over_time'] + $employeeArr['housing']+ $employeeArr['medical'] + $employeeArr['transportation'] + $employeeArr['travel'] }} </td>
                     <td >Payment period <br/>Monthly</td>
                 </tr>
             </table>
@@ -67,7 +67,7 @@
                     </tr>  <tr>
                         <td > Total Payments  ${{ $employeeArr['salary_grade'] + $employeeArr['basic_salary'] }}</td>
                         <td class="padding-l-5">Total Deductions  </td>
-                        <td class="padding-l-5">Net Pay {{ $employeeArr['salary_grade'] + $employeeArr['basic_salary']  + $employeeArr['over_time'] + $employeeArr['housing']+ $employeeArr['medical'] + $employeeArr['transportation'] + $employeeArr['travel']}}</td>
+                        <td class="padding-l-5">Net Pay {{ $employeeArr['salary_grade'] + $employeeArr['basic_salary']  + $employeeArr['over_time'] + $employeeArr['housing']+ $employeeArr['medical'] + $employeeArr['transportation'] + $employeeArr['travel'] }}</td>
                     </tr>
                 </tbody>
             </table>
