@@ -119,17 +119,14 @@ var Advancesalaryrequest = function (){
             }else{
                 $.ajax({
                     type: "post",
-                    url: baseurl + "company/downloadApprovedPdf",
+                    url: baseurl + "company/createApprovedPdf",
                     data: {"selecteditem":selecteditem,"_token":token},
                     success: function (response)
                     {
-                            
+                       window.location.replace(baseurl + "company/downloadApprovedPdf?pdfname="+response);
                     }
                 });
             }
-            
-            
-                
         });
 
         var dataArr = {};
