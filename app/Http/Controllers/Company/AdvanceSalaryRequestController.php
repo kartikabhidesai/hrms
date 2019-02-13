@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Auth;
 use Route;
 use APP;
+use PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Model\Payroll;
@@ -111,5 +112,14 @@ class AdvanceSalaryRequestController extends Controller {
                 echo json_encode($datalist);
                 break;
             }
+    }
+    
+    public function downloadApprovedPdf(Request $request){
+        if($request->method('post')){
+            $objAdvanceSalary=new Advancesalary();
+            $data['advanceSalaryApprovedRequest']=$objAdvanceSalary->getDetails($request);
+//            $pdf = PDF::loadView('company.advancesalaryrquest.advance-salary-rquest-pdf', $data);
+//            return response()->download(public_path('uploads/comapany/advance-salary'.date('Y-m-d').pdf));
+        }
     }
 }

@@ -7,6 +7,7 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Approved Advance Salary List</h5>
+                        <input class="c-input" type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
                     </div>
                     <div class="ibox-content">
                         <div class="table-responsive">

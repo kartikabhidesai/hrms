@@ -108,7 +108,28 @@ var Advancesalaryrequest = function (){
         });
 
         $('#DownloadButton').on('click', function () {
-            alert(checkedBoxArr);
+            var token=$("#_token").val();
+            var selecteditem = [];
+            $.each($(".approved_chk_id:checked"), function(){            
+                selecteditem.push($(this).val());
+            });
+            
+            if(selecteditem.length == '0'){
+                    showToster("error", "First Select Employee", '');
+            }else{
+                $.ajax({
+                    type: "post",
+                    url: baseurl + "company/downloadApprovedPdf",
+                    data: {"selecteditem":selecteditem,"_token":token},
+                    success: function (response)
+                    {
+                            
+                    }
+                });
+            }
+            
+            
+                
         });
 
         var dataArr = {};

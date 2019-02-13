@@ -56,14 +56,10 @@ class PayslipController extends Controller
         return view('company.pay-slip.create', $data);
     }
     
-    public function createPDF() {
+    public function createPDF(){
         $data = array();
-        // $target_path = 'pdf/test.pdf';
         $file= public_path(). "/uploads/admin/info.pdf";
         $pdf = PDF::loadView('company.pay-slip.invoice-pdf', $data);
-        // return $pdf->stream();
-        // exit;
         return $pdf->download($file);
-        // return $pdf->download('invoice.pdfV2');
     }
 }

@@ -264,7 +264,7 @@ class Advancesalary extends Model
         $type_of_request = Config::get('constants.type_of_request');
         foreach ($resultArr as $row) {
             $nestedData = array();
-            $nestedData[] = '<input type="checkbox" id="approved_chk_id" name="approved_chk_id" value="'.$row['id'].'">';
+            $nestedData[] = '<input type="checkbox" class="approved_chk_id" name="approved_chk_id" value="'.$row['id'].'">';
             $nestedData[] = $row["name"];
             $nestedData[] = $row["department_name"];
             $nestedData[] = date('Y-m-d', strtotime($row["date_of_submit"]));
@@ -280,5 +280,20 @@ class Advancesalary extends Model
           "data" => $data
         );
         return $json_data;
+    }
+    
+    public function getDetails($request){
+      $seleteItems=$request->input('selecteditem');
+      $AdvanceSalaryRequest=[];
+      
+      for($i=0;$i<count($seleteItems); $i++){
+          $query = ManageTimeChangeRequest::from('advance_salary_request as advance_salary')
+                 ->join('department as depart', 'advance_salary.department_id', '=', 'depart.id')
+                 ->where('advance_salary.id',$seleteItems[$i])
+                 ->select('advance_salary.name','advance_salary.comments','advance_salary.date_of_submit','depart.department_name')
+                 ->get()->toarray();
+         array_push($AdvanceSalaryRequest,$query[0]);
+      }
+      return $AdvanceSalaryRequest;
     }
 }

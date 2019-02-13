@@ -60,4 +60,5 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
     Route::match(['get', 'post'], 'approved-advance-salary-request', ['as' => 'approved-advance-salary-request', 'uses' => 'Company\AdvanceSalaryRequestController@approvedRequestList']);
     Route::match(['get', 'post'], 'advance-salary-request-ajaxAction', ['as' => 'advance-salary-request-ajaxAction', 'uses' => 'Company\AdvanceSalaryRequestController@ajaxaction']);
     Route::match(['get', 'post'], 'approved-salary-request-ajaxAction', ['as' => 'approved-salary-request-ajaxAction', 'uses' => 'Company\AdvanceSalaryRequestController@approvedListAjaxaction']);
+    Route::match(['get', 'post'], 'downloadApprovedPdf', ['as' => 'downloadApprovedPdf', 'uses' => 'Company\AdvanceSalaryRequestController@downloadApprovedPdf']);
 });
