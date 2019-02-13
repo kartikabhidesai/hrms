@@ -115,7 +115,7 @@ var Advancesalaryrequest = function (){
             });
             
             if(selecteditem.length == '0'){
-                    showToster("error", "First Select Employee", '');
+                    showToster("error", "First Select any Employee", '');
             }else{
                 $.ajax({
                     type: "post",

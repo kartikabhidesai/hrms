@@ -282,16 +282,21 @@ class Advancesalary extends Model
         return $json_data;
     }
     
-    public function getDetails($request){
-      $seleteItems=$request->input('selecteditem');
-      $AdvanceSalaryRequest=[];
+    public function getDetails($request)
+    {
+      $seleteItems = $request->input('selecteditem');
+      $AdvanceSalaryRequest = [];
       
       for($i=0;$i<count($seleteItems); $i++){
           $query = ManageTimeChangeRequest::from('advance_salary_request as advance_salary')
-                 ->join('department as depart', 'advance_salary.department_id', '=', 'depart.id')
-                 ->where('advance_salary.id',$seleteItems[$i])
-                 ->select('advance_salary.name','advance_salary.comments','advance_salary.date_of_submit','depart.department_name')
-                 ->get()->toarray();
+                                           ->join('department as depart', 'advance_salary.department_id', '=', 'depart.id')
+                                           ->join('comapnies', 'advance_salary.company_id', '=', 'comapnies.id')
+                                           // ->leftjoin('pay_roll', 'advance_salary.employee_id', '=', 'pay_roll.employee_id')
+                                           ->join('employee', 'advance_salary.employee_id', '=', 'employee.id')
+                                           ->where('advance_salary.id',$seleteItems[$i])
+                                           ->select('advance_salary.name','advance_salary.comments','advance_salary.date_of_submit','depart.department_name', 'comapnies.company_name', 'advance_salary.date_of_submit', 'employee.phone')
+                                           ->get()
+                                           ->toarray();
          array_push($AdvanceSalaryRequest,$query[0]);
       }
       return $AdvanceSalaryRequest;

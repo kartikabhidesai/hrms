@@ -119,7 +119,7 @@ class AdvanceSalaryRequestController extends Controller {
         if($request->method('post')){
             $objAdvanceSalary=new Advancesalary();
             $data['advanceSalaryApprovedRequest']=$objAdvanceSalary->getDetails($request);
-            $pdf = PDF::loadView('company.advancesalaryrquest.advance-salary-rquest-pdf', $data);
+            $pdf = PDF::loadView('company.advancesalaryrquest.advance-salary-rquest-pdf', compact('data'));
             $pdfName='advance-salary'.time().'.pdf';
             $pdf->save(public_path('uploads/comapany/'.$pdfName));
             return $pdfName;
