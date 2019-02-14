@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Employee;
 use App\Model\Company;
 use App\Model\SendSMS;
+use App\Model\Department;
 
 class SendSMSController extends Controller
 {
@@ -51,6 +52,7 @@ class SendSMSController extends Controller
         $userid = $this->loginUser->id;
         $companyId = Company::select('id')->where('user_id', $userid)->first();
         $data['getAllEmpOfCompany'] = Employee::where('company_id', $companyId->id)->get();
+        $data['departments'] = Department::where('company_id', $companyId['id'])->get();
 
         if($request->isMethod('post')) {
             $newSMS = new SendSMS();

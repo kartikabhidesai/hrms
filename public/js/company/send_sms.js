@@ -4,7 +4,7 @@ var SendSMS = function () {
 
         var form = $('#sendSMS');
         var rules = {
-          emp_id: {required: true},
+          // emp_id: {required: true},
           message: {required: true}
         };
         handleFormValidate(form, rules, function (form) {
@@ -12,21 +12,29 @@ var SendSMS = function () {
         });
 
         $('body').on('click','.sendSMS',function(){
-            $('.emp_id').css('border','1px solid #e5e6e7');
-            $('.message').css('border','1px solid #e5e6e7');
+            /*$('.emp_id').css('border','1px solid #e5e6e7');
+            $('.message').css('border','1px solid #e5e6e7');*/
             var emp_id = $('.emp_id').val();
+            var dept_id = $('.dept_id').val();
             var message = $('.message').val();
             
-            if(emp_id == '' && message == '') {
-                $('.emp_id').css('border','1px solid red');
-                $('.message').css('border','1px solid red');
-            } else {
+            if(!emp_id && !dept_id) {
+                /*$('.emp_id').css('border','1px solid red');
+                $('.message').css('border','1px solid red');*/
+                alert('Please select any Employee OR Department!');
+                return false;
+            } 
+            /*else {
               if(emp_id == '') {
                 $('.emp_id').css('border','1px solid red');
-              }
+              }*/
               if(message == '') {
                 $('.message').css('border','1px solid red');
               }
+            // }
+            if(emp_id && dept_id) {
+                alert('Please select any one from Employee and Department!');
+                return false;
             }
         });
 

@@ -4,6 +4,7 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Model\UserHasPermission;
+use App\Model\Employee;
 use Config;
 use Auth;
 use DB;
@@ -21,7 +22,8 @@ class SendSMS extends Model
             // datatable column index  => database column name
             0 => 'id',
             1 => 'employee_name',
-            2 => 'message'
+            2 => 'department_name',
+            3 => 'message'
         );
 
         $query = SendSMS::from('send_sms');
@@ -52,8 +54,9 @@ class SendSMS extends Model
         $resultArr = $query->skip($requestData['start'])
                             ->take($requestData['length'])
                             ->join('employee', 'send_sms.emp_id', '=', 'employee.id')
+                            ->join('department', 'send_sms.department_id', '=', 'department.id')
                             ->where('send_sms.company_id', $companyId)
-                            ->select('send_sms.id as id', 'employee.name as employee_name', 'send_sms.message as message')
+                            ->select('send_sms.id as id', 'employee.name as employee_name', 'send_sms.message as message', 'department.department_name')
                             ->get();
 
         $data = array();
@@ -61,6 +64,7 @@ class SendSMS extends Model
         foreach ($resultArr as $row) {
             $nestedData = array();
             $nestedData[] = $row["employee_name"];
+            $nestedData[] = $row["department_name"];
             $nestedData[] = $row["message"];
             $data[] = $nestedData;
         }
@@ -77,13 +81,30 @@ class SendSMS extends Model
 
     public function sendNewSMS($request, $companyId)
     {
-        $newSMS = new SendSMS();
-        $newSMS->emp_id = $request->emp_id;
-        $newSMS->company_id = $companyId;
-        $newSMS->message = $request->message;
-        $newSMS->created_at = date('Y-m-d H:i:s');
-        $newSMS->updated_at = date('Y-m-d H:i:s');
-        $newSMS->save();
+        // print_r($request->all());exit();
+        if($request->dept_id) {
+            $getEmployees = Employee::where('department', $request->dept_id)->get();
+            foreach ($getEmployees as $key => $getEmployee) {
+                $newSMS = new SendSMS();
+                $newSMS->emp_id = $getEmployee->id;
+                $newSMS->company_id = $companyId;
+                $newSMS->department_id = $request->dept_id;
+                $newSMS->message = $request->message;
+                $newSMS->created_at = date('Y-m-d H:i:s');
+                $newSMS->updated_at = date('Y-m-d H:i:s');
+                $newSMS->save();
+            }
+        } else {
+            $findEmployee = Employee::where('id', $request->emp_id)->first();
+            $newSMS = new SendSMS();
+            $newSMS->emp_id = $request->emp_id;
+            $newSMS->company_id = $companyId;
+            $newSMS->department_id = $findEmployee->id;
+            $newSMS->message = $request->message;
+            $newSMS->created_at = date('Y-m-d H:i:s');
+            $newSMS->updated_at = date('Y-m-d H:i:s');
+            $newSMS->save();
+        }
 
         return TRUE;
     }

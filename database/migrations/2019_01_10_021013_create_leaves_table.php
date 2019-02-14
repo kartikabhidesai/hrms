@@ -16,7 +16,7 @@ class CreateLeavesTable extends Migration {
             $table->increments('id');
             $table->date('start_date');
             $table->date('end_date');
-            $table->string('reason', 255);
+            $table->string('reason', 255)->nullable();
             $table->timestamps();
         });
     }

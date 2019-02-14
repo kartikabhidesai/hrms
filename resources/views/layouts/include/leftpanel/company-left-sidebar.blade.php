@@ -87,7 +87,7 @@ if (!empty(Auth()->guard('admin')->user())) {
                     <span class="nav-label">Send SMS</span></a>
                 </li> 
 
-                <li class="{{ ($currentRoute == 'pay-slip' ? 'active' : '') }} {{ ($currentRoute == 'new-sms' ? 'active' : '') }}">
+                <li class="{{ ($currentRoute == 'pay-slip' ? 'active' : '') }}">
                     <a href="{{ route('pay-slip') }}"><i class="fa fa-history"></i>
                     <span class="nav-label">Pay Slip</span></a>
                 </li>

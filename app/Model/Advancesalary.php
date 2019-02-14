@@ -21,23 +21,26 @@ class Advancesalary extends Model
 
     protected $table = 'advance_salary_request';
     
-    public function addSalaryRequest($request){
+    public function addSalaryRequest($request)
+    {
+        $objSalary = new Advancesalary();
+        $objSalary->name = $request->input('emp_name');
+        $objSalary->employee_id = $request->input('emp_id');
+        $objSalary->company_id = $request->input('cmp_id');
+        $objSalary->department_id = $request->input('dep_id');
+        $objSalary->date_of_submit = date("Y-m-d", strtotime($request->input('date_of_submit')));
+        $objSalary->comments = $request->input('comments');
+        $objSalary->created_at = date('Y-m-d H:i:s');
+        $objSalary->updated_at = date('Y-m-d H:i:s');
+
+        if($request->file('files')) {
+          $image = $request->file('files');
+          $name = time().'.'.$image->getClientOriginalExtension();
+          $destinationPath = public_path('/uploads/employee/advance_salary_request/');
+          $image->move($destinationPath, $name);
+          $objSalary->file_name = $name;
+        }
         
-        $image=$request->file('files');
-        $name = time().'.'.$image->getClientOriginalExtension();
-        $destinationPath = public_path('/uploads/employee/advance_salary_request/');
-        $image->move($destinationPath, $name);  
-        
-        $objSalary=new Advancesalary();
-        $objSalary->name=$request->input('emp_name');
-        $objSalary->employee_id=$request->input('emp_id');
-        $objSalary->company_id=$request->input('cmp_id');
-        $objSalary->department_id=$request->input('dep_id');
-        $objSalary->date_of_submit= date("Y-m-d", strtotime($request->input('date_of_submit')));
-        $objSalary->comments=$request->input('comments');
-        $objSalary->file_name=$name;
-        $objSalary->created_at=date('Y-m-d H:i:s');
-        $objSalary->updated_at=date('Y-m-d H:i:s');
         return ($objSalary->save());
     }
     

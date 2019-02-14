@@ -21,7 +21,7 @@ class CreateAdvanceSalaryRequestTable extends Migration
             $table->integer('department_id');
             $table->date('date_of_submit');
             $table->text('comments')->nullable();
-            $table->string('file_name',255);
+            $table->string('file_name',255)->nullable();
             $table->timestamps();
         });
     }

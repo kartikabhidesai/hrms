@@ -30,7 +30,7 @@ var Leave = function () {
         var rules = {
             start_date: {required: true},
             end_date: {required: true},
-            reason: {required: true},
+            // reason: {required: true},
             typeRequest: {required: true},
         };
         handleFormValidate(form, rules, function (form) {
