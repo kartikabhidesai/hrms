@@ -102,6 +102,11 @@ if (!empty(Auth()->guard('admin')->user())) {
                             <a href="{{ route('approved-advance-salary-request') }}"><i class="fa fa-money" ></i> <span class="nav-label">Approved Advance Salary</span></a>
                         </li>
                     </ul>
+                 </li>
+                 <li class="{{ ($currentRoute == 'communication' ? 'active' : '') }}">
+                    <a href="{{ route('communication') }}"><i class="fa fa-history"></i>
+                    <span class="nav-label">Communication</span></a>
+                </li>
             </ul>
         </div>
     </nav>
