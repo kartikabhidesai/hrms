@@ -8,6 +8,7 @@ use App\Model\Employee;
 use App\Model\Company;
 use App\Model\SendSMS;
 use App\Model\Department;
+use Auth;
 
 class CommunicationController extends Controller
 {
@@ -29,6 +30,14 @@ class CommunicationController extends Controller
             'breadcrumb' => array(
                 'Home' => route("company-dashboard"),
                 'Communcation' => 'Communcation'));
+        $empobj= new Employee();
+        
+         $userData = Auth::guard('company')->user();
+       
+        $getAuthCompanyId = Company::where('email', $userData->email)->first();
+        $logedcompanyId = $getAuthCompanyId->id; 
+        $data['empArray']=$empobj->employeelistforcommunication($logedcompanyId);
+        
         return view('company.communication.communication', $data);
     }
 

@@ -426,4 +426,11 @@ class Employee extends Model {
                             ->toArray();
         return $arrEmployee;
     }
+    //chetan creaated
+    public function employeelistforcommunication($loggedIncmpid) {
+         
+          $arrEmployee = Employee::where('company_id',$loggedIncmpid)->get();
+
+        return $arrEmployee;
+    }
 }
