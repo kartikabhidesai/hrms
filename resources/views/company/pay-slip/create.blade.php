@@ -22,7 +22,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Employee Name:</label>
                         <div class="col-sm-9">
-                           {{ Form::select('employee', $employee , null, array('class' => 'form-control ', 'id' => 'employee')) }}
+                           {{ Form::select('employee', ['' => 'Select employee'] + ['all' => 'All employee'] + $employee , null, array('class' => 'form-control ', 'id' => 'employee')) }}
                     </div>
                 </div>
                 <input type="hidden" name="emparray[]" id="emparray" class="emparray">
@@ -80,6 +80,8 @@
                     <th>Employee Name</th>
                     <th>Employee No</th>
                     <th>Remarks</th>
+                    <!-- <th>Month</th>
+                    <th>Year</th> -->
                     <th>Action</th>
                 </tr>
             </thead>
@@ -90,7 +92,9 @@
                         <td><input type="checkbox" value="{{ $val->emp_id }}" class="empId" id="empId" name="empchk[]"></td>
                         <td>{{ $val->name }}</td>
                         <td>{{ $val->employee_id }}</td>
-                        <td></td>
+                        <td>{{ $val->remarks ? $val->remarks : 'N.A.' }}</td>
+                        <!-- <td>{{ $val->month }}</td>
+                        <td>{{ $val->year }}</td> -->
                         <td><a href="#">Review</a></td>
                     </tr>
                 @endforeach
