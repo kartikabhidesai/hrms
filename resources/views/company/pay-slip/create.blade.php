@@ -90,7 +90,7 @@
                         <td><input type="checkbox" value="{{ $val->emp_id }}" class="empId" id="empId" name="empchk[]"></td>
                         <td>{{ $val->name }}</td>
                         <td>{{ $val->employee_id }}</td>
-                        <td></td>
+                        <td>{{ $val->remarks ? $val->remarks : 'N.A.' }}</td>
                         <td><a href="#">Review</a></td>
                     </tr>
                 @endforeach
