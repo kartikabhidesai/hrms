@@ -65,7 +65,7 @@ class PayrollController extends Controller {
                 $return['status'] = 'error';
                 $return['message'] = 'Payroll Already Exists.';
                 // $return['redirect'] = route('payroll-add',array('id'=> $id));
-            }elseif ($ret) {
+            }elseif ($ret == 'Added') {
                 $return['status'] = 'success';
                 $return['message'] = 'Payroll added successfully.';
                 $return['redirect'] = route('payroll-emp-detail',array('id'=> $id));

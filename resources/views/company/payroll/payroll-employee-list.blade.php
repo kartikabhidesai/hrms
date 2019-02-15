@@ -87,7 +87,7 @@
                                         {{ $val['month'] == '8' ? 'August' : '' }} 
                                         {{ $val['month'] == '9' ? 'September' : '' }} 
                                         {{ $val['month'] == '10' ? 'October' : '' }} 
-                                        {{ $val['month'] == '11' ? 'NOvember' : '' }} 
+                                        {{ $val['month'] == '11' ? 'November' : '' }} 
                                         {{ $val['month'] == '12' ? 'December' : '' }} 
                                         - {{ $val['year'] }}</td>
                                     <td>{{ $val['medical'] }}</td>

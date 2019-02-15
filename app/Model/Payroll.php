@@ -44,7 +44,7 @@ class Payroll extends Model {
             $objPayroll->created_at = date('Y-m-d H:i:s');
             $objPayroll->updated_at = date('Y-m-d H:i:s');
             $objPayroll->save();
-            return TRUE;    
+            return 'Added';    
         }else{
             return 'Exists';
         }
