@@ -71,7 +71,7 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label">Remarks</label>
                         <div class="col-sm-9">
-                            <textarea class="form-control" id="remarks" name="remarks" cols="4" rows="3">{{ $arrayPayroll['remarks'] ? $arrayPayroll['remarks'] : ''}}</textarea>
+                            <textarea class="form-control" id="remarks" name="remarks" cols="4" rows="3">{{ isset($arrayPayroll['remarks']) ? $arrayPayroll['remarks'] : ''}}</textarea>
                         </div>
                     </div>
 
