@@ -80,6 +80,8 @@
                     <th>Employee Name</th>
                     <th>Employee No</th>
                     <th>Remarks</th>
+                    <!-- <th>Month</th>
+                    <th>Year</th> -->
                     <th>Action</th>
                 </tr>
             </thead>
@@ -91,6 +93,8 @@
                         <td>{{ $val->name }}</td>
                         <td>{{ $val->employee_id }}</td>
                         <td>{{ $val->remarks ? $val->remarks : 'N.A.' }}</td>
+                        <!-- <td>{{ $val->month }}</td>
+                        <td>{{ $val->year }}</td> -->
                         <td><a href="#">Review</a></td>
                     </tr>
                 @endforeach

@@ -16,7 +16,6 @@ class Payroll extends Model {
 
     public function addnewpayroll($request,$id)
     {
-
         $result = Payroll::where('employee_id', '=', $id)
                             ->where('month', '=', $request->input('months'))
                             ->where('year', '=', $request->input('year'))
@@ -26,6 +25,7 @@ class Payroll extends Model {
                                 ->join('department', 'employee.department', '=', 'department.id')
                                 ->where('employee.id', $id)
                                 ->first();
+                                
         if($result == 0){
             $objPayroll = new Payroll();
             $objPayroll->employee_id = $id;

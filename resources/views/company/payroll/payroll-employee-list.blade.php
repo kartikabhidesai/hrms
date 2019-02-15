@@ -62,6 +62,7 @@
                             <thead>
                                 <tr>
                                     <th>Basic Salary</th>
+                                    <th>Month - Year</th>
                                     <th>Medical</th>
                                     <th>OverTime</th>
                                     <th>Transportation</th>
@@ -75,6 +76,20 @@
                                 <tr>
                                   
                                     <td>{{ $val['basic_salary'] }}</td>
+                                    <td>
+                                        {{ $val['month'] == '1' ? 'January' : '' }} 
+                                        {{ $val['month'] == '2' ? 'February' : '' }} 
+                                        {{ $val['month'] == '3' ? 'March' : '' }} 
+                                        {{ $val['month'] == '4' ? 'April' : '' }} 
+                                        {{ $val['month'] == '5' ? 'May' : '' }} 
+                                        {{ $val['month'] == '6' ? 'June' : '' }} 
+                                        {{ $val['month'] == '7' ? 'July' : '' }} 
+                                        {{ $val['month'] == '8' ? 'August' : '' }} 
+                                        {{ $val['month'] == '9' ? 'September' : '' }} 
+                                        {{ $val['month'] == '10' ? 'October' : '' }} 
+                                        {{ $val['month'] == '11' ? 'NOvember' : '' }} 
+                                        {{ $val['month'] == '12' ? 'December' : '' }} 
+                                        - {{ $val['year'] }}</td>
                                     <td>{{ $val['medical'] }}</td>
                                     <td>{{ $val['over_time'] }}</td>
                                     <td>{{$val['transportation']}}</td>

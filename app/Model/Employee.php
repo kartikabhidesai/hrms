@@ -374,7 +374,7 @@ class Employee extends Model {
     }
     public function getEmployDetailV2($userId, $year, $month, $employee, $department){
        // print_r($userId);exit;
-        $sql = Employee::select('employee.name','employee.employee_id','employee.company_id','employee.id as emp_id', 'pay_roll.remarks')->leftjoin('pay_roll', 'employee.id', '=', 'pay_roll.employee_id');
+        $sql = Employee::select('employee.name','employee.employee_id','employee.company_id','employee.id as emp_id', 'pay_roll.remarks', 'pay_roll.month', 'pay_roll.year')->leftjoin('pay_roll', 'employee.id', '=', 'pay_roll.employee_id');
             
         if (!empty($year) && empty($month)) {
             $sql->orWhere(function($sql) use($year) {

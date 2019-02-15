@@ -61,7 +61,7 @@ class PayrollController extends Controller {
             $payrollobj = new Payroll();
             $ret = $payrollobj->addnewpayroll($request,$id);
 
-            if ($ret == 'Exists' &&  $ret != true) {
+            if ($ret == 'Exists') {
                 $return['status'] = 'error';
                 $return['message'] = 'Payroll Already Exists.';
                 // $return['redirect'] = route('payroll-add',array('id'=> $id));
