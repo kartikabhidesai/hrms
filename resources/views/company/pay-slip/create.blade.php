@@ -22,7 +22,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Employee Name:</label>
                         <div class="col-sm-9">
-                           {{ Form::select('employee', $employee , null, array('class' => 'form-control ', 'id' => 'employee')) }}
+                           {{ Form::select('employee', ['' => 'Select employee'] + ['all' => 'All employee'] + $employee , null, array('class' => 'form-control ', 'id' => 'employee')) }}
                     </div>
                 </div>
                 <input type="hidden" name="emparray[]" id="emparray" class="emparray">

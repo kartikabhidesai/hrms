@@ -396,7 +396,7 @@ class Employee extends Model {
             //     });
             // });
         }
-        if(!empty($employee)){
+        if(!empty($employee) && $employee !== 'all'){
             $sql->where('employee.id',$employee);    
         }
         if(!empty($department)){

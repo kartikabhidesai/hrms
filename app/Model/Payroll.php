@@ -14,19 +14,25 @@ class Payroll extends Model {
 
     protected $table = 'pay_roll';
 
-    public function addnewpayroll($request,$id) {
-       
-        $result = Payroll::where('employee_id', '=', $id)
-                ->where('month', '=', $request->input('months'))
-                ->where('year', '=', $request->input('year'))->count();
+    public function addnewpayroll($request,$id)
+    {
 
+        $result = Payroll::where('employee_id', '=', $id)
+                            ->where('month', '=', $request->input('months'))
+                            ->where('year', '=', $request->input('year'))
+                            ->count();
+
+        $departmentId = Employee::select('department.id')
+                                ->join('department', 'employee.department', '=', 'department.id')
+                                ->where('employee.id', $id)
+                                ->first();
         if($result == 0){
             $objPayroll = new Payroll();
             $objPayroll->employee_id = $id;
             $objPayroll->salary_grade = $request->input('salary_grade');
             $objPayroll->basic_salary = $request->input('basic_salary');
             $objPayroll->over_time = $request->input('over_time');
-            $objPayroll->department = $request->input('department');
+            $objPayroll->department = $departmentId->id;
             $objPayroll->due_date = date('Y-m-d',strtotime($request->input('due_date')));
             $objPayroll->housing = $request->input('housing');
             $objPayroll->medical = $request->input('medical');
@@ -34,7 +40,7 @@ class Payroll extends Model {
             $objPayroll->travel = $request->input('travel');
             $objPayroll->month = $request->input('months');
             $objPayroll->year = $request->input('year');
-        
+            $objPayroll->remarks = $request->input('remarks');
             $objPayroll->created_at = date('Y-m-d H:i:s');
             $objPayroll->updated_at = date('Y-m-d H:i:s');
             $objPayroll->save();
@@ -49,13 +55,19 @@ class Payroll extends Model {
         $result = Payroll::where('employee_id', '=', $request->input('empId'))
                            ->where('id', '!=', $request->input('editId'))
                            ->where('month', '=', $request->input('months'))
-                           ->where('year', '=', $request->input('year'))->count();
+                           ->where('year', '=', $request->input('year'))
+                           ->count();
+
+        $departmentId = Employee::select('department.id')
+                                ->join('department', 'employee.department', '=', 'department.id')
+                                ->where('employee.id', $id)
+                                ->first();
         if($result == 0){
             $objPayroll = Payroll::find($request->input('editId'));
      		$objPayroll->salary_grade = $request->input('salary_grade');
             $objPayroll->basic_salary = $request->input('basic_salary');
             $objPayroll->over_time = $request->input('over_time');
-            $objPayroll->department = $request->input('department');
+            $objPayroll->department = $departmentId->id;
             $objPayroll->due_date = date('Y-m-d',strtotime($request->input('due_date')));
             $objPayroll->housing = $request->input('housing');
             $objPayroll->medical = $request->input('medical');
@@ -63,6 +75,7 @@ class Payroll extends Model {
             $objPayroll->travel = $request->input('travel');
             $objPayroll->month = $request->input('months');
             $objPayroll->year = $request->input('year');
+            $objPayroll->remarks = $request->input('remarks');
             $objPayroll->created_at = date('Y-m-d H:i:s');
             $objPayroll->updated_at = date('Y-m-d H:i:s');
             $objPayroll->save();
