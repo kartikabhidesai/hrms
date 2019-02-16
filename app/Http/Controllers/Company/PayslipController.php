@@ -75,10 +75,14 @@ class PayslipController extends Controller
     }
     
     public function createPDF(){
-        $data = array();
-        $file= public_path(). "/uploads/admin/info.pdf";
-        $pdf = PDF::loadView('company.pay-slip.invoice-pdf', $data);
-        return $pdf->download($file);
+        for($i = 0; $i < 5;$i++){
+            $data = array();
+            $file= public_path(). "/uploads/admin/info$i.pdf";
+            $pdf = PDF::loadView('company.pay-slip.invoice-pdf1', $data);
+            // return $pdf->download($file);    
+            return $pdf->stream('whateveryourviewname.pdf');
+        }
+        
     } 
     
     public function generatePdf($postData){
