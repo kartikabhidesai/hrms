@@ -6,7 +6,7 @@
 			{{ csrf_field() }}
 			<div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Employee List</h5>
+                        <h5>Time Change Request List</h5>
                         <div class="ibox-tools">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         </div>

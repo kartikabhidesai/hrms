@@ -31,7 +31,7 @@ class Payroll extends Model {
             $objPayroll->salary_grade = $request->input('salary_grade');
             $objPayroll->basic_salary = $request->input('basic_salary');
             $objPayroll->over_time = $request->input('over_time');
-            $objPayroll->department = $departmentId->id;
+            // $objPayroll->department = $departmentId->id;
             $objPayroll->due_date = date('Y-m-d', strtotime($request->input('due_date')));
             $objPayroll->housing = $request->input('housing');
             $objPayroll->medical = $request->input('medical');
@@ -52,21 +52,21 @@ class Payroll extends Model {
     public function editPayroll($request, $id) {
 
         $result = Payroll::where('employee_id', '=', $request->input('empId'))
-                ->where('id', '!=', $request->input('editId'))
-                ->where('month', '=', $request->input('months'))
-                ->where('year', '=', $request->input('year'))
-                ->count();
+                            ->where('id', '!=', $request->input('editId'))
+                            ->where('month', '=', $request->input('months'))
+                            ->where('year', '=', $request->input('year'))
+                            ->count();
 
         $departmentId = Employee::select('department.id')
-                ->join('department', 'employee.department', '=', 'department.id')
-                ->where('employee.id', $id)
-                ->first();
+                                ->join('department', 'employee.department', '=', 'department.id')
+                                ->where('employee.id', $id)
+                                ->first();
         if ($result == 0) {
             $objPayroll = Payroll::find($request->input('editId'));
             $objPayroll->salary_grade = $request->input('salary_grade');
             $objPayroll->basic_salary = $request->input('basic_salary');
             $objPayroll->over_time = $request->input('over_time');
-            $objPayroll->department = $departmentId->id;
+            // $objPayroll->department = $departmentId->id;
             $objPayroll->due_date = date('Y-m-d', strtotime($request->input('due_date')));
             $objPayroll->housing = $request->input('housing');
             $objPayroll->medical = $request->input('medical');
@@ -96,13 +96,14 @@ class Payroll extends Model {
         // echo 'Call Model';
         // print_r($postData);exit;
         $result = Payroll::select('pay_roll.*', 'employee.id as emp_id', 'employee.name as empName', 'comapnies.company_name')
-                        ->leftjoin('employee', 'employee.id', '=', 'pay_roll.employee_id')
-                        ->leftjoin('department', 'employee.department', '=', 'department.id')
-                        ->leftjoin('comapnies', 'comapnies.id', '=', 'employee.company_id')
-                        ->where('pay_roll.month', $postData['months'])
-                        ->where('pay_roll.year', $postData['year'])
-                        ->where('pay_roll.employee_id', $id)
-                        ->get()->toArray();
+                            ->leftjoin('employee', 'employee.id', '=', 'pay_roll.employee_id')
+                            ->leftjoin('department', 'employee.department', '=', 'department.id')
+                            ->leftjoin('comapnies', 'comapnies.id', '=', 'employee.company_id')
+                            ->where('pay_roll.month', $postData['months'])
+                            ->where('pay_roll.year', $postData['year'])
+                            ->where('pay_roll.employee_id', $id)
+                            ->get()
+                            ->toArray();
         // print_r($result);exit; 
         return $result;
     }
@@ -111,13 +112,14 @@ class Payroll extends Model {
         // echo 'Call Model';
 
         $result = Payroll::select('pay_roll.*', 'employee.id as emp_id', 'employee.name as empName', 'comapnies.company_name')
-                        ->leftjoin('employee', 'employee.id', '=', 'pay_roll.employee_id')
-                        ->leftjoin('department', 'employee.department', '=', 'department.id')
-                        ->leftjoin('comapnies', 'comapnies.id', '=', 'employee.company_id')
-                        ->where('pay_roll.month', $Data['month'])
-                        ->where('pay_roll.year', $Data['year'])
-                        ->where('pay_roll.employee_id', $Data['employeeid'])
-                        ->get()->toArray();
+                            ->leftjoin('employee', 'employee.id', '=', 'pay_roll.employee_id')
+                            ->leftjoin('department', 'employee.department', '=', 'department.id')
+                            ->leftjoin('comapnies', 'comapnies.id', '=', 'employee.company_id')
+                            ->where('pay_roll.month', $Data['month'])
+                            ->where('pay_roll.year', $Data['year'])
+                            ->where('pay_roll.employee_id', $Data['employeeid'])
+                            ->get()
+                            ->toArray();
             return json_encode($result);
     }
 
