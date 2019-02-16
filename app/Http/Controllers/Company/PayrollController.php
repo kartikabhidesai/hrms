@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Company;
 use App\User;
 use App\Model\Users;
 use App\Model\Employee;
+use App\Model\Company;
 use App\Http\Controllers\Controller;
 use Auth;
 use Route;
@@ -17,6 +18,7 @@ use App\Model\Payroll;
 class PayrollController extends Controller {
 
     public function __construct() {
+         parent::__construct();
         $this->middleware('company');
     }
 
@@ -27,7 +29,10 @@ class PayrollController extends Controller {
             'breadcrumb' => array(
                 'Home' => route("admin-dashboard")));
         $EmpObj = new Employee;
-        $data['allemployee'] = $EmpObj->getAllEmployee();
+       
+        $userid = $this->loginUser->id; 
+        $companyId = Company::select('id')->where('user_id', $userid)->first();
+        $data['allemployee'] = $EmpObj->getAllEmployeeofCompany($companyId->id);
 
         return view('company.payroll.payroll-list', $data);
     }

@@ -17,7 +17,7 @@ var Employee = function() {
                     'X-CSRF-TOKEN': $('input[name="_token"]').val(),
                 },
                 url: baseurl + "company/employee-ajaxAction",
-                data: {'action': 'deleteEmp', 'data': data},
+                data: {'action': 'getempmodaldata', 'data': data},
                 success: function(data) {
                     handleAjaxResponse(data);
                 }
@@ -35,6 +35,7 @@ var Employee = function() {
             gender: {required: true},
             religion: {required: true},
             martial_status: {required: true},
+            department: {required: true},
             employee_id: {required: true},
             newpassword: {required: true},
             join_salary: {required: true},
