@@ -87,7 +87,7 @@ if (!empty(Auth()->guard('admin')->user())) {
                     <span class="nav-label">Send SMS</span></a>
                 </li> 
 
-                <li class="{{ ($currentRoute == 'pay-slip' ? 'active' : '') }} {{ ($currentRoute == 'new-sms' ? 'active' : '') }}">
+                <li class="{{ ($currentRoute == 'pay-slip' ? 'active' : '') }}">
                     <a href="{{ route('pay-slip') }}"><i class="fa fa-history"></i>
                     <span class="nav-label">Pay Slip</span></a>
                 </li>
@@ -102,6 +102,11 @@ if (!empty(Auth()->guard('admin')->user())) {
                             <a href="{{ route('approved-advance-salary-request') }}"><i class="fa fa-money" ></i> <span class="nav-label">Approved Advance Salary</span></a>
                         </li>
                     </ul>
+                 </li>
+<!--                 <li class="{{ ($currentRoute == 'communication' ? 'active' : '') }}">
+                    <a href="{{ route('communication') }}"><i class="fa fa-history"></i>
+                    <span class="nav-label">Communication</span></a>
+                </li>-->
             </ul>
         </div>
     </nav>

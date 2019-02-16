@@ -55,7 +55,7 @@ var Advancesalaryrequest = function () {
             emp_id: {required: true},
             date_of_submit: {required: true},
             reason: {required: true},
-            files: {required: true},
+            // files: {required: true},
             
         };
         handleFormValidate(form, rules, function (form) {

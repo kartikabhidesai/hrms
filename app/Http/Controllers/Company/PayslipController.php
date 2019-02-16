@@ -48,8 +48,8 @@ class PayslipController extends Controller
         }
         $department = (empty($request->get('department'))) ? '' : $request->get('department');
         $employee = (empty($request->get('employee'))) ? '' : $request->get('employee');
-        $year = (empty($request->get('year'))) ? '' : $request->get('year');
-        $month = (empty($request->get('month'))) ? '' : $request->get('month');
+        $year = (empty($request->get('year'))) ? date('Y') : $request->get('year');
+        $month = (empty($request->get('month'))) ? date('m') : $request->get('month');
 
         $data['detail'] = $this->loginUser;
         $objDepart = new Department();
@@ -57,6 +57,9 @@ class PayslipController extends Controller
 
         $objEmployee = new Employee();
         $data['employee'] = $objEmployee->getEmployee($companyId);
+        $data['month']=$month;
+        $data['year']=$year;
+        
         $data['employDetail'] = $objEmployee->getEmployDetailV2($companyId,$year, $month, $employee, $department);
         // print_r($data['employDetail']);exit;
         $data['monthis'] = Config::get('constants.months');
@@ -101,6 +104,25 @@ class PayslipController extends Controller
         //         return $pdf->download($file);    
         //     // }
         // // }
+    }
+    
+    
+    public function ajaxAction(Request $request) {
+        $action = $request->input('action');
+        switch ($action) {
+            case 'getempmodaldata':
+                $data['employeeid']=$request->input('data.id');
+                $data['year']=$request->input('data.year');
+                $data['month']=$request->input('data.month');
+                
+                $objPayroll = new Payroll();
+                $empmodaldata=$objPayroll->getPayslipmodalDetail($data);
+                
+                print_r($empmodaldata); exit;
+                echo json_encode($empmodaldata);
+                break;
+           
+        }
     }
 
 }

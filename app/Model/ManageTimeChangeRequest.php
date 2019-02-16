@@ -179,7 +179,7 @@ class ManageTimeChangeRequest extends Model
 //                $statusHtml='<span class="label label-warning">Pending</span>';
             }else{
                 if($row["status"] == 'approve'){
-                    $actionHtml='<span class="label label-success">Approve</span>';
+                    $actionHtml='<span class="label label-success">Approved</span>';
                 }else{
                     $actionHtml='<span class="label label-danger">Rejected</span>';
                 }

@@ -41,6 +41,7 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
     Route::match(['get', 'post'], 'payroll-edit/{id}', ['as' => 'payroll-edit', 'uses' => 'Company\PayrollController@edit']);
     Route::match(['get', 'post'], 'payroll-emp-detail/{id}', ['as' => 'payroll-emp-detail', 'uses' => 'Company\PayrollController@payrollEmpList']);
     Route::match(['get', 'post'], 'payroll-ajaxAction', ['as' => 'payroll-ajaxAction', 'uses' => 'Company\PayrollController@ajaxAction']);
+    Route::match(['get', 'post'], 'payslip-ajaxAction', ['as' => 'payslip-ajaxAction', 'uses' => 'Company\PayslipController@ajaxAction']);
 
     /*Send SMS/messages to employees*/
     Route::match(['get', 'post'], 'sendSMS-ajaxAction', ['as' => 'ajaxAction', 'uses' => 'Company\SendSMSController@ajaxAction']);
@@ -62,4 +63,8 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
     Route::match(['get', 'post'], 'approved-salary-request-ajaxAction', ['as' => 'approved-salary-request-ajaxAction', 'uses' => 'Company\AdvanceSalaryRequestController@approvedListAjaxaction']);
     Route::match(['get', 'post'], 'createApprovedPdf', ['as' => 'createApprovedPdf', 'uses' => 'Company\AdvanceSalaryRequestController@createApprovedPdf']);
         Route::match(['get', 'post'], 'downloadApprovedPdf', ['as' => 'downloadApprovedPdf', 'uses' => 'Company\AdvanceSalaryRequestController@downloadApprovedPdf']);
+        
+    // Communication
+        
+    Route::match(['get', 'post'], 'communication', ['as' => 'communication', 'uses' => 'Company\CommunicationController@communication']);    
 });

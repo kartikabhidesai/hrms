@@ -19,6 +19,7 @@
                                     <tr>
                                         <!-- <th>ID</th> -->
                                         <th>Employee Name</th>
+                                        <th>Department Name</th>
                                         <th>Message</th>
                                     </tr>
                                 </thead>

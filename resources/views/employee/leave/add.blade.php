@@ -63,7 +63,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Reason</label>
                         <div class="col-sm-9"> 
-                            {{ Form::textarea('reason', isset($leaveEdit) && !empty($leaveEdit['reason']) ? $leaveEdit['reason'] : '', array('class' => 'form-control reason' ,'required')) }}
+                            {{ Form::textarea('reason', isset($leaveEdit) && !empty($leaveEdit['reason']) ? $leaveEdit['reason'] : '', array('class' => 'form-control reason')) }}
                         </div>
                     </div>
                     	

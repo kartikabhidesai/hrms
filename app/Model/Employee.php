@@ -16,8 +16,7 @@ class Employee extends Model {
 
     protected $table = 'employee';
 
-    public function addEmployee($request, $userId, $companyId) 
-    {
+    public function addEmployee($request, $userId, $companyId) {
         $emp_pic = '';
         if ($request->file('emp_pic')) {
             $image = $request->file('emp_pic');
@@ -61,7 +60,7 @@ class Employee extends Model {
             $image->move($destinationPath, $other);
         }
 
-        /*Store Images to folder for newly fields*/
+        /* Store Images to folder for newly fields */
         $driver_license = '';
         if ($request->file('driver_license')) {
             $image = $request->file('driver_license');
@@ -128,7 +127,7 @@ class Employee extends Model {
         $objEmployee->contact_agreement = $contect_agre;
         $objEmployee->other = $other;
 
-        /*Save newly added fields to DB*/
+        /* Save newly added fields to DB */
         $objEmployee->religion = $request->input('religion');
         $objEmployee->driver_license = $driver_license;
         $objEmployee->iqama_id = $iqama_id;
@@ -145,8 +144,7 @@ class Employee extends Model {
         return $objEmployee->id;
     }
 
-    public function editEmployee($request, $id)
-    {
+    public function editEmployee($request, $id) {
         $emp_pic = '';
         if ($request->file('emp_pic')) {
             $image = $request->file('emp_pic');
@@ -190,7 +188,7 @@ class Employee extends Model {
             $image->move($destinationPath, $other);
         }
 
-        /*Edit Images to folder for newly fields*/
+        /* Edit Images to folder for newly fields */
         $driver_license = '';
         if ($request->file('driver_license')) {
             $image = $request->file('driver_license');
@@ -255,7 +253,7 @@ class Employee extends Model {
         $objEmployee->contact_agreement = $contect_agre;
         $objEmployee->other = $other;
 
-        /*Edit newly added fields to DB*/
+        /* Edit newly added fields to DB */
         $objEmployee->religion = $request->input('religion');
         $objEmployee->driver_license = $driver_license;
         $objEmployee->iqama_id = $iqama_id;
@@ -352,78 +350,98 @@ class Employee extends Model {
         if ($id) {
 
             $result = Employee::select('employee.*')
-                                ->where('employee.id', '=', $id)
-                                ->get()
-                                ->first()
-                                ->toArray();
+                    ->where('employee.id', '=', $id)
+                    ->get()
+                    ->first()
+                    ->toArray();
         } else {
 
             $result = Employee::select('employee.*', 'department.department_name')
-                                ->join('department', 'employee.department', '=', 'department.id')
-                                ->get();
-        }
-        return $result;
-    }
-    
-    public function getEmploydetails($userId){
-        $result = Employee::select('department.department_name','department.id as dep_id','employee.name','employee.company_id','employee.id as emp_id')
                     ->join('department', 'employee.department', '=', 'department.id')
-                    ->where('employee.user_id',$userId)->get();
-   
+                    ->get();
+        }
         return $result;
     }
-    public function getEmployDetailV2($userId, $year, $month, $employee, $department){
-       // print_r($userId);exit;
-        $sql = Employee::select('employee.name','employee.employee_id','employee.company_id','employee.id as emp_id');
-            
-        if (!empty($year) && empty($month)) {
-            $sql->orWhere(function($sql) use($year) {
-                $sql->orWhere(function($sql) use($year) {
-                    $sql->whereBetween('date_of_joining', [date($year . '-01-01'), date($year . '-12-31')]);
-                    });
-            $sql->orWhere(function($sql) use($year) {
-                $sql->whereBetween('date_of_joining', [date($year . '-01-01'), date($year . '-12-31')]);
-                                });
-            });
-        } 
-        if (!empty($year) && !empty($month)) {
-            // $sql->orWhere(function($sql) use($year, $month) {
-            //     $sql->orWhere(function($sql) use($year, $month) {
-            //         $sql->whereBetween('date_of_joining', [date($year . '-' . $month . '-01'), date($year . '-' . $month . '-31')]);
-            //                     });
-            //     $sql->orWhere(function($sql) use($year, $month) {
-            //         $sql->whereBetween('date_of_joining', [date($year . '-' . $month . '-01'), date($year . '-' . $month . '-31')]);
-            //     });
-            // });
-        }
-        if(!empty($employee)){
-            $sql->where('employee.id',$employee);    
-        }
-        if(!empty($department)){
-            $sql->where('employee.department',$department);    
-        }
+
+    public function getEmploydetails($userId) {
+        $result = Employee::select('department.department_name', 'department.id as dep_id', 'employee.name', 'employee.company_id', 'employee.id as emp_id')
+                        ->join('department', 'employee.department', '=', 'department.id')
+                        ->where('employee.user_id', $userId)->get();
+
+        return $result;
+    }
+
+    public function getEmployDetailV2($userId, $year, $month, $employee, $department) {
         
-        $sql->where('employee.company_id',$userId);
+       
+//        Employee::select('employee.*,pay_roll.*')
+//                ->leftjoin('pay_roll', 'employee.id', '=', 'pay_roll.employee_id')
+//                ->whereIn('pay_roll.month',$month)
+//                ->get();
+        
+        $sql = Employee::select('employee.name', 'employee.employee_id', 'employee.company_id', 'employee.id as emp_id', 'pay_roll.remarks', 'pay_roll.month', 'pay_roll.year')
+                ->leftjoin('pay_roll', 'employee.id', '=', 'pay_roll.employee_id');
+         
+            $sql->where('pay_roll.month', $month);
+            $sql->where('pay_roll.year', $year);
+         
+//        if (!empty($year) && empty($month)) {
+//            $sql->orWhere(function($sql) use($year) {
+//                $sql->orWhere(function($sql) use($year) {
+//                    $sql->whereBetween('employee.date_of_joining', [date($year . '-01-01'), date($year . '-12-31')]);
+//                });
+//                $sql->orWhere(function($sql) use($year) {
+//                    $sql->whereBetween('employee.date_of_joining', [date($year . '-01-01'), date($year . '-12-31')]);
+//                });
+//            });
+//        }
+        // if (!empty($year) && !empty($month)) {
+        // $sql->orWhere(function($sql) use($year, $month) {
+        //     $sql->orWhere(function($sql) use($year, $month) {
+        //         $sql->whereBetween('date_of_joining', [date($year . '-' . $month . '-01'), date($year . '-' . $month . '-31')]);
+        //                     });
+        //     $sql->orWhere(function($sql) use($year, $month) {
+        //         $sql->whereBetween('date_of_joining', [date($year . '-' . $month . '-01'), date($year . '-' . $month . '-31')]);
+        //     });
+        // });
+        // }
+        if (!empty($employee) && $employee !== 'all') {
+            $sql->where('employee.id', $employee);
+        }
+        if (!empty($department)) {
+            $sql->where('employee.department', $department);
+        }
+
+        $sql->where('employee.company_id', $userId);
         $result = $sql->get();
         return $result;
     }
-    
-    public function getUserid($id)
-    {
-        $result = Employee::select('id')->where('user_id',$id)->get();
-        if(count($result) > 0) {
+
+    public function getUserid($id) {
+        $result = Employee::select('id')->where('user_id', $id)->get();
+        if (count($result) > 0) {
             return $result[0]['id'];
         } else {
             return false;
         }
     }
 
-
-    public function getEmployee($company_id){
+    public function getEmployee($company_id) {
         // echo $company_id;exit;
         $arrEmployee = Employee::where('company_id', $company_id)
-                            ->pluck('name', 'id')
-                            ->toArray();
+                ->pluck('name', 'id')
+                ->toArray();
         return $arrEmployee;
     }
+
+    //chetan creaated
+    public function getAllEmployeeofCompany($loggedIncmpid) {
+        $arrEmployee = Employee::select('employee.*', 'department.department_name')
+                ->where('employee.company_id', $loggedIncmpid)
+                ->join('department', 'employee.department', '=', 'department.id')
+                ->get();
+
+        return $arrEmployee;
+    }
+
 }

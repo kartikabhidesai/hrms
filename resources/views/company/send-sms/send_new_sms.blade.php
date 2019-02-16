@@ -23,6 +23,18 @@
                                 </div>
                             </div>
 
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Department</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control dept_id" name="dept_id">
+                                        <option value="" selected="">Select Department</option>
+                                        @foreach($departments as $dept)
+                                            <option value="{{ $dept->id }}">{{ $dept->department_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
                             <div class="form-group" id="data_1">
                                 <label class="col-sm-2 control-label">Message</label>
                                 <div class="col-sm-9"> 
