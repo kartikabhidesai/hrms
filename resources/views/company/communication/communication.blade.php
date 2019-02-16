@@ -82,7 +82,7 @@
                                     <?php
                                     foreach ($empArray as $key => $value) {
                                         ?>
-                                        <div class="chat-user">
+                                        <div class="chat-user" data-id="{{$value->id}}">
                                             <img class="chat-avatar" src="/uploads/client/{{$value->photo}}" alt="" >
                                             <div class="chat-user-name">
                                                 <a href="#">{{$value->name}}</a>
@@ -96,10 +96,15 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="chat-message-form">
-                                <div class="form-group">
-                                    <textarea class="form-control message-input" name="message" placeholder="Enter message text"></textarea>
+                            <div class="col-lg-10">
+                                <div class="chat-message-form">
+                                    <div class="form-group">
+                                        <textarea class="form-control message-input" name="message" placeholder="Enter message text"></textarea>
+                                    </div>
                                 </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <button class="btn btn-success">send</button>
                             </div>
                         </div>
                     </div>

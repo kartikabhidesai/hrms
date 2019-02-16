@@ -32,6 +32,8 @@ var Employee = function() {
             // emp_pic: {required: true},
             Phone: {required: true,number:true},
             email: {required: true,email:true},
+            gender: {required: true},
+            religion: {required: true},
             martial_status: {required: true},
             employee_id: {required: true},
             newpassword: {required: true},

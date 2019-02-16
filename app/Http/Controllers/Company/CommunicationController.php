@@ -22,8 +22,8 @@ class CommunicationController extends Controller
         $session = $request->session()->all();
         
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
-        $data['js'] = array('company/send_sms.js');
-        $data['funinit'] = array('SendSMS.init()');
+        $data['js'] = array('company/communication.js');
+        $data['funinit'] = array('Communication.init()');
         $data['css'] = array('');
         $data['header'] = array(
             'title' => 'Communcation',
