@@ -112,7 +112,7 @@
                         <label class="col-lg-1 control-label">SAR</label>
                     </div>
 
-                    @if($decodeJson)
+                    @if(isset($decodeJson))
                         @foreach($decodeJson as $key => $value)
                             <div class="form-group removediv">
                                 <div class="form-group">
