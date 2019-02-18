@@ -21,6 +21,17 @@ class ManageTimeChangeRequestController extends Controller
     public function timeChangeRequest(Request $request)
     {
     	$session = $request->session()->all();
+
+        $userID = $this->loginUser;
+        $companyId = Company::select('id')->where('user_id', $userID->id)->first();
+        $objManageList = new ManageTimeChangeRequest();
+        $data['arrRejectCount'] = $objManageList->getStatusCount($companyId->id,'reject');
+        $data['arrApproveCount'] = $objManageList->getStatusCount($companyId->id,'approve');
+        $data['arrRemovedCount'] = $objManageList->getStatusCount($companyId->id,'removed');
+        $data['arrNewCount'] = $objManageList->getStatusCount($companyId->id,'new');
+        $data['arrModifiedCount'] = $objManageList->getStatusCount($companyId->id,'modified');
+        $data['arrCanclledCount'] = $objManageList->getStatusCount($companyId->id,'canclled');
+        // print_r($arrRejectCount);exit;
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/timeChangeRequest.js');
         $data['funinit'] = array('TimeChangeRequest.init()');
@@ -69,6 +80,22 @@ class ManageTimeChangeRequestController extends Controller
                     if ($disapproveRequest) {
                         $return['status'] = 'success';
                         $return['message'] = 'Time chnage request rejected';
+                        $return['redirect'] = route('time-change-request');
+                    } else {
+                        $return['status'] = 'error';
+                        $return['message'] = 'Something goes to wrong';
+                    }
+                    echo json_encode($return);
+                    exit;
+                    break;  
+
+                case 'changeStatus':
+                    
+                    $objManageList=new ManageTimeChangeRequest();
+                    $disapproveRequest=$objManageList->editStatus($request->input('data'));
+                    if ($disapproveRequest) {
+                        $return['status'] = 'success';
+                        $return['message'] = 'Status Change successfully.';
                         $return['redirect'] = route('time-change-request');
                     } else {
                         $return['status'] = 'error';

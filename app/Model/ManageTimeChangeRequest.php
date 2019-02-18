@@ -145,6 +145,7 @@ class ManageTimeChangeRequest extends Model
         
         $query = ManageTimeChangeRequest::from('time_change_requests as time_change')
                 ->join('department as depart', 'time_change.department_id', '=', 'depart.id')
+                 ->join('employee', 'time_change.employee_id', '=', 'employee.id')
                 ->where('time_change.company_id',$companyId);
          if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
             $searchVal = $requestData['search']['value'];
@@ -170,10 +171,15 @@ class ManageTimeChangeRequest extends Model
         $type_of_request=Config::get('constants.type_of_request');
         $resultArr = $query->skip($requestData['start'])
                     ->take($requestData['length'])
-                    ->select('depart.department_name','time_change.id', 'time_change.name','time_change.employee_id', 'time_change.company_id','time_change.department_id', 'time_change.from_date','time_change.to_date', 'time_change.date_of_submit','time_change.request_type', 'time_change.total_hours','time_change.request_description', 'time_change.status')->get();
+                    ->select('depart.department_name','time_change.id', 'time_change.name','time_change.employee_id', 'time_change.company_id','time_change.department_id', 'time_change.from_date','time_change.to_date', 'time_change.date_of_submit','time_change.request_type', 'time_change.total_hours',
+                      'time_change.request_description', 
+                      'employee.name as empName', 
+                      'employee.date_of_birth', 
+                      'time_change.status')->get();
         $data = array();
         
         foreach ($resultArr as $row) {
+          // print_r($row);exit;
             if($row["status"] == NULL){
                 $actionHtml = '<a href="#approveModel" data-toggle="modal" data-id="'.$row['id'].'" title="Approve" class="btn btn-default link-black text-sm approve" data-toggle="tooltip" data-original-title="Approve" ><i class="fa fa-check"></i></a><a href="#disapproveModel" data-toggle="modal" data-id="'.$row['id'].'"  title="Reject" class="btn btn-default link-black text-sm disapprove" data-toggle="tooltip" data-original-title="Approve" ><i class="fa fa-close"></i></a>';
 //                $statusHtml='<span class="label label-warning">Pending</span>';
@@ -188,7 +194,8 @@ class ManageTimeChangeRequest extends Model
             
             $nestedData = array();
 //            $nestedData[] = $row["id"];
-            $nestedData[] = $row["name"];
+             $nestedData[] = '<input type="checkbox" class="chkChangeReq" name="chkChangeReq" value="'.$row['id'].'">';
+            $nestedData[] = $row["empName"];
             $nestedData[] = $row["department_name"];
             $nestedData[] = $row["date_of_submit"];
             $nestedData[] = $row["from_date"];
@@ -196,6 +203,7 @@ class ManageTimeChangeRequest extends Model
             $nestedData[] = $type_of_request[$row["request_type"]];
             $nestedData[] = $row["total_hours"];
             $nestedData[] = $row["request_description"];
+            $nestedData[] = date('d-m-Y',strtotime($row["date_of_birth"]));
 //            $nestedData[] = $statusHtml;
             $nestedData[] = $actionHtml;
             $data[] = $nestedData;
@@ -218,5 +226,25 @@ class ManageTimeChangeRequest extends Model
     public function disapproveRequest($id){
         $objSavedata=ManageTimeChangeRequest::where('id',$id)->update(['status'=>'reject','updated_at'=>date('Y-m-d H:i:s')]);
         return ($objSavedata);
+    }  
+
+      public function editStatus($postData){
+        $status = $postData['status']; 
+        $employeeArr = $postData['arrEmp'];
+        foreach ($employeeArr as $key => $value) {
+          // print_r($key);
+          // echo '<br/>';
+          // print_r($value);exit;
+          $objSavedata = ManageTimeChangeRequest::where('id',$value)->update(['status'=> $status,'updated_at'=>date('Y-m-d H:i:s')]);
+          $objSavedata = '';
+        }
+        return true;
+    }  
+    public function getStatusCount($company_id,$status){
+       $statusUser = ManageTimeChangeRequest::where('company_id', $company_id)
+                  ->where('status', $status)->count();
+        return $statusUser;
     }
+
+
   }
