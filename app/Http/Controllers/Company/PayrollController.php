@@ -61,7 +61,8 @@ class PayrollController extends Controller {
     public function add(Request $request,$id) {
 
         if($request->ajax()){
-            // print_r($request->input());exit;
+            echo '<pre>';
+             print_r($request->input());exit;
         // if ($request->isMethod('post')) {
             $payrollobj = new Payroll();
             $ret = $payrollobj->addnewpayroll($request,$id);

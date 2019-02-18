@@ -21,7 +21,7 @@ var Payroll = function () {
             var inputBox='<div class="form-group removediv allowance[]">'+
                             '<label class="col-lg-3 control-label">'+allowance+'</label>'+
                                 '<div class="col-lg-8">'+
-                                    '<input name="'+allowance+'_allowance" class="form-control" placeholder='+allowance+' required>'+
+                                    '<input name="extraallowance['+allowance+']" class="form-control" placeholder='+allowance+' required>'+
                                 '</div>'+
                                 '<div class="col-lg-1 control-label">'+
                                     '<a class="link-black text-sm removebtn"><i class="fa fa-trash"></i></a>'+
