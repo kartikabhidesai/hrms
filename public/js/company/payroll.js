@@ -31,12 +31,33 @@ var Payroll = function () {
             $('#addMoreAllowanceModel').modal('hide');
             var allowance = [];
             allowance.push($('.allowance').val(''));
-            console.log(allowance);
             $('.allowance').val('');
         });
 
         $('body').on('click','.removebtn',function(){
             $(this).closest('.removediv').remove();
+        });
+
+        $('.add_deduction').on('click', function(){
+            var deduction = $('.deduction').val();
+            var inputBox='<div class="form-group removedeductiondiv deduction[]">'+
+                            '<label class="col-lg-3 control-label">'+deduction+'</label>'+
+                                '<div class="col-lg-8">'+
+                                    '<input name="extradeduction['+deduction+']" class="form-control" placeholder='+deduction+' required>'+
+                                '</div>'+
+                                '<div class="col-lg-1 control-label">'+
+                                    '<a class="link-black text-sm removeDeductionbtn"><i class="fa fa-trash"></i></a>'+
+                                '</div>'+
+                            '</div>';
+            $('.add_deduction_div').prepend(inputBox);
+            $('#addDeductionModel').modal('hide');
+            var deduction = [];
+            deduction.push($('.allowance').val(''));
+            $('.deduction').val('');
+        });
+
+        $('body').on('click','.removeDeductionbtn',function(){
+            $(this).closest('.removedeductiondiv').remove();
         });
         
         $('body').on('click', '.empDelete', function() {

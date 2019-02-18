@@ -63,7 +63,7 @@ class PayrollController extends Controller {
 
         if($request->ajax()){
             /*echo '<pre>';
-             print_r($request->input());exit;*/
+             print_r($request->extradeduction);exit;*/
             // if ($request->isMethod('post')) {
             $payrollobj = new Payroll();
             $ret = $payrollobj->addnewpayroll($request,$id);
@@ -103,7 +103,9 @@ class PayrollController extends Controller {
     {
         $payrollObj = new Payroll;
         $arrayPayroll = $payrollObj->getPayrollV2($id);
-        $data['decodeJson'] = json_decode($arrayPayroll[0]['extra_allowance']);
+        $data['decodeJsonOfAllowance'] = json_decode($arrayPayroll[0]['extra_allowance']);
+        $data['arrayPayroll'] = $arrayPayroll[0];
+        $data['decodeJsonOfDeduction'] = json_decode($arrayPayroll[0]['extra_deduction']);
         $data['arrayPayroll'] = $arrayPayroll[0];
         $data['employee'] = Employee::find($data['arrayPayroll']['employee_id']);
         if($request->ajax()){
@@ -136,7 +138,7 @@ class PayrollController extends Controller {
         $data['js'] = array('company/payroll.js', 'ajaxfileupload.js', 'jquery.form.min.js');
         $data['funinit'] = array('Payroll.init()');
         $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
-        
+
         return view('company.payroll.payroll-add', $data);
     }
 
