@@ -37,7 +37,8 @@ class PayrollController extends Controller {
         return view('company.payroll.payroll-list', $data);
     }
 
-    public function payrollEmpList($id) {
+    public function payrollEmpList($id)
+    {
         $data['detail'] = $this->loginUser;
         $EmpObj = new Employee;
         $data['singleemployee'] = $EmpObj->getAllEmployee($id);
@@ -54,15 +55,16 @@ class PayrollController extends Controller {
         $data['js'] = array('company/payroll.js', 'ajaxfileupload.js', 'jquery.form.min.js');
         $data['funinit'] = array('Payroll.init()');
         $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
-        //print_r($data['singleemployee']);exit;
+        
         return view('company.payroll.payroll-employee-list', $data);
     }
 
     public function add(Request $request,$id) {
 
         if($request->ajax()){
-            // print_r($request->input());exit;
-        // if ($request->isMethod('post')) {
+            /*echo '<pre>';
+             print_r($request->input());exit;*/
+            // if ($request->isMethod('post')) {
             $payrollobj = new Payroll();
             $ret = $payrollobj->addnewpayroll($request,$id);
 
@@ -70,7 +72,7 @@ class PayrollController extends Controller {
                 $return['status'] = 'error';
                 $return['message'] = 'Payroll Already Exists.';
                 // $return['redirect'] = route('payroll-add',array('id'=> $id));
-            }elseif ($ret == 'Added') {
+            } elseif ($ret == 'Added') {
                 $return['status'] = 'success';
                 $return['message'] = 'Payroll added successfully.';
                 $return['redirect'] = route('payroll-emp-detail',array('id'=> $id));
@@ -94,11 +96,14 @@ class PayrollController extends Controller {
         $data['js'] = array('company/payroll.js', 'ajaxfileupload.js', 'jquery.form.min.js');
         $data['funinit'] = array('Payroll.init()');
         $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
+
         return view('company.payroll.payroll-add', $data);
     } 
-    public function edit(Request $request,$id) {
+    public function edit(Request $request,$id)
+    {
         $payrollObj = new Payroll;
         $arrayPayroll = $payrollObj->getPayrollV2($id);
+        $data['decodeJson'] = json_decode($arrayPayroll[0]['extra_allowance']);
         $data['arrayPayroll'] = $arrayPayroll[0];
         $data['employee'] = Employee::find($data['arrayPayroll']['employee_id']);
         if($request->ajax()){
@@ -131,6 +136,7 @@ class PayrollController extends Controller {
         $data['js'] = array('company/payroll.js', 'ajaxfileupload.js', 'jquery.form.min.js');
         $data['funinit'] = array('Payroll.init()');
         $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
+        
         return view('company.payroll.payroll-add', $data);
     }
 

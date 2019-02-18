@@ -32,14 +32,7 @@
                         <div class="col-lg-9">
                             {{ Form::number('over_time', isset($arrayPayroll) ? $arrayPayroll['over_time'] : '', array('placeholder'=>'OverTime', 'class' => 'form-control' ,'required')) }}
                         </div>
-                    </div>	
-
-                   <!--  <div class="form-group">
-                        <label class="col-lg-3 control-label">Department</label>
-                        <div class="col-lg-9">
-                            {{ Form::text('department', isset($arrayPayroll) ? $arrayPayroll['department'] : '', array('placeholder'=>'Department', 'class' => 'form-control last_name' ,'required')) }}
-                        </div>
-                    </div> -->
+                    </div>                  
 
                     <div class="form-group" id="data_1">
                         <label class="col-sm-3 control-label">Due Date</label>
@@ -117,6 +110,33 @@
                             {{ Form::hidden('editId',  isset($arrayPayroll) ? $arrayPayroll['id'] : '', array('placeholder'=>'Travel')) }}
                         </div>
                         <label class="col-lg-1 control-label">SAR</label>
+                    </div>
+
+                    @if(isset($decodeJson))
+                        @foreach($decodeJson as $key => $value)
+                            <div class="form-group removediv">
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">{{ $key }}</label>
+                                    <div class="col-lg-8">
+                                        <input name="extraallowance{{$value}}" class="form-control" value="{{ $value }}" readonly>
+                                    </div>
+                                    <div class="col-lg-1 control-label">
+                                        <a class="link-black text-sm removebtn"><i class="fa fa-trash"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    @endif
+
+                    <div class="form-group add_designation_div">
+                        <div class="form-group">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-offset-3 col-lg-9">
+                            <a href="#addMoreAllowanceModel" data-toggle="modal" class="btn btn-sm btn-primary add_more_btn" type="button">Add New Allowance</a>
+                        </div>
                     </div>
                     {{ Form::hidden('empId',  isset($arrayPayroll) ?$arrayPayroll['employee_id'] : '', array('placeholder'=>'empId')) }}
                     <div class="form-group">
@@ -217,6 +237,29 @@
             </div>
         </div> -->
         {{ Form::close() }}
+
+        <div id="addMoreAllowanceModel" class="modal fade" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Add New Allowance</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <form role="form">
+                                <div class="form-group">
+                                    <label class="control-label">Allowance Name</label>
+                                    <input type="text" name="allowance" placeholder="Enter New Allowance" class="form-control allowance" value="">
+                                </div>
+                                <button class="btn btn-sm btn-primary pull-right m-l" data-dismiss="modal">Cancel</button>
+                                <button class="btn btn-sm btn-danger pull-right add_allowance m-l" type="button"><strong>Add</strong></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

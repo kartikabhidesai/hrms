@@ -14,7 +14,8 @@ class Payroll extends Model {
 
     protected $table = 'pay_roll';
 
-    public function addnewpayroll($request, $id) {
+    public function addnewpayroll($request, $id)
+    {
         $result = Payroll::where('employee_id', '=', $id)
                 ->where('month', '=', $request->input('months'))
                 ->where('year', '=', $request->input('year'))
@@ -40,6 +41,7 @@ class Payroll extends Model {
             $objPayroll->month = $request->input('months');
             $objPayroll->year = $request->input('year');
             $objPayroll->remarks = $request->input('remarks');
+            $objPayroll->extra_allowance = json_encode($request->extraallowance);
             $objPayroll->created_at = date('Y-m-d H:i:s');
             $objPayroll->updated_at = date('Y-m-d H:i:s');
             $objPayroll->save();
@@ -49,7 +51,8 @@ class Payroll extends Model {
         }
     }
 
-    public function editPayroll($request, $id) {
+    public function editPayroll($request, $id)
+    {
 
         $result = Payroll::where('employee_id', '=', $request->input('empId'))
                             ->where('id', '!=', $request->input('editId'))
@@ -61,6 +64,7 @@ class Payroll extends Model {
                                 ->join('department', 'employee.department', '=', 'department.id')
                                 ->where('employee.id', $id)
                                 ->first();
+                                
         if ($result == 0) {
             $objPayroll = Payroll::find($request->input('editId'));
             $objPayroll->salary_grade = $request->input('salary_grade');
@@ -75,6 +79,7 @@ class Payroll extends Model {
             $objPayroll->month = $request->input('months');
             $objPayroll->year = $request->input('year');
             $objPayroll->remarks = $request->input('remarks');
+            $objPayroll->extra_allowance = json_encode($request->extraallowance);
             $objPayroll->created_at = date('Y-m-d H:i:s');
             $objPayroll->updated_at = date('Y-m-d H:i:s');
             $objPayroll->save();
@@ -84,17 +89,18 @@ class Payroll extends Model {
         }
     }
 
-    public function getPayroll($id) {
+    public function getPayroll($id)
+    {
         return Payroll::select('pay_roll.*')->where('employee_id', '=', $id)->get()->toArray();
     }
 
-    public function getPayrollV2($id) {
+    public function getPayrollV2($id)
+    {
         return Payroll::select('pay_roll.*')->where('id', '=', $id)->get()->toArray();
     }
 
-    public function getPayslipPdfDetail($postData, $id) {
-        // echo 'Call Model';
-        // print_r($postData);exit;
+    public function getPayslipPdfDetail($postData, $id)
+    {
         $result = Payroll::select('pay_roll.*', 'employee.id as emp_id', 'employee.name as empName', 'comapnies.company_name')
                             ->leftjoin('employee', 'employee.id', '=', 'pay_roll.employee_id')
                             ->leftjoin('department', 'employee.department', '=', 'department.id')
@@ -104,13 +110,12 @@ class Payroll extends Model {
                             ->where('pay_roll.employee_id', $id)
                             ->get()
                             ->toArray();
-        // print_r($result);exit; 
+        
         return $result;
     }
 
-    public function getPayslipmodalDetail($Data) {
-        // echo 'Call Model';
-
+    public function getPayslipmodalDetail($Data)
+    {
         $result = Payroll::select('pay_roll.*', 'employee.id as emp_id', 'employee.name as empName', 'comapnies.company_name')
                             ->leftjoin('employee', 'employee.id', '=', 'pay_roll.employee_id')
                             ->leftjoin('department', 'employee.department', '=', 'department.id')
@@ -120,7 +125,8 @@ class Payroll extends Model {
                             ->where('pay_roll.employee_id', $Data['employeeid'])
                             ->get()
                             ->toArray();
-            return json_encode($result);
+
+        return json_encode($result);
     }
 
 }

@@ -15,6 +15,29 @@ var Payroll = function () {
             handleAjaxFormSubmit(form, true);
         });
         dateFormate('.date')
+            
+        $('.add_allowance').on('click', function(){
+            var allowance = $('.allowance').val();
+            var inputBox='<div class="form-group removediv allowance[]">'+
+                            '<label class="col-lg-3 control-label">'+allowance+'</label>'+
+                                '<div class="col-lg-8">'+
+                                    '<input name="extraallowance['+allowance+']" class="form-control" placeholder='+allowance+' required>'+
+                                '</div>'+
+                                '<div class="col-lg-1 control-label">'+
+                                    '<a class="link-black text-sm removebtn"><i class="fa fa-trash"></i></a>'+
+                                '</div>'+
+                            '</div>';
+            $('.add_designation_div').prepend(inputBox);
+            $('#addMoreAllowanceModel').modal('hide');
+            var allowance = [];
+            allowance.push($('.allowance').val(''));
+            console.log(allowance);
+            $('.allowance').val('');
+        });
+
+        $('body').on('click','.removebtn',function(){
+            $(this).closest('.removediv').remove();
+        });
         
         $('body').on('click', '.empDelete', function() {
             var id = $(this).data('id');
