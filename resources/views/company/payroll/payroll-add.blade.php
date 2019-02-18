@@ -112,8 +112,8 @@
                         <label class="col-lg-1 control-label">SAR</label>
                     </div>
 
-                    @if(isset($decodeJson))
-                        @foreach($decodeJson as $key => $value)
+                    @if(isset($decodeJsonOfAllowance))
+                        @foreach($decodeJsonOfAllowance as $key => $value)
                             <div class="form-group removediv">
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">{{ $key }}</label>
@@ -145,6 +145,48 @@
                             &nbsp;
                         </div>
                     </div>	
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Deduction</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="ibox-content">
+                    @if(isset($decodeJsonOfDeduction))
+                        @foreach($decodeJsonOfDeduction as $key => $value)
+                            <div class="form-group removedeductiondiv">
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">{{ $key }}</label>
+                                    <div class="col-lg-8">
+                                        <input name="extradeduction{{$value}}" class="form-control" value="{{ $value }}" readonly>
+                                    </div>
+                                    <div class="col-lg-1 control-label">
+                                        <a class="link-black text-sm removeDeductionbtn"><i class="fa fa-trash"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    @endif  
+                    <div class="form-group add_deduction_div">
+                        <div class="form-group">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label"></label>
+                        <div class="col-lg-3 m-t-sm">
+                            <a href="#addDeductionModel" data-toggle="modal" class="btn btn-sm btn-primary add_more_btn" type="button">Add New Deduction</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -236,8 +278,11 @@
                 </div>
             </div>
         </div> -->
+
+        
         {{ Form::close() }}
 
+        <!-- Allowance Modal -->
         <div id="addMoreAllowanceModel" class="modal fade" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -254,6 +299,30 @@
                                 </div>
                                 <button class="btn btn-sm btn-primary pull-right m-l" data-dismiss="modal">Cancel</button>
                                 <button class="btn btn-sm btn-danger pull-right add_allowance m-l" type="button"><strong>Add</strong></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deduction Modal -->
+        <div id="addDeductionModel" class="modal fade" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Add New Deduction</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <form role="form">
+                                <div class="form-group">
+                                    <label class="control-label">Deduction Name</label>
+                                    <input type="text" name="deduction" placeholder="Enter New Deduction" class="form-control deduction" value="">
+                                </div>
+                                <button class="btn btn-sm btn-primary pull-right m-l" data-dismiss="modal">Cancel</button>
+                                <button class="btn btn-sm btn-danger pull-right add_deduction m-l" type="button"><strong>Add</strong></button>
                             </form>
                         </div>
                     </div>

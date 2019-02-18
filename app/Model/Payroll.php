@@ -42,6 +42,7 @@ class Payroll extends Model {
             $objPayroll->year = $request->input('year');
             $objPayroll->remarks = $request->input('remarks');
             $objPayroll->extra_allowance = json_encode($request->extraallowance);
+            $objPayroll->extra_deduction = json_encode($request->extradeduction);
             $objPayroll->created_at = date('Y-m-d H:i:s');
             $objPayroll->updated_at = date('Y-m-d H:i:s');
             $objPayroll->save();
@@ -80,6 +81,7 @@ class Payroll extends Model {
             $objPayroll->year = $request->input('year');
             $objPayroll->remarks = $request->input('remarks');
             $objPayroll->extra_allowance = json_encode($request->extraallowance);
+            $objPayroll->extra_deduction = json_encode($request->extradeduction);
             $objPayroll->created_at = date('Y-m-d H:i:s');
             $objPayroll->updated_at = date('Y-m-d H:i:s');
             $objPayroll->save();
