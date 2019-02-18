@@ -203,7 +203,7 @@ class ManageTimeChangeRequest extends Model
             $nestedData[] = $type_of_request[$row["request_type"]];
             $nestedData[] = $row["total_hours"];
             $nestedData[] = $row["request_description"];
-            $nestedData[] = date('d-m-Y',strtotime($row["date_of_birth"]));
+            $nestedData[] = date('M d, Y',strtotime($row["date_of_birth"]));
 //            $nestedData[] = $statusHtml;
             $nestedData[] = $actionHtml;
             $data[] = $nestedData;
@@ -232,9 +232,6 @@ class ManageTimeChangeRequest extends Model
         $status = $postData['status']; 
         $employeeArr = $postData['arrEmp'];
         foreach ($employeeArr as $key => $value) {
-          // print_r($key);
-          // echo '<br/>';
-          // print_r($value);exit;
           $objSavedata = ManageTimeChangeRequest::where('id',$value)->update(['status'=> $status,'updated_at'=>date('Y-m-d H:i:s')]);
           $objSavedata = '';
         }
