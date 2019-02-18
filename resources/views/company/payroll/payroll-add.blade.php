@@ -32,14 +32,7 @@
                         <div class="col-lg-9">
                             {{ Form::number('over_time', isset($arrayPayroll) ? $arrayPayroll['over_time'] : '', array('placeholder'=>'OverTime', 'class' => 'form-control' ,'required')) }}
                         </div>
-                    </div>	
-
-                   <!--  <div class="form-group">
-                        <label class="col-lg-3 control-label">Department</label>
-                        <div class="col-lg-9">
-                            {{ Form::text('department', isset($arrayPayroll) ? $arrayPayroll['department'] : '', array('placeholder'=>'Department', 'class' => 'form-control last_name' ,'required')) }}
-                        </div>
-                    </div> -->
+                    </div>                  
 
                     <div class="form-group" id="data_1">
                         <label class="col-sm-3 control-label">Due Date</label>
@@ -118,6 +111,22 @@
                         </div>
                         <label class="col-lg-1 control-label">SAR</label>
                     </div>
+
+                    @if($decodeJson)
+                        @foreach($decodeJson as $key => $value)
+                            <div class="form-group removediv">
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">{{ $key }}</label>
+                                    <div class="col-lg-8">
+                                        <input name="extraallowance{{$value}}" class="form-control" value="{{ $value }}" readonly>
+                                    </div>
+                                    <div class="col-lg-1 control-label">
+                                        <a class="link-black text-sm removebtn"><i class="fa fa-trash"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    @endif
 
                     <div class="form-group add_designation_div">
                         <div class="form-group">
