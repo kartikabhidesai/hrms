@@ -432,6 +432,13 @@ class Employee extends Model {
                 ->pluck('name', 'id')
                 ->toArray();
         return $arrEmployee;
+    }   
+    public function getEmployeeByDept($dept) {
+        // echo $company_id;exit;
+        $arrEmployee = Employee::where('department', $dept)
+                ->pluck('name', 'id')
+                ->toArray();
+        return $arrEmployee;
     }
 
     //chetan creaated

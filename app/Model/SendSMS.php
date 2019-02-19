@@ -79,7 +79,27 @@ class SendSMS extends Model
         return $json_data;
     }
 
-    public function sendNewSMS($request, $companyId)
+       public function sendNewSMS($request, $companyId)
+    {
+        
+        $emp = explode(',', $request->input('emparray'));
+        foreach ($emp as $key => $value) {
+            // if($request->dept_id) {
+                $newSMS = new SendSMS();
+                $newSMS->emp_id = $value;
+                $newSMS->company_id = $companyId;
+                $newSMS->department_id =$request->dept_id;
+                $newSMS->message = $request->message;
+                $newSMS->created_at = date('Y-m-d H:i:s');
+                $newSMS->updated_at = date('Y-m-d H:i:s');
+                $newSMS->save();
+                $newSMS = '';
+           // }
+           }
+        return TRUE;
+    }
+
+    public function sendNewSMS11($request, $companyId)
     {
         // print_r($request->all());exit();
         if($request->dept_id) {

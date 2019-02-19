@@ -43,6 +43,13 @@ class SendSMSController extends Controller
                 $smsList = $objSMS->getSMSDatatable($request, $companyId->id);
                 echo json_encode($smsList);
                 break;
+            case 'getEmployee':
+                $empId = $request->input('data');
+                $objEmployee = new Employee();
+                $employee = $objEmployee->getEmployee($empId);
+                // print_r($employee);exit;
+                echo json_encode($employee);
+                break;
         }
     }
 
@@ -83,4 +90,5 @@ class SendSMSController extends Controller
                 'Send New SMS' => 'Send New SMS'));
         return view('company.send-sms.send_new_sms', $data);
     }
+
 }
