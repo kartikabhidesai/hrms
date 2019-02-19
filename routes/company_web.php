@@ -67,4 +67,5 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
     // Communication
         
     Route::match(['get', 'post'], 'communication', ['as' => 'communication', 'uses' => 'Company\CommunicationController@communication']);    
+    Route::match(['get', 'post'], 'compose', ['as' => 'compose', 'uses' => 'Company\CommunicationController@compose']);    
 });

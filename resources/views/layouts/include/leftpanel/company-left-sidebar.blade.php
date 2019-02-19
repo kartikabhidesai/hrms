@@ -103,10 +103,10 @@ if (!empty(Auth()->guard('admin')->user())) {
                         </li>
                     </ul>
                  </li>
-<!--                 <li class="{{ ($currentRoute == 'communication' ? 'active' : '') }}">
+                 <li class="{{ ($currentRoute == 'communication' ? 'active' : '') }}">
                     <a href="{{ route('communication') }}"><i class="fa fa-history"></i>
                     <span class="nav-label">Communication</span></a>
-                </li>-->
+                </li>
             </ul>
         </div>
     </nav>

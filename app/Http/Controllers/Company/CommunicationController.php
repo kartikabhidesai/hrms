@@ -36,9 +36,25 @@ class CommunicationController extends Controller
        
         $getAuthCompanyId = Company::where('email', $userData->email)->first();
         $logedcompanyId = $getAuthCompanyId->id; 
-        $data['empArray']=$empobj->employeelistforcommunication($logedcompanyId);
+       // $data['empArray']=$empobj->employeelistforcommunication($logedcompanyId);
         
         return view('company.communication.communication', $data);
+    }
+    public function compose() {
+        
+        
+        $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
+        $data['js'] = array('company/communication.js');
+        $data['funinit'] = array('Communication.init()');
+        $data['css'] = array('');
+        $data['header'] = array(
+            'title' => 'Communcation',
+            'breadcrumb' => array(
+                'Home' => route("company-dashboard"),
+                'Communcation' => 'Communcation',
+                'Compose'=>'Compose'));
+        
+        return view('company.communication.compose', $data);
     }
 
    
