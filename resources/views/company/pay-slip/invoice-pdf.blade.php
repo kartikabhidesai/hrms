@@ -57,17 +57,35 @@
                         <td>Payments</td>
                         <td class="padding-l-5">Deductions</td>
                         <td class="padding-l-5">Years Of date</td>
+                        <td class="padding-l-5">Extra Allowance</td>
+                        <td class="padding-l-5">Extra Deduction</td>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td > Basic Pay  {{ $employeeArr['basic_salary'] }}</td>
+                        <td> Basic Pay {{ $employeeArr['basic_salary'] }}</td>
                         <td class="padding-l-5">Employee in constributions {{ $employeeArr['salary_grade'] }} </td>
                         <td class="padding-l-5"> Gross Pay  -</td>
-                    </tr>  <tr>
-                        <td > Total Payments  ${{ $employeeArr['salary_grade'] + $employeeArr['basic_salary'] }}</td>
-                        <td class="padding-l-5">Total Deductions  </td>
-                        <td class="padding-l-5">Net Pay {{ $employeeArr['salary_grade'] + $employeeArr['basic_salary']  + $employeeArr['over_time'] + $employeeArr['housing']+ $employeeArr['medical'] + $employeeArr['transportation'] + $employeeArr['travel'] }}</td>
+                        @if(isset($employeeArr['extra_allowance']))
+                            <td class="padding-l-5">
+                                @foreach(json_decode($employeeArr['extra_allowance']) as $key => $value)
+                                    {{ $key }} : {{ $value }} <br>
+                                @endforeach
+                            </td>
+                        @endif
+
+                        @if(isset($employeeArr['extra_deduction']))
+                            <td class="padding-l-5">
+                                @foreach(json_decode($employeeArr['extra_deduction']) as $key => $value)
+                                    {{ $key }} : {{ $value }} <br>
+                                @endforeach
+                            </td>
+                        @endif
+                    </tr>  
+                    <tr>
+                        <td> Total Payments  ${{ $employeeArr['salary_grade'] + $employeeArr['basic_salary'] }}</td>
+                        <td class="padding-l-5">Total Deductions</td>
+                        <td class="padding-l-5">Net Pay {{ $employeeArr['salary_grade'] + $employeeArr['basic_salary'] + $employeeArr['over_time'] + $employeeArr['housing']+ $employeeArr['medical'] + $employeeArr['transportation'] + $employeeArr['travel'] }}</td>
                     </tr>
                 </tbody>
             </table>

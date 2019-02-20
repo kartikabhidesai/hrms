@@ -33,7 +33,7 @@ class PayslipController extends Controller
             foreach ($empArray as $key => $value) {
                 $objPayroll = new Payroll();
                 $employeeArr = $objPayroll->getPayslipPdfDetail($postData,$value);
-                   // print_r($employeeArr);
+                   // dd($employeeArr[0]);
                 if(!empty($employeeArr)){
                     $dataPdf[] = $employeeArr[0];
                 }
