@@ -194,7 +194,9 @@ class AttendanceController extends Controller
                                                 ->where('attendance_history.company_id', $companyId->id)
                                                 ->get();
         dd($data['historyList']);*/
-        
+        $userid = $this->loginUser->id;
+        $companyId = Company::select('id')->where('user_id', $userid)->first();
+        $data['departmentList'] = Department::where('company_id', $companyId['id'])->get();
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/attendance_history.js', 'jquery.form.min.js');
         $data['funinit'] = array('AttendanceHistory.init()');
