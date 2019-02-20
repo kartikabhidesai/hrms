@@ -1,4 +1,5 @@
 var Advancesalaryrequest = function (){
+
     var handleList = function () {
          $('body').on('click', '.approve', function() {
             var id = $(this).data('id');
@@ -23,7 +24,54 @@ var Advancesalaryrequest = function (){
             });
         });
         
-        $('body').on('click', '.disapprove', function() {
+        $('body').on('click', '.checkAl', function () {
+            if (this.checked) {
+                $('.chkChangeReq:checkbox').each(function () {
+                    this.checked = true;
+                });
+            } else {
+                $('.chkChangeReq:checkbox').each(function () {
+                    this.checked = false;
+                });
+            }
+        });
+
+        $("body").on('click', '.changeStatus', function () {
+            $("#chkChangeReq").val('');
+            var status = $(this).val();
+            var arrEmp = [];
+            $('.chkChangeReq:checkbox:checked').each(function () {
+                // var invoiceNo = $(this).attr('id');
+                var empId = $(this).val();
+                arrEmp.push(empId);
+                // arrInvoice.push(invoiceNo);
+            });
+            if (arrEmp.length > 0) {
+                var data = {status: status,arrEmp: arrEmp, _token: $('#_token').val()};
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                },
+                url: baseurl + "company/advance-salary-request-ajaxAction",
+                data: {'action': 'changeSalaryStatus', 'data': data},
+                success: function(data) {
+                    handleAjaxResponse(data);
+                }
+            });
+            } else {
+                alert('Please Select at least one Record');
+            }
+        });
+        $('body').on('change', '.empName', function() {
+            var dept = $('#empName option:selected').data('data-dept');
+            var comp = $('#empName option:selected').data('data-comp');
+            var val = $('#empName option:selected').val();
+            $('.emp_id').val(val);
+            $('.cmp_id').val(comp);
+            $('.dep_id').val(dept);
+        })   
+         $('body').on('click', '.disapprove', function() {
             var id = $(this).data('id');
             
             setTimeout(function() {
@@ -31,6 +79,23 @@ var Advancesalaryrequest = function (){
             }, 500);
         })
 
+ var addRequest = function () {
+        
+        var form = $('#addNewRequest');
+        var rules = {
+            emp_name: {required: true},
+            empName: {required: true},
+            date_of_submit: {required: true},
+            emp_id: {required: true},
+            date_of_submit: {required: true},
+            reason: {required: true},
+            // files: {required: true},
+            
+        };
+        handleFormValidate(form, rules, function (form) {
+            handleAjaxFormSubmit(form, true);
+        });
+    };
         $('body').on('click', '.yesreject', function() {
             var id = $(this).attr('data-id');
             
@@ -57,8 +122,8 @@ var Advancesalaryrequest = function (){
             'postData': dataArr,
             'hideColumnList': [],
             'noSearchApply': [0],
-            'noSortingApply': [3],
-            'defaultSortColumn': 0,
+            'noSortingApply': [0,3],
+            'defaultSortColumn': 2,
             'defaultSortOrder': 'desc',
             'setColumnWidth': columnWidth
         };

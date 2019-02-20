@@ -1,5 +1,10 @@
 @extends('layouts.app')
 @section('content')
+<style type="text/css">
+    div#requestlist_filter {
+        margin-right: -442px;
+    }
+</style>
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         <div class="col-lg-12">
@@ -11,14 +16,22 @@
                 </div>
                 <div class="ibox-content">
                     <div class="table-responsive">
+                        <div class="ibox-tools col-sm-6">
+                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                <button class="btn btn-info pull-left changeStatus" value="approve" type="button">Approved </button> &nbsp;&nbsp;
+                                <button class="btn btn-danger pull-left changeStatus" value="reject" type="button"> Deny </button>
+                        </div>
                         <table class="table table-striped table-bordered table-hover dataTables-example" id="requestlist">
                             <thead>
                                 <tr>
+                                    <td>
+                                        <input type="checkbox" class="checkAl" id="checkAl" name="checkAl"></td>
                                     <th>Name</th>
                                     <th>Department Name</th>
                                     <th>Submit Date</th>
                                     <th>Comments</th>
                                     <th>Status</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>

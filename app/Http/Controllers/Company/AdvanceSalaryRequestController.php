@@ -38,6 +38,41 @@ class AdvanceSalaryRequestController extends Controller {
         return view('company.advancesalaryrquest.request-list', $data);
     }
     
+    public function newRequest(Request $request){
+        $session = $request->session()->all();
+        $logindata = $session['logindata'][0];
+
+        $companyId = Company::select('id')->where('user_id', $logindata['id'])->first();
+        $data['getAllEmpOfCompany'] = Employee::where('company_id', $companyId->id)->get();
+
+        if ($request->isMethod('post')) {
+            $objNewSalaryRequest= new Advancesalary();
+            $result=$objNewSalaryRequest->addSalaryRequest($request);
+            if ($result) {
+                $return['status'] = 'success';
+                $return['message'] = 'New Advance Salary  Request created successfully.';
+                $return['redirect'] = route('advance-salary-request');
+            } else {
+                $return['status'] = 'error';
+                $return['message'] = 'Something goes to wrong';
+            }
+            echo json_encode($return);
+            exit;
+        }
+        $data['header'] = array(
+            'title' => 'New Advance Salary Request List',
+            'breadcrumb' => array(
+                'Home' => route("employee-dashboard"),
+                'Advance Salary Request list' => route('advance-salary-request'),
+                'New Advance Salary Request' => 'New Advance Salary Request'));
+        $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
+        $data['js'] = array('company/advancesalaryrequest.js','ajaxfileupload.js', 'jquery.form.min.js');
+        $data['funinit'] = array('Advancesalaryrequest.init()');
+        $data['css'] = array('');
+
+        return view('company.advancesalaryrquest.new-request-list', $data);
+    }
+
     public function ajaxAction(Request $request){
         $action = $request->input('action');
         
@@ -66,13 +101,28 @@ class AdvanceSalaryRequestController extends Controller {
                     exit;
                     break;
                     
-               case 'disapproveRequest':
+            case 'disapproveRequest':
                     $id=$request->input('data')['id'];
                     $objAdvancesalary=new Advancesalary();
                     $disapproveRequest=$objAdvancesalary->disapproveRequest($id);
                     if ($disapproveRequest) {
                         $return['status'] = 'success';
                         $return['message'] = 'Advance salary request rejected';
+                        $return['redirect'] = route('campany-advance-salary-request');
+                    } else {
+                        $return['status'] = 'error';
+                        $return['message'] = 'Something goes to wrong';
+                    }
+                    echo json_encode($return);
+                    exit;
+                    break;
+
+            case 'changeSalaryStatus':
+                    $objAdvancesalary = new Advancesalary();
+                    $disapproveRequest = $objAdvancesalary->changeAdvanceSalaryStatus($request->input('data'));
+                    if ($disapproveRequest) {
+                        $return['status'] = 'success';
+                        $return['message'] = 'Status Changed successfully.';
                         $return['redirect'] = route('campany-advance-salary-request');
                     } else {
                         $return['status'] = 'error';

@@ -182,7 +182,7 @@ class Advancesalary extends Model
         
         $resultArr = $query->skip($requestData['start'])
                     ->take($requestData['length'])
-                    ->select('depart.department_name','advance_salary.status','advance_salary.id', 'advance_salary.name','advance_salary.employee_id', 'advance_salary.company_id','advance_salary.department_id', 'advance_salary.date_of_submit','advance_salary.comments')->get();
+                    ->select('depart.department_name','advance_salary.status','advance_salary.id', 'advance_salary.file_name', 'advance_salary.name','advance_salary.employee_id', 'advance_salary.company_id','advance_salary.department_id', 'advance_salary.date_of_submit','advance_salary.comments')->get();
         $data = array();
        $type_of_request=Config::get('constants.type_of_request');
         foreach ($resultArr as $row) {
@@ -196,12 +196,16 @@ class Advancesalary extends Model
                 }
             }
             
+            $filePath =  '/uploads/employee/advance_salary_request/'.$row['file_name'];
+
             $nestedData = array();
+              $nestedData[] = '<input type="checkbox" class="chkChangeReq" name="chkChangeReq" value="'.$row['id'].'">';
             $nestedData[] = $row["name"];
             $nestedData[] = $row["department_name"];
             $nestedData[] = date('Y-m-d',strtotime($row["date_of_submit"]));
             $nestedData[] = $row["comments"];
             $nestedData[] = $actionHtml;
+            $nestedData[] = "<a target='_blank' href='".$filePath."'>View File</a>";
             $data[] = $nestedData;
         }
         $json_data = array(
@@ -304,4 +308,14 @@ class Advancesalary extends Model
       }
       return $AdvanceSalaryRequest;
     }
+
+    public function changeAdvanceSalaryStatus($postData){
+        $status = $postData['status']; 
+        $employeeArr = $postData['arrEmp'];
+        foreach ($employeeArr as $key => $value) {
+          $objSavedata = Advancesalary::where('id',$value)->update(['status'=> $status,'updated_at'=>date('Y-m-d H:i:s')]);
+          $objSavedata = '';
+        }
+        return true;
+    } 
 }

@@ -62,7 +62,8 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
     Route::match(['get', 'post'], 'advance-salary-request-ajaxAction', ['as' => 'advance-salary-request-ajaxAction', 'uses' => 'Company\AdvanceSalaryRequestController@ajaxaction']);
     Route::match(['get', 'post'], 'approved-salary-request-ajaxAction', ['as' => 'approved-salary-request-ajaxAction', 'uses' => 'Company\AdvanceSalaryRequestController@approvedListAjaxaction']);
     Route::match(['get', 'post'], 'createApprovedPdf', ['as' => 'createApprovedPdf', 'uses' => 'Company\AdvanceSalaryRequestController@createApprovedPdf']);
-        Route::match(['get', 'post'], 'downloadApprovedPdf', ['as' => 'downloadApprovedPdf', 'uses' => 'Company\AdvanceSalaryRequestController@downloadApprovedPdf']);
+    Route::match(['get', 'post'], 'downloadApprovedPdf', ['as' => 'downloadApprovedPdf', 'uses' => 'Company\AdvanceSalaryRequestController@downloadApprovedPdf']);
+    Route::match(['get', 'post'], 'add-advance-salary-request', ['as' => 'add-advance-salary-request', 'uses' => 'Company\AdvanceSalaryRequestController@newRequest']);
         
     // Communication
         
