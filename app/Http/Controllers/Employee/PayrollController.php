@@ -16,6 +16,7 @@ use App\Model\Payroll;
 class PayrollController extends Controller {
 
     public function __construct() {
+        parent::__construct();
         $this->middleware('employee');
     }
 
@@ -32,10 +33,12 @@ class PayrollController extends Controller {
     }
 
     public function payrollEmpList() {
-        $id = Auth()->guard('employee')->user()['id'];
+        // $id = Auth()->guard('employee')->user()['id'];
+        $userid = $this->loginUser->id;
+        $empId = Employee::select('id')->where('user_id', $userid)->first();
         $data['detail'] = $this->loginUser;
         $EmpObj = new Employee;
-        $data['singleemployee'] = $EmpObj->getAllEmployee($id);
+        $data['singleemployee'] = $EmpObj->getAllEmployee($empId->id);
          $data['header'] = array(
             'title' => 'Payroll '. $data['singleemployee']['name'] .' List',
             'breadcrumb' => array(
@@ -43,8 +46,8 @@ class PayrollController extends Controller {
         $EmpObj = new Employee;
 
         $PayrollObj = new Payroll;
-        $data['arrayPayroll'] = $PayrollObj->getPayroll($id);
-        $data['empId'] = $id;
+        $data['arrayPayroll'] = $PayrollObj->getPayroll($empId->id);
+        $data['empId'] = $empId->id;
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/payroll.js', 'ajaxfileupload.js', 'jquery.form.min.js');
         $data['funinit'] = array('Payroll.init()');
