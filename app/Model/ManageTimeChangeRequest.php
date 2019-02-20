@@ -50,8 +50,8 @@ class ManageTimeChangeRequest extends Model
         $columns = array(
             // datatable column index  => database column name
             0 => 'time_change.id',
-            1 => 'time_change.name',            
-            2 => 'time_change.department_id',
+            1 => 'employee.name',            
+            2 => 'depart.department_name',
             3 => 'time_change.date_of_submit',
             4 => 'time_change.from_date',
             5 => 'time_change.to_date',
@@ -60,10 +60,13 @@ class ManageTimeChangeRequest extends Model
             8 => 'time_change.request_description',
             9=> 'time_change.status'
         );
+         // $query = ManageTimeChangeRequest::from('time_change_requests as time_change')
+         //         ->join('department as depart', 'time_change.department_id', '=', 'depart.id')
+         //         ->where('time_change.employee_id',$employeeid);
          $query = ManageTimeChangeRequest::from('time_change_requests as time_change')
-                 ->join('department as depart', 'time_change.department_id', '=', 'depart.id')
-                 ->where('time_change.employee_id',$employeeid);
-         
+                ->join('employee', 'time_change.employee_id', '=', 'employee.id')
+                ->join('department as depart', 'employee.department', '=', 'depart.id')
+                ->where('time_change.employee_id',$employeeid);
           if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
             $searchVal = $requestData['search']['value'];
             $query->where(function($query) use ($columns, $searchVal, $requestData) {
@@ -132,21 +135,27 @@ class ManageTimeChangeRequest extends Model
         $columns = array(
             // datatable column index  => database column name
             0 => 'time_change.id',
-            1 => 'time_change.name',            
-            2 => 'time_change.department_id',
+            1 => 'employee.name',            
+            2 => 'depart.department_name',
             3 => 'time_change.date_of_submit',
             4 => 'time_change.from_date',
             5 => 'time_change.to_date',
             6 => 'time_change.request_type',
             7 => 'time_change.total_hours',
             8 => 'time_change.request_description',
-            9=> 'time_change.status'
+            9 => 'time_change.status'
         ); 
         
-        $query = ManageTimeChangeRequest::from('time_change_requests as time_change')
-                ->join('department as depart', 'time_change.department_id', '=', 'depart.id')
-                 ->join('employee', 'time_change.employee_id', '=', 'employee.id')
+        // $query = ManageTimeChangeRequest::from('time_change_requests as time_change')
+        //         ->join('department as depart', 'time_change.department_id', '=', 'depart.id')
+        //          ->join('employee', 'time_change.employee_id', '=', 'employee.id')
+        //         ->where('time_change.company_id',$companyId);
+
+          $query = ManageTimeChangeRequest::from('time_change_requests as time_change')
+                ->join('employee', 'time_change.employee_id', '=', 'employee.id')
+                ->join('department as depart', 'employee.department', '=', 'depart.id')
                 ->where('time_change.company_id',$companyId);
+
          if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
             $searchVal = $requestData['search']['value'];
             $query->where(function($query) use ($columns, $searchVal, $requestData) {
@@ -171,9 +180,11 @@ class ManageTimeChangeRequest extends Model
         $type_of_request=Config::get('constants.type_of_request');
         $resultArr = $query->skip($requestData['start'])
                     ->take($requestData['length'])
-                    ->select('depart.department_name','time_change.id', 'time_change.name','time_change.employee_id', 'time_change.company_id','time_change.department_id', 'time_change.from_date','time_change.to_date', 'time_change.date_of_submit','time_change.request_type', 'time_change.total_hours',
+                    ->select('depart.department_name','time_change.id','time_change.employee_id', 'time_change.company_id', 'time_change.from_date','time_change.to_date', 'time_change.date_of_submit','time_change.request_type', 'time_change.total_hours',
                       'time_change.request_description', 
                       'employee.name as empName', 
+                      'employee.department as department_id', 
+                      'employee.name', 
                       'employee.date_of_birth', 
                       'time_change.status')->get();
         $data = array();
