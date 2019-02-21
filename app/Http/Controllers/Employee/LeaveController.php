@@ -75,7 +75,7 @@ class LeaveController extends Controller
         // $data['type_of_request']=Config::get('constants.type_of_request');
 
         $objTypeOfRequest = new TypeOfRequest();
-        $data['type_of_request']= $objTypeOfRequest->getTypeOfRequestV2($logindata['id']);
+        $data['type_of_request']= $objTypeOfRequest->getTypeOfRequestV2($data['emp_id']);
 
 
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
@@ -124,7 +124,7 @@ class LeaveController extends Controller
        // $data['type_of_request']=Config::get('constants.type_of_request');
 
         $objTypeOfRequest = new TypeOfRequest();
-        $data['type_of_request']= $objTypeOfRequest->getTypeOfRequestV2($logindata['id']);
+        $data['type_of_request']= $objTypeOfRequest->getTypeOfRequestV2($data['emp_id']);
 
         $session = $request->session()->all();
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
@@ -167,6 +167,7 @@ class LeaveController extends Controller
                 $userID = $this->loginUser;
                 $objEmploye=new Employee();
                 $employeid=$objEmploye->getUserid($userID->id);
+                
                 $objLeave = new Leave();
                 $demoList = $objLeave->getLeaveDatatable($employeid);
                 echo json_encode($demoList);

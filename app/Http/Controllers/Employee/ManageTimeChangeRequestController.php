@@ -45,7 +45,7 @@ class ManageTimeChangeRequestController extends Controller
         $empdetails=$objEmployee->getEmploydetails($logindata['id']);
 
         $objTypeOfRequest = new TypeOfRequest();
-        $data['type_of_request']= $objTypeOfRequest->getTypeOfRequest($logindata['id']);
+        $data['type_of_request']= $objTypeOfRequest->getTypeOfRequestV2($empdetails[0]->emp_id);
         $data['depat_name']=$empdetails[0]->department_name;
         $data['dep_id']=$empdetails[0]->dep_id;
         $data['id']=$empdetails[0]->id;

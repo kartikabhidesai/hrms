@@ -50,11 +50,18 @@ class Leave extends Model {
         return TRUE;
     }
     public function editleave($request) {
+
+         $objTypeOfRequest = new TypeOfRequest();
+        if($request->input('typeRequest') == 'addNew' && $request->input('request_name') != ''){
+            $typeRequest = $objTypeOfRequest->addTypesOfRequest($request ,$request->input('empid'), $request->input('company_id'));
+        }else{
+            $typeRequest = $request->input('typeRequest');
+        }
         $objLeave = Leave::find($request->input('editId'));
         $objLeave->start_date = date('Y-m-d',strtotime($request->input('start_date')));
         $objLeave->end_date = date('Y-m-d',strtotime($request->input('end_date')));
         $objLeave->reason = $request->input('reason');
-        $objLeave->type_of_req_id = $request->input('typeRequest');
+        $objLeave->type_of_req_id = $typeRequest;
         $objLeave->updated_at = date('Y-m-d H:i:s');
         $objLeave->save();
 
