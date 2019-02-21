@@ -46,12 +46,13 @@ class AdvanceSalaryRequestController extends Controller {
         $data['getAllEmpOfCompany'] = Employee::where('company_id', $companyId->id)->get();
 
         if ($request->isMethod('post')) {
+            // print_r($request->input());exit;
             $objNewSalaryRequest= new Advancesalary();
             $result=$objNewSalaryRequest->addSalaryRequest($request);
             if ($result) {
                 $return['status'] = 'success';
                 $return['message'] = 'New Advance Salary  Request created successfully.';
-                $return['redirect'] = route('advance-salary-request');
+                $return['redirect'] = route('campany-advance-salary-request');
             } else {
                 $return['status'] = 'error';
                 $return['message'] = 'Something goes to wrong';

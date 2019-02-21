@@ -92,10 +92,10 @@ if (!empty(Auth()->guard('admin')->user())) {
                     <span class="nav-label">Pay Slip</span></a>
                 </li>
                     
-                <li class="{{ ( $currentRoute == 'campany-advance-salary-request' ? 'active' : '') }} {{ ( $currentRoute == 'approved-advance-salary-request' ? 'active' : '') }}">
+                <li class="{{ ( $currentRoute == 'campany-advance-salary-request' || $currentRoute == 'add-advance-salary-request' ? 'active' : '') }} {{ ( $currentRoute == 'approved-advance-salary-request' ? 'active' : '') }}">
                     <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Advance Salary</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                        <li class="{{ ( $currentRoute == 'campany-advance-salary-request' ? 'active' : '') }}">
+                        <li class="{{ ( $currentRoute == 'campany-advance-salary-request'  || $currentRoute == 'add-advance-salary-request' ? 'active' : '') }}">
                             <a href="{{ route('campany-advance-salary-request') }}"><i class="fa fa-money" ></i> <span class="nav-label">Advance Salary Request</span></a>
                         </li>
                         <li class="{{ ( $currentRoute == 'approved-advance-salary-request' ? 'active' : '') }}">

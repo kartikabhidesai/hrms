@@ -64,12 +64,14 @@ var Advancesalaryrequest = function (){
             }
         });
         $('body').on('change', '.empName', function() {
-            var dept = $('#empName option:selected').data('data-dept');
-            var comp = $('#empName option:selected').data('data-comp');
+            var dept = $('option:selected', this).attr('data-dept');
+            var comp = $('option:selected', this).attr('data-comp');
             var val = $('#empName option:selected').val();
+            var empname = $('#empName option:selected').text();
             $('.emp_id').val(val);
             $('.cmp_id').val(comp);
             $('.dep_id').val(dept);
+            $('.empname').val(empname);
         })   
          $('body').on('click', '.disapprove', function() {
             var id = $(this).data('id');
@@ -79,8 +81,6 @@ var Advancesalaryrequest = function (){
             }, 500);
         })
 
- var addRequest = function () {
-        
         var form = $('#addNewRequest');
         var rules = {
             emp_name: {required: true},
@@ -95,7 +95,6 @@ var Advancesalaryrequest = function (){
         handleFormValidate(form, rules, function (form) {
             handleAjaxFormSubmit(form, true);
         });
-    };
         $('body').on('click', '.yesreject', function() {
             var id = $(this).attr('data-id');
             

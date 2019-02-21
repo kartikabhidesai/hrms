@@ -195,8 +195,7 @@ class Advancesalary extends Model
                     $actionHtml='<span class="label label-danger">Rejected</span>';
                 }
             }
-            
-            $filePath =  '/uploads/employee/advance_salary_request/'.$row['file_name'];
+            $filePath =  '/hrms/uploads/employee/advance_salary_request/'.$row['file_name'];
 
             $nestedData = array();
               $nestedData[] = '<input type="checkbox" class="chkChangeReq" name="chkChangeReq" value="'.$row['id'].'">';

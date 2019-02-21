@@ -21,6 +21,7 @@
                         <div class="col-sm-9">
                             <input type="text" name="dep_id" placeholder="Employee Name" class="dep_id form-control" value="" id="dep_id" readonly>
                             <input type="text" name="cmp_id" placeholder="Employee Name" class="cmp_id form-control" id="cmp_id" value="" readonly>
+                            <input type="text" name="emp_name" placeholder="" class="empname" id="empname" value="" readonly>
                             
                         </div>
                     </div>

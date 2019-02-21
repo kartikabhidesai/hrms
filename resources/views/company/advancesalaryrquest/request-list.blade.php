@@ -12,7 +12,9 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>Advance Salary Request List</h5>
-                    
+                     <div class="ibox-tools">
+                            <a href="{{ route('add-advance-salary-request') }}" class="btn btn-primary dim" ><i class="fa fa-plus"> Add</i></a>
+                        </div>
                 </div>
                 <div class="ibox-content">
                     <div class="table-responsive">
