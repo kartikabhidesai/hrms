@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Leave;
 use App\Model\Employee;
 use App\Model\Company;
+use App\Model\TypeOfRequest;
 use App\Model\AttendanceHistory;
 use Config;
 class LeaveController extends Controller
@@ -17,8 +18,14 @@ class LeaveController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
+        // $data['type_of_request']=Config::get('constants.type_of_request');
+
         $session = $request->session()->all();
-        $data['type_of_request']=Config::get('constants.type_of_request');
+        $logindata = $session['logindata'][0];
+
+        $objTypeOfRequest = new TypeOfRequest();
+        $data['type_of_request']= $objTypeOfRequest->getTypeOfRequestV2($logindata['id']);
+
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('employee/leave.js');
         $data['funinit'] = array('Leave.init()');
@@ -65,8 +72,12 @@ class LeaveController extends Controller
         }
 
         $session = $request->session()->all();
-        $data['type_of_request']=Config::get('constants.type_of_request');
-       
+        // $data['type_of_request']=Config::get('constants.type_of_request');
+
+        $objTypeOfRequest = new TypeOfRequest();
+        $data['type_of_request']= $objTypeOfRequest->getTypeOfRequestV2($logindata['id']);
+
+
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('employee/leave.js', 'ajaxfileupload.js', 'jquery.form.min.js');
         $data['funinit'] = array('Leave.init()');
@@ -110,7 +121,11 @@ class LeaveController extends Controller
             exit;
         }
         $data['leaveEdit'] = Leave::find($id);
-       $data['type_of_request']=Config::get('constants.type_of_request');
+       // $data['type_of_request']=Config::get('constants.type_of_request');
+
+        $objTypeOfRequest = new TypeOfRequest();
+        $data['type_of_request']= $objTypeOfRequest->getTypeOfRequestV2($logindata['id']);
+
         $session = $request->session()->all();
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('employee/leave.js', 'ajaxfileupload.js', 'jquery.form.min.js');

@@ -5,6 +5,7 @@ namespace App\Model;
 use Illuminate\Database\Eloquent\Model;
 use App\Model\ManageTimeChangeRequest;
 use App\Model\UserHasPermission;
+use App\Model\TypeOfRequest;
 use App\Model\Sendmail;
 use App\Model\Users;
 use App\Model\Employee;
@@ -15,17 +16,23 @@ class ManageTimeChangeRequest extends Model
     protected $table = 'time_change_requests';
     
     public function addnewTimeManage($request,$userDetails){
-//        print_r($request->input());exit;
-        
+       // print_r($request->input());exit;
+        $objTypeOfRequest = new TypeOfRequest();
+        if($request->input('typeRequest') == 'addNew' && $request->input('request_name') != ''){
+            $typeRequest = $objTypeOfRequest->addTypesOfRequest($request ,$request->input('empid'), $request->input('company_id'));
+        }else{
+            $typeRequest = $request->input('typeRequest');
+        }
+
         $objSavedata=new ManageTimeChangeRequest();
-        $objSavedata->name = $request->input('name');
+        // $objSavedata->name = $request->input('name');
         $objSavedata->employee_id = $request->input('empid');
         $objSavedata->company_id = $request->input('company_id');
-        $objSavedata->department_id = $request->input('depart_id');
+        // $objSavedata->department_id = $request->input('depart_id');
         $objSavedata->from_date = date("Y-m-d", strtotime($request->input('from_date')));
         $objSavedata->to_date = date("Y-m-d", strtotime($request->input('to_date')));
         $objSavedata->date_of_submit = date("Y-m-d", strtotime($request->input('date_of_submit')));
-        $objSavedata->request_type = $request->input('typeRequest');
+        $objSavedata->request_type = $typeRequest;
         $objSavedata->total_hours = $request->input('total_hrs');
         $objSavedata->request_description = $request->input('reuest_note');
         $objSavedata->created_at = date('Y-m-d H:i:s');
@@ -60,13 +67,12 @@ class ManageTimeChangeRequest extends Model
             8 => 'time_change.request_description',
             9=> 'time_change.status'
         );
-         // $query = ManageTimeChangeRequest::from('time_change_requests as time_change')
-         //         ->join('department as depart', 'time_change.department_id', '=', 'depart.id')
-         //         ->where('time_change.employee_id',$employeeid);
+        
          $query = ManageTimeChangeRequest::from('time_change_requests as time_change')
                 ->join('employee', 'time_change.employee_id', '=', 'employee.id')
                 ->join('department as depart', 'employee.department', '=', 'depart.id')
                 ->where('time_change.employee_id',$employeeid);
+
           if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
             $searchVal = $requestData['search']['value'];
             $query->where(function($query) use ($columns, $searchVal, $requestData) {
@@ -91,10 +97,18 @@ class ManageTimeChangeRequest extends Model
         
         $resultArr = $query->skip($requestData['start'])
                     ->take($requestData['length'])
-                    ->select('depart.department_name','time_change.id', 'time_change.name','time_change.employee_id', 'time_change.company_id','time_change.department_id', 'time_change.from_date','time_change.to_date', 'time_change.date_of_submit','time_change.request_type', 'time_change.total_hours','time_change.request_description', 'time_change.status')->get();
+                    ->select('depart.department_name','time_change.id', 'time_change.employee_id', 'time_change.company_id','time_change.from_date','time_change.to_date', 'time_change.date_of_submit','time_change.request_type', 'time_change.total_hours','time_change.request_description', 'time_change.status', 'employee.name as empName', 
+                      'employee.department as department_id', 
+                      'employee.name', 
+                      'employee.date_of_birth')->get();
         $data = array();
-       $type_of_request=Config::get('constants.type_of_request');
+        // $type_of_request=Config::get('constants.type_of_request');
+    
+        $objTypeOfRequest = new TypeOfRequest();
+        $type_of_request = $objTypeOfRequest->getTypeOfRequestV2($employeeid);
+
         foreach ($resultArr as $row) {
+
             if($row["status"] == NULL){
                 $statusHtml='<span class="label label-warning">Pending</span>';
             }else{
@@ -117,6 +131,7 @@ class ManageTimeChangeRequest extends Model
             $nestedData[] = $row["request_description"];
             $nestedData[] = $statusHtml;
             $nestedData[] = $actionHtml;
+
             $data[] = $nestedData;
         }
 //        echo "<pre>";print_r($data);exit;

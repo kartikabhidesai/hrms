@@ -10,6 +10,7 @@ use App\Model\Employee;
 use App\Model\Company;
 use App\Model\Attendance;
 use App\Model\AttendanceHistory;
+use App\Model\TypeOfRequest;
 use Auth;
 use Config;
 use Route;
@@ -37,10 +38,14 @@ class ManageTimeChangeRequestController extends Controller
 
     public function newTimeChangeRequest(Request $request)
     {   
+
         $session = $request->session()->all();
         $logindata = $session['logindata'][0];
         $objEmployee=new Employee();
         $empdetails=$objEmployee->getEmploydetails($logindata['id']);
+
+        $objTypeOfRequest = new TypeOfRequest();
+        $data['type_of_request']= $objTypeOfRequest->getTypeOfRequest($logindata['id']);
         $data['depat_name']=$empdetails[0]->department_name;
         $data['dep_id']=$empdetails[0]->dep_id;
         $data['id']=$empdetails[0]->id;
@@ -48,7 +53,7 @@ class ManageTimeChangeRequestController extends Controller
         $data['emp_id']=$empdetails[0]->emp_id;
         $data['name']=$logindata['name'];
         
-        $data['type_of_request']=Config::get('constants.type_of_request');
+        // $data['type_of_request'] = Config::get('constants.type_of_request');
         if ($request->isMethod('post')) {
            $objTimeManagement=new ManageTimeChangeRequest();
            $result=$objTimeManagement->addnewTimeManage($request,$logindata);

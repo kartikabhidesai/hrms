@@ -47,7 +47,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Type of Request</label>
                         <div class="col-sm-9">
-                            <select class="c-select form-control" name="typeRequest">
+                            <select class="c-select form-control typeRequest" id="typeRequest" name="typeRequest">
                                 @if(isset($leaveEdit) && !empty($leaveEdit['type_of_req_id']))
                                     @foreach ($type_of_request as $indexkey=>$val)
                                           <option value="{{ $indexkey }}"  {{ ( $leaveEdit['type_of_req_id'] == $indexkey ? 'selected="selected"' : '') }}>{{ $val }}</option>
@@ -60,6 +60,13 @@
                             </select>
                         </div>
                     </div>
+                    <div class="form-group requestNameTextBox " style="display: none;">
+                                <label class="col-sm-2 control-label">Request Name</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="request_name" id="request_name" placeholder="Enter Request Name" class="form-control request_name">
+                                </div>
+                            </div>
+
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Reason</label>
                         <div class="col-sm-9"> 

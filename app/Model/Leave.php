@@ -9,6 +9,7 @@ use Auth;
 use App\Model\UserHasPermission;
 use App\Model\Sendmail;
 use App\Model\Company;
+use App\Model\TypeOfRequest;
 use App\Model\AttendanceHistory;
 use Config;
 
@@ -17,11 +18,19 @@ class Leave extends Model {
     protected $table = 'leaves';
 
     public function addnewleave($request) {
+
+        $objTypeOfRequest = new TypeOfRequest();
+        if($request->input('typeRequest') == 'addNew' && $request->input('request_name') != ''){
+            $typeRequest = $objTypeOfRequest->addTypesOfRequest($request ,$request->input('empid'), $request->input('company_id'));
+        }else{
+            $typeRequest = $request->input('typeRequest');
+        }
+
         $objLeave = new Leave();
         $objLeave->emp_id = $request->input('empid');
         $objLeave->dep_id = $request->input('dep_id');
         $objLeave->cmp_id = $request->input('company_id');
-        $objLeave->type_of_req_id = $request->input('typeRequest');
+        $objLeave->type_of_req_id = $typeRequest;
         $objLeave->start_date = date('Y-m-d',strtotime($request->input('start_date')));
         $objLeave->end_date = date('Y-m-d',strtotime($request->input('end_date')));
         $objLeave->reason = $request->input('reason');
@@ -92,7 +101,12 @@ class Leave extends Model {
            ->take($requestData['length'])
            ->select('depart.department_name','lv.id', 'lv.start_date','lv.end_date','lv.type_of_req_id', 'lv.reason')->get();
         $data = array();
-        $type_of_request=Config::get('constants.type_of_request');
+
+        $objTypeOfRequest = new TypeOfRequest();
+        $type_of_request = $objTypeOfRequest->getTypeOfRequestV2($userid);
+        // $type_of_request=Config::get('constants.type_of_request');
+
+
         foreach ($resultArr as $row) {
 //           $actionHtml = $request->input('gender');
            $actionHtml = '<a href="' . route('edit-leave', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';

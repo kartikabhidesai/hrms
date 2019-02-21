@@ -11,11 +11,21 @@ var Timechange = function () {
             typeRequest: {required: true},
             total_hrs:{required: true},
             reuest_note:{required: true},
+            request_name:{required: true},
         };
         handleFormValidate(form, rules, function (form) {
             handleAjaxFormSubmit(form, true);
         });
-       
+
+         $('body').on('change', '.typeRequest', function () {
+            var type = $('#typeRequest option:selected').val();
+            if(type == 'addNew'){
+                $('.requestNameTextBox').show();
+            }else{
+                $('.requestNameTextBox').hide();
+                $('.request_name').val('');
+            }
+        });
     };
      var listing = function () {
         $('body').on('click', '.requestDelete', function () {
@@ -24,6 +34,7 @@ var Timechange = function () {
                 $('.yes-sure:visible').attr('data-id', id);
             }, 500);
         });
+       
         
         
         $('body').on('click', '.yes-sure', function () {

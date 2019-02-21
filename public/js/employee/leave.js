@@ -7,6 +7,17 @@ var Leave = function () {
                 $('.yes-sure:visible').attr('data-id', id);
             }, 500);
         })
+
+        $('body').on('change', '.typeRequest', function () {
+            var type = $('#typeRequest option:selected').val();
+            if(type == 'addNew'){
+                $('.requestNameTextBox').show();
+            }else{
+                $('.requestNameTextBox').hide();
+                $('.request_name').val('');
+            }
+        });
+
         checkDateRange('.dateField', '#startDate', '#endDate', 'Start Date Must be Greater From End Date');
         $('body').on('click', '.yes-sure', function () {
             var id = $(this).attr('data-id');
@@ -32,6 +43,7 @@ var Leave = function () {
             end_date: {required: true},
             // reason: {required: true},
             typeRequest: {required: true},
+            request_name: {required: true},
         };
         handleFormValidate(form, rules, function (form) {
             handleAjaxFormSubmit(form, true);

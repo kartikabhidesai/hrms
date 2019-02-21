@@ -72,11 +72,19 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Type of Request</label>
                                 <div class="col-sm-9">
-                                    <select class="c-select form-control" name="typeRequest">
+                                    {{ Form::select('typeRequest', $type_of_request , null, array('class' => 'form-control m-b c-select typeRequest', 'id' => 'typeRequest')) }}
+                                    <!-- <select class="c-select form-control" name="typeRequest">
                                         @foreach ($type_of_request as $indexkey=>$val)
                                           <option value="{{$indexkey}}">{{ $val }}</option>
                                         @endforeach
-                                    </select>
+                                    </select> -->
+                                </div>
+                            </div>
+
+                            <div class="form-group requestNameTextBox " style="display: none;">
+                                <label class="col-sm-2 control-label">Request Name</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="request_name" id="request_name" placeholder="Enter Request Name" class="form-control request_name">
                                 </div>
                             </div>
 
