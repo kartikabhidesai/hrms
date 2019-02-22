@@ -192,7 +192,12 @@ class ManageTimeChangeRequest extends Model
 
         $totalData = count($temp->get());
         $totalFiltered = count($temp->get());
-        $type_of_request=Config::get('constants.type_of_request');
+        // $type_of_request=Config::get('constants.type_of_request');
+
+          $objTypeOfRequest = new TypeOfRequest();
+        $type_of_request = $objTypeOfRequest->getTypeOfRequest($companyId);
+
+
         $resultArr = $query->skip($requestData['start'])
                     ->take($requestData['length'])
                     ->select('depart.department_name','time_change.id','time_change.employee_id', 'time_change.company_id', 'time_change.from_date','time_change.to_date', 'time_change.date_of_submit','time_change.request_type', 'time_change.total_hours',

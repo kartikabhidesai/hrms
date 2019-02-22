@@ -30,7 +30,7 @@ class TypeOfRequest extends Model {
     public function getTypeOfRequest($company_id) {
         // echo $company_id;exit;
         // if(isset($company_id) && !empty($company_id)){
-            $arrEmployee = TypeOfRequest::whereNull('employee_id')->orWhere('company_id', $company_id)->pluck('request_name', 'id')->toArray();
+            $arrEmployee = TypeOfRequest::whereNull('company_id')->orWhere('company_id', $company_id)->pluck('request_name', 'id')->toArray();
         // // }else{
         //     $arrEmployee = TypeOfRequest::pluck('request_name', 'id')->toArray();
         // }
