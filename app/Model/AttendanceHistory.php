@@ -4,6 +4,7 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Model\AttendanceHistory;
+use App\Model\TypeOfRequest;
 use Auth;
 use Config;
 
@@ -15,6 +16,7 @@ class AttendanceHistory extends Model
 
     public function getDataTableForHistoy()
     {
+
         $requestData = $_REQUEST;
         $userData = Auth::guard('company')->user();
         $companyId = Company::where('email', $userData->email)->first();
@@ -52,7 +54,12 @@ class AttendanceHistory extends Model
                 }
             });
         }
-        $type_of_request=Config::get('constants.type_of_request');
+
+        // $type_of_request=Config::get('constants.type_of_request');
+
+        $objTypeOfRequest = new TypeOfRequest();
+        $type_of_request = $objTypeOfRequest->getTypeOfRequest($companyId->id);
+
         $temp = $query->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir']);
         $totalData = count($temp->get());
         $totalFiltered = count($temp->get());

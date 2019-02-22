@@ -11,6 +11,7 @@ use App\Model\Sendmail;
 use App\Model\Users;
 use App\Model\Attendance;
 use App\Model\Advancesalary;
+use App\Model\TypeOfRequest;
 use PDF;
 use Config;
 use File;
@@ -86,7 +87,12 @@ class Advancesalary extends Model
                     ->take($requestData['length'])
                     ->select('depart.department_name','advance_salary.status','advance_salary.id', 'advance_salary.name','advance_salary.employee_id', 'advance_salary.company_id','advance_salary.department_id', 'advance_salary.date_of_submit','advance_salary.comments')->get();
         $data = array();
-       $type_of_request=Config::get('constants.type_of_request');
+       // $type_of_request=Config::get('constants.type_of_request');
+
+        $objTypeOfRequest = new TypeOfRequest();
+        $type_of_request = $objTypeOfRequest->getTypeOfRequestV2($employeeid);
+
+
         foreach ($resultArr as $row) {
             if($row["status"] == NULL){
                 $statusHtml='<span class="label label-warning">Pending</span>';
@@ -184,7 +190,12 @@ class Advancesalary extends Model
                     ->take($requestData['length'])
                     ->select('depart.department_name','advance_salary.status','advance_salary.id', 'advance_salary.file_name', 'advance_salary.name','advance_salary.employee_id', 'advance_salary.company_id','advance_salary.department_id', 'advance_salary.date_of_submit','advance_salary.comments')->get();
         $data = array();
-       $type_of_request=Config::get('constants.type_of_request');
+       // $type_of_request=Config::get('constants.type_of_request');
+
+         $objTypeOfRequest = new TypeOfRequest();
+        $type_of_request = $objTypeOfRequest->getTypeOfRequest($companyId);
+
+
         foreach ($resultArr as $row) {
             if($row["status"] == NULL){
                 $actionHtml = '<a href="#approveModel" data-toggle="modal" data-id="'.$row['id'].'" title="Approve" class="btn btn-default link-black text-sm approve" data-toggle="tooltip" data-original-title="Approve" ><i class="fa fa-check"></i></a><a href="#disapproveModel" data-toggle="modal" data-id="'.$row['id'].'"  title="Reject" class="btn btn-default link-black text-sm disapprove" data-toggle="tooltip" data-original-title="Approve" ><i class="fa fa-close"></i></a>';
@@ -267,7 +278,11 @@ class Advancesalary extends Model
                             ->take($requestData['length'])
                             ->select('depart.department_name','advance_salary.status','advance_salary.id', 'advance_salary.name','advance_salary.employee_id', 'advance_salary.company_id','advance_salary.department_id', 'advance_salary.date_of_submit','advance_salary.comments', 'advance_salary.updated_at', 'advance_salary.status')->get();
         $data = array();
-        $type_of_request = Config::get('constants.type_of_request');
+        // $type_of_request = Config::get('constants.type_of_request');
+
+        $objTypeOfRequest = new TypeOfRequest();
+        $type_of_request = $objTypeOfRequest->getTypeOfRequest($companyId);
+
         foreach ($resultArr as $row) {
             $nestedData = array();
             $nestedData[] = '<input type="checkbox" class="approved_chk_id" name="approved_chk_id" value="'.$row['id'].'">';
