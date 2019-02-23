@@ -306,14 +306,34 @@ class Advancesalary extends Model
         );
         return $json_data;
     } 
-    public function getCompanyApprovedAdvanceSalaryListV2($companyId){
+    public function getCompanyApprovedAdvanceSalaryListV2($companyId,$year,$month){
        
-    return  ManageTimeChangeRequest::from('advance_salary_request as advance_salary')
+    $sql =  ManageTimeChangeRequest::from('advance_salary_request as advance_salary')
                 ->join('employee as emp' ,'advance_salary.employee_id','=','emp.id')
                 ->join('department as depart', 'emp.department', '=', 'depart.id')
                 ->where('advance_salary.company_id',$companyId)
                 ->where('advance_salary.status', 'approve')
-                ->select('depart.department_name','advance_salary.status','advance_salary.id', 'advance_salary.name','advance_salary.employee_id', 'advance_salary.company_id', 'advance_salary.date_of_submit','advance_salary.comments', 'advance_salary.updated_at', 'advance_salary.status')->get();
+                ;
+          // if (!empty($year) && empty($month)) {
+          //      $sql->orWhere(function($sql) use($year) {
+          //          $sql->orWhere(function($sql) use($year) {
+          //              $sql->whereBetween('advance_salary.date_of_submit', [date($year . '-01-01'), date($year . '-12-31')]);
+          //          });
+          //          $sql->orWhere(function($sql) use($year) {
+          //              $sql->whereBetween('advance_salary.date_of_submit', [date($year . '-01-01'), date($year . '-12-31')]);
+          //          });
+          //      });
+          // }
+          if (!empty($year) && !empty($month)) {
+            $sql->Where(function($sql) use($year, $month) {
+                $sql->orWhere(function($sql) use($year, $month) {
+                    $sql->whereBetween('advance_salary.date_of_submit', [date($year.'-' . $month .'-01'), date($year . '-' . $month . '-31')]);
+                                });
+            });
+          }
+            
+          $result = $sql->select('depart.department_name','advance_salary.status','advance_salary.id', 'advance_salary.name','advance_salary.employee_id', 'advance_salary.company_id', 'advance_salary.date_of_submit','advance_salary.comments', 'advance_salary.updated_at', 'advance_salary.status')->get();
+      return $result;
     }
     
     public function getDetails($request)
