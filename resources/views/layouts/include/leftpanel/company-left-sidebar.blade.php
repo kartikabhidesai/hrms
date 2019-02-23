@@ -106,6 +106,10 @@ if (!empty(Auth()->guard('admin')->user())) {
                  <li class="{{ ($currentRoute == 'communication' ? 'active' : '') }} {{ ($currentRoute == 'compose' ? 'active' : '') }}">
                     <a href="{{ route('communication') }}"><i class="fa fa-history"></i>
                     <span class="nav-label">Communication</span></a>
+                </li> 
+                <li class="{{ ($currentRoute == 'set-tax' ? 'active' : '') }}">
+                    <a href="{{ route('set-tax') }}"><i class="fa fa-percent"></i>
+                    <span class="nav-label">Set Tax</span></a>
                 </li>
             </ul>
         </div>
