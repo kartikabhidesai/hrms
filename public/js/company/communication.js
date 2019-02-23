@@ -4,8 +4,22 @@ var Communication = function () {
         $('.chat-user').on("click", function () {
             console.log($(this).attr("data-id"));
         });
-        $('.summernote').summernote();
 
+        $('.summernote').summernote({
+            height: '250px',
+            placeholder: 'Enter your message here....'
+        });
+
+        var form = $('#new_communication');
+        var rules = {
+            emp_id: {required: true},
+            subject: {required: true},
+            message: {required: true}
+        };
+
+        handleFormValidate(form, rules, function (form) {
+            handleAjaxFormSubmit(form, true);
+        });
     }
     return {
         init: function () {

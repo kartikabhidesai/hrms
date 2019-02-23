@@ -6,8 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Employee;
 use App\Model\Company;
-use App\Model\SendSMS;
-use App\Model\Department;
+use App\Model\Communication;
 use Auth;
 
 class CommunicationController extends Controller
@@ -30,7 +29,7 @@ class CommunicationController extends Controller
             'breadcrumb' => array(
                 'Home' => route("company-dashboard"),
                 'Communcation' => 'Communcation'));
-        $empobj= new Employee();
+        $empobj = new Employee();
         
          $userData = Auth::guard('company')->user();
        
@@ -40,14 +39,33 @@ class CommunicationController extends Controller
         
         return view('company.communication.communication', $data);
     }
-    public function compose(Request $request) {
-        
+
+    public function compose(Request $request)
+    {
         $session = $request->session()->all();
-        $companyId=$session['logindata']['0']['id'];
-        $objEmployee= new Employee();
-        $data['employeeList']=$objEmployee->getEmployeeList($companyId);
+        $userid = $this->loginUser->id;
+        $companyId = Company::select('id')->where('user_id', $userid)->first();
+
+        if ($request->isMethod('post')) {
+            // print_r($request->all());exit;
+            $objCommunication = new Communication();
+            $result = $objCommunication->addNewCommunication($request, $companyId->id);
+            if ($result) {
+                $return['status'] = 'success';
+                $return['message'] = 'New Communication Email sent successfully.';
+                $return['redirect'] = route('communication');
+            } else {
+                $return['status'] = 'error';
+                $return['message'] = 'Something goes to wrong';
+            }
+            echo json_encode($return);
+            exit;
+        }
+
+        $objEmployee = new Employee();
+        $data['employeeList'] = $objEmployee->getEmployeeList($companyId->id);
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
-        $data['js'] = array('company/communication.js','ckeditor/ckeditor.js','plugins/summernote/summernote.min.js');
+        $data['js'] = array('company/communication.js','ckeditor/ckeditor.js','plugins/summernote/summernote.min.js', 'jquery.form.min.js');
         $data['funinit'] = array('Communication.init()');
         $data['css'] = array('plugins/summernote/summernote.css','plugins/summernote/summernote-bs3.css');
         $data['header'] = array(
@@ -55,7 +73,8 @@ class CommunicationController extends Controller
             'breadcrumb' => array(
                 'Home' => route("company-dashboard"),
                 'Communcation' => 'Communcation',
-                'Compose'=>'Compose'));
+                'Compose' => 'Compose'));
+
         return view('company.communication.compose', $data);
     }
 
