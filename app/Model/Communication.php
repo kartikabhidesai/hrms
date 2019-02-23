@@ -18,8 +18,6 @@ class Communication extends Model
     public function addNewCommunication($request, $companyId)
     {
         $file = '';
-        
-
         $newCommnucation = new Communication();
         $newCommnucation->employee_id = $request->emp_id;
         $newCommnucation->company_id = $companyId;
@@ -39,5 +37,19 @@ class Communication extends Model
         $newCommnucation->created_at = date('Y-m-d H:i:s');
         $newCommnucation->save();
         return TRUE;
+    }
+
+    public function employeeEmailsForCommunication($empId)
+    {
+        $getListOfEmailOfEmp = Communication::select('comapnies.company_name', 'communication.id', 'communication.employee_id', 'communication.message', 'communication.file', 'communication.is_read', 'communication.created_at')
+                                        ->join('comapnies', 'communication.company_id', '=', 'comapnies.id')
+                                        ->where('communication.employee_id', $empId)
+                                        ->get();
+
+        if(count($getListOfEmailOfEmp) > 0) {
+            return $getListOfEmailOfEmp;
+        } else {
+            return null;
+        }
     }
 }

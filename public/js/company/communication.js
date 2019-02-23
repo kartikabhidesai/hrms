@@ -20,6 +20,11 @@ var Communication = function () {
         handleFormValidate(form, rules, function (form) {
             handleAjaxFormSubmit(form, true);
         });
+
+        /*$('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+        });*/
     }
     return {
         init: function () {
