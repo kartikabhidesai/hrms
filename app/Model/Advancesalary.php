@@ -343,7 +343,9 @@ class Advancesalary extends Model
       
       for($i=0;$i<count($seleteItems); $i++){
           $query = ManageTimeChangeRequest::from('advance_salary_request as advance_salary')
-                                           ->join('department as depart', 'advance_salary.department_id', '=', 'depart.id')
+                                           // ->join('department as depart', 'advance_salary.department_id', '=', 'depart.id')
+                                           ->join('employee as emp' ,'advance_salary.employee_id','=','emp.id')
+                                           ->join('department as depart', 'emp.department', '=', 'depart.id')
                                            ->join('comapnies', 'advance_salary.company_id', '=', 'comapnies.id')
                                            // ->leftjoin('pay_roll', 'advance_salary.employee_id', '=', 'pay_roll.employee_id')
                                            ->join('employee', 'advance_salary.employee_id', '=', 'employee.id')

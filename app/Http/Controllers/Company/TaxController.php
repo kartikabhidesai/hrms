@@ -25,7 +25,7 @@ class TaxController extends Controller
         $companyId = Company::select('id')->where('user_id', $userid)->first();
         $objTax = new Tax();
         $data['taxResult'] = $objTax->getTax($companyId->id);
-        
+
         if($request->isMethod('post')) {
             $objTax = new Tax();
             $result = $objTax->editTax($request,$companyId->id);
@@ -47,10 +47,10 @@ class TaxController extends Controller
         $data['funinit'] = array('Tax.init()');
         $data['css'] = array('');
         $data['header'] = array(
-            'title' => 'Send SMS',
+            'title' => 'Set Tax',
             'breadcrumb' => array(
                 'Home' => route("company-dashboard"),
-                'SMS List' => 'SMS List'));
+                'Set Tax' => 'Set Tax'));
         return view('company.tax.tax-edit', $data);
     }
 
