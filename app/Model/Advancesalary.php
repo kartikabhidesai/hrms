@@ -240,6 +240,7 @@ class Advancesalary extends Model
     }
 
     public function getCompanyApprovedAdvanceSalaryList($companyId){
+      return true;
         $requestData = $_REQUEST;
         $columns = array(
             0 => 'advance_salary.name',
@@ -304,6 +305,15 @@ class Advancesalary extends Model
           "data" => $data
         );
         return $json_data;
+    } 
+    public function getCompanyApprovedAdvanceSalaryListV2($companyId){
+       
+    return  ManageTimeChangeRequest::from('advance_salary_request as advance_salary')
+                ->join('employee as emp' ,'advance_salary.employee_id','=','emp.id')
+                ->join('department as depart', 'emp.department', '=', 'depart.id')
+                ->where('advance_salary.company_id',$companyId)
+                ->where('advance_salary.status', 'approve')
+                ->select('depart.department_name','advance_salary.status','advance_salary.id', 'advance_salary.name','advance_salary.employee_id', 'advance_salary.company_id', 'advance_salary.date_of_submit','advance_salary.comments', 'advance_salary.updated_at', 'advance_salary.status')->get();
     }
     
     public function getDetails($request)
