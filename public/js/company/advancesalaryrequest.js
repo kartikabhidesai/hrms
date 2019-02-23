@@ -171,6 +171,39 @@ var Advancesalaryrequest = function (){
             }
         });
 
+        $('body').on('click', '.applyBtn', function () {
+            var month = $('#month option:selected').val();
+            var year = $('#year option:selected').val();
+            var querystring = (month == '' && typeof month === 'undefined') ? '&month=' : '&month=' + month;
+            querystring += (year == '' && typeof year === 'undefined') ? '&year=' : '&year=' + year;
+            location.href = baseurl + 'company/approved-advance-salary-request?' + querystring;
+        }); 
+         $('body').on('click', '.clearBtn', function () {
+            location.href = baseurl + 'company/approved-advance-salary-request';
+        });
+        $('.dataTables-example').DataTable({
+                pageLength: 25,
+                responsive: true,
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    // { extend: 'copy'},
+                    // {extend: 'csv'},
+                    // {extend: 'excel', title: 'ExampleFile'},
+                    // {extend: 'pdf', title: 'ExampleFile'},
+
+                    // {extend: 'print',
+                    //  customize: function (win){
+                    //         $(win.document.body).addClass('white-bg');
+                    //         $(win.document.body).css('font-size', '10px');
+
+                    //         $(win.document.body).find('table')
+                    //                 .addClass('compact')
+                    //                 .css('font-size', 'inherit');
+                    // }
+                    // }
+                ]
+
+            });
         $('#DownloadButton').on('click', function () {
             var token=$("#_token").val();
             var selecteditem = [];

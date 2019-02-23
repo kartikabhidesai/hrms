@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Input;
 use App\Model\Payroll;
 use App\Model\Advancesalary;
 use Response;
+use Config;
 
 class AdvanceSalaryRequestController extends Controller {
 
@@ -24,7 +25,7 @@ class AdvanceSalaryRequestController extends Controller {
     }
     
     public function requestList(Request $request){
-            $data['detail'] = $this->loginUser;
+        $data['detail'] = $this->loginUser;
         $data['header'] = array(
             'title' => 'Advance Salary Request List',
             'breadcrumb' => array(
@@ -137,6 +138,12 @@ class AdvanceSalaryRequestController extends Controller {
 
     public function approvedRequestList(Request $request)
     {
+        $data['monthis'] = Config::get('constants.months');
+        $id = Auth()->guard('company')->user()['id'];
+        $companyId = Company::select('id')->where('user_id', $id)->first();
+        $objAdvanceSalary = new Advancesalary();
+        $data['datalist'] = $objAdvanceSalary->getCompanyApprovedAdvanceSalaryListV2($companyId['id']);
+
         $data['detail'] = $this->loginUser;
         $data['header'] = array(
             'title' => 'Approved Salary Request List',
@@ -157,12 +164,12 @@ class AdvanceSalaryRequestController extends Controller {
         
         switch ($action) {
             case 'getdatatable':
-                $id = Auth()->guard('company')->user()['id'];
-                $companyId = Company::select('id')->where('user_id', $id)->first();
-                $objAdvanceSalary = new Advancesalary();
-                $datalist=$objAdvanceSalary->getCompanyApprovedAdvanceSalaryList($companyId['id']);
-                echo json_encode($datalist);
-                break;
+                // $id = Auth()->guard('company')->user()['id'];
+                // $companyId = Company::select('id')->where('user_id', $id)->first();
+                // $objAdvanceSalary = new Advancesalary();
+                // $datalist=$objAdvanceSalary->getCompanyApprovedAdvanceSalaryList($companyId['id']);
+                // echo json_encode($datalist);
+                // break;
             }
     }
     
