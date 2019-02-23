@@ -452,11 +452,16 @@ class Employee extends Model {
     }
     
     
-    public function getEmployeeList($companyId){
-        $result= Employee::select('name')
-                ->where('company_id',$companyId)
-                ->get();
-        print_r($result);
-        die();
+    public function getEmployeeList($companyId)
+    {
+        $result = Employee::select('id', 'name')
+                            ->where('company_id',$companyId)
+                            ->get();
+
+        if($result) {
+            return $result;
+        } else {
+            return null;
+        }
     }
 }
