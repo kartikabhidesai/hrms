@@ -10,7 +10,7 @@
                         <div class="space-25"></div>
                         <h5>Folders</h5>
                         <ul class="folder-list m-b-md" style="padding: 0">
-                            <li><a href="mailbox.html"> <i class="fa fa-inbox "></i> Inbox <span class="label label-warning pull-right">{{ count($empMails) }}</span> </a></li>
+                            <li><a href="mailbox.html"> <i class="fa fa-inbox "></i> Inbox <span class="label label-warning pull-right">(100)</span> </a></li>
                             <li><a href="mailbox.html"> <i class="fa fa-envelope-o"></i> Send Mail</a></li>
                             <li><a href="mailbox.html"> <i class="fa fa-certificate"></i> Important</a></li>
                             <li><a href="mailbox.html"> <i class="fa fa-file-text-o"></i> Drafts <span class="label label-danger pull-right">2</span></a></li>
@@ -36,7 +36,7 @@
                     </div>
                 </form>
                 <h2>
-                    Inbox ({{ count($empMails) }})
+                    Inbox (100)
                 </h2>
                 <div class="mail-tools tooltip-demo m-t-md">
                     <div class="btn-group pull-right">
