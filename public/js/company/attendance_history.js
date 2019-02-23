@@ -1,9 +1,12 @@
 var AttendanceHistory = function() {
     var handleList = function() {
-       
-       var dataArr = {};
+        var from_date=$("#from_date").val();
+        var to_date=$("#to_date").val();
+        var department_id=$("#department_id").val();
+       var dataArr = {"from_date":from_date,"to_date":to_date,"department_id":department_id};
        var columnWidth = {"width": "10%", "targets": 0};
-       
+            
+            
             var arrList = {
             'tableID': '#attendanceHistoryList',
             'ajaxURL': baseurl + "company/attendance-history-ajaxAction",
@@ -18,7 +21,14 @@ var AttendanceHistory = function() {
         };
         getDataTable(arrList);
     };
-
+     $('body').on('click', '.getAttedanceHisory', function() {
+        var from_date=$("#from_date").val();
+        var to_date=$("#to_date").val();
+        var department_id=$("#department_id").val();
+        var qureystring="from_date="+from_date+"&to_date="+to_date+"&department_id="+department_id;
+        
+        location.href = baseurl + 'company/manage-attendance-history?' + qureystring;
+    });
     $('body').on('click', '.historyDetailsModel', function() {
        var data = $(this).attr('data-id');
         $.ajax({

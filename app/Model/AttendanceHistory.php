@@ -14,9 +14,22 @@ class AttendanceHistory extends Model
 
     protected $fillable = ['company_id', 'employee_id', 'leave_id', 'time_change_request_id'];
 
-    public function getDataTableForHistoy()
+    public function getDataTableForHistoy($request)
     {
-
+        $data=$request->input('data');
+         if($data['from_date'] != NULL){
+            $fromDate=date('Y-m-d', strtotime($data['from_date']));
+         }else{
+            $fromDate=""; 
+         }
+         if($data['to_date'] != NULL){
+            $to_date=date('Y-m-d', strtotime($data['to_date']));
+         }else{
+            $to_date=""; 
+         }
+        
+        $department_id=$data['department_id'];
+       
         $requestData = $_REQUEST;
         $userData = Auth::guard('company')->user();
         $companyId = Company::where('email', $userData->email)->first();
@@ -29,14 +42,37 @@ class AttendanceHistory extends Model
             3 => 'type_of_req_id',
             4 => 'department_name',
         );
-
+       
+//        $where = 'attendance_history.company_id = '.$companyId->id.'';
+        
+//        if($fromDate != ''){
+//            $where .= 'AND (`leaves`.`start_date` >= '.$fromDate.' OR `time_change_requests`.`from_date` >= '.$fromDate.')';
+//        }
+//        if($to_date != ''){
+//            $where .= 'AND (`leaves`.`end_date` <= '.$to_date.' OR `time_change_requests`.`to_date` <= '.$to_date.' )';
+//        }
         $query = AttendanceHistory::select('attendance_history.id', 'employee.name', 'leaves.start_date', 'leaves.end_date', 'leaves.type_of_req_id', 'department.department_name', 'time_change_requests.request_type', 'time_change_requests.from_date', 'time_change_requests.to_date')
                                                 ->join('employee', 'attendance_history.employee_id', '=', 'employee.id')
-                                                ->join('department', 'attendance_history.department_id', '=', 'department.id')
+                                                ->join('department', 'employee.department', '=', 'department.id')
                                                 ->leftjoin('time_change_requests', 'attendance_history.time_change_request_id', '=', 'time_change_requests.id')
                                                 ->leftjoin('leaves', 'attendance_history.leave_id', '=', 'leaves.id')
                                                 ->where('attendance_history.company_id', $companyId->id);
-        
+                                                
+                                                if($department_id != "all"){
+                                                    $query->where('employee.department',"=",$department_id);
+                                                }
+                                                
+                                                if($fromDate != NULL){
+                                                    $query->where('leaves.start_date','>=',$fromDate);
+                                                    $query->orWhere('time_change_requests.from_date','>=',$fromDate);
+                                                }
+
+                                                if($to_date != NULL){
+                                                    $query->where('leaves.end_date','<=',$to_date);
+                                                    $query->orWhere('time_change_requests.to_date','<=',$to_date);
+                                                }
+
+                                               
         if (!empty($requestData['search']['value'])) {
             $searchVal = $requestData['search']['value'];
             $query->where(function($query) use ($columns, $searchVal, $requestData) {

@@ -182,18 +182,17 @@ class AttendanceController extends Controller
         return view('company.attendance.attendance-report', $data);
     }
 
-    public function manageAttendanceHistory()
+    public function manageAttendanceHistory(Request $request)
     {
-        /*$userId = $this->loginUser->id;
-        $companyId = Company::select('id')->where('user_id', $userId)->first();
-        $data['historyList'] = AttendanceHIstory::select('employee.name', 'leaves.start_date', 'leaves.end_date', 'leaves.type_of_req_id', 'department.department_name', 'time_change_requests.request_type', 'time_change_requests.from_date', 'time_change_requests.to_date')
-                                                ->join('employee', 'attendance_history.employee_id', '=', 'employee.id')
-                                                ->join('department', 'attendance_history.department_id', '=', 'department.id')
-                                                ->leftjoin('time_change_requests', 'attendance_history.time_change_request_id', '=', 'time_change_requests.id')
-                                                ->leftjoin('leaves', 'attendance_history.leave_id', '=', 'leaves.id')
-                                                ->where('attendance_history.company_id', $companyId->id)
-                                                ->get();
-        dd($data['historyList']);*/
+        $data['fromdate']="";
+        $data['toDate']="";
+        $data['department_id']="";
+        
+        if($request->method('get')){
+            $data['fromdate']=$request->input('from_date');
+            $data['toDate']=$request->input('to_date');
+            $data['department_id']=$request->input('department_id');
+        }
         $userid = $this->loginUser->id;
         $companyId = Company::select('id')->where('user_id', $userid)->first();
         $data['departmentList'] = Department::where('company_id', $companyId['id'])->get();
@@ -211,12 +210,13 @@ class AttendanceController extends Controller
     }
 
     public function ajaxAction(Request $request)
-    {
+    {   
+        
         $action = $request->input('action');
         switch ($action) {
             case 'getdatatable':
                 $objAttendanceHistory = new AttendanceHistory();
-                $historyList = $objAttendanceHistory->getDataTableForHistoy();
+                $historyList = $objAttendanceHistory->getDataTableForHistoy($request);
                 echo json_encode($historyList);
             break;
             case 'getHistoryDetails':

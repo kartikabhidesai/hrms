@@ -15,7 +15,7 @@
                             <label class="col-sm-2 control-label">From Date:</label>
                             <div class="col-sm-9">
                                 <div class="input-group from_date">
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="from_date" id="from_date" placeholder="From Date" class="form-control from_date dateField" autocomplete="off">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="from_date" id="from_date" placeholder="From Date" class="form-control from_date dateField" autocomplete="off" value="{{ $fromdate }}">
                                 </div>
                             </div>
                         </div>
@@ -24,7 +24,7 @@
                             <label class="col-sm-2 control-label">To Date:</label>
                             <div class="col-sm-9">
                                 <div class="input-group to_date">
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="to_date" id="to_date" placeholder="To Date" class="form-control to_date dateField" autocomplete="off">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="to_date" id="to_date" placeholder="To Date" class="form-control to_date dateField" autocomplete="off" value="{{ $toDate }}">
                                 </div>
                             </div>
                         </div>
@@ -32,11 +32,11 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Employees By Department </label>
                             <div class="col-sm-9">
-                                <select class="form-control department_id" name="department_id">
+                                <select class="form-control department_id" name="department_id" id="department_id">
                                     <option value="" selected="">Select Employees Of A Department</option>
                                     <option value="all" selected="">All Department</option>
                                     @foreach($departmentList as $dept)
-                                        <option value="{{ $dept->id }}">{{ $dept->department_name }}</option>
+                                        <option value="{{ $dept->id }}" {{ ( $department_id == $dept->id ? 'selected="selected"' : '') }}>{{ $dept->department_name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -44,7 +44,7 @@
 
                         <div class="form-group">
                             <div class="col-lg-offset-2 col-lg-10">
-                                <button class="btn btn-sm btn-primary getAttedanceHisory" type="submit">Manage</button>
+                                <button class="btn btn-sm btn-primary getAttedanceHisory" type="button">Manage</button>
                             </div>
                         </div>
                         {{ Form::close() }}
