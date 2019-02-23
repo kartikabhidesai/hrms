@@ -141,8 +141,13 @@ class AdvanceSalaryRequestController extends Controller {
         $data['monthis'] = Config::get('constants.months');
         $id = Auth()->guard('company')->user()['id'];
         $companyId = Company::select('id')->where('user_id', $id)->first();
+
+        $data['get_year'] = $request->get('year');
+        $data['get_month'] = $request->get('month');
+        $data['month'] = $request->get('month');
+
         $objAdvanceSalary = new Advancesalary();
-        $data['datalist'] = $objAdvanceSalary->getCompanyApprovedAdvanceSalaryListV2($companyId['id']);
+        $data['datalist'] = $objAdvanceSalary->getCompanyApprovedAdvanceSalaryListV2($companyId['id'],$data['get_year'],$data['month']);
 
         $data['detail'] = $this->loginUser;
         $data['header'] = array(
@@ -164,12 +169,12 @@ class AdvanceSalaryRequestController extends Controller {
         
         switch ($action) {
             case 'getdatatable':
-                // $id = Auth()->guard('company')->user()['id'];
-                // $companyId = Company::select('id')->where('user_id', $id)->first();
-                // $objAdvanceSalary = new Advancesalary();
-                // $datalist=$objAdvanceSalary->getCompanyApprovedAdvanceSalaryList($companyId['id']);
-                // echo json_encode($datalist);
-                // break;
+                $id = Auth()->guard('company')->user()['id'];
+                $companyId = Company::select('id')->where('user_id', $id)->first();
+                $objAdvanceSalary = new Advancesalary();
+                $datalist=$objAdvanceSalary->getCompanyApprovedAdvanceSalaryList($companyId['id']);
+                echo json_encode($datalist);
+                break;
             }
     }
     

@@ -17,40 +17,40 @@
                                 <select class="form-control year" id="year" name="year">
                                     <option value="" selected="">Select Year</option>
                                         @for ($year=2015; $year <= 2099; $year++)
-                                            <option value="{{ $year }}" >{{ $year }}</option>
+                                            <option value="{{ $year }}" {{ ($get_year == $year ? 'selected="selected"' : '') }}>{{ $year }}</option>
                                         @endfor
                                 </select>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">Month</label>
+                            <label class="col-sm-2 control-label">Month </label>
                             <div class="col-sm-9"> 
                                 <select class="form-control month" id="month" name="month">
-                                    <option value="" selected="">Select Month</option>
-                                    @if(isset($getAttedanceReport))
-                                        <option value="1" {{ ($get_month == 'January' ? 'selected="selected"' : '') }}>January</option>
-                                        <option value="2" {{ ($get_month == 'February' ? 'selected="selected"' : '') }}>February</option>
-                                        <option value="3" {{ ($get_month == 'March' ? 'selected="selected"' : '') }}>March</option>
-                                        <option value="4" {{ ($get_month == 'April' ? 'selected="selected"' : '') }}>April</option>
-                                        <option value="5" {{ ($get_month == 'May' ? 'selected="selected"' : '') }}>May</option>
-                                        <option value="6" {{ ($get_month == 'June' ? 'selected="selected"' : '') }}>June</option>
-                                        <option value="7" {{ ($get_month == 'July' ? 'selected="selected"' : '') }}>July</option>
-                                        <option value="8" {{ ($get_month == 'August' ? 'selected="selected"' : '') }}>August</option>
-                                        <option value="9" {{ ($get_month == 'September' ? 'selected="selected"' : '') }}>September</option>
-                                        <option value="10" {{ ($get_month == 'October' ? 'selected="selected"' : '') }}>October</option>
-                                        <option value="11" {{ ($get_month == 'November' ? 'selected="selected"' : '') }}>November</option>
-                                        <option value="12" {{ ($get_month == 'December' ? 'selected="selected"' : '') }}>December</option>
+                                    <option value="" selected="">Select Month </option>
+                                    @if(isset($get_month))
+                                        <option value="01" {{ ($get_month == '01' ? 'selected="selected"' : '') }}>January</option>
+                                        <option value="02" {{ ($get_month == '02' ? 'selected="selected"' : '') }}>February</option>
+                                        <option value="03" {{ ($get_month == '03' ? 'selected="selected"' : '') }}>March</option>
+                                        <option value="04" {{ ($get_month == '04' ? 'selected="selected"' : '') }}>April</option>
+                                        <option value="05" {{ ($get_month == '05' ? 'selected="selected"' : '') }}>May</option>
+                                        <option value="06" {{ ($get_month == '06' ? 'selected="selected"' : '') }}>June</option>
+                                        <option value="07" {{ ($get_month == '07' ? 'selected="selected"' : '') }}>July</option>
+                                        <option value="08" {{ ($get_month == '08' ? 'selected="selected"' : '') }}>August</option>
+                                        <option value="09" {{ ($get_month == '09' ? 'selected="selected"' : '') }}>September</option>
+                                        <option value="10" {{ ($get_month == '10' ? 'selected="selected"' : '') }}>October</option>
+                                        <option value="11" {{ ($get_month == '11' ? 'selected="selected"' : '') }}>November</option>
+                                        <option value="12" {{ ($get_month == '12' ? 'selected="selected"' : '') }}>December</option>
                                     @else
-                                        <option value="1">January</option>
-                                        <option value="2">February</option>
-                                        <option value="3">March</option>
-                                        <option value="4">April</option>
-                                        <option value="5">May</option>
-                                        <option value="6">June</option>
-                                        <option value="7">July</option>
-                                        <option value="8">August</option>
-                                        <option value="9">September</option>
+                                        <option value="01">January</option>
+                                        <option value="02">February</option>
+                                        <option value="03">March</option>
+                                        <option value="04">April</option>
+                                        <option value="05">May</option>
+                                        <option value="06">June</option>
+                                        <option value="07">July</option>
+                                        <option value="08">August</option>
+                                        <option value="09">September</option>
                                         <option value="10">October</option>
                                         <option value="11">November</option>
                                         <option value="12">December</option>
