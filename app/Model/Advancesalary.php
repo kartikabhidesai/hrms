@@ -28,7 +28,7 @@ class Advancesalary extends Model
         $objSalary->name = $request->input('emp_name');
         $objSalary->employee_id = $request->input('emp_id');
         $objSalary->company_id = $request->input('cmp_id');
-        $objSalary->department_id = $request->input('dep_id');
+//        $objSalary->department_id = $request->input('dep_id');
         $objSalary->date_of_submit = date("Y-m-d", strtotime($request->input('date_of_submit')));
         $objSalary->comments = $request->input('comments');
         $objSalary->created_at = date('Y-m-d H:i:s');
@@ -58,7 +58,8 @@ class Advancesalary extends Model
             
         );
          $query = ManageTimeChangeRequest::from('advance_salary_request as advance_salary')
-                 ->join('department as depart', 'advance_salary.department_id', '=', 'depart.id')
+                 ->join('employee as emp','advance_salary.employee_id','=','emp.id')
+                 ->join('department as depart', 'emp.department', '=', 'depart.id')
                  ->where('advance_salary.employee_id',$employeeid);
          
           if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
@@ -85,7 +86,7 @@ class Advancesalary extends Model
         
         $resultArr = $query->skip($requestData['start'])
                     ->take($requestData['length'])
-                    ->select('depart.department_name','advance_salary.status','advance_salary.id', 'advance_salary.name','advance_salary.employee_id', 'advance_salary.company_id','advance_salary.department_id', 'advance_salary.date_of_submit','advance_salary.comments')->get();
+                    ->select('depart.department_name','advance_salary.status','advance_salary.id', 'advance_salary.name','advance_salary.employee_id', 'advance_salary.company_id', 'advance_salary.date_of_submit','advance_salary.comments')->get();
         $data = array();
        // $type_of_request=Config::get('constants.type_of_request');
 
@@ -161,7 +162,8 @@ class Advancesalary extends Model
             
         );
          $query = ManageTimeChangeRequest::from('advance_salary_request as advance_salary')
-                 ->join('department as depart', 'advance_salary.department_id', '=', 'depart.id')
+                 ->join('employee as emp' ,'advance_salary.employee_id','=','emp.id')
+                 ->join('department as depart', 'emp.department', '=', 'depart.id')
                  ->where('advance_salary.company_id',$companyId);
          
           if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
@@ -188,7 +190,7 @@ class Advancesalary extends Model
         
         $resultArr = $query->skip($requestData['start'])
                     ->take($requestData['length'])
-                    ->select('depart.department_name','advance_salary.status','advance_salary.id', 'advance_salary.file_name', 'advance_salary.name','advance_salary.employee_id', 'advance_salary.company_id','advance_salary.department_id', 'advance_salary.date_of_submit','advance_salary.comments')->get();
+                    ->select('depart.department_name','advance_salary.status','advance_salary.id', 'advance_salary.file_name', 'advance_salary.name','advance_salary.employee_id', 'advance_salary.company_id', 'advance_salary.date_of_submit','advance_salary.comments')->get();
         $data = array();
        // $type_of_request=Config::get('constants.type_of_request');
 
@@ -248,8 +250,9 @@ class Advancesalary extends Model
             5 => 'advance_salary.action'
         );
          $query = ManageTimeChangeRequest::from('advance_salary_request as advance_salary')
-                                         ->join('department as depart', 'advance_salary.department_id', '=', 'depart.id')
-                                         ->where('advance_salary.company_id',$companyId)
+                                         ->join('employee as emp' ,'advance_salary.employee_id','=','emp.id')
+                                        ->join('department as depart', 'emp.department', '=', 'depart.id')
+                                        ->where('advance_salary.company_id',$companyId)
                                          ->where('advance_salary.status', 'approve');
          
           if (!empty($requestData['search']['value'])) {
@@ -276,7 +279,7 @@ class Advancesalary extends Model
         
         $resultArr = $query->skip($requestData['start'])
                             ->take($requestData['length'])
-                            ->select('depart.department_name','advance_salary.status','advance_salary.id', 'advance_salary.name','advance_salary.employee_id', 'advance_salary.company_id','advance_salary.department_id', 'advance_salary.date_of_submit','advance_salary.comments', 'advance_salary.updated_at', 'advance_salary.status')->get();
+                            ->select('depart.department_name','advance_salary.status','advance_salary.id', 'advance_salary.name','advance_salary.employee_id', 'advance_salary.company_id', 'advance_salary.date_of_submit','advance_salary.comments', 'advance_salary.updated_at', 'advance_salary.status')->get();
         $data = array();
         // $type_of_request = Config::get('constants.type_of_request');
 

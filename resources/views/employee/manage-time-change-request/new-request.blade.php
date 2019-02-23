@@ -18,7 +18,7 @@
                                 <div class="col-sm-9">
                                     <input type="text" name="empid" value="{{ $emp_id }}" class="form-control">
                                     <input type="text" name="company_id" value="{{ $company_id }}" class="form-control">
-                                    <input type="text" name="depart_id" value="{{ $dep_id }}" class="form-control">
+                                    
                                 </div>
                             </div>
                             

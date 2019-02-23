@@ -16,26 +16,7 @@
                             <li><a href="mailbox.html"> <i class="fa fa-file-text-o"></i> Drafts <span class="label label-danger pull-right">2</span></a></li>
                             <li><a href="mailbox.html"> <i class="fa fa-trash-o"></i> Trash</a></li>
                         </ul>
-                        <h5>Categories</h5>
-                        <ul class="category-list" style="padding: 0">
-                            <li><a href="#"> <i class="fa fa-circle text-navy"></i> Work </a></li>
-                            <li><a href="#"> <i class="fa fa-circle text-danger"></i> Documents</a></li>
-                            <li><a href="#"> <i class="fa fa-circle text-primary"></i> Social</a></li>
-                            <li><a href="#"> <i class="fa fa-circle text-info"></i> Advertising</a></li>
-                            <li><a href="#"> <i class="fa fa-circle text-warning"></i> Clients</a></li>
-                        </ul>
-
-                        <h5 class="tag-title">Labels</h5>
-                        <ul class="tag-list" style="padding: 0">
-                            <li><a href=""><i class="fa fa-tag"></i> Family</a></li>
-                            <li><a href=""><i class="fa fa-tag"></i> Work</a></li>
-                            <li><a href=""><i class="fa fa-tag"></i> Home</a></li>
-                            <li><a href=""><i class="fa fa-tag"></i> Children</a></li>
-                            <li><a href=""><i class="fa fa-tag"></i> Holidays</a></li>
-                            <li><a href=""><i class="fa fa-tag"></i> Music</a></li>
-                            <li><a href=""><i class="fa fa-tag"></i> Photography</a></li>
-                            <li><a href=""><i class="fa fa-tag"></i> Film</a></li>
-                        </ul>
+                       
                         <div class="clearfix"></div>
                     </div>
                 </div>

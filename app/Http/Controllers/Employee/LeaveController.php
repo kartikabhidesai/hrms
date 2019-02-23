@@ -54,7 +54,7 @@ class LeaveController extends Controller
 //        die();
         $data['company_id']=$empdetails[0]->company_id;
         $data['emp_id']=$empdetails[0]->emp_id;
-        $data['dep_id']=$empdetails[0]->dep_id;
+//        $data['dep_id']=$empdetails[0]->dep_id;
         if ($request->isMethod('post')) {
             
             $objLeave = new Leave();

@@ -4,7 +4,7 @@ var Communication = function () {
         $('.chat-user').on("click", function () {
             console.log($(this).attr("data-id"));
         });
-        
+        $('.summernote').summernote();
 
     }
     return {

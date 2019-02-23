@@ -54,7 +54,7 @@ class SendSMS extends Model
         $resultArr = $query->skip($requestData['start'])
                             ->take($requestData['length'])
                             ->join('employee', 'send_sms.emp_id', '=', 'employee.id')
-                            ->join('department', 'send_sms.department_id', '=', 'department.id')
+                            ->join('department', 'employee.department', '=', 'department.id')
                             ->where('send_sms.company_id', $companyId)
                             ->select('send_sms.id as id', 'employee.name as employee_name', 'send_sms.message as message', 'department.department_name')
                             ->get();
@@ -88,7 +88,7 @@ class SendSMS extends Model
                 $newSMS = new SendSMS();
                 $newSMS->emp_id = $value;
                 $newSMS->company_id = $companyId;
-                $newSMS->department_id =$request->dept_id;
+//                $newSMS->department_id =$request->dept_id;
                 $newSMS->message = $request->message;
                 $newSMS->created_at = date('Y-m-d H:i:s');
                 $newSMS->updated_at = date('Y-m-d H:i:s');

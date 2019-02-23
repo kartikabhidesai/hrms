@@ -427,7 +427,7 @@ class Employee extends Model {
     }
 
     public function getEmployee($company_id) {
-        // echo $company_id;exit;
+//         echo $company_id;exit;
         $arrEmployee = Employee::where('company_id', $company_id)
                 ->pluck('name', 'id')
                 ->toArray();
@@ -450,5 +450,13 @@ class Employee extends Model {
 
         return $arrEmployee;
     }
-
+    
+    
+    public function getEmployeeList($companyId){
+        $result= Employee::select('name')
+                ->where('company_id',$companyId)
+                ->get();
+        print_r($result);
+        die();
+    }
 }

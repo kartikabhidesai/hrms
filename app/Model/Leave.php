@@ -28,7 +28,7 @@ class Leave extends Model {
 
         $objLeave = new Leave();
         $objLeave->emp_id = $request->input('empid');
-        $objLeave->dep_id = $request->input('dep_id');
+        
         $objLeave->cmp_id = $request->input('company_id');
         $objLeave->type_of_req_id = $typeRequest;
         $objLeave->start_date = date('Y-m-d',strtotime($request->input('start_date')));
@@ -42,7 +42,7 @@ class Leave extends Model {
         $objAttendanceHistory = new AttendanceHistory();
         $objAttendanceHistory->company_id = $request->input('company_id');
         $objAttendanceHistory->employee_id = $request->input('empid');
-        $objAttendanceHistory->department_id = $request->input('dep_id');
+        
         $objAttendanceHistory->leave_id = $objLeave->id;
         $objAttendanceHistory->time_change_request_id = null;
         $objAttendanceHistory->save();
@@ -79,7 +79,8 @@ class Leave extends Model {
             3 => 'lv.reason',
         );
         $query = Leave::from('leaves as lv')
-                ->join('department as depart', 'lv.dep_id', '=', 'depart.id')
+                ->join('employee as emp','lv.emp_id','=','emp.id')
+                ->join('department as depart', 'emp.department', '=', 'depart.id')
                 ->where('lv.emp_id',$userid);
         if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
             $searchVal = $requestData['search']['value'];

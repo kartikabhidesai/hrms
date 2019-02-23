@@ -46,7 +46,7 @@ class SendSMSController extends Controller
             case 'getEmployee':
                 $empId = $request->input('data');
                 $objEmployee = new Employee();
-                $employee = $objEmployee->getEmployee($empId);
+                $employee = $objEmployee->getEmployeeByDept($empId);
                 // print_r($employee);exit;
                 echo json_encode($employee);
                 break;

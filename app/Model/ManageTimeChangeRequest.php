@@ -43,7 +43,7 @@ class ManageTimeChangeRequest extends Model
         $objAttendanceHistory = new AttendanceHistory();
         $objAttendanceHistory->company_id = $request->input('company_id');
         $objAttendanceHistory->employee_id = $request->input('empid');
-        $objAttendanceHistory->department_id = $request->input('depart_id');
+//        $objAttendanceHistory->department_id = $request->input('depart_id');
         $objAttendanceHistory->leave_id = null;
         $objAttendanceHistory->time_change_request_id = $objSavedata->id;
         $objAttendanceHistory->save();
