@@ -8,6 +8,7 @@ use App\Model\Employee;
 use App\Model\Company;
 use App\Model\Communication;
 use Auth;
+use Response;
 
 class CommunicationController extends Controller
 {
@@ -74,7 +75,7 @@ class CommunicationController extends Controller
         return view('employee.communication.compose', $data);
     }
 
-    public function empCommunicationDetail(Request $request)
+    public function empCommunicationDetail(Request $request, $id)
     {
         $session = $request->session()->all();
         
@@ -96,8 +97,25 @@ class CommunicationController extends Controller
         $getAuthEmployeeId = Employee::where('email', $userData->email)->first();
         $logedEmpId = $getAuthEmployeeId->id;
         $communicationobj = new Communication();
-        $data['cmpMails'] = $communicationobj->employeeEmailCommunicationDetail($logedEmpId);
+        $data['empMailDetail'] = $communicationobj->employeeEmailCommunicationDetail($logedEmpId, $id);
         
         return view('employee.communication.communication-detail', $data);
+    }
+
+    public function downloadAttachment(Request $request, $fileName)
+    {
+        $file_path = public_path() .'/uploads/communication/'. $fileName;
+        if (file_exists($file_path))
+        {
+            // Download File
+            return Response::download($file_path, $fileName, [
+                'Content-Length: '. filesize($file_path)
+            ]);
+        }
+        else
+        {
+            // Error
+            exit('Requested file does not exist on our server!');
+        }
     }
 }

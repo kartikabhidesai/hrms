@@ -97,31 +97,29 @@ class Communication extends Model
         }
     }
 
-    public function companyEmailCommunicationDetail($cmpId)
+    public function companyEmailCommunicationDetail($cmpId, $id)
     {
-        $getListOfEmailOfCmp = Communication::select('employee.name', 'communication.id', 'communication.employee_id', 'communication.message', 'communication.file', 'communication.is_read', 'communication.subject', 'communication.created_at')
+        $findCommunication = Communication::select('employee.email', 'communication.id', 'communication.employee_id', 'communication.message', 'communication.file', 'communication.is_read', 'communication.subject', 'communication.created_at')
                                         ->join('employee', 'communication.employee_id', '=', 'employee.id')
-                                        ->where('communication.company_id', $cmpId)
-                                        ->where('communication.from', 'EMPLOYEE')
-                                        ->get();
+                                        ->where('communication.id', $id)
+                                        ->first();
 
-        if(count($getListOfEmailOfCmp) > 0) {
-            return $getListOfEmailOfCmp;
+        if($findCommunication) {
+            return $findCommunication;
         } else {
             return null;
         }
     }
 
-    public function employeeEmailCommunicationDetail($cmpId)
+    public function employeeEmailCommunicationDetail($empId, $id)
     {
-        $getListOfEmailOfCmp = Communication::select('employee.name', 'communication.id', 'communication.employee_id', 'communication.message', 'communication.file', 'communication.is_read', 'communication.subject', 'communication.created_at')
-                                        ->join('employee', 'communication.employee_id', '=', 'employee.id')
-                                        ->where('communication.company_id', $cmpId)
-                                        ->where('communication.from', 'EMPLOYEE')
-                                        ->get();
+        $findCommunication = Communication::select('comapnies.email', 'communication.id', 'communication.employee_id', 'communication.message', 'communication.file', 'communication.is_read', 'communication.subject', 'communication.created_at')
+                                        ->join('comapnies', 'communication.company_id', '=', 'comapnies.id')
+                                        ->where('communication.employee_id', $empId)
+                                        ->first();
 
-        if(count($getListOfEmailOfCmp) > 0) {
-            return $getListOfEmailOfCmp;
+        if($findCommunication) {
+            return $findCommunication;
         } else {
             return null;
         }
