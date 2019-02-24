@@ -15,6 +15,7 @@
                             <li><a href="#"> <i class="fa fa-certificate"></i> Important</a></li>
                             <li><a href="#"> <i class="fa fa-file-text-o"></i> Drafts <span class="label label-danger pull-right">2</span></a></li> -->
                             <li><a href="#"> <i class="fa fa-trash-o"></i> Trash</a></li>
+                            <li><a href="#"> <i class="fa fa-reply"></i> Send</a></li>
                         </ul>
                         <div class="clearfix"></div>
                     </div>
@@ -23,10 +24,10 @@
         </div>
         <div class="col-lg-9 animated fadeInRight">
             <div class="mail-box-header">
-                <div class="pull-right tooltip-demo">
+                <!-- <div class="pull-right tooltip-demo">
                     <a href="#" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="Move to draft folder"><i class="fa fa-pencil"></i> Draft</a>
                     <a href="#" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="Discard email"><i class="fa fa-times"></i> Discard</a>
-                </div>
+                </div> -->
                 <h2>
                     Compose mail
                 </h2>
@@ -75,8 +76,8 @@
                         <!-- <a href="#" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="Send"><i class="fa fa-reply"></i> Send</a> -->
                         <button class="btn btn-sm btn-primary sendMail" type="submit" data-toggle="tooltip" data-placement="top" title="Send"><i class="fa fa-reply"></i>Send</button>
 
-                        <a href="#" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Discard email"><i class="fa fa-times"></i> Discard</a>
-                        <a href="#" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Move to draft folder"><i class="fa fa-pencil"></i> Draft</a>
+                        <!-- <a href="#" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Discard email"><i class="fa fa-times"></i> Discard</a>
+                        <a href="#" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Move to draft folder"><i class="fa fa-pencil"></i> Draft</a> -->
                     </div>
                     <div class="clearfix"></div>
                 </div>

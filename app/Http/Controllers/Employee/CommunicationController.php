@@ -46,7 +46,6 @@ class CommunicationController extends Controller
         $empId = Employee::select('id', 'company_id')->where('user_id', $userid)->first();
 
         if ($request->isMethod('post')) {
-            // print_r($request->all());exit;
             $objCommunication = new Communication();
             $result = $objCommunication->addNewCommunicationEmp($request, $empId->company_id, $empId->id);
             if ($result) {
@@ -69,9 +68,36 @@ class CommunicationController extends Controller
             'title' => 'Communcation',
             'breadcrumb' => array(
                 'Home' => route("employee-dashboard"),
-                'Communcation' => 'Communcation',
+                'Communcation' => route("emp-communication"),
                 'Compose' => 'Compose'));
 
         return view('employee.communication.compose', $data);
+    }
+
+    public function empCommunicationDetail(Request $request)
+    {
+        $session = $request->session()->all();
+        
+        $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
+        $data['js'] = array('employee/communication.js');
+        $data['funinit'] = array('Communication.init()');
+        $data['css'] = array('');
+        $data['header'] = array(
+            'title' => 'Communcation',
+            'breadcrumb' => array(
+                'Home' => route("employee-dashboard"),
+                'Communcation' => route("emp-communication"),
+                'Communcation Detail' => 'Communcation Detail'));
+
+        $empobj = new Employee();
+        
+        $userData = Auth::guard('employee')->user();
+       
+        $getAuthEmployeeId = Employee::where('email', $userData->email)->first();
+        $logedEmpId = $getAuthEmployeeId->id;
+        $communicationobj = new Communication();
+        $data['cmpMails'] = $communicationobj->employeeEmailCommunicationDetail($logedEmpId);
+        
+        return view('employee.communication.communication-detail', $data);
     }
 }

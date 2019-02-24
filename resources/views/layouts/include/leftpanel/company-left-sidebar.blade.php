@@ -103,7 +103,7 @@ if (!empty(Auth()->guard('admin')->user())) {
                         </li>
                     </ul>
                  </li>
-                 <li class="{{ ($currentRoute == 'communication' ? 'active' : '') }} {{ ($currentRoute == 'compose' ? 'active' : '') }}">
+                 <li class="{{ ($currentRoute == 'communication' ? 'active' : '') }} {{ ($currentRoute == 'compose' ? 'active' : '') }} {{ ($currentRoute == 'mail-detail' ? 'active' : '') }}">
                     <a href="{{ route('communication') }}"><i class="fa fa-history"></i>
                     <span class="nav-label">Communication</span></a>
                 </li> 

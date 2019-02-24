@@ -96,4 +96,34 @@ class Communication extends Model
             return null;
         }
     }
+
+    public function companyEmailCommunicationDetail($cmpId)
+    {
+        $getListOfEmailOfCmp = Communication::select('employee.name', 'communication.id', 'communication.employee_id', 'communication.message', 'communication.file', 'communication.is_read', 'communication.subject', 'communication.created_at')
+                                        ->join('employee', 'communication.employee_id', '=', 'employee.id')
+                                        ->where('communication.company_id', $cmpId)
+                                        ->where('communication.from', 'EMPLOYEE')
+                                        ->get();
+
+        if(count($getListOfEmailOfCmp) > 0) {
+            return $getListOfEmailOfCmp;
+        } else {
+            return null;
+        }
+    }
+
+    public function employeeEmailCommunicationDetail($cmpId)
+    {
+        $getListOfEmailOfCmp = Communication::select('employee.name', 'communication.id', 'communication.employee_id', 'communication.message', 'communication.file', 'communication.is_read', 'communication.subject', 'communication.created_at')
+                                        ->join('employee', 'communication.employee_id', '=', 'employee.id')
+                                        ->where('communication.company_id', $cmpId)
+                                        ->where('communication.from', 'EMPLOYEE')
+                                        ->get();
+
+        if(count($getListOfEmailOfCmp) > 0) {
+            return $getListOfEmailOfCmp;
+        } else {
+            return null;
+        }
+    }
 }

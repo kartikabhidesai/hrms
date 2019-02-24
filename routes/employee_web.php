@@ -35,4 +35,5 @@ Route::group(['prefix' => $employeePrefix, 'middleware' => ['employee']], functi
     /*Communication routes*/
     Route::match(['get', 'post'], 'emp-communication', ['as' => 'emp-communication', 'uses' => 'Employee\CommunicationController@communication']);    
     Route::match(['get', 'post'], 'emp-compose', ['as' => 'emp-compose', 'uses' => 'Employee\CommunicationController@compose']);   
+    Route::match(['get', 'post'], 'emp-communication-detail', ['as' => 'emp-communication-detail', 'uses' => 'Employee\CommunicationController@empCommunicationDetail']);   
 });

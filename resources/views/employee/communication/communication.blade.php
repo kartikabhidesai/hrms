@@ -15,6 +15,7 @@
                             <li><a href="#"> <i class="fa fa-certificate"></i> Important</a></li>
                             <li><a href="#"> <i class="fa fa-file-text-o"></i> Drafts <span class="label label-danger pull-right">2</span></a></li> -->
                             <li><a href="#"> <i class="fa fa-trash-o"></i> Trash</a></li>
+                            <li><a href="#"> <i class="fa fa-reply"></i> Send</a></li>
                         </ul>
                        
                         <div class="clearfix"></div>
@@ -25,7 +26,7 @@
         <div class="col-lg-9 animated fadeInRight">
             <div class="mail-box-header">
 
-                <form method="get" action="index.html" class="pull-right mail-search">
+                <!-- <form method="get" action="index.html" class="pull-right mail-search">
                     <div class="input-group">
                         <input type="text" class="form-control input-sm" name="search" placeholder="Search email">
                         <div class="input-group-btn">
@@ -34,7 +35,7 @@
                             </button>
                         </div>
                     </div>
-                </form>
+                </form> -->
                 <h2>
                     Inbox (100)
                 </h2>
@@ -45,8 +46,8 @@
 
                     </div>
                     <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="left" title="" data-original-title="Refresh inbox"><i class="fa fa-refresh"></i> Refresh</button>
-                    <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="Mark as read"><i class="fa fa-eye"></i> </button>
-                    <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="Mark as important"><i class="fa fa-exclamation"></i> </button>
+                    <!-- <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="Mark as read"><i class="fa fa-eye"></i> </button>
+                    <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="Mark as important"><i class="fa fa-exclamation"></i> </button> -->
                     <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Move to trash"><i class="fa fa-trash-o"></i> </button>
 
                 </div>
@@ -60,8 +61,8 @@
                                 <td class="check-mail">
                                     <!-- <div class="icheckbox_square-green checked" style="position: relative;"><input type="checkbox" class="i-checks" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> -->
                                 </td>
-                                <td class="mail-ontact"><a href="#">{{ $emailList->company_name }}</a></td>
-                                <td class="mail-subject"><a href="#">{{ $emailList->subject ? $emailList->subject : strip_tags($emailList->message) }}</a></td>
+                                <td class="mail-ontact"><a href="{{ route('emp-communication-detail') }}">{{ $emailList->company_name }}</a></td>
+                                <td class="mail-subject"><a href="{{ route('emp-communication-detail') }}">{{ $emailList->subject ? $emailList->subject : strip_tags($emailList->message) }}</a></td>
                                 @if($emailList->file)
                                     <td class=""><i class="fa fa-paperclip"></i></td>
                                 @else
