@@ -39,20 +39,19 @@ class CommunicationController extends Controller
         return view('employee.communication.communication', $data);
     }
 
-    /*public function compose(Request $request)
+    public function compose(Request $request)
     {
         $session = $request->session()->all();
         $userid = $this->loginUser->id;
-        $companyId = Company::select('id')->where('user_id', $userid)->first();
+        $empId = Employee::select('id', 'company_id')->where('user_id', $userid)->first();
 
         if ($request->isMethod('post')) {
-            // print_r($request->all());exit;
             $objCommunication = new Communication();
-            $result = $objCommunication->addNewCommunication($request, $companyId->id);
+            $result = $objCommunication->addNewCommunicationEmp($request, $empId->company_id, $empId->id);
             if ($result) {
                 $return['status'] = 'success';
                 $return['message'] = 'New Communication Email sent successfully.';
-                $return['redirect'] = route('communication');
+                $return['redirect'] = route('emp-communication');
             } else {
                 $return['status'] = 'error';
                 $return['message'] = 'Something goes to wrong';
@@ -61,21 +60,44 @@ class CommunicationController extends Controller
             exit;
         }
 
-        $objEmployee = new Employee();
-        $data['employeeList'] = $objEmployee->getEmployeeList($companyId->id);
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
-        $data['js'] = array('company/communication.js','ckeditor/ckeditor.js','plugins/summernote/summernote.min.js', 'jquery.form.min.js');
+        $data['js'] = array('employee/communication.js','ckeditor/ckeditor.js','plugins/summernote/summernote.min.js', 'jquery.form.min.js');
         $data['funinit'] = array('Communication.init()');
         $data['css'] = array('plugins/summernote/summernote.css','plugins/summernote/summernote-bs3.css');
         $data['header'] = array(
             'title' => 'Communcation',
             'breadcrumb' => array(
-                'Home' => route("company-dashboard"),
-                'Communcation' => 'Communcation',
+                'Home' => route("employee-dashboard"),
+                'Communcation' => route("emp-communication"),
                 'Compose' => 'Compose'));
 
-        return view('company.communication.compose', $data);
-    }*/
+        return view('employee.communication.compose', $data);
+    }
 
-   
+    public function empCommunicationDetail(Request $request)
+    {
+        $session = $request->session()->all();
+        
+        $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
+        $data['js'] = array('employee/communication.js');
+        $data['funinit'] = array('Communication.init()');
+        $data['css'] = array('');
+        $data['header'] = array(
+            'title' => 'Communcation',
+            'breadcrumb' => array(
+                'Home' => route("employee-dashboard"),
+                'Communcation' => route("emp-communication"),
+                'Communcation Detail' => 'Communcation Detail'));
+
+        $empobj = new Employee();
+        
+        $userData = Auth::guard('employee')->user();
+       
+        $getAuthEmployeeId = Employee::where('email', $userData->email)->first();
+        $logedEmpId = $getAuthEmployeeId->id;
+        $communicationobj = new Communication();
+        $data['cmpMails'] = $communicationobj->employeeEmailCommunicationDetail($logedEmpId);
+        
+        return view('employee.communication.communication-detail', $data);
+    }
 }

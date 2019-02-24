@@ -29,13 +29,13 @@ class CommunicationController extends Controller
             'breadcrumb' => array(
                 'Home' => route("company-dashboard"),
                 'Communcation' => 'Communcation'));
+
         $empobj = new Employee();
-        
-         $userData = Auth::guard('company')->user();
-       
+        $userData = Auth::guard('company')->user();
         $getAuthCompanyId = Company::where('email', $userData->email)->first();
         $logedcompanyId = $getAuthCompanyId->id; 
-       // $data['empArray']=$empobj->employeelistforcommunication($logedcompanyId);
+        $communicationobj = new Communication();
+        $data['cmpMails'] = $communicationobj->companyEmailsForCommunication($logedcompanyId);
         
         return view('company.communication.communication', $data);
     }
@@ -72,11 +72,36 @@ class CommunicationController extends Controller
             'title' => 'Communcation',
             'breadcrumb' => array(
                 'Home' => route("company-dashboard"),
-                'Communcation' => 'Communcation',
+                'Communcation' => route("communication"),
                 'Compose' => 'Compose'));
 
         return view('company.communication.compose', $data);
     }
 
-   
+    public function mailDetail(Request $request)
+    {
+        $session = $request->session()->all();
+        
+        $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
+        $data['js'] = array('company/communication.js');
+        $data['funinit'] = array('Communication.init()');
+        $data['css'] = array('');
+        $data['header'] = array(
+            'title' => 'Communcation',
+            'breadcrumb' => array(
+                'Home' => route("company-dashboard"),
+                'Communcation' => route("communication"),
+                'Communcation Detail' => 'Communcation Detail'));
+
+        $empobj = new Employee();
+        
+        $userData = Auth::guard('company')->user();
+       
+        $getAuthCompanyId = Company::where('email', $userData->email)->first();
+        $logedcompanyId = $getAuthCompanyId->id;
+        $communicationobj = new Communication();
+        $data['cmpMails'] = $communicationobj->companyEmailCommunicationDetail($logedcompanyId);
+        
+        return view('company.communication.communication-detail', $data);
+    }
 }

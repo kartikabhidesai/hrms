@@ -22,6 +22,34 @@ class Communication extends Model
         $newCommnucation->employee_id = $request->emp_id;
         $newCommnucation->company_id = $companyId;
         $newCommnucation->message = trim($request->summernote, '');
+        $newCommnucation->subject = $request->subject;
+        $newCommnucation->from = 'COMPANY';
+        if ($request->file('file')) {
+            $image = $request->file('file');
+            $file = 'communication' . time() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('/uploads/communication/');
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0777, true);
+            }
+            $image->move($destinationPath, $file);
+            $newCommnucation->file = '/uploads/communication/'.$file;
+        }
+        $newCommnucation->is_read = 0;
+        $newCommnucation->created_at = date('Y-m-d H:i:s');
+        $newCommnucation->created_at = date('Y-m-d H:i:s');
+        $newCommnucation->save();
+        return TRUE;
+    }
+
+    public function addNewCommunicationEmp($request, $companyId, $empId)
+    {
+        $file = '';
+        $newCommnucation = new Communication();
+        $newCommnucation->employee_id = $empId;
+        $newCommnucation->company_id = $companyId;
+        $newCommnucation->message = trim($request->summernote, '');
+        $newCommnucation->subject = $request->subject;
+        $newCommnucation->from = 'EMPLOYEE';
         if ($request->file('file')) {
             $image = $request->file('file');
             $file = 'communication' . time() . '.' . $image->getClientOriginalExtension();
@@ -41,13 +69,59 @@ class Communication extends Model
 
     public function employeeEmailsForCommunication($empId)
     {
-        $getListOfEmailOfEmp = Communication::select('comapnies.company_name', 'communication.id', 'communication.employee_id', 'communication.message', 'communication.file', 'communication.is_read', 'communication.created_at')
+        $getListOfEmailOfEmp = Communication::select('comapnies.company_name', 'communication.id', 'communication.employee_id', 'communication.message', 'communication.file', 'communication.is_read', 'communication.subject', 'communication.created_at')
                                         ->join('comapnies', 'communication.company_id', '=', 'comapnies.id')
                                         ->where('communication.employee_id', $empId)
+                                        ->where('communication.from', 'COMPANY')
                                         ->get();
 
         if(count($getListOfEmailOfEmp) > 0) {
             return $getListOfEmailOfEmp;
+        } else {
+            return null;
+        }
+    }
+
+    public function companyEmailsForCommunication($cmpId)
+    {
+        $getListOfEmailOfCmp = Communication::select('employee.name', 'communication.id', 'communication.employee_id', 'communication.message', 'communication.file', 'communication.is_read', 'communication.subject', 'communication.created_at')
+                                        ->join('employee', 'communication.employee_id', '=', 'employee.id')
+                                        ->where('communication.company_id', $cmpId)
+                                        ->where('communication.from', 'EMPLOYEE')
+                                        ->get();
+
+        if(count($getListOfEmailOfCmp) > 0) {
+            return $getListOfEmailOfCmp;
+        } else {
+            return null;
+        }
+    }
+
+    public function companyEmailCommunicationDetail($cmpId)
+    {
+        $getListOfEmailOfCmp = Communication::select('employee.name', 'communication.id', 'communication.employee_id', 'communication.message', 'communication.file', 'communication.is_read', 'communication.subject', 'communication.created_at')
+                                        ->join('employee', 'communication.employee_id', '=', 'employee.id')
+                                        ->where('communication.company_id', $cmpId)
+                                        ->where('communication.from', 'EMPLOYEE')
+                                        ->get();
+
+        if(count($getListOfEmailOfCmp) > 0) {
+            return $getListOfEmailOfCmp;
+        } else {
+            return null;
+        }
+    }
+
+    public function employeeEmailCommunicationDetail($cmpId)
+    {
+        $getListOfEmailOfCmp = Communication::select('employee.name', 'communication.id', 'communication.employee_id', 'communication.message', 'communication.file', 'communication.is_read', 'communication.subject', 'communication.created_at')
+                                        ->join('employee', 'communication.employee_id', '=', 'employee.id')
+                                        ->where('communication.company_id', $cmpId)
+                                        ->where('communication.from', 'EMPLOYEE')
+                                        ->get();
+
+        if(count($getListOfEmailOfCmp) > 0) {
+            return $getListOfEmailOfCmp;
         } else {
             return null;
         }
