@@ -122,4 +122,28 @@ class CommunicationController extends Controller
             exit('Requested file does not exist on our server!');
         }
     }
+
+    public function sendMail(Request $request)
+    {
+        $session = $request->session()->all();
+        
+        $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
+        $data['js'] = array('company/communication.js');
+        $data['funinit'] = array('Communication.init()');
+        $data['css'] = array('');
+        $data['header'] = array(
+            'title' => 'Communcation',
+            'breadcrumb' => array(
+                'Home' => route("company-dashboard"),
+                'Communcation' => 'Communcation'));
+
+        $empobj = new Employee();
+        $userData = Auth::guard('company')->user();
+        $getAuthCompanyId = Company::where('email', $userData->email)->first();
+        $logedcompanyId = $getAuthCompanyId->id; 
+        $communicationobj = new Communication();
+        $data['cmpMails'] = $communicationobj->sendCompanyEmails($logedcompanyId);
+        
+        return view('company.communication.send-communication', $data);
+    }
 }

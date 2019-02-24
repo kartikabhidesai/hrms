@@ -6,16 +6,16 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-content mailbox-content">
                     <div class="file-manager">
-                        <a class="btn btn-block btn-primary compose-mail" href="{{route('emp-compose')}}">Compose Mail</a>
+                        <a class="btn btn-block btn-primary compose-mail" href="{{route('compose')}}">Compose Mail</a>
                         <div class="space-25"></div>
                         <h5>Folders</h5>
                         <ul class="folder-list m-b-md" style="padding: 0">
-                            <li><a href="{{ route('emp-communication') }}"> <i class="fa fa-inbox "></i> Inbox <span class="label label-warning pull-right">16</span> </a></li>
+                            <li><a href="{{ route('communication') }}"> <i class="fa fa-inbox "></i> Inbox <span class="label label-warning pull-right">16</span> </a></li>
                             <!-- <li><a href="mailbox.html"> <i class="fa fa-envelope-o"></i> Send Mail</a></li>
                             <li><a href="mailbox.html"> <i class="fa fa-certificate"></i> Important</a></li>
                             <li><a href="mailbox.html"> <i class="fa fa-file-text-o"></i> Drafts <span class="label label-danger pull-right">2</span></a></li> -->
                             <li><a href="#"> <i class="fa fa-trash-o"></i> Trash</a></li>
-                            <li><a href="{{ route('emp-send-mail') }}"> <i class="fa fa-reply"></i> Send</a></li>
+                            <li><a href="{{ route('send-mail') }}"> <i class="fa fa-reply"></i> Send</a></li>
                         </ul>
                        
                         <div class="clearfix"></div>
@@ -37,7 +37,7 @@
                     </div>
                 </form> -->
                 <h2>
-                    Inbox (100)
+                    Inbox (16)
                 </h2>
                 <div class="mail-tools tooltip-demo m-t-md">
                     <div class="btn-group pull-right">
@@ -53,24 +53,25 @@
                 </div>
             </div>
             <div class="mail-box">
+
                 <table class="table table-hover table-mail">
                     <tbody>
-                        @if($empMails)
-                            @foreach($empMails as $emailList)
-                            <tr class="unread">
-                                <td class="check-mail">
-                                    <!-- <div class="icheckbox_square-green checked" style="position: relative;"><input type="checkbox" class="i-checks" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> -->
-                                </td>
-                                <td class="mail-ontact"><a href="{{ url('/employee/emp-communication-detail/'.$emailList->id) }}">{{ $emailList->company_name }}</a></td>
-                                <td class="mail-subject"><a href="{{ url('/employee/emp-communication-detail/'.$emailList->id) }}">{{ $emailList->subject ? $emailList->subject : strip_tags($emailList->message) }}</a></td>
-                                @if($emailList->file)
-                                    <td class=""><i class="fa fa-paperclip"></i></td>
-                                @else
-                                    <td class=""></td>
-                                @endif
-                                <td class="text-right mail-date">{{ date('Y-m-d H:i A', strtotime($emailList->created_at)) }}</td>
-                                <input type="hidden" name="mail_id" value="{{ $emailList->id }}">
-                            </tr>
+                        @if($cmpMails)
+                            @foreach($cmpMails as $emailList)
+                                <tr class="unread">
+                                    <td class="check-mail">
+                                        <!-- <div class="icheckbox_square-green checked" style="position: relative;"><input type="checkbox" class="i-checks" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> -->
+                                    </td>
+                                    <td class="mail-ontact"><a href="#">{{ $emailList->name }}</a></td>
+                                    <td class="mail-subject"><a href="#">{{ $emailList->subject ? $emailList->subject : strip_tags($emailList->message) }}</a></td>
+                                    @if($emailList->file)
+                                        <td class=""><i class="fa fa-paperclip"></i></td>
+                                    @else
+                                        <td class=""></td>
+                                    @endif
+                                    <td class="text-right mail-date">{{ date('Y-m-d H:i A', strtotime($emailList->created_at)) }}</td>
+                                    <input type="hidden" name="mail_id" value="{{ $emailList->id }}">
+                                </tr>
                             @endforeach
                         @else
                             <tr class="unread">
@@ -81,6 +82,8 @@
                         @endif
                     </tbody>
                 </table>
+
+
             </div>
         </div>
     </div>
