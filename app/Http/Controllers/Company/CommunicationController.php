@@ -35,7 +35,8 @@ class CommunicationController extends Controller
        
         $getAuthCompanyId = Company::where('email', $userData->email)->first();
         $logedcompanyId = $getAuthCompanyId->id; 
-       // $data['empArray']=$empobj->employeelistforcommunication($logedcompanyId);
+        $communicationobj = new Communication();
+        $data['cmpMails'] = $communicationobj->companyEmailsForCommunication($logedcompanyId);
         
         return view('company.communication.communication', $data);
     }

@@ -6,15 +6,15 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-content mailbox-content">
                     <div class="file-manager">
-                        <a class="btn btn-block btn-primary compose-mail" href="{{route('compose')}}">Compose Mail</a>
+                        <a class="btn btn-block btn-primary compose-mail" href="{{route('emp-compose')}}">Compose Mail</a>
                         <div class="space-25"></div>
                         <h5>Folders</h5>
                         <ul class="folder-list m-b-md" style="padding: 0">
-                            <li><a href="mailbox.html"> <i class="fa fa-inbox "></i> Inbox <span class="label label-warning pull-right">(100)</span> </a></li>
-                            <li><a href="mailbox.html"> <i class="fa fa-envelope-o"></i> Send Mail</a></li>
-                            <li><a href="mailbox.html"> <i class="fa fa-certificate"></i> Important</a></li>
-                            <li><a href="mailbox.html"> <i class="fa fa-file-text-o"></i> Drafts <span class="label label-danger pull-right">2</span></a></li>
-                            <li><a href="mailbox.html"> <i class="fa fa-trash-o"></i> Trash</a></li>
+                            <li><a href="#"> <i class="fa fa-inbox "></i> Inbox <span class="label label-warning pull-right">(100)</span> </a></li>
+                            <!-- <li><a href="#"> <i class="fa fa-envelope-o"></i> Send Mail</a></li>
+                            <li><a href="#"> <i class="fa fa-certificate"></i> Important</a></li>
+                            <li><a href="#"> <i class="fa fa-file-text-o"></i> Drafts <span class="label label-danger pull-right">2</span></a></li> -->
+                            <li><a href="#"> <i class="fa fa-trash-o"></i> Trash</a></li>
                         </ul>
                        
                         <div class="clearfix"></div>
@@ -61,7 +61,7 @@
                                     <!-- <div class="icheckbox_square-green checked" style="position: relative;"><input type="checkbox" class="i-checks" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> -->
                                 </td>
                                 <td class="mail-ontact"><a href="#">{{ $emailList->company_name }}</a></td>
-                                <td class="mail-subject"><a href="#">{{ strip_tags($emailList->message) }}</a></td>
+                                <td class="mail-subject"><a href="#">{{ $emailList->subject ? $emailList->subject : strip_tags($emailList->message) }}</a></td>
                                 @if($emailList->file)
                                     <td class=""><i class="fa fa-paperclip"></i></td>
                                 @else
