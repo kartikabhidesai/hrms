@@ -69,6 +69,10 @@ $currentRoute = Route::current()->getName();
                     <li class="{{ ($currentRoute == 'setting'   ? 'active' : '') }} ">
                     <a href="{{ route('setting') }}"><i class="fa fa-cog" ></i> <span class="nav-label">Setting</span></a>
                 </li>
+                 <li class="{{ ($currentRoute == 'set-tax' ? 'active' : '') }}">
+                    <a href="{{ route('set-tax') }}"><i class="fa fa-percent"></i>
+                    <span class="nav-label">Set Tax</span></a>
+                </li>
               <!--   <li class="active">
                     <a href="#"><i class="fa fa-table"></i> <span class="nav-label">Tables</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">

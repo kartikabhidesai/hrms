@@ -52,4 +52,7 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function() {
     Route::match(['get', 'post'], 'list-email', ['as' => 'list-email', 'uses' => 'Admin\EmailController@index']);
     Route::match(['get', 'post'], 'add-email', ['as' => 'add-email', 'uses' => 'Admin\EmailController@addMail']);
     Route::match(['get', 'post'], 'edit-email/{id}', ['as' => 'edit-email', 'uses' => 'Admin\EmailController@editMail']);
+
+     /* Set Tax */
+    Route::match(['get', 'post'], 'set-tax', ['as' => 'set-tax', 'uses' => 'Admin\TaxController@setTax']); 
 });

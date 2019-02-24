@@ -70,7 +70,6 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
     Route::match(['get', 'post'], 'communication', ['as' => 'communication', 'uses' => 'Company\CommunicationController@communication']);    
     Route::match(['get', 'post'], 'compose', ['as' => 'compose', 'uses' => 'Company\CommunicationController@compose']);    
 
-    /* Set Tax */
-    Route::match(['get', 'post'], 'set-tax', ['as' => 'set-tax', 'uses' => 'Company\TaxController@setTax']); 
+   
 
 });
