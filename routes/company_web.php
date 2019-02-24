@@ -72,7 +72,6 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
     Route::match(['get', 'post'], 'mail-detail/{id}', ['as' => 'mail-detail/{id}', 'uses' => 'Company\CommunicationController@mailDetail']);    
     Route::match(['get', 'post'], 'download-attachment/{file_name}', ['as' => 'download-attachment/{file_name}', 'uses' => 'Company\CommunicationController@downloadAttachment']);    
 
-    /* Set Tax */
-    Route::match(['get', 'post'], 'set-tax', ['as' => 'set-tax', 'uses' => 'Company\TaxController@setTax']); 
+   
 
 });
