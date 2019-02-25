@@ -14,18 +14,33 @@
                 </div>
                 
                 <div class="form-group">
+                    <select name="subcription" class="form-control" >
+                        @foreach($subcription as $key=>$val)
+                        <option value="{{ $key }}">{{ $val }}</option>
+                        @endforeach
+                    </select>
+                    <!--{{ Form::select('subcription', $subcription, null, array('class' => 'form-control m-b', 'id' => 'status','required')) }}-->
+                </div>
+                
+                <div class="form-group">
+                    <select name="request_type" class="form-control" >
+                        @foreach($request_type as $key=>$val)
+                        <option value="{{ $key }}">{{ $val }}</option>
+                        @endforeach
+                    </select>
                     
-                    {{ Form::select('subcription', $subcription, null, array('class' => 'form-control m-b', 'id' => 'status','required')) }}
-                </div>
-                
-                <div class="form-group">
-                    {{ Form::select('request_type', $request_type, null, array('class' => 'form-control m-b', 'id' => 'status','required')) }}
+                    <!--{{ Form::select('request_type', $request_type, null, array('class' => 'form-control m-b', 'id' => 'status','required')) }}-->
                 </div>
                 
                 
                 
                 <div class="form-group">
-                    {{ Form::select('payment_type', $payment_type, null, array('class' => 'form-control m-b', 'id' => 'status','required')) }}
+                    <select name="payment_type" class="form-control" >
+                        @foreach($payment_type as $key=>$val)
+                        <option value="{{ $key }}">{{ $val }}</option>
+                        @endforeach
+                    </select>
+                    <!--{{ Form::select('payment_type', $payment_type, null, array('class' => 'form-control m-b', 'id' => 'status','required')) }}-->
                 </div>
                 {{ csrf_field() }}
                 <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
