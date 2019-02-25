@@ -73,6 +73,27 @@ return [
         '3'=>'Overtime hours',
         '4'=>'Absence',
     ],
+    
+    'subcription'=>[
+        ''=>'Select Subscription Type',
+        '1'=>'Pro',
+        '2'=>'Premium',
+    ],
+    
+    'request_type'=>[
+        ''=>'Select Request Type',
+        '1'=>'New',
+        '2'=>'Renewal Subscription',  
+    ],
+    
+    'payment_type'=>[
+        ''=>'Select Payment Type',
+        '1'=>'Free Trial',
+        '2'=>'Visa', 
+        '3'=>'Mada',
+        '4'=>'Master', 
+        '5'=>'Rupay',
+    ],
 
     'ClientPath' => public_path() . '/uploads/client/',
     'EmployeePath' => public_path() . '/uploads/employee/',

@@ -16,6 +16,7 @@ Route::get('/', function () {
 });
 
 Route::match(['get', 'post'], 'login', ['as' => 'login', 'uses' => 'LoginController@auth']);
+Route::match(['get', 'post'], 'order', ['as' => 'order', 'uses' => 'OrderController@index']);
 Route::match(['get', 'post'], 'logout', ['as' => 'logout', 'uses' => 'LoginController@getLogout']);
 Route::match(['get', 'post'], 'forgot-password', ['as' => 'forgot-password', 'uses' => 'LoginController@forgotpassword']);
 Route::match(['get', 'post'], 'change-password', ['as' => 'change-password', 'uses' => 'Admin\UpdateProfileController@changepassword']);
@@ -29,7 +30,7 @@ $userPrefix = "";
 
 $adminPrefix = "admin";
 Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function() {
-	Route::match(['get', 'post'], 'admin-dashboard', ['as' => 'admin-dashboard', 'uses' => 'Admin\AdminController@dashboard']);
+    Route::match(['get', 'post'], 'admin-dashboard', ['as' => 'admin-dashboard', 'uses' => 'Admin\AdminController@dashboard']);
     Route::match(['get', 'post'], 'list-demo', ['as' => 'list-demo', 'uses' => 'Admin\DemoController@index']);
     Route::match(['get', 'post'], 'demo-ajaxAction', ['as' => 'ajaxAction', 'uses' => 'Admin\DemoController@ajaxAction']);
     Route::match(['get', 'post'], 'add-demo', ['as' => 'add-demo', 'uses' => 'Admin\DemoController@add']);
@@ -55,4 +56,8 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function() {
 
      /* Set Tax */
     Route::match(['get', 'post'], 'set-tax', ['as' => 'set-tax', 'uses' => 'Admin\TaxController@setTax']); 
+    
+    /* Order  */
+    Route::match(['get', 'post'], 'order-list', ['as' => 'order-list', 'uses' => 'Admin\OrderController@index']); 
+    Route::match(['get', 'post'], 'order-ajaxAction', ['as' => 'order-ajaxAction', 'uses' => 'Admin\OrderController@ajaxAction']); 
 });
