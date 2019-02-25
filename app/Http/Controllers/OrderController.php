@@ -48,8 +48,6 @@ class OrderController extends Controller {
         
         $data['subcription']=Config::get('constants.subcription');
         $data['request_type']=Config::get('constants.request_type');
-        print_r($data['request_type']);
-        die();
         
         $data['payment_type']=Config::get('constants.payment_type');
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
