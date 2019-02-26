@@ -22,7 +22,6 @@ class Order extends Model {
           $newOrder->subcription=$request->input('subcription');
           $newOrder->request_type=$request->input('request_type');
           $newOrder->payment_type=$request->input('payment_type');
-          
           $newOrder->created_at = date('Y-m-d H:i:s');
           $newOrder->updated_at = date('Y-m-d H:i:s');
           return $newOrder->save();
