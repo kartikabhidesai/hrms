@@ -75,10 +75,23 @@ $currentRoute = Route::current()->getName();
                 </li>
                 
                 
-                <li class="{{ ($currentRoute == 'order-list' ? 'active' : '') }}">
+<!--                <li class="{{ ($currentRoute == 'order-list' ? 'active' : '') }}">
                     <a href="{{ route('order-list') }}"><i class="fa fa-first-order"></i>
                     <span class="nav-label">Order</span></a>
-                </li>
+                </li>-->
+                
+                <li class="{{ ($currentRoute == 'order-list' || $currentRoute == 'order-approved-list' ? 'active' : '') }}">
+                    <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Order</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li class="{{ ($currentRoute == 'order-list' ? 'active' : '') }}">
+                            <a href="{{ route('order-list') }}"><i class="fa fa-money" ></i> <span class="nav-label">Order List</span></a>
+                        </li>
+                        <li class="{{ ($currentRoute == 'order-approved-list' ? 'active' : '') }}">
+                            <a href="{{ route('order-approved-list') }}"><i class="fa fa-money" ></i> <span class="nav-label">Order Approved List</span></a>
+                        </li>
+                    </ul>
+                 </li>
+                 
               <!--   <li class="active">
                     <a href="#"><i class="fa fa-table"></i> <span class="nav-label">Tables</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">

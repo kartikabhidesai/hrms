@@ -25,67 +25,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-<!--                                <tr class="gradeU">
-                                    <td>748478</td>
-                                    <td>All Company</td>
-                                    <td>21/12/2018</td>
-                                    <td>Pro</td>
-                                    <td>New</td>
-                                    <td>Free Trial</td>
-                                    <td><span style="color: green"> Accept </span> |<span style="color: red"> Reject</span></td>
-                                    <td><a href="#" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit">
-                                                <i class="fa fa-edit"></i>
-                                        </a>
-                                        <a href="#cmsModel" data-toggle="modal" data-id="#" class="link-black text-sm cmsModel" data-original-title="Preview"> 
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-                                        
-                                        <a href="#deleteModel" data-toggle="modal" data-id="1" class="link-black text-sm CompanyDelete" data-original-title="Delete">
-                                            <i class="fa fa-trash"></i>
-                                        </a></td>
-                                </tr>
-                                
-                                
-                                
-                                <tr class="gradeU">
-                                    <td>758478</td>
-                                    <td>The Star</td>
-                                    <td>30/04/2018</td>
-                                    <td>Premium</td>
-                                    <td>Renewal Subscription</td>
-                                    <td>Visa</td>
-                                    <td><span style="color: green"> Accept </span> |<span style="color: red"> Reject</span></td>
-                                    <td><a href="#" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit">
-                                                <i class="fa fa-edit"></i>
-                                        </a>
-                                        <a href="#cmsModel" data-toggle="modal" data-id="#" class="link-black text-sm cmsModel" data-original-title="Preview"> 
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-                                        
-                                        <a href="#deleteModel" data-toggle="modal" data-id="1" class="link-black text-sm CompanyDelete" data-original-title="Delete">
-                                            <i class="fa fa-trash"></i>
-                                        </a></td>
-                                </tr>
-                                
-                                <tr class="gradeU">
-                                    <td>748478</td>
-                                    <td>All Company</td>
-                                    <td>21/12/2018</td>
-                                    <td>Pro</td>
-                                    <td>New</td>
-                                    <td>Free Trial</td>
-                                    <td><span style="color: green"> Accept </span> |<span style="color: red"> Reject</span></td>
-                                    <td><a href="#" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit">
-                                                <i class="fa fa-edit"></i>
-                                        </a>
-                                        <a href="#cmsModel" data-toggle="modal" data-id="#" class="link-black text-sm cmsModel" data-original-title="Preview"> 
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-                                        
-                                        <a href="#deleteModel" data-toggle="modal" data-id="1" class="link-black text-sm CompanyDelete" data-original-title="Delete">
-                                            <i class="fa fa-trash"></i>
-                                        </a></td>
-                                </tr>-->
                             </tbody>
                             
                         </table>
@@ -96,4 +35,45 @@
         </div>
     </div>
 </div>
+<div id="approveModel" class="modal fade" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12"><h3 class="m-t-none m-b">Delete Record</h3>
+                            <b>Are You sure want to approve order request ?</b><br/>
+                            <form role="form">
+                                <div>
+                                    <button class="btn btn-sm btn-primary pull-right m-l" data-dismiss="modal">Cancel</button>
+                                    <button class="btn btn-sm btn-danger pull-right yesapprove m-l" type="button"><strong><i class="fa fa-trash"></i> Approve </strong></button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="disapproveModel" class="modal fade" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12"><h3 class="m-t-none m-b">Delete Record</h3>
+                            <b>Are You sure want to reject order request ?</b><br/>
+                            <form role="form">
+                                <div>
+                                    <button class="btn btn-sm btn-primary pull-right m-l" data-dismiss="modal">Cancel</button>
+                                    <button class="btn btn-sm btn-danger pull-right yesreject m-l" type="button"><strong><i class="fa fa-trash"></i> Reject </strong></button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

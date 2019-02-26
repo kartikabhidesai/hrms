@@ -93,5 +93,6 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function() {
     
     /* Order  */
     Route::match(['get', 'post'], 'order-list', ['as' => 'order-list', 'uses' => 'Admin\OrderController@index']); 
+    Route::match(['get', 'post'], 'order-approved-list', ['as' => 'order-approved-list', 'uses' => 'Admin\OrderController@approved_list']); 
     Route::match(['get', 'post'], 'order-ajaxAction', ['as' => 'order-ajaxAction', 'uses' => 'Admin\OrderController@ajaxAction']); 
 });
