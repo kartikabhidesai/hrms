@@ -105,7 +105,7 @@
                             <div class="ibox-tools col-sm-6">
                                 <button class="btn btn-info pull-left changeStatus" value="approve" type="button">Approved </button> &nbsp;&nbsp;
                                 <button class="btn btn-danger pull-left changeStatus" value="reject" type="button"> Deny </button>
-                        </div>
+                            </div>
                         <table class="table table-striped table-bordered table-hover dataTables-example" id="timeChangeRequestDatatables">
                             <thead>
                                 <tr>

@@ -10,9 +10,45 @@
                     <div class="ibox-tools">
                             <a href="{{ route('add-task') }}" class="btn btn-primary dim" ><i class="fa fa-plus"> Add</i></a>
                     </div>
+                    
                 </div>
+                
                 <div class="ibox-content">
                     <div class="table-responsive">
+                        {{ Form::open( array('method' => 'post', 'class' => 'form-horizontal','files' => true, 'id' => 'filtter' )) }}
+                        <div class="ibox-tools col-sm-12">
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Priority</label>
+                                <div class="col-lg-10">
+                                    <select name="department" class="form-control">
+                                        <option value="">Select Employee</option>
+                                        <option value="1">High</option>
+                                        <option value="2">Low</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="ibox-tools col-sm-12">
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Status</label>
+                                <div class="col-lg-10">
+                                    <select name="department" class="form-control">
+                                        <option value="">Select Status</option>
+                                        <option value="1">Pending</option>
+                                        <option value="2">Proess</option>
+                                        <option value="3">Completed</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ibox-tools col-sm-12">
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label"></label>
+                                <button class="btn btn-sm btn-primary filler pull-left" style="margin-left: 15px;"type="button">Apply</button>
+                            </div>
+                        </div>
+                        {{ Form::close() }}
                         <table class="table table-striped table-bordered table-hover dataTables-example" id="tasktables">
                             <thead>
                                 <tr>

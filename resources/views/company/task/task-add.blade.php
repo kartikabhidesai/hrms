@@ -64,12 +64,12 @@
                             
                             
                             <div class="form-group">
-                                <label class="col-lg-2 control-label">Designation</label>
+                                <label class="col-lg-2 control-label">Priority</label>
                                 <div class="col-lg-10">
                                     <select name="department" class="form-control">
                                         <option value="">Select Employee</option>
-                                        <option value="1">Parthenon</option>
-                                        <option value="2">Max</option>
+                                        <option value="1">High</option>
+                                        <option value="2">Low</option>
                                     </select>
                                 </div>
                             </div>
