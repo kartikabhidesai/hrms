@@ -75,5 +75,6 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
 
 //    task-list
     Route::match(['get', 'post'], 'task-list', ['as' => 'task-list', 'uses' => 'Company\TaskController@index']);
+    Route::match(['get', 'post'], 'task-ajaxAction', ['as' => 'task-ajaxAction', 'uses' => 'Company\TaskController@ajaxAction']);
     Route::match(['get', 'post'], 'add-task', ['as' => 'add-task', 'uses' => 'Company\TaskController@addTask']);
 });

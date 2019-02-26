@@ -10,7 +10,6 @@
                     <div class="ibox-tools">
                             <a href="{{ route('add-task') }}" class="btn btn-primary dim" ><i class="fa fa-plus"> Add</i></a>
                     </div>
-                    
                 </div>
                 
                 <div class="ibox-content">
@@ -49,10 +48,10 @@
                             </div>
                         </div>
                         {{ Form::close() }}
-                        <table class="table table-striped table-bordered table-hover dataTables-example" id="tasktables">
+                        <table class="table table-striped table-bordered table-hover dataTables-example" id="taskTable">
                             <thead>
                                 <tr>
-                                    <th>Task ID</th>
+                                    <!-- <th>Task ID</th> -->
                                     <th>Task Name</th>
                                     <th>Assigned To</th>
                                     <th>Priority</th>
@@ -63,7 +62,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <!-- <tr>
                                     <td>1</td>
                                     <td>Design</td>
                                     <td>ABC</td>
@@ -85,7 +84,7 @@
                                     <td>AbcdefAbcdefAbcdef Abcdef Abcdef</td>
                                     <td>
                                         <a href="" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-eye"></i></a></td>
-                                </tr>
+                                </tr> -->
                             </tbody>
                         </table>
                     </div>

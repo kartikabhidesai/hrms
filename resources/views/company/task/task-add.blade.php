@@ -13,25 +13,22 @@
 					</div>
 				</div>
 				<div class="ibox-content">
-                    {{ Form::open( array('method' => 'post', 'class' => 'form-horizontal', 'id' => 'department-add' )) }}
+                    {{ Form::open( array('method' => 'post', 'class' => 'form-horizontal', 'id' => 'addTask' )) }}
                         <div class="col-lg-6">
                             
                             <div class="form-group">
                                 <label class="col-lg-2 control-label">Department</label>
                                 <div class="col-lg-10">
-                                    <select name="department" class="form-control">
-                                        <option value="">Select Department</option>
-                                        <option value="1">Web</option>
-                                        <option value="2">Mobile</option>
-                                    </select>
+                                    {{ Form::select('department', $department , null, array('placeholder'=>'Select Depatment', 'class' => 'form-control department', 'id' => 'department')) }}
                                 </div>
                             </div>
-                            
-                            
+
                             <div class="form-group">
                                 <label class="col-lg-2 control-label">Assign Date</label>
                                 <div class="col-lg-10">
-                                    <input type="text" class="form-control" name="assign_date">
+                                    <div class="input-group assign_date">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="assign_date" id="from_date" placeholder="Assign Date" class="form-control assign_date dateField" autocomplete="off" value="">
+                                    </div>
                                 </div>
                             </div> 
                             
@@ -45,20 +42,18 @@
 
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label class="col-lg-2 control-label">Designation</label>
+                                <label class="col-lg-2 control-label">Employee</label>
                                 <div class="col-lg-10">
-                                    <select name="department" class="form-control">
-                                        <option value="">Select Employee</option>
-                                        <option value="1">Parthenon</option>
-                                        <option value="2">Max</option>
-                                    </select>
+                                    {{ Form::select('employee', $employee , null, array('placeholder'=>'Select Employee', 'class' => 'form-control employee', 'id' => 'employee')) }}
                                 </div>
                             </div>
                             
                             <div class="form-group">
-                                <label class="col-lg-2 control-label">Assign Date</label>
-                                <div class="col-lg-10">
-                                    <input type="text" class="form-control" name="assign_date">
+                                <label class="col-lg-2 control-label">Deadline Date</label>
+                                <div class="col-lg-10"> 
+                                    <div class="input-group deadline_date">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="deadline_date" id="to_date" placeholder="Deadline Date" class="form-control deadline_date dateField" autocomplete="off" value="">
+                                    </div>
                                 </div>
                             </div> 
                             
@@ -66,10 +61,11 @@
                             <div class="form-group">
                                 <label class="col-lg-2 control-label">Priority</label>
                                 <div class="col-lg-10">
-                                    <select name="department" class="form-control">
-                                        <option value="">Select Employee</option>
-                                        <option value="1">High</option>
-                                        <option value="2">Low</option>
+                                    <select name="priority" class="form-control">
+                                        <option value="">Select Prority</option>
+                                        <option value="HIGH">High</option>
+                                        <option value="NORMAL">Normal</option>
+                                        <option value="LOW">Low</option>
                                     </select>
                                 </div>
                             </div>
@@ -78,7 +74,7 @@
                         <div class="form-group" style="margin-left: 1px;margin-right: 1px">
                                 <label class="col-lg-1 control-label">About Task</label>
                                 <div class="col-lg-11">
-                                    <textarea class="form-control" name="about_tS"></textarea>
+                                    <textarea class="form-control" name="about_task"></textarea>
                                 </div>
                         </div>
                         <div class="form-group" style="margin-left: 1px;margin-right: 1px">
@@ -90,7 +86,7 @@
                     <br>
                         <div class="form-group">
                             <div class="col-lg-offset-1 col-lg-10">
-                                <button class="btn btn-sm btn-primary" type="submit">Save Department</button>
+                                <button class="btn btn-sm btn-primary" type="submit">Save Task</button>
                             </div>
                         </div>
                     
