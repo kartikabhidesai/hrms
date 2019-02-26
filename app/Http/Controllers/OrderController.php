@@ -51,7 +51,7 @@ class OrderController extends Controller {
         
         $data['payment_type']=Config::get('constants.payment_type');
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
-        $data['js'] = array('order.js');
+        $data['js'] = array('order.js','jquery.form.min.js');
         $data['funinit'] = array('Order.init()');
         $data['css'] = array('');
         return view('front.order', $data);
