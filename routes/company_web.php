@@ -76,4 +76,7 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
 //    task-list
     Route::match(['get', 'post'], 'task-list', ['as' => 'task-list', 'uses' => 'Company\TaskController@index']);
     Route::match(['get', 'post'], 'add-task', ['as' => 'add-task', 'uses' => 'Company\TaskController@addTask']);
+
+    Route::match(['get', 'post'], 'sent-notification', ['as' => 'sent-notification', 'uses' => 'Company\NotificationController@sentNotification']);
+    Route::match(['get', 'post'], 'notification-list', ['as' => 'notification-list', 'uses' => 'Company\NotificationController@notificationList']);
 });

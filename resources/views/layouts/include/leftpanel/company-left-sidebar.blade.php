@@ -112,6 +112,10 @@ if (!empty(Auth()->guard('admin')->user())) {
                     <a href="{{ route('task-list') }}"><i class="fa fa-tasks"></i>
                     <span class="nav-label">Task List</span></a>
                 </li>
+                <li class="{{ ($currentRoute == 'sent-notification' || $currentRoute == 'notification-list' ? 'active' : '') }}">
+                    <a href="{{ route('sent-notification') }}"><i class="fa fa-bell"></i>
+                    <span class="nav-label">Notification</span></a>
+                </li>
                
             </ul>
         </div>
