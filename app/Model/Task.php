@@ -98,13 +98,78 @@ class Task extends Model
             $nestedData[] = $actionHtml;
             $data[] = $nestedData;
         }
-       // echo "<pre>";print_r($data);exit;
 
         $json_data = array(
-            "draw" => intval($requestData['draw']), // for every request/draw by clientside , they send a number as a parameter, when they recieve a response/data they first check the draw number, so we are sending same number in draw. 
-            "recordsTotal" => intval($totalData), // total number of records
-            "recordsFiltered" => intval($totalFiltered), // total number of records after searching, if there is no searching then totalFiltered = totalData
-            "data" => $data   // total data array
+            "draw" => intval($requestData['draw']),
+            "recordsTotal" => intval($totalData),
+            "recordsFiltered" => intval($totalFiltered),
+            "data" => $data
+        );
+        return $json_data;
+    }
+
+    public function getEmpTaskList($empId)
+    {
+        $requestData = $_REQUEST;
+        $columns = array(
+            // datatable column index  => database column name
+            0 => 'tasks.id',
+            1 => 'tasks.task',
+            2 => 'tasks.employee_id',
+            3 => 'tasks.priority',
+            4 => 'tasks.about_task',
+        );
+        $query = Task::where('tasks.employee_id',$empId);
+
+        if (!empty($requestData['search']['value'])) {
+            $searchVal = $requestData['search']['value'];
+            $query->where(function($query) use ($columns, $searchVal, $requestData) {
+                   $flag = 0;
+                   foreach ($columns as $key => $value) {
+                  $searchVal = $requestData['search']['value'];
+                  if ($requestData['columns'][$key]['searchable'] == 'true') {
+                      if ($flag == 0) {
+                          $query->where($value, 'like', '%' . $searchVal . '%');
+                          $flag = $flag + 1;
+                      } else {
+                          $query->orWhere($value, 'like', '%' . $searchVal . '%');
+                      }
+                  }
+                   }
+               });
+        }
+
+        $temp = $query->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir']);
+
+        $totalData = count($temp->get());
+        $totalFiltered = count($temp->get());
+
+        $resultArr = $query->skip($requestData['start'])
+                           ->take($requestData['length'])
+                           ->select('tasks.assign_date', 'tasks.deadline_date', 'tasks.task', 'tasks.priority', 'tasks.about_task')
+                           ->get();
+                           // print_r($resultArr);exit();
+        $data = array();
+
+        foreach ($resultArr as $key => $row) {
+          // $actionHtml = $request->input('gender');
+           $actionHtml = '<a href="#" class="link-black text-sm" data-toggle="tooltip" data-original-title="View" > <i class="fa fa-eye"></i></a>';
+            $nestedData = array();
+            // $nestedData[] = $key++;
+            $nestedData[] = $row["task"];
+            $nestedData[] = date('m/d/Y',strtotime($row["assign_date"]));
+            $nestedData[] = date('m/d/Y',strtotime($row["deadline_date"]));
+            $nestedData[] = $row["priority"];
+            $nestedData[] = $row["about_task"];
+            $nestedData[] = $actionHtml;
+            $data[] = $nestedData;
+        }
+
+        $json_data = array(
+            "draw" => intval($requestData['draw']),
+            "recordsTotal" => intval($totalData),
+            "recordsFiltered" => intval($totalFiltered),
+            "data" => $data
         );
         return $json_data;
     }

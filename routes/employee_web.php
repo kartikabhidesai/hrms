@@ -38,4 +38,8 @@ Route::group(['prefix' => $employeePrefix, 'middleware' => ['employee']], functi
     Route::match(['get', 'post'], 'emp-communication-detail/{id}', ['as' => 'emp-communication-detail/{id}', 'uses' => 'Employee\CommunicationController@empCommunicationDetail']);
     Route::match(['get', 'post'], 'empdownload-attachment/{file_name}', ['as' => 'empdownload-attachment/{file_name}', 'uses' => 'Employee\CommunicationController@downloadAttachment']);
     Route::match(['get', 'post'], 'emp-send-mail', ['as' => 'emp-send-mail', 'uses' => 'Employee\CommunicationController@sendMail']);
+
+    /*Tasks*/
+    Route::match(['get', 'post'], 'emp-task-list', ['as' => 'emp-task-list', 'uses' => 'Employee\TasksController@index']);
+    Route::match(['get', 'post'], 'emp-task-ajaxAction', ['as' => 'emp-task-ajaxAction', 'uses' => 'Employee\TasksController@ajaxAction']);
 });
