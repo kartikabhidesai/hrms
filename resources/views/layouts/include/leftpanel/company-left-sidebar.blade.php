@@ -107,6 +107,11 @@ if (!empty(Auth()->guard('admin')->user())) {
                     <a href="{{ route('communication') }}"><i class="fa fa-history"></i>
                     <span class="nav-label">Communication</span></a>
                 </li> 
+                
+                <li class="{{ ($currentRoute == 'add-task' || $currentRoute == 'task-list' ? 'active' : '') }}">
+                    <a href="{{ route('task-list') }}"><i class="fa fa-tasks"></i>
+                    <span class="nav-label">Task List</span></a>
+                </li>
                
             </ul>
         </div>
