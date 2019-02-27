@@ -40,9 +40,24 @@ class Task extends Model
         }
     }
 
-    public function getTaskList($companyId)
+    public function getTaskList($request, $companyId)
     {
         $requestData = $_REQUEST;
+        $data = $request->input('data');
+        
+         if($data['priority'] != NULL) {
+            $priority = $data['priority'];
+         } else {
+            $priority = ""; 
+         }
+
+         /*Don't remove this code as it's in-progress*/
+         /*if($data['status'] != NULL) {
+            $status = $data['to_date'];
+         } else {
+            $status = ""; 
+         }*/
+        
         $columns = array(
             // datatable column index  => database column name
             0 => 'tasks.id',
@@ -53,6 +68,14 @@ class Task extends Model
         );
         $query = Task::join('employee as emp','tasks.employee_id', '=', 'emp.id')
                       ->where('tasks.company_id',$companyId);
+                      if($priority){
+                        $query->where('tasks.priority', "=", $priority);
+                      }
+
+                      /*Don't remove this code as it's in-progress*/
+                      /*if($status !== NULL){
+                        $query->where('tasks.priority', "=", $status);
+                      }*/
 
         if (!empty($requestData['search']['value'])) {
             $searchVal = $requestData['search']['value'];

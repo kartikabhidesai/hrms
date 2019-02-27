@@ -1,7 +1,9 @@
 var Task = function () {
     
     var handleList = function () {
-        var dataArr = {};
+        var priority = $("#priority").val();
+        var status = $("#status").val();
+        var dataArr = {"priority" : priority, "status" : status};
         var columnWidth = {"width": "10%", "targets": 0};
 
         var arrList = {
@@ -21,8 +23,11 @@ var Task = function () {
         $('body').on('click', '.filler', function () {
             var priority = $('#priority option:selected').val();
             var status = $('#status option:selected').val();
-            var querystring = (priority == '' && typeof priority === 'undefined') ? '&priority=' : '&month=' + priority;
-            querystring += (status == '' && typeof year === 'undefined') ? '&year=' : '&status=' + status;
+            var querystring = (priority == '' && typeof priority === 'undefined') ? '&priority=' : '&priority=' + priority;
+            
+            /*Don't remove this code as it's in-progress*/
+            // querystring += (status == '' && typeof status === 'undefined') ? '&status=' : '&status=' + status;
+            
             location.href = baseurl + 'company/task-list?' + querystring;
         }); 
     }

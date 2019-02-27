@@ -21,26 +21,27 @@
                                 <div class="col-lg-10">
                                     <select name="department" id="priority" class="form-control priority">
                                         <option value="">Select Priority</option>
-                                        <option value="1">High</option>
-                                        <option value="2">Low</option>
+                                        <option value="HIGH" {{ ( $priority == 'HIGH' ? 'selected="selected"' : '') }}>High</option>
+                                        <option value="NORMAL" {{ ( $priority == 'NORMAL' ? 'selected="selected"' : '') }}>Normal</option>
+                                        <option value="LOW" {{ ( $priority == 'LOW' ? 'selected="selected"' : '') }}>Low</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="ibox-tools col-sm-12">
+                        <!-- <div class="ibox-tools col-sm-12">
                             <div class="form-group">
                                 <label class="col-lg-2 control-label">Status</label>
                                 <div class="col-lg-10">
                                     <select name="department" id="status" class="form-control status">
                                         <option value="">Select Status</option>
-                                        <option value="1">Pending</option>
-                                        <option value="2">Proess</option>
-                                        <option value="3">Completed</option>
+                                        <option value="PENDING">Pending</option>
+                                        <option value="PROCESS">Process</option>
+                                        <option value="COMPLETED">Completed</option>
                                     </select>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="ibox-tools col-sm-12">
                             <div class="form-group">
                                 <label class="col-lg-2 control-label"></label>

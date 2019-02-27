@@ -21,8 +21,18 @@ class TaskController extends Controller {
         $this->middleware('company');
     }
 
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
         $session = $request->session()->all();
+
+        $data['priority'] = "";
+        $data['status'] = "";
+        
+        if($request->method('get')){
+            $data['priority'] = $request->input('priority');
+            $data['status'] = $request->input('status');
+        }
+
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/task.js');
         $data['funinit'] = array('Task.init()');
@@ -32,6 +42,7 @@ class TaskController extends Controller {
             'breadcrumb' => array(
                 'Home' => route("company-dashboard"),
                 'Task List' => 'Task'));
+
         return view('company.task.task-list', $data);
     } 
     
@@ -81,12 +92,9 @@ class TaskController extends Controller {
                 $userID = $this->loginUser->id;
                 $companyId = Company::select('id')->where('user_id', $userID)->first();
                 $objEmploye = new Task();
-                $taskList = $objEmploye->getTaskList($companyId->id);
+                $taskList = $objEmploye->getTaskList($request, $companyId->id);
                 echo json_encode($taskList);
                 break;
-            /*case 'deleteLeave':
-                $result = $this->deleteLeave($request->input('data'));
-                break;*/
         }
     }
 
