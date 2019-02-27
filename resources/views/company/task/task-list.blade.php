@@ -19,8 +19,8 @@
                             <div class="form-group">
                                 <label class="col-lg-2 control-label">Priority</label>
                                 <div class="col-lg-10">
-                                    <select name="department" class="form-control">
-                                        <option value="">Select Employee</option>
+                                    <select name="department" id="priority" class="form-control priority">
+                                        <option value="">Select Priority</option>
                                         <option value="1">High</option>
                                         <option value="2">Low</option>
                                     </select>
@@ -32,7 +32,7 @@
                             <div class="form-group">
                                 <label class="col-lg-2 control-label">Status</label>
                                 <div class="col-lg-10">
-                                    <select name="department" class="form-control">
+                                    <select name="department" id="status" class="form-control status">
                                         <option value="">Select Status</option>
                                         <option value="1">Pending</option>
                                         <option value="2">Proess</option>

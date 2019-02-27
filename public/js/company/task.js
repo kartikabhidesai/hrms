@@ -17,6 +17,14 @@ var Task = function () {
             'setColumnWidth': columnWidth
         };
         getDataTable(arrList);
+        
+        $('body').on('click', '.filler', function () {
+            var priority = $('#priority option:selected').val();
+            var status = $('#status option:selected').val();
+            var querystring = (priority == '' && typeof priority === 'undefined') ? '&priority=' : '&month=' + priority;
+            querystring += (status == '' && typeof year === 'undefined') ? '&year=' : '&status=' + status;
+            location.href = baseurl + 'company/task-list?' + querystring;
+        }); 
     }
 
     var addTask = function(){
