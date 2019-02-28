@@ -207,6 +207,7 @@ class ManageTimeChangeRequest extends Model
                       'employee.department as department_id', 
                       'employee.name', 
                       'employee.date_of_birth', 
+                      'employee.date_of_joining', 
                       'time_change.status')->get();
         $data = array();
         
@@ -235,7 +236,7 @@ class ManageTimeChangeRequest extends Model
             $nestedData[] = $type_of_request[$row["request_type"]];
             $nestedData[] = $row["total_hours"];
             $nestedData[] = $row["request_description"];
-            $nestedData[] = date('M d, Y',strtotime($row["date_of_birth"]));
+            $nestedData[] = date('M d, Y',strtotime($row["date_of_joining"]));
 //            $nestedData[] = $statusHtml;
             $nestedData[] = $actionHtml;
             $data[] = $nestedData;

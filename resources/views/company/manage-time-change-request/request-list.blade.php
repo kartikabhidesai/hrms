@@ -118,7 +118,7 @@
                                     <th>Request Type</th>
                                     <th>Total Hours</th>
                                     <th>Request Description</th>
-                                    <th>DOB</th>
+                                    <th>DOJ</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
