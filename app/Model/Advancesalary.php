@@ -51,7 +51,7 @@ class Advancesalary extends Model
         $columns = array(
             // datatable column index  => database column name
             0 => 'advance_salary.name',
-            1 => 'advance_salary.department_name',            
+            1 => 'depart.department_name',            
             2 => 'advance_salary.date_of_submit',
             3 => 'advance_salary.comments',
             4 => 'advance_salary.status',
@@ -155,7 +155,7 @@ class Advancesalary extends Model
         $columns = array(
             // datatable column index  => database column name
             0 => 'advance_salary.name',
-            1 => 'advance_salary.department_name',            
+            1 => 'depart.department_name',            
             2 => 'advance_salary.date_of_submit',
             3 => 'advance_salary.comments',
             4 => 'advance_salary.status',
@@ -244,7 +244,7 @@ class Advancesalary extends Model
         $requestData = $_REQUEST;
         $columns = array(
             0 => 'advance_salary.name',
-            1 => 'advance_salary.department_name',            
+            1 => 'depart.department_name',            
             2 => 'advance_salary.date_of_submit',
             3 => 'advance_salary.updated_at',
             4 => 'advance_salary.comments',
