@@ -38,6 +38,9 @@ class TasksController extends Controller
                 $taskList = $objEmploye->getEmpTaskList($empId->id);
                 echo json_encode($taskList);
                 break;
+            case 'getTaskDetails':
+            print_r($request->all());exit();
+            break;
         }
     }
 }

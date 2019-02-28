@@ -171,20 +171,19 @@ class Task extends Model
                            ->take($requestData['length'])
                            ->select('tasks.assign_date', 'tasks.deadline_date', 'tasks.task', 'tasks.priority', 'tasks.about_task')
                            ->get();
-                           // print_r($resultArr);exit();
+                           
         $data = array();
 
         foreach ($resultArr as $key => $row) {
-          // $actionHtml = $request->input('gender');
-           $actionHtml = '<a href="#" class="link-black text-sm" data-toggle="tooltip" data-original-title="View" > <i class="fa fa-eye"></i></a>';
+           $viewTaskHtml = '<a href="#taskDetailsModel" class="taskDetailsModel" data-toggle="modal" data-id="'.$row['id'].'"  title="View Details" data-toggle="tooltip" data-original-title="View Details">View Details</a>';
+           $updateTaskHtml = '<a href="#updateTaskModel" class="updateTaskModel" data-toggle="modal" data-id="'.$row['id'].'"  title="Update" data-toggle="tooltip" data-original-title="Update">Update</a>';
             $nestedData = array();
-            // $nestedData[] = $key++;
             $nestedData[] = $row["task"];
             $nestedData[] = date('m/d/Y',strtotime($row["assign_date"]));
             $nestedData[] = date('m/d/Y',strtotime($row["deadline_date"]));
             $nestedData[] = $row["priority"];
-            $nestedData[] = $row["about_task"];
-            $nestedData[] = $actionHtml;
+            $nestedData[] = $viewTaskHtml;
+            $nestedData[] = $updateTaskHtml;
             $data[] = $nestedData;
         }
 

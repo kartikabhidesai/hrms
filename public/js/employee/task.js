@@ -19,6 +19,22 @@ var Task = function () {
         getDataTable(arrList);
     }
 
+    $('body').on('click', '.historyDetailsModel', function() {
+        var data = $(this).attr('data-id');
+        $.ajax({
+            type: "POST",
+            headers: {
+                'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+            },
+            url: baseurl + "employee/emp-task-ajaxAction",
+            data: {'action': 'getTaskDetails', 'data': data},
+            success: function(data) {
+                var  output = JSON.parse(data);
+                console.log(output);
+            }
+        });
+    });
+
     return {
         init: function () {
             handleList();

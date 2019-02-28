@@ -19,7 +19,7 @@
                                     <th>Assigned Date</th>
                                     <th>Deadline Date</th>
                                     <th>Priority</th>
-                                    <th>Task Info</th>
+                                    <th>View</th>
                                     <th>Update</th>
                                 </tr>
                             </thead>
@@ -33,4 +33,27 @@
         </div>
     </div>
 </div>
+
+<div id="taskDetailsModel" class="modal fade" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">View Task Details</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <form role="form">
+                        <button class="btn btn-sm btn-primary pull-right m-l" data-dismiss="modal">Close</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
