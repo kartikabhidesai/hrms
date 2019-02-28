@@ -132,7 +132,7 @@ class ComapnyController extends Controller {
         
         if ($request->isMethod('post')) {
             $objCompany = new Company();
-            $ret = $objCompany->editCompany($request);
+            $ret = $objCompany->editCompany($request,$data['detail']['user_id']);
 
             if ($ret) {
                 $return['status'] = 'success';
