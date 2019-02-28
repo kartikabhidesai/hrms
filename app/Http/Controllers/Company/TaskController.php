@@ -23,6 +23,7 @@ class TaskController extends Controller {
 
     public function index(Request $request)
     {
+        
         $session = $request->session()->all();
 
         $data['priority'] = "";
