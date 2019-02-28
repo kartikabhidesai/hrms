@@ -80,4 +80,7 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
 
     Route::match(['get', 'post'], 'sent-notification', ['as' => 'sent-notification', 'uses' => 'Company\NotificationController@sentNotification']);
     Route::match(['get', 'post'], 'notification-list', ['as' => 'notification-list', 'uses' => 'Company\NotificationController@notificationList']);
+
+    /*Calendar*/
+    Route::match(['get', 'post'], 'calendar', ['as' => 'calendar', 'uses' => 'Company\CalendarController@index']);
 });
