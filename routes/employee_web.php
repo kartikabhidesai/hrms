@@ -42,4 +42,7 @@ Route::group(['prefix' => $employeePrefix, 'middleware' => ['employee']], functi
     /*Tasks*/
     Route::match(['get', 'post'], 'emp-task-list', ['as' => 'emp-task-list', 'uses' => 'Employee\TasksController@index']);
     Route::match(['get', 'post'], 'emp-task-ajaxAction', ['as' => 'emp-task-ajaxAction', 'uses' => 'Employee\TasksController@ajaxAction']);
+    Route::match(['get', 'post'], 'emp-task-detail-download-attachment/{file_name}', ['as' => 'emp-task-detail-download-attachment/{file_name}', 'uses' => 'Employee\CommunicationController@downloadAttachment']);
+
+    
 });

@@ -7,14 +7,17 @@ use App\Http\Controllers\Controller;
 use App\Model\Task;
 use App\Model\Employee;
 
-class TasksController extends Controller
-{
+class TasksController extends Controller {
+
     public function __construct() {
         parent::__construct();
         $this->middleware('employee');
     }
 
     public function index(Request $request) {
+         if ($request->isMethod('post')) {
+             echo 'call'; exit;
+         }
         $session = $request->session()->all();
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('employee/task.js');
@@ -25,6 +28,7 @@ class TasksController extends Controller
             'breadcrumb' => array(
                 'Home' => route("employee-dashboard"),
                 'Task List' => 'Task List'));
+        $data['task_status']=['In_Progress','Pending','Complete'];
         return view('employee.task.task-list', $data);
     }
 
@@ -39,8 +43,15 @@ class TasksController extends Controller
                 echo json_encode($taskList);
                 break;
             case 'getTaskDetails':
-            print_r($request->all());exit();
-            break;
+               
+                $userID = $this->loginUser->id;
+                $empId = Employee::select('id')->where('user_id', $userID)->first();
+                $objEmploye = new Task();
+                $taskViewDetail = $objEmploye->getEmpviewTaskDetail($empId->id);
+                echo json_encode($taskViewDetail);
+                break;
+                
         }
     }
+
 }
