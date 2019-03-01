@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model {
 
+    protected $fillable = ['employee_id', 'task_status', 'complete_progress', 'emp_updated_file'];
+
     public function addTask($request, $companyId) {
         $objTask = new Task();
         $objTask->company_id = $companyId;
@@ -197,8 +199,24 @@ class Task extends Model {
     public function getEmpviewTaskDetail($Empid) {
 
 
-        $result = Task::select('task','file','about_task')->where('employee_id', $Empid)->first();
+        $result = Task::select('task', 'file', 'about_task')->where('employee_id', $Empid)->first();
         return $result;
+    }
+
+    public function updateTaskDetailEmp($request, $empid) {
+        
+        $objTask = Task::updateOrCreate([
+                    'employee_id' => $empid,
+                        ], [
+                    'complete_progress' => $request->complete_progress,
+                    'task_status' => $request->task_status
+        ]);
+
+        if ($objTask) {
+            return TRUE;
+        } else {
+            return false;
+        }
     }
 
 }

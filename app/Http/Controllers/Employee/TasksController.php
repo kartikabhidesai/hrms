@@ -15,9 +15,25 @@ class TasksController extends Controller {
     }
 
     public function index(Request $request) {
-         if ($request->isMethod('post')) {
-             echo 'call'; exit;
-         }
+
+        if ($request->isMethod('post')) {
+            $userID = $this->loginUser->id;
+            $empId = Employee::select('id')->where('user_id', $userID)->first();
+            $objEmploye = new Task();
+            $res = $objEmploye->updateTaskDetailEmp($request, $empId->id);
+
+            if ($res) {
+                $return['status'] = 'success';
+                $return['message'] = 'Task created successfully.';
+                $return['redirect'] = route('task-list');
+            } else {
+                $return['status'] = 'error';
+                $return['message'] = 'Somethin went wrong while creating new task!';
+            }
+            echo json_encode($return);
+
+            exit();
+        }
         $session = $request->session()->all();
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('employee/task.js');
@@ -28,7 +44,7 @@ class TasksController extends Controller {
             'breadcrumb' => array(
                 'Home' => route("employee-dashboard"),
                 'Task List' => 'Task List'));
-        $data['task_status']=['In_Progress','Pending','Complete'];
+        $data['task_status'] = ['In_Progress', 'Pending', 'Complete'];
         return view('employee.task.task-list', $data);
     }
 
@@ -43,14 +59,13 @@ class TasksController extends Controller {
                 echo json_encode($taskList);
                 break;
             case 'getTaskDetails':
-               
+
                 $userID = $this->loginUser->id;
                 $empId = Employee::select('id')->where('user_id', $userID)->first();
                 $objEmploye = new Task();
                 $taskViewDetail = $objEmploye->getEmpviewTaskDetail($empId->id);
                 echo json_encode($taskViewDetail);
                 break;
-                
         }
     }
 
