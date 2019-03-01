@@ -1,6 +1,8 @@
 var Calendar = function () {
     
     var handleList = function () {
+    	dateFormate('.date')
+
     	var date = new Date();
         var d = date.getDate();
         var m = date.getMonth();
@@ -67,6 +69,32 @@ var Calendar = function () {
                     url: 'http://google.com/'
                 }
             ]
+        });
+
+        $('body').on('click', '.newEventModel', function() {
+
+        	var form = $('#addNewEvent');
+		    var rules = {
+		        title: {required: true},
+		        notes: {required: true},
+		        date: {required: true},
+		    };
+
+        	var title = $('.title').val();
+        	var notes = $('.notes').val();
+        	var date = $('.event_date').val();
+        	
+        	$.ajax({
+	            type: "POST",
+	            headers: {
+	                'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+	            },
+	            url: baseurl + "company/calendar-ajaxAction",
+	            data: {'action': 'addNewEvent', 'title': title, 'notes': notes, 'date': date},
+	            success: function(data) {
+	            	handleAjaxResponse(data);
+        		}
+	        });
         });
 	}
 
