@@ -1,5 +1,5 @@
 var Task = function () {
-    
+
     var handleList = function () {
         var dataArr = {};
         var columnWidth = {"width": "10%", "targets": 0};
@@ -19,8 +19,9 @@ var Task = function () {
         getDataTable(arrList);
     }
 
-    $('body').on('click', '.historyDetailsModel', function() {
+    $('body').on('click', '.taskDetailsModel', function () {
         var data = $(this).attr('data-id');
+
         $.ajax({
             type: "POST",
             headers: {
@@ -28,16 +29,33 @@ var Task = function () {
             },
             url: baseurl + "employee/emp-task-ajaxAction",
             data: {'action': 'getTaskDetails', 'data': data},
-            success: function(data) {
-                var  output = JSON.parse(data);
+            success: function (data) {
+                var output = JSON.parse(data);
                 console.log(output);
+                $('.task').val(output.task);
+                $('.about_task').val(output.about_task);
             }
         });
     });
+    
 
+    var updateTask = function () {
+       var form = $('#updateTask');
+        var rules = {
+            complete_progress: {required: true},
+            task_status: {required: true},
+           
+        };
+        handleFormValidate(form, rules, function (form) {
+            handleAjaxFormSubmit(form, true);
+        });
+
+       
+    };
     return {
         init: function () {
             handleList();
+            updateTask();
         }
     }
 }();

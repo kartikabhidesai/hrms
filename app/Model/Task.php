@@ -4,60 +4,60 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Task extends Model
-{
-    public function addTask($request, $companyId)
-    {
-        $objTask = new Task();
-       	$objTask->company_id = $companyId;
-       	$objTask->department_id = $request->department;
-       	$objTask->employee_id = $request->employee;
-       	$objTask->assign_date = date('Y-m-d', strtotime($request->assign_date));
-       	$objTask->deadline_date = date('Y-m-d', strtotime($request->deadline_date));
-       	$objTask->task = $request->task;
-       	$objTask->priority = $request->priority;
-       	$objTask->about_task = $request->about_task;
+class Task extends Model {
 
-       	if($request->file()){
-       		$image = $request->file('file');
+    protected $fillable = ['employee_id', 'task_status', 'complete_progress', 'emp_updated_file'];
+
+    public function addTask($request, $companyId) {
+        $objTask = new Task();
+        $objTask->company_id = $companyId;
+        $objTask->department_id = $request->department;
+        $objTask->employee_id = $request->employee;
+        $objTask->assign_date = date('Y-m-d', strtotime($request->assign_date));
+        $objTask->deadline_date = date('Y-m-d', strtotime($request->deadline_date));
+        $objTask->task = $request->task;
+        $objTask->priority = $request->priority;
+        $objTask->about_task = $request->about_task;
+
+        if ($request->file()) {
+            $image = $request->file('file');
             $file = 'tasks' . time() . '.' . $image->getClientOriginalExtension();
             $destinationPath = public_path('/uploads/tasks/');
             if (!file_exists($destinationPath)) {
                 mkdir($destinationPath, 0777, true);
             }
             $image->move($destinationPath, $file);
-            $objTask->file = '/uploads/tasks/'.$file;
+            $objTask->file = '/uploads/tasks/' . $file;
         }
 
-       	$objTask->created_at = date('Y-m-d H:i:s');
+        $objTask->created_at = date('Y-m-d H:i:s');
         $objTask->updated_at = date('Y-m-d H:i:s');
         $objTask->save();
 
         if ($objTask) {
             return TRUE;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public function getTaskList($request, $companyId)
-    {
+    public function getTaskList($request, $companyId) {
         $requestData = $_REQUEST;
         $data = $request->input('data');
-        
-         if($data['priority'] != NULL) {
-            $priority = $data['priority'];
-         } else {
-            $priority = ""; 
-         }
 
-         /*Don't remove this code as it's in-progress*/
-         /*if($data['status'] != NULL) {
-            $status = $data['to_date'];
-         } else {
-            $status = ""; 
-         }*/
-        
+        if ($data['priority'] != NULL) {
+            $priority = $data['priority'];
+        } else {
+            $priority = "";
+        }
+
+        /* Don't remove this code as it's in-progress */
+        /* if($data['status'] != NULL) {
+          $status = $data['to_date'];
+          } else {
+          $status = "";
+          } */
+
         $columns = array(
             // datatable column index  => database column name
             0 => 'tasks.id',
@@ -66,33 +66,33 @@ class Task extends Model
             3 => 'tasks.priority',
             4 => 'tasks.about_task',
         );
-        $query = Task::join('employee as emp','tasks.employee_id', '=', 'emp.id')
-                      ->where('tasks.company_id',$companyId);
-                      if($priority){
-                        $query->where('tasks.priority', "=", $priority);
-                      }
+        $query = Task::join('employee as emp', 'tasks.employee_id', '=', 'emp.id')
+                ->where('tasks.company_id', $companyId);
+        if ($priority) {
+            $query->where('tasks.priority', "=", $priority);
+        }
 
-                      /*Don't remove this code as it's in-progress*/
-                      /*if($status !== NULL){
-                        $query->where('tasks.priority', "=", $status);
-                      }*/
+        /* Don't remove this code as it's in-progress */
+        /* if($status !== NULL){
+          $query->where('tasks.priority', "=", $status);
+          } */
 
         if (!empty($requestData['search']['value'])) {
             $searchVal = $requestData['search']['value'];
             $query->where(function($query) use ($columns, $searchVal, $requestData) {
-                   $flag = 0;
-                   foreach ($columns as $key => $value) {
-                  $searchVal = $requestData['search']['value'];
-                  if ($requestData['columns'][$key]['searchable'] == 'true') {
-                      if ($flag == 0) {
-                          $query->where($value, 'like', '%' . $searchVal . '%');
-                          $flag = $flag + 1;
-                      } else {
-                          $query->orWhere($value, 'like', '%' . $searchVal . '%');
-                      }
-                  }
-                   }
-               });
+                $flag = 0;
+                foreach ($columns as $key => $value) {
+                    $searchVal = $requestData['search']['value'];
+                    if ($requestData['columns'][$key]['searchable'] == 'true') {
+                        if ($flag == 0) {
+                            $query->where($value, 'like', '%' . $searchVal . '%');
+                            $flag = $flag + 1;
+                        } else {
+                            $query->orWhere($value, 'like', '%' . $searchVal . '%');
+                        }
+                    }
+                }
+            });
         }
 
         $temp = $query->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir']);
@@ -101,15 +101,15 @@ class Task extends Model
         $totalFiltered = count($temp->get());
 
         $resultArr = $query->skip($requestData['start'])
-                           ->take($requestData['length'])
-                           ->select('tasks.assign_date', 'tasks.deadline_date', 'tasks.task', 'tasks.priority', 'tasks.about_task', 'emp.name as emp_name')
-                           ->get();
-                           // print_r($resultArr);exit();
+                ->take($requestData['length'])
+                ->select('tasks.assign_date', 'tasks.deadline_date', 'tasks.task', 'tasks.priority', 'tasks.about_task', 'emp.name as emp_name')
+                ->get();
+        // print_r($resultArr);exit();
         $data = array();
 
         foreach ($resultArr as $key => $row) {
-          // $actionHtml = $request->input('gender');
-           $actionHtml = '<a href="#" class="link-black text-sm" data-toggle="tooltip" data-original-title="View" > <i class="fa fa-eye"></i></a>';
+            // $actionHtml = $request->input('gender');
+            $actionHtml = '<a href="#" class="link-black text-sm" data-toggle="tooltip" data-original-title="View" > <i class="fa fa-eye"></i></a>';
             $nestedData = array();
             // $nestedData[] = $key;
             $nestedData[] = $row["task"];
@@ -131,8 +131,7 @@ class Task extends Model
         return $json_data;
     }
 
-    public function getEmpTaskList($empId)
-    {
+    public function getEmpTaskList($empId) {
         $requestData = $_REQUEST;
         $columns = array(
             // datatable column index  => database column name
@@ -142,24 +141,24 @@ class Task extends Model
             3 => 'tasks.priority',
             4 => 'tasks.about_task',
         );
-        $query = Task::where('tasks.employee_id',$empId);
+        $query = Task::where('tasks.employee_id', $empId);
 
         if (!empty($requestData['search']['value'])) {
             $searchVal = $requestData['search']['value'];
             $query->where(function($query) use ($columns, $searchVal, $requestData) {
-                   $flag = 0;
-                   foreach ($columns as $key => $value) {
-                  $searchVal = $requestData['search']['value'];
-                  if ($requestData['columns'][$key]['searchable'] == 'true') {
-                      if ($flag == 0) {
-                          $query->where($value, 'like', '%' . $searchVal . '%');
-                          $flag = $flag + 1;
-                      } else {
-                          $query->orWhere($value, 'like', '%' . $searchVal . '%');
-                      }
-                  }
-                   }
-               });
+                $flag = 0;
+                foreach ($columns as $key => $value) {
+                    $searchVal = $requestData['search']['value'];
+                    if ($requestData['columns'][$key]['searchable'] == 'true') {
+                        if ($flag == 0) {
+                            $query->where($value, 'like', '%' . $searchVal . '%');
+                            $flag = $flag + 1;
+                        } else {
+                            $query->orWhere($value, 'like', '%' . $searchVal . '%');
+                        }
+                    }
+                }
+            });
         }
 
         $temp = $query->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir']);
@@ -168,19 +167,20 @@ class Task extends Model
         $totalFiltered = count($temp->get());
 
         $resultArr = $query->skip($requestData['start'])
-                           ->take($requestData['length'])
-                           ->select('tasks.assign_date', 'tasks.deadline_date', 'tasks.task', 'tasks.priority', 'tasks.about_task')
-                           ->get();
-                           
+                ->take($requestData['length'])
+                ->select('tasks.assign_date', 'tasks.deadline_date', 'tasks.task', 'tasks.priority', 'tasks.about_task', 'tasks.id')
+                ->get();
+
         $data = array();
 
         foreach ($resultArr as $key => $row) {
-           $viewTaskHtml = '<a href="#taskDetailsModel" class="taskDetailsModel" data-toggle="modal" data-id="'.$row['id'].'"  title="View Details" data-toggle="tooltip" data-original-title="View Details">View Details</a>';
-           $updateTaskHtml = '<a href="#updateTaskModel" class="updateTaskModel" data-toggle="modal" data-id="'.$row['id'].'"  title="Update" data-toggle="tooltip" data-original-title="Update">Update</a>';
+
+            $viewTaskHtml = '<a href="#taskDetailsModel" class="taskDetailsModel" data-toggle="modal" data-id="' . $row['id'] . '"  title="View Details" data-toggle="tooltip" data-original-title="View Details">View Details</a>';
+            $updateTaskHtml = '<a href="#updateTaskModel" class="updateTaskModel" data-toggle="modal" data-id="' . $row['id'] . '"  title="Update" data-toggle="tooltip" data-original-title="Update">Update</a>';
             $nestedData = array();
             $nestedData[] = $row["task"];
-            $nestedData[] = date('m/d/Y',strtotime($row["assign_date"]));
-            $nestedData[] = date('m/d/Y',strtotime($row["deadline_date"]));
+            $nestedData[] = date('m/d/Y', strtotime($row["assign_date"]));
+            $nestedData[] = date('m/d/Y', strtotime($row["deadline_date"]));
             $nestedData[] = $row["priority"];
             $nestedData[] = $viewTaskHtml;
             $nestedData[] = $updateTaskHtml;
@@ -195,4 +195,28 @@ class Task extends Model
         );
         return $json_data;
     }
+
+    public function getEmpviewTaskDetail($Empid) {
+
+
+        $result = Task::select('task', 'file', 'about_task')->where('employee_id', $Empid)->first();
+        return $result;
+    }
+
+    public function updateTaskDetailEmp($request, $empid) {
+        
+        $objTask = Task::updateOrCreate([
+                    'employee_id' => $empid,
+                        ], [
+                    'complete_progress' => $request->complete_progress,
+                    'task_status' => $request->task_status
+        ]);
+
+        if ($objTask) {
+            return TRUE;
+        } else {
+            return false;
+        }
+    }
+
 }

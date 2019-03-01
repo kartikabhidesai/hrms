@@ -155,7 +155,7 @@ class ManageTimeChangeRequest extends Model
             3 => 'time_change.date_of_submit',
             4 => 'time_change.from_date',
             5 => 'time_change.to_date',
-            6 => 'time_change.request_type',
+            6 => 'type_of_request.request_name',
             7 => 'time_change.total_hours',
             8 => 'time_change.request_description',
             9 => 'time_change.status'
@@ -169,6 +169,7 @@ class ManageTimeChangeRequest extends Model
           $query = ManageTimeChangeRequest::from('time_change_requests as time_change')
                 ->join('employee', 'time_change.employee_id', '=', 'employee.id')
                 ->join('department as depart', 'employee.department', '=', 'depart.id')
+                ->leftjoin('type_of_request', 'time_change.request_type', '=', 'type_of_request.id')
                 ->where('time_change.company_id',$companyId);
 
          if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
@@ -206,6 +207,7 @@ class ManageTimeChangeRequest extends Model
                       'employee.department as department_id', 
                       'employee.name', 
                       'employee.date_of_birth', 
+                      'employee.date_of_joining', 
                       'time_change.status')->get();
         $data = array();
         
@@ -234,7 +236,7 @@ class ManageTimeChangeRequest extends Model
             $nestedData[] = $type_of_request[$row["request_type"]];
             $nestedData[] = $row["total_hours"];
             $nestedData[] = $row["request_description"];
-            $nestedData[] = date('M d, Y',strtotime($row["date_of_birth"]));
+            $nestedData[] = date('M d, Y',strtotime($row["date_of_joining"]));
 //            $nestedData[] = $statusHtml;
             $nestedData[] = $actionHtml;
             $data[] = $nestedData;

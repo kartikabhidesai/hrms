@@ -138,17 +138,30 @@ class Company extends Model
         return $json_data;
     }
     
-    public function editCompany($request)
+    public function editCompany($request,$userId)
     {
         //Find unique company/user
-        $findCompany = Company::where('email', $request->input('email'))->first();
-        $findUser = Users::where('email', $request->input('email'))->first();
+        $findCompany = Company::where('id','!=', $request->input('edit_id'))->where('email', $request->input('email'))->first();
+        $findUser = Users::where('id','!=', $userId)->where('email', $request->input('email'))->first();
         if($findCompany || $findUser) {
             $return['message'] = 'This email is already registerd!';
             return $return['message'];
         }
         $name = '';
         $objCompany = Company::find($request->input('edit_id'));
+
+         if($request->file()) {
+            $image = $request->file('company_image');
+            $name = 'admin'.time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/uploads/client/');
+            $image->move($destinationPath, $name);  
+
+            $existImage = public_path('/uploads/client/').$objCompany->company_image;
+            if (File::exists($existImage)) { // unlink or remove previous company image from folder
+                File::delete($existImage);
+            }
+        }
+        
         /*find & update user with email, image*/
         $updateUser = Users::where('email', $objCompany->email)->first();
         $updateUser->name = $request->input('company_name');
@@ -159,18 +172,6 @@ class Company extends Model
         $updateUser->user_image = $name;
         $updateUser->updated_at = date('Y-m-d H:i:s');
         $updateUser->save();
-
-        if($request->file()) {
-            $image = $request->file('company_image');
-            $name = 'admin'.time().'.'.$image->getClientOriginalExtension();
-            $destinationPath = public_path('/uploads/admin/company');
-            $image->move($destinationPath, $name);  
-
-            $existImage = public_path('/uploads/admin/company/').$objCompany->company_image;
-            if (File::exists($existImage)) { // unlink or remove previous company image from folder
-                File::delete($existImage);
-            }
-        }
         
         $objCompany->company_name = $request->input('company_name');
         $objCompany->email = $request->input('email');
