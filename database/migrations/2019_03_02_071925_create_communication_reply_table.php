@@ -19,11 +19,11 @@ class CreateCommunicationReplyTable extends Migration
             $table->integer('employee_id');
             $table->integer('company_id');
             $table->Text('message');
-            $table->string('file')->after('message')->nullable();
-            $table->string('subject')->after('file')->nullable();
+            $table->string('file')->nullable();
+            $table->string('subject')->nullable();
             $table->integer('is_read');
             $table->timestamps();
-            $table->string('from')->after('subject')->nullable();
+            $table->string('from')->nullable();
         });
     }
 
