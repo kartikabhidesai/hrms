@@ -184,6 +184,7 @@ class Task extends Model {
             $nestedData[] = date('m/d/Y', strtotime($row["assign_date"]));
             $nestedData[] = date('m/d/Y', strtotime($row["deadline_date"]));
             $nestedData[] = $row["priority"];
+             $nestedData[] = $row["about_task"];
             $nestedData[] = $viewTaskHtml;
             $nestedData[] = $updateTaskHtml;
             $data[] = $nestedData;

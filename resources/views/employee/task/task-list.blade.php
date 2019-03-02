@@ -19,6 +19,7 @@
                                     <th>Assigned Date</th>
                                     <th>Deadline Date</th>
                                     <th>Priority</th>
+                                    <th>Info</th>
                                     <th>View</th>
                                     <th>Update</th>
                                 </tr>
