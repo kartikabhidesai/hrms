@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Employee;
 use App\Model\Company;
 use App\Model\Communication;
+use App\Model\CommunicationReply;
 use Auth;
 use Response;
 
@@ -46,17 +47,33 @@ class CommunicationController extends Controller
         $userid = $this->loginUser->id;
         $empId = Employee::select('id', 'company_id')->where('user_id', $userid)->first();
 
+        if(isset($request->communication_id) && $request->communication_id != '' && $request->isMethod('get'))
+        {
+            $data['communication_id'] = $request->communication_id;
+        }
+
         if ($request->isMethod('post')) {
-            $objCommunication = new Communication();
-            $result = $objCommunication->addNewCommunicationEmp($request, $empId->company_id, $empId->id);
-            if ($result) {
-                $return['status'] = 'success';
-                $return['message'] = 'New Communication Email sent successfully.';
-                $return['redirect'] = route('emp-communication');
-            } else {
-                $return['status'] = 'error';
-                $return['message'] = 'Something goes to wrong';
+
+            if(isset($request->communication_id) && $request->communication_id)
+            {
+                $objCommunication = new CommunicationReply();
+                $result = $objCommunication->addNewCommunicationReplyEmp($request, $empId->company_id, $empId->id);
             }
+            else
+            {
+                $objCommunication = new Communication();
+                $result = $objCommunication->addNewCommunicationEmp($request, $empId->company_id, $empId->id);
+            }
+
+            if ($result) {
+                    $return['status'] = 'success';
+                    $return['message'] = 'New Communication Email sent successfully.';
+                    $return['redirect'] = route('emp-communication');
+                } else {
+                    $return['status'] = 'error';
+                    $return['message'] = 'Something goes to wrong';
+                }
+
             echo json_encode($return);
             exit;
         }
@@ -72,6 +89,7 @@ class CommunicationController extends Controller
                 'Communcation' => route("emp-communication"),
                 'Compose' => 'Compose'));
 
+        // echo "<pre>"; print_r($data); exit();
         return view('employee.communication.compose', $data);
     }
 

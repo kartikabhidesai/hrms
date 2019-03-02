@@ -116,6 +116,7 @@ class Communication extends Model
         $findCommunication = Communication::select('comapnies.email', 'communication.id', 'communication.employee_id', 'communication.message', 'communication.file', 'communication.is_read', 'communication.subject', 'communication.created_at')
                                         ->join('comapnies', 'communication.company_id', '=', 'comapnies.id')
                                         ->where('communication.employee_id', $empId)
+                                        ->where('communication.id', $id)
                                         ->first();
 
         if($findCommunication) {
