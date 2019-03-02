@@ -270,6 +270,18 @@ class Employee extends Model {
         return TRUE;
     }
 
+    public function editBankDetails($postData) {
+        
+        $objEmployee = Employee::find($postData['id']);
+        $objEmployee->account_holder_name = $postData['account_holder_name'];
+        $objEmployee->account_number = $postData['account_number'];
+        $objEmployee->bank_name = $postData['bank_name'];
+        $objEmployee->branch = $postData['branch'];
+        $objEmployee->updated_at = date('Y-m-d H:i:s');
+        $objEmployee->save();
+        return TRUE;
+    }
+
     public function updateEmpId($empId, $userId) {
         $objEmployee = Employee::find($empId);
         $objEmployee->user_id = $userId;

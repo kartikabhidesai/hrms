@@ -162,6 +162,27 @@ class PayrollController extends Controller {
             
             case 'deletePayroll':
                 $result = $this->deletePayroll($request->input('data'));
+                break; 
+            case 'getBankDetails':
+                $postData = $request->input('data');
+                $empDetail = Employee::find($postData['id']);
+                echo json_encode($empDetail);exit;
+                break;
+            case 'saveBankDetails':
+                $objEmployee = new Employee();
+                $result = $objEmployee->editBankDetails($request->input('data'));
+                if ($result) {
+                        $return['status'] = 'success';
+                        $return['message'] = 'Bank Details updated successfully.';
+                        $return['jscode'] = "setTimeout(function(){
+                                $('#updateBankModel').modal('hide');
+                            },1000)";
+                } else {
+                    $return['status'] = 'error';
+                    $return['message'] = 'Something will be wrong.';
+                }
+                echo json_encode($return);
+                exit;
                 break;
         }
     }

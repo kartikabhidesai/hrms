@@ -94,8 +94,61 @@ var Payroll = function () {
 
         $('body').on('click', '.clearBtn', function () {
             location.href = baseurl + 'company/payroll-list';
+        });   
+        $('body').on('click', '.updateBankModel', function () {
+            var id = $(this).attr('data-id');
+            var dataArr = { _token: $('#_token').val(),'id':id};
+                $.ajax({
+                    type: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                    },
+                    url: baseurl + "company/payroll-ajaxAction",
+                    data: {'action': 'getBankDetails', 'data': dataArr},
+                    success: function(data) {
+                        var  output = JSON.parse(data);
+                        console.log(output)
+                        console.log(output.branch)
+                        $('.empId').val(output.id);
+                        $('.account_holder_name').val(output.account_holder_name);
+                        $('.account_number').val(output.account_number);
+                        $('.bank_name').val(output.bank_name);
+                        $('.branch').val(output.branch);
+                    }
+                });
         });
 
+         $('#updateBank').validate({
+             rules: {
+                account_holder_name: {required: true},
+                account_number: {required: true},
+                bank_name: {required: true},
+                branch: {required: true},
+            },
+            messages: {},
+            errorPlacement: function(error, element) {
+            },
+            submitHandler: function(form) {
+                var account_holder_name = $('.account_holder_name').val();
+                var account_number = $('.account_number').val();
+                var bank_name = $('.bank_name').val();
+                var branch = $('.branch').val();
+                var id = $('.empId').val();
+                var dataArr = {'account_holder_name': account_holder_name, 'account_number': account_number,
+                    'bank_name': bank_name, 'branch': branch,_token: $('#_token').val(),'id':id};
+                $.ajax({
+                    type: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                    },
+                    url: baseurl + "company/payroll-ajaxAction",
+                    data: {'action': 'saveBankDetails', 'data': dataArr},
+                    success: function(data) {
+                        handleAjaxResponse(data);
+                    }
+                });
+            }
+        });
     }
     return {
         init: function () {
