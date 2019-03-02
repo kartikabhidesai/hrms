@@ -62,15 +62,15 @@
                                     <td class="check-mail">
                                         <!-- <div class="icheckbox_square-green checked" style="position: relative;"><input type="checkbox" class="i-checks" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> -->
                                     </td>
-                                    <td class="mail-ontact"><a href="#">{{ $emailList->name }}</a></td>
-                                    <td class="mail-subject"><a href="#">{{ $emailList->subject ? $emailList->subject : strip_tags($emailList->message) }}</a></td>
-                                    @if($emailList->file)
+                                    <td class="mail-ontact"><a href="#">{{ $emailList['name'] }}</a></td>
+                                    <td class="mail-subject"><a href="#">{{ $emailList['subject'] ? $emailList['subject'] : strip_tags($emailList['message']) }}</a></td>
+                                    @if($emailList['file'])
                                         <td class=""><i class="fa fa-paperclip"></i></td>
                                     @else
                                         <td class=""></td>
                                     @endif
-                                    <td class="text-right mail-date">{{ date('Y-m-d H:i A', strtotime($emailList->created_at)) }}</td>
-                                    <input type="hidden" name="mail_id" value="{{ $emailList->id }}">
+                                    <td class="text-right mail-date">{{ date('Y-m-d H:i A', strtotime($emailList['created_at'])) }}</td>
+                                    <input type="hidden" name="mail_id" value="{{ $emailList['id'] }}">
                                 </tr>
                             @endforeach
                         @else

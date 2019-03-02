@@ -33,10 +33,17 @@ class CommunicationController extends Controller
                 'Communcation' => 'Communcation'));
 
         $communicationobj = new Communication();
+        $communicationreplyobj = new CommunicationReply();
         $userData = Auth::guard('employee')->user();
         $getAuthEmpId = Employee::where('email', $userData->email)->first();
         $logedEmpId = $getAuthEmpId->id; 
-        $data['empMails'] = $communicationobj->employeeEmailsForCommunication($logedEmpId);
+        $empMails = $communicationobj->employeeEmailsForCommunication($logedEmpId);
+        $empReplyMails = $communicationreplyobj->employeeEmailsForCommunicationReply($logedEmpId);
+
+        $empMails = $empMails ? $empMails->toArray() : [];
+        $empReplyMails = $empReplyMails ? $empReplyMails->toArray() : [];
+
+        $data['empMails'] = array_merge($empMails,$empReplyMails);
         
         return view('employee.communication.communication', $data);
     }
@@ -54,7 +61,7 @@ class CommunicationController extends Controller
 
         if ($request->isMethod('post')) {
 
-            if(isset($request->communication_id) && $request->communication_id)
+            if(isset($request->communication_id) && $request->communication_id != '')
             {
                 $objCommunication = new CommunicationReply();
                 $result = $objCommunication->addNewCommunicationReplyEmp($request, $empId->company_id, $empId->id);
@@ -114,8 +121,17 @@ class CommunicationController extends Controller
        
         $getAuthEmployeeId = Employee::where('email', $userData->email)->first();
         $logedEmpId = $getAuthEmployeeId->id;
-        $communicationobj = new Communication();
-        $data['empMailDetail'] = $communicationobj->employeeEmailCommunicationDetail($logedEmpId, $id);
+
+        if($request->communication_table == 'communication')
+        {
+            $communicationobj = new Communication();
+            $data['empMailDetail'] = $communicationobj->employeeEmailCommunicationDetail($logedEmpId, $id);
+        }
+        else
+        {
+            $communicationreplyobj = new CommunicationReply();
+            $data['empMailDetail'] = $communicationreplyobj->employeeEmailCommunicationReplyDetail($logedEmpId, $id);
+        }
         
         return view('employee.communication.communication-detail', $data);
     }
@@ -152,11 +168,18 @@ class CommunicationController extends Controller
                 'Communcation' => 'Communcation'));
 
         $communicationobj = new Communication();
+        $communicationreplyobj = new CommunicationReply();
         $userData = Auth::guard('employee')->user();
         $getAuthEmpId = Employee::where('email', $userData->email)->first();
         $logedEmpId = $getAuthEmpId->id; 
-        $data['empMails'] = $communicationobj->sendEmployeeEmails($logedEmpId);
+        $empMails = $communicationobj->sendEmployeeEmails($logedEmpId);
+        $empReplyMails = $communicationreplyobj->sendEmployeeEmails($logedEmpId);
         
+        $empMails = $empMails ? $empMails->toArray() : [];
+        $empReplyMails = $empReplyMails ? $empReplyMails->toArray() : [];
+
+        $data['empMails'] = array_merge($empMails,$empReplyMails);
+
         return view('employee.communication.send-communication', $data);
     }
 }
