@@ -85,15 +85,16 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Update Task Details</h4>
             </div>
+            {{ Form::open( array('method' => 'post','files' => true, 'class' => 'form-horizontal', 'id' => 'updateTask' )) }}
             <div class="modal-body">
                 <div class="row">
                     <div class="col-sm-12">
-                        {{ Form::open( array('method' => 'post','files' => true, 'class' => 'form-horizontal', 'id' => 'updateTask' )) }}
+                        
                         <div class="form-group">
 
                             <label class="col-sm-2 control-label">Complete Progress</label>
                             <div class="col-sm-9">
-                                <input type="text" name="complete_progress"  class="form-control">
+                                <input type="text" name="complete_progress" class="form-control complete_progress" id="complete_progress">
                             </div>
 
                         </div>
@@ -108,24 +109,21 @@
                             <div class="form-group" style="margin-left: 1px;margin-right: 1px">
                                 <label class="col-lg-2 control-label">Files</label>
                                 <div class="col-lg-9">
-                                    <input type="file" class="form-control" name="emp_updated_file">
+                                    <input type="file" class="form-control emp_updated_file" name="emp_updated_file" id="emp_updated_file">
+                                    <a href="javascript:;" target="_blank" name="fileName" class="fileName" id="fileName">View File</a>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="col-lg-offset-1 col-lg-10">
-                                <button class="btn btn-sm btn-primary pull-right updatetask" type="submit">Update</button>
-                            </div>
-                        </div>
-                        {{ Form::close() }}
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <form role="form">
-                    <button class="btn btn-sm btn-primary pull-right m-l" data-dismiss="modal">Close</button>
+                    <button class="btn btn-sm btn-default pull-right m-l " data-dismiss="modal">Close</button>
+                    <button class="btn btn-sm btn-primary pull-right updatetask m-l" type="submit">Update</button>
                 </form>
             </div>
+            {{ Form::close() }}
         </div>
     </div>
 </div>

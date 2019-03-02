@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Task;
 use App\Model\Employee;
+use File;
 
 class TasksController extends Controller {
 
@@ -60,7 +61,6 @@ class TasksController extends Controller {
                 echo json_encode($taskList);
                 break;
             case 'getTaskDetails':
-
                 $userID = $this->loginUser->id;
                 $empId = Employee::select('id')->where('user_id', $userID)->first();
                 $objEmploye = new Task();

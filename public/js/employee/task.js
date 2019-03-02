@@ -31,9 +31,25 @@ var Task = function () {
             data: {'action': 'getTaskDetails', 'data': data},
             success: function (data) {
                 var output = JSON.parse(data);
-                console.log(output);
                 $('.task').val(output.task);
                 $('.about_task').val(output.about_task);
+            }
+        });
+    });  
+    $('body').on('click', '.updateTaskModel', function () {
+        var data = $(this).attr('data-id');
+        $.ajax({
+            type: "POST",
+            headers: {
+                'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+            },
+            url: baseurl + "employee/emp-task-ajaxAction",
+            data: {'action': 'getTaskDetails', 'data': data},
+            success: function (data) {
+                var output = JSON.parse(data);
+                $('.complete_progress').val(output.complete_progress);
+                $('.task_status').val(output.task_status);
+                $('.fileName').attr('href',baseurl +'/uploads/tasks/'+output.file);
             }
         });
     });

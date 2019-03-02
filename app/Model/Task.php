@@ -197,21 +197,23 @@ class Task extends Model {
     }
 
     public function getEmpviewTaskDetail($Empid) {
-
-
-        $result = Task::select('task', 'file', 'about_task')->where('employee_id', $Empid)->first();
+        $result = Task::select('task', 'file', 'about_task', 'complete_progress', 'file', 'task_status')->where('employee_id', $Empid)->first();
         return $result;
     }
 
     public function updateTaskDetailEmp($request, $empid) {
-        
-        $objTask = Task::updateOrCreate([
-                    'employee_id' => $empid,
-                        ], [
-                    'complete_progress' => $request->complete_progress,
-                    'task_status' => $request->task_status
-        ]);
-
+        $name = '';
+        if($request->file()){
+            $image = $request->file('emp_updated_file');
+            $name = 'tasks'.time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/uploads/tasks/');
+            $image->move($destinationPath, $name);    
+        }
+        $objTask = Task::firstOrNew(array('employee_id' =>$empid));
+        $objTask->file = $name;
+        $objTask->complete_progress = $request->complete_progress;
+        $objTask->task_status = $request->task_status;
+        $objTask->save();
         if ($objTask) {
             return TRUE;
         } else {
