@@ -442,11 +442,18 @@ class Employee extends Model {
     }
 
     //chetan creaated
-    public function getAllEmployeeofCompany($loggedIncmpid) {
-        $arrEmployee = Employee::select('employee.*', 'department.department_name')
-                ->where('employee.company_id', $loggedIncmpid)
-                ->join('department', 'employee.department', '=', 'department.id')
-                ->get();
+    public function getAllEmployeeofCompany($loggedIncmpid,  $department, $employee) {
+        $sql = Employee::select('employee.*', 'department.department_name')
+                ->join('department', 'employee.department', '=', 'department.id');
+        if(isset($department)  && $department > 0){
+            $sql->where('employee.department', $department);    
+        }
+        if(isset($employee) && $employee > 0){
+            $sql->where('employee.id', $employee);
+        }
+        
+        $arrEmployee =  $sql->where('employee.company_id', $loggedIncmpid)->get();         
+                    
 
         return $arrEmployee;
     }

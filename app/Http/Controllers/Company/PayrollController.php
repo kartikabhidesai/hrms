@@ -6,6 +6,7 @@ use App\User;
 use App\Model\Users;
 use App\Model\Employee;
 use App\Model\Company;
+use App\Model\Department;
 use App\Http\Controllers\Controller;
 use Auth;
 use Route;
@@ -22,18 +23,30 @@ class PayrollController extends Controller {
         $this->middleware('company');
     }
 
-    public function index() {
+    public function index(Request $request) {
         $data['detail'] = $this->loginUser;
         $data['header'] = array(
             'title' => 'Payroll Employee List',
             'breadcrumb' => array(
                 'Home' => route("admin-dashboard")));
-        $EmpObj = new Employee;
        
+        $data['departmentId'] = (empty($request->get('department'))) ? '' : $request->get('department');
+        $data['employeeId'] = (empty($request->get('employee'))) ? '' : $request->get('employee');
+        
+        $EmpObj = new Employee;
         $userid = $this->loginUser->id; 
         $companyId = Company::select('id')->where('user_id', $userid)->first();
-        $data['allemployee'] = $EmpObj->getAllEmployeeofCompany($companyId->id);
+        $data['allemployee'] = $EmpObj->getAllEmployeeofCompany($companyId->id, $data['departmentId'] , $data['employeeId']);
+        
+        $objDepart = new Department();
+        $data['department'] = $objDepart->getDepartment($companyId->id);   
 
+        $objEmployee = new Employee();
+        $data['employee'] = $objEmployee->getEmployee($companyId->id);
+        $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
+        $data['js'] = array('company/payroll.js');
+        $data['funinit'] = array('Payroll.init()');
+        $data['css'] = array('');
         return view('company.payroll.payroll-list', $data);
     }
 
