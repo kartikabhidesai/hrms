@@ -30,7 +30,7 @@ class Company extends Model
         if($request->file()){
             $image = $request->file('company_image');
             $name = 'admin'.time().'.'.$image->getClientOriginalExtension();
-            $destinationPath = public_path('/uploads/admin/company');
+            $destinationPath = public_path('/uploads/client');
             if (!file_exists($destinationPath)) {
                 File::makeDirectory($destinationPath, $mode = 0777, true, true);
             }
