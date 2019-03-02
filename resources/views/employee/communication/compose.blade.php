@@ -31,7 +31,12 @@
                     Compose mail
                 </h2>
             </div>
-            {{ Form::open(array('method' => 'post', 'class' => 'form-horizontal', 'id' => 'new_communication')) }}  
+            {{ Form::open(array('method' => 'post', 'class' => 'form-horizontal', 'id' => 'new_communication')) }} 
+
+                @if(isset($communication_id) && $communication_id != '')
+                    <input type="hidden" name="communication_id" value="{{$communication_id}}">
+                @endif
+
                 <div class="mail-box">
                     <div class="mail-body">
                         <form class="form-horizontal" method="get">
