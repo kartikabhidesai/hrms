@@ -44,29 +44,32 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-sm-12">
-                        <form>
-                            <div class="form-group">
-                                <div class="col-sm-12">
-                                    <label class="col-sm-2 control-label">Task</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" name="task" placeholder="Task" class="form-control task">
-                                    </div>
+                        {{ Form::open( array('method' => 'post','files' => true, 'class' => 'form-horizontal', 'id' => 'taskDetailsModel' )) }}
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <label class="col-sm-2 control-label">Task</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="task" placeholder="Task" class="form-control task">
                                 </div>
                             </div>
-                            <br>
-                            <br>
-                            <br>
-                            <div class="form-group">
-                                <div class="col-sm-12">
-                                    <label class="col-sm-2 control-label"> About Total </label>
-                                    <div class="col-sm-9">
-                                        <textarea name="about_task" class="form-control about_task"  rows="4" cols="4"></textarea>
-                                    </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <label class="col-sm-2 control-label"> About Total </label>
+                                <div class="col-sm-9">
+                                    <textarea name="about_task" class="form-control about_task"  rows="4" cols="4"></textarea>
                                 </div>
                             </div>
-
-
-                        </form> 
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <label class="col-sm-2 control-label"></label>
+                                <div class="col-sm-9">
+                                    <button class="btn btn-download"><a href="" target="_blank" name="fileName" class="fileName dwnltaskfile" id="fileName">Download</a></button>
+                                </div>
+                            </div>
+                        </div>
+                        {{ Form::close() }}
                     </div>
                 </div>
             </div>
@@ -89,7 +92,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-sm-12">
-                        
+
                         <div class="form-group">
 
                             <label class="col-sm-2 control-label">Complete Progress</label>

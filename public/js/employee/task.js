@@ -31,11 +31,14 @@ var Task = function () {
             data: {'action': 'getTaskDetails', 'data': data},
             success: function (data) {
                 var output = JSON.parse(data);
+                console.log(output);
                 $('.task').val(output.task);
                 $('.about_task').val(output.about_task);
+                $('.dwnltaskfile').attr('href', baseurl + '/uploads/tasks/' + output.file);
+
             }
         });
-    });  
+    });
     $('body').on('click', '.updateTaskModel', function () {
         var data = $(this).attr('data-id');
         $.ajax({
@@ -49,24 +52,24 @@ var Task = function () {
                 var output = JSON.parse(data);
                 $('.complete_progress').val(output.complete_progress);
                 $('.task_status').val(output.task_status);
-                $('.fileName').attr('href',baseurl +'/uploads/tasks/'+output.file);
+                $('.fileName').attr('href', baseurl + '/uploads/tasks/' + output.file);
             }
         });
     });
-    
+
 
     var updateTask = function () {
-       var form = $('#updateTask');
+        var form = $('#updateTask');
         var rules = {
             complete_progress: {required: true},
             task_status: {required: true},
-           
+
         };
         handleFormValidate(form, rules, function (form) {
             handleAjaxFormSubmit(form, true);
         });
 
-       
+
     };
     return {
         init: function () {
