@@ -24,8 +24,8 @@ class TasksController extends Controller {
             $res = $objEmploye->updateTaskDetailEmp($request, $empId->id);
             if ($res) {
                 $return['status'] = 'success';
-                $return['message'] = 'Task created successfully.';
-                $return['redirect'] = route('task-list');
+                $return['message'] = 'Task updated successfully.';
+                $return['redirect'] = route('emp-task-list');
             } else {
                 $return['status'] = 'error';
                 $return['message'] = 'Somethin went wrong while creating new task!';
