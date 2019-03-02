@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Config;
 
 class Task extends Model {
 
@@ -102,22 +103,23 @@ class Task extends Model {
 
         $resultArr = $query->skip($requestData['start'])
                 ->take($requestData['length'])
-                ->select('tasks.assign_date', 'tasks.deadline_date', 'tasks.task', 'tasks.priority', 'tasks.about_task', 'emp.name as emp_name')
+                ->select('tasks.assign_date', 'tasks.deadline_date', 'tasks.task_status', 'tasks.file', 'tasks.task', 'tasks.priority','tasks.complete_progress', 'tasks.about_task', 'tasks.emp_updated_file','tasks.task_status', 'emp.name as emp_name')
                 ->get();
         // print_r($resultArr);exit();
         $data = array();
 
+        $task_status = Config::get('constants.task_status');
         foreach ($resultArr as $key => $row) {
             // $actionHtml = $request->input('gender');
             $actionHtml = '<a href="#" class="link-black text-sm" data-toggle="tooltip" data-original-title="View" > <i class="fa fa-eye"></i></a>';
             $nestedData = array();
-            // $nestedData[] = $key;
             $nestedData[] = $row["task"];
             $nestedData[] = $row["emp_name"];
             $nestedData[] = $row["priority"];
-            $nestedData[] = 'Pending';
-            $nestedData[] = '100%';
+            $nestedData[] = $task_status[$row["task_status"]];
+            $nestedData[] = $row["complete_progress"].'%';
             $nestedData[] = $row["about_task"];
+            $nestedData[] = '<a target="_blank" href="'. '/uploads/tasks/'. $row["emp_updated_file"] .'">View File</a>';
             $nestedData[] = $actionHtml;
             $data[] = $nestedData;
         }
@@ -197,7 +199,7 @@ class Task extends Model {
     }
 
     public function getEmpviewTaskDetail($Empid) {
-        $result = Task::select('task', 'file', 'about_task', 'complete_progress', 'file', 'task_status')->where('employee_id', $Empid)->first();
+        $result = Task::select('task', 'file', 'about_task', 'complete_progress','emp_updated_file', 'file', 'task_status')->where('employee_id', $Empid)->first();
         return $result;
     }
 
@@ -205,12 +207,12 @@ class Task extends Model {
         $name = '';
         if($request->file()){
             $image = $request->file('emp_updated_file');
-            $name = 'tasks'.time().'.'.$image->getClientOriginalExtension();
+            $name = 'emp_tasks_'.time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/uploads/tasks/');
             $image->move($destinationPath, $name);    
         }
-        $objTask = Task::firstOrNew(array('employee_id' =>$empid));
-        $objTask->file = $name;
+        $objTask = Task::firstOrNew(array('employee_id' => $empid));
+        $objTask->emp_updated_file = $name;
         $objTask->complete_progress = $request->complete_progress;
         $objTask->task_status = $request->task_status;
         $objTask->save();

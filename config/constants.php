@@ -94,6 +94,12 @@ return [
         '4'=>'Master', 
         '5'=>'Rupay',
     ],
+  
+    'task_status'=>[
+        '0'=>'In Progress',
+        '1'=>'Pending', 
+        '2'=>'Complete',
+    ],
 
     'ClientPath' => public_path() . '/uploads/client/',
     'EmployeePath' => public_path() . '/uploads/employee/',

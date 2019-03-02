@@ -59,6 +59,7 @@
                                     <th>Status</th>
                                     <th>Complete Progress</th>
                                     <th>Info</th>
+                                    <th>Emoloyee File</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>

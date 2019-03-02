@@ -49,7 +49,7 @@ var Task = function () {
                 var output = JSON.parse(data);
                 $('.complete_progress').val(output.complete_progress);
                 $('.task_status').val(output.task_status);
-                $('.fileName').attr('href',baseurl +'/uploads/tasks/'+output.file);
+                $('.fileName').attr('href',baseurl +'/uploads/tasks/'+output.emp_updated_file);
             }
         });
     });
@@ -58,7 +58,7 @@ var Task = function () {
     var updateTask = function () {
        var form = $('#updateTask');
         var rules = {
-            complete_progress: {required: true},
+            complete_progress: {required: true,number:true},
             task_status: {required: true},
            
         };
