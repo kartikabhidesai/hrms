@@ -83,6 +83,19 @@ var Payroll = function () {
             });
         });
 
+        $('body').on('click', '.applyBtn', function () {
+            var department = $('#department option:selected').val();
+            var employee = $('#employee option:selected').val();
+            var querystring = (department == '' && typeof department === 'undefined') ? 'department=' : 'department=' + department;
+            querystring += (employee == '' && typeof employee === 'undefined') ? '&employee=' : '&employee=' + employee;
+            location.href = baseurl + 'company/payroll-list?' + querystring;
+
+        });
+
+        $('body').on('click', '.clearBtn', function () {
+            location.href = baseurl + 'company/payroll-list';
+        });
+
     }
     return {
         init: function () {
