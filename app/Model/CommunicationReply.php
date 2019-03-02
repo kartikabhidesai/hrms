@@ -71,7 +71,7 @@ class CommunicationReply extends Model
 
     public function employeeEmailsForCommunicationReply($empId)
     {
-        $getListOfEmailOfEmp = CommunicationReply::select('comapnies.company_name', 'communication_reply.id', 'communication_reply.employee_id', 'communication_reply.message', 'communication_reply.file', 'communication_reply.is_read', 'communication_reply.subject', 'communication_reply.created_at')
+        $getListOfEmailOfEmp = CommunicationReply::select('comapnies.company_name', 'communication_reply.id', 'communication_reply.employee_id', 'communication_reply.message', 'communication_reply.file', 'communication_reply.is_read', 'communication_reply.subject', 'communication_reply.created_at',DB::raw('"communication_reply" as communication_table'))
                                         ->join('comapnies', 'communication_reply.company_id', '=', 'comapnies.id')
                                         ->where('communication_reply.employee_id', $empId)
                                         ->where('communication_reply.from', 'COMPANY')
@@ -86,7 +86,7 @@ class CommunicationReply extends Model
 
     public function companyEmailsForCommunicationReply($cmpId)
     {
-        $getListOfEmailOfCmp = CommunicationReply::select('employee.name', 'communication_reply.id', 'communication_reply.employee_id', 'communication_reply.message', 'communication_reply.file', 'communication_reply.is_read', 'communication_reply.subject', 'communication_reply.created_at')
+        $getListOfEmailOfCmp = CommunicationReply::select('employee.name','communication_reply.communication_id','communication_reply.id', 'communication_reply.employee_id', 'communication_reply.message', 'communication_reply.file', 'communication_reply.is_read', 'communication_reply.subject', 'communication_reply.created_at',DB::raw('"communication_reply" as communication_table'))
                                         ->join('employee', 'communication_reply.employee_id', '=', 'employee.id')
                                         ->where('communication_reply.company_id', $cmpId)
                                         ->where('communication_reply.from', 'EMPLOYEE')
@@ -101,7 +101,7 @@ class CommunicationReply extends Model
 
     public function companyEmailCommunicationReplyDetail($cmpId, $id)
     {
-        $findCommunication = CommunicationReply::select('employee.email', 'communication_reply.id', 'communication_reply.employee_id', 'communication_reply.message', 'communication_reply.file', 'communication_reply.is_read', 'communication_reply.subject', 'communication_reply.created_at')
+        $findCommunication = CommunicationReply::select('employee.email','employee.name','communication_reply.communication_id','communication_reply.id', 'communication_reply.employee_id', 'communication_reply.message', 'communication_reply.file', 'communication_reply.is_read', 'communication_reply.subject', 'communication_reply.created_at',DB::raw('"communication_reply" as communication_table'))
                                         ->join('employee', 'communication_reply.employee_id', '=', 'employee.id')
                                         ->where('communication_reply.id', $id)
                                         ->first();
@@ -115,7 +115,7 @@ class CommunicationReply extends Model
 
     public function employeeEmailCommunicationReplyDetail($empId, $id)
     {
-        $findCommunication = CommunicationReply::select('comapnies.email', 'communication_reply.id', 'communication_reply.employee_id', 'communication_reply.message', 'communication_reply.file', 'communication_reply.is_read', 'communication_reply.subject', 'communication_reply.created_at')
+        $findCommunication = CommunicationReply::select('comapnies.email', 'communication_reply.id', 'communication_reply.employee_id', 'communication_reply.message', 'communication_reply.file', 'communication_reply.is_read', 'communication_reply.subject', 'communication_reply.created_at',DB::raw('"communication_reply" as communication_table'))
                                         ->join('comapnies', 'communication_reply.company_id', '=', 'comapnies.id')
                                         ->where('communication_reply.employee_id', $empId)
                                         ->where('communication_reply.id', $id)

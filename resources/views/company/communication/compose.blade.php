@@ -33,21 +33,31 @@
                 </h2>
             </div>
             {{ Form::open(array('method' => 'post', 'class' => 'form-horizontal', 'id' => 'new_communication')) }}  
+
+                @if(isset($communication_id) && $communication_id != '')
+                    <input type="hidden" name="communication_id" value="{{$communication_id}}">
+                @endif
+
                 <div class="mail-box">
                     <div class="mail-body">
                         <form class="form-horizontal" method="get">
                             <div class="form-group"><label class="col-sm-2 control-label">To:</label>
                                 <div class="col-sm-10">
-                                    <select class="form-control emp_id" name="emp_id">
-                                        @if($employeeList)
-                                            <option value="">Select employee</option>
-                                            @foreach($employeeList as $emp)
-                                                <option value="{{ $emp->id }}">{{ $emp->name }}</option>
-                                            @endforeach
-                                        @else
-                                            <option value="">No Employee present</option>
-                                        @endif
-                                    </select>
+                                    @if(isset($communication_id) && $communication_id != '')
+                                        <input type="hidden" name="emp_id" value="{{$employee_id}}">
+                                        <input class="form-control emp_id" type="text" name="emp_name" value="{{$employee_name}}" readonly="readonly">
+                                    @else
+                                        <select class="form-control emp_id" name="emp_id">
+                                            @if($employeeList)
+                                                <option value="">Select employee</option>
+                                                @foreach($employeeList as $emp)
+                                                    <option value="{{ $emp->id }}">{{ $emp->name }}</option>
+                                                @endforeach
+                                            @else
+                                                <option value="">No Employee present</option>
+                                            @endif
+                                        </select>
+                                    @endif
                                 </div>
                             </div>
                             <div class="form-group"><label class="col-sm-2 control-label">Subject:</label>

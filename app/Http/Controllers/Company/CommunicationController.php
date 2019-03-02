@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Employee;
 use App\Model\Company;
 use App\Model\Communication;
+use App\Model\CommunicationReply;
 use Auth;
 use Response;
 
@@ -36,8 +37,15 @@ class CommunicationController extends Controller
         $getAuthCompanyId = Company::where('email', $userData->email)->first();
         $logedcompanyId = $getAuthCompanyId->id; 
         $communicationobj = new Communication();
-        $data['cmpMails'] = $communicationobj->companyEmailsForCommunication($logedcompanyId);
+        $communicationreplyobj = new CommunicationReply();
+        $cmpMails = $communicationobj->companyEmailsForCommunication($logedcompanyId);
+        $cmpReplyMails = $communicationreplyobj->companyEmailsForCommunicationReply($logedcompanyId);
         
+        $cmpMails = $cmpMails ? $cmpMails->toArray() : [];
+        $cmpReplyMails = $cmpReplyMails ? $cmpReplyMails->toArray() : [];
+
+        $data['cmpMails'] = array_merge($cmpMails,$cmpReplyMails);
+
         return view('company.communication.communication', $data);
     }
 
@@ -47,10 +55,42 @@ class CommunicationController extends Controller
         $userid = $this->loginUser->id;
         $companyId = Company::select('id')->where('user_id', $userid)->first();
 
+        if(isset($request->communication_id) && $request->communication_id != '' && $request->isMethod('get'))
+        {
+            if($request->communication_table == 'communication_reply')
+            {
+                $objCommunicationReply = new CommunicationReply();
+                $result = $objCommunicationReply->companyEmailCommunicationReplyDetail('', $request->communication_id);
+                $data['communication_id'] = $result->communication_id;
+                // echo "<pre>"; print_r($result->toArray()); exit();
+            }
+            else
+            {
+                $objCommunication = new Communication();
+                $result = $objCommunication->companyEmailCommunicationDetail('', $request->communication_id);
+                $data['communication_id'] = $request->communication_id;
+            }
+            
+            $data['employee_id'] = $result->employee_id;
+            $data['employee_name'] = $result->name;
+            $data['communication_table'] = $request->communication_table;
+        }
+
         if ($request->isMethod('post')) {
+
+            if(isset($request->communication_id) && $request->communication_id != '')
+            {
+                $objCommunicationReply = new CommunicationReply();
+                $result = $objCommunicationReply->addNewCommunicationReply($request, $companyId->id);
+            }
+            else
+            {
+                $objCommunication = new Communication();
+                $result = $objCommunication->addNewCommunication($request, $companyId->id);
+            }
+
             // print_r($request->all());exit;
-            $objCommunication = new Communication();
-            $result = $objCommunication->addNewCommunication($request, $companyId->id);
+            
             if ($result) {
                 $return['status'] = 'success';
                 $return['message'] = 'New Communication Email sent successfully.';
@@ -100,8 +140,17 @@ class CommunicationController extends Controller
        
         $getAuthCompanyId = Company::where('email', $userData->email)->first();
         $logedcompanyId = $getAuthCompanyId->id;
-        $communicationobj = new Communication();
-        $data['cmpMailDetail'] = $communicationobj->companyEmailCommunicationDetail($logedcompanyId, $id);
+
+        if($request->communication_table == 'communication')
+        {
+            $communicationobj = new Communication();
+            $data['cmpMailDetail'] = $communicationobj->companyEmailCommunicationDetail($logedcompanyId, $id);
+        }
+        else
+        {
+            $communicationreplyobj = new CommunicationReply();
+            $data['cmpMailDetail'] = $communicationreplyobj->companyEmailCommunicationReplyDetail($logedcompanyId, $id);
+        }   
         
         return view('company.communication.communication-detail', $data);
     }
@@ -142,8 +191,15 @@ class CommunicationController extends Controller
         $getAuthCompanyId = Company::where('email', $userData->email)->first();
         $logedcompanyId = $getAuthCompanyId->id; 
         $communicationobj = new Communication();
-        $data['cmpMails'] = $communicationobj->sendCompanyEmails($logedcompanyId);
+        $communicationreplyobj = new CommunicationReply();
+        $cmpMails = $communicationobj->sendCompanyEmails($logedcompanyId);
+        $cmpReplyMails = $communicationreplyobj->sendCompanyEmails($logedcompanyId);
         
+        $cmpMails = $cmpMails ? $cmpMails->toArray() : [];
+        $cmpReplyMails = $cmpReplyMails ? $cmpReplyMails->toArray() : [];
+
+        $data['cmpMails'] = array_merge($cmpMails,$cmpReplyMails);
+
         return view('company.communication.send-communication', $data);
     }
 }

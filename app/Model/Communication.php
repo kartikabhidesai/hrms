@@ -69,7 +69,7 @@ class Communication extends Model
 
     public function employeeEmailsForCommunication($empId)
     {
-        $getListOfEmailOfEmp = Communication::select('comapnies.company_name', 'communication.id', 'communication.employee_id', 'communication.message', 'communication.file', 'communication.is_read', 'communication.subject', 'communication.created_at')
+        $getListOfEmailOfEmp = Communication::select('comapnies.company_name', 'communication.id', 'communication.employee_id', 'communication.message', 'communication.file', 'communication.is_read', 'communication.subject', 'communication.created_at',DB::raw('"communication" as communication_table'))
                                         ->join('comapnies', 'communication.company_id', '=', 'comapnies.id')
                                         ->where('communication.employee_id', $empId)
                                         ->where('communication.from', 'COMPANY')
@@ -84,7 +84,7 @@ class Communication extends Model
 
     public function companyEmailsForCommunication($cmpId)
     {
-        $getListOfEmailOfCmp = Communication::select('employee.name', 'communication.id', 'communication.employee_id', 'communication.message', 'communication.file', 'communication.is_read', 'communication.subject', 'communication.created_at')
+        $getListOfEmailOfCmp = Communication::select('employee.name', 'communication.id', 'communication.employee_id', 'communication.message', 'communication.file', 'communication.is_read', 'communication.subject', 'communication.created_at',DB::raw('"communication" as communication_table'))
                                         ->join('employee', 'communication.employee_id', '=', 'employee.id')
                                         ->where('communication.company_id', $cmpId)
                                         ->where('communication.from', 'EMPLOYEE')
@@ -99,7 +99,7 @@ class Communication extends Model
 
     public function companyEmailCommunicationDetail($cmpId, $id)
     {
-        $findCommunication = Communication::select('employee.email', 'communication.id', 'communication.employee_id', 'communication.message', 'communication.file', 'communication.is_read', 'communication.subject', 'communication.created_at')
+        $findCommunication = Communication::select('employee.email','employee.name','communication.id', 'communication.employee_id', 'communication.message', 'communication.file', 'communication.is_read', 'communication.subject', 'communication.created_at',DB::raw('"communication" as communication_table'))
                                         ->join('employee', 'communication.employee_id', '=', 'employee.id')
                                         ->where('communication.id', $id)
                                         ->first();
@@ -113,7 +113,7 @@ class Communication extends Model
 
     public function employeeEmailCommunicationDetail($empId, $id)
     {
-        $findCommunication = Communication::select('comapnies.email', 'communication.id', 'communication.employee_id', 'communication.message', 'communication.file', 'communication.is_read', 'communication.subject', 'communication.created_at')
+        $findCommunication = Communication::select('comapnies.email', 'communication.id', 'communication.employee_id', 'communication.message', 'communication.file', 'communication.is_read', 'communication.subject', 'communication.created_at',DB::raw('"communication" as communication_table'))
                                         ->join('comapnies', 'communication.company_id', '=', 'comapnies.id')
                                         ->where('communication.employee_id', $empId)
                                         ->where('communication.id', $id)
