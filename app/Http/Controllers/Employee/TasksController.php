@@ -21,7 +21,6 @@ class TasksController extends Controller {
             $empId = Employee::select('id')->where('user_id', $userID)->first();
             $objEmploye = new Task();
             $res = $objEmploye->updateTaskDetailEmp($request, $empId->id);
-
             if ($res) {
                 $return['status'] = 'success';
                 $return['message'] = 'Task created successfully.';
@@ -35,10 +34,12 @@ class TasksController extends Controller {
             exit();
         }
         $session = $request->session()->all();
+        
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
-        $data['js'] = array('employee/task.js');
+        $data['js'] = array('employee/task.js', 'ajaxfileupload.js','jquery.form.min.js');
         $data['funinit'] = array('Task.init()');
-        $data['css'] = array('');
+        $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
+
         $data['header'] = array(
             'title' => 'Task List',
             'breadcrumb' => array(

@@ -88,7 +88,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-sm-12">
-                        {{ Form::open( array('method' => 'post', 'class' => 'form-horizontal', 'id' => 'updateTask' )) }}
+                        {{ Form::open( array('method' => 'post','files' => true, 'class' => 'form-horizontal', 'id' => 'updateTask' )) }}
                         <div class="form-group">
 
                             <label class="col-sm-2 control-label">Complete Progress</label>
