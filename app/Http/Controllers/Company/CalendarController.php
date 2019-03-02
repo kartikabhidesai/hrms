@@ -33,6 +33,8 @@ class CalendarController extends Controller
 
     public function ajaxAction(Request $request)
     {
+        // print_r($request);
+        // exit;
     	$action = $request->input('action');
     	$userData = Auth::guard('company')->user();
         $companyId = Company::where('email', $userData->email)->first();
@@ -54,5 +56,16 @@ class CalendarController extends Controller
             exit;
             break;
     	}
+    }
+
+    public function getEvent(Request $request)
+    {
+        $session = $request->session()->all();
+        $userData = Auth::guard('company')->user();
+        $getAuthCompanyId = Company::where('email', $userData->email)->first();
+        $logedcompanyId = $getAuthCompanyId->id; 
+        $eventobj = new CalendarEvent();
+        $data['calenderEventList'] = $eventobj->getCompanyEvent($logedcompanyId);
+        return json_encode($data['calenderEventList']);
     }
 }

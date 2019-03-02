@@ -84,4 +84,5 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
     /*Calendar*/
     Route::match(['get', 'post'], 'calendar', ['as' => 'calendar', 'uses' => 'Company\CalendarController@index']);
     Route::match(['get', 'post'], 'calendar-ajaxAction', ['as' => 'calendar-ajaxAction', 'uses' => 'Company\CalendarController@ajaxAction']);
+    Route::match(['get', 'post'], 'getevents', ['as' => 'getevents', 'uses' => 'Company\CalendarController@getEvent']);
 });
