@@ -142,7 +142,7 @@ class Task extends Model {
             3 => 'tasks.priority',
             4 => 'tasks.about_task',
         );
-        $query = Task::where('tasks.employee_id1', $empId);
+        $query = Task::where('tasks.employee_id', $empId);
 
         if (!empty($requestData['search']['value'])) {
             $searchVal = $requestData['search']['value'];
