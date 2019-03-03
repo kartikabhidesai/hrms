@@ -98,8 +98,6 @@
 
                             <label class="col-sm-2 control-label">Complete Progress</label>
                             <div class="col-sm-9">
-                                <!-- <input type="text" name="complete_progress" class="form-control complete_progress" id="complete_progress"> -->
-                               
                                 {{ Form::select('complete_progress', $task_progress , null, array('class' => 'form-control m-b c-select complete_progress', 'id' => 'complete_progress')) }}
                             </div>
 
