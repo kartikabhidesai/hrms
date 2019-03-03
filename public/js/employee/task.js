@@ -32,9 +32,15 @@ var Task = function () {
             success: function (data) {
                 var output = JSON.parse(data);
                 console.log(output);
-                $('.task').val(output.task);
-                $('.about_task').val(output.about_task);
-                $('.dwnltaskfile').attr('href', baseurl + '/uploads/tasks/' + output.file);
+                $('.task').html(output.task);
+                $('.about_task').html(output.about_task);
+                if(output.file!="")
+                {
+                    $('.dwnltaskfileBtn').show();
+                    $('.dwnltaskfile').attr('href', baseurl +  output.file);
+                }else{
+                    $('.dwnltaskfileBtn').hide();
+                }
 
             }
         });
@@ -50,9 +56,17 @@ var Task = function () {
             data: {'action': 'getTaskDetails', 'data': data},
             success: function (data) {
                 var output = JSON.parse(data);
+                console.log(output);
                 $('.complete_progress').val(output.complete_progress);
                 $('.task_status').val(output.task_status);
-                $('.fileName').attr('href',baseurl +'/uploads/tasks/'+output.emp_updated_file);
+                if(output.emp_updated_file!="")
+                {
+                    $('.fileName').show();
+                    $('.fileName').attr('href',baseurl +'/uploads/tasks/'+output.emp_updated_file);
+                }else{
+                    // $('.fileName').attr('href',baseurl +'/uploads/tasks/'+output.emp_updated_file);
+                    $('.fileName').hide();
+                }
             }
         });
     });

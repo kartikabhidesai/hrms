@@ -199,8 +199,8 @@ class Task extends Model {
         return $json_data;
     }
 
-    public function getEmpviewTaskDetail($Empid) {
-        $result = Task::select('task', 'file', 'about_task', 'complete_progress','emp_updated_file', 'file', 'task_status')->where('employee_id', $Empid)->first();
+    public function getEmpviewTaskDetail($taskId,$Empid) {
+        $result = Task::select('task', 'file', 'about_task', 'complete_progress','emp_updated_file', 'file', 'task_status')->where('employee_id', $Empid)->where('id', $taskId)->first();
         return $result;
     }
 

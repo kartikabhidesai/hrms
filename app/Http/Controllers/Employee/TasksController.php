@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Task;
 use App\Model\Employee;
 use File;
+use Config;
 
 class TasksController extends Controller {
 
@@ -40,12 +41,12 @@ class TasksController extends Controller {
         $data['js'] = array('employee/task.js', 'ajaxfileupload.js','jquery.form.min.js');
         $data['funinit'] = array('Task.init()');
         $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
-
         $data['header'] = array(
             'title' => 'Task List',
             'breadcrumb' => array(
                 'Home' => route("employee-dashboard"),
                 'Task List' => 'Task List'));
+        $data['task_progress'] = Config::get('constants.task_progress');
         $data['task_status'] = ['In_Progress', 'Pending', 'Complete'];
         return view('employee.task.task-list', $data);
     }
@@ -63,8 +64,9 @@ class TasksController extends Controller {
             case 'getTaskDetails':
                 $userID = $this->loginUser->id;
                 $empId = Employee::select('id')->where('user_id', $userID)->first();
+                $taskId = $request->input('data');
                 $objEmploye = new Task();
-                $taskViewDetail = $objEmploye->getEmpviewTaskDetail($empId->id);
+                $taskViewDetail = $objEmploye->getEmpviewTaskDetail($taskId,$empId->id);
                 echo json_encode($taskViewDetail);
                 break;
         }

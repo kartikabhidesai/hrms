@@ -48,17 +48,17 @@
                         {{ Form::open( array('method' => 'post','files' => true, 'class' => 'form-horizontal', 'id' => 'taskDetailsModel' )) }}
                         <div class="form-group">
                             <div class="col-sm-12">
-                                <label class="col-sm-2 control-label">Task</label>
+                                <label class="col-sm-3 control-label">Task</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="task" placeholder="Task" class="form-control task">
+                                    <span class="task"></span>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-12">
-                                <label class="col-sm-2 control-label"> About Total </label>
+                                <label class="col-sm-3 control-label"> About Total </label>
                                 <div class="col-sm-9">
-                                    <textarea name="about_task" class="form-control about_task"  rows="4" cols="4"></textarea>
+                                    <span class="about_task"></span>
                                 </div>
                             </div>
                         </div>
@@ -66,7 +66,7 @@
                             <div class="col-sm-12">
                                 <label class="col-sm-2 control-label"></label>
                                 <div class="col-sm-9">
-                                    <button class="btn btn-download"><a href="" target="_blank" name="fileName" class="fileName dwnltaskfile" id="fileName">Download</a></button>
+                                    <button class="btn btn-download dwnltaskfileBtn"><a href="" target="_blank" name="downloadfileName" class="downloadfileName dwnltaskfile" id="downloadfileName">Download</a></button>
                                 </div>
                             </div>
                         </div>
@@ -98,7 +98,9 @@
 
                             <label class="col-sm-2 control-label">Complete Progress</label>
                             <div class="col-sm-9">
-                                <input type="text" name="complete_progress" class="form-control complete_progress" id="complete_progress">
+                                <!-- <input type="text" name="complete_progress" class="form-control complete_progress" id="complete_progress"> -->
+                               
+                                {{ Form::select('complete_progress', $task_progress , null, array('class' => 'form-control m-b c-select complete_progress', 'id' => 'complete_progress')) }}
                             </div>
 
                         </div>
