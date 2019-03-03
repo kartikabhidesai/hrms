@@ -116,10 +116,10 @@ class Task extends Model {
             $nestedData[] = $row["task"];
             $nestedData[] = $row["emp_name"];
             $nestedData[] = $row["priority"];
-            $nestedData[] = $task_status[$row["task_status"]];
+            $nestedData[] = $row["task_status"] ? $task_status[$row["task_status"]] : 'N.A.';
             $nestedData[] = $row["complete_progress"].'%';
             $nestedData[] = $row["about_task"];
-            $nestedData[] = '<a target="_blank" href="'. '/uploads/tasks/'. $row["emp_updated_file"] .'">View File</a>';
+            $nestedData[] = $row["emp_updated_file"] ? '<a target="_blank" href="'. '/uploads/tasks/'. $row["emp_updated_file"] .'">View File</a>' : 'N.A.';
             $nestedData[] = $actionHtml;
             $data[] = $nestedData;
         }
