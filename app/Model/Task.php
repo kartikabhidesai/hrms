@@ -60,12 +60,11 @@ class Task extends Model {
           } */
 
         $columns = array(
-            // datatable column index  => database column name
-            0 => 'tasks.id',
-            1 => 'tasks.task',
-            2 => 'tasks.employee_id',
-            3 => 'tasks.priority',
-            4 => 'tasks.about_task',
+            '0' => 'tasks.id',
+            '1' => 'tasks.task',
+            '2' => 'tasks.employee_id',
+            '3' => 'tasks.priority',
+            '4' => 'tasks.about_task',
         );
         $query = Task::join('employee as emp', 'tasks.employee_id', '=', 'emp.id')
                 ->where('tasks.company_id', $companyId);
@@ -105,7 +104,7 @@ class Task extends Model {
                 ->take($requestData['length'])
                 ->select('tasks.assign_date', 'tasks.deadline_date', 'tasks.task_status', 'tasks.file', 'tasks.task', 'tasks.priority','tasks.complete_progress', 'tasks.about_task', 'tasks.emp_updated_file','tasks.task_status', 'emp.name as emp_name')
                 ->get();
-        // print_r($resultArr);exit();
+        print_r($resultArr);exit();
         $data = array();
 
         $task_status = Config::get('constants.task_status');
@@ -143,7 +142,7 @@ class Task extends Model {
             3 => 'tasks.priority',
             4 => 'tasks.about_task',
         );
-        $query = Task::where('tasks.employee_id', $empId);
+        $query = Task::where('tasks.employee_id1', $empId);
 
         if (!empty($requestData['search']['value'])) {
             $searchVal = $requestData['search']['value'];
@@ -170,7 +169,7 @@ class Task extends Model {
 
         $resultArr = $query->skip($requestData['start'])
                 ->take($requestData['length'])
-                ->select('tasks.assign_date', 'tasks.deadline_date', 'tasks.task', 'tasks.priority', 'tasks.about_task', 'tasks.id')
+                ->select('tasks.assign_date1', 'tasks.deadline_date', 'tasks.task', 'tasks.priority', 'tasks.about_task', 'tasks.id')
                 ->get();
 
         $data = array();
