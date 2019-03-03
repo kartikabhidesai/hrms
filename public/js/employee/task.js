@@ -34,7 +34,7 @@ var Task = function () {
                 console.log(output);
                 $('.task').html(output.task);
                 $('.about_task').html(output.about_task);
-                if(output.file!="")
+                if(output.file!=null)
                 {
                     $('.dwnltaskfileBtn').show();
                     $('.dwnltaskfile').attr('href', baseurl +  output.file);
@@ -59,7 +59,7 @@ var Task = function () {
                 console.log(output);
                 $('.complete_progress').val(output.complete_progress);
                 $('.task_status').val(output.task_status);
-                if(output.emp_updated_file!="")
+                if(output.emp_updated_file!=null)
                 {
                     $('.fileName').show();
                     $('.fileName').attr('href',baseurl +'/uploads/tasks/'+output.emp_updated_file);
