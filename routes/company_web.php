@@ -85,4 +85,8 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
     Route::match(['get', 'post'], 'calendar', ['as' => 'calendar', 'uses' => 'Company\CalendarController@index']);
     Route::match(['get', 'post'], 'calendar-ajaxAction', ['as' => 'calendar-ajaxAction', 'uses' => 'Company\CalendarController@ajaxAction']);
     Route::match(['get', 'post'], 'getevents', ['as' => 'getevents', 'uses' => 'Company\CalendarController@getEvent']);
+
+    /*Performance*/
+    Route::match(['get', 'post'], 'performance', ['as' => 'performance', 'uses' => 'Company\PerformanceController@index']);
+    Route::match(['get', 'post'], 'performance-emp-detail/{id}', ['as' => 'performance-emp-detail', 'uses' => 'Company\PerformanceController@performanceEmpList']);
 });
