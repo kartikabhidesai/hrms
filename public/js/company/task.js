@@ -26,7 +26,7 @@ var Task = function () {
             var querystring = (priority == '' && typeof priority === 'undefined') ? '&priority=' : '&priority=' + priority;
             
             /*Don't remove this code as it's in-progress*/
-            // querystring += (status == '' && typeof status === 'undefined') ? '&status=' : '&status=' + status;
+            querystring += (status == '' && typeof status === 'undefined') ? '&status=' : '&status=' + status;
             
             location.href = baseurl + 'company/task-list?' + querystring;
         }); 

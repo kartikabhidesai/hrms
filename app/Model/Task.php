@@ -53,11 +53,11 @@ class Task extends Model {
         }
 
         /* Don't remove this code as it's in-progress */
-        /* if($data['status'] != NULL) {
-          $status = $data['to_date'];
+         if($data['status'] != NULL) {
+          $status = $data['status'];
           } else {
           $status = "";
-          } */
+          } 
 
         $columns = array(
             // datatable column index  => database column name
@@ -74,9 +74,9 @@ class Task extends Model {
         }
 
         /* Don't remove this code as it's in-progress */
-        /* if($status !== NULL){
-          $query->where('tasks.priority', "=", $status);
-          } */
+        if($status){
+            $query->where('tasks.task_status', "=", $status);
+        }
 
         if (!empty($requestData['search']['value'])) {
             $searchVal = $requestData['search']['value'];

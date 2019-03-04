@@ -29,19 +29,19 @@
                             </div>
                         </div>
                         
-                        <!-- <div class="ibox-tools col-sm-12">
+                        <div class="ibox-tools col-sm-12">
                             <div class="form-group">
                                 <label class="col-lg-2 control-label">Status</label>
                                 <div class="col-lg-10">
                                     <select name="department" id="status" class="form-control status">
                                         <option value="">Select Status</option>
-                                        <option value="PENDING">Pending</option>
-                                        <option value="PROCESS">Process</option>
-                                        <option value="COMPLETED">Completed</option>
+                                        <option value="0" {{ ( $status == '0' ? 'selected="selected"' : '') }}>In Progess</option>
+                                        <option value="1" {{ ( $status == '1' ? 'selected="selected"' : '') }}>Pending</option>
+                                        <option value="2" {{ ( $status == '2' ? 'selected="selected"' : '') }}>Complete</option>
                                     </select>
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
                         <div class="ibox-tools col-sm-12">
                             <div class="form-group">
                                 <label class="col-lg-2 control-label"></label>
