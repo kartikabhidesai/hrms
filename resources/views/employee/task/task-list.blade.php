@@ -93,7 +93,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-sm-12">
-
+                         <input type="hidden" class="form-control task_id" name="task_id" id="task_id">
                         <div class="form-group">
 
                             <label class="col-sm-2 control-label">Complete Progress</label>

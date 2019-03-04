@@ -200,7 +200,7 @@ class Task extends Model {
     }
 
     public function getEmpviewTaskDetail($taskId,$Empid) {
-        $result = Task::select('task', 'file', 'about_task', 'complete_progress','emp_updated_file', 'file', 'task_status')->where('employee_id', $Empid)->where('id', $taskId)->first();
+        $result = Task::select('task', 'file', 'about_task', 'complete_progress','emp_updated_file', 'file', 'task_status','id')->where('employee_id', $Empid)->where('id', $taskId)->first();
         return $result;
     }
 
@@ -212,7 +212,7 @@ class Task extends Model {
             $destinationPath = public_path('/uploads/tasks/');
             $image->move($destinationPath, $name);    
         }
-        $objTask = Task::firstOrNew(array('employee_id' => $empid));
+        $objTask = Task::firstOrNew(array('employee_id' => $empid,'id'=>$request->task_id));
         $objTask->emp_updated_file = $name;
         $objTask->complete_progress = $request->complete_progress;
         $objTask->task_status = $request->task_status;

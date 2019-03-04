@@ -22,6 +22,9 @@ class TasksController extends Controller {
             $userID = $this->loginUser->id;
             $empId = Employee::select('id')->where('user_id', $userID)->first();
             $objEmploye = new Task();
+            // print_r($request);
+            // print_r($empId);
+            // exit;
             $res = $objEmploye->updateTaskDetailEmp($request, $empId->id);
             if ($res) {
                 $return['status'] = 'success';
