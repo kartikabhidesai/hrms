@@ -16,7 +16,7 @@
                     	<table class="table table-striped table-bordered table-hover dataTables-example" id="">
                     		<thead>
                     			<tr>
-                    				<th>Task</th>
+                    				<th colspan="2">Task</th>
                     				<th>Notify When:</th>
                     				<th>to all employee</th>
                     				<th>Action</th>
