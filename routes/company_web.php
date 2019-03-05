@@ -89,4 +89,8 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
     /*Performance*/
     Route::match(['get', 'post'], 'performance', ['as' => 'performance', 'uses' => 'Company\PerformanceController@index']);
     Route::match(['get', 'post'], 'performance-emp-detail/{id}', ['as' => 'performance-emp-detail', 'uses' => 'Company\PerformanceController@performanceEmpList']);
+
+    /*Training*/
+    Route::match(['get', 'post'], 'training', ['as' => 'training', 'uses' => 'Company\TrainingController@index']);
+     Route::match(['get', 'post'], 'add-training', ['as' => 'add-training', 'uses' => 'Company\TrainingController@addTraining']);
 });
