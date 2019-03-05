@@ -10,6 +10,7 @@ var Notification = function () {
             handleAjaxFormSubmit(form);
         });
 
+
           $('.dataTables-example').DataTable({
                 pageLength:10,
                 responsive: true,

@@ -24,7 +24,27 @@
                     		</thead>
                     		<tbody>
                     			<tr class="gradeU">
-                    				<td>Inform an employee when new task</td>
+                    				<td>Department</td>
+                    				<td>SMS <input type="checkbox" name=""> <br/> 
+	                    					Chat <input type="checkbox" name=""><br/> 
+	                    					In system notify <input type="checkbox" name=""></td>
+                    				<td>
+                    					Purchases <input type="checkbox" name=""> <br/> 
+	                    				Storage <input type="checkbox" name=""><br/> 
+	                    				Finance <input type="checkbox" name="">
+                    				</td>
+                    				<td>
+                    					Business Deve. <input type="checkbox" name=""> <br/> 
+	                    				Marketing <input type="checkbox" name=""><br/> 
+	                    				Event And Planing <input type="checkbox" name="">
+                    				</td>
+                    				<td>
+                    					Add More <a href="javascript:;" class="btn btn-xs btn-primary"><i class="fa fa-plus"></i> </a>
+                    				</td>
+                    			
+                    			</tr>
+                    			<tr class="gradeU">
+                    				<td colspan="2">Inform an employee when new task</td>
                     				<td>SMS <br/> Chat <br/> In system notify</td>
                     				<td>To all Employee</td>
                     				<td class="center">
@@ -38,9 +58,9 @@
 			                                	</div>
                             				</div>
                        					</td>
-                    				</tr>
-                    				<tr class="gradeU">
-	                    				<td>Tihs onee is new addred task</td>
+                    			</tr>
+                    			<tr class="gradeU">
+	                    				<td colspan="2">Tihs onee is new addred task</td>
 	                    				<td>
 	                    					SMS <input type="checkbox" name=""> <br/> 
 	                    					Chat <input type="checkbox" name=""><br/> 
@@ -60,7 +80,7 @@
                        					</td>
                     				</tr>
 									<tr class="gradeU">
-	                    				<td>Reports <br/>Inform to employee when leave are accepted.</td>
+	                    				<td colspan="2">Reports <br/>Inform to employee when leave are accepted.</td>
 	                    				<td>
 	                    					SMS <input type="checkbox" name=""> <br/> 
 	                    					Chat <input type="checkbox" name=""><br/> 
