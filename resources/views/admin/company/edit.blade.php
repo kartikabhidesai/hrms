@@ -2,6 +2,12 @@
 @section('content')
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
+        <style type="text/css">
+            .col-lg-2.control-label.pull-right {
+                margin-right: 248px;
+                margin-top: -43px;
+            }
+        </style>
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
@@ -26,7 +32,7 @@
                     </div>
                     <div class="form-group">
                         <label class="col-lg-2 control-label">Photo</label>
-                        <div class="col-lg-9 fileinput fileinput-new input-group " data-provides="fileinput">
+                        <div class="col-lg-6 fileinput fileinput-new input-group " data-provides="fileinput">
                             <div class="form-control" data-trigger="fileinput">
                                 <i class="glyphicon glyphicon-file fileinput-exists"></i>
                                 <span class="fileinput-filename"></span>
@@ -38,6 +44,21 @@
                             </span>
                             <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
                         </div> 
+                        @php
+                            $filename= url('uploads/client/'.$detail->company_image);
+                            $file_headers = @get_headers($filename);
+                        @endphp
+                        @if($file_headers[0] == 'HTTP/1.1 200 OK')
+                            <div class="col-lg-2 control-label pull-right"> 
+                            <a href="{{ $filename }}" target="_blank" class="btn btn-sm btn-info" >View File</a>
+                        </div>
+                            @else
+                                 <div class="col-lg-2 control-label pull-right"> 
+                                <a href="javascript:;" class="btn btn-sm btn-info" >View File</a>
+                        </div>
+                            @endif
+
+                       
                     </div>
 
                     <div class="form-group">
