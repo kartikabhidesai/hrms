@@ -24,7 +24,7 @@ var Calendar = function () {
                     $(this).remove();
                 }
             },
-            events: '/company/getevents/'
+            events: baseurl +'company/getevents/'
         });
 
         $('body').on('click', '.newEventModel', function() {
