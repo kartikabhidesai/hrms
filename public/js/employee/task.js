@@ -47,6 +47,7 @@ var Task = function () {
     });
     $('body').on('click', '.updateTaskModel', function () {
         var data = $(this).attr('data-id');
+        console.log(data);
         $.ajax({
             type: "POST",
             headers: {
@@ -57,6 +58,7 @@ var Task = function () {
             success: function (data) {
                 var output = JSON.parse(data);
                 console.log(output);
+                $('.task_id').val(output.id);
                 $('.complete_progress').val(output.complete_progress);
                 $('.task_status').val(output.task_status);
                 if(output.emp_updated_file!=null)

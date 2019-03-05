@@ -122,6 +122,11 @@ if (!empty(Auth()->guard('admin')->user())) {
                     <a href="{{ route('calendar') }}"><i class="fa fa-calendar"></i>
                     <span class="nav-label">Calendar</span></a>
                 </li>
+
+                <li class="{{ ($currentRoute == 'performance' || $currentRoute == 'performance-emp-detail/*' ? 'active' : '') }}">
+                    <a href="{{ route('performance') }}"><i class="fa fa-user"></i>
+                    <span class="nav-label">Performance</span></a>
+                </li>
                
             </ul>
         </div>

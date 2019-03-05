@@ -375,6 +375,25 @@ class Employee extends Model {
         return $result;
     }
 
+    public function getAllEmployeeForPerformance($id = NULL) {
+
+        if ($id) {
+
+            $result = Employee::select('employee.*', 'department.department_name')
+                                ->join('department', 'employee.department', '=', 'department.id')
+                                ->where('employee.id', '=', $id)
+                                ->get()
+                                ->first()
+                                ->toArray();
+        } else {
+
+            $result = Employee::select('employee.*', 'department.department_name')
+                    ->join('department', 'employee.department', '=', 'department.id')
+                    ->get();
+        }
+        return $result;
+    }
+
     public function getEmploydetails($userId) {
         $result = Employee::select('department.department_name', 'department.id as dep_id', 'employee.name', 'employee.company_id', 'employee.id as emp_id')
                         ->join('department', 'employee.department', '=', 'department.id')
