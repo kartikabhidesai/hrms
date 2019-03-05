@@ -40,7 +40,7 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <span class="label label-success pull-right"></span>
-                        <h5>Complited</h5>
+                        <h5>Completed</h5>
                     </div>
                     <div class="ibox-content">
                         <h1 class="no-margins"><?= $arrRejectCount ?></h1>
@@ -87,7 +87,7 @@
                         <table class="table table-striped table-bordered table-hover dataTables-example" id="timeChangeRequestDatatables">
                             <thead>
                                 <tr>
-                                    <td><input type="checkbox" class="checkAll" id="checkAll" name="checkAll"></td>
+                                    <!-- <td><input type="checkbox" class="checkAll" id="checkAll" name="checkAll"></td> -->
                                     <th>Code</th>
                                     <th>Priority</th>
                                     <th>Status</th>
@@ -109,7 +109,7 @@
         </div>
     </div>
 
-    <div id="approveModel" class="modal fade" aria-hidden="true">
+    <!-- <div id="approveModel" class="modal fade" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body">
@@ -149,6 +149,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     @endsection

@@ -127,6 +127,11 @@ if (!empty(Auth()->guard('admin')->user())) {
                     <a href="{{ route('performance') }}"><i class="fa fa-user"></i>
                     <span class="nav-label">Performance</span></a>
                 </li>
+
+                <li class="{{ ($currentRoute == 'tickets' || $currentRoute == 'add-ticket' ? 'active' : '') }}">
+                    <a href="{{ route('tickets') }}"><i class="fa fa-ticket"></i>
+                    <span class="nav-label">Tickets</span></a>
+                </li>
                
             </ul>
         </div>
