@@ -1,7 +1,7 @@
-var Department = function() {
+var Ticket = function() {
     var handleList = function() {
        
-       $('body').on('click', '.deleteDepartment', function() {
+       $('body').on('click', '.deleteTicket', function() {
             // $('#deleteModel').modal('show');
             var id = $(this).data('id');
             setTimeout(function() {
@@ -17,8 +17,8 @@ var Department = function() {
                 headers: {
                     'X-CSRF-TOKEN': $('input[name="_token"]').val(),
                 },
-                url: baseurl + "company/department-ajaxAction",
-                data: {'action': 'deleteDepartment', 'data': data},
+                url: baseurl + "company/ticket-ajaxAction",
+                data: {'action': 'deleteTicket', 'data': data},
                 success: function(data) {
                     handleAjaxResponse(data);
                 }
@@ -29,8 +29,8 @@ var Department = function() {
        var columnWidth = {"width": "10%", "targets": 0};
        
             var arrList = {
-            'tableID': '#DepartmentDatatables',
-            'ajaxURL': baseurl + "company/department-ajaxAction",
+            'tableID': '#TicketDatatables',
+            'ajaxURL': baseurl + "company/ticket-ajaxAction",
             'ajaxAction': 'getdatatable',
             'postData': dataArr,
             'hideColumnList': [],
@@ -47,7 +47,7 @@ var Department = function() {
         
         var form = $('#ticket-add');
         var rules = {
-            department_name: {required: true},
+            ticket_name: {required: true},
             designation: {required: true},
         };
         handleFormValidate(form, rules, function(form) {
@@ -73,9 +73,9 @@ var Department = function() {
     };
 
     var editlist = function() {
-        var form = $('#department-edit');
+        var form = $('#ticket-edit');
         var rules = {
-            department_name: {required: true},
+            ticket_name: {required: true},
             designation: {required: true},
         };
         handleFormValidate(form, rules, function(form) {

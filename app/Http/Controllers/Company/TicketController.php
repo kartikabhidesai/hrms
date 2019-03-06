@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Company;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\ManageTimeChangeRequest;
-use App\Model\Department;
+use App\Model\Ticket;
 use App\Model\Employee;
 use App\Model\Company;
 use App\Model\Attendance;
@@ -20,23 +20,16 @@ class TicketController extends Controller
         $this->middleware('company');
     }
 
-    public function tickets(Request $request)
+    public function index(Request $request)
     {
         $session = $request->session()->all();
 
         $userID = $this->loginUser;
         $companyId = Company::select('id')->where('user_id', $userID->id)->first();
-        $objManageList = new ManageTimeChangeRequest();
-        $data['arrRejectCount'] = $objManageList->getStatusCount($companyId->id,'reject');
-        $data['arrApproveCount'] = $objManageList->getStatusCount($companyId->id,'approve');
-        $data['arrRemovedCount'] = $objManageList->getStatusCount($companyId->id,'removed');
-        $data['arrNewCount'] = $objManageList->getStatusCount($companyId->id,'new');
-        $data['arrModifiedCount'] = $objManageList->getStatusCount($companyId->id,'modified');
-        $data['arrCanclledCount'] = $objManageList->getStatusCount($companyId->id,'canclled');
         // print_r($arrRejectCount);exit;
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
-        $data['js'] = array('company/timeChangeRequest.js');
-        $data['funinit'] = array('TimeChangeRequest.init()');
+        $data['js'] = array('company/ticket.js');
+        $data['funinit'] = array('Ticket.init()');
         $data['css'] = array('');
         $data['header'] = array(
             'title' => 'Ticket List',
@@ -53,12 +46,13 @@ class TicketController extends Controller
         $session = $request->session()->all();
 
         if ($request->isMethod('post')) {
+            echo "sas"; exit();
             $objDepartment = new Department();
             $result = $objDepartment->saveDepartment($request);
             if($result) {
                 $return['status'] = 'success';
                 $return['message'] = 'Ticket created successfully.';
-                $return['redirect'] = route('department-list');
+                $return['redirect'] = route('ticket-list');
             } else {
                 $return['status'] = 'error';
                 $return['message'] = 'Something will be wrong.';
@@ -85,8 +79,22 @@ class TicketController extends Controller
             'title' => 'Ticket',
             'breadcrumb' => array(
                 'Home' => route("company-dashboard"),
-                'Tickets' => route("tickets"),
+                'Tickets' => route("ticket-list"),
                 'Add Ticket'=>'Add Ticket'));
         return view('company.ticket.ticket-add', $data);
     }
-}
+
+    public function ajaxAction(Request $request) 
+    {
+        $action = $request->input('action');
+        switch ($action) {
+            case 'getdatatable':
+                $objTicket = new Ticket();
+                $demoList = $objTicket->getdatatable();
+                echo json_encode($demoList);
+            break;
+            case 'deleteDepartment':
+                $result = $this->deleteDepartment($request->input('data'));
+                break;
+        }
+    }}

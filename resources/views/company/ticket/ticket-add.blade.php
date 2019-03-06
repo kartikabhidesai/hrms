@@ -31,8 +31,8 @@
                         <div class="form-group">
                             <label class="col-lg-2 control-label">Priority</label>
                             <div class="col-lg-10">
-                                    <select name="priority" class="form-control priority" id="priority">
-                                		<option>select</option>
+                                    <select name="priority" class="form-control priority" id="priority" required="required">
+                                		<option value="">select</option>
                                 		<option>High</option>
                                 		<option>Normal</option>
                                 		<option>Low</option>
@@ -43,7 +43,7 @@
                         <div class="form-group">
                             <label class="col-lg-2 control-label">Assign to</label>
                             <div class="col-lg-10">
-                                    <select name="assign_to" class="form-control assign_to" id="assign_to">
+                                    <select name="assign_to" class="form-control assign_to" id="assign_to" required="required">
                                     	<option value="">Select</option>
                                     	@if(!empty($employee_list))
                                     		@foreach($employee_list as $el)

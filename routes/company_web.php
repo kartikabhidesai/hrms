@@ -53,8 +53,9 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
     Route::match(['get', 'post'], 'timeChangeRequest-ajaxAction', ['as' => 'timeChangeRequest-ajaxAction', 'uses' => 'Company\ManageTimeChangeRequestController@ajaxaction']);
 
     /*TIckets Routes*/
-    Route::match(['get', 'post'], 'tickets', ['as' => 'tickets', 'uses' => 'Company\TicketController@tickets']);
+    Route::match(['get', 'post'], 'ticket-list', ['as' => 'ticket-list', 'uses' => 'Company\TicketController@index']);
     Route::match(['get', 'post'], 'add-ticket', ['as' => 'add-ticket', 'uses' => 'Company\TicketController@add']);
+    Route::match(['get', 'post'], 'ticket-ajaxAction', ['as' => 'ticket-ajaxAction', 'uses' => 'Company\TicketController@ajaxaction']);
     
     /*Manage Time Change Request*/
     Route::match(['get', 'post'], 'pay-slip', ['as' => 'pay-slip', 'uses' => 'Company\PayslipController@create']);

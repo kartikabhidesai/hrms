@@ -128,8 +128,8 @@ if (!empty(Auth()->guard('admin')->user())) {
                     <span class="nav-label">Performance</span></a>
                 </li>
 
-                <li class="{{ ($currentRoute == 'tickets' || $currentRoute == 'add-ticket' ? 'active' : '') }}">
-                    <a href="{{ route('tickets') }}"><i class="fa fa-ticket"></i>
+                <li class="{{ ($currentRoute == 'ticket-list' || $currentRoute == 'add-ticket' ? 'active' : '') }}">
+                    <a href="{{ route('ticket-list') }}"><i class="fa fa-ticket"></i>
                     <span class="nav-label">Tickets</span></a>
                 </li>
 
