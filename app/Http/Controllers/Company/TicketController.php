@@ -46,7 +46,7 @@ class TicketController extends Controller
         $session = $request->session()->all();
 
         if ($request->isMethod('post')) {
-            echo "sas"; exit();
+            print_r($request->all()); exit();
             $objDepartment = new Department();
             $result = $objDepartment->saveDepartment($request);
             if($result) {
@@ -63,8 +63,9 @@ class TicketController extends Controller
         }
 
         $objEmployee = new Employee();
-        $company_data = Auth::guard('company')->user();
-        $employee_list = $objEmployee->getEmployeeList($company_data->id);
+        $userid = $this->loginUser->id;
+        $companyId = Company::select('id')->where('user_id', $userid)->first();
+        $employee_list = $objEmployee->getEmployeeList($companyId->id);
 
         $session = $request->session()->all();
         $data['employee_list'] = $employee_list;
