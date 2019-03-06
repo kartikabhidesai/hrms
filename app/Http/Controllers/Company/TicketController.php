@@ -26,7 +26,15 @@ class TicketController extends Controller
 
         $userID = $this->loginUser;
         $companyId = Company::select('id')->where('user_id', $userID->id)->first();
-        // print_r($arrRejectCount);exit;
+        $objTicketList = new Ticket();
+
+        /*Don't remove this code*/
+        /*$data['arrNewCount'] = $objTicketList->getNewTaskCount($companyId->id, 'new');
+        $data['arrInprogressCount'] = $objTicketList->getInprogressTaskCount($companyId->id, 'inprogress');
+        $data['arrCompletedCount'] = $objTicketList->getCompletedTaskCount($companyId->id, 'completed');*/
+        $data['arrNewCount'] = 0;
+        $data['arrInprogressCount'] = 0;
+        $data['arrCompletedCount'] = 0;
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/ticket.js');
         $data['funinit'] = array('Ticket.init()');
@@ -37,8 +45,6 @@ class TicketController extends Controller
                 'Home' => route("company-dashboard"),
                 'Tickets' => 'Tickets'));
 
-        // echo "asas"; exit();
-
         return view('company.ticket.ticket-list', $data);
     }
     
@@ -46,9 +52,8 @@ class TicketController extends Controller
         $session = $request->session()->all();
 
         if ($request->isMethod('post')) {
-            print_r($request->all()); exit();
-            $objDepartment = new Department();
-            $result = $objDepartment->saveDepartment($request);
+            $objTicket = new Ticket();
+            $result = $objTicket->saveTicket($request);
             if($result) {
                 $return['status'] = 'success';
                 $return['message'] = 'Ticket created successfully.';
@@ -91,11 +96,11 @@ class TicketController extends Controller
         switch ($action) {
             case 'getdatatable':
                 $objTicket = new Ticket();
-                $demoList = $objTicket->getdatatable();
-                echo json_encode($demoList);
+                $ticketList = $objTicket->getdatatable();
+                echo json_encode($ticketList);
             break;
-            case 'deleteDepartment':
+            /*case 'deleteDepartment':
                 $result = $this->deleteDepartment($request->input('data'));
-                break;
+                break;*/
         }
     }}

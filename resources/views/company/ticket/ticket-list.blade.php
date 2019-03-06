@@ -9,7 +9,7 @@
                     <h5>New</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins"></h1>
+                    <h1 class="no-margins">{{ $arrNewCount }}</h1>
                     <div class="stat-percent font-bold text-success"></div>
                     <small></small>
                 </div>
@@ -23,7 +23,7 @@
                     <h5>Inprogress</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins"></h1>
+                    <h1 class="no-margins">{{ $arrInprogressCount }}</h1>
                     <div class="stat-percent font-bold text-info"></div>
                     <small></small>
                 </div>
@@ -37,7 +37,7 @@
                     <h5>Completed</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins"></h1>
+                    <h1 class="no-margins">{{ $arrCompletedCount }}</h1>
                     <div class="stat-percent font-bold text-success"></div>
                     <small></small>
                 </div>

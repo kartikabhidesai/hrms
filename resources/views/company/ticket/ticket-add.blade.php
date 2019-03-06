@@ -57,7 +57,7 @@
                         <div class="form-group">
                             <label class="col-lg-2 control-label">Details</label>
                             <div class="col-lg-10">
-                              	{{ Form::textarea('phone', null, array('placeholder'=>'Details', 'class' => 'form-control' ,'required')) }}
+                              	{{ Form::textarea('details', null, array('placeholder'=>'Details', 'class' => 'form-control' ,'required')) }}
                             </div>
                         </div>
 
