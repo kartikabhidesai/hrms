@@ -46,9 +46,9 @@ class TicketController extends Controller
         $session = $request->session()->all();
 
         if ($request->isMethod('post')) {
-            print_r($request->all()); exit();
-            $objDepartment = new Department();
-            $result = $objDepartment->saveDepartment($request);
+            // print_r($request->all()); exit();
+            $objTicket = new Ticket();
+            $result = $objTicket->saveTicket($request);
             if($result) {
                 $return['status'] = 'success';
                 $return['message'] = 'Ticket created successfully.';

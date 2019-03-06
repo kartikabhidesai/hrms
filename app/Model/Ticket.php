@@ -17,30 +17,47 @@ class Ticket extends Model
 {
     protected $table = 'tickets';
 
-    public function saveDepartment($request)
+    public function saveTicket($request)
     {    
     	if(Auth::guard('company')->check()) {
     		$userData = Auth::guard('company')->user();
     		$getAuthCompanyId = Company::where('email', $userData->email)->first();
-    	}       
+    	}
 
-        $id = DB::table('department')->insertGetId(
-                                                    ['department_name' => $request->input('department_name'),
-                                                    'company_id' => $getAuthCompanyId->id,
-                                                    'created_at' => date('Y-m-d H:i:s'),
-                                                    'updated_at' => date('Y-m-d H:i:s')
-                                                    ]
-                                                );
-        $designation = $request->input('designation');
-        
-        for($i=0;$i<count($request->input('designation'));$i++) {
-            $objDesignation = new Designation();
-            if($designation[$i] != "") {
-                $objDesignation->department_id = $id;
-                $objDesignation->designation_name = $designation[$i];
-                $objDesignation->created_at = date('Y-m-d H:i:s');
-                $objDesignation->updated_at = date('Y-m-d H:i:s');
-                $objDesignation->save();
+        // echo "<pre>qw"; print_r($request->ticket_attachment); exit();
+
+        $id = DB::table('tickets')->insertGetId(
+                                                ['code' => $request->input('ticket_code'),
+                                                'subject' => $request->input('subject'),
+                                                'priority' => $request->input('priority'),
+                                                'assign_to' => $request->input('assign_to'),
+                                                'details' => $request->input('details'),
+                                                'company_id' => $getAuthCompanyId->id,
+                                                'created_at' => date('Y-m-d H:i:s'),
+                                                'updated_at' => date('Y-m-d H:i:s')
+                                                ]
+                                            );
+
+        if (!file_exists(public_path('/uploads/ticket_attachment'))) {
+            mkdir(public_path('/uploads/ticket_attachment'),'0777',false);
+        }
+
+        if(isset($request->ticket_attachment) && !empty($request->ticket_attachment))
+        {
+            foreach ($request->ticket_attachment as $key => $value){
+                // $image = $request->file($value);
+                $file_attachment = 'ticket_attachment' . time() . '.' . $value->getClientOriginalExtension();
+                $destinationPath = public_path('/uploads/ticket_attachment/');
+                $value->move($destinationPath, $file_attachment);
+
+                $file_attachment = DB::table('ticket_attachments')->insertGetId(
+                                                ['ticket_id' => $id,
+                                                'file_attachment' => $file_attachment,
+                                                'created_at' => date('Y-m-d H:i:s'),
+                                                'updated_at' => date('Y-m-d H:i:s')
+                                                ]
+                                            );
+
             }
         }
         return TRUE;
