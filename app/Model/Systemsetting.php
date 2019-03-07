@@ -11,8 +11,6 @@ class Systemsetting extends Model {
 
     public function addSystemSetting($request, $Companyid) {
         
-        echo"<pre>";      
-        print_r($request->file()); exit;
         $objsys = Systemsetting::firstOrNew(array('company_id' => $Companyid));
        
         $objsys->system_name = $request->system_name;

@@ -17,38 +17,38 @@
                     <div class="form-group">
                         <label class="col-lg-2 control-label">System name</label>
                         <div class="col-lg-10">
-                            {{ Form::text('system_name', null, array('placeholder'=>'System Name', 'class' => 'form-control' ,'required')) }}
+                            {{ Form::text('system_name', $current_cmpny_ss->system_name, array('placeholder'=>'System Name', 'class' => 'form-control' ,'required')) }}
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-lg-2 control-label">System Title</label>
                         <div class="col-lg-10">
-                            {{ Form::text('system_title', null, array('placeholder'=>'System Title', 'class' => 'form-control' ,'required')) }}
+                            {{ Form::text('system_title', $current_cmpny_ss->system_title, array('placeholder'=>'System Title', 'class' => 'form-control' ,'required')) }}
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-lg-2 control-label">Address</label>
                         <div class="col-lg-10">
-                            {{ Form::textarea('address', null, array('placeholder'=>'Address', 'class' => 'form-control' ,'required')) }}
+                            {{ Form::textarea('address', $current_cmpny_ss->address, array('placeholder'=>'Address', 'class' => 'form-control' ,'required')) }}
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-lg-2 control-label">Phone</label>
                         <div class="col-lg-10">
-                            {{ Form::text('phone_number', null, array('placeholder'=>'Phone', 'class' => 'form-control' ,'required')) }}
+                            {{ Form::text('phone_number', $current_cmpny_ss->phone_number, array('placeholder'=>'Phone', 'class' => 'form-control' ,'required')) }}
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-lg-2 control-label">Email</label>
                         <div class="col-lg-10">
-                            {{ Form::text('email', null, array('placeholder'=>'Email', 'class' => 'form-control' ,'required')) }}
+                            {{ Form::text('email', $current_cmpny_ss->email, array('placeholder'=>'Email', 'class' => 'form-control' ,'required')) }}
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-lg-2 control-label">Language</label>
                         <div class="col-lg-10">
-                            {{ Form::text('language', null, array('placeholder'=>'Language', 'class' => 'form-control' ,'required')) }}
+                            {{ Form::text('language', $current_cmpny_ss->language, array('placeholder'=>'Language', 'class' => 'form-control' ,'required')) }}
                         </div>
                     </div>
                     <div class="form-group">
