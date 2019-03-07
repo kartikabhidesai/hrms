@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Company;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\Controller;
 use App\Model\ManageTimeChangeRequest;
 use App\Model\Ticket;
@@ -103,4 +104,22 @@ class TicketController extends Controller
                 $result = $this->deleteDepartment($request->input('data'));
                 break;*/
         }
-    }}
+    }
+
+    public function downloadAttachment(Request $request,$file_name)
+    {
+        // echo "<pre>"; print_r($file_name); exit();
+        $file = public_path(). "/uploads/ticket_attachment/".$file_name;
+        if(file_exists($file))
+        {
+            // $headers = array(
+            //           'Content-Type: application:image/png',
+            //         );
+            return Response::download($file,$file_name);
+        }
+        else
+        {
+            return redirect('company/ticket-list')->with('status', 'file not found!');
+        }
+    }
+}

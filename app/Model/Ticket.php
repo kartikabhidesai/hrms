@@ -122,7 +122,6 @@ class Ticket extends Model
         $data = array();
         foreach ($resultArr as $row) {
             $actionHtml ='';
-            // $actionHtml .= '<a href="' . route('department-edit', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
             // $actionHtml .= '<a href="#deleteModel" data-toggle="modal" data-id="'.$row['id'].'" class="link-black text-sm deleteDepartment" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';
             $nestedData = array();
             $nestedData[] = $row["code"];
@@ -135,7 +134,8 @@ class Ticket extends Model
             $fileAttachmentArr = [];
 
             foreach ($row->ticketAttachments as $key => $value) {
-                $fileAttachmentArr[] = $value["file_attachment"];
+                // $fileAttachmentArr[] = $value["file_attachment"];
+                $fileAttachmentArr[] = '<a href="'.'download-attachment/'.$value["file_attachment"].'" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" >'.$value["file_attachment"].'</a>';
             }
 
             $nestedData[] = implode(', ', $fileAttachmentArr);

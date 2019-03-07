@@ -61,6 +61,12 @@
         </div>
     </div>
 
+    @if (session('status'))
+        <div class="alert alert-danger">
+            {{ session('status') }}
+        </div>
+    @endif
+
 	<div class="row">
 		<div class="col-lg-12">
 			{{ csrf_field() }}
