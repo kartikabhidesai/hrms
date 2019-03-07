@@ -11,13 +11,8 @@ class Systemsetting extends Model {
 
     public function addSystemSetting($request, $Companyid) {
         
-        $name = '';
-        if ($request->file()) {
-            $image = $request->file('image');
-            $name = 'system_img' . time() . '.' . $image->getClientOriginalExtension();
-            $destinationPath = public_path('/uploads/systems/');
-            $image->move($destinationPath, $name);
-        }
+        echo"<pre>";      
+        print_r($request->file()); exit;
         $objsys = Systemsetting::firstOrNew(array('company_id' => $Companyid));
        
         $objsys->system_name = $request->system_name;
@@ -27,7 +22,15 @@ class Systemsetting extends Model {
         $objsys->email = $request->email;
         $objsys->language = $request->language;
         $objsys->company_id = $Companyid;
-         $objsys->image = $name;
+        
+         $name = '';
+        if ($request->file()) {
+            $image = $request->file('image');
+            $name = 'system_img' . time() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('/uploads/systems/');
+            $image->move($destinationPath, $name);
+             $objsys->image = $name;
+        }
         $objsys->save();
         if ($objsys) {
             return TRUE;
