@@ -70,6 +70,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+                              @if(count($employeePerfirmance) > 0)
                               @foreach($employeePerfirmance as $row => $value)
                           
                                 <tr class="gradeU">
@@ -119,8 +120,14 @@
                                         </ul>
                                     </td>
                                 </tr>
-
-                                @endforeach
+                              @endforeach
+                              @else
+                              <tr class="gradeU">
+                                    <td colspan="7" colspan="text-center" style="text-align: center !important;"> 
+                                       <span class="text-danger" >No record Found</span>
+                                    </td>
+                                </tr>
+                              @endif
                               </tbody>
                             </table>
                         </div>

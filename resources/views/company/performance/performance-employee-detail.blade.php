@@ -453,12 +453,7 @@ border-radius: 4px;
                                         <input type="file" name="attachment" class="form-control">
                                     </div>
                                 </div>
-                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">Month</label>
-                                    <div class="col-sm-9">
-                                        {{ Form::select('months', $monthis , null, array('class' => 'form-control months', 'id' => 'months')) }}
-                                    </div>
-                                </div>
+                                
 
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Year</label>
@@ -468,6 +463,13 @@ border-radius: 4px;
                                             <option value="{{  $i }}">{{  $i }}</option>
                                             @endfor
                                         </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Month</label>
+                                    <div class="col-sm-9">
+                                        {{ Form::select('months', $monthis , null, array('class' => 'form-control months', 'id' => 'months')) }}
                                     </div>
                                 </div>
 

@@ -21,7 +21,7 @@
                                 <!-- <td>{{$singleemp->joining_salary}}</td> -->
                                 <td>{{ date('d-m-Y',strtotime($singleemp->date_of_joining)) }}</td>
                                 <td>
-                                    <a href="{{ route('performance-emp-detail',array('id'=>$singleemp->id)) }}" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-eye"></i></a>
+                                    <a href="{{ route('employee-performance-list',array('id'=>$singleemp->id)) }}" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-eye"></i></a>
                                 </td>
                             </tr>
                         @endforeach
