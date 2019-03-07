@@ -123,7 +123,7 @@ if (!empty(Auth()->guard('admin')->user())) {
                     <span class="nav-label">Calendar</span></a>
                 </li>
 
-                <li class="{{ ($currentRoute == 'performance' || $currentRoute == 'performance-emp-detail/*' ? 'active' : '') }}">
+                <li class="{{ ($currentRoute == 'performance' ||  $currentRoute == 'performance-emp-detail' || $currentRoute == 'employee-performance-list' || $currentRoute == 'performance-emp-detail/*' ? 'active' : '') }}">
                     <a href="{{ route('performance') }}"><i class="fa fa-user"></i>
                     <span class="nav-label">Performance</span></a>
                 </li>
