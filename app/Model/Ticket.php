@@ -22,19 +22,31 @@ class Ticket extends Model
     	if(Auth::guard('company')->check()) {
     		$userData = Auth::guard('company')->user();
     		$getAuthCompanyId = Company::where('email', $userData->email)->first();
-    	}
 
-        $id = DB::table('tickets')->insertGetId(
-                                                ['code' => $request->input('ticket_code'),
+            $id = DB::table('tickets')->insertGetId(['code' => $request->input('ticket_code'),
                                                 'subject' => $request->input('subject'),
                                                 'priority' => $request->input('priority'),
                                                 'assign_to' => $request->input('assign_to'),
                                                 'details' => $request->input('details'),
                                                 'company_id' => $getAuthCompanyId->id,
+                                                'created_by'=>'COMPANY',
                                                 'created_at' => date('Y-m-d H:i:s'),
-                                                'updated_at' => date('Y-m-d H:i:s')
-                                                ]
-                                            );
+                                                'updated_at' => date('Y-m-d H:i:s')]);
+
+    	}else{
+            $userData = Auth::guard('employee')->user();
+            $empData = Employee::select('employee.*')->where('user_id',$userData->id)->first();
+            // echo "<pre>"; print_r($userData->id); print_r($empData->id); exit();
+            $id = DB::table('tickets')->insertGetId(['code' => $request->input('ticket_code'),
+                                                'subject' => $request->input('subject'),
+                                                'priority' => $request->input('priority'),
+                                                'assign_to' => $empData->id,
+                                                'details' => $request->input('details'),
+                                                'company_id' => $empData->company_id,
+                                                'created_by'=>'EMPLOYEE',
+                                                'created_at' => date('Y-m-d H:i:s'),
+                                                'updated_at' => date('Y-m-d H:i:s')]);
+        }
 
         if (!file_exists(public_path('/uploads/ticket_attachment'))) {
             mkdir(public_path('/uploads/ticket_attachment'),'0777',false);
@@ -78,8 +90,19 @@ class Ticket extends Model
     public function getdatatable()
     {
         $requestData = $_REQUEST;
-        $userData = Auth::guard('company')->user();
-        $companyId = Company::where('email', $userData->email)->first();
+        if(Auth::guard('company')->check()) 
+        {
+            $userData = Auth::guard('company')->user();
+            $companyId = Company::where('email', $userData->email)->first();
+            $query = Ticket::join('employee','employee.id','tickets.assign_to')->join('comapnies','comapnies.id','tickets.company_id')->with(['ticketAttachments'])->where('tickets.company_id', $companyId->id)/*->where('tickets.created_by','COMPANY')*/->select('tickets.*','employee.name as emp_name', 'comapnies.company_name');
+        }
+        else
+        {
+            $userData = Auth::guard('employee')->user();
+            $empData = Employee::select('employee.*')->where('user_id',$userData->id)->first();
+            $query = Ticket::join('employee','employee.id','tickets.assign_to')->join('comapnies','comapnies.id','tickets.company_id')->with(['ticketAttachments'])->where('tickets.assign_to', $empData->id)/*->where('tickets.created_by','EMPLOYEE')*/->select('tickets.*','employee.name as emp_name', 'comapnies.company_name');
+        }
+
         $columns = array(
             // datatable column index  => database column name
             0 => 'tickets.code',
@@ -93,7 +116,7 @@ class Ticket extends Model
             8 => 'tickets.file_attachment'
         );
 
-        $query = Ticket::join('employee','employee.id','tickets.assign_to')->join('comapnies','comapnies.id','tickets.company_id')->with(['ticketAttachments'])->where('tickets.company_id', $companyId->id)->select('tickets.*','employee.name as emp_name', 'comapnies.company_name');
+        
         if (!empty($requestData['search']['value'])) {
             $searchVal = $requestData['search']['value'];
             $query->where(function($query) use ($columns, $searchVal, $requestData) {
@@ -119,6 +142,12 @@ class Ticket extends Model
                             ->take($requestData['length'])
                             ->get();
 
+        if(Auth::guard('company')->check()){
+            $loginuser = 'company';
+        }else{
+            $loginuser = 'employee';
+        }
+
         $data = array();
         foreach ($resultArr as $row) {
             $actionHtml ='';
@@ -126,10 +155,16 @@ class Ticket extends Model
             $nestedData = array();
             $nestedData[] = $row["code"];
             $nestedData[] = $row["priority"];
-            $nestedData[] = 'sss';
+            $nestedData[] = '';
             $nestedData[] = $row["subject"];
-            $nestedData[] = $row["emp_name"];
-            $nestedData[] = $row["company_name"];
+
+            if($loginuser == 'company'){
+                $nestedData[] = $row["emp_name"];
+            }else{
+                
+            }
+            
+            $nestedData[] = $row["created_by"];
             $nestedData[] = $row["details"];
             $fileAttachmentArr = [];
 
