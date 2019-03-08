@@ -6,11 +6,10 @@ var SysSetting = function () {
             system_name: {required: true},
             system_title: {required: true},
             address: {required: true},
-            phone_number: {address: true},
+            phone_number: {required: true},
             email: {required: true},
             language: {required: true},
-            image: {required: true},
-            
+            // file: {required: true},
         };
 
         handleFormValidate(form, rules, function(form) {
