@@ -46,7 +46,7 @@
                             <div class="form-group">
                                 <label class="col-lg-2 control-label">Department</label>
                                 <div class="col-lg-10">
-                                    {{ Form::select('department', $department , null, array('placeholder'=>'Select Depatment', 'class' => 'form-control department', 'id' => 'department')) }}
+                                    {{ Form::select('department_id', $department , null, array('placeholder'=>'Select Depatment', 'class' => 'form-control department', 'id' => 'department')) }}
                                 </div>
                             </div>
 
@@ -67,23 +67,19 @@
                         <hr>
                         <div class="col-lg-12">
                             <div class="row">
-                                <H2 class="col-lg-12 center-align">Employee Info</H2>
+                                <H2 class="col-lg-12 center-align">Nominated Employee</H2>
                                 
                              </div>
                             <div class="row">
                                 <label class="col-lg-1"></label>
-                                <label class="col-lg-3">Employee Name:</label>
+                               
                                 <label class="col-lg-3">Department </label>
-                                <label class="col-lg-3">Employee Info</label>
-                                <label class="col-lg-2"></label>
+                                <label class="col-lg-3">Employee Name</label>
+                                <label class="col-lg-2"></label>                                
+                                <label class="col-lg-3"></label>
                              </div>
-                             <div class="row">
+                             <!-- <div class="row">
                                 <div class="col-lg-1"></div>
-                                <div class="col-lg-3">
-                                    <div class="form-group mr-1">
-                                        <input type="text" class="form-control" name="employee_name" placeholder="Employee Name">
-                                    </div>
-                                </div>
                                 <div class="col-lg-3">
                                     <div class="form-group mr-1">
                                         {{ Form::select('department', $department , null, array('placeholder'=>'Select Depatment', 'class' => 'form-control department', 'id' => 'department')) }}
@@ -91,61 +87,22 @@
                                 </div>
                                 <div class="col-lg-3">
                                     <div class="form-group mr-1">
-                                        {{ Form::select('department', $department , null, array('placeholder'=>'Select Depatment', 'class' => 'form-control department', 'id' => 'department')) }}
-                                        <input type="text" class="form-control" name="employee_info" placeholder="Employee Info" >
+                                    {{ Form::select('employee',['' => 'Select Employee'] + $employee , isset($employeeId) ? $employeeId : '', array('class' => 'form-control ', 'id' => 'employee')) }}
                                     </div>
                                 </div>
                                  <div class="col-lg-2" style="text-align: center;">
-                                    <button class="btn btn-sm btn-danger" type="submit"><i class="fa fa-minus"></i></button>
+                                    <a class="btn btn-sm btn-danger" ><i class="fa fa-minus"></i></a>
                                  </div>
-                            </div>
+                                 <div class="col-lg-3">
+                                    
+                                </div>
+                            </div> -->
+                            <div id="emp-info"></div> 
                             <div class="row">
-                                <div class="col-lg-1"></div>
-                                <div class="col-lg-3">
-                                    <div class="form-group mr-1">
-                                        <input type="text" class="form-control" name="employee_name" placeholder="Employee Name">
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="form-group mr-1">
-                                        <input type="text" class="form-control" name="department" placeholder="Department">
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="form-group mr-1">
-                                        <input type="text" class="form-control" name="employee_info" placeholder="Employee Info" >
-                                    </div>
-                                </div>
-                                <div class="col-lg-2" style="text-align: center;">
-                                    <button class="btn btn-sm btn-danger" type="submit"><i class="fa fa-minus"></i></button>
-                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-1"></div>
-                                <div class="col-lg-3">
-                                    <div class="form-group mr-1">
-                                        <input type="text" class="form-control" name="employee_name" placeholder="Employee Name">
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="form-group mr-1">
-                                        <input type="text" class="form-control" name="department" placeholder="Department">
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="form-group mr-1">
-                                        <input type="text" class="form-control" name="employee_info" placeholder="Employee Info" >
-                                    </div>
-                                </div>
-                                 <div class="col-lg-2" style="text-align: center;">
-                                    <button class="btn btn-sm btn-danger" type="submit"><i class="fa fa-minus"></i></button>
-                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-10"></div>
+                                <div class="col-lg-7"></div>
                                 
                                  <div class="col-lg-2" style="text-align: center;">
-                                      <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-plus"></i></button>
+                                      <a class="btn btn-sm btn-primary add-emp"  ><i class="fa fa-plus"></i></a>
                                  </div>
                             </div>
                         </div>
@@ -165,4 +122,30 @@
         
 	</div>
 </div>
+<script>
+var empCount=1;
+        function getinput1(){
+        $("#emp-info").append('<div class="row" id="employee'+empCount+'">\
+                <div class="col-lg-1"></div>\
+                <div class="col-lg-3">\
+                    <div class="form-group mr-1">\
+                    {{ Form::select("department[]", $department , null, array("placeholder"=>"Select Depatment", "class" => "form-control department", "id" => "department")) }}\
+                    </div>\
+                </div>\
+                <div class="col-lg-3">\
+                    <div class="form-group mr-1">\
+                    {{ Form::select("employee[]",["" => "Select Employee"] + $employee , isset($employeeId) ? $employeeId : "", array("class" => "form-control ", "id" => "employee")) }}\
+                    </div>\
+                </div>\
+                <div class="col-lg-2" style="text-align: center;">\
+                    <a class="btn btn-sm btn-danger" onclick="removeEmployee('+empCount+')" ><i class="fa fa-minus"></i></a>\
+                </div>\
+                <div class="col-lg-2">\
+                </div>\
+            </div>');
+        }
+        function removeEmployee(id){
+            $('#employee'+id).remove();
+        }
+            </script>
 @endsection

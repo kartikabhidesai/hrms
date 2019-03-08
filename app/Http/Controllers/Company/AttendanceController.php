@@ -229,9 +229,9 @@ class AttendanceController extends Controller
     {
         $userId = $this->loginUser->id;
         $companyId = Company::select('id')->where('user_id', $userId)->first();
-        $return = AttendanceHIstory::select('employee.name', 'leaves.start_date', 'leaves.end_date', 'leaves.type_of_req_id', 'department.department_name', 'time_change_requests.request_type', 'time_change_requests.from_date', 'time_change_requests.to_date', 'leaves.reason', 'time_change_requests.date_of_submit', 'time_change_requests.total_hours', 'time_change_requests.request_description', 'time_change_requests.status')
+        $return = AttendanceHIstory::select('employee.name', 'leaves.start_date', 'leaves.end_date', 'leaves.type_of_req_id', 'time_change_requests.request_type', 'time_change_requests.from_date', 'time_change_requests.to_date', 'leaves.reason', 'time_change_requests.date_of_submit', 'time_change_requests.total_hours', 'time_change_requests.request_description', 'time_change_requests.status')
                                     ->join('employee', 'attendance_history.employee_id', '=', 'employee.id')
-                                    ->join('department', 'attendance_history.department_id', '=', 'department.id')
+                                    // ->join('department', 'attendance_history.department_id', '=', 'department.id')
                                     ->leftjoin('time_change_requests', 'attendance_history.time_change_request_id', '=', 'time_change_requests.id')
                                     ->leftjoin('leaves', 'attendance_history.leave_id', '=', 'leaves.id')
                                     ->where('attendance_history.company_id', $companyId->id)

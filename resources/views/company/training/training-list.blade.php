@@ -20,38 +20,13 @@
                                     <th>Training ID</th>
                                     <th>training Name</th>
                                     <th>Assigned To</th>
-                                    <th>Priority</th>
-                                    <th>Status</th>
-                                    <th>Complete Progress</th>
-                                    <th>Info</th>
+                                    
                                     
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                 <tr>
-                                    <td>1</td>
-                                    <td>Design</td>
-                                    <td>ABC</td>
-                                    <td>High</td>
-                                    <td>Pending</td>
-                                    <td>50%</td>
-                                    <td>Abcdef Abcdef Abcdef</td>
-                                    <td>
-                                        <a href="" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-eye"></i></a></td>
-                                </tr>
-                                
-                                <tr>
-                                    <td>2</td>
-                                    <td>API</td>
-                                    <td>ABC</td>
-                                    <td>Normal</td>
-                                    <td>Pending</td>
-                                    <td>70%</td>
-                                    <td>AbcdefAbcdefAbcdef Abcdef Abcdef</td>
-                                    <td>
-                                        <a href="" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-eye"></i></a></td>
-                                </tr> 
+                                 
                             </tbody>
                         </table>
                     </div>

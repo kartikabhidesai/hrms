@@ -101,6 +101,7 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
     /*Training*/
     Route::match(['get', 'post'], 'training', ['as' => 'training', 'uses' => 'Company\TrainingController@index']);
     Route::match(['get', 'post'], 'add-training', ['as' => 'add-training', 'uses' => 'Company\TrainingController@addTraining']);
+    Route::match(['get', 'post'], 'training-ajaxAction', ['as' => 'ajaxAction', 'uses' => 'Company\TrainingController@ajaxAction']);
 
     /*System-setting*/
     Route::match(['get', 'post'], 'system-setting', ['as' => 'system-setting', 'uses' => 'Company\SystemsettingController@index']);
