@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddCretedByInTicketTable extends Migration
+class AddCretedByInTicketsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class AddCretedByInTicketTable extends Migration
      */
     public function up()
     {
-        Schema::table('ticket', function (Blueprint $table) {
+        Schema::table('tickets', function (Blueprint $table) {
             $table->string('created_by')->after('details');
         });
     }
@@ -25,7 +25,7 @@ class AddCretedByInTicketTable extends Migration
      */
     public function down()
     {
-        Schema::table('ticket', function (Blueprint $table) {
+        Schema::table('tickets', function (Blueprint $table) {
             $table->string('created_by')->after('details');
         });
     }
