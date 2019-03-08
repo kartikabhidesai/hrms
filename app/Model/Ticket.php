@@ -94,7 +94,7 @@ class Ticket extends Model
         {
             $userData = Auth::guard('company')->user();
             $companyId = Company::where('email', $userData->email)->first();
-            $query = Ticket::join('employee','employee.id','tickets.assign_to')->join('comapnies','comapnies.id','tickets.company_id')->with(['ticketAttachments'])->where('tickets.company_id', $companyId->id)->where('tickets.created_by','COMPANY')->select('tickets.*','employee.name as emp_name', 'comapnies.company_name');
+            $query = Ticket::join('employee','employee.id','tickets.assign_to')->join('comapnies','comapnies.id','tickets.company_id')->with(['ticketAttachments'])->where('tickets.company_id', $companyId->id)/*->where('tickets.created_by','COMPANY')*/->select('tickets.*','employee.name as emp_name', 'comapnies.company_name');
         }
         else
         {
@@ -155,7 +155,7 @@ class Ticket extends Model
             $nestedData = array();
             $nestedData[] = $row["code"];
             $nestedData[] = $row["priority"];
-            $nestedData[] = 'sss';
+            $nestedData[] = '';
             $nestedData[] = $row["subject"];
 
             if($loginuser == 'company'){

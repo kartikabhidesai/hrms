@@ -68,7 +68,7 @@ $currentRoute = Route::current()->getName();
                 </li>
 
                 <li class="{{ ($currentRoute == 'ticket-list' || $currentRoute == 'add-ticket' ? 'active' : '') }}">
-                    <a href="{{ route('ticket-list') }}"><i class="fa fa-ticket"></i>
+                    <a href="{{ route('ticket-list-emp') }}"><i class="fa fa-ticket"></i>
                     <span class="nav-label">Tickets</span></a>
                 </li>
                 
