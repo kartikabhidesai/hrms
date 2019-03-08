@@ -160,11 +160,11 @@ class Ticket extends Model
 
             if($loginuser == 'company'){
                 $nestedData[] = $row["emp_name"];
-                $nestedData[] = $row["company_name"];
             }else{
-                $nestedData[] = $row["emp_name"];
+                
             }
             
+            $nestedData[] = $row["created_by"];
             $nestedData[] = $row["details"];
             $fileAttachmentArr = [];
 
