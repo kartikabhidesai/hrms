@@ -185,7 +185,7 @@ border-radius: 4px;
 }
 
 /* Hover state of the stars */
-.rating-stars ul > li.star.hover,li.product.hover,li.know.hover,li.qlt.hover,li.work.hover,li.honest.hover,,li.available.hover > i.fa {
+.rating-stars ul > li.star.hover,li.product.hover,li.know.hover,li.qlt.hover,li.work.hover,li.honest.hover,li.available.hover > i.fa {
   color:#FFCC36;
 }
 

@@ -137,9 +137,13 @@ if (!empty(Auth()->guard('admin')->user())) {
                     <a href="{{ route('training') }}"><i class="fa fa-ticket"></i>
                     <span class="nav-label">Training</span></a>
                 </li>
-                 <li class="{{ ($currentRoute == 'system-setting' || $currentRoute == 'system-setting' ? 'active' : '') }}">
+                <li class="{{ ($currentRoute == 'system-setting' || $currentRoute == 'system-setting' ? 'active' : '') }}">
                     <a href="{{ route('system-setting') }}"><i class="fa fa-cogs"></i>
                     <span class="nav-label">System Setting</span></a>
+                </li>
+                <li class="{{ ($currentRoute == 'recruitment' || $currentRoute == 'recruitment' ? 'active' : '') }}">
+                    <a href="{{ route('recruitment') }}"><i class="fa fa-empire"></i>
+                    <span class="nav-label">Recruitement</span></a>
                 </li>
                
             </ul>

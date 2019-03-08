@@ -104,4 +104,8 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
 
     /*System-setting*/
     Route::match(['get', 'post'], 'system-setting', ['as' => 'system-setting', 'uses' => 'Company\SystemsettingController@index']);
+    
+    /*Recruitement*/
+    Route::match(['get', 'post'], 'recruitment', ['as' => 'recruitment', 'uses' => 'Company\RecruitementController@index']);
+    
 });
