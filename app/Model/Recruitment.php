@@ -142,7 +142,7 @@ class Recruitment extends Model
         // print_r($companyId);
             // $id = $request->input('editId');
 
-            $objRecruitment = Recruitment::from('Recruitment')->where('id', $id)->where('company_id', $companyId)->first();
+            $objRecruitment = Recruitment::from('recruitment')->where('id', $id)->where('company_id', $companyId)->first();
             $objRecruitment->task = $request->task;
             $objRecruitment->department_id = $request->department;
             $objRecruitment->responsibility = $request->responsibility;

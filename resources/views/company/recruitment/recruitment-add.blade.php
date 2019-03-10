@@ -107,7 +107,7 @@
                                     <label class="col-sm-2 control-label">Expire Date</label>
                                     <div class="col-sm-9">
                                         <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="expire_date" id="expire_date"  class="form-control expire_date" placeholder="Expire date" >
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="expire_date" id="expire_date"  class="form-control expire_date" placeholder="Expire date" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>

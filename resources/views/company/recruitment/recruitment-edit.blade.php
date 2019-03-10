@@ -100,7 +100,7 @@
                                     <label class="col-sm-2 control-label">Start Date</label>
                                     <div class="col-sm-9">
                                     <div class="input-group ">
-                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="start_date" id="start_date"  class="form-control start_date" placeholder="Start date"  value="{{  date('d-m-Y', strtotime($details->start_date)) }}" >
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="start_date" id="start_date"  class="form-control start_date" placeholder="Start date"  value="{{  date('d-m-Y', strtotime($details->start_date)) }}" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -108,7 +108,7 @@
                                     <label class="col-sm-2 control-label">Expire Date</label>
                                     <div class="col-sm-9">
                                         <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="expire_date" id="expire_date"  class="form-control expire_date" placeholder="Expire date"  value="{{  date('d-m-Y', strtotime($details->expire_date)) }}" >
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="expire_date" id="expire_date"  class="form-control expire_date" placeholder="Expire date"  value="{{  date('d-m-Y', strtotime($details->expire_date)) }}" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>

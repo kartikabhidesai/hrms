@@ -52,7 +52,6 @@ class RecruitmentController extends Controller {
     {
         
         $action = $request->input('action');
-        // print_r($action);exit;
         switch ($action) {
             case 'getdatatable':
                 $objRecruitment = new Recruitment();
