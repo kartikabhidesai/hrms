@@ -105,4 +105,10 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
 
     /*System-setting*/
     Route::match(['get', 'post'], 'system-setting', ['as' => 'system-setting', 'uses' => 'Company\SystemsettingController@index']);
+
+    Route::match(['get', 'post'], 'recruitment', ['as' => 'recruitment', 'uses' => 'Company\RecruitmentController@index']);
+    Route::match(['get', 'post'], 'recruitment-add', ['as' => 'recruitment-add', 'uses' => 'Company\RecruitmentController@addRecruitment']);
+    Route::match(['get', 'post'], 'recruitment-ajaxAction', ['as' => 'recruitment-ajaxAction', 'uses' => 'Company\RecruitmentController@ajaxAction']);
+    Route::match(['get', 'post'], 'recruitment-edit/{id}', ['as' => 'recruitment-edit', 'uses' => 'Company\RecruitmentController@editRecruitment']);
+    
 });
