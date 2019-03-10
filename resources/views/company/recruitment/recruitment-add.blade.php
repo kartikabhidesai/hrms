@@ -47,12 +47,12 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label class="col-lg-2 control-label">Requirement</label>
                                     <div class="col-lg-10">
                                         <input type="text" class="form-control" name="requirement">
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="form-group col-lg-12">
                                     <label class="col-sm-3 control-label">Job Time</label>
                                     <div class="col-sm-9">
@@ -99,7 +99,7 @@
                                     <label class="col-sm-2 control-label">Start Date</label>
                                     <div class="col-sm-9">
                                     <div class="input-group ">
-                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="start_date" id="start_date"  class="form-control start_date" placeholder="Start date" >
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="start_date" id="start_date"  class="form-control start_date" placeholder="Start date" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>

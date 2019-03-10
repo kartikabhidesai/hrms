@@ -161,9 +161,8 @@ class RecruitmentController extends Controller {
             'title' => 'Recruitment',
             'breadcrumb' => array(
                 'Home' => route("company-dashboard"),
+                'Recruitment' => route("recruitment"),
                 'Edit Recruitment' => 'Recruitment'));
-        
-
         
         $objDepart = new Department();
         $data['department'] = $objDepart->getDepartment($companyId->id);

@@ -45,7 +45,7 @@
                                 <div class="form-group">
                                     <label class="col-lg-2 control-label">Requirement</label>
                                     <div class="col-lg-10">
-                                        <input type="text" class="form-control" name="requirement"  value="{{  $details->requirement }}">
+                                        <textarea class="form-control" name="requirement">{{  $details->requirement }}</textarea>
                                     </div>
                                 </div>
                                 <div class="form-group col-lg-12">
