@@ -72,7 +72,7 @@ class Recruitment extends Model
             2 => 'recruitment.responsibility',
             
         );
-        $query = Recruitment::from('Recruitment')->where('company_id', $companyId->id);
+        $query = Recruitment::from('recruitment')->where('company_id', $companyId->id);
         // $query = Recruitment::with(['department'])->where('company_id', $companyId->id); /*using eloquent relationship*/
         // ->groupBy('designation.department_id');
         if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
