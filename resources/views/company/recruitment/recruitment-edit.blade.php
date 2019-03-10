@@ -7,7 +7,7 @@
             {{ csrf_field() }}
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Pay Slip</h5>
+                    <h5>Edit Recruitment</h5>
                 </div>
                 <div class="ibox-content">
                     <div class="row">
@@ -122,7 +122,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-lg-offset-5 col-lg-6">
-                                    <button class="btn btn-sm btn-primary" type="submit">Generate Job Offer</button>
+                                    <button class="btn btn-sm btn-primary" type="submit">Edit Job Offer</button>
                                 </div>
                             </div>
                         </div>

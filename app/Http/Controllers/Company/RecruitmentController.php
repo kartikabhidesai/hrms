@@ -32,7 +32,7 @@ class RecruitmentController extends Controller {
             'title' => 'Recruitment',
             'breadcrumb' => array(
                 'Home' => route("company-dashboard"),
-                'Add Recruitment' => 'Recruitment'));
+                'Recruitment' => 'Recruitment'));
         
 
         $userId = $this->loginUser->id;
@@ -101,6 +101,7 @@ class RecruitmentController extends Controller {
             'title' => 'Recruitment',
             'breadcrumb' => array(
                 'Home' => route("company-dashboard"),
+                'Recruitment' => route("recruitment"),
                 'Add Recruitment' => 'Recruitment'));
         
 

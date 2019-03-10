@@ -107,8 +107,16 @@ class Recruitment extends Model
             $actionHtml .= '<a href="' . route('recruitment-edit', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
             $actionHtml .= '<a href="#deleteModel" data-toggle="modal" data-id="'.$row['id'].'" class="link-black text-sm recruitmentDelete" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';
             $nestedData = array();
+            $nestedData[] = $row['id'];
             $nestedData[] = $row["task"];
             $nestedData[] = $row["responsibility"];
+            if($row["experience_level"] == 0) {
+                $nestedData[] = 'High';
+            } else if($row["experience_level"] == 1) {
+                $nestedData[] = 'Medium';
+            } else {
+                $nestedData[] = 'Low';
+            }
             $nestedData[] = $row["start_date"]." - ".$row["expire_date"];
             $nestedData[] = $actionHtml;
             $data[] = $nestedData;

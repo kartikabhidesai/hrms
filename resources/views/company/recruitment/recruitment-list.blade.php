@@ -18,10 +18,10 @@
                             <thead>
                                 <tr>
                                     <th>Recruitment ID</th>
-                                    <th>Name</th>
-                                    <th>Assigned To</th>
-                                    
-                                    
+                                    <th>Task Name</th>
+                                    <th>Responsibility</th>
+                                    <th>Experience Level</th>
+                                    <th>Start Date - End Date</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
