@@ -92,11 +92,29 @@ class TaskController extends Controller {
             case 'getdatatable':
                 $userID = $this->loginUser->id;
                 $companyId = Company::select('id')->where('user_id', $userID)->first();
-                $objEmploye = new Task();
-                $taskList = $objEmploye->getTaskList($request, $companyId->id);
+                $objtask = new Task();
+                $taskList = $objtask->getTaskList($request, $companyId->id);
                 echo json_encode($taskList);
                 break;
+
+                case 'taskDetails':
+                $result = $this->getTaskDetails($request->input('data'));
+                break;
         }
+    }
+
+    public function getTaskDetails($postData)
+    {
+        $userId = $this->loginUser->id;
+        $companyId = Company::select('id')->where('user_id', $userId)->first();
+
+        $taskDetails = Task::select('tasks.task', 'tasks.priority', 'tasks.about_task', 'tasks.complete_progress', 'tasks.task_status', 'tasks.employee_id', 'emp.name as emp_name')
+                            ->join('employee as emp', 'tasks.employee_id', '=', 'emp.id')
+                            ->where('tasks.id', $postData)
+                            ->first();
+
+        echo json_encode($taskDetails);
+        exit;
     }
 
 }

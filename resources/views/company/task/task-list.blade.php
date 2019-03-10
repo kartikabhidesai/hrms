@@ -7,9 +7,9 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>Task List</h5>
-                    <div class="ibox-tools">
+                    <!-- <div class="ibox-tools">
                             <a href="{{ route('add-task') }}" class="btn btn-primary dim" ><i class="fa fa-plus"> Add</i></a>
-                    </div>
+                    </div> -->
                 </div>
                 
                 <div class="ibox-content">
@@ -49,6 +49,9 @@
                             </div>
                         </div>
                         {{ Form::close() }}
+                        <div class="ibox-tools">
+                            <a href="{{ route('add-task') }}" class="btn btn-primary dim" ><i class="fa fa-plus"> Add</i></a>
+                    </div>
                         <table class="table table-striped table-bordered table-hover dataTables-example" id="taskTable">
                             <thead>
                                 <tr>
@@ -95,4 +98,44 @@
         </div>
     </div>
 </div>
+
+<div id="taskDetailsModel" class="modal fade" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12"><h3 class="m-t-none m-b">Task Details</h3>
+                            <br/>
+                            <!-- <b>Employee Name: </b><span class="m-t-none m-b empName"></span><br/> -->
+                            <div class="taskNameDiv">
+                                <b>Task Name: </b><span class="m-t-none m-b taskName"></span><br/>
+                            </div>
+                            <div class="assignedToDiv">
+                                <b>Assigned To: </b><span class="m-t-none m-b assignedTo"></span><br/>
+                            </div>
+                            <div class="priorityDiv">
+                                <b>Priority: </b><span class="m-t-none m-b priority"></span><br/>
+                            </div>
+                            <div class="statusDiv">
+                                <b>Status: </b><span class="m-t-none m-b status"></span><br/>
+                            </div>
+                            <div class="progressDiv">
+                                <b>Complete Progress: </b><span class="m-t-none m-b progress"></span><br/>
+                            </div>
+                            <div class="infoDiv">
+                                <b>Info: </b><span class="m-t-none m-b info"></span><br/>
+                            </div>
+                            
+                            <form role="form">
+                                <div>
+                                    <button class="btn btn-sm btn-primary pull-right m-l" data-dismiss="modal">Close</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
