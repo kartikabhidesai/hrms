@@ -57,6 +57,9 @@ class CommunicationController extends Controller
         if(isset($request->communication_id) && $request->communication_id != '' && $request->isMethod('get'))
         {
             $data['communication_id'] = $request->communication_id;
+            $objCommunication = new Communication();
+            $getSubject = $objCommunication->getComminucationDataEmp($request->communication_id);
+            $data['subject'] = $getSubject->subject;
         }
 
         if ($request->isMethod('post')) {

@@ -147,7 +147,7 @@ class AttendanceController extends Controller
 
             if($request->get('departentId') == 'all') {
                 $data['departmentname'] = "All Employees";
-                $departmentName = Department::select('id', 'department_name')->where('id', $request->get('departentId'))->first();
+                /*$departmentName = Department::select('id', 'department_name')->where('id', $request->get('departentId'))->first();*/
             
                 $data['getAttedanceReport'] = Attendance::select('employee.name', 'attendance.id','attendance.date', 'attendance.attendance')  
                                                         ->join('employee', 'attendance.emp_id', '=', 'employee.id')
@@ -163,7 +163,7 @@ class AttendanceController extends Controller
                                                         ->join('employee', 'attendance.emp_id', '=', 'employee.id')
                                                         ->whereYear('attendance.date', '=', $request->year)
                                                         ->whereMonth('attendance.date', '=', $request->month)
-                                                        ->where('department_id', $departmentName->id)
+                                                        ->where('employee.department', $departmentName->id)
                                                         ->get();
                 // dd($data['getAttedanceReport']);
             }

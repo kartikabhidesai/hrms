@@ -73,6 +73,7 @@ class CommunicationController extends Controller
             
             $data['employee_id'] = $result->employee_id;
             $data['employee_name'] = $result->name;
+            $data['subject'] = $result->subject;
             $data['communication_table'] = $request->communication_table;
         }
 
