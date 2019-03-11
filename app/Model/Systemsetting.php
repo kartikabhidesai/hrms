@@ -28,7 +28,7 @@ class Systemsetting extends Model {
         $objsys->system_name = $request->system_name;
         $objsys->system_title = $request->system_title;
         $objsys->address = $request->address;
-        $objsys->phone_number = $request->phone;
+        $objsys->phone_number = $request->phone_number;
         $objsys->email = $request->email;
         $objsys->language = $request->language;
         $objsys->company_id = $Companyid;
