@@ -49,6 +49,59 @@ var Task = function () {
         });
     }
 
+    $("body").on('click', '.taskDetails', function () {
+        var data = $(this).attr('data-id');
+        $.ajax({
+            type: "POST",
+            headers: {
+                'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+            },
+            url: baseurl + "company/task-ajaxAction",
+            data: {'action': 'taskDetails', 'data': data},
+            success: function(data) {
+                var  output = JSON.parse(data);
+                console.log(output);
+                if(output.task === null) {
+                    $('.taskName').hide();
+                } else {
+                    $('.taskName').show();
+                    $('.taskName').html(output.task);
+                }
+                if(output.employee_id === null) {
+                    $('.assignedTo').hide();
+                } else {
+                    $('.assignedTo').html(output.emp_name);
+                }
+                if(output.priority === null) {
+                    $('.priority').hide();
+                } else {
+                    $('.priority').html(output.priority);
+                }
+                if(output.about_task === null) {
+                    $('.info').hide();
+                } else {
+                    $('.info').html(output.about_task);
+                }
+                if(output.complete_progress === null) {
+                    $('.progress').hide();
+                } else {
+                    $('.progress').html(output.complete_progress + ' %');
+                }
+                if(output.task_status === null) {
+                    $('.statusDiv').hide();
+                } else {
+                    if(output.task_status == 0) {
+                        $('.status').html('In-progress');
+                    } if(output.task_status == 1) {
+                        $('.status').html('Pending');
+                    } if(output.task_status == 2) {
+                        $('.status').html('Complete');
+                    }
+                }
+            }
+        });
+    });
+
     return {
         init: function () {
             handleList();

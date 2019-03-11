@@ -27,7 +27,6 @@ class Attendance extends Model
         $empid = $request->input('emp_id');
         $attendance = $request->input('attendance');
         $reason = $request->input('reason');
-        // dd($reason);
         $user_id = $request->input('user_id');
         
         for($i=0;$i< count($user_id) ; $i++){
@@ -38,7 +37,7 @@ class Attendance extends Model
             $saveattendance = Attendance::firstOrNew(array('date' => date('Y-m-d',  strtotime($date)),'user_id' => $user_id[$i],'emp_id' => $empid[$i]));
             //Save new OR update(if exist) attendance record
             $saveattendance->date = date('Y-m-d', strtotime($date));
-            $saveattendance->department_id = $department_id;
+            // $saveattendance->department_id = $department_id;
             $saveattendance->user_id = $user_id[$i];
             $saveattendance->emp_id = $empid[$i];
             $saveattendance->attendance = $attendance[$i];

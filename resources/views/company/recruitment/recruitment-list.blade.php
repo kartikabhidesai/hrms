@@ -6,22 +6,22 @@
             {{ csrf_field() }}
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Training List</h5>
+                    <h5>Recruitment List</h5>
                     <div class="ibox-tools">
-                            <a href="{{ route('add-training') }}" class="btn btn-primary dim" ><i class="fa fa-plus"> Add</i></a>
+                            <a href="{{ route('recruitment-add') }}" class="btn btn-primary dim" ><i class="fa fa-plus"> Add</i></a>
                     </div>
                 </div>
                 
                 <div class="ibox-content">
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover dataTables-example" id="trainingTable">
+                        <table class="table table-striped table-bordered table-hover dataTables-example" id="recruitmentTable">
                             <thead>
                                 <tr>
-                                    <th>Training ID</th>
-                                    <th>training Name</th>
-                                    <th>Assigned To</th>
-                                    
-                                    
+                                    <th>Recruitment ID</th>
+                                    <th>Task Name</th>
+                                    <th>Responsibility</th>
+                                    <th>Experience Level</th>
+                                    <th>Start Date - End Date</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>

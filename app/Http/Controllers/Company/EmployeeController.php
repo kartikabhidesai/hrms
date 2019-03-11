@@ -168,7 +168,22 @@ class EmployeeController extends Controller {
             case 'deleteEmp':
                 $result = $this->deleteEmp($request->input('data'));
                 break;
+            case 'getDepartmentEmployeeList':
+                $result = $this->getDepartmentEmployeeList($request->input('department_id'));
+                break;
         }
+    }
+
+    public function getDepartmentEmployeeList($department_id) 
+    {
+        // $session = $request->session()->all();
+        $userId = $this->loginUser->id;
+        $companyId = Company::select('id')->where('user_id', $userId)->first();
+        
+        // $objEmployee = new Employee();
+        // $companyId = Company::select('id')->where('employee', $employee_id)->get();
+        $data1 = Employee::select('id','name')->where('company_id', $companyId->id)->where('department', $department_id)->get();
+        echo json_encode($data1);
     }
 
 

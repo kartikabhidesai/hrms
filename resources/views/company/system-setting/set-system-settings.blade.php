@@ -16,38 +16,65 @@
 
                 <div class="ibox-content">
                     <div class="form-group">
+<<<<<<< HEAD
                         <label class="col-lg-2 control-label">System Name</label>
                         <div class="col-lg-9">
                             {{ Form::text('system_name', null, array('placeholder'=>'System Name', 'class' => 'form-control' )) }}
+=======
+                        <label class="col-lg-2 control-label">System name</label>
+                        <div class="col-lg-10">
+                            {{ Form::text('system_name', $sysSetting['system_name'], array('placeholder'=>'System Name', 'class' => 'form-control' ,'required')) }}
+>>>>>>> 215036aa13d1e03c5c19efe5f43c4f0f16086f22
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-lg-2 control-label">System Title</label>
+<<<<<<< HEAD
                         <div class="col-lg-9">
                             {{ Form::text('system_title', null, array('placeholder'=>'System Title', 'class' => 'form-control' )) }}
+=======
+                        <div class="col-lg-10">
+                            {{ Form::text('system_title', $sysSetting['system_title'], array('placeholder'=>'System Title', 'class' => 'form-control' ,'required')) }}
+>>>>>>> 215036aa13d1e03c5c19efe5f43c4f0f16086f22
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-lg-2 control-label">Address</label>
+<<<<<<< HEAD
                         <div class="col-lg-9">
                             {{ Form::textarea('address', null, array('placeholder'=>'Address', 'class' => 'form-control' )) }}
+=======
+                        <div class="col-lg-10">
+                            {{ Form::textarea('address', $sysSetting['address'], array('placeholder'=>'Address', 'class' => 'form-control' , 'rows' => '5', 'cols' => '4','required')) }}
+>>>>>>> 215036aa13d1e03c5c19efe5f43c4f0f16086f22
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-lg-2 control-label">Phone</label>
+<<<<<<< HEAD
                         <div class="col-lg-9">
                             {{ Form::text('phone', null, array('placeholder'=>'Phone', 'class' => 'form-control' )) }}
+=======
+                        <div class="col-lg-10">
+                            {{ Form::text('phone_number', $sysSetting['phone_number'], array('placeholder'=>'Phone', 'class' => 'form-control' ,'required')) }}
+>>>>>>> 215036aa13d1e03c5c19efe5f43c4f0f16086f22
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-lg-2 control-label">Email</label>
+<<<<<<< HEAD
                         <div class="col-lg-9">
                             {{ Form::text('email', null, array('placeholder'=>'Email', 'class' => 'form-control' )) }}
+=======
+                        <div class="col-lg-10">
+                            {{ Form::text('email', $sysSetting['email'], array('placeholder'=>'Email', 'class' => 'form-control' ,'required')) }}
+>>>>>>> 215036aa13d1e03c5c19efe5f43c4f0f16086f22
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-lg-2 control-label">Language</label>
+<<<<<<< HEAD
                         <div class="col-lg-9">
                             {{ Form::text('language', null, array('placeholder'=>'Language', 'class' => 'form-control' )) }}
                         </div>
@@ -66,6 +93,17 @@
                             </span>
                             <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
                         </div> 
+=======
+                        <div class="col-lg-10">
+                            {{ Form::text('language', $sysSetting['language'], array('placeholder'=>'Language', 'class' => 'form-control' ,'required')) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">File</label>
+                        <div class="col-lg-10">
+                            <input type="file" class="form-control" name="image">
+                        </div>
+>>>>>>> 215036aa13d1e03c5c19efe5f43c4f0f16086f22
                     </div>
                     <div class="form-group">
                         <div class="col-lg-offset-2 col-lg-9">

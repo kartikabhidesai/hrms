@@ -42,7 +42,11 @@
                         <form class="form-horizontal" method="get">
                             <div class="form-group"><label class="col-sm-2 control-label">Subject:</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control subject" name="subject" value="">
+                                    @if(isset($communication_id) && $communication_id != '')
+                                        <input type="text" class="form-control subject" name="subject" value="{{ $subject ? $subject : 'N.A.' }}" readonly>
+                                    @else
+                                        <input type="text" class="form-control subject" name="subject" value="">
+                                    @endif
                                 </div>
                             </div>
 
