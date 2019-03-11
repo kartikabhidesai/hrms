@@ -22,7 +22,6 @@ class SystemsettingController extends Controller {
 
     public function index(Request $request)
     {
-        $session = $request->session()->all();
         $objSysSetting = new Systemsetting();
         $data['sysSetting'] = $objSysSetting->getSystemSetting();
 
@@ -36,11 +35,7 @@ class SystemsettingController extends Controller {
             //print_r($request->input());exit;
             $ret = $objCompany->addSystemSetting($request, $companyId->id);
 
-            if ($ret) {
-                $return['status'] = 'success';
-                $return['message'] = 'System setting added successfully.';
-            $ret = $objSysSetting->addSystemSetting($request, $companyId->id);
-            }
+            
             if ($ret) {
                 $return['status'] = 'success';
                 $return['message'] = 'System Setting Updated successfully.';
