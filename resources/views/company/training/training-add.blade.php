@@ -53,7 +53,7 @@
                             <div class="form-group">
                                 <label class="col-lg-2 control-label">Number </label>
                                 <div class="col-lg-10">
-                                    <input type="text" class="form-control" name="number" placeholder="Number">
+                                    <input type="text" class="form-control" name="numbers" placeholder="Number">
                                 </div>
                             </div>
 

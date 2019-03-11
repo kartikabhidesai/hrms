@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Training;
 use App\Model\Company;
 use App\Model\Department;
+use App\Model\TraningEmployeeDepartment;
 use App\User;
 use App\Model\Users;
 use App\Model\Employee;
@@ -42,14 +43,13 @@ class TrainingController extends Controller
         $companyId = Company::select('id')->where('user_id', $userId)->first();
 
         if ($request->isMethod('post')) {
-            
             $objCompany = new Training();
             $ret = $objCompany->addTraining($request, $companyId->id);
 
             if ($ret) {
                 $return['status'] = 'success';
                 $return['message'] = 'Training created successfully.';
-                $return['redirect'] = route('training-list');
+                $return['redirect'] = route('training');
             } else {
                 $return['status'] = 'error';
                 $return['message'] = 'Somethin went wrong while creating new training!';
@@ -101,6 +101,7 @@ class TrainingController extends Controller
             //     $deleteUser = Users::where('id', $findEmp->user_id)->delete();
             // }
             $result = Training::where('id', $postData['id'])->delete();
+            $result = TraningEmployeeDepartment::where('training_id', $postData['id'])->delete();
 
             if ($result) {
                 $return['status'] = 'success';

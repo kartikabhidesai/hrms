@@ -182,7 +182,10 @@ class EmployeeController extends Controller {
         
         // $objEmployee = new Employee();
         // $companyId = Company::select('id')->where('employee', $employee_id)->get();
-        $data1 = Employee::select('id','name')->where('company_id', $companyId->id)->where('department', $department_id)->get();
+        $data1 = Employee::select('id','name')
+        ->where('company_id', $companyId->id)
+        ->where('department', $department_id)
+        ->get();
         echo json_encode($data1);
     }
 

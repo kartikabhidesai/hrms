@@ -3,7 +3,7 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Model\TraningEmployeeDepartment;
 class Training extends Model
 {
     protected $table = 'training';
@@ -18,11 +18,14 @@ class Training extends Model
     	$newTraining->department_id = $request->department_id;
         $newTraining->budget = $request->budget;
         $newTraining->requirement = $request->requirement;
-    	$newTraining->number = $request->number;
+    	$newTraining->number = $request->numbers;
     	$newTraining->type = $request->type;
     	$newTraining->save();
 
     	if($newTraining) {
+            $lastId = $newTraining->id;
+            $objNew = new TraningEmployeeDepartment();
+            $objNew->addTraningDetails($request,$lastId);
     		return TRUE;
     	} else {
     		return FALSE;
@@ -92,7 +95,7 @@ class Training extends Model
         foreach ($resultArr as $row) {
             $actionHtml = $request->input('location');
             // $actionHtml .= '<a href="' . route('training-edit', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
-            $actionHtml .= '<a href="#deleteModel" data-toggle="modal" data-id="' . $row['id'] . '" class="link-black text-sm empDelete" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';
+            $actionHtml .= '<a href="#deleteModel" data-toggle="modal" data-id="' . $row['id'] . '" class="link-black text-sm deleteTraning" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';
             $nestedData = array();
             $nestedData[] = $row["location"];
             $nestedData[] = $row["budget"];
