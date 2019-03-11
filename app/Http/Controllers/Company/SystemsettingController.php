@@ -15,18 +15,19 @@ use App\Model\Company;
 
 class SystemsettingController extends Controller {
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function __construct() {
         parent::__construct();
         $this->middleware('company');
     }
 
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
+        $session = $request->session()->all();
+        $objSysSetting = new Systemsetting();
+        $data['sysSetting'] = $objSysSetting->getSystemSetting();
+
         if ($request->isMethod('post')) {
+            $objSysSetting = new Systemsetting();
             $userId = $this->loginUser->id;
             $companyId = Company::select('id')->where('user_id', $userId)->first();
             $objCompany = new Systemsetting();
@@ -38,10 +39,16 @@ class SystemsettingController extends Controller {
             if ($ret) {
                 $return['status'] = 'success';
                 $return['message'] = 'System setting added successfully.';
+            $ret = $objSysSetting->addSystemSetting($request, $companyId->id);
+            }
+            if ($ret) {
+                $return['status'] = 'success';
+                $return['message'] = 'System Setting Updated successfully.';
+
                 $return['redirect'] = route('system-setting');
             } else {
                 $return['status'] = 'error';
-                $return['message'] = 'Somethin went wrong while creating new task!';
+                $return['message'] = 'Somethin went wrong!';
             }
             echo json_encode($return);
             exit;
@@ -54,7 +61,7 @@ class SystemsettingController extends Controller {
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/systemsetting.js', 'ajaxfileupload.js', 'jquery.form.min.js');
         $data['funinit'] = array('SysSetting.init()');
-        $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
+        $data['css'] = array('');
         $data['header'] = array(
             'title' => 'System-Setting',
             'breadcrumb' => array(

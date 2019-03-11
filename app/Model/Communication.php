@@ -99,7 +99,7 @@ class Communication extends Model
 
     public function companyEmailCommunicationDetail($cmpId, $id)
     {
-        $findCommunication = Communication::select('employee.email','employee.name','communication.id', 'communication.employee_id', 'communication.message', 'communication.file', 'communication.is_read', 'communication.subject', 'communication.created_at',DB::raw('"communication" as communication_table'))
+        $findCommunication = Communication::select('employee.email','employee.name','communication.id', 'communication.employee_id', 'communication.message', 'communication.file', 'communication.is_read', 'communication.subject', 'communication.subject', 'communication.created_at',DB::raw('"communication" as communication_table'))
                                         ->join('employee', 'communication.employee_id', '=', 'employee.id')
                                         ->where('communication.id', $id)
                                         ->first();
@@ -151,6 +151,19 @@ class Communication extends Model
 
         if(count($getListOfEmailOfCmp) > 0) {
             return $getListOfEmailOfCmp;
+        } else {
+            return null;
+        }
+    }
+
+    public function getComminucationDataEmp($id)
+    {
+        $getComminucationDataEmp = Communication::select('subject')
+                                                ->where('id', $id)
+                                                ->first();
+
+        if($getComminucationDataEmp) {
+            return $getComminucationDataEmp;
         } else {
             return null;
         }

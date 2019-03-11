@@ -24,7 +24,7 @@ class TrainingController extends Controller
     {
         $session = $request->session()->all();
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
-        $data['js'] = array('training/training.js');
+        $data['js'] = array('company/training.js');
         $data['funinit'] = array('Training.init()');
         $data['css'] = array('');
         $data['header'] = array(
@@ -74,4 +74,48 @@ class TrainingController extends Controller
 
         return view('company.training.training-add', $data);
     }
+
+    public function ajaxAction(Request $request) {
+        $action = $request->input('action');
+        switch ($action) {
+            case 'getdatatable':
+                $objTraining = new Training();
+                $userid = $this->loginUser->id;
+                $companyId = Company::select('id')->where('user_id', $userid)->first();
+                $demoList = $objTraining->getTrainingDatatable($request, $companyId->id);
+                echo json_encode($demoList);
+                break;
+            case 'deleteTraining':
+                $result = $this->deleteTraining($request->input('data'));
+                break;
+            case 'getDepartmentTrainingList':
+                $result = $this->getDepartmentTrainingList($request->input('department_id'));
+                break;
+        }
+    }
+
+    public function deleteTraining($postData) {
+        if ($postData) {
+            // $findTraining = Training::where('id', $postData['id'])->first();
+            // if($findTraining) {
+            //     $deleteUser = Users::where('id', $findEmp->user_id)->delete();
+            // }
+            $result = Training::where('id', $postData['id'])->delete();
+
+            if ($result) {
+                $return['status'] = 'success';
+                $return['message'] = 'Training delete successfully.';
+                $return['jscode'] = "setTimeout(function(){
+                        $('#deleteModel').modal('hide');
+                        $('#trainingTable').DataTable().ajax.reload();
+                    },1000)";
+            } else {
+                $return['status'] = 'error';
+                $return['message'] = 'something will be wrong.';
+            }
+            echo json_encode($return);
+            exit;
+        }
+    }
+
 }

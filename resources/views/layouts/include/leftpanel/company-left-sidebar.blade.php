@@ -141,9 +141,17 @@ if (!empty(Auth()->guard('admin')->user())) {
                     <a href="{{ route('system-setting') }}"><i class="fa fa-cogs"></i>
                     <span class="nav-label">System Setting</span></a>
                 </li>
+<<<<<<< HEAD
                 <li class="{{ ($currentRoute == 'recruitment' || $currentRoute == 'recruitment' ? 'active' : '') }}">
                     <a href="{{ route('recruitment') }}"><i class="fa fa-empire"></i>
                     <span class="nav-label">Recruitement</span></a>
+=======
+                
+
+                <li class="{{ ($currentRoute == 'recruitment' || $currentRoute == 'recruitment-add' ? 'active' : '') }}">
+                    <a href="{{ route('recruitment') }}"><i class="fa fa-ticket"></i>
+                    <span class="nav-label">Recruitment</span></a>
+>>>>>>> a5663829eccc10ad7906c586676bc11794de2fb5
                 </li>
                
             </ul>

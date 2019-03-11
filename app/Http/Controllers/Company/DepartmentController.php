@@ -119,6 +119,10 @@ class DepartmentController extends Controller {
             case 'deleteDepartment':
                 $result = $this->deleteDepartment($request->input('data'));
                 break;
+            case 'getCompnanyDepartmentList':
+                $result = $this->getCompnanyDepartmentList1();                
+                break;
+
         }
     }
 
@@ -147,5 +151,18 @@ class DepartmentController extends Controller {
             exit;
         }
     }
+
+    public function getCompnanyDepartmentList1() 
+    {
+        // $session = $request->session()->all();
+        // $userId = $this->loginUser->id;
+        // $companyId = Company::select('id')->where('user_id', $userId)->first();
+        $objdepartment = new Department();
+        $data1 = Department::select('id','department_name')->get();
+        // $return['status'] = 'success';
+        // $return['message'] = 'Record deleted successfully.';
+        echo json_encode($data1);
+    }
+
 
 }

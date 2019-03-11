@@ -6,43 +6,110 @@ use Illuminate\Database\Eloquent\Model;
 
 class Training extends Model
 {
-    protected $table = 'calendar_events';
+    protected $table = 'training';
 
-    protected $fillable = ['id', 'title', 'notes', 'event_date'];
+    // protected $fillable = ['id', 'title', 'department_id', 'budget','requirement','number','type'];
 
-    public function addNewEvent($request, $companyId)
+    public function addTraining($request, $companyId)
     {
-        $newEvent = new Training();
-    	$newEvent->company_id = $companyId;
-    	$newEvent->title = $request->title;
-    	$newEvent->notes = $request->notes;
-    	$newEvent->event_date = date('Y-m-d', strtotime($request->date));
-    	$newEvent->save();
+        $newTraining = new Training();
+    	$newTraining->company_id = $companyId;
+    	$newTraining->location = $request->location;
+    	$newTraining->department_id = $request->department_id;
+        $newTraining->budget = $request->budget;
+        $newTraining->requirement = $request->requirement;
+    	$newTraining->number = $request->number;
+    	$newTraining->type = $request->type;
+    	$newTraining->save();
 
-    	if($newEvent) {
+    	if($newTraining) {
     		return TRUE;
     	} else {
     		return FALSE;
     	}
     }
 
-    public function getCompanyEvent($companyId)
+    public function getCompanyTraining($companyId)
     {
         
-        $getListOfEvent = Training::select('title','notes','event_date as start')
+        $getListOfTraining = Training::select('location','department_id','budget','requirement','number','type')
                                         ->where('company_id', $companyId)
                                         ->get();
 
-        if(count($getListOfEvent) > 0) {
+        if(count($getListOfTraining) > 0) {
 
-            foreach ($getListOfEvent as $key => $value) {
+            foreach ($getListOfTraining as $key => $value) {
                 $dd=date('Y, m, d',strtotime($value['start']));
-                $getListOfEventList[]=array('title'=>$value['title'],'start'=>$dd);
+                $getListOfTrainingList[]=array('title'=>$value['title'],'start'=>$dd);
             }
                 
-            return $getListOfEventList;
+            return $getListOfTrainingList;
         } else {
             return null;
         }
+    }
+
+    public function getTrainingDatatable($request, $companyId) {
+        $requestData = $_REQUEST;
+        $columns = array(
+            // datatable column index  => database column name
+            0 => 'ra.id',
+            1 => 'ra.location',
+            2 => 'ra.budget',
+            3 => 'ra.requirement',
+        );
+        $query = Training::from('training as ra');
+
+        if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
+            $searchVal = $requestData['search']['value'];
+            $query->where(function($query) use ($columns, $searchVal, $requestData) {
+                $flag = 0;
+                foreach ($columns as $key => $value) {
+                    $searchVal = $requestData['search']['value'];
+                    if ($requestData['columns'][$key]['searchable'] == 'true') {
+                        if ($flag == 0) {
+                            $query->where($value, 'like', '%' . $searchVal . '%');
+                            $flag = $flag + 1;
+                        } else {
+                            $query->orWhere($value, 'like', '%' . $searchVal . '%');
+                        }
+                    }
+                }
+            });
+        }
+
+        $temp = $query->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir']);
+
+        $totalData = count($temp->get());
+        $totalFiltered = count($temp->get());
+
+        $resultArr = $query->skip($requestData['start'])
+                        ->take($requestData['length'])
+                        ->where('company_id', $companyId)
+                        ->select('ra.id', 'ra.location', 'ra.department_id', 'ra.budget', 'ra.requirement', 'ra.number', 'ra.type', 'ra.created_at')->get();
+        $data = array();
+
+        foreach ($resultArr as $row) {
+            $actionHtml = $request->input('location');
+            // $actionHtml .= '<a href="' . route('training-edit', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
+            $actionHtml .= '<a href="#deleteModel" data-toggle="modal" data-id="' . $row['id'] . '" class="link-black text-sm empDelete" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';
+            $nestedData = array();
+            $nestedData[] = $row["location"];
+            $nestedData[] = $row["budget"];
+            $nestedData[] = $row["requirement"];         
+
+            $nestedData[] = $actionHtml;
+            $data[] = $nestedData;
+        }
+        // echo "<pre>";print_r($data);exit;
+
+        $json_data = array(
+            "draw" => intval($requestData['draw']), // for every request/draw by clientside , they send a number as a parameter, when they recieve a response/data they first check the draw number, so we are sending same number in draw. 
+            "recordsTotal" => intval($totalData), // total number of records
+            "recordsFiltered" => intval($totalFiltered), // total number of records after searching, if there is no searching then totalFiltered = totalData
+            "data" => $data   // total data array
+        );
+
+        return $json_data;
     }
 }

@@ -103,15 +103,14 @@ class Task extends Model {
 
         $resultArr = $query->skip($requestData['start'])
                 ->take($requestData['length'])
-                ->select('tasks.assign_date', 'tasks.deadline_date', 'tasks.task_status', 'tasks.file', 'tasks.task', 'tasks.priority','tasks.complete_progress', 'tasks.about_task', 'tasks.emp_updated_file','tasks.task_status', 'emp.name as emp_name')
+                ->select('tasks.id', 'tasks.assign_date', 'tasks.deadline_date', 'tasks.task_status', 'tasks.file', 'tasks.task', 'tasks.priority','tasks.complete_progress', 'tasks.about_task', 'tasks.emp_updated_file','tasks.task_status', 'emp.name as emp_name')
                 ->get();
         // print_r($resultArr);exit();
         $data = array();
 
         $task_status = Config::get('constants.task_status');
         foreach ($resultArr as $key => $row) {
-            // $actionHtml = $request->input('gender');
-            $actionHtml = '<a href="#" class="link-black text-sm" data-toggle="tooltip" data-original-title="View" > <i class="fa fa-eye"></i></a>';
+            $actionHtml = '<a href="#taskDetailsModel" data-toggle="modal" data-id="'.$row['id'].'" title="Details" class="btn btn-default link-black text-sm taskDetails" data-toggle="tooltip" data-original-title="Show"><i class="fa fa-eye"></i></a>';
             $nestedData = array();
             $nestedData[] = $row["task"];
             $nestedData[] = $row["emp_name"];
