@@ -61,7 +61,6 @@ var Training = function () {
                 }
             });
         });
-        
     }
 
     var addTraining = function(){
