@@ -36,8 +36,8 @@ class SystemsettingController extends Controller {
 
             if ($ret) {
                 $return['status'] = 'success';
-                $return['message'] = 'Task created successfully.';
-                $return['redirect'] = route('task-list');
+                $return['message'] = 'System Setting Updated successfully.';
+                $return['redirect'] = route('system-setting');
             } else {
                 $return['status'] = 'error';
                 $return['message'] = 'Somethin went wrong while creating new task!';

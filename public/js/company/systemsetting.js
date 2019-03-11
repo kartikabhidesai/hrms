@@ -1,16 +1,16 @@
 var SysSetting = function () {
    
     var addSetting = function(){
-        var form = $('#systemsetting');
+        var form = $('#systemSettingForm');
         var rules = {
             system_name: {required: true},
             system_title: {required: true},
             address: {required: true},
-            phone_number: {address: true},
-            email: {required: true},
+            phone_numbers: {address: true},
+            email: {required: true,email:true},
             language: {required: true},
-            image: {required: true},
-            
+            phone: {required: true,number:true}
+            // image: {required: true},
         };
 
         handleFormValidate(form, rules, function(form) {
