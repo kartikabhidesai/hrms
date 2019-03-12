@@ -26,7 +26,7 @@ class AddTimeToCalendarEvents extends Migration
     public function down()
     {
         Schema::table('calendar_events', function (Blueprint $table) {
-            //
+            
         });
     }
 }
