@@ -25,6 +25,14 @@ class TicketController extends Controller
     {
         $session = $request->session()->all();
 
+        $data['priority'] = "";
+        $data['status'] = "";
+        
+        if($request->method('get')){
+            $data['priority'] = $request->input('priority');
+            $data['status'] = $request->input('status');
+        }
+
         $userID = $this->loginUser;
         $companyId = Company::select('id')->where('user_id', $userID->id)->first();
         $objTicketList = new Ticket();
@@ -97,7 +105,7 @@ class TicketController extends Controller
         switch ($action) {
             case 'getdatatable':
                 $objTicket = new Ticket();
-                $ticketList = $objTicket->getdatatable();
+                $ticketList = $objTicket->getdatatable($request);
                 echo json_encode($ticketList);
             break;
             /*case 'deleteDepartment':

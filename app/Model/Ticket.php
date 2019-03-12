@@ -87,9 +87,25 @@ class Ticket extends Model
         return $arrDepartment;
     }
 
-    public function getdatatable()
+    public function getdatatable($request)
     {
         $requestData = $_REQUEST;
+
+        $data = $request->input('data');
+
+        if ($data['priority'] != NULL) {
+            $priority = $data['priority'];
+        } else {
+            $priority = "";
+        }
+
+        /* Don't remove this code as it's in-progress */
+        if($data['status'] != NULL) {
+            $status = $data['status'];
+        } else {
+            $status = "";
+        }
+
         if(Auth::guard('company')->check()) 
         {
             $userData = Auth::guard('company')->user();
@@ -103,17 +119,26 @@ class Ticket extends Model
             $query = Ticket::join('employee','employee.id','tickets.assign_to')->join('comapnies','comapnies.id','tickets.company_id')->with(['ticketAttachments'])->where('tickets.assign_to', $empData->id)/*->where('tickets.created_by','EMPLOYEE')*/->select('tickets.*','employee.name as emp_name', 'comapnies.company_name');
         }
 
+        if ($priority) {
+            $query->where('tickets.priority', "=", $priority);
+        }
+
+        /* Don't remove this code as it's in-progress */
+        if($status){
+            // $query->where('tasks.task_status', "=", $status);
+        }
+
         $columns = array(
             // datatable column index  => database column name
-            0 => 'tickets.code',
-            1 => 'tickets.priority',
-            2 => 'tickets.status',
-            3 => 'tickets.subject',
-            4 => 'tickets.assign_to',
-            5 => 'tickets.created_by',
-            6 => 'tickets.details',
-            7 => 'tickets.updated_by',
-            8 => 'tickets.file_attachment'
+            'tickets.code',
+            'tickets.priority',
+            // 'tickets.status',
+            'tickets.subject',
+            // 'tickets.assign_to',
+            // 'tickets.created_by',
+            'tickets.details',
+            // 'tickets.updated_by',
+            // 'ticket_attachments.file_attachment'
         );
 
         

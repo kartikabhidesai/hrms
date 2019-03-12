@@ -50,15 +50,39 @@
                     <a href="{{url('company/add-ticket')}}"><button class="btn btn-info pull-left" value="approve" type="button">Add New Ticket</button></a>
                 </div>
             </div>
+        </div>        
+
+        {{ Form::open( array('method' => 'post', 'class' => 'form-horizontal','files' => true, 'id' => 'filtter' )) }}
+
+        <div class="col-lg-2">
+            <div class="form-group">
+                <label class="col-lg-2 control-label">Priority</label>
+                <select name="department" id="priority" class="form-control priority">
+                    <option value="">Select Priority</option>
+                    <option value="HIGH" {{ ( @$priority == 'HIGH' ? 'selected="selected"' : '') }}>High</option>
+                    <option value="NORMAL" {{ ( @$priority == 'NORMAL' ? 'selected="selected"' : '') }}>Normal</option>
+                    <option value="LOW" {{ ( @$priority == 'LOW' ? 'selected="selected"' : '') }}>Low</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2 control-label">Status</label>
+                <select name="department" id="status" class="form-control status">
+                    <option value="">Select Status</option>
+                    <option value="0" {{ ( @$status == '0' ? 'selected="selected"' : '') }}>In Progess</option>
+                    <option value="1" {{ ( @$status == '1' ? 'selected="selected"' : '') }}>Pending</option>
+                    <option value="2" {{ ( @$status == '2' ? 'selected="selected"' : '') }}>Complete</option>
+                </select>
+            </div>
         </div>
 
         <div class="col-lg-2">
             <div class="ibox float-e-margins">
                 <div class="ibox-tools">
-                    <button class="btn btn-info pull-left changeStatus" value="approve" type="button">Filter</button>
+                    <button class="btn btn-sm btn-primary filler pull-left" value="approve" type="button">Apply filter</button>
                 </div>
             </div>
         </div>
+        {{ Form::close() }}  
     </div>
 
     @if (session('status'))

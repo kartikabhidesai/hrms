@@ -25,8 +25,11 @@ var Ticket = function() {
             });
         });
 
-       var dataArr = {};
-       var columnWidth = {"width": "10%", "targets": 0};
+        var dataArr = {};
+        var columnWidth = {"width": "10%", "targets": 0};
+        var priority = $("#priority").val();
+        var status = $("#status").val();
+        var dataArr = {"priority" : priority, "status" : status};
        
             var arrList = {
             'tableID': '#TicketDatatables',
@@ -41,6 +44,18 @@ var Ticket = function() {
             'setColumnWidth': columnWidth
         };
         getDataTable(arrList);
+
+        $('body').on('click', '.filler', function () {
+            var priority = $('#priority option:selected').val();
+            var status = $('#status option:selected').val();
+            var querystring = (priority == '' && typeof priority === 'undefined') ? '&priority=' : '&priority=' + priority;
+            
+            /*Don't remove this code as it's in-progress*/
+            querystring += (status == '' && typeof status === 'undefined') ? '&status=' : '&status=' + status;
+            
+            location.href = baseurl + 'company/ticket-list?' + querystring;
+        }); 
+
     };
     
     var addlist = function() {
