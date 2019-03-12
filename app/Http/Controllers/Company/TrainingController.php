@@ -40,8 +40,9 @@ class TrainingController extends Controller
     {
         $session = $request->session()->all();
         $userId = $this->loginUser->id;
+        echo $userId;
         $companyId = Company::select('id')->where('user_id', $userId)->first();
-
+        print_r($companyId);exit;
         if ($request->isMethod('post')) {
             $objCompany = new Training();
             $ret = $objCompany->addTraining($request, $companyId->id);
@@ -81,9 +82,7 @@ class TrainingController extends Controller
             case 'getdatatable':
                 $objTraining = new Training();
                 $userid = $this->loginUser->id;
-                echo $userid;
                 $companyId = Company::select('id')->where('user_id', $userid)->first();
-                print_r($companyId);exit;
                 $demoList = $objTraining->getTrainingDatatable($request, $companyId->id);
                 echo json_encode($demoList);
                 break;
