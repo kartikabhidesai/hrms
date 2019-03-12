@@ -97,9 +97,9 @@ class Training extends Model
 
         foreach ($resultArr as $row) {
             // print_r($row);exit;
-            $actionHtml = $request->input('location');
+            // $actionHtml = $request->input('location');
             // $actionHtml .= '<a href="' . route('training-edit', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
-            $actionHtml .= '<a href="#deleteModel" data-toggle="modal" data-id="' . $row['id'] . '" class="link-black text-sm deleteTraning" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';
+            $actionHtml = '<a href="#deleteModel" data-toggle="modal" data-id="' . $row['id'] . '" class="link-black text-sm deleteTraning" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';
             $nestedData = array();
             $nestedData[] = $row["location"];
             $nestedData[] = $row["budget"];
