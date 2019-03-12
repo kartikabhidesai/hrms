@@ -14,7 +14,7 @@ class AddTimeToCalendarEvents extends Migration
     public function up()
     {
         Schema::table('calendar_events', function (Blueprint $table) {
-            $table->string( 'name' )->default('00:00:00');
+            $table->string( 'event_time' )->default('00:00:00');
         });
     }
 
