@@ -4,11 +4,10 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Model\TraningEmployeeDepartment;
+use DB;
 class Training extends Model
 {
     protected $table = 'training';
-
-    // protected $fillable = ['id', 'title', 'department_id', 'budget','requirement','number','type'];
 
     public function addTraining($request, $companyId)
     {
@@ -17,7 +16,7 @@ class Training extends Model
     	$newTraining->location = $request->location;
     	$newTraining->department_id = $request->department_id;
         $newTraining->budget = $request->budget;
-        $newTraining->requirement = $request->requirement;
+        $newTraining->requirement = $request->requinment;
     	$newTraining->number = $request->numbers;
     	$newTraining->type = $request->type;
     	$newTraining->save();
@@ -61,7 +60,10 @@ class Training extends Model
             2 => 'ra.budget',
             3 => 'ra.requirement',
         );
-        $query = Training::from('training as ra');
+        $query = Training::from('training as ra')
+                ->leftjoin('training_emp_dept', 'training_emp_dept.training_id', '=', 'ra.id')
+                
+                ;
 
         if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
             $searchVal = $requestData['search']['value'];
@@ -89,10 +91,11 @@ class Training extends Model
         $resultArr = $query->skip($requestData['start'])
                         ->take($requestData['length'])
                         ->where('company_id', $companyId)
-                        ->select('ra.id', 'ra.location', 'ra.department_id', 'ra.budget', 'ra.requirement', 'ra.number', 'ra.type', 'ra.created_at')->get();
+                        ->select('ra.id', 'ra.location', 'ra.department_id', 'ra.budget', 'ra.requirement', 'ra.number', 'ra.type', 'ra.created_at',DB::raw('GROUP_CONCAT(training_emp_dept.id SEPARATOR ",") AS service_name_data'))->groupBy('ra.id')->get();
         $data = array();
 
         foreach ($resultArr as $row) {
+            // print_r($row);exit;
             $actionHtml = $request->input('location');
             // $actionHtml .= '<a href="' . route('training-edit', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
             $actionHtml .= '<a href="#deleteModel" data-toggle="modal" data-id="' . $row['id'] . '" class="link-black text-sm deleteTraning" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';

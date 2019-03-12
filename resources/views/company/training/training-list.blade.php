@@ -17,11 +17,9 @@
                         <table class="table table-striped table-bordered table-hover dataTables-example" id="trainingTable">
                             <thead>
                                 <tr>
-                                    <th>Training ID</th>
-                                    <th>training Name</th>
-                                    <th>Assigned To</th>
-                                    
-                                    
+                                    <th>Training Location</th>
+                                    <th>Budget</th>
+                                    <th>Requirement</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
