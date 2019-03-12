@@ -81,7 +81,9 @@ class TrainingController extends Controller
             case 'getdatatable':
                 $objTraining = new Training();
                 $userid = $this->loginUser->id;
+                echo $userid;
                 $companyId = Company::select('id')->where('user_id', $userid)->first();
+                print_r($companyId);exit;
                 $demoList = $objTraining->getTrainingDatatable($request, $companyId->id);
                 echo json_encode($demoList);
                 break;
