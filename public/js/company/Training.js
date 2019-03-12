@@ -40,7 +40,6 @@ var Training = function () {
     
         $('body').on('click', '.deleteTraning', function() {
             var id = $(this).data('id');
-            alert(id)
             setTimeout(function() {
                 $('.yes-sure:visible').attr('data-id', id);
             }, 500);
