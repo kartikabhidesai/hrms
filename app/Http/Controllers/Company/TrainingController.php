@@ -40,9 +40,8 @@ class TrainingController extends Controller
     {
         $session = $request->session()->all();
         $userId = $this->loginUser->id;
-        echo $userId;
         $companyId = Company::select('id')->where('user_id', $userId)->first();
-        print_r($companyId);exit;
+
         if ($request->isMethod('post')) {
             $objCompany = new Training();
             $ret = $objCompany->addTraining($request, $companyId->id);
