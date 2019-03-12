@@ -2,7 +2,11 @@ var Calendar = function () {
     var ev= $('#cData').val();
     var handleList = function () {
     	dateFormate('.date')
-
+        $('#datetimepicker .event_time').timepicker({
+            'showDuration': true,
+            'timeFormat': 'g:ia'
+        });
+        
     	var date = new Date();
         var d = date.getDate();
         var m = date.getMonth();
@@ -26,19 +30,21 @@ var Calendar = function () {
             },
             events: baseurl +'company/getevents/'
         });
-
+        
         $('body').on('click', '.newEventModel', function() {
 
         	var form = $('#addNewEvent');
 		    var rules = {
 		        title: {required: true},
 		        notes: {required: true},
-		        date: {required: true},
+                date: {required: true},
+                time: {required: true},
 		    };
 
         	var title = $('.title').val();
         	var notes = $('.notes').val();
-        	var date = $('.event_date').val();
+            var date = $('.event_date').val();
+            var time = $('.event_time').val();
         	
         	$.ajax({
 	            type: "POST",
@@ -46,7 +52,7 @@ var Calendar = function () {
 	                'X-CSRF-TOKEN': $('input[name="_token"]').val(),
 	            },
 	            url: baseurl + "company/calendar-ajaxAction",
-	            data: {'action': 'addNewEvent', 'title': title, 'notes': notes, 'date': date},
+	            data: {'action': 'addNewEvent', 'title': title, 'notes': notes, 'date': date,'time': time},
 	            success: function(data) {
 	            	handleAjaxResponse(data);
         		}

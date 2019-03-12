@@ -20,9 +20,9 @@ class CalendarController extends Controller
     {
         $session = $request->session()->all();
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
-        $data['js'] = array('company/calendar.js');
+        $data['js'] = array('company/calendar.js','jquery.timepicker.js');
         $data['funinit'] = array('Calendar.init()');
-        $data['css'] = array('');
+        $data['css'] = array('jquery.timepicker.css');
         $data['header'] = array(
             'title' => 'Company',
             'breadcrumb' => array(

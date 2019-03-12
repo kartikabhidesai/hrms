@@ -55,6 +55,12 @@
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="event_date" id="" placeholder="Select Date Event" class="form-control event_date" value="" autocomplete="off">
                                 </div>
                             </div>
+                            <div class="form-group" >
+                                <label for="message-text" class="form-control-label">Time:</label>
+                                <div class="input-group" id="datetimepicker">
+                                    <input id="event_time" class="form-control event_time" data-time-format="H:i:s" type="text" name="event_time" />
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
