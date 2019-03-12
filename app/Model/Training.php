@@ -52,6 +52,7 @@ class Training extends Model
     }
 
     public function getTrainingDatatable($request, $companyId) {
+        echo $companyId;exit;
         $requestData = $_REQUEST;
         $columns = array(
             // datatable column index  => database column name
