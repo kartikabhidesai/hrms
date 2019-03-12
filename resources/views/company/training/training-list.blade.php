@@ -20,7 +20,6 @@
                                     <th>Training Location</th>
                                     <th>Budget</th>
                                     <th>Requirement</th>
-                                    <th>Assigned To</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>

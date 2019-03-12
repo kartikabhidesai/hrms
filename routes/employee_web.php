@@ -50,5 +50,8 @@ Route::group(['prefix' => $employeePrefix, 'middleware' => ['employee']], functi
     Route::match(['get', 'post'], 'emp-task-ajaxAction', ['as' => 'emp-task-ajaxAction', 'uses' => 'Employee\TasksController@ajaxAction']);
     Route::match(['get', 'post'], 'emp-task-detail-download-attachment/{file_name}', ['as' => 'emp-task-detail-download-attachment/{file_name}', 'uses' => 'Employee\CommunicationController@downloadAttachment']);
 
+    /*Training*/
+    Route::match(['get', 'post'], 'employee-training', ['as' => 'employee-training', 'uses' => 'Employee\TrainingController@index']);
+    Route::match(['get', 'post'], 'employee-training-ajaxAction', ['as' => 'ajaxAction', 'uses' => 'Employee\TrainingController@ajaxAction']);
     
 });
