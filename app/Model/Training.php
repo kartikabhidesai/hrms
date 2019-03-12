@@ -92,7 +92,7 @@ class Training extends Model
         $resultArr = $query->skip($requestData['start'])
                         ->take($requestData['length'])
                         ->where('ra.company_id', $companyId)
-                        ->select('ra.id', 'ra.location', 'ra.department_id', 'ra.budget', 'ra.requirement', 'ra.number', 'ra.type', 'ra.created_at',DB::raw('GROUP_CONCAT(training_emp_dept.id SEPARATOR ",") AS service_name_data'),DB::raw('GROUP_CONCAT(employee.name SEPARATOR " | ") AS employeeName'))->groupBy('ra.id')->get();
+                        ->select('ra.id', 'ra.location', 'ra.department_id', 'ra.budget', 'ra.requirement', 'ra.number', 'ra.type', 'ra.created_at',DB::raw('GROUP_CONCAT(training_emp_dept.id SEPARATOR ",") AS service_name_data'),DB::raw('GROUP_CONCAT(employee.name SEPARATOR " | ") AS employeeName'))->get()->groupBy('training_emp_dept.training_id');
         $data = array();
 
         foreach ($resultArr as $row) {
