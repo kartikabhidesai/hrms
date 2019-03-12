@@ -45,7 +45,7 @@ var Training = function () {
                 $('.yes-sure:visible').attr('data-id', id);
             }, 500);
         })
-
+ 
         $('body').on('click', '.yes-sure', function() {
             var id = $(this).attr('data-id');
             var data = {id: id, _token: $('#_token').val()};
