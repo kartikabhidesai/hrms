@@ -59,10 +59,11 @@ class Training extends Model
             1 => 'ra.location',
             2 => 'ra.budget',
             3 => 'ra.requirement',
+            4 => 'employee.name',
         );
         $query = Training::from('training as ra')
                 ->leftjoin('training_emp_dept', 'training_emp_dept.training_id', '=', 'ra.id')
-                
+                ->leftjoin('employee', 'employee.id', '=', 'training_emp_dept.employee_id')
                 ;
 
         if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
@@ -90,8 +91,8 @@ class Training extends Model
 
         $resultArr = $query->skip($requestData['start'])
                         ->take($requestData['length'])
-                        ->where('company_id', $companyId)
-                        ->select('ra.id', 'ra.location', 'ra.department_id', 'ra.budget', 'ra.requirement', 'ra.number', 'ra.type', 'ra.created_at',DB::raw('GROUP_CONCAT(training_emp_dept.id SEPARATOR ",") AS service_name_data'))->groupBy('ra.id')->get();
+                        ->where('ra.company_id', $companyId)
+                        ->select('ra.id', 'ra.location', 'ra.department_id', 'ra.budget', 'ra.requirement', 'ra.number', 'ra.type', 'ra.created_at',DB::raw('GROUP_CONCAT(training_emp_dept.id SEPARATOR ",") AS service_name_data'),DB::raw('GROUP_CONCAT(employee.name SEPARATOR " | ") AS employeeName'))->groupBy('ra.id')->get();
         $data = array();
 
         foreach ($resultArr as $row) {
@@ -103,7 +104,7 @@ class Training extends Model
             $nestedData[] = $row["location"];
             $nestedData[] = $row["budget"];
             $nestedData[] = $row["requirement"];         
-
+            $nestedData[] = $row["employeeName"];         
             $nestedData[] = $actionHtml;
             $data[] = $nestedData;
         }
