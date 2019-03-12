@@ -64,7 +64,7 @@ class Training extends Model
         $query = Training::from('training as ra')
                 ->leftjoin('training_emp_dept', 'training_emp_dept.training_id', '=', 'ra.id')
                 ->leftjoin('employee', 'employee.id', '=', 'training_emp_dept.employee_id')
-                ;
+                ->where('ra.company_id', $companyId)->groupBy('ra.id');
 
         if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
             $searchVal = $requestData['search']['value'];
@@ -91,8 +91,8 @@ class Training extends Model
 
         $resultArr = $query->skip($requestData['start'])
                         ->take($requestData['length'])
-                        ->where('ra.company_id', $companyId)
-                        ->select('ra.id', 'ra.location', 'ra.department_id', 'ra.budget', 'ra.requirement', 'ra.number', 'ra.type', 'ra.created_at')->groupBy('ra.id')->get();
+                       
+                        ->select('ra.id', 'ra.location', 'ra.department_id', 'ra.budget', 'ra.requirement', 'ra.number', 'ra.type', 'ra.created_at',DB::raw('GROUP_CONCAT(training_emp_dept.id SEPARATOR ",") AS service_name_data'),DB::raw('GROUP_CONCAT(employee.name SEPARATOR " | ") AS employeeName'))->get();
         $data = array();
 
         foreach ($resultArr as $row) {
