@@ -39,7 +39,8 @@ class CalendarEvent extends Model
             foreach ($getListOfEvent as $key => $value) {
                 $dd=date('Y-m-d',strtotime($value['start']));
                 $ddt=$dd."T".$value['event_time'];
-                $getListOfEventList[]=array('title'=>$value['title'],'start'=>$ddt);
+                $description=date('h:i a',strtotime($value['event_time'])).' - '.$value['notes'];
+                $getListOfEventList[]=array('title'=>$value['title'],'start'=>$ddt,'description'=>$description);
             }
                 
             return $getListOfEventList;
