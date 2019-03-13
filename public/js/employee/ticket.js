@@ -80,9 +80,9 @@ var Ticket = function() {
                         $('.assignedTo').html(output.emp_name);
                     }
                     if(output.priority === null) {
-                        $('.priority').hide();
+                        $('.priorityDetail').hide();
                     } else {
-                        $('.priority').html(output.priority);
+                        $('.priorityDetail').html(output.priority);
                     }
                     if(output.subject === null) {
                         $('.subject').hide();

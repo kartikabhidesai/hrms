@@ -144,7 +144,7 @@
                                 <b>Subject : </b><span class="m-t-none m-b subject"></span><br/>
                             </div>
                             <div class="priorityDiv">
-                                <b>Priority: </b><span class="m-t-none m-b priority"></span><br/>
+                                <b>Priority: </b><span class="m-t-none m-b priorityDetail"></span><br/>
                             </div>
                             <div class="statusDiv">
                                 <b>Status: </b><span class="m-t-none m-b status"></span><br/>
