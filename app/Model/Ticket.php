@@ -25,6 +25,7 @@ class Ticket extends Model
 
             $id = DB::table('tickets')->insertGetId(['code' => $request->input('ticket_code'),
                                                 'subject' => $request->input('subject'),
+                                                'status' => 'New',
                                                 'priority' => $request->input('priority'),
                                                 'assign_to' => $request->input('assign_to'),
                                                 'details' => $request->input('details'),
@@ -39,6 +40,7 @@ class Ticket extends Model
             // echo "<pre>"; print_r($userData->id); print_r($empData->id); exit();
             $id = DB::table('tickets')->insertGetId(['code' => $request->input('ticket_code'),
                                                 'subject' => $request->input('subject'),
+                                                'status' => 'New',
                                                 'priority' => $request->input('priority'),
                                                 'assign_to' => $empData->id,
                                                 'details' => $request->input('details'),
@@ -125,17 +127,17 @@ class Ticket extends Model
 
         /* Don't remove this code as it's in-progress */
         if($status){
-            // $query->where('tasks.task_status', "=", $status);
+            $query->where('tickets.status', "=", $status);
         }
 
         $columns = array(
             // datatable column index  => database column name
             'tickets.code',
             'tickets.priority',
-            // 'tickets.status',
+            'tickets.status',
             'tickets.subject',
             // 'tickets.assign_to',
-            // 'tickets.created_by',
+            'tickets.created_by',
             'tickets.details',
             // 'tickets.updated_by',
             // 'ticket_attachments.file_attachment'
@@ -180,7 +182,7 @@ class Ticket extends Model
             $nestedData = array();
             $nestedData[] = $row["code"];
             $nestedData[] = $row["priority"];
-            $nestedData[] = '';
+            $nestedData[] = $row["status"];
             $nestedData[] = $row["subject"];
 
             if($loginuser == 'company'){
@@ -199,6 +201,10 @@ class Ticket extends Model
             }
 
             $nestedData[] = implode(', ', $fileAttachmentArr);
+
+            $actionHtml = '<a href="#ticketDetailsModel" data-toggle="modal" data-id="'.$row['id'].'" title="Details" class="btn btn-default link-black text-sm ticketDetails" data-toggle="tooltip" data-original-title="Show"><i class="fa fa-eye"></i></a>';
+
+            $nestedData[] = $actionHtml;
             $data[] = $nestedData;
         }
 
