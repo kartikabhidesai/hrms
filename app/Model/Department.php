@@ -70,7 +70,7 @@ class Department extends Model
             // datatable column index  => database column name
             0 => 'department.id',
             1 => 'department.department_name',
-            2 => 'designation.designation_name',
+            // 2 => 'designation.designation_name',
         );
 
         // $query = Department::join('designation', 'designation.department_id', '=', 'department.id');  /*using join*/
