@@ -61,7 +61,7 @@ class Department extends Model
         return $arrDepartment;
     }
 
-    public function getdatatableV1(){
+    public function getdatatable(){
         $requestData = $_REQUEST;
         $userData = Auth::guard('company')->user();
         $companyId = Company::where('email', $userData->email)->first();
@@ -81,10 +81,11 @@ class Department extends Model
                     $searchVal = $requestData['search']['value'];
                     if ($requestData['columns'][$key]['searchable'] == 'true') {
                         if ($flag == 0) {
-                            $query->where($value, 'like', '%' . $searchVal . '%');
+                            $query->where($value, 'like', "'%".$searchVal."%'");
                             $flag = $flag + 1;
                         } else {
                             $query->orWhere($value, 'like', '%' . $searchVal . '%');
+                            // $query->orWhere('designation.designation_name', 'like', "'%".$searchVal."%'");
                         }
                     }
                 }
@@ -125,7 +126,7 @@ class Department extends Model
         );
         return $json_data;
     }   
-    public function getdatatable(){
+    public function getdatatableV2(){
         $requestData = $_REQUEST;
         $userData = Auth::guard('company')->user();
         $companyId = Company::where('email', $userData->email)->first();
