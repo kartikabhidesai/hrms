@@ -25,8 +25,11 @@ var Ticket = function() {
             });
         });
 
-       var dataArr = {};
-       var columnWidth = {"width": "10%", "targets": 0};
+        var dataArr = {};
+        var columnWidth = {"width": "10%", "targets": 0};
+        var priority = $("#priority").val();
+        var status = $("#status").val();
+        var dataArr = {"priority" : priority, "status" : status};
        
             var arrList = {
             'tableID': '#TicketDatatables',
@@ -41,6 +44,69 @@ var Ticket = function() {
             'setColumnWidth': columnWidth
         };
         getDataTable(arrList);
+
+        $('body').on('click', '.filler', function () {
+            var priority = $('#priority option:selected').val();
+            var status = $('#status option:selected').val();
+            var querystring = (priority == '' && typeof priority === 'undefined') ? '&priority=' : '&priority=' + priority;
+            
+            /*Don't remove this code as it's in-progress*/
+            querystring += (status == '' && typeof status === 'undefined') ? '&status=' : '&status=' + status;
+            
+            location.href = baseurl + 'employee/ticket-list?' + querystring;
+        });
+
+        $("body").on('click', '.ticketDetails', function () {
+            var data = $(this).attr('data-id');
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                },
+                url: baseurl + "employee/ticket-ajaxAction",
+                data: {'action': 'ticketDetails', 'data': data},
+                success: function(data) {
+                    var  output = JSON.parse(data);
+                    console.log(output);
+                    if(output.code === null) {
+                        $('.code').hide();
+                    } else {
+                        $('.code').show();
+                        $('.code').html(output.code);
+                    }
+                    if(output.assign_to === null) {
+                        $('.assignedTo').hide();
+                    } else {
+                        $('.assignedTo').html(output.emp_name);
+                    }
+                    if(output.priority === null) {
+                        $('.priorityDetail').hide();
+                    } else {
+                        $('.priorityDetail').html(output.priority);
+                    }
+                    if(output.subject === null) {
+                        $('.subject').hide();
+                    } else {
+                        $('.subject').html(output.subject);
+                    }
+                    if(output.status === null) {
+                        $('.status').hide();
+                    } else {
+                        $('.status').html(output.status);
+                    }
+                    if(output.details === null) {
+                        $('.details').hide();
+                    } else {
+                        $('.details').html(output.details);
+                    }
+                    if(output.created_by === null) {
+                        $('.createdBy').hide();
+                    } else {
+                        $('.createdBy').html(output.created_by);
+                    }
+                }
+            });
+        });
     };
     
     var addlist = function() {
