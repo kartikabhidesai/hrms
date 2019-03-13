@@ -54,7 +54,60 @@ var Ticket = function() {
             querystring += (status == '' && typeof status === 'undefined') ? '&status=' : '&status=' + status;
             
             location.href = baseurl + 'company/ticket-list?' + querystring;
-        }); 
+        });
+
+        $("body").on('click', '.ticketDetails', function () {
+            var data = $(this).attr('data-id');
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                },
+                url: baseurl + "company/ticket-ajaxAction",
+                data: {'action': 'ticketDetails', 'data': data},
+                success: function(data) {
+                    var  output = JSON.parse(data);
+                    console.log(output);
+                    if(output.code === null) {
+                        $('.code').hide();
+                    } else {
+                        $('.code').show();
+                        $('.code').html(output.code);
+                    }
+                    if(output.assign_to === null) {
+                        $('.assignedTo').hide();
+                    } else {
+                        $('.assignedTo').html(output.emp_name);
+                    }
+                    if(output.priority === null) {
+                        $('.priority').hide();
+                    } else {
+                        $('.priority').html(output.priority);
+                    }
+                    if(output.subject === null) {
+                        $('.subject').hide();
+                    } else {
+                        $('.subject').html(output.subject);
+                    }
+                    if(output.status === null) {
+                        $('.status').hide();
+                    } else {
+                        $('.status').html(output.status);
+                    }
+                    if(output.details === null) {
+                        $('.details').hide();
+                    } else {
+                        $('.details').html(output.details);
+                    }
+                    if(output.created_by === null) {
+                        $('.createdBy').hide();
+                    } else {
+                        $('.createdBy').html(output.created_by);
+                    }
+                }
+            });
+        });
+ 
 
     };
     

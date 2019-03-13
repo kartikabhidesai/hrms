@@ -108,6 +108,9 @@ class TicketController extends Controller
                 $ticketList = $objTicket->getdatatable($request);
                 echo json_encode($ticketList);
             break;
+            case 'ticketDetails':
+                $result = $this->getTicketDetails($request->input('data'));
+            break;
             /*case 'deleteDepartment':
                 $result = $this->deleteDepartment($request->input('data'));
                 break;*/
@@ -129,5 +132,19 @@ class TicketController extends Controller
         {
             return redirect('company/ticket-list')->with('status', 'file not found!');
         }
+    }
+
+    public function getTicketDetails($postData)
+    {
+        $userId = $this->loginUser->id;
+        $companyId = Company::select('id')->where('user_id', $userId)->first();
+
+        $ticketDetails = Ticket::select('tickets.code', 'tickets.subject', 'tickets.status', 'tickets.priority', 'tickets.details', 'tickets.created_by', 'tickets.assign_to', 'emp.name as emp_name')
+                            ->join('employee as emp', 'tickets.assign_to', '=', 'emp.id')
+                            ->where('tickets.id', $postData)
+                            ->first();
+
+        echo json_encode($ticketDetails);
+        exit;
     }
 }
