@@ -61,7 +61,7 @@ class Department extends Model
         return $arrDepartment;
     }
 
-    public function getdatatable(){
+    public function getdatatableV1(){
         $requestData = $_REQUEST;
         $userData = Auth::guard('company')->user();
         $companyId = Company::where('email', $userData->email)->first();
@@ -125,7 +125,7 @@ class Department extends Model
         );
         return $json_data;
     }   
-    public function getdatatableV2(){
+    public function getdatatable(){
         $requestData = $_REQUEST;
         $userData = Auth::guard('company')->user();
         $companyId = Company::where('email', $userData->email)->first();
