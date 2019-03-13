@@ -24,6 +24,15 @@ class TicketController extends Controller
     public function index(Request $request)
     {
         $session = $request->session()->all();
+
+        $data['priority'] = "";
+        $data['status'] = "";
+        
+        if($request->method('get')){
+            $data['priority'] = $request->input('priority');
+            $data['status'] = $request->input('status');
+        }
+
         $userID = $this->loginUser->id;
         $empId = Employee::select('id')->where('user_id', $userID)->first();
         $objTicketList = new Ticket();
@@ -94,8 +103,11 @@ class TicketController extends Controller
         switch ($action) {
             case 'getdatatable':
                 $objTicket = new Ticket();
-                $ticketList = $objTicket->getdatatable();
+                $ticketList = $objTicket->getdatatable($request);
                 echo json_encode($ticketList);
+            break;
+            case 'ticketDetails':
+                $result = $this->getTicketDetails($request->input('data'));
             break;
             /*case 'deleteDepartment':
                 $result = $this->deleteDepartment($request->input('data'));
@@ -118,5 +130,19 @@ class TicketController extends Controller
         {
             return redirect('employee/ticket-list')->with('status', 'file not found!');
         }
+    }
+
+    public function getTicketDetails($postData)
+    {
+        $userID = $this->loginUser->id;
+        $empId = Employee::select('id')->where('user_id', $userID)->first();
+
+        $ticketDetails = Ticket::select('tickets.code', 'tickets.subject', 'tickets.status', 'tickets.priority', 'tickets.details', 'tickets.created_by', 'tickets.assign_to', 'emp.name as emp_name')
+                            ->join('employee as emp', 'tickets.assign_to', '=', 'emp.id')
+                            ->where('tickets.id', $postData)
+                            ->first();
+
+        echo json_encode($ticketDetails);
+        exit;
     }
 }

@@ -64,7 +64,7 @@
                     <option value="LOW" {{ ( @$priority == 'LOW' ? 'selected="selected"' : '') }}>Low</option>
                 </select>
             </div>
-            <div class="form-group">
+            <div class="form-group hide">
                 <label class="col-lg-2 control-label">Status</label>
                 <select name="department" id="status" class="form-control status">
                     <option value="">Select Status</option>
@@ -129,7 +129,7 @@
         </div>
     </div>
 
-        <div id="ticketDetailsModel" class="modal fade" aria-hidden="true">
+    <div id="ticketDetailsModel" class="modal fade" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body">

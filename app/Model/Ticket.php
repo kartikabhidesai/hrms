@@ -126,9 +126,9 @@ class Ticket extends Model
         }
 
         /* Don't remove this code as it's in-progress */
-        if($status){
-            $query->where('tickets.status', "=", $status);
-        }
+        // if($status){
+        //     $query->where('tickets.status', "=", $status);
+        // }
 
         $columns = array(
             // datatable column index  => database column name

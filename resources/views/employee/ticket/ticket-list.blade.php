@@ -52,13 +52,37 @@
             </div>
         </div>
 
+        {{ Form::open( array('method' => 'post', 'class' => 'form-horizontal','files' => true, 'id' => 'filtter' )) }}
+
+        <div class="col-lg-2">
+            <div class="form-group">
+                <label class="col-lg-2 control-label">Priority</label>
+                <select name="department" id="priority" class="form-control priority">
+                    <option value="">Select Priority</option>
+                    <option value="HIGH" {{ ( @$priority == 'HIGH' ? 'selected="selected"' : '') }}>High</option>
+                    <option value="NORMAL" {{ ( @$priority == 'NORMAL' ? 'selected="selected"' : '') }}>Normal</option>
+                    <option value="LOW" {{ ( @$priority == 'LOW' ? 'selected="selected"' : '') }}>Low</option>
+                </select>
+            </div>
+            <div class="form-group hide">
+                <label class="col-lg-2 control-label">Status</label>
+                <select name="department" id="status" class="form-control status">
+                    <option value="">Select Status</option>
+                    <option value="0" {{ ( @$status == '0' ? 'selected="selected"' : '') }}>In Progess</option>
+                    <option value="1" {{ ( @$status == '1' ? 'selected="selected"' : '') }}>Pending</option>
+                    <option value="2" {{ ( @$status == '2' ? 'selected="selected"' : '') }}>Complete</option>
+                </select>
+            </div>
+        </div>
+
         <div class="col-lg-2">
             <div class="ibox float-e-margins">
                 <div class="ibox-tools">
-                    <button class="btn btn-info pull-left changeStatus" value="approve" type="button">Filter</button>
+                    <button class="btn btn-sm btn-primary filler pull-left" value="approve" type="button">Apply filter</button>
                 </div>
             </div>
         </div>
+        {{ Form::close() }}
     </div>
 
     @if (session('status'))
@@ -88,10 +112,11 @@
                                         <th>Priority</th>
                                         <th>Status</th>
                                         <th>Subject</th>
-                                        <!-- <th>Assign to</th> -->
+<!--                                         <th>Assign to</th> -->
                                         <th>Created by</th>
                                         <th>Details</th>
                                         <th>Attachment</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -103,6 +128,50 @@
             </div>
         </div>
     </div>
+
+    <div id="ticketDetailsModel" class="modal fade" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12"><h3 class="m-t-none m-b">Ticket Details</h3>
+                            <br/>
+                            <!-- <b>Employee Name: </b><span class="m-t-none m-b empName"></span><br/> -->
+                            <div class="codeDiv">
+                                <b>Code : </b><span class="m-t-none m-b code"></span><br/>
+                            </div>
+                            <div class="subjectDiv">
+                                <b>Subject : </b><span class="m-t-none m-b subject"></span><br/>
+                            </div>
+                            <div class="priorityDiv">
+                                <b>Priority: </b><span class="m-t-none m-b priority"></span><br/>
+                            </div>
+                            <div class="statusDiv">
+                                <b>Status: </b><span class="m-t-none m-b status"></span><br/>
+                            </div>
+                            <div class="assignedToDiv">
+                                <b>Assigned To: </b><span class="m-t-none m-b assignedTo"></span><br/>
+                            </div>
+                            <div class="detailsDiv">
+                                <b>Details : </b><span class="m-t-none m-b details"></span><br/>
+                            </div>
+                            <div class="createdByDiv">
+                                <b>Created By : </b><span class="m-t-none m-b createdBy"></span><br/>
+                            </div>
+                            
+                            <form role="form">
+                                <div>
+                                    <button class="btn btn-sm btn-primary pull-right m-l" data-dismiss="modal">Close</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- <div id="approveModel" class="modal fade" aria-hidden="true">
         <div class="modal-dialog">
