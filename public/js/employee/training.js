@@ -8,7 +8,7 @@ var Training = function () {
 
         var arrList = {
             'tableID': '#trainingTable',
-            'ajaxURL': baseurl + "company/training-ajaxAction",
+            'ajaxURL': baseurl + "employee/employee-training-ajaxAction",
             'ajaxAction': 'getdatatable',
             'postData': dataArr,
             'hideColumnList': [],
@@ -35,14 +35,31 @@ var Training = function () {
             /*Don't remove this code as it's in-progress*/
             querystring += (status == '' && typeof status === 'undefined') ? '&status=' : '&status=' + status;
             
-            location.href = baseurl + 'company/training-list?' + querystring;
+            location.href = baseurl + 'employee/training-list?' + querystring;
         }); 
     
-        $('body').on('click', '.deleteTraning', function() {
+        $('body').on('click', '.viewTraning', function() {
             var id = $(this).data('id');
-            setTimeout(function() {
-                $('.yes-sure:visible').attr('data-id', id);
-            }, 500);
+            var data = {id: id, _token: $('#_token').val()};
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                },
+                url: baseurl + "employee/employee-training-ajaxAction",
+                data: {'action': 'getTraningDetail', 'data': data},
+                success: function(data) {
+                     var output = JSON.parse(data);
+                     console.log(output.id)
+                     $('.location_name').text(output.location);
+                     $('.dept_name').text(output.department_name);
+                     $('.budget').text(output.budget);
+                     $('.requirement').text(output.requirement);
+                     $('.number').text(output.number);
+                    // handleAjaxResponse(data);
+                }
+            });
+
         })
  
         $('body').on('click', '.yes-sure', function() {
@@ -53,7 +70,7 @@ var Training = function () {
                 headers: {
                     'X-CSRF-TOKEN': $('input[name="_token"]').val(),
                 },
-                url: baseurl + "company/training-ajaxAction",
+                url: baseurl + "employee/employee-training-ajaxAction",
                 data: {'action': 'deleteTraining', 'data': data},
                 success: function(data) {
                     handleAjaxResponse(data);
@@ -206,7 +223,7 @@ var Training = function () {
                     for( var i = 0; i<len; i++){
                         var id = output[i]['id'];
                         var name = output[i]['name'];
-                        $("#Employee"+empCount).append("<option value='"+id+"'>"+name+"</option>");
+                        $("#Employee"+empCount).append("<option value='"+eid+"'>"+name+"</option>");
                     }
                 }
             });

@@ -71,7 +71,10 @@ $currentRoute = Route::current()->getName();
                     <a href="{{ route('ticket-list-emp') }}"><i class="fa fa-ticket"></i>
                     <span class="nav-label">Tickets</span></a>
                 </li>
-                
+                <li class="{{ ($currentRoute == 'employee-training' || $currentRoute == 'add-training' ? 'active' : '') }}">
+                <a href="{{ route('employee-training') }}"><i class="fa fa-ticket"></i>
+                    <span class="nav-label">Training</span></a>
+            </li>
             </ul>
         </div>
     </nav>
