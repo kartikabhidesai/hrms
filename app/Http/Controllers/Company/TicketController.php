@@ -111,6 +111,9 @@ class TicketController extends Controller
             case 'ticketDetails':
                 $result = $this->getTicketDetails($request->input('data'));
             break;
+            case 'ticketEdit':
+                $result = $this->getTicketDetails($request->input('data'));
+            break;
             /*case 'deleteDepartment':
                 $result = $this->deleteDepartment($request->input('data'));
                 break;*/

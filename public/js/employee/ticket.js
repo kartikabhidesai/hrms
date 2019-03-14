@@ -107,6 +107,40 @@ var Ticket = function() {
                 }
             });
         });
+
+        $("body").on('click', '.ticketEdit', function () {
+            var data = $(this).attr('data-id');
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                },
+                url: baseurl + "employee/ticket-ajaxAction",
+                data: {'action': 'ticketEdit', 'data': data},
+                success: function(data) {
+                    var  output = JSON.parse(data);
+                    console.log(output);
+                    $('#ticket_code').val(output.code);
+                    $('#subject').val(output.subject);
+                    $('#priority').val(output.priority);
+                    $('#details').val(output.details);
+                }
+            });
+        });
+
+        $('body').on('click','.add_designation',function(){
+            var button='<div class="form-group removediv">'+
+                            '<label class="col-lg-2 control-label"></label>'+
+                            '<div class="col-lg-7">'+
+                                '<input type="file" name="ticket_attachment[]" class="form-control" placeholder="Add more Attachment" required>'+
+                            '</div>'+
+                            '<div class="col-lg-3">'+
+                                '<input type="button" class="red form-control removebtn" value="Remove">'+
+                            '</div>'+
+                            '</div>';
+            $('.add_designation_div').prepend(button);
+        });
+ 
     };
     
     var addlist = function() {

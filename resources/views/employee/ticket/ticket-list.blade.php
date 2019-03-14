@@ -172,6 +172,80 @@
         </div>
     </div>
 
+    <div id="ticketEditModel" class="modal fade" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12"><h3 class="m-t-none m-b">Update Ticket Details</h3></div>
+                        <div class="col-lg-12">
+                            <div class="ibox float-e-margins">
+                                <!-- <div class="ibox-title">
+                                    <h5>Update Ticket Details</h5>
+                                </div> -->
+                                <div class="ibox-content">
+                                    {{ Form::open( array('method' => 'post', 'class' => 'form-horizontal', 'id' => 'ticket-add' )) }}
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label">Ticket Code</label>
+                                            <div class="col-lg-10">
+                                                    {{ Form::text('ticket_code', null, array('id'=>'ticket_code', 'placeholder'=>'Ticket Code', 'class' => 'form-control ticket_code' ,'required')) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label">Subject</label>
+                                            <div class="col-lg-10">
+                                                    {{ Form::text('subject', null, array('id'=>'subject','placeholder'=>'Subject', 'class' => 'form-control subject' ,'required')) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label">Priority</label>
+                                            <div class="col-lg-10">
+                                                <select name="priority" id="priority" class="form-control priority" required="required">
+                                                    <option value="">select</option>
+                                                    <option value="High">High</option>
+                                                    <option value="Normal">Normal</option>
+                                                    <option value="Low">Low</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label">Details</label>
+                                            <div class="col-lg-10">
+                                                {{ Form::textarea('details', null, array('id'=>'details', 'placeholder'=>'Details', 'class' => 'form-control' ,'required')) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="add_designation_div">
+                                            <div class="form-group">
+                                                <div class="col-lg-offset-2 col-lg-8">
+                                                    <input class="btn btn-sm add_designation" type="button" value="Add More Attachment">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <div class="col-lg-offset-2 col-lg-10">
+                                                <button class="btn btn-sm btn-primary" type="submit">Update Ticket</button>
+                                            </div>
+                                        </div>
+                                    {{ Form::close() }}
+                                </div>
+                                <form role="form">
+                                    <div>
+                                        <button class="btn btn-sm btn-primary pull-right m-l" data-dismiss="modal">Close</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- <div id="approveModel" class="modal fade" aria-hidden="true">
         <div class="modal-dialog">
