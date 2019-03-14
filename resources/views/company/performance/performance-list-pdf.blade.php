@@ -38,18 +38,19 @@
                 </tr>
             </table>
     </div>
-        @foreach($empPdfArray as $row => $employeeArr)
+    @foreach($emparray as $erow)
+        @if(!empty($empPdfArray[$erow]))
+        
         <div class="invoice-box">
             <table width="100%">
-              
+            
                 <tr>
                     <td >Employee Name</td>
-                    <td >{{ $employeeArr['name'] }}</td>                    
+                    <td >{{ $empPdfArray[$erow][0]['name'] }}</td>                    
                     <td ></td>
                     <td >Company Name</td>                    
-                    <td >{{ $employeeArr['company_name'] }}</td>
+                    <td >{{ $empPdfArray[$erow][0]['company_name'] }}</td>
                 </tr> 
-                
             </table>
         <br/>
         <br/>
@@ -69,6 +70,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                @foreach($empPdfArray[$erow] as $employeeArr)
                     <tr>
                         <td>{{ $employeeArr['availability'] }}</td>
                         <td>{{ $employeeArr['dependability'] }}</td>
@@ -80,11 +82,13 @@
                         <td>{{ $employeeArr['notes_and_details'] }}</td>
                         <td>{{ $employeeArr['month'] }}{{ $employeeArr['year'] }}</td>
                     </tr>  
-                   
+                @endforeach
                 </tbody>
             </table>
             <br>
         </div>
+        <hr>
+         @endif
          @endforeach
     </body>
 </html>

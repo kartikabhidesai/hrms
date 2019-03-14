@@ -140,8 +140,9 @@ class Performance extends Model {
             // $actionHtml = '<a href="#performancesDetailsModel" data-toggle="modal" data-id="'.$row['id'].'" title="Details" class="btn btn-default link-black text-sm performancesDetails" data-toggle="tooltip" data-original-title="Show"><i class="fa fa-eye"></i></a>';
             $actionHtml ='<a href="employee-performance-list/'.$row['id'].'" class="link-black text-sm" data-id="'.$row['id'].'" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-eye"></i></a>';
             $nestedData = array();
-            
-            $nestedData[] = $row["employee_name"].'1';
+            $radioHtml = '<input type="checkbox" value="'.$row['id'].'" class="empId" id="empId" name="empchk[]">';
+            $nestedData[] = $radioHtml;
+            $nestedData[] = $row["employee_name"];
             $nestedData[] = $row["department_name"];
             $nestedData[] = $row["doj"];
             $nestedData[] = $actionHtml;
@@ -157,14 +158,16 @@ class Performance extends Model {
         return $json_data;
     }
 
-    public function getEmployeePerformanceDetailsList($id) {
-
-        $result = Performance::select('performances.*','employee.*','comapnies.*')
-                ->join('employee', 'performances.employee_id', '=', 'employee.id')
+    public function getEmployeePerformanceDetailsList($r,$id) {
+        $result = Performance::select('performances.*', 'comapnies.company_name','employee.name')
                 ->join('comapnies', 'performances.company_id', '=', 'comapnies.id')
+                ->join('employee', 'performances.employee_id', '=', 'employee.id')
                 ->where('performances.company_id', '=', $id)
+                ->where('performances.employee_id', $r)
                 ->get()->toArray();
-    // print_r($result);exit;
+       
+    
+       
         return $result;
     }
 

@@ -271,6 +271,42 @@ var Performance = function () {
 
       //       });
 
+      $('body').on('change', '.checkAll', function () {
+        if (this.checked) {
+            $('.empId:checkbox').each(function () {
+                this.checked = true;
+            });
+        } else {
+            $('.empId:checkbox').each(function () {
+                this.checked = false;
+            });
+        }
+    });
+
+    $("body").on('click', '.downloadPdf', function () {
+      $("#emparray").val('');
+      var arrEmp = [];
+      $('.empId:checkbox:checked').each(function () {
+          // var invoiceNo = $(this).attr('id');
+          var empId = $(this).val();
+          arrEmp.push(empId);
+          // arrInvoice.push(invoiceNo);
+      });
+      console.log(arrEmp);
+      if (arrEmp.length > 0) {
+          $("#emparray").val(arrEmp);
+          $('#performanceStatus').submit();
+      } else {
+          alert('Please Select at least one Record');
+      }
+    });
+
+    $("body").on('change', '.empSelectionType', function () {
+      $('.checkAll').trigger('click');
+    });
+
+    
+
       var emparray = $("#employee").val();
         var department = $("#department").val();
         var dataArr = {"emparray" : emparray, "department" : department};
@@ -283,7 +319,7 @@ var Performance = function () {
             'postData': dataArr,
             'hideColumnList': [],
             'noSearchApply': [0],
-            'noSortingApply': [3],
+            'noSortingApply': [0,4],
             'defaultSortColumn': 0,
             'defaultSortOrder': 'desc',
             'setColumnWidth': columnWidth

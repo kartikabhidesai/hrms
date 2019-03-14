@@ -35,10 +35,25 @@
     </div>
 </div>
     <div class="ibox-content">
+    <div class="row">
+            <div class="form-group col-lg-12">
+                <label class="col-sm-1 control-label"></label>
+                <div class="col-sm-9">
+                    <label class="radio-inline">
+                        {{ Form::radio('empSelectionType', 'All', false , ['class' => ' empSelectionType','id' => 'empSelectionType']) }} All Employee
+                    </label>
+                    <label class="radio-inline">
+                        {{ Form::radio('empSelectionType', 'Individual', true , ['class' => ' empSelectionType','id' => 'empSelectionType']) }} Selected Employees
+                    </label>  
+                    
+                </div>
+            </div>
+        </div>
         <div class="table-responsive">
             <table class="table table-striped table-bordered table-hover dataTables-example" id="performanceTable">
                 <thead>
                     <tr>
+                    <td><input type="checkbox" class="checkAll" id="checkAll" name="checkAll"></td>
                         <th>Name</th>
                         <th>Department</th>
                         <!-- <th>Salary</th> -->
@@ -66,9 +81,11 @@
         <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
                 <div class="col-lg-12">
-                <a href="{{ route('performance-download-pdf') }}" class="btn btn-primary dim" > Download as PDF</a>
+                <!-- <a href="{{ route('performance-download-pdf') }}" class="btn btn-primary dim" > Download as PDF</a> -->
+                <button class="btn btn-sm btn-primary downloadPdf" type="button">Download Pdf</button>
                 </div>
             </div>
         </div>
+        {{ Form::close() }}
     </div>
 @endsection

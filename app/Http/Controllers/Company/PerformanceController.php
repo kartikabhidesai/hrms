@@ -31,6 +31,30 @@ class PerformanceController extends Controller {
         $EmpObj = new Employee;
         $userid = $this->loginUser->id;
         $companyId = Company::select('id')->where('user_id', $userid)->first();
+        if ($request->isMethod('post')) {
+            $postData = $request->input();
+            $empArray = $postData['empchk'];
+            // print_r($empArray);exit;
+            $data['emparray']=$empArray;
+            $dataPdf = array();
+            foreach ($empArray as  $value) {
+                $performanceObj = new Performance;
+                $employeeArr = $performanceObj->getEmployeePerformanceDetailsList($value,$companyId->id);
+                   // dd($employeeArr[0]);
+                if(!empty($employeeArr)){
+                    $dataPdf[$value] = $employeeArr;
+                }
+            }
+            // 
+            if(count($dataPdf) > 0){
+                $data['empPdfArray'] = $dataPdf;
+                // print_r($data);exit;
+                $file= date('d-m-YHis')."performance.pdf";
+                $pdf = PDF::loadView('company.performance.performance-list-pdf', $data);
+                return $pdf->download($file);
+            }
+            
+        }
         $data['allEmployee'] = $EmpObj->getAllEmployeeofCompany($companyId->id, $data['departmentId'], $data['employeeId']);
 
         $objDepart = new Department();
@@ -112,11 +136,14 @@ class PerformanceController extends Controller {
 
     public function PerformanceDownloadPDF(Request $request)
     {   
+        $postData = $request->input();
+        $empArray = $postData['empchk'];
+
         $userid = $this->loginUser->id;
         $companyId = Company::select('id')->where('user_id', $userid)->first();
        
         $performanceObj = new Performance;
-        $data['empPdfArray'] = $performanceObj->getEmployeePerformanceDetailsList($companyId->id);
+        $data['empPdfArray'] = $performanceObj->getEmployeePerformanceDetailsList($empArray, $companyId->id);
            
         $file= date('d-m-YHis')."performance.pdf";
         $pdf = PDF::loadView('company.performance.performance-list-pdf', $data);
