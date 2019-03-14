@@ -9,6 +9,7 @@ use App\Model\Company;
 use App\Model\Department;
 use App\Model\Performance;
 use Config;
+use PDF;
 
 class PerformanceController extends Controller {
 
@@ -63,8 +64,9 @@ class PerformanceController extends Controller {
         return view('company.performance.performance-employee-detail', $data);
     }
 
-    public function employeePerList($id , Request $request) {
+    public function employeePerList($id,Request $request) {
         $data['detail'] = $this->loginUser;
+        $id=1;
         $performanceObj = new Performance;
         $data['employeePerfirmance'] = $performanceObj->getEmployeePerformanceList($id);
 
@@ -105,6 +107,32 @@ class PerformanceController extends Controller {
             }
              echo json_encode($return);
             exit;
+        }
+    }
+
+    public function PerformanceDownloadPDF(Request $request)
+    {   
+        $userid = $this->loginUser->id;
+        $companyId = Company::select('id')->where('user_id', $userid)->first();
+       
+        $performanceObj = new Performance;
+        $data['empPdfArray'] = $performanceObj->getEmployeePerformanceDetailsList($companyId->id);
+           
+        $file= date('d-m-YHis')."performance.pdf";
+        $pdf = PDF::loadView('company.performance.performance-list-pdf', $data);
+        return $pdf->download($file);
+    }
+
+    public function ajaxAction(Request $request) {
+        $action = $request->input('action');
+        switch ($action) {
+            case 'getdatatable':
+                $userID = $this->loginUser->id;
+                $companyId = Company::select('id')->where('user_id', $userID)->first();
+                $performanceObj = new Performance;
+                $performanceList = $performanceObj->getPerformanceList($request, $companyId->id);
+                echo json_encode($performanceList);
+                break;
         }
     }
 

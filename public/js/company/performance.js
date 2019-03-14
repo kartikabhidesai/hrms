@@ -247,29 +247,60 @@ var Performance = function () {
         var availableVal = parseInt($('#availability li.selected').last().data('value'), 10);
         $('#availableVal').val(availableVal);
       });
-       $('.dataTables-example').DataTable({
-                pageLength:10,
-                responsive: true,
-                dom: '<"html5buttons"B>lTfgitp',
-                buttons: [
-                    // { extend: 'copy'},
-                    // {extend: 'csv'},
-                    // {extend: 'excel', title: 'ExampleFile'},
-                    // {extend: 'pdf', title: 'ExampleFile'},
+      //  $('.dataTables-example').DataTable({
+      //           pageLength:10,
+      //           responsive: true,
+      //           dom: '<"html5buttons"B>lTfgitp',
+      //           buttons: [
+      //               // { extend: 'copy'},
+      //               // {extend: 'csv'},
+      //               // {extend: 'excel', title: 'ExampleFile'},
+      //               // {extend: 'pdf', title: 'ExampleFile'},
 
-                    // {extend: 'print',
-                    //  customize: function (win){
-                    //         $(win.document.body).addClass('white-bg');
-                    //         $(win.document.body).css('font-size', '10px');
+      //               // {extend: 'print',
+      //               //  customize: function (win){
+      //               //         $(win.document.body).addClass('white-bg');
+      //               //         $(win.document.body).css('font-size', '10px');
 
-                    //         $(win.document.body).find('table')
-                    //                 .addClass('compact')
-                    //                 .css('font-size', 'inherit');
-                    // }
-                    // }
-                ]
+      //               //         $(win.document.body).find('table')
+      //               //                 .addClass('compact')
+      //               //                 .css('font-size', 'inherit');
+      //               // }
+      //               // }
+      //           ]
 
-            });
+      //       });
+
+      var emparray = $("#employee").val();
+        var department = $("#department").val();
+        var dataArr = {"emparray" : emparray, "department" : department};
+        var columnWidth = {"width": "10%", "targets": 0};
+        
+        var arrList = {
+            'tableID': '#performanceTable',
+            'ajaxURL': baseurl + "company/performance-ajaxAction",
+            'ajaxAction': 'getdatatable',
+            'postData': dataArr,
+            'hideColumnList': [],
+            'noSearchApply': [0],
+            'noSortingApply': [3],
+            'defaultSortColumn': 0,
+            'defaultSortOrder': 'desc',
+            'setColumnWidth': columnWidth
+        };
+        getDataTable(arrList);
+
+        $('body').on('click', '.applyBtn', function () {
+            var department = $('#department option:selected').val();
+            var employee = $('#employee option:selected').val();
+            var querystring = (department == '' && typeof department === 'undefined') ? 'department=' : 'department=' + department;
+            querystring += (employee == '' && typeof employee === 'undefined') ? '&employee=' : '&employee=' + employee;
+            location.href = baseurl + 'company/performance?' + querystring;
+        });
+
+        $('body').on('click', '.clearBtn', function () {
+            location.href = baseurl + 'company/performance';
+        });
 
 }
 return {

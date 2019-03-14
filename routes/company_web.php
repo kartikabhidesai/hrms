@@ -97,6 +97,8 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
     Route::match(['get', 'post'], 'addperformance', ['as' => 'addperformance', 'uses' => 'Company\PerformanceController@addPerformance']);
     Route::match(['get', 'post'], 'employee-performance-list/{id}', ['as' => 'employee-performance-list', 'uses' => 'Company\PerformanceController@employeePerList']);
     Route::match(['get', 'post'], 'performance-emp-detail/{id}', ['as' => 'performance-emp-detail', 'uses' => 'Company\PerformanceController@performanceEmpList']);
+    Route::match(['get', 'post'], 'performance-download-pdf', ['as' => 'performance-download-pdf', 'uses' => 'Company\PerformanceController@PerformanceDownloadPDF']);
+    Route::match(['get', 'post'], 'performance-ajaxAction', ['as' => 'performance-ajaxAction', 'uses' => 'Company\PerformanceController@ajaxAction']);
 
     /*Training*/
     Route::match(['get', 'post'], 'training', ['as' => 'training', 'uses' => 'Company\TrainingController@index']);
@@ -112,5 +114,9 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
     Route::match(['get', 'post'], 'recruitment-add', ['as' => 'recruitment-add', 'uses' => 'Company\RecruitmentController@addRecruitment']);
     Route::match(['get', 'post'], 'recruitment-ajaxAction', ['as' => 'recruitment-ajaxAction', 'uses' => 'Company\RecruitmentController@ajaxAction']);
     Route::match(['get', 'post'], 'recruitment-edit/{id}', ['as' => 'recruitment-edit', 'uses' => 'Company\RecruitmentController@editRecruitment']);
+    
+    /*Annoumcement*/
+    Route::match(['get','post'],'announcement',['as'=>'announcement','uses'=>'Company\AnnouncementController@index']);
+    Route::match(['get','post'],'announcement-add',['as'=>'announcement-add','uses'=>'Company\AnnouncementController@anounment_add']);
     
 });
