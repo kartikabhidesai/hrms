@@ -16,7 +16,7 @@
                                 <div class="form-group">
                                     <label class="col-lg-2 control-label">Task</label>
                                     <div class="col-lg-10">
-                                        <input type="text" class="form-control" name="task">
+                                        <input type="text" class="form-control" required="" name="task">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -25,34 +25,30 @@
                                         {{ Form::select('department', $department , null, array('placeholder'=>'Select Depatment', 'class' => 'form-control department', 'id' => 'department')) }}
                                     </div>
                                 </div>
+                                <input type="hidden" name="dept" value="" class="dept" id="dept">
                                 <div class="form-group">
                                     <label class="col-lg-2 control-label">Responsibility</label>
                                     <div class="col-lg-10">
-                                        <textarea class="form-control" name="responsibility"></textarea>
+                                        <textarea class="form-control" required="" name="responsibility"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-lg-2 control-label">Requirement</label>
                                     <div class="col-lg-10">
-                                        <textarea class="form-control" name="requirement"></textarea>
+                                        <textarea class="form-control" required="" name="requirement"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Experience Level</label>
                                     <div class="col-sm-10">
-                                        <select class="form-control" id="experience_level" name="experience_level">
+                                        <select class="form-control" required="" id="experience_level" name="experience_level">
                                             @foreach($experince as $key=>$val)
-                                            <option value="{{$key}}">{{$val}}</option>
+                                            <option value="{{$val}}">{{$val}}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
-                                <!-- <div class="form-group">
-                                    <label class="col-lg-2 control-label">Requirement</label>
-                                    <div class="col-lg-10">
-                                        <input type="text" class="form-control" name="requirement">
-                                    </div>
-                                </div> -->
+                             
                                 <div class="form-group col-lg-12">
                                     <label class="col-sm-3 control-label">Job Time</label>
                                     <div class="col-sm-9">
@@ -78,19 +74,19 @@
                                 <div class="form-group">
                                     <label class="col-lg-2 control-label">Salary</label>
                                     <div class="col-lg-10">
-                                        <input type="text" class="form-control" name="salary">
+                                        <input type="number" class="form-control" required="" name="salary">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-lg-2 control-label">Email</label>
                                     <div class="col-lg-10">
-                                        <input type="text" class="form-control" name="email">
+                                        <input type="email" class="form-control" required="" name="email">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-lg-2 control-label">Conact us</label>
                                     <div class="col-lg-10">
-                                        <input type="text" class="form-control" name="conatact_us">
+                                        <input type="text" class="form-control" required="" name="conatact_us">
                                     </div>
                                 </div>
                             </div>
@@ -99,7 +95,7 @@
                                     <label class="col-sm-2 control-label">Start Date</label>
                                     <div class="col-sm-9">
                                     <div class="input-group ">
-                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="start_date" id="start_date"  class="form-control start_date" placeholder="Start date" autocomplete="off">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="start_date" required="" id="start_date"  class="form-control start_date" placeholder="Start date" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -107,14 +103,14 @@
                                     <label class="col-sm-2 control-label">Expire Date</label>
                                     <div class="col-sm-9">
                                         <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="expire_date" id="expire_date"  class="form-control expire_date" placeholder="Expire date" autocomplete="off">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="expire_date" required="" id="expire_date"  class="form-control expire_date" placeholder="Expire date" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-lg-2 control-label">Job id</label>
                                     <div class="col-lg-9">
-                                        <input type="text" class="form-control" name="job_id">
+                                        <input type="text" class="form-control" required="" name="job_id">
                                     </div>
                                 </div>
 

@@ -152,7 +152,7 @@ $file_headers = @get_headers($filename);
             </li> -->
 
             <li class="{{ ($currentRoute == 'recruitment' || $currentRoute == 'recruitment-add' ? 'active' : '') }}">
-                <a href="{{ route('recruitment') }}"><i class="fa fa-ticket"></i>
+                <a href="{{ route('recruitment-add') }}"><i class="fa fa-ticket"></i>
                     <span class="nav-label">Recruitment</span></a>
             </li>
 
