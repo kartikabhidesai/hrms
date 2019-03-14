@@ -10,6 +10,7 @@ use App\Model\Recruitment;
 use Auth;
 use Route;
 use APP;
+use PDF;
 use App\User;
 use App\Model\Users;
 use Illuminate\Support\Facades\Input;
@@ -80,19 +81,25 @@ class RecruitmentController extends Controller {
         $companyId = Company::select('id')->where('user_id', $userId)->first();
 
         if ($request->isMethod('post')) {
-            $objRecruitment = new Recruitment();
-            $ret = $objRecruitment->addRecruitment($request, $companyId->id);
+             $data['recrutment'] = $request->input();
+            $file = 'recrutment'.time().'.pdf';
+            // return view('company.recruitment.recruitment-list', $data);
+            $pdf = PDF::loadView('company.recruitment.recrutment-pdf', compact('data'));
+            return $pdf->download($file);
 
-            if ($ret) {
-                $return['status'] = 'success';
-                $return['message'] = 'Recruitment created successfully.';
-                $return['redirect'] = route('recruitment');
-            } else {
-                $return['status'] = 'error';
-                $return['message'] = 'Somethin went wrong while creating new training!';
-            }
-            echo json_encode($return);
-            exit;
+            // $objRecruitment = new Recruitment();
+            // $ret = $objRecruitment->addRecruitment($request, $companyId->id);
+
+            // if ($ret) {
+            //     $return['status'] = 'success';
+            //     $return['message'] = 'Recruitment created successfully.';
+            //     $return['redirect'] = route('recruitment');
+            // } else {
+            //     $return['status'] = 'error';
+            //     $return['message'] = 'Somethin went wrong while creating new training!';
+            // }
+            // echo json_encode($return);
+            // exit;
         }
 
         $data['detail'] = $this->loginUser;

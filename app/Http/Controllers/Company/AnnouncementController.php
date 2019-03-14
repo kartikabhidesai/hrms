@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Company;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class AnnouncementController extends Controller
-{
+class AnnouncementController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
@@ -16,8 +16,8 @@ class AnnouncementController extends Controller
         parent::__construct();
         $this->middleware('company');
     }
-    public function index()
-    {
+
+    public function index() {
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         //$data['js'] = array('company/task.js');
         //$data['funinit'] = array('Task.init()');
@@ -36,9 +36,19 @@ class AnnouncementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function anounment_add() {
+        $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
+        //$data['js'] = array('company/task.js');
+        //$data['funinit'] = array('Task.init()');
+        $data['css'] = array('');
+        $data['status']=array('1'=>'one','2'=>'two','3'=>'three');
+        $data['header'] = array(
+            'title' => 'Announcement List',
+            'breadcrumb' => array(
+                'Home' => route("company-dashboard"),
+                'Announcemnet' => 'Announcement'));
+
+        return view('company.announcement.announcement-add', $data);
     }
 
     /**
@@ -47,8 +57,7 @@ class AnnouncementController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         //
     }
 
@@ -58,8 +67,7 @@ class AnnouncementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id) {
         //
     }
 
@@ -69,8 +77,7 @@ class AnnouncementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         //
     }
 
@@ -81,8 +88,7 @@ class AnnouncementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
         //
     }
 
@@ -92,8 +98,8 @@ class AnnouncementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         //
     }
+
 }

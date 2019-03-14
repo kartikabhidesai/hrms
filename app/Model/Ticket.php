@@ -202,7 +202,12 @@ class Ticket extends Model
 
             $nestedData[] = implode(', ', $fileAttachmentArr);
 
-            $actionHtml = '<a href="#ticketDetailsModel" data-toggle="modal" data-id="'.$row['id'].'" title="Details" class="btn btn-default link-black text-sm ticketDetails" data-toggle="tooltip" data-original-title="Show"><i class="fa fa-eye"></i></a>';
+            if($loginuser == 'company'){
+                $actionHtml = '<a href="#ticketDetailsModel" data-toggle="modal" data-id="'.$row['id'].'" title="Details" class="link-black text-sm ticketDetails" data-toggle="tooltip" data-original-title="Show"><i class="fa fa-eye"></i></a>&nbsp;&nbsp;';
+            }else{
+                $actionHtml = '<a href="#ticketDetailsModel" data-toggle="modal" data-id="'.$row['id'].'" title="Details" class="link-black text-sm ticketDetails" data-toggle="tooltip" data-original-title="Show"><i class="fa fa-eye"></i></a>&nbsp;&nbsp;';
+                $actionHtml .= '<a href="#ticketEditModel" data-toggle="modal" data-id="' . $row['id'] . '" class="link-black text-sm ticketEdit" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-edit"></i></a>';   
+            }
 
             $nestedData[] = $actionHtml;
             $data[] = $nestedData;

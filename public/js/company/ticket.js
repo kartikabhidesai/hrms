@@ -107,6 +107,59 @@ var Ticket = function() {
                 }
             });
         });
+
+
+        $("body").on('click', '.ticketEdit', function () {
+                var data = $(this).attr('data-id');
+                $.ajax({
+                    type: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                    },
+                    url: baseurl + "company/ticket-ajaxAction",
+                    data: {'action': 'ticketEdit', 'data': data},
+                    success: function(data) {
+                        var  output = JSON.parse(data);
+                        console.log(output);
+                        if(output.code === null) {
+                            $('.code').hide();
+                        } else {
+                            $('.code').show();
+                            $('.code').html(output.code);
+                        }
+                        if(output.assign_to === null) {
+                            $('.assignedTo').hide();
+                        } else {
+                            $('.assignedTo').html(output.emp_name);
+                        }
+                        if(output.priority === null) {
+                            $('.priorityDetail').hide();
+                        } else {
+                            $('.priorityDetail').html(output.priority);
+                        }
+                        if(output.subject === null) {
+                            $('.subject').hide();
+                        } else {
+                            $('.subject').html(output.subject);
+                        }
+                        if(output.status === null) {
+                            $('.status').hide();
+                        } else {
+                            $('.status').html(output.status);
+                        }
+                        if(output.details === null) {
+                            $('.details').hide();
+                        } else {
+                            $('.details').html(output.details);
+                        }
+                        if(output.created_by === null) {
+                            $('.createdBy').hide();
+                        } else {
+                            $('.createdBy').html(output.created_by);
+                        }
+                    }
+                });
+            });
  
 
     };

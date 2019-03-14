@@ -71,7 +71,14 @@ var Recruitment = function () {
         
         dateFormate('.start_date');
         dateFormate('.expire_date');
-        var form = $('#addRecruitment');
+
+        $('body').on('change', '.department', function() {
+            var dept = $('#department option:selected').text();
+            $('.dept').val(dept);
+          
+        })   
+
+        var form = $('#addRecruitment1');
         var rules = {
             task: {required: true},
             department: {required: true},
@@ -89,7 +96,7 @@ var Recruitment = function () {
         };
 
         handleFormValidate(form, rules, function(form) {
-            handleAjaxFormSubmit(form,true);
+            // handleAjaxFormSubmit(form);
         });
 
         var form = $('#editRecruitment');

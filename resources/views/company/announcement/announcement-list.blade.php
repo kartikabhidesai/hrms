@@ -9,7 +9,7 @@
                     <h5>Announcement List</h5>
                     <div class="ibox-tools">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <a href="{{ route('announcement') }}" class="btn btn-primary dim" ><i class="fa fa-plus"> Add</i></a>
+                        <a href="{{ route('announcement-add') }}" class="btn btn-primary dim" ><i class="fa fa-plus"> Add</i></a>
                     </div>
                 </div>
                 <div class="ibox-content">
