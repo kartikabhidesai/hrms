@@ -172,6 +172,52 @@
         </div>
     </div>
 
+    <div id="ticketEditModel" class="modal fade" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12"><h3 class="m-t-none m-b">Update Ticket Details</h3>
+                            <br/>
+                            <!-- <b>Employee Name: </b><span class="m-t-none m-b empName"></span><br/> -->
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label">Ticket Code</label>
+                                <div class="col-lg-8">
+                                        {{ Form::text('ticket_code', null, array('placeholder'=>'Ticket Code', 'class' => 'form-control ticket_code' ,'required')) }}
+                                </div>
+                            </div>
+                            <div class="subjectDiv">
+                                <b>Subject : </b><span class="m-t-none m-b subject"></span><br/>
+                            </div>
+                            <div class="priorityDiv">
+                                <b>Priority: </b><span class="m-t-none m-b priorityDetail"></span><br/>
+                            </div>
+                            <div class="statusDiv">
+                                <b>Status: </b><span class="m-t-none m-b status"></span><br/>
+                            </div>
+                            <div class="assignedToDiv">
+                                <b>Assigned To: </b><span class="m-t-none m-b assignedTo"></span><br/>
+                            </div>
+                            <div class="detailsDiv">
+                                <b>Details : </b><span class="m-t-none m-b details"></span><br/>
+                            </div>
+                            <div class="createdByDiv">
+                                <b>Created By : </b><span class="m-t-none m-b createdBy"></span><br/>
+                            </div>
+                            
+                            <form role="form">
+                                <div>
+                                    <button class="btn btn-sm btn-primary pull-right m-l" data-dismiss="modal">Close</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- <div id="approveModel" class="modal fade" aria-hidden="true">
         <div class="modal-dialog">
