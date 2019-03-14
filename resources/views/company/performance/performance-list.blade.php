@@ -6,9 +6,7 @@
         <div class="col-lg-12">
             {{ csrf_field() }}
             <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                   <h5>Payroll Employee List</h5>
-               </div>
+                
                <div class="ibox-content">
 
                 <div class="form-group">
