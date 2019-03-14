@@ -27,7 +27,7 @@
     </head>
 
     <body>
-        <h2>HRMS</h2>
+        <h2>HRMS : Job Offer Letter</h2>
         <div class="invoice-box">
             <table width="100%">
                 <tr>
