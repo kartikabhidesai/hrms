@@ -50,7 +50,7 @@
                                 </div>
                              
                                 <div class="form-group col-lg-12">
-                                    <label class="col-sm-3 control-label">Job Time</label>
+                                    <label class="col-sm-2 control-label">Job Time</label>
                                     <div class="col-sm-9">
                                         <label class="radio-inline">
                                             {{ Form::radio('jobtime', 'parttime', false , ['class' => 'parttime','id' => 'parttime']) }} Part time
@@ -61,7 +61,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group col-lg-12">
-                                    <label class="col-sm-3 control-label">Contract</label>
+                                    <label class="col-sm-2 control-label">Contract</label>
                                     <div class="col-sm-9">
                                         <label class="radio-inline">
                                             {{ Form::radio('contract', 'permanant', true , ['class' => 'permanant','id' => 'permanant']) }} Permanant
