@@ -27,15 +27,14 @@ var Department = function() {
 
        var dataArr = {};
        var columnWidth = {"width": "10%", "targets": 0};
-       
             var arrList = {
             'tableID': '#DepartmentDatatables',
             'ajaxURL': baseurl + "company/department-ajaxAction",
             'ajaxAction': 'getdatatable',
             'postData': dataArr,
             'hideColumnList': [],
-            'noSearchApply': [0],
-            'noSortingApply': [0],
+            'noSearchApply': [],
+            'noSortingApply': [],
             'defaultSortColumn': 0,
             'defaultSortOrder': 'desc',
             'setColumnWidth': columnWidth

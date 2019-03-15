@@ -67,12 +67,13 @@ class Department extends Model
         $companyId = Company::where('email', $userData->email)->first();
         $columns = array(
             // datatable column index  => database column name
-            0 => 'department.id',
-            1 => 'department.department_name',
-            2 => 'designation.designation_name',
+            0 => 'department.department_name',
+            1 => 'designation.designation_name',
+            2 => 'department.id',
+            3 => 'department.company_id'
         );
 
-        $query = Department::join('designation', 'designation.department_id', '=', 'department.id')->groupBy('designation.department_id');
+        $query = Department::leftjoin('designation', 'designation.department_id', '=', 'department.id');
         if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
             $searchVal = $requestData['search']['value'];
             $query->where(function($query) use ($columns, $searchVal, $requestData) {
@@ -81,11 +82,10 @@ class Department extends Model
                     $searchVal = $requestData['search']['value'];
                     if ($requestData['columns'][$key]['searchable'] == 'true') {
                         if ($flag == 0) {
-                            $query->where($value, 'like', "'%".$searchVal."%'");
+                            $query->where($value, 'like','%'.$searchVal.'%');
                             $flag = $flag + 1;
                         } else {
-                            $query->orWhere($value, 'like', '%' . $searchVal . '%');
-                            // $query->orWhere('designation.designation_name', 'like', "'%".$searchVal."%'");
+                            $query->orWhere($value, 'like', '%'.$searchVal.'%');
                         }
                     }
                 }
@@ -93,26 +93,27 @@ class Department extends Model
         }
         
         $temp = $query->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir']);
+         $query->groupBy('department.id');
         $totalData = count($temp->get());
         $totalFiltered = count($temp->get());
         $resultArr = $query->skip($requestData['start'])
                             ->take($requestData['length'])           
-                            ->select('department.id', 'department.department_name','designation_name',DB::raw('GROUP_CONCAT(designation.designation_name SEPARATOR " | ") AS designation_namea'))
+                            ->select('department.id', 'department.company_id','department.department_name',DB::raw('GROUP_CONCAT(designation.designation_name) AS designation_name'))
                             ->get();
 
         $data = array();
         foreach ($resultArr as $row) {
-            // print_r($row);exit;
             $actionHtml ='';
             $actionHtml .= '<a href="' . route('department-edit', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
             $actionHtml .= '<a href="#deleteModel" data-toggle="modal" data-id="'.$row['id'].'" class="link-black text-sm deleteDepartment" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';
             $nestedData = array();
             $nestedData[] = $row["department_name"];
-            $desigArr = [];
-            foreach ($row->designation as $key => $value) {
-                $desigArr[] = $value["designation_name"];
-            }
-            $nestedData[] = implode(', ', $desigArr);
+            // $desigArr = [];
+            // foreach ($row->designation as $key => $value) {
+            //     $desigArr[] = $value["designation_name"];
+            // }
+            // $nestedData[] = implode(', ', $desigArr); 
+            $nestedData[] =  $row["designation_name"];
             $nestedData[] = '1';
             $nestedData[] = $actionHtml;
             $data[] = $nestedData;
