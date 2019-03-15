@@ -39,7 +39,17 @@ var Calendar = function () {
               },
             events: baseurl +'company/getevents/'
         });
+        $(".fc-day").click(function(){
+            $('#addNewEventModel').modal('show');
+            var str = $(this).data("date");
+            var dateforemate = str.split("-");
+            var selectedDateNew = dateforemate[2] +'-'+dateforemate[1]+'-'+ dateforemate[0];
+            $('.event_date').datepicker('setDate', selectedDateNew);
+            $(this).datepicker('hide');
+
+        });
         
+        $( ".event_date" ).datepicker({ minDate: new Date()});
         $('body').on('click', '.newEventModel', function() {
 
         	var form = $('#addNewEvent');
