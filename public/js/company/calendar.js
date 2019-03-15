@@ -40,13 +40,14 @@ var Calendar = function () {
             events: baseurl +'company/getevents/'
         });
         $(".fc-day").click(function(){
+            $('.event_date').val();
             $('#addNewEventModel').modal('show');
             var str = $(this).data("date");
+            console.log(str)
             var dateforemate = str.split("-");
-            var selectedDateNew = dateforemate[2] +'-'+dateforemate[1]+'-'+ dateforemate[0];
-            $('.event_date').datepicker('setDate', selectedDateNew);
+            var selectedDateNew = dateforemate[1] +'/'+dateforemate[2]+'/'+ dateforemate[0];
+            $('.event_date').val(selectedDateNew);
             $(this).datepicker('hide');
-
         });
         
         $( ".event_date" ).datepicker({ minDate: new Date()});
