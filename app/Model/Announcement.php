@@ -74,12 +74,14 @@ class Announcement extends Model {
 
         foreach ($resultArr as $row) {
             $nestedData = array();
-            $nestedData[] = $row["employee_name"];
-            $nestedData[] = $row["department_name"];
-            $nestedData[] = $row["message"];
+            //print_r($row);
+            $nestedData[] = $row["title"];
+            $nestedData[] = $row["status"];
+            $nestedData[] = date("Y-m-d", strtotime($row["date"]));
+            $nestedData[] = date("Y-m-d", strtotime($row["updated_at"]));
             $data[] = $nestedData;
         }
-        
+        //exit;
         $json_data = array(
             "draw" => intval($requestData['draw']), // for every request/draw by clientside , they send a number as a parameter, when they recieve a response/data they first check the draw number, so we are sending same number in draw. 
             "recordsTotal" => intval($totalData), // total number of records
