@@ -90,7 +90,6 @@ class PerformanceController extends Controller {
 
     public function employeePerList($id,Request $request) {
         $data['detail'] = $this->loginUser;
-        $id=1;
         $performanceObj = new Performance;
         $data['employeePerfirmance'] = $performanceObj->getEmployeePerformanceList($id);
 
@@ -159,6 +158,76 @@ class PerformanceController extends Controller {
                 $performanceObj = new Performance;
                 $performanceList = $performanceObj->getPerformanceList($request, $companyId->id);
                 echo json_encode($performanceList);
+                break;
+            case 'getPerformancePercentage':
+
+                if($request->empid != '' && $request->time_period != '')
+                {
+                    $performanceObj = new Performance;
+                    $performanceList = $performanceObj->getEmployeePerformanceList($request->empid);
+
+                    $emp_time = explode('-',$request->time_period);
+                
+                    $newtimeYear = date("Y",strtotime("-".$emp_time[0]." ".$emp_time[1]));
+                    $newtimeMonth = date("m",strtotime("-".$emp_time[0]." ".$emp_time[1]));
+                    // echo "<pre>"; print_r($emp_time[0].' - '.$emp_time[1].' - '.$newtimeYear.' - '.$newtimeMonth);
+
+                    $emp_total = $count = 0;
+                    if (isset($performanceList) && !empty($performanceList)) 
+                    {
+                        foreach ($performanceList as $key => $value)
+                        {
+                            $temp_check = false;
+                            if((int)$newtimeYear < (int)$value['year'])
+                            {
+                                $temp_check = true;
+                            }
+                            elseif ($newtimeYear == $value['year']) 
+                            {
+                                if((int)$newtimeMonth <= (int)$value['month'])
+                                {
+                                    $temp_check = true;
+                                }
+                            }
+
+                            // echo "<pre>"; print_r($newtimeYear.' - '.$value['year']);
+                            // echo "<pre>"; print_r($newtimeMonth.' - '.$value['month']);
+                            // var_dump($temp_check); 
+                            // echo "<br/>";
+
+                            if ($temp_check == true) 
+                            {
+                                $emp_total = $emp_total+(int)$value['availability']+
+                                    (int)$value['dependability']+
+                                    (int)$value['job_knowledge']+
+                                    (int)$value['quality']+
+                                    (int)$value['productivity']+
+                                    (int)$value['working_relationship']+
+                                    (int)$value['honesty'];
+                                $count++;
+                            }
+                        }
+
+                        if ($count != 0) 
+                        {
+                            $grand_total = 5 * 7 * $count; 
+                            $percentage = round((($emp_total*100)/$grand_total),2);    
+                            return ['status'=>'success','percentage'=>$percentage];
+                        }
+                        else
+                        {
+                            return ['status'=>'error','message'=>'No record found'];
+                        }
+                    }
+                    else
+                    {
+                        return ['status'=>'error','message'=>'No record found'];
+                    }
+                }
+                else
+                {
+                    return ['status'=>'error','message'=>'Please select value'];
+                }
                 break;
         }
     }

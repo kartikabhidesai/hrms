@@ -305,7 +305,37 @@ var Performance = function () {
       $('.checkAll').trigger('click');
     });
 
-    
+    $("body").on('change', '#time_period', function () {
+        var empid = $(this).data('empid');
+        var time_period = $(this).val();
+        if(time_period != '')
+        {
+          $.ajax({
+              type: "POST",
+              headers: {
+                  'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+              },
+              url: baseurl + "company/performance-ajaxAction",
+              data: {
+                      _token: $('#_token').val(),
+                      empid: empid, 
+                      time_period: time_period,
+                      action:'getPerformancePercentage'
+              },
+              success: function(data) {
+                console.log(data);
+                  if (data['status'] == 'success') 
+                  {
+                    $('#performance-percentage').html(data.percentage+'%');
+                  }
+                  else
+                  {
+                    alert(data.message);
+                  }
+              }
+          }); 
+        }
+    });    
 
       var emparray = $("#employee").val();
         var department = $("#department").val();

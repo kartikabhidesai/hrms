@@ -9,14 +9,34 @@
                     <h5>Performance</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">90%</h1>
-                    <h1 class="no-margins">Excellent</h1>
+                    <h1 class="no-margins" id="performance-percentage">0%</h1>
+                    <h1 class="no-margins"></h1>
                     <div class="stat-percent font-bold text-info"></div>
                     <small></small>
                 </div>
             </div>
         </div>
- 
+
+
+        <div class="col-lg-4">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-info pull-right"></span>
+                    <h5>Select Time Period</h5>
+                </div>
+                <div class="ibox-content">
+                    <select class="form-control time_period" id="time_period" name="time_period" data-empid="{{$empId}}">
+                      <option value="">select</option>
+                      <option value="5-year">5 Years</option>
+                      <option value="3-year">3 Years</option>
+                      <option value="1-year">1 Year</option>
+                      <option value="6-months">6 Months</option>
+                      <option value="3-months">3 Months</option>
+                      <option value="1-month">1 Month</option>
+                    </select>
+                </div>
+            </div>
+        </div> 
 
 
         <div class="col-lg-12">
