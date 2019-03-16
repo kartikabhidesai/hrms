@@ -77,7 +77,7 @@ class Announcement extends Model {
             //print_r($row);
             $nestedData[] = $row["title"];
             $nestedData[] = $row["status"];
-            $nestedData[] = date("Y-m-d", strtotime($row["date"]));
+            $nestedData[] = date("Y-m-d", strtotime($row["created_at"]));
             $nestedData[] = date("Y-m-d", strtotime($row["updated_at"]));
             $data[] = $nestedData;
         }
