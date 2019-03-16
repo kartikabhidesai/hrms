@@ -79,13 +79,12 @@ class AnnouncementController extends Controller {
         $action = $request->input('action');
         switch ($action) {
             case 'getdatatable':
-                echo 'call';
-                exit;
+                
                 $userID = $this->loginUser->id;
                 $companyId = Company::select('id')->where('user_id', $userID)->first();
-                $performanceObj = new Performance;
-                $performanceList = $performanceObj->getPerformanceList($request, $companyId->id);
-                echo json_encode($performanceList);
+                $announmntObj = new Announcement;
+                $AnnounmntList = $announmntObj->getAnnouncementList($request, $companyId->id);
+                echo json_encode($AnnounmntList);
                 break;
         }
     }
