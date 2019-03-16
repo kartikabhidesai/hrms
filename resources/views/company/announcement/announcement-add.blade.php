@@ -50,9 +50,12 @@
                             <div class="form-group" id="data_2">
                                 <label class="col-sm-2 control-label">Time</label>
                                 <div class="col-sm-9">
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="expire_date" id="expire_date"  class="form-control expire_date" placeholder="Expire date" autocomplete="off">
+                                    
+                                    <div class="input-group" id="datetimepicker">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <input id="time" class="form-control time" data-time-format="H:i:s" type="text" name="time" />
                                     </div>
+                                    
                                 </div>
                             </div>
                         </div>

@@ -38,9 +38,9 @@ class AnnouncementController extends Controller {
      */
     public function anounment_add() {
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
-        //$data['js'] = array('company/task.js');
-        //$data['funinit'] = array('Task.init()');
-        $data['css'] = array('');
+        $data['js'] = array('company/announcement.js','jquery.form.min.js','jquery.timepicker.js');
+        $data['funinit'] = array('Announcement.add()');
+        $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css','jquery.timepicker.css');
         $data['status']=array('1'=>'one','2'=>'two','3'=>'three');
         $data['header'] = array(
             'title' => 'Announcement List',
