@@ -1,7 +1,7 @@
 var Announcement = function () {
-    
+
     var handleList = function () {
-        
+
         var dataArr = {};
         var columnWidth = {"width": "10%", "targets": 0};
 
@@ -19,22 +19,17 @@ var Announcement = function () {
         };
         getDataTable(arrList);
 
-        $('body').on('click', '.announcementDelete', function() {
+        $('body').on('click', '.announcementDelete', function () {
             var id = $(this).data('id');
-            setTimeout(function() {
+            
+            setTimeout(function () {
                 $('.yes-sure:visible').attr('data-id', id);
             }, 500);
         })
-        
-        $('body').on('click', '.deleteTraning', function() {
-            var id = $(this).data('id');
-            setTimeout(function() {
-                $('.yes-sure:visible').attr('data-id', id);
-            }, 500);
-        })
- 
-        $('body').on('click', '.yes-sure', function() {
+
+        $('body').on('click', '.yes-sure', function () {
             var id = $(this).attr('data-id');
+
             var data = {id: id, _token: $('#_token').val()};
             $.ajax({
                 type: "POST",
@@ -43,17 +38,17 @@ var Announcement = function () {
                 },
                 url: baseurl + "company/announcement-ajaxAction",
                 data: {'action': 'deleteAnnouncement', 'data': data},
-                success: function(data) {
+                success: function (data) {
                     handleAjaxResponse(data);
                 }
             });
         });
     }
 
-    var addAnnouncement = function(){
+    var addAnnouncement = function () {
         dateFormate('.start_date');
-        $('[data-toggle="tooltip"]').tooltip(); 
-        
+        $('[data-toggle="tooltip"]').tooltip();
+
         $('#datetimepicker .time').timepicker({
             'showDuration': true,
             'timeFormat': 'g:ia'
@@ -66,23 +61,23 @@ var Announcement = function () {
             content: {required: true},
             start_date: {required: true},
             time: {required: true},
-            
+
         };
-        handleFormValidate(form, rules, function(form) {
-           handleAjaxFormSubmit(form,true);
+        handleFormValidate(form, rules, function (form) {
+            handleAjaxFormSubmit(form, true);
         });
 
-        
 
-       
+
+
     }
 
     return {
         init: function () {
             handleList();
         },
-        add:function(){
-          addAnnouncement();  
+        add: function () {
+            addAnnouncement();
         },
     }
 }();

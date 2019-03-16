@@ -21,6 +21,7 @@
                                     <th>Status</th>
                                     <th>Date Added</th>
                                     <th>Last Updated</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>

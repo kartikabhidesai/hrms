@@ -29,7 +29,7 @@ class Announcement extends Model {
 
     public function getAnnouncementList($request, $companyId) {
         $requestData = $_REQUEST;
-        
+
         $columns = array(
             // datatable column index  => database column name
             0 => 'id',
@@ -40,7 +40,7 @@ class Announcement extends Model {
 
         //$query = Announcement::;
         $query = Announcement::from('announcement');
-                 
+
         if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
             $searchVal = $requestData['search']['value'];
             $query->where(function($query) use ($columns, $searchVal, $requestData) {
@@ -67,7 +67,7 @@ class Announcement extends Model {
         $resultArr = $query->skip($requestData['start'])
                 ->take($requestData['length'])
                 ->where('company_id', $companyId)
-                ->select('id','company_id','title','status','content','date','time','updated_at','created_at')
+                ->select('id', 'company_id', 'title', 'status', 'content', 'date', 'time', 'updated_at', 'created_at')
                 ->get();
 
         $data = array();
@@ -76,13 +76,17 @@ class Announcement extends Model {
             $nestedData = array();
             //echo"call";
             //print_r($row["created_at"]);
+            $actionHtml = '';
+            $actionHtml .= '<a href="' . route('announcement-edit', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
+            $actionHtml .= '<a href="#deleteModel" data-toggle="modal" data-id="' . $row['id'] . '" class="link-black text-sm announcementDelete" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';
             $nestedData[] = $row["title"];
             $nestedData[] = $row["status"];
             $nestedData[] = date("Y-m-d", strtotime($row["created_at"]));
             $nestedData[] = date("Y-m-d", strtotime($row["updated_at"]));
+            $nestedData[] = $actionHtml;
             $data[] = $nestedData;
         }
-        
+
         $json_data = array(
             "draw" => intval($requestData['draw']), // for every request/draw by clientside , they send a number as a parameter, when they recieve a response/data they first check the draw number, so we are sending same number in draw. 
             "recordsTotal" => intval($totalData), // total number of records
@@ -91,6 +95,20 @@ class Announcement extends Model {
         );
 
         return $json_data;
+    }
+
+    public function editAnnoucement($request) {
+        
+        $id = $request->input('edit_id');
+        //print_r($request->input());
+        //exit;
+        $findDepartment = Announcement::where('id', $id)->update(['title' => $request->title,'status' => $request->status,'content' => $request->content,'date' => $request->start_date,'time' => $request->time,'updated_at' => date('Y-m-d H:i:s')]);
+
+        if($findDepartment){
+            return TRUE;
+        }else{
+            return FALSE;
+        }
     }
 
 }

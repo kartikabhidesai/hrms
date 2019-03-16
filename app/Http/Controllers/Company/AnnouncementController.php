@@ -47,7 +47,7 @@ class AnnouncementController extends Controller {
             $userData = Auth::guard('company')->user();
             $getAuthCompanyId = Company::where('email', $userData->email)->first();
             $logedcompanyId = $getAuthCompanyId->id;
-            $result = $objAnnoucement->addAnnouncementData($request,$logedcompanyId);
+            $result = $objAnnoucement->addAnnouncementData($request, $logedcompanyId);
 
             if ($result) {
                 $return['status'] = 'success';
@@ -79,13 +79,36 @@ class AnnouncementController extends Controller {
         $action = $request->input('action');
         switch ($action) {
             case 'getdatatable':
-                
                 $userID = $this->loginUser->id;
                 $companyId = Company::select('id')->where('user_id', $userID)->first();
                 $announmntObj = new Announcement;
                 $AnnounmntList = $announmntObj->getAnnouncementList($request, $companyId->id);
                 echo json_encode($AnnounmntList);
                 break;
+            case'deleteAnnouncement':
+                $result = $this->deleteAnnouncement($request->input('data'));
+                break;
+        }
+    }
+
+    public function deleteAnnouncement($postData) {
+        if ($postData) {
+            $findAnnounmnt = Announcement::where('id', $postData['id'])->first();
+            $result = $findAnnounmnt->delete();
+
+            if ($result) {
+                $return['status'] = 'success';
+                $return['message'] = 'Record deleted successfully.';
+                $return['jscode'] = "setTimeout(function(){
+                        $('#deleteModel').modal('hide');
+                        $('#AnnouncementDatatables').DataTable().ajax.reload();
+                    },1000)";
+            } else {
+                $return['status'] = 'error';
+                $return['message'] = 'Something will be wrong.';
+            }
+            echo json_encode($return);
+            exit;
         }
     }
 
@@ -95,8 +118,36 @@ class AnnouncementController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id) {
-        //
+    public function anounment_edit(Request $request,$id) {
+        if ($request->isMethod('post')) {
+            $objAnnouncement = new Announcement();
+            $ret = $objAnnouncement->editAnnoucement($request);
+
+            if ($ret) {
+                $return['status'] = 'success';
+                $return['message'] = 'Record Edited successfully.';
+                $return['redirect'] = route('announcement');
+            } else {
+                $return['status'] = 'error';
+                $return['message'] = 'Please add any one designation!';
+            }
+
+            echo json_encode($return);
+            exit;
+        }
+        $data['announcement_detail'] = Announcement::where('id', $id)->first();
+        $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
+        $data['js'] = array('company/announcement.js', 'jquery.form.min.js', 'jquery.timepicker.js');
+        $data['funinit'] = array('Announcement.add()');
+        $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css', 'jquery.timepicker.css');
+        $data['status'] = array('1' => 'one', '2' => 'two', '3' => 'three');
+        $data['header'] = array(
+            'title' => 'Announcement List',
+            'breadcrumb' => array(
+                'Home' => route("company-dashboard"),
+                'Announcemnet' => 'Announcement-add'));
+
+        return view('company.announcement.announcement-edit', $data);
     }
 
     /**
