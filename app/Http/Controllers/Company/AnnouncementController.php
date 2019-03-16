@@ -70,7 +70,7 @@ class AnnouncementController extends Controller {
             'title' => 'Announcement List',
             'breadcrumb' => array(
                 'Home' => route("company-dashboard"),
-                'Announcemnet' => 'Announcement'));
+                'Announcemnet' => 'Announcement-add'));
 
         return view('company.announcement.announcement-add', $data);
     }
