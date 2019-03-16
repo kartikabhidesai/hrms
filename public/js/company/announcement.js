@@ -1,13 +1,12 @@
 var Announcement = function () {
     
     var handleList = function () {
-        var priority = $("#priority").val();
-        var status = $("#status").val();
-        var dataArr = {"priority" : priority, "status" : status};
+        
+        var dataArr = {};
         var columnWidth = {"width": "10%", "targets": 0};
 
         var arrList = {
-            'tableID': '#announcementTable',
+            'tableID': '#AnnouncementDatatables',
             'ajaxURL': baseurl + "company/announcement-ajaxAction",
             'ajaxAction': 'getdatatable',
             'postData': dataArr,
@@ -27,17 +26,6 @@ var Announcement = function () {
             }, 500);
         })
         
-        $('body').on('click', '.filler', function () {
-            var priority = $('#priority option:selected').val();
-            var status = $('#status option:selected').val();
-            var querystring = (priority == '' && typeof priority === 'undefined') ? '&priority=' : '&priority=' + priority;
-            
-            /*Don't remove this code as it's in-progress*/
-            querystring += (status == '' && typeof status === 'undefined') ? '&status=' : '&status=' + status;
-            
-            location.href = baseurl + 'company/announcement-list?' + querystring;
-        }); 
-    
         $('body').on('click', '.deleteTraning', function() {
             var id = $(this).data('id');
             setTimeout(function() {
@@ -64,6 +52,7 @@ var Announcement = function () {
 
     var addAnnouncement = function(){
         dateFormate('.start_date');
+        $('[data-toggle="tooltip"]').tooltip(); 
         
         $('#datetimepicker .time').timepicker({
             'showDuration': true,
@@ -72,24 +61,18 @@ var Announcement = function () {
 
         var form = $('#addAnnouncement');
         var rules = {
-            location: {required: true},
-            budget: {required: true},
-            requinment: {required: true},
-            department_id: {required: true},
-            numbers: {required: true,number:true},
-            types: {required: true},
+            title: {required: true},
+            status: {required: true},
+            content: {required: true},
+            start_date: {required: true},
+            time: {required: true},
+            
         };
         handleFormValidate(form, rules, function(form) {
-            handleAjaxFormSubmit(form,true);
+           handleAjaxFormSubmit(form,true);
         });
 
-        var empCount=1;
-        // addDepartment(empCount);
-        // // getemployee(empCount);
-        // $('body').on('click', '.add-emp', function () {
-        //     empCount++;
-        //     addDepartment(empCount);
-        // });
+        
 
        
     }

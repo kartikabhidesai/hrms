@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Company;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\Announcement;
+use App\Model\Company;
+use Auth;
 
 class AnnouncementController extends Controller {
 
@@ -19,8 +22,8 @@ class AnnouncementController extends Controller {
 
     public function index() {
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
-        //$data['js'] = array('company/task.js');
-        //$data['funinit'] = array('Task.init()');
+        $data['js'] = array('company/announcement.js', 'jquery.form.min.js', 'jquery.timepicker.js');
+        $data['funinit'] = array('Announcement.init()');
         $data['css'] = array('');
         $data['header'] = array(
             'title' => 'Announcement List',
@@ -36,12 +39,33 @@ class AnnouncementController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function anounment_add() {
+    public function anounment_add(Request $request) {
+
+        if ($request->isMethod('post')) {
+
+            $objAnnoucement = new Announcement();
+            $userData = Auth::guard('company')->user();
+            $getAuthCompanyId = Company::where('email', $userData->email)->first();
+            $logedcompanyId = $getAuthCompanyId->id;
+            $result = $objAnnoucement->addAnnouncementData($request,$logedcompanyId);
+
+            if ($result) {
+                $return['status'] = 'success';
+                $return['message'] = 'Annoucement Add Successfully.';
+                $return['redirect'] = route('announcement');
+            } else {
+                $return['status'] = 'error';
+                $return['message'] = 'Something went wrong!';
+            }
+            echo json_encode($return);
+            exit;
+        }
+
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
-        $data['js'] = array('company/announcement.js','jquery.form.min.js','jquery.timepicker.js');
+        $data['js'] = array('company/announcement.js', 'jquery.form.min.js', 'jquery.timepicker.js');
         $data['funinit'] = array('Announcement.add()');
-        $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css','jquery.timepicker.css');
-        $data['status']=array('1'=>'one','2'=>'two','3'=>'three');
+        $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css', 'jquery.timepicker.css');
+        $data['status'] = array('1' => 'one', '2' => 'two', '3' => 'three');
         $data['header'] = array(
             'title' => 'Announcement List',
             'breadcrumb' => array(
@@ -51,14 +75,19 @@ class AnnouncementController extends Controller {
         return view('company.announcement.announcement-add', $data);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request) {
-        //
+    public function ajaxAction(Request $request) {
+        $action = $request->input('action');
+        switch ($action) {
+            case 'getdatatable':
+                echo 'call';
+                exit;
+                $userID = $this->loginUser->id;
+                $companyId = Company::select('id')->where('user_id', $userID)->first();
+                $performanceObj = new Performance;
+                $performanceList = $performanceObj->getPerformanceList($request, $companyId->id);
+                echo json_encode($performanceList);
+                break;
+        }
     }
 
     /**

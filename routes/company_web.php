@@ -118,5 +118,7 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
     /*Annoumcement*/
     Route::match(['get','post'],'announcement',['as'=>'announcement','uses'=>'Company\AnnouncementController@index']);
     Route::match(['get','post'],'announcement-add',['as'=>'announcement-add','uses'=>'Company\AnnouncementController@anounment_add']);
+    Route::match(['get', 'post'], 'announcement-ajaxAction', ['as' => 'ajaxAction', 'uses' => 'Company\AnnouncementController@ajaxAction']);
     
+
 });

@@ -13,7 +13,7 @@
                     </div>
                 </div>
                 <div class="ibox-content">
-                    {{ Form::open( array('method' => 'post', 'class' => 'form-horizontal', 'id' => 'annoucement-add' )) }}
+                    {{ Form::open( array('method' => 'post', 'class' => 'form-horizontal', 'id' => 'addAnnouncement' )) }}
                     <div class="form-group">
                         <label class="col-lg-1 control-label">Title</label>
                         <div class="col-lg-5">
@@ -37,7 +37,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-lg-1 control-label">Department</label>
+                        <label class="col-lg-1 control-label">Status</label>
                         <div class="col-lg-5">
                             {{ Form::select('status', $status , null, array('placeholder'=>'Select status', 'class' => 'form-control status', 'id' => 'status')) }}
                         </div>
@@ -61,7 +61,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-lg-1 control-label">Title</label>
+                        <label class="col-lg-1 control-label">Content</label>
                         <div class="col-lg-5">
                             {{ Form::textarea('content', null, array('placeholder'=>'Content', 'rows' => 4,'class' => 'form-control' ,'required')) }}
                         </div>
