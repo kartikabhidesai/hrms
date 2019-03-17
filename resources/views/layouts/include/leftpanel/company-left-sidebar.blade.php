@@ -159,6 +159,10 @@ $file_headers = @get_headers($filename);
                 <a href="{{ route('announcement') }}"><i class="fa fa-bullhorn"></i>
                     <span class="nav-label">Announcement</span></a>
             </li>
+            <li class="{{ ($currentRoute == 'award' || $currentRoute == 'award-add' ? 'active' : '') }}">
+                <a href="{{ route('award') }}"><i class="fa fa-bullhorn"></i>
+                    <span class="nav-label">Award</span></a>
+            </li>
 
         </ul>
     </div>
