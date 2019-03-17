@@ -89,7 +89,7 @@ class Award extends Model {
             //print_r($row["created_at"]);
             $actionHtml = '';
             $actionHtml .= '<a href="#awardDetailsModel" data-toggle="modal" data-id="'.$row['id'].'" title="Details" class="link-black text-sm awardDetails" data-toggle="tooltip" data-original-title="Show"><i class="fa fa-eye"></i></a>';
-            $actionHtml .= '<!--<a href="#deleteModel" data-toggle="modal" data-id="' . $row['id'] . '" class="link-black text-sm awardDelete" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>-->';
+            $actionHtml .= '<a href="' . route('award-edit', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
             $nestedData[] = $row["emp_name"];
             $nestedData[] = '$'.$row["award"];
             $nestedData[] = date("Y-m-d", strtotime($row["date"]));
@@ -108,14 +108,29 @@ class Award extends Model {
         return $json_data;
     }
 
-    public function editAnnoucement($request) {
-        
-        $id = $request->input('edit_id');
-        //print_r($request->input());
-        //exit;
-        $findDepartment = Award::where('id', $id)->update(['title' => $request->title,'status' => $request->status,'content' => $request->content,'date' => $request->start_date,'time' => $request->time,'updated_at' => date('Y-m-d H:i:s')]);
+    public function editAward($request,$id) {
+    
+        // print_r($request->input());
+        // exit;
 
-        if($findDepartment){
+        $file_attachment = '';
+        if(isset($request->file_attachment) && !empty($request->file_attachment))
+        {
+            $file_attachment = 'award_attachment' . time() . '.' . $request->file_attachment->getClientOriginalName();
+            $destinationPath = public_path('/uploads/award_attachment/');
+            $request->file_attachment->move($destinationPath, $file_attachment);
+        }
+
+        $findAward = Award::where('id', $id)->update(['employee_id' => $request->employee,
+                                                        'department' => $request->department,
+                                                        'award' => $request->award,
+                                                        'date' => date("Y-m-d", strtotime($request->start_date)),
+                                                        'comment' => $request->comment,
+                                                        'file_attachment' => $file_attachment==''?'':$file_attachment,
+                                                        'updated_at' => date('Y-m-d H:i:s')]);
+        // var_dump($findAward); exit();
+
+        if($findAward){
             return TRUE;
         }else{
             return FALSE;

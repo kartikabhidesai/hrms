@@ -134,9 +134,18 @@ class AwardController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function award_edit(Request $request,$id) {
+
+        $session = $request->session()->all();
+        $logindata = $session['logindata'][0];
+
+        $companyId = Company::select('id')->where('user_id', $logindata['id'])->first();
+        $data['getAllEmpOfCompany'] = Employee::where('company_id', $companyId->id)->get();
+        $deptObj = new Department();
+        $data['getDepartmentOfCompany'] = $deptObj->getDepartmentByCompany($companyId->id);
+
         if ($request->isMethod('post')) {
             $objAward = new Award();
-            $ret = $objAward->editAward($request);
+            $ret = $objAward->editAward($request,$id);
 
             if ($ret) {
                 $return['status'] = 'success';
@@ -160,7 +169,8 @@ class AwardController extends Controller {
             'title' => 'Award List',
             'breadcrumb' => array(
                 'Home' => route("company-dashboard"),
-                'Announcemnet' => 'Award-add'));
+                'Award List' => route("award"),
+                'Award' => 'Award-add'));
 
         return view('company.award.award-edit', $data);
     }
