@@ -20,6 +20,7 @@ Route::group(['prefix' => $employeePrefix, 'middleware' => ['employee']], functi
 	Route::match(['get', 'post'], 'edit-leave/{id}', ['as' => 'edit-leave', 'uses' => 'Employee\LeaveController@leaveedit']);
     Route::match(['get', 'post'], 'employee-ajaxAction', ['as' => 'employee-ajaxAction', 'uses' => 'Employee\LeaveController@ajaxAction']);
     Route::match(['get', 'post'], 'payroll-employee', ['as' => 'payroll-employee', 'uses' => 'Employee\PayrollController@payrollEmpList']);
+    Route::match(['get', 'post'], 'employee-dashbord-ajaxAction', ['as' => 'employee-dashbord-ajaxAction', 'uses' => 'Employee\DashboardController@ajaxAction']);
 
 
     Route::get('manage-time-change-request', ['as' => 'manage-time-change-request', 'uses' => 'Employee\ManageTimeChangeRequestController@manageTimeChangeRequestList']);

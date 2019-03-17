@@ -7,7 +7,7 @@ var Dashboard = function () {
 
         var arrList = {
             'tableID': '#dataTables_emp_announcement',
-            'ajaxURL': baseurl + "emp-dashbord-ajax",
+            'ajaxURL': baseurl + "employee/employee-dashbord-ajaxAction",
             'ajaxAction': 'getdatatable',
             'postData': dataArr,
             'hideColumnList': [],
