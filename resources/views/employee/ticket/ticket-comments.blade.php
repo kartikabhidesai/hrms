@@ -32,10 +32,8 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-6">
-                                Assign To : {{$ticket_details['assign_to']}}
-                            </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
+                             
                                 Details : {{$ticket_details['details']}}
                             </div>
                         </div>
