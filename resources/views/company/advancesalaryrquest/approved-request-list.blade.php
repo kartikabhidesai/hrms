@@ -64,6 +64,7 @@
                                  <button id="applyBtn" class="btn btn-sm btn-primary applyBtn" type="button">Filter</button>
                                  <button id="clearBtn" class="btn btn-sm btn-default clearBtn" type="button">Clear</button>
                                  <button id="DownloadButton" class="btn btn-sm btn-primary " type="button">Download as PDF</button>
+                                 <button id="DownloadExcelButton" class="btn btn-sm btn-primary " type="button">Download as Excel</button>
                             </div>
                         </div>
                         {{ Form::close() }}

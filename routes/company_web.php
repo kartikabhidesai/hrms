@@ -71,7 +71,7 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
     Route::match(['get', 'post'], 'createApprovedPdf', ['as' => 'createApprovedPdf', 'uses' => 'Company\AdvanceSalaryRequestController@createApprovedPdf']);
     Route::match(['get', 'post'], 'downloadApprovedPdf', ['as' => 'downloadApprovedPdf', 'uses' => 'Company\AdvanceSalaryRequestController@downloadApprovedPdf']);
     Route::match(['get', 'post'], 'add-advance-salary-request', ['as' => 'add-advance-salary-request', 'uses' => 'Company\AdvanceSalaryRequestController@newRequest']);
-        
+    Route::match(['get', 'post'], 'createApprovedExcel', ['as' => 'createApprovedExcel', 'uses' => 'Company\AdvanceSalaryRequestController@createApprovedExcel']);   
     // Communication task-list
         
     Route::match(['get', 'post'], 'communication', ['as' => 'communication', 'uses' => 'Company\CommunicationController@communication']);

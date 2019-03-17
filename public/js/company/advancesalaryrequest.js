@@ -226,6 +226,29 @@ var Advancesalaryrequest = function (){
             }
         });
 
+        $('#DownloadExcelButton').on('click', function () {
+            var token=$("#_token").val();
+            var selecteditem = [];
+            $.each($(".approved_chk_id:checked"), function(){            
+                selecteditem.push($(this).val());
+            });
+            
+            if(selecteditem.length == '0'){
+                    showToster("error", "First Select any Employee", '');
+            }else{
+                window.location.replace(baseurl + "company/createApprovedExcel?selecteditem="+selecteditem);
+                // $.ajax({
+                //     type: "post",
+                //     url: baseurl + "company/createApprovedExcel",
+                //     data: {"selecteditem":selecteditem,"_token":token},
+                //     success: function (response)
+                //     {
+                //        window.location.replace(baseurl + "company/createApprovedExcel?pdfname="+response);
+                //     }
+                // });
+            }
+        });
+
         var dataArr = {};
         var columnWidth = {"width": "10%", "targets": 0};
         var arrList = {

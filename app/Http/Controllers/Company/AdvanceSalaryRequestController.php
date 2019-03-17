@@ -17,6 +17,7 @@ use App\Model\Payroll;
 use App\Model\Advancesalary;
 use Response;
 use Config;
+use Excel;
 
 class AdvanceSalaryRequestController extends Controller {
 
@@ -186,6 +187,37 @@ class AdvanceSalaryRequestController extends Controller {
             $pdfName='advance-salary'.time().'.pdf';
             $pdf->save(public_path('uploads/comapany/'.$pdfName));
             return $pdfName;
+        }
+    } 
+
+    public function createApprovedExcel(Request $request){
+        if($request->method('post')){
+            $objAdvanceSalary=new Advancesalary();
+            $advanceSalaryApprovedRequest = $objAdvanceSalary->getDetailsV2($request);
+            // print_r($advanceSalaryApprovedRequest);exit;
+           Excel::create('Approved Advance Salary Request-'.date('dmY'), function($excel) use ($advanceSalaryApprovedRequest){
+                $headers = array('Name', 'Comment', 'Date of Submit', 'Department Name', 'Company Name','Phone');
+                        $excel->sheet("Student_Offers_List", function($sheet) use ($headers, $advanceSalaryApprovedRequest) {
+                        for ($i = 0; $i < count($advanceSalaryApprovedRequest); $i++) {
+                            $sheet->prependRow($headers);
+                            $sheet->fromArray(array(
+                                array(
+                                    $advanceSalaryApprovedRequest[$i]['name'],
+                                    $advanceSalaryApprovedRequest[$i]['comments'],
+                                    $advanceSalaryApprovedRequest[$i]['date_of_submit'],
+                                    $advanceSalaryApprovedRequest[$i]['department_name'],
+                                    $advanceSalaryApprovedRequest[$i]['company_name'],
+                                    $advanceSalaryApprovedRequest[$i]['phone'],
+                                )), null, 'A2', false, false);
+                            }
+                        });
+                // $excel->sheet('Sheetname', function($sheet) {
+                //     $sheet->fromArray(array(
+                //         array('data1', 'data2'),
+                //         array('data3', 'data4')
+                //     ));
+                // });
+            })->export('xls');
         }
     }
     

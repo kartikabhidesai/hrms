@@ -358,6 +358,20 @@ class Advancesalary extends Model
       return $AdvanceSalaryRequest;
     }
 
+    public function getDetailsV2($request)
+    {
+      $res = explode(',', $request->input('selecteditem'));
+          $query = ManageTimeChangeRequest::from('advance_salary_request as advance_salary')
+                        ->join('employee as emp' ,'advance_salary.employee_id','=','emp.id')
+                        ->join('department as depart', 'emp.department', '=', 'depart.id')
+                        ->join('comapnies', 'advance_salary.company_id', '=', 'comapnies.id')
+                        ->join('employee', 'advance_salary.employee_id', '=', 'employee.id')
+                        ->whereIn('advance_salary.id',$res)
+                        ->select('advance_salary.name','advance_salary.comments','advance_salary.date_of_submit','depart.department_name', 'comapnies.company_name', 'advance_salary.date_of_submit', 'employee.phone')
+                        ->get()->toarray();
+      return $query;
+    }
+
     public function changeAdvanceSalaryStatus($postData){
         $status = $postData['status']; 
         $employeeArr = $postData['arrEmp'];
