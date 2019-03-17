@@ -92,7 +92,7 @@ class Award extends Model {
             $actionHtml .= '<a href="' . route('award-edit', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
             $nestedData[] = $row["emp_name"];
             $nestedData[] = '$'.$row["award"];
-            $nestedData[] = date("Y-m-d", strtotime($row["date"]));
+            $nestedData[] = date("d-m-Y", strtotime($row["date"]));
             $nestedData[] = $row["comment"];
             $nestedData[] = $actionHtml;
             $data[] = $nestedData;
@@ -124,7 +124,7 @@ class Award extends Model {
         $findAward = Award::where('id', $id)->update(['employee_id' => $request->employee,
                                                         'department' => $request->department,
                                                         'award' => $request->award,
-                                                        'date' => date("Y-m-d", strtotime($request->start_date)),
+                                                        'date' => date("Y-m-d", strtotime($request->date)),
                                                         'comment' => $request->comment,
                                                         'file_attachment' => $file_attachment==''?'':$file_attachment,
                                                         'updated_at' => date('Y-m-d H:i:s')]);
