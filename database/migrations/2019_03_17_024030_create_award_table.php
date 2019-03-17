@@ -21,7 +21,7 @@ class CreateAwardTable extends Migration
             $table->integer('award');
             $table->date('date');
             $table->text('comment');     
-            $table->sting('file_attachment',255);     
+            $table->string('file_attachment',255);     
             $table->timestamps();
         });
     }
