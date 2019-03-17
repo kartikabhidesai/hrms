@@ -32,6 +32,7 @@ Route::group(['prefix' => $employeePrefix, 'middleware' => ['employee']], functi
     Route::match(['get', 'post'], 'add-ticket', ['as' => 'add-ticket-emp', 'uses' => 'Employee\TicketController@add']);
     Route::match(['get', 'post'], 'ticket-ajaxAction', ['as' => 'ticket-ajaxAction-emp', 'uses' => 'Employee\TicketController@ajaxaction']);
     Route::match(['get', 'post'], 'download-attachment/{file}', ['as' => 'download-attachment-emp', 'uses' => 'Employee\TicketController@downloadAttachment']);
+    Route::match(['get', 'post'], 'ticket-comments/{id}', ['as' => 'ticket-comments', 'uses' => 'Employee\TicketController@viewTicketComments']);
     
     //edit-advance-salary-request
     Route::match(['get', 'post'], 'advance-salary-request', ['as' => 'advance-salary-request', 'uses' => 'Employee\AdvanceSalaryRequestController@requestList']);    

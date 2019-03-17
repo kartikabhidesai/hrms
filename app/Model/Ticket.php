@@ -204,9 +204,11 @@ class Ticket extends Model
 
             if($loginuser == 'company'){
                 $actionHtml = '<a href="#ticketDetailsModel" data-toggle="modal" data-id="'.$row['id'].'" title="Details" class="link-black text-sm ticketDetails" data-toggle="tooltip" data-original-title="Show"><i class="fa fa-eye"></i></a>&nbsp;&nbsp;';
+                $actionHtml .='<a href="ticket-comments/'.$row['id'].'" class="link-black text-sm" data-id="'.$row['id'].'" data-toggle="tooltip" data-original-title="View Details"> <i class="fa fa-eye"></i></a>';
             }else{
                 $actionHtml = '<a href="#ticketDetailsModel" data-toggle="modal" data-id="'.$row['id'].'" title="Details" class="link-black text-sm ticketDetails" data-toggle="tooltip" data-original-title="Show"><i class="fa fa-eye"></i></a>&nbsp;&nbsp;';
                 $actionHtml .= '<a href="#ticketEditModel" data-toggle="modal" data-id="' . $row['id'] . '" class="link-black text-sm ticketEdit" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-edit"></i></a>';   
+                $actionHtml .='<a href="ticket-comments/'.$row['id'].'" class="link-black text-sm" data-id="'.$row['id'].'" data-toggle="tooltip" data-original-title="View Details"> <i class="fa fa-eye"></i></a>';
             }
 
             $nestedData[] = $actionHtml;

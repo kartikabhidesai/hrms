@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\Controller;
 use App\Model\ManageTimeChangeRequest;
 use App\Model\Ticket;
+use App\Model\TicketComment;
 use App\Model\Employee;
 use App\Model\Company;
 use App\Model\Attendance;
@@ -107,7 +108,7 @@ class TicketController extends Controller
                 $objTicket = new Ticket();
                 $ticketList = $objTicket->getdatatable($request);
                 echo json_encode($ticketList);
-            break;
+                break;
             case 'ticketDetails':
                 $result = $this->getTicketDetails($request->input('data'));
             break;
@@ -137,7 +138,7 @@ class TicketController extends Controller
         }
     }
 
-    public function getTicketDetails($postData)
+    public function getTicketDetails_old($postData)
     {
         $userId = $this->loginUser->id;
         $companyId = Company::select('id')->where('user_id', $userId)->first();
@@ -150,4 +151,66 @@ class TicketController extends Controller
         echo json_encode($ticketDetails);
         exit;
     }
+
+    public function getTicketDetails($postData)
+    {
+        $userId = $this->loginUser->id;
+        $companyId = Company::select('id')->where('user_id', $userId)->first();
+
+        $ticketDetails = Ticket::select('tickets.id','tickets.code', 'tickets.subject', 'tickets.status', 'tickets.priority', 'tickets.details', 'tickets.created_by', 'tickets.assign_to', 'emp.name as emp_name')
+                            ->join('employee as emp', 'tickets.assign_to', '=', 'emp.id')
+                            ->where('tickets.id', $postData)
+                            ->first();
+
+        return $ticketDetails;
+    }
+
+    public function viewTicketComments($id,Request $request){
+        $session = $request->session()->all();
+
+        if ($request->isMethod('post')) {
+            $objTicketComment = new TicketComment();
+            $result = $objTicketComment->saveTicketComment($request);
+            if($result) {
+                $return['status'] = 'success';
+                $return['message'] = 'Ticket Comment successfully.';
+                // $rt='ticket-comments/'.$id;
+                $return['redirect'] = $id;
+            } else {
+                $return['status'] = 'error';
+                $return['message'] = 'Something will be wrong.';
+            }
+
+            echo json_encode($return);
+            exit;
+        }
+            
+        $objEmployee = new Employee();
+        $userid = $this->loginUser->id;
+        $companyId = Company::select('id')->where('user_id', $userid)->first();
+        $ticket_details = $this->getTicketDetails($id);
+        $objTicketComment = new TicketComment();
+        $ticket_comment = $objTicketComment->getTicketCommentDetails($id);
+            // print_r($ticket_comment);exit;
+            
+        $session = $request->session()->all();
+        $data['ticket_details'] = $ticket_details;
+        $data['ticket_comment'] = $ticket_comment;
+        $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
+        $data['js'] = array('company/ticket.js', 'jquery.form.min.js');
+        $data['funinit'] = array('Ticket.addComments()');
+        $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
+        $data['css_plugin'] = array(
+                                  'bootstrap-fileinput/bootstrap-fileinput.css',  
+                                );
+        $data['header'] = array(
+            'title' => 'Ticket',
+            'breadcrumb' => array(
+                'Home' => route("company-dashboard"),
+                'Tickets' => route("ticket-list"),
+                'Ticket Details'=>'Ticket Details'));
+        return view('company.ticket.ticket-comments', $data);
+    }
+
+    
 }

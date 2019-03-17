@@ -225,6 +225,17 @@ var Ticket = function() {
         });
     };
 
+    var addCommentsList = function() {
+        var form = $('#addTicketComment');
+        var rules = {
+            comment: {required: true}
+        };
+        handleFormValidate(form, rules, function(form) {
+            handleAjaxFormSubmit(form,true);
+        });
+        
+    };
+
     return {
         init: function() {
             handleList();
@@ -234,7 +245,10 @@ var Ticket = function() {
         },
         edit :function(){
             editlist();
-        }
+        },
+        addComments :function(){
+            addCommentsList();
+        },
     }
 
 }();
