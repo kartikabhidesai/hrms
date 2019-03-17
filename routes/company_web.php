@@ -121,6 +121,13 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
     Route::match(['get', 'post'], 'announcement-ajaxAction', ['as' => 'ajaxAction', 'uses' => 'Company\AnnouncementController@ajaxAction']);
     Route::match(['get', 'post'], 'announcement-edit/{id}', ['as' => 'announcement-edit', 'uses' => 'Company\AnnouncementController@anounment_edit']);
 
+
+    /*Award*/
+    Route::match(['get','post'],'award',['as'=>'award','uses'=>'Company\AwardController@index']);
+    Route::match(['get','post'],'award-add',['as'=>'award-add','uses'=>'Company\AwardController@award_add']);
+    Route::match(['get', 'post'], 'award-ajaxAction', ['as' => 'ajaxAction', 'uses' => 'Company\AwardController@ajaxAction']);
+    Route::match(['get', 'post'], 'award-edit/{id}', ['as' => 'award-edit', 'uses' => 'Company\AwardController@award_edit']);
+    Route::match(['get', 'post'], 'download-award-attachment/{file}', ['as' => 'download-attachment', 'uses' => 'Company\AwardController@downloadAttachment']);
     
 
 });
