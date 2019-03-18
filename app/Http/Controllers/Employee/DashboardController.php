@@ -43,14 +43,13 @@ class DashboardController extends Controller {
     public function ajaxAction(Request $request) {
         $action = $request->input('action');
         switch ($action) {
-            case 'getdatatable':
-                
+            case 'getdatatableofempdashbord':
                 $session = $request->session()->all();
                 $logged_in_user_id = $session['logindata'][0]['id'];
                 $logged_in_user_company_id = Employee::select('company_id')->where('user_id', $logged_in_user_id)->first();
                 $objAnnounmnt = new Announcement();
 
-                $rs = $objAnnounmnt->getAnnouncementList($request,$logged_in_user_company_id);
+                $rs = $objAnnounmnt->getAnnouncementList($request,$logged_in_user_company_id->company_id);
                 echo json_encode($rs);
                 break;
            

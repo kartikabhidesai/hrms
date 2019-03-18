@@ -1,14 +1,13 @@
 var Dashboard = function () {
     
     var handleList = function () {
-        alert();
         var dataArr = {};
         var columnWidth = {"width": "10%", "targets": 0};
 
         var arrList = {
             'tableID': '#dataTables_emp_announcement',
             'ajaxURL': baseurl + "employee/employee-dashbord-ajaxAction",
-            'ajaxAction': 'getdatatable',
+            'ajaxAction': 'getdatatableofempdashbord',
             'postData': dataArr,
             'hideColumnList': [],
             'noSearchApply': [0],
