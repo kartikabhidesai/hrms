@@ -110,7 +110,7 @@ class TicketController extends Controller
                 echo json_encode($ticketList);
                 break;
             case 'ticketDetails':
-                $result = $this->getTicketDetails($request->input('data'));
+                $result = $this->getTicketDetailsJson($request->input('data'));
             break;
             case 'ticketEdit':
                 $result = $this->getTicketDetails($request->input('data'));
@@ -138,7 +138,7 @@ class TicketController extends Controller
         }
     }
 
-    public function getTicketDetails_old($postData)
+    public function getTicketDetailsJson($postData)
     {
         $userId = $this->loginUser->id;
         $companyId = Company::select('id')->where('user_id', $userId)->first();
