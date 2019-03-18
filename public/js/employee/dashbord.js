@@ -1,7 +1,6 @@
 var Dashboard = function () {
     
     var handleList = function () {
-        alert();
         var dataArr = {};
         var columnWidth = {"width": "10%", "targets": 0};
 
