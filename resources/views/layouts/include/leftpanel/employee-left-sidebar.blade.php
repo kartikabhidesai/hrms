@@ -76,7 +76,7 @@ $currentRoute = Route::current()->getName();
                     <span class="nav-label">Training</span></a>
             </li>
                <li class="{{ ($currentRoute == 'emp-performance' ||  $currentRoute == 'emp-performance-emp-detail' || $currentRoute == 'emp-employee-performance-list' || $currentRoute == 'emp-performance-emp-detail/*' ? 'active' : '') }}">
-                <a href="{{ route('emp-performance') }}"><i class="fa chart-bar"></i>
+                <a href="{{ route('emp-performance') }}"><i class="fa fa-user"></i>
                     <span class="nav-label">Performance</span></a>
             </li>
             </ul>
