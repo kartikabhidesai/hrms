@@ -24,6 +24,26 @@ class TicketController extends Controller
 
     public function index(Request $request)
     {
+        
+
+        if ($request->isMethod('post')) {
+            $userID = $this->loginUser->id;
+            $empId = Employee::select('id')->where('user_id', $userID)->first();
+            $objTicket = new Ticket();
+        //    print_r($request);exit;
+            $res = $objTicket->updateTicketStatusEmp($request, $empId->id);
+            if ($res) {
+                $return['status'] = 'success';
+                $return['message'] = 'Ticket status updated successfully.';
+                $return['redirect'] = route('ticket-list');
+            } else {
+                $return['status'] = 'error';
+                $return['message'] = 'Somethin went wrong while creating new task!';
+            }
+            echo json_encode($return);
+
+            exit();
+        }
         $session = $request->session()->all();
 
         $data['priority'] = "";
@@ -53,6 +73,9 @@ class TicketController extends Controller
             'breadcrumb' => array(
                 'Home' => route("employee-dashboard"),
                 'Tickets' => 'Tickets'));
+
+        $data['task_progress'] = Config::get('constants.task_progress');
+        $data['status'] = ['In_Progress', 'Pending', 'Complete'];
 
         return view('employee.ticket.ticket-list', $data);
     }
@@ -113,6 +136,14 @@ class TicketController extends Controller
             case 'ticketEdit':
                 $result = $this->getTicketDetails($request->input('data'));
             break;
+            case 'empviewticketstatus':
+                $userID = $this->loginUser->id;
+                $empId = Employee::select('id')->where('user_id', $userID)->first();
+                $ticketId = $request->input('data');
+                $objTicket = new Ticket();
+                $result = $objTicket->getEmpviewTicketStatus($ticketId,$empId->id);
+                echo json_encode($result);
+                break;
             /*case 'deleteDepartment':
                 $result = $this->deleteDepartment($request->input('data'));
                 break;*/

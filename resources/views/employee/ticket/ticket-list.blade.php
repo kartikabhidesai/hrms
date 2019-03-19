@@ -247,46 +247,46 @@
     </div>
 
 
-    <!-- <div id="approveModel" class="modal fade" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-sm-12"><h3 class="m-t-none m-b">Delete Record</h3>
-                            <b>Are You sure want to approve time change request ?</b><br/>
-                            <form role="form">
-                                <div>
-                                    <button class="btn btn-sm btn-primary pull-right m-l" data-dismiss="modal">Cancel</button>
-                                    <button class="btn btn-sm btn-danger pull-right yesapprove m-l" type="button"><strong><i class="fa fa-trash"></i> Approve </strong></button>
-                                </div>
-                            </form>
+    <div id="updateTicketStatusModel" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Update Ticket Status Details</h4>
+            </div>
+            {{ Form::open( array('method' => 'post','files' => true, 'class' => 'form-horizontal', 'id' => 'updateTicketStatus' )) }}
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                         <input type="hidden" class="form-control ticket_id" name="ticket_id" id="ticket_id">
+                        <div class="form-group">
+
+                            <label class="col-sm-2 control-label">Complete Progress</label>
+                            <div class="col-sm-9">
+                                {{ Form::select('complete_progress', $task_progress , null, array('class' => 'form-control m-b c-select complete_progress', 'id' => 'complete_progress')) }}
+                            </div>
+
                         </div>
 
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Ticket Status</label>
+                            <div class="col-sm-9">
+                                {{ Form::select('status', $status , null, array('class' => 'form-control m-b c-select status', 'id' => 'status')) }}
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
+            <div class="modal-footer">
+                <form role="form">
+                    <button class="btn btn-sm btn-default pull-right m-l " data-dismiss="modal">Close</button>
+                    <button class="btn btn-sm btn-primary pull-right updatetask m-l" type="submit">Update</button>
+                </form>
+            </div>
+            {{ Form::close() }}
         </div>
     </div>
-
-    <div id="disapproveModel" class="modal fade" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-sm-12"><h3 class="m-t-none m-b">Delete Record</h3>
-                            <b>Are You sure want to reject time change request ?</b><br/>
-                            <form role="form">
-                                <div>
-                                    <button class="btn btn-sm btn-primary pull-right m-l" data-dismiss="modal">Cancel</button>
-                                    <button class="btn btn-sm btn-danger pull-right yesreject m-l" type="button"><strong><i class="fa fa-trash"></i> Reject </strong></button>
-                                </div>
-                            </form>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
+</div>
 
     @endsection

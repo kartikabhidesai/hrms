@@ -16,6 +16,7 @@ use File;
 class Ticket extends Model
 {
     protected $table = 'tickets';
+    // protected $fillable = ['title'];
 
     public function saveTicket($request)
     {    
@@ -209,6 +210,8 @@ class Ticket extends Model
                 $actionHtml = '<a href="#ticketDetailsModel" data-toggle="modal" data-id="'.$row['id'].'" title="Details" class="link-black text-sm ticketDetails" data-toggle="tooltip" data-original-title="Show"><i class="fa fa-eye"></i></a>&nbsp;&nbsp;';
                 // $actionHtml .= '<a href="#ticketEditModel" data-toggle="modal" data-id="' . $row['id'] . '" class="link-black text-sm ticketEdit" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-edit"></i></a>';   
                 $actionHtml .='<a href="ticket-comments/'.$row['id'].'" class="link-black text-sm" data-id="'.$row['id'].'" data-toggle="tooltip" data-original-title="View Details"> <i class="fa fa-comments"></i></a>';
+                $actionHtml .= '<a href="#updateTicketStatusModel"  data-toggle="modal" data-id="' . $row['id'] . '" title="Update" class="link-black text-sm updateTicketStatusModel" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';   
+                                
             }
 
             $nestedData[] = $actionHtml;
@@ -222,6 +225,26 @@ class Ticket extends Model
             "data" => $data
         );
         return $json_data;
+    }
+
+    public function getEmpviewTicketStatus($ticketId,$Empid) {
+        // echo $ticketId."-".$Empid;
+        $result = Ticket::select('code', 'subject', 'status', 'priority','details', 'complete_progress','id')->where('assign_to', $Empid)->where('id', $ticketId)->first();
+        return $result;
+    }
+
+    public function updateTicketStatusEmp($request, $empid) {
+        // echo $request->ticket_id;
+        // exit;
+        $objTicket = Ticket::firstOrNew(array('assign_to' => $empid,'id'=>$request->ticket_id));        
+        $objTicket->complete_progress = $request->complete_progress;
+        $objTicket->status = $request->status;
+        $objTicket->save();
+        if ($objTicket) {
+            return TRUE;
+        } else {
+            return false;
+        }
     }
 
     public function ticketAttachments()

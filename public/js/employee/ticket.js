@@ -140,6 +140,27 @@ var Ticket = function() {
                             '</div>';
             $('.add_designation_div').prepend(button);
         });
+
+        $('body').on('click', '.updateTicketStatusModel', function () {
+            var data = $(this).attr('data-id');
+            console.log(data);
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                },
+                url: baseurl + "employee/ticket-ajaxAction",
+                data: {'action': 'empviewticketstatus', 'data': data},
+                success: function (data) {
+                    var output = JSON.parse(data);
+                    console.log(output);
+                    $('.ticket_id').val(output.id);
+                    $('.complete_progress').val(output.complete_progress);
+                    $('.status').val(output.status);
+                   
+                }
+            });
+        });
  
     };
     
@@ -215,9 +236,24 @@ var Ticket = function() {
         
     };
 
+    var updateTicket = function () {
+        var form = $('#updateTicketStatus');
+        var rules = {
+            complete_progress: {required: true,number:true},
+            status: {required: true},
+
+        };
+        handleFormValidate(form, rules, function (form) {
+            handleAjaxFormSubmit(form, true);
+        });
+
+
+    };
+
     return {
         init: function() {
             handleList();
+            updateTicket();
         },
         add :function(){
             addlist();
