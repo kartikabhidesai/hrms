@@ -28,6 +28,7 @@ class Announcement extends Model {
     }
 
     public function getAnnouncementList($request, $companyId) {
+
         $requestData = $_REQUEST;
 
         $columns = array(
@@ -74,16 +75,21 @@ class Announcement extends Model {
 
         foreach ($resultArr as $row) {
             $nestedData = array();
-            //echo"call";
-            //print_r($row["created_at"]);
             $actionHtml = '';
             $actionHtml .= '<a href="' . route('announcement-edit', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
             $actionHtml .= '<a href="#deleteModel" data-toggle="modal" data-id="' . $row['id'] . '" class="link-black text-sm announcementDelete" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';
+            if ($requestData['action'] == "getdatatableofempdashbord") {
+                $actionHtml = '';
+                $actionHtml .= '<a href="#detialsModel" data-toggle="modal" data-id="' . $row['id'] . '" class="link-black text-sm announcementDetails" data-toggle="tooltip" data-original-title="View Detials" > <i class="fa fa-eye"></i></a>';
+            }
             $nestedData[] = $row["title"];
             $nestedData[] = $row["status"];
             $nestedData[] = date("Y-m-d", strtotime($row["created_at"]));
             $nestedData[] = date("Y-m-d", strtotime($row["updated_at"]));
             $nestedData[] = $actionHtml;
+
+
+
             $data[] = $nestedData;
         }
 
@@ -98,15 +104,15 @@ class Announcement extends Model {
     }
 
     public function editAnnoucement($request) {
-        
+
         $id = $request->input('edit_id');
         //print_r($request->input());
         //exit;
-        $findDepartment = Announcement::where('id', $id)->update(['title' => $request->title,'status' => $request->status,'content' => $request->content,'date' => $request->start_date,'time' => $request->time,'updated_at' => date('Y-m-d H:i:s')]);
+        $findDepartment = Announcement::where('id', $id)->update(['title' => $request->title, 'status' => $request->status, 'content' => $request->content, 'date' => $request->start_date, 'time' => $request->time, 'updated_at' => date('Y-m-d H:i:s')]);
 
-        if($findDepartment){
+        if ($findDepartment) {
             return TRUE;
-        }else{
+        } else {
             return FALSE;
         }
     }
