@@ -39,10 +39,41 @@
         <div class="modal-content">
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-sm-12"><h3 class="m-t-none m-b">Record Details</h3>
+                    <div class="col-sm-12"><h3 class="m-t-none m-b">Announcement Details</h3>
                         <form role="form">
-                            <div>
-                                <b>record</b>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-4">
+                                        <label><b>Content</b></label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <label class="content"></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="col-lg-4">
+                                        <label><b>Created At</b></label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <label class="created_at"></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="col-lg-4">
+                                        <label><b>Status</b></label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <label class="status"></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="col-lg-4">
+                                        <span><b>Title</b></span>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <label class="title"></label>
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>
