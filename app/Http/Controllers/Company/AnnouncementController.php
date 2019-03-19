@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Announcement;
 use App\Model\Company;
 use Auth;
+use Config;
 
 class AnnouncementController extends Controller {
 
@@ -21,6 +22,7 @@ class AnnouncementController extends Controller {
     }
 
     public function index() {
+        
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/announcement.js', 'jquery.form.min.js', 'jquery.timepicker.js');
         $data['funinit'] = array('Announcement.init()');
@@ -65,7 +67,7 @@ class AnnouncementController extends Controller {
         $data['js'] = array('company/announcement.js', 'jquery.form.min.js', 'jquery.timepicker.js');
         $data['funinit'] = array('Announcement.add()');
         $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css', 'jquery.timepicker.css');
-        $data['status'] = array('one' => 'one', 'two' => 'two', 'three' => 'three');
+        $data['status'] = Config::get('constants.status');
         $data['header'] = array(
             'title' => 'Announcement List',
             'breadcrumb' => array(
@@ -140,7 +142,7 @@ class AnnouncementController extends Controller {
         $data['js'] = array('company/announcement.js', 'jquery.form.min.js', 'jquery.timepicker.js');
         $data['funinit'] = array('Announcement.add()');
         $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css', 'jquery.timepicker.css');
-        $data['status'] = array('one' => 'one', 'two' => 'two', 'three' => 'three');
+        $data['status'] = Config::get('constants.status');
         $data['header'] = array(
             'title' => 'Announcement List',
             'breadcrumb' => array(
