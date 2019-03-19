@@ -148,6 +148,7 @@ class AnnouncementController extends Controller {
                 'Announcemnet' => 'Announcement-add'));
 
         return view('company.announcement.announcement-edit', $data);
+        
     }
 
     /**
