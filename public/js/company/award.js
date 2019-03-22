@@ -101,9 +101,9 @@ var Award = function () {
             'timeFormat': 'g:ia'
         });
 
-        $('#date_award').change(function(){
-            $(this).valid();
-        });
+        // $('#date_award').change(function(){
+        //     $(this).valid();
+        // });
 
         $( "#date_award").datepicker({ 
                                 format: 'dd-mm-yyyy',

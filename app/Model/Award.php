@@ -40,11 +40,11 @@ class Award extends Model {
     public function getAwardList($request, $id) {
         $requestData = $_REQUEST;
 
-        $columns = array('award.id','employee.name','award.award','award.date','award.comment');
+        $columns = array('emp_name','award.award','award.date','award.comment');
 
         $query = Award::from('award')->join('employee','award.employee_id','employee.id');
 
-        if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
+        if (!empty($requestData['search']['value'])) {
             $searchVal = $requestData['search']['value'];
             $query->where(function($query) use ($columns, $searchVal, $requestData) {
                 $flag = 0;

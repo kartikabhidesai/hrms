@@ -92,6 +92,10 @@ class AwardController extends Controller {
                             ->where('award.id', $postData)
                             ->first();
 
+        if($awardDetails){
+            $awardDetails->date = date("d-m-Y", strtotime($awardDetails->date));
+        }
+
         echo json_encode($awardDetails);
         exit;
     }

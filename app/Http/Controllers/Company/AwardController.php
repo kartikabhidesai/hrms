@@ -63,7 +63,7 @@ class AwardController extends Controller {
             if ($result) {
                 $return['status'] = 'success';
                 $return['message'] = 'Award Add Successfully.';
-                $return['redirect'] = route('award');
+                $return['redirect'] = route('award-company');
             } else {
                 $return['status'] = 'error';
                 $return['message'] = 'Something went wrong!';
@@ -81,7 +81,7 @@ class AwardController extends Controller {
             'title' => 'Award List',
             'breadcrumb' => array(
                 'Home' => route("company-dashboard"),
-                'Award List' => route("award"),
+                'Award List' => route("award-company"),
                 'Award' => 'Award-add'));
 
         return view('company.award.award-add', $data);
@@ -150,7 +150,7 @@ class AwardController extends Controller {
             if ($ret) {
                 $return['status'] = 'success';
                 $return['message'] = 'Record Edited successfully.';
-                $return['redirect'] = route('award');
+                $return['redirect'] = route('award-company');
             } else {
                 $return['status'] = 'error';
                 $return['message'] = 'Please add any one designation!';
@@ -169,7 +169,7 @@ class AwardController extends Controller {
             'title' => 'Award List',
             'breadcrumb' => array(
                 'Home' => route("company-dashboard"),
-                'Award List' => route("award"),
+                'Award List' => route("award-company"),
                 'Award' => 'Award-add'));
 
         return view('company.award.award-edit', $data);
@@ -185,6 +185,10 @@ class AwardController extends Controller {
                             ->join('department', 'award.department', '=', 'department.id')
                             ->where('award.id', $postData)
                             ->first();
+
+        if($awardDetails){
+            $awardDetails->date = date("d-m-Y", strtotime($awardDetails->date));
+        }
 
         echo json_encode($awardDetails);
         exit;
