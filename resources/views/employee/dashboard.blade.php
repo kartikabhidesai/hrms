@@ -5,36 +5,51 @@
         <div class="col-lg-12">
             {{ csrf_field() }}
             <div class="ibox float-e-margins">
-                <!--                <div class="ibox-title">
-                                    <h5>Leave</h5>
-                                    <div class="ibox-tools">
-                                        <a href="{{ route('add-leave') }}" class="btn btn-primary dim" ><i class="fa fa-plus"> Add</i></a>
-                                    </div>
-                                </div>-->
-                <div class="ibox-content">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover dataTables-example" id="dataTables_emp_announcement">
-                            <thead>
-                                <tr>
-                                    <th>Title</th>
-                                    <th>Status</th>
-                                    <th>End Date</th>
-                                    <th>Last Updated</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                            </tbody>
-                        </table>
-                    </div>
-
+                <div class="ibox-title">
+                    Announcement Details
                 </div>
+                @if($announcementList->count() == 0)
+                    <div class="ibox-content">
+                        <p>No Announcement present yet!</p>
+                    </div>
+                @else
+                    <div class="ibox-content">
+                        <div class="panel-group payments-method" id="accordion">
+                        @foreach($announcementList as $list)
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <!-- <div class="pull-right">
+                                            <i class="fa fa-cc-paypal text-success"></i>
+                                        </div> -->
+                                        <h5 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#{{ $list->id }}_collapseOne">{{ $list->title }}</a>
+                                        </h5>
+                                    </div>
+                                    <div id="{{ $list->id }}_collapseOne" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-10">
+                                                    <strong>Title: </strong>{{ $list->title }}<br>
+                                                    <strong>Status:</strong> {{ $list->status }} <br/>
+                                                    <strong>End Date:</strong> <span class="text-navy">{{ date('Y-m-d', strtotime($list->date)) }}</span><br>
+                                                    <strong>Time:</strong> <span class="text-navy">{{ $list->time }}</span>
+                                                    <p class="m-t">
+                                                        <strong>Conent: </strong>{{ $list->content }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
 </div>
-<div id="detialsModel" class="modal fade" aria-hidden="true">
+<!-- <div id="detialsModel" class="modal fade" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
@@ -82,6 +97,6 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 @endsection

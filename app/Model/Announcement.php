@@ -27,6 +27,17 @@ class Announcement extends Model {
         return ($objAnnouncement->save());
     }
 
+    public function getAnnouncementListAccordion($companyId)
+    {
+        $getAnnouncementList = Announcement::where('company_id', $companyId)->get();
+
+        if($getAnnouncementList) {
+            return $getAnnouncementList;
+        } else {
+            return FALSE;
+        }
+    }
+
     public function getAnnouncementList($request, $companyId) {
 
         $requestData = $_REQUEST;

@@ -155,6 +155,12 @@ $file_headers = @get_headers($filename);
                 <a href="{{ route('recruitment') }}"><i class="fa fa-ticket"></i>
                     <span class="nav-label">Recruitment</span></a>
             </li>
+
+            <li class="{{ ($currentRoute == 'announcement' || $currentRoute == 'announcement-add' ? 'active' : '') }}">
+                <a href="{{ route('announcement') }}"><i class="fa fa-ticket"></i>
+                    <span class="nav-label">Announcement</span></a>
+            </li>
+
             <li class="{{ ($currentRoute == 'working-day-setting' ? 'active' : '') }}">
                 <a href="{{ route('working-day-setting') }}"><i class="fa fa-bullhorn"></i>
                     <span class="nav-label">Working Day Setting</span></a>
@@ -162,6 +168,11 @@ $file_headers = @get_headers($filename);
             <li class="{{ ($currentRoute == 'award' ? 'active' : '') }}">
                 <a href="{{ route('award-company') }}"><i class="fa fa-bullhorn"></i>
                     <span class="nav-label">Award</span></a>
+            </li>
+
+            <li class="{{ ($currentRoute == 'leave-category' ? 'active' : '') }}">
+                <a href="{{ route('leave-category') }}"><i class="fa fa-bullhorn"></i>
+                    <span class="nav-label">Leave Category</span></a>
             </li>
 
         </ul>

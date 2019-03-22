@@ -26,21 +26,23 @@ class DashboardController extends Controller {
         $data['login_user'] = $session['logindata'][0];
         $logged_in_user_id = $session['logindata'][0]['id'];
         $logged_in_user_company_id = Employee::select('company_id')->where('user_id', $logged_in_user_id)->first();
-
+        $objAnnounmnt = new Announcement();
+        $data['announcementList'] = $objAnnounmnt->getAnnouncementListAccordion($logged_in_user_company_id->company_id);
+        
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('employee/dashbord.js');
         $data['funinit'] = array('Dashboard.init()');
         $data['css'] = array('');
         $data['detail'] = $this->loginUser;
         $data['header'] = array(
-            'title' => 'Employee',
+            'title' => 'Employee Dashboard',
             'breadcrumb' => array(
-                'Home' => route("admin-dashboard"),
-                'Announcement' => 'Announcement'));
+                'Home' => route("employee-dashboard"),
+                'Dashboard' => 'Dashboard'));
         return view('employee.dashboard', $data);
     }
 
-    public function ajaxAction(Request $request) {
+    /*public function ajaxAction(Request $request) {
         $action = $request->input('action');
         //print_r($request->input());
         //exit;        
@@ -60,6 +62,6 @@ class DashboardController extends Controller {
                 echo json_encode($result);
                 break;
         }
-    }
+    }*/
 
 }
