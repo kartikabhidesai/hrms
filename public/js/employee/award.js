@@ -7,7 +7,7 @@ var Award = function () {
 
         var arrList = {
             'tableID': '#AwardDatatables',
-            'ajaxURL': baseurl + "company/award-ajaxAction",
+            'ajaxURL': baseurl + "employee/award-ajaxAction",
             'ajaxAction': 'getdatatable',
             'postData': dataArr,
             'hideColumnList': [],
@@ -36,7 +36,7 @@ var Award = function () {
                 headers: {
                     'X-CSRF-TOKEN': $('input[name="_token"]').val(),
                 },
-                url: baseurl + "company/award-ajaxAction",
+                url: baseurl + "employee/award-ajaxAction",
                 data: {'action': 'deleteAward', 'data': data},
                 success: function (data) {
                     handleAjaxResponse(data);
@@ -51,7 +51,7 @@ var Award = function () {
                 headers: {
                     'X-CSRF-TOKEN': $('input[name="_token"]').val(),
                 },
-                url: baseurl + "company/award-ajaxAction",
+                url: baseurl + "employee/award-ajaxAction",
                 data: {'action': 'awardDetails', 'data': data},
                 success: function(data) {
                     var  output = JSON.parse(data);

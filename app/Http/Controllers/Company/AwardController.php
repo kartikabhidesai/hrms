@@ -203,7 +203,7 @@ class AwardController extends Controller {
         }
         else
         {
-            return redirect('company/ticket-list')->with('status', 'file not found!');
+            return redirect('company/award')->with('status', 'file not found!');
         }
     }
 }

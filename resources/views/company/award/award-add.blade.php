@@ -56,7 +56,7 @@
                         <label class="col-sm-1 control-label">Date</label>
                         <div class="col-lg-4">
                             <div class="input-group ">
-                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="date" id="date"  class="form-control date" placeholder="Date" autocomplete="off" required="required">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="date" id="date_award"  class="form-control date" placeholder="Date">
                             </div>
                         </div>
                     </div>

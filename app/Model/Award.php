@@ -37,19 +37,11 @@ class Award extends Model {
         return ($objAward->save());
     }
 
-    public function getAwardList($request, $companyId) {
+    public function getAwardList($request, $id) {
         $requestData = $_REQUEST;
 
-        $columns = array(
-            // datatable column index  => database column name
-            0 => 'award.id',
-            1 => 'employee.name',
-            2 => 'award.award',
-            3 => 'award.date',
-            4 => 'award.comment'
-        );
+        $columns = array('award.id','employee.name','award.award','award.date','award.comment');
 
-        //$query = Award::;
         $query = Award::from('award')->join('employee','award.employee_id','employee.id');
 
         if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
@@ -72,25 +64,41 @@ class Award extends Model {
 
         $temp = $query->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir']);
 
-        $totalData = count($temp->get());
-        $totalFiltered = count($temp->get());
+        if(Auth::guard('company')->check()) 
+        {
+            $query->where('award.company_id', $id);
+        }
+        else
+        {
+            $query->where('award.employee_id', $id);
+        }
 
         $resultArr = $query->skip($requestData['start'])
                 ->take($requestData['length'])
-                ->where('employee.company_id', $companyId)
                 ->select('award.*','employee.name as emp_name')
                 ->get();
+
+        $totalData = count($resultArr);
+        $totalFiltered = count($resultArr);
 
         $data = array();
 
         foreach ($resultArr as $row) {
             $nestedData = array();
-            //echo"call";
-            //print_r($row["created_at"]);
             $actionHtml = '';
-            $actionHtml .= '<a href="#awardDetailsModel" data-toggle="modal" data-id="'.$row['id'].'" title="Details" class="link-black text-sm awardDetails" data-toggle="tooltip" data-original-title="Show"><i class="fa fa-eye"></i></a>';
-            $actionHtml .= '<a href="' . route('award-edit', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
-            $nestedData[] = $row["emp_name"];
+
+            if(Auth::guard('company')->check()) 
+            {
+                $actionHtml .= '<a href="#awardDetailsModel" data-toggle="modal" data-id="'.$row['id'].'" title="Details" class="link-black text-sm awardDetails" data-toggle="tooltip" data-original-title="Show"><i class="fa fa-eye"></i></a>';
+                $actionHtml .= '<a href="' . route('award-edit', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
+
+                $nestedData[] = $row["emp_name"];
+            }
+            else
+            {
+                $actionHtml .= '<a href="#awardDetailsModel" data-toggle="modal" data-id="'.$row['id'].'" title="Details" class="link-black text-sm awardDetails" data-toggle="tooltip" data-original-title="Show"><i class="fa fa-eye"></i></a>';
+            }
+            
             $nestedData[] = '$'.$row["award"];
             $nestedData[] = date("d-m-Y", strtotime($row["date"]));
             $nestedData[] = $row["comment"];
