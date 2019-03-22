@@ -128,7 +128,7 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
     Route::match(['get','post'],'award-add',['as'=>'award-add','uses'=>'Company\AwardController@award_add']);
     Route::match(['get', 'post'], 'award-ajaxAction', ['as' => 'ajaxAction', 'uses' => 'Company\AwardController@ajaxAction']);
     Route::match(['get', 'post'], 'award-edit/{id}', ['as' => 'award-edit', 'uses' => 'Company\AwardController@award_edit']);
-    Route::match(['get', 'post'], 'download-award-attachment/{file}',['uses' => 'Company\AwardController@downloadAttachment']);
-    
-
+     Route::match(['get', 'post'], 'download-award-attachment/{file}',['uses' => 'Company\AwardController@downloadAttachment']);
+     /*working day setting*/
+    Route::match(['get','post'],'working-day-setting',['as'=>'working-day-setting','uses'=>'Company\WorkingDaySettingController@index']);
 });

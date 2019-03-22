@@ -35,13 +35,12 @@ class TicketController extends Controller
             if ($res) {
                 $return['status'] = 'success';
                 $return['message'] = 'Ticket status updated successfully.';
-                $return['redirect'] = route('ticket-list');
+                $return['redirect'] = route('ticket-list-emp');
             } else {
                 $return['status'] = 'error';
                 $return['message'] = 'Somethin went wrong while creating new task!';
             }
             echo json_encode($return);
-
             exit();
         }
         $session = $request->session()->all();
@@ -65,7 +64,7 @@ class TicketController extends Controller
         $data['arrInprogressCount'] = 0;
         $data['arrCompletedCount'] = 0;
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
-        $data['js'] = array('employee/ticket.js');
+        $data['js'] = array('employee/ticket.js','jquery.form.min.js');
         $data['funinit'] = array('Ticket.init()');
         $data['css'] = array('');
         $data['header'] = array(

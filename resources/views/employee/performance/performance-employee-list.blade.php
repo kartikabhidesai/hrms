@@ -44,8 +44,8 @@
                 <div class="ibox-title">
                     <h5>Performance: {{ $singleemployee['name'] }}</h5>
                     <div class="ibox-tools">
-                      <a href="{{ route('performance-emp-detail',array('id'=>$empId)) }}" class="btn btn-primary dim" ><i class="fa fa-plus"> Add</i></a>
-
+                      <!-- <a href="{{ route('performance-emp-detail',array('id'=>$empId)) }}" class="btn btn-primary dim" ><i class="fa fa-plus"> Add</i></a>
+ -->
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     </div>
                 </div>
@@ -80,7 +80,6 @@
                         <table class="table table-striped table-bordered table-hover dataTables-example" id="">
                             <thead>
                                 <tr>
-                                    <th>Task</th>
                                     <th>Note & Details</th>
                                     <th>Month</th>
                                     <th>Year</th>
@@ -96,9 +95,6 @@
                               @foreach($employeePerfirmance as $row => $value)
                        
                                 <tr class="gradeU">
-                                    <td> 
-                                       <?= $value['id'] ?>
-                                    </td>
                                     <td> 
                                        <?= $value['notes_and_details'] ?>
                                     </td>

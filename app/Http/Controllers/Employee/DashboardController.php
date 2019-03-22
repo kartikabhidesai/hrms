@@ -42,6 +42,8 @@ class DashboardController extends Controller {
 
     public function ajaxAction(Request $request) {
         $action = $request->input('action');
+        //print_r($request->input());
+        //exit;        
         switch ($action) {
             case 'getdatatableofempdashbord':
                 $session = $request->session()->all();
@@ -49,10 +51,14 @@ class DashboardController extends Controller {
                 $logged_in_user_company_id = Employee::select('company_id')->where('user_id', $logged_in_user_id)->first();
                 $objAnnounmnt = new Announcement();
 
-                $rs = $objAnnounmnt->getAnnouncementList($request,$logged_in_user_company_id->company_id);
+                $rs = $objAnnounmnt->getAnnouncementList($request, $logged_in_user_company_id->company_id);
                 echo json_encode($rs);
                 break;
-           
+            case'modalDetails';
+                $announcemntid = $request['data']['id'];
+                $result = Announcement::select('id', 'company_id', 'title', 'status', 'content', 'date', 'time', 'updated_at', 'created_at')->where('id', $announcemntid)->first();
+                echo json_encode($result);
+                break;
         }
     }
 

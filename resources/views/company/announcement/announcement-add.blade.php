@@ -39,7 +39,7 @@
                     <div class="form-group">
                         <label class="col-lg-1 control-label">Status</label>
                         <div class="col-lg-5">
-                            {{ Form::select('status', $status , null, array('placeholder'=>'Select status', 'class' => 'form-control status', 'id' => 'status')) }}
+                            {{ Form::select('status', $status , null, array('class' => 'form-control status', 'id' => 'status')) }}
                         </div>
                         <div class="col-lg-1">
                             <a data-toggle="tooltip" class="tooltipLink" data-original-title="Tooltip text goes here">
