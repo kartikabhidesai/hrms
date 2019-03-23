@@ -61,6 +61,8 @@
                         </div>
                     </div>
 
+                    <input type="hidden" name="empId" value="{{@$employee['id']}}" id="empId">
+
                     <div class="form-group">
                         <label class="col-sm-3 control-label">Remarks</label>
                         <div class="col-sm-9">
@@ -108,6 +110,14 @@
                         <div class="col-lg-8">
                             {{ Form::text('travel',  isset($arrayPayroll) ? $arrayPayroll['travel'] : '', array('placeholder'=>'Travel', 'class' => 'form-control last_name' ,'required')) }}
                             {{ Form::hidden('editId',  isset($arrayPayroll) ? $arrayPayroll['id'] : '', array('placeholder'=>'Travel')) }}
+                        </div>
+                        <label class="col-lg-1 control-label">SAR</label>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Award:</label>
+                        <div class="col-lg-8">
+                            {{ Form::text('award',  isset($arrayPayroll) ? $arrayPayroll['award'] : '', array('placeholder'=>'Award', 'class' => 'form-control award','readonly'=>'readonly','id'=>'award')) }}
                         </div>
                         <label class="col-lg-1 control-label">SAR</label>
                     </div>
