@@ -7,6 +7,7 @@ use App\Model\Users;
 use App\Model\Employee;
 use App\Model\Company;
 use App\Model\Department;
+use App\Model\Award;
 use App\Http\Controllers\Controller;
 use Auth;
 use Route;
@@ -206,6 +207,26 @@ class PayrollController extends Controller {
             echo json_encode($return);
             exit;
         }
+    }
+
+    public function payrollCheckAward(Request $request)
+    {
+        $count = 0;
+        if($request->months != '' && $request->year != '' && $request->empid != '')
+        {
+            $from_date = $request->year.'-'.$request->months.'-1';
+            $to_date = $request->year.'-'.$request->months.'-31';
+            $awards = Award::where('employee_id',$request->empid)->whereBetween('date',[$from_date,$to_date])->get()->toArray();
+            
+            if($awards && !empty($awards))
+            {
+                
+                foreach ($awards as $key => $value) {
+                    $count = $count + $value['award'];
+                }
+            }
+        }
+        return $count;
     }
 
 }

@@ -83,6 +83,27 @@ var Payroll = function () {
             });
         });
 
+        $('body').on('change', '#months,#year', function() {
+            var months = $('#months').val();
+            var year = $('#year').val();
+            var empid = $('#empId').val();
+            if(months != '' && year != '' && empid != '')
+            {
+                $.ajax({
+                    type: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                    },
+                    url: baseurl + "company/payroll-check-award",
+                    data: { empid:empid, months: months,year: year, _token: $('#_token').val() },
+                    success: function(data) {
+                        $('#award').val(data);
+                        // handleAjaxResponse(data);
+                    }
+                });
+            }
+        });
+
         $('body').on('click', '.applyBtn', function () {
             var department = $('#department option:selected').val();
             var employee = $('#employee option:selected').val();
