@@ -93,7 +93,7 @@
 
             <table style="width: 100%; margin-top: 10px;" cellpadding="3" border='1'>
                 <tr class="light">
-                    <td>Payments</td>
+                    <!-- <td>Payments</td> -->
                     <td>Availability</td>
                     <td>Dependability</td>
                     <td>Job Knowledge</td>
@@ -114,8 +114,7 @@
                         <td>{{ $employeeArr['working_relationship'] }}</td>
                         <td>{{ $employeeArr['honesty'] }}</td>
                         <td>{{ $employeeArr['notes_and_details'] }}</td>
-                        <td>{{ $employeeArr['month'] }}{{ $employeeArr['year'] }}</td>
-                        <td></td>
+                        <td>{{ $employeeArr['month'] }}/{{ $employeeArr['year'] }}</td>
                     </tr>  
                 @endforeach
             </table>       
