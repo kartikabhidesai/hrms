@@ -127,7 +127,7 @@ class Announcement extends Model {
         if($request->expiry_date == 'N.A.') {
             $findDepartment = Announcement::where('id', $id)->update(['title' => $request->title, 'status' => $request->status, 'content' => $request->content, 'date' => $request->start_date, 'time' => $request->time, 'updated_at' => date('Y-m-d H:i:s')]);
         } else {
-            $findDepartment = Announcement::where('id', $id)->update(['title' => $request->title, 'status' => $request->status, 'content' => $request->content, 'date' => $request->start_date, 'time' => $request->time, 'expiry_date' => $request->expiry_date, 'updated_at' => date('Y-m-d H:i:s')]);
+            $findDepartment = Announcement::where('id', $id)->update(['title' => $request->title, 'status' => $request->status, 'content' => $request->content, 'date' => $request->start_date, 'time' => $request->time, 'expiry_date' => date("Y-m-d", strtotime($request->expiry_date)), 'updated_at' => date('Y-m-d H:i:s')]);
         }
 
         if ($findDepartment) {
