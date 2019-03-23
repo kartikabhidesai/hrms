@@ -60,8 +60,19 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-lg-6">
+                            <div class="form-group" id="data_2">
+                                <label class="col-sm-2 control-label">Expiry Date</label>
+                                <div class="col-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="expiry_date" id="expiry_date"  class="form-control expiry_date" placeholder="Expiry Date" value="{{ $announcement_detail['expiry_date'] ? date('d-m-Y',strtotime($announcement_detail['expiry_date'])) : 'N.A.' }}" autocomplete="off">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
+
                         <label class="col-lg-1 control-label">Content</label>
                         <div class="col-lg-5">
                             {{ Form::textarea('content', $announcement_detail['content'], array('placeholder'=>'Content', 'rows' => 4,'class' => 'form-control' ,'required')) }}
