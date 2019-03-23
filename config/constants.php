@@ -115,6 +115,12 @@ return [
         '100'=>'100%', 
     ],
 
+    'day_works' => [
+        '0' => 'Non Working Day',
+        '1' => 'Full day',
+        '2' => 'Half Day',
+    ],
+
     'ClientPath' => public_path() . '/uploads/client/',
     'EmployeePath' => public_path() . '/uploads/employee/',
 ];
