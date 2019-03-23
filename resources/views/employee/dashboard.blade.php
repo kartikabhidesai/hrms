@@ -31,7 +31,8 @@
                                                 <div class="col-md-10">
                                                     <strong>Title: </strong>{{ $list->title }}<br>
                                                     <strong>Status:</strong> {{ $list->status }} <br/>
-                                                    <strong>End Date:</strong> <span class="text-navy">{{ date('Y-m-d', strtotime($list->date)) }}</span><br>
+                                                    <strong>Date:</strong> <span class="text-navy">{{ date('Y-m-d', strtotime($list->date)) }}</span><br>
+                                                    <strong>Expiry Date:</strong> <span class="text-navy">{{ $list->expiry_date ? $list->expiry_date : 'N.A.' }}</span><br>
                                                     <strong>Time:</strong> <span class="text-navy">{{ $list->time }}</span>
                                                     <p class="m-t">
                                                         <strong>Conent: </strong>{{ $list->content }}

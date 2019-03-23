@@ -20,6 +20,7 @@ class Announcement extends Model {
         $objAnnouncement->title = $request->input('title');
         $objAnnouncement->company_id = $logedcompanyId;
         $objAnnouncement->date = date("Y-m-d", strtotime($request->input('start_date')));
+        $objAnnouncement->expiry_date = date("Y-m-d", strtotime($request->input('expiry_date')));
         $objAnnouncement->status = $request->input('status');
         $objAnnouncement->time = $request->input('time');
         $objAnnouncement->content = $request->input('content');
@@ -29,7 +30,13 @@ class Announcement extends Model {
 
     public function getAnnouncementListAccordion($companyId)
     {
-        $getAnnouncementList = Announcement::where('company_id', $companyId)->get();
+        // $getAnnouncementList = Announcement::where('company_id', $companyId)->where('expiry_date', '>=', date('Y-m-d'))->orWhere('expiry_date', 'is', NULL)->get();
+        $getAnnouncementList = Announcement::where('company_id', $companyId)
+                                            ->where(function($query) {  
+                                                    $query->where('expiry_date','>', date("Y-m-d"))
+                                                    ->orWhereNull('expiry_date'); 
+                                                })
+                                            ->get();
 
         if($getAnnouncementList) {
             return $getAnnouncementList;

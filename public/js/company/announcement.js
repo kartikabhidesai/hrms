@@ -47,6 +47,7 @@ var Announcement = function () {
 
     var addAnnouncement = function () {
         dateFormate('.start_date');
+        dateFormate('.expiry_date');
         $('[data-toggle="tooltip"]').tooltip();
 
         $('#datetimepicker .time').timepicker({
@@ -60,16 +61,13 @@ var Announcement = function () {
             status: {required: true},
             content: {required: true},
             start_date: {required: true},
+            expiry_date: {required: true},
             time: {required: true},
 
         };
         handleFormValidate(form, rules, function (form) {
             handleAjaxFormSubmit(form, true);
         });
-
-
-
-
     }
 
     return {
