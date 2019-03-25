@@ -92,6 +92,11 @@ $currentRoute = Route::current()->getName();
                     </ul>
                  </li>
                  
+                <li class="{{ ($currentRoute == 'payment-list' ? 'active' : '') }}">
+                    <a href="{{ route('payment-list') }}"><i class="fa fa-percent"></i>
+                    <span class="nav-label">Payment</span></a>
+                </li>
+                 
               <!--   <li class="active">
                     <a href="#"><i class="fa fa-table"></i> <span class="nav-label">Tables</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
