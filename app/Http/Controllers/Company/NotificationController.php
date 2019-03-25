@@ -54,8 +54,24 @@ class NotificationController extends Controller
         return view('company.notification.notification-add', $data);
     }
 
-	public function notificationList($value='')
+	public function notificationList(Request $request)
 	{
-		
+		   $session = $request->session()->all();
+       
+        $userid = $this->loginUser->id;
+        $companyId = Company::select('id')->where('user_id', $userid)->first();
+        $objTax = new Tax();
+        $data['taxResult'] = $objTax->getTax($companyId->id);
+
+        $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
+        $data['js'] = array('company/notification.js');
+        $data['funinit'] = array('Notification.init()');
+        $data['css'] = array('');
+        $data['header'] = array(
+            'title' => 'View Notification',
+            'breadcrumb' => array(
+                'Home' => route("company-dashboard"),
+                'Sent Notification' => 'View Notification'));
+        return view('company.notification.notification-list', $data);
 	}
 }
