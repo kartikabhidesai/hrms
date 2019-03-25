@@ -141,10 +141,7 @@ $file_headers = @get_headers($filename);
                 <a href="{{ route('training') }}"><i class="fa fa-ticket"></i>
                     <span class="nav-label">Training</span></a>
             </li>
-            <li class="{{ ($currentRoute == 'system-setting' || $currentRoute == 'system-setting' ? 'active' : '') }}">
-                <a href="{{ route('system-setting') }}"><i class="fa fa-cogs"></i>
-                    <span class="nav-label">System Setting</span></a>
-            </li>
+            
 
             <!-- <li class="{{ ($currentRoute == 'recruitment' || $currentRoute == 'recruitment' ? 'active' : '') }}">
                 <a href="{{ route('recruitment') }}"><i class="fa fa-empire"></i>
@@ -161,19 +158,31 @@ $file_headers = @get_headers($filename);
                     <span class="nav-label">Announcement</span></a>
             </li>
 
-            <li class="{{ ($currentRoute == 'working-day-setting' ? 'active' : '') }}">
-                <a href="{{ route('working-day-setting') }}"><i class="fa fa-bullhorn"></i>
-                    <span class="nav-label">Working Day Setting</span></a>
-            </li>
             <li class="{{ ($currentRoute == 'award' ? 'active' : '') }}">
                 <a href="{{ route('award-company') }}"><i class="fa fa-bullhorn"></i>
                     <span class="nav-label">Award</span></a>
             </li>
 
-            <li class="{{ ($currentRoute == 'leave-category' ? 'active' : '') }}">
-                <a href="{{ route('leave-category') }}"><i class="fa fa-bullhorn"></i>
-                    <span class="nav-label">Leave Category</span></a>
+            <li class="{{ ($currentRoute == 'system-setting' || $currentRoute == 'system-setting' ? 'active' : '') }} {{ ($currentRoute == 'working-day-setting' ? 'active' : '') }} {{ ($currentRoute == 'leave-category' ? 'active' : '') }}">
+                <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Setting</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li class="{{ ($currentRoute == 'system-setting' || $currentRoute == 'system-setting' ? 'active' : '') }}">
+                        <a href="{{ route('system-setting') }}"><i class="fa fa-cogs"></i>
+                            <span class="nav-label">System Setting</span></a>
+                    </li>
+                    
+                    <li class="{{ ($currentRoute == 'working-day-setting' ? 'active' : '') }}">
+                        <a href="{{ route('working-day-setting') }}"><i class="fa fa-bullhorn"></i>
+                            <span class="nav-label">Working Day Setting</span></a>
+                    </li>
+
+                    <li class="{{ ($currentRoute == 'leave-category' ? 'active' : '') }}">
+                        <a href="{{ route('leave-category') }}"><i class="fa fa-bullhorn"></i>
+                            <span class="nav-label">Leave Category</span></a>
+                    </li>
+                </ul>
             </li>
+
 
         </ul>
     </div>
