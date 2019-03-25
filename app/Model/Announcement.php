@@ -20,6 +20,7 @@ class Announcement extends Model {
         $objAnnouncement->title = $request->input('title');
         $objAnnouncement->company_id = $logedcompanyId;
         $objAnnouncement->date = date("Y-m-d", strtotime($request->input('start_date')));
+        $objAnnouncement->expiry_date = date("Y-m-d", strtotime($request->input('expiry_date')));
         $objAnnouncement->status = $request->input('status');
         $objAnnouncement->time = $request->input('time');
         $objAnnouncement->content = $request->input('content');
@@ -29,7 +30,13 @@ class Announcement extends Model {
 
     public function getAnnouncementListAccordion($companyId)
     {
-        $getAnnouncementList = Announcement::where('company_id', $companyId)->get();
+        // $getAnnouncementList = Announcement::where('company_id', $companyId)->where('expiry_date', '>=', date('Y-m-d'))->orWhere('expiry_date', 'is', NULL)->get();
+        $getAnnouncementList = Announcement::where('company_id', $companyId)
+                                            ->where(function($query) {  
+                                                    $query->where('expiry_date','>', date("Y-m-d"))
+                                                    ->orWhereNull('expiry_date'); 
+                                                })
+                                            ->get();
 
         if($getAnnouncementList) {
             return $getAnnouncementList;
@@ -117,9 +124,11 @@ class Announcement extends Model {
     public function editAnnoucement($request) {
 
         $id = $request->input('edit_id');
-        //print_r($request->input());
-        //exit;
-        $findDepartment = Announcement::where('id', $id)->update(['title' => $request->title, 'status' => $request->status, 'content' => $request->content, 'date' => $request->start_date, 'time' => $request->time, 'updated_at' => date('Y-m-d H:i:s')]);
+        if($request->expiry_date == 'N.A.') {
+            $findDepartment = Announcement::where('id', $id)->update(['title' => $request->title, 'status' => $request->status, 'content' => $request->content, 'date' => $request->start_date, 'time' => $request->time, 'updated_at' => date('Y-m-d H:i:s')]);
+        } else {
+            $findDepartment = Announcement::where('id', $id)->update(['title' => $request->title, 'status' => $request->status, 'content' => $request->content, 'date' => $request->start_date, 'time' => $request->time, 'expiry_date' => date("Y-m-d", strtotime($request->expiry_date)), 'updated_at' => date('Y-m-d H:i:s')]);
+        }
 
         if ($findDepartment) {
             return TRUE;
