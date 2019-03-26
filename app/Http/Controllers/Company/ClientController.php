@@ -4,17 +4,35 @@ namespace App\Http\Controllers\Company;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\Company;
+use App\Model\Employee;
+use App\Model\Department;
+use Auth;
 
-class ClientController extends Controller
-{
+class ClientController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function __construct() {
+        parent::__construct();
+        $this->middleware('company');
+    }
+
+    public function index() {
+        $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
+        $data['js'] = array('company/award.js', 'jquery.form.min.js', 'jquery.timepicker.js');
+        $data['funinit'] = array('Award.init()');
+        $data['css'] = array('');
+        $data['header'] = array(
+            'title' => 'Client List',
+            'breadcrumb' => array(
+                'Home' => route("company-dashboard"),
+                'Client' => 'Client'));
+
+        return view('company.client.client-list', $data);
     }
 
     /**
@@ -22,9 +40,47 @@ class ClientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function addClient(Request $request) {
+        $session = $request->session()->all();
+        $logindata = $session['logindata'][0];
+
+        $companyId = Company::select('id')->where('user_id', $logindata['id'])->first();
+        $data['getAllEmpOfCompany'] = Employee::where('company_id', $companyId->id)->get();
+        $deptObj = new Department();
+        $data['getDepartmentOfCompany'] = $deptObj->getDepartmentByCompany($companyId->id);
+
+        if ($request->isMethod('post')) {
+
+            $objAward = new Award();
+            $userData = Auth::guard('company')->user();
+            $getAuthCompanyId = Company::where('email', $userData->email)->first();
+            $logedcompanyId = $getAuthCompanyId->id;
+            $result = $objAward->addAwardData($request, $logedcompanyId);
+
+            if ($result) {
+                $return['status'] = 'success';
+                $return['message'] = 'Award Add Successfully.';
+                $return['redirect'] = route('award-company');
+            } else {
+                $return['status'] = 'error';
+                $return['message'] = 'Something went wrong!';
+            }
+            echo json_encode($return);
+            exit;
+        }
+
+        $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
+        $data['js'] = array('company/client.js', 'jquery.form.min.js', 'jquery.timepicker.js');
+        $data['funinit'] = array('Client.add()');
+        $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css', 'jquery.timepicker.css');
+        $data['header'] = array(
+            'title' => 'Client List',
+            'breadcrumb' => array(
+                'Home' => route("company-dashboard"),
+                'Client List' => route("client"),
+                'Client Add' => 'Client-add'));
+
+        return view('company.client.client-add', $data);
     }
 
     /**
@@ -33,8 +89,7 @@ class ClientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         //
     }
 
@@ -44,8 +99,7 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id) {
         //
     }
 
@@ -55,8 +109,7 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         //
     }
 
@@ -67,8 +120,7 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
         //
     }
 
@@ -78,8 +130,8 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         //
     }
+
 }

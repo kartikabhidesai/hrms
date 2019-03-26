@@ -140,6 +140,7 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
 
     /* client */
     Route::match(['get', 'post'], 'client', ['as' => 'client', 'uses' => 'Company\ClientController@index']);
+    Route::match(['get', 'post'], 'client-add', ['as' => 'client-add', 'uses' => 'Company\ClientController@addClient']);
 
     
 });

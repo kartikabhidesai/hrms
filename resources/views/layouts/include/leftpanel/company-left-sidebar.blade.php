@@ -183,11 +183,9 @@ $file_headers = @get_headers($filename);
                 </ul>
             </li>
             <li class="{{ ($currentRoute == 'client' ? 'active' : '') }}">
-                <a href="{{ route('client') }}"><i class="fa fa-bullhorn"></i>
+                <a href="{{ route('client') }}"><i class="fa fa-users"></i>
                     <span class="nav-label">Client</span></a>
             </li>
-
-
         </ul>
     </div>
 </nav>
