@@ -130,17 +130,18 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
     Route::match(['get', 'post'], 'award-ajaxAction', ['as' => 'ajaxAction', 'uses' => 'Company\AwardController@ajaxAction']);
     Route::match(['get', 'post'], 'award-edit/{id}', ['as' => 'award-edit', 'uses' => 'Company\AwardController@award_edit']);
     Route::match(['get', 'post'], 'download-award-attachment/{file}', ['uses' => 'Company\AwardController@downloadAttachment']);
+    
     /* working day setting */
     Route::match(['get', 'post'], 'working-day-setting', ['as' => 'working-day-setting', 'uses' => 'Company\WorkingDaySettingController@index']);
     Route::match(['get', 'post'], 'workingDaySetting-ajaxAction', ['as' => 'workingDaySetting-ajaxAction', 'uses' => 'Company\WorkingDaySettingController@ajaxAction']);
 
-    /* Leave Categoty */
-    Route::match(['get', 'post'], 'leave-category', ['as' => 'leave-category', 'uses' => 'Company\LeaveCategoryController@index']);
-    Route::match(['get', 'post'], 'leave-category-ajaxAction', ['as' => 'leave-category-ajaxAction', 'uses' => 'Company\AwardController@ajaxAction']);
+    /*Leave Categoty*/
+    Route::match(['get','post'],'leave-category',['as'=>'leave-category','uses'=>'Company\LeaveCategoryController@index']);
+    Route::match(['get', 'post'], 'leave-category-ajaxAction', ['as' => 'leave-category-ajaxAction', 'uses' => 'Company\LeaveCategoryController@ajaxAction']);
+    Route::match(['get', 'post'], 'leave-category-add', ['as' => 'leave-category-add', 'uses' => 'Company\LeaveCategoryController@leaveCategoryAdd']);
 
     /* client */
     Route::match(['get', 'post'], 'client', ['as' => 'client', 'uses' => 'Company\ClientController@index']);
     Route::match(['get', 'post'], 'client-add', ['as' => 'client-add', 'uses' => 'Company\ClientController@addClient']);
 
-    
 });
