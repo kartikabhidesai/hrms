@@ -141,7 +141,7 @@ $file_headers = @get_headers($filename);
                 <a href="{{ route('training') }}"><i class="fa fa-ticket"></i>
                     <span class="nav-label">Training</span></a>
             </li>
-            
+
 
             <!-- <li class="{{ ($currentRoute == 'recruitment' || $currentRoute == 'recruitment' ? 'active' : '') }}">
                 <a href="{{ route('recruitment') }}"><i class="fa fa-empire"></i>
@@ -170,7 +170,7 @@ $file_headers = @get_headers($filename);
                         <a href="{{ route('system-setting') }}"><i class="fa fa-cogs"></i>
                             <span class="nav-label">System Setting</span></a>
                     </li>
-                    
+
                     <li class="{{ ($currentRoute == 'working-day-setting' ? 'active' : '') }}">
                         <a href="{{ route('working-day-setting') }}"><i class="fa fa-bullhorn"></i>
                             <span class="nav-label">Working Day Setting</span></a>
@@ -181,6 +181,10 @@ $file_headers = @get_headers($filename);
                             <span class="nav-label">Leave Category</span></a>
                     </li>
                 </ul>
+            </li>
+            <li class="{{ ($currentRoute == 'client' ? 'active' : '') }}">
+                <a href="{{ route('client') }}"><i class="fa fa-bullhorn"></i>
+                    <span class="nav-label">Client</span></a>
             </li>
 
 
