@@ -9,7 +9,7 @@
                     <h5>Award List</h5>
                     <div class="ibox-tools">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <a href="#" class="btn btn-primary dim" ><i class="fa fa-plus"> Add</i></a>
+                        <a href="{{ route('leave-category-add') }}" class="btn btn-primary dim" ><i class="fa fa-plus"> Add</i></a>
                     </div>
                 </div>
                 <div class="ibox-content">

@@ -136,5 +136,6 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
 
     /*Leave Categoty*/
     Route::match(['get','post'],'leave-category',['as'=>'leave-category','uses'=>'Company\LeaveCategoryController@index']);
-    Route::match(['get', 'post'], 'leave-category-ajaxAction', ['as' => 'leave-category-ajaxAction', 'uses' => 'Company\AwardController@ajaxAction']);
+    Route::match(['get', 'post'], 'leave-category-ajaxAction', ['as' => 'leave-category-ajaxAction', 'uses' => 'Company\LeaveCategoryController@ajaxAction']);
+    Route::match(['get', 'post'], 'leave-category-add', ['as' => 'leave-category-add', 'uses' => 'Company\LeaveCategoryController@leaveCategoryAdd']);
 });
