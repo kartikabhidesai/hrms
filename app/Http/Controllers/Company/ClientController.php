@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Company;
 use App\Model\Employee;
-use App\Model\Department;
+use App\Model\Client;
 use Auth;
 
 class ClientController extends Controller {
@@ -41,26 +41,19 @@ class ClientController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function addClient(Request $request) {
-        $session = $request->session()->all();
-        $logindata = $session['logindata'][0];
-
-        $companyId = Company::select('id')->where('user_id', $logindata['id'])->first();
-        $data['getAllEmpOfCompany'] = Employee::where('company_id', $companyId->id)->get();
-        $deptObj = new Department();
-        $data['getDepartmentOfCompany'] = $deptObj->getDepartmentByCompany($companyId->id);
-
+       
         if ($request->isMethod('post')) {
 
-            $objAward = new Award();
+            $objClient = new Client();
             $userData = Auth::guard('company')->user();
             $getAuthCompanyId = Company::where('email', $userData->email)->first();
-            $logedcompanyId = $getAuthCompanyId->id;
-            $result = $objAward->addAwardData($request, $logedcompanyId);
+            $logedcompanyId = $getAuthCompanyId->id; 
+            $result = $objClient->addClientData($request, $logedcompanyId);
 
             if ($result) {
                 $return['status'] = 'success';
-                $return['message'] = 'Award Add Successfully.';
-                $return['redirect'] = route('award-company');
+                $return['message'] = 'Client Add Successfully.';
+                $return['redirect'] = route('client');
             } else {
                 $return['status'] = 'error';
                 $return['message'] = 'Something went wrong!';

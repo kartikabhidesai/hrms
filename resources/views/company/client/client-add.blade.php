@@ -26,7 +26,7 @@
                     <div class="form-group">
                         <label class="col-lg-1 control-label">National Id</label>
                         <div class="col-lg-5">
-                            {{ Form::text('nation_id', null, array('placeholder'=>'National_id', 'class' => 'form-control' ,'required')) }}
+                            {{ Form::text('national_id', null, array('placeholder'=>'National_id', 'class' => 'form-control' ,'required')) }}
                         </div>
                         <label class="col-lg-1 control-label">Phone Number</label>
                         <div class="col-lg-5">
