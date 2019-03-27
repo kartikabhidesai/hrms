@@ -162,7 +162,10 @@ $file_headers = @get_headers($filename);
                 <a href="{{ route('award-company') }}"><i class="fa fa-bullhorn"></i>
                     <span class="nav-label">Award</span></a>
             </li>
-
+            <li class="{{ ($currentRoute == 'report-list' || $currentRoute == 'task-report' || $currentRoute == 'ticket-report' || $currentRoute == 'client-report' || $currentRoute == 'transaction-report' || $currentRoute == 'holiday-report' ? 'active' : '') }}">
+                <a href="{{ route('report-list') }}"><i class="fa fa-bullhorn"></i>
+                    <span class="nav-label">Report</span></a>
+            </li>
             <li class="{{ ($currentRoute == 'system-setting' || $currentRoute == 'system-setting' ? 'active' : '') }} {{ ($currentRoute == 'working-day-setting' ? 'active' : '') }} {{ ($currentRoute == 'leave-category' ? 'active' : '') }}">
                 <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Setting</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
