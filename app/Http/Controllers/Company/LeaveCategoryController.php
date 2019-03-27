@@ -75,7 +75,7 @@ class LeaveCategoryController extends Controller
         $data['leave_work_location'] = Config::get('constants.leave_work_location');
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/leave_category.js', 'ajaxfileupload.js','jquery.form.min.js');
-        $data['funinit'] = array('LeaveCategory.init()');
+        $data['funinit'] = array('LeaveCategory.add()');
         $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
         $data['header'] = array(
         'title' => 'Leave Category Add',

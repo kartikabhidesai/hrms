@@ -20,9 +20,34 @@ var LeaveCategory = function () {
         getDataTable(arrList);
     }
 
+    var addNewLeaveCategory = function () {
+        var form = $('#addLeaveCategoryType');
+        var rules = {
+            leave_cat_name: {required: true},
+            type: {required: true},
+            leave_unit: {required: true},
+            description: {required: true},
+            applicable_for: {required: true},
+            role: {required: true},
+            work_location: {required: true},
+            gender: {required: true},
+            marital_status: {required: true},
+            period: {required: true},
+            for_employee_type: {required: true},
+            leave_count: {required: true}
+            
+        };
+        handleFormValidate(form, rules, function (form) {
+            handleAjaxFormSubmit(form, true);
+        });
+    }
+
     return {
         init: function () {
             handleList();
+        },
+        add: function () {
+            addNewLeaveCategory();
         },
     }
 }();
