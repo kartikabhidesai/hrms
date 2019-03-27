@@ -121,6 +121,16 @@ return [
         '2' => 'Half Day',
     ],
 
+    'leave_category_role' => [
+        '0' => 'Role 1',
+        '1' => 'Role 2'
+    ],
+
+    'leave_work_location' => [
+        '0' => 'Location 1',
+        '1' => 'Location 2'
+    ],
+
     'ClientPath' => public_path() . '/uploads/client/',
     'EmployeePath' => public_path() . '/uploads/employee/',
 ];

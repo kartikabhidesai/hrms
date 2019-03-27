@@ -1,0 +1,116 @@
+<?php
+
+namespace App\Model;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
+use DB;
+use Auth;
+use App\Model\UserHasPermission;
+use App\Model\Sendmail;
+use App\Model\Company;
+use App\Model\TypeOfRequest;
+use App\Model\AttendanceHistory;
+use Config;
+
+class LeaveCategory extends Model {
+
+    protected $table = 'leave_categories';
+
+    public function addnewleaveCategory($request,$cmp_id) {
+        // echo "<pre>as"; print_r($cmp_id); print_r($request->toArray()); exit();
+        $objLeave = new LeaveCategory();
+        $objLeave->company_id = $cmp_id; 
+        $objLeave->leave_cat_name = $request->input('leave_cat_name');
+        $objLeave->type = $request->input('type');
+        $objLeave->leave_unit = $request->input('leave_unit');
+        $objLeave->description = $request->input('description');
+        $objLeave->applicable_for = $request->input('applicable_for');
+        $objLeave->work_location = $request->input('work_location');
+        $objLeave->role = $request->input('role');
+        $objLeave->gender = $request->input('gender');
+        $objLeave->marital_status = $request->input('marital_status');
+        $objLeave->period = $request->input('period');
+        $objLeave->for_employee_type = $request->input('for_employee_type');
+        $objLeave->leave_count = $request->input('leave_count');
+        $objLeave->created_at = date('Y-m-d H:i:s');
+        $objLeave->updated_at = date('Y-m-d H:i:s');
+        $objLeave->save();
+
+        return TRUE;
+    }
+    
+
+    public function getleaveCategoryList($request, $companyId) {
+        $requestData = $_REQUEST;
+        $columns = array(
+            // datatable column index  => database column name
+            'leave_cat_name',
+            'type',
+            'leave_unit',
+            'description',
+            'applicable_for',
+            'gender',
+            'marital_status',
+        );
+        $query = LeaveCategory::from('leave_categories')
+                ->where('company_id',$companyId);
+
+        // echo "<pre>"; print_r($requestData); exit();
+
+        if (!empty($requestData['search']['value'])) {
+            $searchVal = $requestData['search']['value'];
+            $query->where(function($query) use ($columns, $searchVal, $requestData) {
+                $flag = 0;
+                foreach ($columns as $key => $value) 
+                {
+                    if ($requestData['columns'][$key]['searchable'] == 'true') 
+                    {
+                        // echo $searchVal; exit();
+                        if ($flag == 0) {
+                            $query->where($value, 'like', '%' . $searchVal . '%');
+                            $flag = $flag + 1;
+                        } else {
+                            $query->orWhere($value, 'like', '%' . $searchVal . '%');
+                        }
+                    }
+                }
+            });
+        }
+
+        $temp = $query->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir']);
+
+        $totalData = count($temp->get());
+        $totalFiltered = count($temp->get());
+
+        $resultArr = $query->skip($requestData['start'])
+           ->take($requestData['length'])
+           ->select('leave_categories.*')->get();
+        $data = array();
+
+        foreach ($resultArr as $row) {
+//           $actionHtml = $request->input('gender');
+           $actionHtml = '<a href="' . route('edit-leave', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
+            $actionHtml .= '<a href="#deleteModel" data-toggle="modal" data-id="'.$row['id'].'" class="link-black text-sm leaveDelete" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';
+            $nestedData = array();
+            $nestedData[] = $row["leave_cat_name"];
+            $nestedData[] = $row["type"];
+            $nestedData[] = $row["leave_unit"];
+            $nestedData[] = $row["description"];
+            $nestedData[] = $row["applicable_for"];
+            $nestedData[] = $row["gender"];
+            $nestedData[] = $row["marital_status"];
+            // $nestedData[] = $actionHtml;
+            $data[] = $nestedData;
+        }
+       // echo "<pre>";print_r($data);exit;
+
+        $json_data = array(
+            "draw" => intval($requestData['draw']), // for every request/draw by clientside , they send a number as a parameter, when they recieve a response/data they first check the draw number, so we are sending same number in draw. 
+            "recordsTotal" => intval($totalData), // total number of records
+            "recordsFiltered" => intval($totalFiltered), // total number of records after searching, if there is no searching then totalFiltered = totalData
+            "data" => $data   // total data array
+        );
+        return $json_data;
+    }
+}

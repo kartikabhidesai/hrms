@@ -27,16 +27,16 @@
 							<label class="col-lg-2 control-label">Type:</label>
 							<div class="col-lg-10">
                                 <label class="radio-inline">
-                                    <input type="radio" name="type" class="fulltime" checked>Paid
+                                    <input type="radio" name="type" class="fulltime" value="Paid" checked>Paid
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="type" class="fulltime">Unpaid
+                                    <input type="radio" name="type" class="fulltime" value="Unpaid">Unpaid
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="type" class="fulltime">OnDuty
+                                    <input type="radio" name="type" class="fulltime" value="OnDuty">OnDuty
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="type" class="fulltime">Restricted Holiday
+                                    <input type="radio" name="type" class="fulltime" value="Restricted Holiday">Restricted Holiday
                                 </label>
 							</div>
 						</div>
@@ -45,10 +45,10 @@
 							<label class="col-lg-2 control-label">Leave Unit:</label>
 							<div class="col-lg-10">
                                 <label class="radio-inline">
-                                    <input type="radio" name="leave_unit" class="fulltime" checked>Days
+                                    <input type="radio" name="leave_unit" class="fulltime" value="Days" checked>Days
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="leave_unit" class="fulltime">Hours
+                                    <input type="radio" name="leave_unit" class="fulltime" value="Hours">Hours
                                 </label>
 							</div>
 						</div>
@@ -65,10 +65,10 @@
 							<label class="col-lg-2 control-label">For:</label>
 							<div class="col-lg-10">
                                 <label class="radio-inline">
-                                    <input type="radio" name="applicalbe_for" class="fulltime" checked>Role/Location
+                                    <input type="radio" name="applicable_for" class="fulltime" value="Role/Location" checked>Role/Location
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="applicalbe_for" class="fulltime">Employee
+                                    <input type="radio" name="applicable_for" class="fulltime" value="Employee">Employee
                                 </label>
 							</div>
 						</div>
@@ -76,9 +76,13 @@
 						<div class="form-group">
 							<label class="col-lg-2 control-label">Role:</label>
 							<div class="col-lg-10">
-                                <select class="form-control">
-                                	<option>Select Option</option>
-                                	<option>All roles</option>
+                                <select class="form-control" name="role" id="role">
+                                	<option value="">Select Option</option>
+                                	@if(!empty($leave_category_role))
+	                                	@foreach($leave_category_role as $key => $val)
+	                                		<option value="{{$key}}">{{$val}}</option>
+	                                	@endforeach
+	                                @endif
                                 </select>
 							</div>
 						</div>
@@ -86,9 +90,13 @@
 						<div class="form-group">
 							<label class="col-lg-2 control-label">Work Location:</label>
 							<div class="col-lg-10">
-                                <select class="form-control">
+                                <select class="form-control" name="work_location" id="work_location">
                                 	<option>Select Option</option>
-                                	<option>All locations</option>
+                                	@if(!empty($leave_work_location))
+	                                	@foreach($leave_work_location as $key => $val)
+	                                		<option value="{{$key}}">{{$val}}</option>
+	                                	@endforeach
+	                                @endif
                                 </select>
 							</div>
 						</div>
@@ -97,10 +105,10 @@
 							<label class="col-lg-2 control-label">Gender:</label>
 							<div class="col-lg-10">
                                 <label class="radio-inline">
-                                    <input type="radio" name="gender" class="fulltime" checked>Male
+                                    <input type="radio" name="gender" class="fulltime" value="Male" checked>Male
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="gender" class="fulltime">Female
+                                    <input type="radio" name="gender" class="fulltime" value="Female">Female
                                 </label>
 							</div>
 						</div>
@@ -109,10 +117,10 @@
 							<label class="col-lg-2 control-label">Marital Status:</label>
 							<div class="col-lg-10">
                                 <label class="radio-inline">
-                                    <input type="radio" name="marital_status" class="fulltime" checked>Single
+                                    <input type="radio" name="marital_status" class="fulltime" value="Single" checked>Single
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="marital_status" class="fulltime">Married
+                                    <input type="radio" name="marital_status" class="fulltime" value="Married">Married
                                 </label>
 							</div>
 						</div>
@@ -121,10 +129,10 @@
 						<div class="form-group">
 							<label class="col-lg-2 control-label">Period:</label>
 							<div class="col-lg-10">
-                                <select class="form-control">
+                                <select class="form-control" name="period" id="period">
                                 	<option>Select Option</option>
-                                	<option>Annual</option>
-                                	<option>Monthly</option>
+                                	<option value="Annual">Annual</option>
+                                	<option value="Monthly">Monthly</option>
                                 </select>
 							</div>
 						</div>
@@ -133,10 +141,10 @@
 							<label class="col-lg-2 control-label">For :</label>
 							<div class="col-lg-10">
                                 <label class="radio-inline">
-                                    <input type="radio" name="for_employee_type" class="fulltime" checked>All Employees
+                                    <input type="radio" name="for_employee_type" class="fulltime" value="All Employees" checked>All Employees
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="for_employee_type" class="fulltime">Experience Based
+                                    <input type="radio" name="for_employee_type" class="fulltime" value="Experience Based">Experience Based
                                 </label>
 							</div>
 						</div>

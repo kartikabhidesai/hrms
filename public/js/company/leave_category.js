@@ -6,7 +6,7 @@ var LeaveCategory = function () {
         var columnWidth = {"width": "10%", "targets": 0};
 
         var arrList = {
-            'tableID': '#AwardDatatables',
+            'tableID': '#LeaveCategoryDatatables',
             'ajaxURL': baseurl + "company/leave-category-ajaxAction",
             'ajaxAction': 'getdatatable',
             'postData': dataArr,

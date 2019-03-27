@@ -19,59 +19,15 @@
                                 <tr>
                                     <th>Name</th>
                                     <th>Type</th>
-                                    <th>Maximum Leave</th>
-                                    <th>Status</th>
+                                    <th>Unit</th>
+                                    <th>Description</th>
+                                    <th>Applicable For</th>
+                                    <th>Gender</th>
+                                    <th>Marital Status</th>
                                     <!-- <th>Action</th> -->
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td><i class="fa fa-circle" style="color: red;"></i> Absent</td>
-                                    <td>Unpaid</td>
-                                    <td>0</td>
-                                    <td><i class="fa fa-check-square"></i></td>
-                                </tr>
-                                <tr>
-                                    <td><i class="fa fa-circle" style="color: orange;"></i> Annual Leaves</td>
-                                    <td>Paid</td>
-                                    <td>12</td>
-                                    <td><i class="fa fa-check-square"></i></td>
-                                </tr>
-                                <tr>
-                                    <td><i class="fa fa-circle" style="color: green;"></i> Compensatory Off</td>
-                                    <td>Compensatory Off</td>
-                                    <td>0</td>
-                                    <td><i class="fa fa-check-square"></i></td>
-                                </tr><tr>
-                                    <td><i class="fa fa-circle" style="color: red;"></i> DOJ based Leaves</td>
-                                    <td>Paid</td>
-                                    <td>1</td>
-                                    <td><i class="fa fa-check-square"></i></td>
-                                </tr>
-                                <tr>
-                                    <td><i class="fa fa-circle" style="color: red;"></i> Hourly Leaves</td>
-                                    <td>Unpaid</td>
-                                    <td>0</td>
-                                    <td><i class="fa fa-check-square"></i></td>
-                                </tr>
-                                <tr>
-                                    <td><i class="fa fa-circle" style="color: red;"></i> Loss Of Pay</td>
-                                    <td>Unpaid</td>
-                                    <td>0</td>
-                                    <td><i class="fa fa-check-square"></i></td>
-                                </tr>
-                                <tr>
-                                    <td><i class="fa fa-circle" style="color: red;"></i> Maternity Leave</td>
-                                    <td>Unpaid</td>
-                                    <td>0</td>
-                                    <td><i class="fa fa-check-square"></i></td>
-                                </tr>
-                                <tr>
-                                    <td><i class="fa fa-circle" style="color: red;"></i> On Duty</td>
-                                    <td>Unpaid</td>
-                                    <td>0</td>
-                                    <td><i class="fa fa-check-square"></i></td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
