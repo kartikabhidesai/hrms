@@ -23,8 +23,8 @@ class ClientController extends Controller {
 
     public function index() {
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
-        $data['js'] = array('company/award.js', 'jquery.form.min.js', 'jquery.timepicker.js');
-        $data['funinit'] = array('Award.init()');
+        $data['js'] = array('company/client.js', 'jquery.form.min.js', 'jquery.timepicker.js');
+        $data['funinit'] = array('Client.init()');
         $data['css'] = array('');
         $data['header'] = array(
             'title' => 'Client List',
@@ -41,13 +41,13 @@ class ClientController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function addClient(Request $request) {
-       
+
         if ($request->isMethod('post')) {
 
             $objClient = new Client();
             $userData = Auth::guard('company')->user();
             $getAuthCompanyId = Company::where('email', $userData->email)->first();
-            $logedcompanyId = $getAuthCompanyId->id; 
+            $logedcompanyId = $getAuthCompanyId->id;
             $result = $objClient->addClientData($request, $logedcompanyId);
 
             if ($result) {
@@ -76,55 +76,76 @@ class ClientController extends Controller {
         return view('company.client.client-add', $data);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request) {
-        //
+    public function ajaxAction(Request $request) {
+        $action = $request->input('action');
+        switch ($action) {
+            case 'getdatatable':
+                $userData = Auth::guard('company')->user();
+                $getAuthCompanyId = Company::where('email', $userData->email)->first();
+                $logedcompanyId = $getAuthCompanyId->id;
+                $clientObj = new Client;
+                $ClientList = $clientObj->getClientList($request, $logedcompanyId);
+                echo json_encode($ClientList);
+                break;
+            case'deleteClient':
+                $result = $this->deleteclient($request->input('data'));
+                break;
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id) {
-        //
+    public function deleteclient($postData) {
+        if ($postData) {
+            $findclient = Client::where('id', $postData['id'])->first();
+            $result = $findclient->delete();
+
+            if ($result) {
+                $return['status'] = 'success';
+                $return['message'] = 'Record deleted successfully.';
+                $return['jscode'] = "setTimeout(function(){
+                        $('#deleteModel').modal('hide');
+                        $('#ClientDatatables').DataTable().ajax.reload();
+                    },1000)";
+            } else {
+                $return['status'] = 'error';
+                $return['message'] = 'Something will be wrong.';
+            }
+            echo json_encode($return);
+            exit;
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id) {
-        //
-    }
+    public function client_edit(Request $request, $id) {
+        
+        
+        if ($request->isMethod('post')) {
+            $objClient = new Client();
+            $ret = $objClient->editClient($request,$id);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id) {
-        //
-    }
+            if ($ret) {
+                $return['status'] = 'success';
+                $return['message'] = 'Record Edited successfully.';
+                $return['redirect'] = route('client');
+            } else {
+                $return['status'] = 'error';
+                $return['message'] = 'Please add any one designation!';
+            }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id) {
-        //
+            echo json_encode($return);
+            exit;
+        }
+        $data['client_detail'] = Client::where('id', $id)->first();
+        $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
+        $data['js'] = array('company/client.js', 'jquery.form.min.js', 'jquery.timepicker.js');
+        $data['funinit'] = array('Client.add()');
+        $data['css'] = array('');
+        $data['header'] = array(
+            'title' => 'Award List',
+            'breadcrumb' => array(
+                'Home' => route("company-dashboard"),
+                'Client List' => route("client"),
+                'Client Edit' => 'Client Edit'));
+
+        return view('company.client.client-edit', $data);
     }
 
 }

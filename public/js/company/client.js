@@ -6,8 +6,8 @@ var Client = function () {
         var columnWidth = {"width": "10%", "targets": 0};
 
         var arrList = {
-            'tableID': '#AwardDatatables',
-            'ajaxURL': baseurl + "company/award-ajaxAction",
+            'tableID': '#ClientDatatables',
+            'ajaxURL': baseurl + "company/client-ajaxAction",
             'ajaxAction': 'getdatatable',
             'postData': dataArr,
             'hideColumnList': [],
@@ -19,7 +19,7 @@ var Client = function () {
         };
         getDataTable(arrList);
 
-        $('body').on('click', '.awardDelete', function () {
+        $('body').on('click', '.clientDelete', function () {
             var id = $(this).data('id');
 
             setTimeout(function () {
@@ -36,8 +36,8 @@ var Client = function () {
                 headers: {
                     'X-CSRF-TOKEN': $('input[name="_token"]').val(),
                 },
-                url: baseurl + "company/award-ajaxAction",
-                data: {'action': 'deleteAward', 'data': data},
+                url: baseurl + "company/client-ajaxAction",
+                data: {'action': 'deleteClient', 'data': data},
                 success: function (data) {
                     handleAjaxResponse(data);
                 }

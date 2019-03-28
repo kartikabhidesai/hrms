@@ -14,13 +14,12 @@
                 </div>
                 <div class="ibox-content">
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover dataTables-example" id="AwardDatatables">
+                        <table class="table table-striped table-bordered table-hover dataTables-example" id="ClientDatatables">
                             <thead>
                                 <tr>
-                                    <th>Employee Name</th>
-                                    <th>Award</th>
-                                    <th>Date</th>
-                                    <th>Comment</th>
+                                    <th>Client</th>
+                                    <th>Company</th>
+                                    <th>Mobile number</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
