@@ -46,7 +46,7 @@ class TicketReport extends Model {
     {
         $ticketCount = TicketReport::orderBy('id', 'desc')->first();
         $num = 1;
-        if(isset($ticketCount) && !empty($ticketCount) && $ticketCount->count() > 0) ){
+        if(isset($ticketCount) && !empty($ticketCount) && $ticketCount->count() > 0){
             $num = $ticketCount->id;
             $num + 1;
         }        
