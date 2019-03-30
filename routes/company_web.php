@@ -153,6 +153,7 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
     Route::match(['get', 'post'], 'ticket-report', ['as' => 'ticket-report', 'uses' => 'Company\TicketReportController@index']);
     Route::match(['get', 'post'], 'ticket-report-ajaxAction', ['as' => 'ticket-report-ajaxAction', 'uses' => 'Company\TicketReportController@ajaxaction']);
     Route::match(['get', 'post'], 'client-report', ['as' => 'client-report', 'uses' => 'Company\ClientReportController@index']);
+    Route::match(['get', 'post'], 'client-report-ajaxAction', ['as' => 'client-report-ajaxAction', 'uses' => 'Company\ClientReportController@ajaxAction']);
     Route::match(['get', 'post'], 'transaction-report', ['as' => 'transaction-report', 'uses' => 'Company\TransactionReportController@index']);
     Route::match(['get', 'post'], 'holiday-report', ['as' => 'holiday-report', 'uses' => 'Company\HolidayReportController@index']);
 

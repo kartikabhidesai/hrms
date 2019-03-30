@@ -9,6 +9,7 @@ use Auth;
 use Route;
 use APP;
 use Illuminate\Http\Request;
+use App\Model\ClientReport;
 
 class ClientReportController extends Controller {
 
@@ -18,9 +19,12 @@ class ClientReportController extends Controller {
     }
     
     public function index(Request $request){
+
+
+
         $session = $request->session()->all();
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
-        $data['js'] = array('company/client-report.js');
+        $data['js'] = array('company/client_report.js');
         $data['funinit'] = array('ClientReport.init()');
         $data['css'] = array('');
         $data['header'] = array(
@@ -30,6 +34,23 @@ class ClientReportController extends Controller {
                 'Report List' => route("report-list"),
                 'Client Report' => 'client-report'));
         return view('company.client-report.client-report', $data);
+    }
+
+    public function ajaxAction(Request $request) {
+        $action = $request->input('action');
+        switch ($action) {
+            case 'getdatatable':
+                $objClientReport = new ClientReport;
+                $clientReportList = $objClientReport->getClientReportList($request);
+                echo json_encode($clientReportList);
+                break;
+            case'awardDetails':
+                $result = $this->getAwardDetails($request->input('data'));
+                break;
+            case'deleteAward':
+                $result = $this->deleteAward($request->input('data'));
+                break;
+        }
     }
 
 }
