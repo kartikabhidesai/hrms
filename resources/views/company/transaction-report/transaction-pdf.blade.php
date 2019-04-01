@@ -62,7 +62,7 @@
                 <tbody>
                     <tr>
                         <td>  {{ $employeeArr['over_time'] }}</td>
-                        <td>  {{ $employeeArr['due_date'] }}</td>
+                        <td>  {{ date('d-m-Y',strtotime($employeeArr['due_date'])) }}</td>
                         <td>  {{ $employeeArr['housing'] }}</td>
                         <td>  {{ $employeeArr['medical'] }}</td>
                         <td>  {{ $employeeArr['transportation'] }}</td>
