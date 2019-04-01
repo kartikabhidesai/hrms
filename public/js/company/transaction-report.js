@@ -5,11 +5,13 @@ var TransactionReport = function () {
         $('#transaction').change(function() {
             var transaction_option = $('#transaction option:selected').val();
             if(transaction_option == 'specific_date') {
-                $(".from_date").css('display: block');
-                $(".to_date").css('display: block');
+                $(".from_date").show();
+                $(".to_date").show();
             } else {
-                $(".from_date").css('display: none');
-                $(".to_date").css('display: none');
+                $(".from_date").hide();
+                $(".to_date").hide(); 
+                $(".from_date").val('');
+                $(".to_date").val('');
             }
         });
         /*$('#dept_id').change(function() {
@@ -20,15 +22,14 @@ var TransactionReport = function () {
                 $('#emp_id option').prop('selected', false);
             }
         });
-
-        var form = $('#sendSMS');
-        var rules = {
-          // emp_id: {required: true},
-          message: {required: true}
-        };
-        handleFormValidate(form, rules, function (form) {
-            handleAjaxFormSubmit(form, true);
-        });*/
+*/
+        // var form = $('#transactionPDF');
+        // var rules = {
+        //   message: {required: true}
+        // };
+        // handleFormValidate(form, rules, function (form) {
+        //     // handleAjaxFormSubmit(form, true);
+        // });
 
         /*$('body').on('click','.downloadPdf',function(){
             var emp_id = $('.emp_id').val();
