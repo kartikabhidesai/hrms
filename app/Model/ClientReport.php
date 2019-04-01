@@ -8,7 +8,7 @@ use DB;
 use Auth;
 use App\Model\Users;
 use App\Model\CLientReport;
-use App\Model\CLient;
+use App\Model\Client;
 use Config;
 
 class ClientReport extends Model {
