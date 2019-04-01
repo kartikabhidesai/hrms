@@ -11,7 +11,7 @@ use App\Model\CLientReport;
 use App\Model\CLient;
 use Config;
 
-class CLientReport extends Model {
+class ClientReport extends Model {
 
     protected $table = 'client_report';
 
@@ -81,6 +81,43 @@ class CLientReport extends Model {
     }
 
     public function getClientReportListPDF($request,$id) {
+
+        $client_report_data = [];
+        $todayDate = date('Y-m-d');
+         $startDate = '';
+            $endDate = '';
+            $currentDate = date('Y-m-d');
+            if($postData['time_period'] == 'custom'){
+                $startDate = date('Y-m-d', strtotime($postData['date_period']));
+                $endDate = date('Y-m-d', strtotime($postData['date_period']));
+            }else if($postData['time_period'] == '3_months'){
+                $startDate = date('Y-m-d', strtotime("-3 months", strtotime($currentDate)));
+                $endDate = date('Y-m-d');
+            }else if($postData['time_period'] == '6_months'){
+                $startDate = date('Y-m-d', strtotime("-6 months", strtotime($currentDate)));
+                $endDate = date('Y-m-d');
+            }else if($postData['time_period'] == 'last_year'){
+                $startDate = date('Y-m-d', strtotime("-12 months", strtotime($currentDate)));
+                $endDate = date('Y-m-d');
+            }
+
+            $sql = CLient::select('client.*');
+            if (!empty($startDate) && !empty($endDate)) {
+                $sql->Where(function($sql) use($startDate, $endDate) {
+                    $sql->orWhere(function($sql) use($startDate, $endDate) {
+                        $sql->whereBetween('client.date_of_joining', [$startDate, $endDate]);
+                    });
+                });
+            }
+            
+            $sql->where('company_id',$id);
+            $client_report_data = $sql->get()->toArray();
+
+        return $client_report_data;
+        // echo "<pre>aaa"; print_r($client_report_data->toArray()); exit();
+    }
+    
+    public function getClientReportListPDFV2($request,$id) {
 
         $client_report_data = [];
         $todayDate = date('Y-m-d');
