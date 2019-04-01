@@ -101,7 +101,7 @@ class ClientReport extends Model {
                 $endDate = date('Y-m-d');
             }
 
-            $sql = CLient::select('client.*');
+            $sql = Client::select('client.*');
             if (!empty($startDate) && !empty($endDate)) {
                 $sql->Where(function($sql) use($startDate, $endDate) {
                     $sql->orWhere(function($sql) use($startDate, $endDate) {
@@ -132,14 +132,14 @@ class ClientReport extends Model {
             $newDate = $newtimeYear.'-'.$newtimeMonth.'-'.$todayDay; 
             // echo $todayDate; echo $newDate; exit();
 
-            $client_report_data = CLient::select('client.*')
+            $client_report_data = Client::select('client.*')
                                     // ->whereBetween('date_of_joining',[$todayDate,$newDate])
                                     ->where('company_id',$id)
                                     ->get()->toArray();;
         }
         elseif (isset($request->date_period) && $request->date_period != '') 
         {
-            $client_report_data = CLient::select('client.*')
+            $client_report_data = Client::select('client.*')
                                     // ->whereBetween('date_of_joining',[$todayDate,date('Y-m-d',strtotime($request->date_period))])
                                     ->where('company_id',$id)
                                     ->get()->toArray();
