@@ -6,35 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 use DB;
 use Auth;
-use App\Model\UserHasPermission;
 use App\Model\Users;
 use App\Model\CLientReport;
+use App\Model\CLient;
 use Config;
 
 class CLientReport extends Model {
 
     protected $table = 'client_report';
 
-    public function addAwardData($request, $logedcompanyId) {
+    public function addClientReport() {
 
-        $file_attachment = '';
-        if(isset($request->file_attachment) && !empty($request->file_attachment))
-        {
-            $file_attachment = 'award_attachment' . time() . '.' . $request->file_attachment->getClientOriginalName();
-            $destinationPath = public_path('/uploads/award_attachment/');
-            $request->file_attachment->move($destinationPath, $file_attachment);
-        }
-        
-        $objAward = new Award();
-        $objAward->company_id = $logedcompanyId;
-        $objAward->employee_id = $request->input('employee');
-        $objAward->department = $request->input('department');
-        $objAward->award = $request->input('award');
-        $objAward->date = date("Y-m-d", strtotime($request->input('date')));
-        $objAward->comment = $request->input('comment');
-        $objAward->file_attachment = $file_attachment==''?'':$file_attachment;
-
-        return ($objAward->save());
+        $objCLientReport = new CLientReport();
+        return ($objCLientReport->save());
     }
 
     public function getClientReportList($request) {
@@ -96,33 +80,41 @@ class CLientReport extends Model {
         return $json_data;
     }
 
-    public function editAward($request,$id) {
-    
-        // print_r($request->input());
-        // exit;
+    public function getClientReportListPDF($request,$id) {
 
-        $file_attachment = '';
-        if(isset($request->file_attachment) && !empty($request->file_attachment))
+        $client_report_data = [];
+        $todayDate = date('Y-m-d');
+        if(isset($request->time_period) && !empty($request->time_period) && $request->date_period == '')
         {
-            $file_attachment = 'award_attachment' . time() . '.' . $request->file_attachment->getClientOriginalName();
-            $destinationPath = public_path('/uploads/award_attachment/');
-            $request->file_attachment->move($destinationPath, $file_attachment);
+            $emp_time = explode('-',$request->time_period);
+                
+            $newtimeYear = date("Y",strtotime("-".$emp_time[0]." ".$emp_time[1]));
+            $newtimeMonth = date("m",strtotime("-".$emp_time[0]." ".$emp_time[1]));
+            $todayDay = date('d');
+
+            $newDate = $newtimeYear.'-'.$newtimeMonth.'-'.$todayDay; 
+            // echo $todayDate; echo $newDate; exit();
+
+            $client_report_data = CLient::select('client.*')
+                                    // ->whereBetween('date_of_joining',[$todayDate,$newDate])
+                                    ->where('company_id',$id)
+                                    ->get()->toArray();;
+        }
+        elseif (isset($request->date_period) && $request->date_period != '') 
+        {
+            $client_report_data = CLient::select('client.*')
+                                    // ->whereBetween('date_of_joining',[$todayDate,date('Y-m-d',strtotime($request->date_period))])
+                                    ->where('company_id',$id)
+                                    ->get()->toArray();
+
+        }
+        else
+        {
+
         }
 
-        $findAward = Award::where('id', $id)->update(['employee_id' => $request->employee,
-                                                        'department' => $request->department,
-                                                        'award' => $request->award,
-                                                        'date' => date("Y-m-d", strtotime($request->date)),
-                                                        'comment' => $request->comment,
-                                                        'file_attachment' => $file_attachment==''?'':$file_attachment,
-                                                        'updated_at' => date('Y-m-d H:i:s')]);
-        // var_dump($findAward); exit();
-
-        if($findAward){
-            return TRUE;
-        }else{
-            return FALSE;
-        }
+        return $client_report_data;
+        // echo "<pre>aaa"; print_r($client_report_data->toArray()); exit();
     }
 
 }
