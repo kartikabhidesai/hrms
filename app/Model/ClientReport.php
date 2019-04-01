@@ -96,7 +96,7 @@ class ClientReport extends Model {
             }else if($request->time_period == '6_months'){
                 $startDate = date('Y-m-d', strtotime("-6 months", strtotime($currentDate)));
                 $endDate = date('Y-m-d');
-            }else if($request->time_period$request-> == 'last_year'){
+            }else if($request->time_period  == 'last_year'){
                 $startDate = date('Y-m-d', strtotime("-12 months", strtotime($currentDate)));
                 $endDate = date('Y-m-d');
             }
