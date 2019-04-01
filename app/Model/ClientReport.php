@@ -87,16 +87,16 @@ class ClientReport extends Model {
          $startDate = '';
             $endDate = '';
             $currentDate = date('Y-m-d');
-            if($postData['time_period'] == 'custom'){
-                $startDate = date('Y-m-d', strtotime($postData['date_period']));
-                $endDate = date('Y-m-d', strtotime($postData['date_period']));
-            }else if($postData['time_period'] == '3_months'){
+            if($request->time_period == 'custom'){
+                $startDate = date('Y-m-d', strtotime($request->date_period));
+                $endDate = date('Y-m-d', strtotime($request->date_period));
+            }else if($request->time_period == '3_months'){
                 $startDate = date('Y-m-d', strtotime("-3 months", strtotime($currentDate)));
                 $endDate = date('Y-m-d');
-            }else if($postData['time_period'] == '6_months'){
+            }else if($request->time_period == '6_months'){
                 $startDate = date('Y-m-d', strtotime("-6 months", strtotime($currentDate)));
                 $endDate = date('Y-m-d');
-            }else if($postData['time_period'] == 'last_year'){
+            }else if($request->time_period$request-> == 'last_year'){
                 $startDate = date('Y-m-d', strtotime("-12 months", strtotime($currentDate)));
                 $endDate = date('Y-m-d');
             }
