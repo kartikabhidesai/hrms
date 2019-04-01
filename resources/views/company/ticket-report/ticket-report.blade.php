@@ -6,7 +6,7 @@
             {{ csrf_field() }}
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Send New SMS</h5>
+                        <h5>Ticket system</h5>
                     </div>
                     <div class="ibox-content">
                        {{ Form::open( array('method' => 'post', 'class' => 'form-horizontal', 'id' => 'ticketSystem' )) }}  
