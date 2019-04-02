@@ -1,19 +1,6 @@
 var ClientReport = function () {
     var handleList = function () {
 
-        $('#downloadPdf').click(function() {
-            var dept_id = $('#emp_id option:selected').val();
-            
-        });
-         $('#dept_id').change(function() {
-            var dept_id = $('#emp_id option:selected').val();
-            if (dept_id == 'All') {
-                $('#emp_id option').prop('selected', true);
-            } else {
-                $('#emp_id option').prop('selected', false);
-            }
-        });
-
         var form = $('#sendSMS');
         var rules = {
           // emp_id: {required: true},
@@ -21,56 +8,6 @@ var ClientReport = function () {
         };
         handleFormValidate(form, rules, function (form) {
             handleAjaxFormSubmit(form, true);
-        });
-
-        $('body').on('click','.downloadPdf',function(){
-            var emp_id = $('.emp_id').val();
-            var dept_id = $('.dept_id').val();
-            
-            if(!emp_id && !dept_id) {
-                /*$('.emp_id').css('border','1px solid red');
-                $('.message').css('border','1px solid red');*/
-                alert('Please select any Employee OR Department!');
-                return false;
-            } 
-              
-            if(emp_id =='' || dept_id == '') {
-                alert('Please select any one from Employee and Department!');
-                return false;
-            }
-            
-            if(emp_id != '' && dept_id != '') {
-                var arrEmp = [];
-                if (emp_id == 'All') {
-                    $("#emp_id > option").each(function() {
-                        if(this.value > 0){
-                            arrEmp.push(this.value);    
-                        }
-                    });
-                }else{
-                    var ids = $("#emp_id option:selected").val();
-                    arrEmp.push(ids);
-                }
-                $('.emparray').val(arrEmp);
-                if(arrEmp.length > 0){
-                    $('#ticketSystem').submit()
-                }
-            }
-        });
-        
-        $('body').on('click','.singlePdfDownload',function(){
-            var emp_id = $(this).attr('data-id');
-            var dept_id = $(this).attr('data-department');
-            
-            if(emp_id != '' && dept_id != '') {
-                var arrEmp = [];
-                arrEmp.push(emp_id);
-                $('.emparray').val(arrEmp);
-                $('.downloadstatus').val('single');
-                if(arrEmp.length > 0){
-                    $('#ticketSystem').submit()
-                }
-            }
         });
 
         var dataArr = {};
@@ -90,43 +27,17 @@ var ClientReport = function () {
         };
         getDataTable(arrList);
 
-         $('body').on('change', '.dept_id', function() {
-            var data = $(this).val();
-            $.ajax({
-                type: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': $('input[name="_token"]').val(),
-                },
-                url: baseurl + "company/sendSMS-ajaxAction",
-                data: {'action': 'getEmployee', 'data': data},
-                success: function(data) {
-                    var obj = jQuery.parseJSON(data);
-                    $('#emp_id').find('option').remove();
-                    if (obj.length == 0) {
-                        $('#emp_id').append('<option value="">No Record Found</option>').val('');
-                    }else{
-                        $('#emp_id').append('<option value="All">Select All</option>').val('All');
-                    }
-                    $.each(obj, function(i, item) {
-                        $('#emp_id').append($('<option>', {
-                            value: i,
-                            text: item
-                        }));
-                    });
-                }
-            });
-
-        });
-
 
         $('body').on('change', '#time_period', function () {
             if($(this).val() == 'custom')
             {
                 $('#date_period').removeAttr('disabled');       
+                $('#date_period').attr('required','required');       
             }
             else
             {
                 $('#date_period').attr('disabled','disabled');
+                $('#date_period').removeAttr('required');
             }
             
         })
@@ -140,20 +51,34 @@ var ClientReport = function () {
                             }
                         });
 
-        $('body').on('click', '.yes-sure', function () {
-            var id = $(this).attr('data-id');
-            var data = {id: id, _token: $('#_token').val()};
-            $.ajax({
-                type: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': $('input[name="_token"]').val(),
-                },
-                url: baseurl + "company/ticket-report-ajaxAction",
-                data: {'action': 'deleteTicketSystem', 'data': data},
-                success: function (data) {
-                    handleAjaxResponse(data);
+        $('body').on('click', '#downloadPDF', function () {
+            // alert('as'); return false;
+            var time_period = $('#time_period').val();
+            var date_period = $('#date_period').val();
+
+            if (time_period != '') 
+            {
+                if(time_period == 'custom' && date_period == '')
+                {
+                    return false;
                 }
-            });
+                $('#form_time_period').val(time_period);
+                $('#form_date_period').val(date_period);
+                // window.location.href = baseurl + "company/client-report-ajaxAction?action=downloadPDF&time_period="+time_period+"&date_period="+date_period; 
+                $('#pdfForm').submit();
+            }
+
+            // $.ajax({
+            //     type: "POST",
+            //     headers: {
+            //         'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+            //     },
+            //     url: baseurl + "company/client-report-ajaxAction",
+            //     data: {'action': 'downloadPDF','time_period':time_period,'date_period':date_period},
+            //     success: function (data) {
+            //         // handleAjaxResponse(data);
+            //     }
+            // });
         });
     }
     return {

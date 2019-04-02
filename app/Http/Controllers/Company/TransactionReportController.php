@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use Auth;
 use Route;
 use APP;
+use PDF;
+use App\Model\Payroll;
 use Illuminate\Http\Request;
 
 class TransactionReportController extends Controller {
@@ -22,6 +24,19 @@ class TransactionReportController extends Controller {
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/transaction-report.js');
         $data['funinit'] = array('TransactionReport.init()');
+         if ($request->isMethod('post')) {
+            $postData = $request->input();
+            $objPayroll = new Payroll();
+            $dataPdf = $objPayroll->getTransactionDetails($postData);
+               
+            if(count($dataPdf) > 0){
+                $data['empPdfArray'] = $dataPdf;
+                $file= "TransactionReport".date('dmYHis').".pdf";
+                $pdf = PDF::loadView('company.transaction-report.transaction-pdf', $data);
+                return $pdf->download($file);    
+            }
+        }
+
         $data['css'] = array('');
         $data['header'] = array(
             'title' => 'Report',

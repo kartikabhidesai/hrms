@@ -10,17 +10,41 @@ use Route;
 use APP;
 use Illuminate\Http\Request;
 use App\Model\ClientReport;
+use App\Model\Company;
+use PDF;
 
 class ClientReportController extends Controller {
 
     public function __construct() {
-        // parent::__construct();
+        parent::__construct();
         $this->middleware('company');
     }
+
     
     public function index(Request $request){
 
+        if ($request->isMethod('post')) 
+        {
+            $userid = $this->loginUser->id;
+            $companyId = Company::select('id')->where('user_id', $userid)->first();
+           
+            $clientReportObj = new ClientReport;
+            $data['clientReportPdfArray'] = $clientReportObj->getClientReportListPDF($request, $companyId->id);
+            
+            if(empty($data['clientReportPdfArray']))
+            {
 
+            }
+            else
+            {
+                $clientReportObj = new ClientReport;
+                $result = $clientReportObj->addClientReport();     
+                
+                $file= date('d-m-YHis')."client_report.pdf";
+                $pdf = PDF::loadView('company.client-report.client-report-pdf', $data);
+                return $pdf->download($file);
+            }
+        }
 
         $session = $request->session()->all();
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
@@ -44,13 +68,9 @@ class ClientReportController extends Controller {
                 $clientReportList = $objClientReport->getClientReportList($request);
                 echo json_encode($clientReportList);
                 break;
-            case'awardDetails':
-                $result = $this->getAwardDetails($request->input('data'));
-                break;
-            case'deleteAward':
-                $result = $this->deleteAward($request->input('data'));
+            case'downloadPDF':
+                $result = $this->downloadPDF($request);
                 break;
         }
     }
-
 }

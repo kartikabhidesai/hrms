@@ -137,4 +137,40 @@ class Payroll extends Model {
         return json_encode($result);
     }
 
+    public function getTransactionDetails($postData)
+    {
+        // print_r($postData);exit;
+        $sql = Payroll::select('pay_roll.*', 'employee.id as emp_id', 'employee.name as empName', 'comapnies.company_name')
+        ->leftjoin('employee', 'employee.id', '=', 'pay_roll.employee_id')
+        ->leftjoin('department', 'employee.department', '=', 'department.id')
+        ->leftjoin('comapnies', 'comapnies.id', '=', 'employee.company_id');
+        $startDate = '';
+        $endDate = '';
+        $currentDate = date('Y-m-d');
+        if($postData['transaction'] == 'specific_date'){
+            $startDate = date('Y-m-d', strtotime($postData['from_date']));
+            $endDate = date('Y-m-d', strtotime($postData['to_date']));
+        }else if($postData['transaction'] == '3_months'){
+            $startDate = date('Y-m-d', strtotime("-3 months", strtotime($currentDate)));
+            $endDate = date('Y-m-d');
+        }else if($postData['transaction'] == '6_months'){
+            $startDate = date('Y-m-d', strtotime("-6 months", strtotime($currentDate)));
+            $endDate = date('Y-m-d');
+        }else if($postData['transaction'] == 'last_year'){
+            $startDate = date('Y-m-d', strtotime("-12 months", strtotime($currentDate)));
+            $endDate = date('Y-m-d');
+        }
+        // echo $startDate;exit;
+        if (!empty($startDate) && !empty($endDate)) {
+            $sql->Where(function($sql) use($startDate, $endDate) {
+                $sql->orWhere(function($sql) use($startDate, $endDate) {
+                    $sql->whereBetween('pay_roll.created_at', [$startDate, $endDate]);
+                });
+            });
+        }
+        $result =  $sql->get()->toArray();
+       // echo '<pre/>';
+       // print_r($result);exit;
+        return $result;
+    }
 }

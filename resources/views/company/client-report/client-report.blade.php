@@ -40,8 +40,13 @@
                     <!-- <h5>Select Date</h5> -->
                 </div>
                 <div class="ibox-content">
-                    <button class="btn btn-sm btn-primary" type="button">Check</button>&nbsp;&nbsp;
-                    <button class="btn btn-sm btn-primary" type="button">Download as PDF</button>
+                    <!-- <button class="btn btn-sm btn-primary" type="button">Check</button> -->&nbsp;&nbsp;
+                    <button id="downloadPDF" class="btn btn-sm btn-primary" type="button">Download as PDF</button>
+                    <form action="{{url('')}}/company/client-report" method="post" id="pdfForm">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <input type="hidden" id="form_time_period" name="time_period" value="">
+                        <input type="hidden" id="form_date_period" name="date_period" value="">
+                    </form>
                 </div>
             </div>
         </div>
