@@ -1,3 +1,21 @@
+@php
+$currentRoute = Route::current()->getName();
+    $session = Session::all();
+
+    if (!empty(Auth()->guard('admin')->user())) {
+                $data = Auth()->guard('admin')->user();
+                }
+                if (!empty(Auth()->guard('company')->user())) {
+                    $data = Auth()->guard('company')->user();
+                }
+                if (!empty(Auth()->guard('employee')->user())) {
+                    $data = Auth()->guard('employee')->user();
+                }
+                
+                $filename= url('uploads/client/'.$data['user_image']);
+                $file_headers = @get_headers($filename);
+@endphp
+
 <div class="row border-bottom">
         <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
@@ -73,7 +91,11 @@
                     </a>
                     <ul class="dropdown-menu dropdown-alerts">
                         <li>
+                        @if(empty(Auth()->guard('company')->user())) 
+                            <a href="{{ route('employee-notification-list') }}">
+                        @else
                             <a href="{{ route('notification-list') }}">
+                        @endif        
                                 <div>
                                     <i class="fa fa-envelope fa-fw"></i> You have 16 messages
                                     <!-- <span class="pull-right text-muted small">4 minutes ago</span> -->
@@ -82,7 +104,11 @@
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="{{ route('notification-list') }}">
+                            @if(empty(Auth()->guard('company')->user())) 
+                            <a href="{{ route('employee-notification-list') }}">
+                            @else
+                                <a href="{{ route('notification-list') }}">
+                            @endif 
                                 <div>
                                     <i class="fa fa-twitter fa-fw"></i> 3 New Followers
                                     <!-- <span class="pull-right text-muted small">12 minutes ago</span> -->
@@ -91,7 +117,11 @@
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="{{ route('notification-list') }}">
+                            @if(empty(Auth()->guard('company')->user())) 
+                             <a href="{{ route('employee-notification-list') }}">
+                            @else
+                                <a href="{{ route('notification-list') }}">
+                            @endif 
                                 <div>
                                     <i class="fa fa-upload fa-fw"></i> Server Rebooted
                                     <!-- <span class="pull-right text-muted small">4 minutes ago</span> -->
@@ -101,7 +131,11 @@
                         <li class="divider"></li>
                         <li>
                             <div class="text-center link-block">
+                                @if(empty(Auth()->guard('company')->user())) 
+                             <a href="{{ route('employee-notification-list') }}">
+                            @else
                                 <a href="{{ route('notification-list') }}">
+                            @endif 
                                     <strong>See All Alerts</strong>
                                     <i class="fa fa-angle-right"></i>
                                 </a>

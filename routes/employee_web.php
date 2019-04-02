@@ -68,4 +68,7 @@ Route::group(['prefix' => $employeePrefix, 'middleware' => ['employee']], functi
     Route::match(['get', 'post'], 'emp-performance-download-pdf', ['as' => 'emp-performance-download-pdf', 'uses' => 'Employee\PerformanceController@PerformanceDownloadPDF']);
     Route::match(['get', 'post'], 'emp-performance-ajaxAction', ['as' => 'emp-performance-ajaxAction', 'uses' => 'Employee\PerformanceController@ajaxAction']);
 
+    Route::match(['get', 'post'], 'employee-sent-notification', ['as' => 'employee-sent-notification', 'uses' => 'Employee\NotificationController@sentNotification']);
+    Route::match(['get', 'post'], 'employee-notification-list', ['as' => 'employee-notification-list', 'uses' => 'Employee\NotificationController@notificationList']);
+
 });
