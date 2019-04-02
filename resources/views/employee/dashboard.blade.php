@@ -27,43 +27,33 @@
                 <div class="ibox-content" style="">
                     <div class="panel-body">
                         <div class="panel-group" id="accordion">
+                            @if($announcementList->count() == 0)
+                            <div class="ibox-content">
+                                <p>No Announcement present yet!</p>
+                            </div>
+                            @else
+                            @foreach($announcementList as $list)
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h5 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" class="">Collapsible Group Item #1</a>
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne_{{ $list->id }}" aria-expanded="true" class=""> <strong>Title: </strong>{{ $list->title }}<br></a>
                                     </h5>
                                 </div>
-                                <div id="collapseOne" class="panel-collapse collapse in" aria-expanded="true" style="">
+                                <div id="collapseOne_{{ $list->id }}" class="panel-collapse collapse in" aria-expanded="true" style="">
                                     <div class="panel-body">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                        <strong>Status:</strong> {{ $list->status }} <br/>
+                                        <strong>Date:</strong> <span class="text-navy">{{ date('Y-m-d', strtotime($list->date)) }}</span><br>
+                                        <strong>Expiry Date:</strong> <span class="text-navy">{{ $list->expiry_date ? $list->expiry_date : 'N.A.' }}</span><br>
+                                        <strong>Time:</strong> <span class="text-navy">{{ $list->time }}</span>
+                                        <p class="m-t">
+                                            <strong>Conent: </strong>{{ $list->content }}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="collapsed" aria-expanded="false">Collapsible Group Item #2</a>
-                                    </h4>
-                                </div>
-                                <div id="collapseTwo" class="panel-collapse collapse in" aria-expanded="true" >
-                                    <div class="panel-body">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" class="collapsed" aria-expanded="false">Collapsible Group Item #3</a>
-                                    </h4>
-                                </div>
-                                <div id="collapseThree" class="panel-collapse collapse in" aria-expanded="true">
-                                    <div class="panel-body">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>
