@@ -146,6 +146,8 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
     Route::match(['get', 'post'], 'client-ajaxAction', ['as' => 'client-ajaxAction', 'uses' => 'Company\ClientController@ajaxAction']);
     Route::match(['get', 'post'], 'client-edit/{id}', ['as' => 'client-edit', 'uses' => 'Company\ClientController@client_edit']);
 
+    /* chat */
+    Route::match(['get', 'post'], 'chat', ['as' => 'chat', 'uses' => 'Company\ChatController@index']);
     
     
     Route::match(['get', 'post'], 'report-list', ['as' => 'report-list', 'uses' => 'Company\ReportController@index']);
