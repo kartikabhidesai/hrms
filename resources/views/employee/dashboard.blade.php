@@ -3,49 +3,69 @@
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         <div class="col-lg-12">
-            {{ csrf_field() }}
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    Announcement Details
-                </div>
-                @if($announcementList->count() == 0)
-                    <div class="ibox-content">
-                        <p>No Announcement present yet!</p>
+                    <h5>Collaps panels</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li><a href="#">Config option 1</a>
+                            </li>
+                            <li><a href="#">Config option 2</a>
+                            </li>
+                        </ul>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
                     </div>
-                @else
-                    <div class="ibox-content">
-                        <div class="panel-group payments-method" id="accordion">
-                        @foreach($announcementList as $list)
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <!-- <div class="pull-right">
-                                            <i class="fa fa-cc-paypal text-success"></i>
-                                        </div> -->
-                                        <h5 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#{{ $list->id }}_collapseOne">{{ $list->title }}</a>
-                                        </h5>
-                                    </div>
-                                    <div id="{{ $list->id }}_collapseOne" class="panel-collapse collapse">
-                                        <div class="panel-body">
-                                            <div class="row">
-                                                <div class="col-md-10">
-                                                    <strong>Title: </strong>{{ $list->title }}<br>
-                                                    <strong>Status:</strong> {{ $list->status }} <br/>
-                                                    <strong>Date:</strong> <span class="text-navy">{{ date('Y-m-d', strtotime($list->date)) }}</span><br>
-                                                    <strong>Expiry Date:</strong> <span class="text-navy">{{ $list->expiry_date ? $list->expiry_date : 'N.A.' }}</span><br>
-                                                    <strong>Time:</strong> <span class="text-navy">{{ $list->time }}</span>
-                                                    <p class="m-t">
-                                                        <strong>Conent: </strong>{{ $list->content }}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
+                </div>
+                <div class="ibox-content" style="">
+                    <div class="panel-body">
+                        <div class="panel-group" id="accordion">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" class="">Collapsible Group Item #1</a>
+                                    </h5>
+                                </div>
+                                <div id="collapseOne" class="panel-collapse collapse in" aria-expanded="true" style="">
+                                    <div class="panel-body">
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                                     </div>
                                 </div>
-                            @endforeach
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="collapsed" aria-expanded="false">Collapsible Group Item #2</a>
+                                    </h4>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse in" aria-expanded="true" >
+                                    <div class="panel-body">
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" class="collapsed" aria-expanded="false">Collapsible Group Item #3</a>
+                                    </h4>
+                                </div>
+                                <div id="collapseThree" class="panel-collapse collapse in" aria-expanded="true">
+                                    <div class="panel-body">
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                @endif
+                </div>
             </div>
         </div>
     </div>
