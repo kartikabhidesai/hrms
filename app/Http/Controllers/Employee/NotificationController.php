@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Company;
+namespace App\Http\Controllers\Employee;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -14,13 +14,12 @@ class NotificationController extends Controller
 {
 	public function __construct() {
 		parent::__construct();
-        $this->middleware('company');
+        $this->middleware('employee');
     }
 
     public function sentNotification(Request $request) 
     {
-        $session = $request->session()->all();
-       
+
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/notification.js');
         $data['funinit'] = array('Notification.init()');
@@ -35,8 +34,7 @@ class NotificationController extends Controller
 
 	public function notificationList(Request $request)
 	{
-		$session = $request->session()->all();
-       
+		 
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/notification.js');
         $data['funinit'] = array('Notification.init()');

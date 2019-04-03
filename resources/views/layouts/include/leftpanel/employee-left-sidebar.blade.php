@@ -79,6 +79,11 @@ $currentRoute = Route::current()->getName();
                     <a href="{{ route('award') }}"><i class="fa fa-bullhorn"></i>
                     <span class="nav-label">Award</span></a>
                 </li>
+                 <li class="{{ ($currentRoute == 'employee-sent-notification' || $currentRoute == 'employee-notification-list' ? 'active' : '') }}">
+                <a href="{{ route('employee-sent-notification') }}"><i class="fa fa-bell"></i>
+                    <span class="nav-label">Notification</span></a>
+            </li>
+            
                 </li>
                    <li class="{{ ($currentRoute == 'emp-performance' ||  $currentRoute == 'emp-performance-emp-detail' || $currentRoute == 'emp-employee-performance-list' || $currentRoute == 'emp-performance-emp-detail/*' ? 'active' : '') }}">
                     <a href="{{ route('emp-performance') }}"><i class="fa fa-user"></i>
