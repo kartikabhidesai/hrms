@@ -52,7 +52,7 @@
                                 <label class="col-lg-2 control-label">Deadline Date</label>
                                 <div class="col-lg-10"> 
                                     <div class="input-group deadline_date">
-                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="deadline_date" id="to_date" placeholder="Deadline Date" class="form-control deadline_date dateField" autocomplete="off" value="">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="deadline_date" id="to_date" placeholder="Deadline Date" class="form-control nonWorking deadline_date dateField" autocomplete="off" value="">
                                     </div>
                                 </div>
                             </div> 

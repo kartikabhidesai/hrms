@@ -32,6 +32,12 @@ class NonWorkingDate extends Model
         return $workingDaySettingDetails = NonWorkingDate::select('non_working_date.id','non_working_date.date')
                             ->where('company_id', $companyId)->get()->toArray();
         
+    }  
+
+    public function getNonWorkingDate($selectedDate,$companyId){
+        $newDate = date('Y-m-d',strtotime($selectedDate));
+        $awards = NonWorkingDate::where('company_id',$companyId['id'])->whereBetween('date',[$newDate,$newDate])->count();
+        return $awards;
     }
 
     
