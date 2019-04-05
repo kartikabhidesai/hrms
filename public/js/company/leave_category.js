@@ -26,7 +26,7 @@ var LeaveCategory = function () {
             leave_cat_name: {required: true},
             type: {required: true},
             leave_unit: {required: true},
-            description: {required: true},
+            // description: {required: true},
             applicable_for: {required: true},
             role: {required: true},
             work_location: {required: true},
@@ -40,7 +40,59 @@ var LeaveCategory = function () {
         handleFormValidate(form, rules, function (form) {
             handleAjaxFormSubmit(form, true);
         });
+        
+        getRoleList();
     }
+
+    function getRoleList(){
+        $.ajax({
+            type: "POST",
+            headers: {
+                'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+            },
+            url: baseurl + "company/leave-category-ajaxAction",
+            data: {'action': 'getRoleCompanyList'},
+            success: function (data) {
+                var output = JSON.parse(data);
+                $('#role').empty();
+                $.each(output, function(key, value) {   
+                    $('#role')
+                        .append($("<option></option>")
+                                   .attr("value",key.id)
+                                   .text(value.role_name)); 
+                                   console.log(value);
+               });
+                
+            }
+        });
+    }
+
+    $('body').on('click', '.addRole', function () {
+        var form = $('#addRole');
+        var rules = {
+            role_name: {required: true}
+        };
+        var role_name = $("#role_name").val();
+        if(role_name!=''){
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                },
+                url: baseurl + "company/leave-category-ajaxAction",
+                data: {'action': 'addRoleName', 'role_name': role_name},
+                success: function (data) {
+                    var output = JSON.parse(data);
+                    handleAjaxResponse(data);
+                    $('#addRoleModel').modal('hide');
+                    getRoleList();
+                }
+            });
+        }else{
+
+        }
+
+    });
 
     return {
         init: function () {
@@ -48,6 +100,7 @@ var LeaveCategory = function () {
         },
         add: function () {
             addNewLeaveCategory();
+            
         },
     }
 }();

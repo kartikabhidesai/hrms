@@ -75,7 +75,7 @@
 
 						<div class="form-group">
 							<label class="col-lg-2 control-label">Role:</label>
-							<div class="col-lg-10">
+							<div class="col-lg-8">
                                 <select class="form-control" name="role" id="role">
                                 	<option value="">Select Option</option>
                                 	@if(!empty($leave_category_role))
@@ -85,11 +85,14 @@
 	                                @endif
                                 </select>
 							</div>
+							<div class="col-lg-2">
+							<a href="#addRoleModel" class="btn btn-sm btn-primary" data-toggle="modal" title="Add" data-original-title="Add" ><i class="fa fa-plus"></i></a>
+							</div>
 						</div>
 
 						<div class="form-group">
 							<label class="col-lg-2 control-label">Work Location:</label>
-							<div class="col-lg-10">
+							<div class="col-lg-8">
                                 <select class="form-control" name="work_location" id="work_location">
                                 	<option>Select Option</option>
                                 	@if(!empty($leave_work_location))
@@ -98,6 +101,9 @@
 	                                	@endforeach
 	                                @endif
                                 </select>
+							</div>
+							<div class="col-lg-2">
+							<button class="btn btn-sm btn-primary" ><i class="fa fa-plus"></i></button>
 							</div>
 						</div>
 
@@ -163,7 +169,44 @@
                         </div>
 					</div>
 				</div>
+				{{ Form::close() }}
 			</div>
 		</div>
 	</div>
+
+	<div id="addRoleModel" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Role</h4>
+            </div>
+            
+			
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+					<form id="addRole" class="form-horizontal" method="post" action="">
+			            <div class="form-group">
+						{{ csrf_field() }}
+                            <label class="col-sm-2 control-label">Role Name</label>
+                            <div class="col-sm-9">
+							<input type="text" class="form-control" name="action" id="action" value="addRoleName">
+							<input type="text" class="form-control" name="role_name" id="role_name" placeholder="Role Name">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                
+                    <button class="btn btn-sm btn-default pull-right m-l " data-dismiss="modal">Close</button>
+                    <a class="btn btn-sm btn-primary pull-right addRole m-l" >Add</a>
+                
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection

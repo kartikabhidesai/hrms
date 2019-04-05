@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Config;
 use App\Model\Company;
+use App\Model\Role;
 use App\Model\LeaveCategory;
 
 class LeaveCategoryController extends Controller
@@ -40,6 +41,28 @@ class LeaveCategoryController extends Controller
                 $leaveCategoryObj = new LeaveCategory;
                 $leaveCategoryList = $leaveCategoryObj->getleaveCategoryList($request, $companyId->id);
                 echo json_encode($leaveCategoryList);
+                break;
+            case 'addRoleName':
+                $userID = $this->loginUser->id;
+                $companyId = Company::select('id')->where('user_id', $userID)->first();
+                $roleObj = new Role;
+                $roleList = $roleObj->createRole($request, $companyId->id);
+                if ($roleList) {
+                    $return['status'] = 'success';
+                    $return['message'] = 'Role add successfully.';
+                    // $return['redirect'] = route('emp-task-list');
+                } else {
+                    $return['status'] = 'error';
+                    $return['message'] = 'Somethin went wrong while creating new role!';
+                }
+                echo json_encode($return);
+                break;
+            case 'getRoleCompanyList':
+                $userID = $this->loginUser->id;
+                $companyId = Company::select('id')->where('user_id', $userID)->first();
+                $roleObj = new Role;
+                $roleList = $roleObj->getRoleCompanyList($companyId->id);
+                echo json_encode($roleList);
                 break;
         }
     }
