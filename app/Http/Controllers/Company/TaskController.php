@@ -7,6 +7,7 @@ use App\Model\Employee;
 use App\Model\Department;
 use App\Model\Company;
 use App\Model\Task;
+use App\Model\NonWorkingDate;
 use App\Http\Controllers\Controller;
 use Auth;
 use Route;
@@ -88,10 +89,10 @@ class TaskController extends Controller {
 
     public function ajaxAction(Request $request) {
         $action = $request->input('action');
+        $userID = $this->loginUser->id;
+        $companyId = Company::select('id')->where('user_id', $userID)->first();
         switch ($action) {
             case 'getdatatable':
-                $userID = $this->loginUser->id;
-                $companyId = Company::select('id')->where('user_id', $userID)->first();
                 $objtask = new Task();
                 $taskList = $objtask->getTaskList($request, $companyId->id);
                 echo json_encode($taskList);
@@ -99,7 +100,23 @@ class TaskController extends Controller {
 
                 case 'taskDetails':
                 $result = $this->getTaskDetails($request->input('data'));
-                break;
+                break; 
+                case 'checkDate':
+                    $nonWorkingDay = new NonWorkingDate();
+                    $result = $nonWorkingDay->getNonWorkingDate($request->input('date'),$companyId);
+                    if ($result) {
+                        $return['status'] = 'error';
+                        $return['message'] = $request->input('date'). ' is Non Working Date';
+                        $return['counts'] = $result;
+                    } else {
+                        $return['status'] = '';
+                        $return['message'] = '';
+                        $return['counts'] = '0';
+                    }
+                    echo json_encode($return);
+                    exit;
+
+                    break;
         }
     }
 

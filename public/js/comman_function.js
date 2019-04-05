@@ -751,6 +751,37 @@ function dateFormate(field) {
         format: 'dd-mm-yyyy'
     });
 }
+function checkNonWorkingDate(field) {
+    var send=true;
+   $(field).datepicker({
+        format: 'dd-mm-yyyy',
+        calendarWeeks: true,
+        autoclose: true,
+        todayHighlight:true
+    }).on("changeDate", function(e) {
+        if(send){
+        var  date = $(this).val();
+        $.ajax({
+            type: "POST",
+            headers: {
+                'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+            },
+            url: baseurl + "company/task-ajaxAction",
+            data: {'action': 'checkDate', 'date': date},
+                success: function(output) {
+                    handleAjaxResponse(output);
+                    var  output = JSON.parse(output);
+                    if (typeof  output.counts != 'undefined' && output.counts != null && output.counts > 0) {
+                        $(field).val('');
+                        $(field).focus();
+                    }
+                }
+            });
+            send=false;
+        }
+         setTimeout(function(){send=true;},200);
+     });
+}
 
 /* START FOR LANGUAGE SET USING COOKIE */
 

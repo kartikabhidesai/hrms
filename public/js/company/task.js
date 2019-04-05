@@ -1,5 +1,31 @@
 var Task = function () {
     
+    // $("#to_date").on("change",function(){
+    //    
+    // });
+    // $("#to_date").on("change", function(e) {
+    //     var  date = $(this).val();
+    //     var  currentDate = true;
+    //         if(date !='' && currentDate == true){
+    //             console.log("onchange contents: " + date);    
+    //             var  currentDate = false;
+    //             $.ajax({
+    //             type: "POST",
+    //             headers: {
+    //                 'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+    //             },
+    //             url: baseurl + "company/task-ajaxAction",
+    //             data: {'action': 'checkDate', 'date': date},
+    //             success: function(data) {
+    //                 var  output = JSON.parse(data);
+    //                 console.log(output);
+    //             }
+    //         });
+    //     }
+    // });
+
+
+    checkNonWorkingDate('.nonWorking')
     var handleList = function () {
         var priority = $("#priority").val();
         var status = $("#status").val();
