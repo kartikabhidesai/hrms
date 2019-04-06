@@ -46,28 +46,7 @@ var LeaveCategory = function () {
         getPeriodList();
     }
 
-    function getRoleList() {
-        $.ajax({
-            type: "POST",
-            headers: {
-                'X-CSRF-TOKEN': $('input[name="_token"]').val(),
-            },
-            url: baseurl + "company/leave-category-ajaxAction",
-            data: {'action': 'getRoleCompanyList'},
-            success: function (data) {
-                var output = JSON.parse(data);
-                $('#role').empty();
-                $.each(output, function (key, value) {
-                    $('#role')
-                            .append($("<option></option>")
-                                    .attr("value", key.id)
-                                    .text(value.role_name));
 
-                });
-
-            }
-        });
-    }
 
     $('body').on('click', '.addRole', function () {
         var form = $('#addRole');
@@ -95,6 +74,7 @@ var LeaveCategory = function () {
         }
 
     });
+
     $('body').on('click', '.addWork_location', function () {
         var form = $('#addWork');
         var rules = {
@@ -123,13 +103,13 @@ var LeaveCategory = function () {
     });
 
     $('body').on('click', '.addPeriod', function () {
-        
+
         var form = $('#addPeriod');
         var rules = {
             period: {required: true}
         };
         var period = $("#new_period").val();
-        
+
         if (period != '') {
             $.ajax({
                 type: "POST",
@@ -151,6 +131,30 @@ var LeaveCategory = function () {
 
     });
 
+    function getRoleList() {
+        $.ajax({
+            type: "POST",
+            headers: {
+                'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+            },
+            url: baseurl + "company/leave-category-ajaxAction",
+            data: {'action': 'getRoleCompanyList'},
+            success: function (data) {
+                var output = JSON.parse(data);
+                //$('#role').empty();
+               
+                $.each(output, function (key, value) {
+                    $('#role')
+                            .append($("<option></option>")
+                                    .attr("value", key.id)
+                                    .text(value.role_name));
+
+                });
+
+            }
+        });
+    }
+
     function getWorkLocationList() {
         $.ajax({
             type: "POST",
@@ -162,7 +166,7 @@ var LeaveCategory = function () {
             success: function (data) {
                 var output = JSON.parse(data);
                 console.log(output);
-                $('#work_location').empty();
+                //$('#work_location').empty();
                 $.each(output, function (key, value) {
                     $('#work_location')
                             .append($("<option></option>")
@@ -174,6 +178,7 @@ var LeaveCategory = function () {
             }
         });
     }
+
     function getPeriodList() {
         $.ajax({
             type: "POST",
@@ -185,7 +190,7 @@ var LeaveCategory = function () {
             success: function (data) {
                 var output = JSON.parse(data);
                 console.log(output);
-                $('#period').empty();
+                // $('#period').empty();
                 $.each(output, function (key, value) {
                     $('#period')
                             .append($("<option></option>")

@@ -77,12 +77,7 @@
                         <label class="col-lg-2 control-label">Role:</label>
                         <div class="col-lg-8">
                             <select class="form-control" name="role" id="role">
-                                <option value="">Select Option</option>
-                                @if(!empty($leave_category_role))
-                                @foreach($leave_category_role as $key => $val)
-                                <option value="{{$key}}">{{$val}}</option>
-                                @endforeach
-                                @endif
+                                <option value="">Selelect Role</option>
                             </select>
                         </div>
                         <div class="col-lg-2">
@@ -94,12 +89,7 @@
                         <label class="col-lg-2 control-label">Work Location:</label>
                         <div class="col-lg-8">
                             <select class="form-control" name="work_location" id="work_location">
-                                <option>Select Option</option>
-                                @if(!empty($leave_work_location))
-                                @foreach($leave_work_location as $key => $val)
-                                <option value="{{$key}}">{{$val}}</option>
-                                @endforeach
-                                @endif
+                                <option value="">Select Location</option>
                             </select>
                         </div>
                         <div class="col-lg-2">
@@ -136,9 +126,7 @@
                         <label class="col-lg-2 control-label">Period:</label>
                         <div class="col-lg-8">
                             <select class="form-control" name="period" id="period">
-                                <option>Select Option</option>
-                                <option value="Annual">Annual</option>
-                                <option value="Monthly">Monthly</option>
+                                 <option value="">Select Period</option>
                             </select>
                         </div>
                         <div class="col-lg-2">
