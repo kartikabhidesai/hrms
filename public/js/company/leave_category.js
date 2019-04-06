@@ -35,16 +35,18 @@ var LeaveCategory = function () {
             period: {required: true},
             for_employee_type: {required: true},
             leave_count: {required: true}
-            
+
         };
         handleFormValidate(form, rules, function (form) {
             handleAjaxFormSubmit(form, true);
         });
-        
+
         getRoleList();
+        getWorkLocationList();
+        getPeriodList();
     }
 
-    function getRoleList(){
+    function getRoleList() {
         $.ajax({
             type: "POST",
             headers: {
@@ -55,14 +57,14 @@ var LeaveCategory = function () {
             success: function (data) {
                 var output = JSON.parse(data);
                 $('#role').empty();
-                $.each(output, function(key, value) {   
+                $.each(output, function (key, value) {
                     $('#role')
-                        .append($("<option></option>")
-                                   .attr("value",key.id)
-                                   .text(value.role_name)); 
-                                   console.log(value);
-               });
-                
+                            .append($("<option></option>")
+                                    .attr("value", key.id)
+                                    .text(value.role_name));
+
+                });
+
             }
         });
     }
@@ -73,7 +75,7 @@ var LeaveCategory = function () {
             role_name: {required: true}
         };
         var role_name = $("#role_name").val();
-        if(role_name!=''){
+        if (role_name != '') {
             $.ajax({
                 type: "POST",
                 headers: {
@@ -88,11 +90,113 @@ var LeaveCategory = function () {
                     getRoleList();
                 }
             });
-        }else{
+        } else {
 
         }
 
     });
+    $('body').on('click', '.addWork_location', function () {
+        var form = $('#addWork');
+        var rules = {
+            work_location_name: {required: true}
+        };
+        var work_name = $("#work_location_name").val();
+        if (work_name != '') {
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                },
+                url: baseurl + "company/leave-category-ajaxAction",
+                data: {'action': 'addWorkName', 'work_name': work_name},
+                success: function (data) {
+                    var output = JSON.parse(data);
+                    handleAjaxResponse(data);
+                    $('#addWorkLocationModel').modal('hide');
+                    getWorkLocationList();
+                }
+            });
+        } else {
+
+        }
+
+    });
+
+    $('body').on('click', '.addPeriod', function () {
+        
+        var form = $('#addPeriod');
+        var rules = {
+            period: {required: true}
+        };
+        var period = $("#new_period").val();
+        
+        if (period != '') {
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                },
+                url: baseurl + "company/leave-category-ajaxAction",
+                data: {'action': 'addPeriod', 'period': period},
+                success: function (data) {
+                    var output = JSON.parse(data);
+                    handleAjaxResponse(data);
+                    $('#addperiodModel').modal('hide');
+                    getPeriodList();
+                }
+            });
+        } else {
+
+        }
+
+    });
+
+    function getWorkLocationList() {
+        $.ajax({
+            type: "POST",
+            headers: {
+                'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+            },
+            url: baseurl + "company/leave-category-ajaxAction",
+            data: {'action': 'getWorkLocationCompanyList'},
+            success: function (data) {
+                var output = JSON.parse(data);
+                console.log(output);
+                $('#work_location').empty();
+                $.each(output, function (key, value) {
+                    $('#work_location')
+                            .append($("<option></option>")
+                                    .attr("value", key.id)
+                                    .text(value.work_location_name));
+
+                });
+
+            }
+        });
+    }
+    function getPeriodList() {
+        $.ajax({
+            type: "POST",
+            headers: {
+                'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+            },
+            url: baseurl + "company/leave-category-ajaxAction",
+            data: {'action': 'getPeriodList'},
+            success: function (data) {
+                var output = JSON.parse(data);
+                console.log(output);
+                $('#period').empty();
+                $.each(output, function (key, value) {
+                    $('#period')
+                            .append($("<option></option>")
+                                    .attr("value", key.id)
+                                    .text(value.period));
+
+                });
+
+            }
+        });
+    }
 
     return {
         init: function () {
@@ -100,7 +204,7 @@ var LeaveCategory = function () {
         },
         add: function () {
             addNewLeaveCategory();
-            
+
         },
     }
 }();
