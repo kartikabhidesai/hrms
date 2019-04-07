@@ -32,12 +32,19 @@ class TicketReportController extends Controller {
         if ($request->isMethod('post')) {
             $postData = $request->input();
             // print_r($postData);exit;
-            $empArray = $postData['emparray'];
-            $empEmplodeArray = explode(',', $empArray);
+            if( $postData['emp_id'] == 'All' && $postData['dept_id'] == 'All'){
+                $objTicketReport = new TicketReport();
+                $ticketArr = $objTicketReport->getAllEmployeeForTicket($companyId->id);        
+                $empEmplodeArray = explode(',', $ticketArr[0]['empId']);
+            }else{
+                $empArray = $postData['emparray'];    
+                $empEmplodeArray = explode(',', $empArray);
+            }
             foreach ($empEmplodeArray as $key => $value) {
                 $objTicketReport = new TicketReport();
                 if(empty($postData['downloadstatus'])){
                     $employeeArr = $objTicketReport->addTicketReport($postData,$value);    
+                    
                 }
                 
                 $employeeArr = $objTicketReport->getTicketReportPdfDetail($postData,$value);  

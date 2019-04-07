@@ -41,7 +41,9 @@ var TicketReport = function () {
             
             if(emp_id != '' && dept_id != '') {
                 var arrEmp = [];
-                if (emp_id == 'All') {
+                if (emp_id == 'All' && dept_id == 'All') {
+                    $('#ticketSystem').submit()
+                }else if (emp_id == 'All') {
                     $("#emp_id > option").each(function() {
                         if(this.value > 0){
                             arrEmp.push(this.value);    

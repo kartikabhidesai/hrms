@@ -15,10 +15,7 @@ class TicketReport extends Model {
 
     protected $table = 'ticket_report';
 
-    public function addTicketReport($postData, $id)
-    {
-        // print_r($id);
-        // print_r($postData);exit;
+    public function addTicketReport($postData, $id){
         $empCount = Ticket::where('assign_to', '=', $id)
                 ->count();
         if ($empCount > 0) {
@@ -42,8 +39,7 @@ class TicketReport extends Model {
         } 
     }
 
-    public function getTicketNumber()
-    {
+    public function getTicketNumber(){
         $ticketCount = TicketReport::orderBy('id', 'desc')->first();
         $num = 1;
         if(isset($ticketCount) && !empty($ticketCount) && $ticketCount->count() > 0){
@@ -59,45 +55,38 @@ class TicketReport extends Model {
         return $generateString.$num;
     }
     
-    public function getTicketReportPdfDetail($postData, $id)
-    {
-        // echo $postData['emparray'];exit;
-        // $collageArr = [$postData['emparray']];
+    public function getTicketReportPdfDetail($postData, $id){
         $result = TicketReport::select('ticket_report.*','tickets.*', 'employee.id as emp_id', 'employee.name as empName', 'comapnies.company_name')
                             ->leftjoin('employee', 'employee.id', '=', 'ticket_report.employee_id')
                             ->leftjoin('department', 'employee.department', '=', 'department.id')
                             ->leftjoin('comapnies', 'comapnies.id', '=', 'employee.company_id')
                             ->leftjoin('tickets', 'tickets.assign_to', '=', 'ticket_report.employee_id')
-                            // ->whereIn('ticket_report.employee_id', '1,3,5,6')
-                            // ->whereIn('ticket_report.employee_id', $collageArr[0])
                             ->where('ticket_report.employee_id', $id)
                             ->get()
                             ->toArray();
         return $result;
     }
 
-    public function getTicketSystemData()
-    {
+    public function getTicketSystemData(){
         $result = TicketReport::select('ticket_report.*')
                             ->leftjoin('employee', 'employee.id', '=', 'ticket_report.employee_id')
                             ->get()->toArray();
         return $result;
     }
 
-    public function getTicketReportDetailV2()
-    {
-        // echo $postData['emparray'];exit;
-        // $collageArr = [$postData['emparray']];
+    public function getTicketReportDetailV2(){
         $result = TicketReport::select('ticket_report.*','tickets.*', 'employee.id as emp_id', 'employee.name as empName', 'comapnies.company_name')
                             ->leftjoin('tickets', 'tickets.assign_to', '=', 'ticket_report.employee_id')
                             ->leftjoin('employee', 'employee.id', '=', 'ticket_report.employee_id')
                             ->leftjoin('department', 'employee.department', '=', 'department.id')
                             ->leftjoin('comapnies', 'comapnies.id', '=', 'employee.company_id')
-                            
-                            // ->where('ticket_report.employee_id', $id)
                             ->get()
                             ->toArray();
         return $result;
     }
 
+    public function getAllEmployeeForTicket($cId){
+        $result = Ticket::where('company_id', $cId)->select(DB::raw('GROUP_CONCAT( tickets.assign_to SEPARATOR ",") AS empId'))->orderBy('tickets.assign_to')->get()->toArray();
+        return $result;
+    }
 }
