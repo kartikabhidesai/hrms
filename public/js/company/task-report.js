@@ -68,11 +68,15 @@ var TaskReport = function () {
         $('body').on('click','.singlePdfDownload',function(){
             var emp_id = $(this).attr('data-id');
             var dept_id = $(this).attr('data-department');
-            
+            var taskReport_id = $(this).attr('data-taskreportid');
+            // console.log(emp_id+"-"+dept_id+"-"+taskReport_id);
             if(emp_id != '' && dept_id != '') {
                 var arrEmp = [];
                 arrEmp.push(emp_id);
+                // console.log(emp_id+"--"+dept_id+"--"+taskReport_id);
                 $('.emparray').val(arrEmp);
+                $('.dept_id').val(dept_id);
+                $('.taskReportId').val(taskReport_id);
                 $('.downloadstatus').val('single');
                 if(arrEmp.length > 0){
                     $('#taskReportSystem').submit()

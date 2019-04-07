@@ -34,43 +34,55 @@
                     <td class="main-header"><span >HRMS</span></td>
                 </tr>
             </table>
-        @foreach($empPdfArray as $row => $employeeArr)
-        <div class="invoice-box">
-            <table width="100%">
-                <tr>
-                    <td >Employee Name  <br/>{{ $employeeArr['empName'] }}</td>
-                    <td >Company Name <br/>{{ $employeeArr['company_name'] }}</td>
-                    <td >Task Report Number <br/> {{ $employeeArr['task_report_number'] }}</td>
-                    <td >Download Date <br/>{{ $employeeArr['download_date'] }}</td>
-                </tr> 
-            </table>
-            <br/>
-            <table width="100%" border="1">
-
-                <thead>
-                    <tr>
-                        <td class="padding-l-5">Task</td>
-                        <td class="padding-l-5">About Task</td>
-                        <td class="padding-l-5">Priority</td>
-                        <td class="padding-l-5">Assign Date</td>
-                        <td class="padding-l-5">Deadline date</td>
-                        <td class="padding-l-5">Complete Progress</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>  {{ $employeeArr['task'] }}</td>
-                        <td>  {{ $employeeArr['about_task'] }}</td>
-                        <td>  {{ $employeeArr['priority'] }}</td>
-                        <td>  {{ $employeeArr['assign_date'] }}</td>
-                        <td>  {{ $employeeArr['deadline_date'] }}</td>
-                        <td>  {{ $employeeArr['complete_progress'] }}</td>
-                    </tr>  
-                </tbody>
-            </table>
-            <br>
-        </div>
-        <hr/>
-         @endforeach
+            @foreach($empArray as $eValue)
+            <?php $eCount=1; ?>
+                @if(!empty($empPdfArray[$eValue]))
+                @foreach($empPdfArray[$eValue] as $row => $employeeArr)
+                <div class="invoice-box">
+                    @if($eCount==1)
+                    <table width="100%">
+                        <tr>
+                            <td >Employee Name  <br/>{{ $employeeArr['empName'] }}</td>
+                            <td >Company Name <br/>{{ $employeeArr['company_name'] }}</td>
+                            <td >Task Report Number <br/> {{ $employeeArr['task_report_number'] }}</td>
+                            <td >Download Date <br/>{{ $employeeArr['download_date'] }}</td>
+                        </tr> 
+                    </table>
+                    <?php $eCount++; ?>
+                    @endif
+                @endforeach
+                
+                
+                    <br/>
+                    <table width="100%" border="1">
+                        <thead>
+                            <tr>
+                                <td class="padding-l-5">Task</td>
+                                <td class="padding-l-5">About Task</td>
+                                <td class="padding-l-5">Priority</td>
+                                <td class="padding-l-5">Assign Date</td>
+                                <td class="padding-l-5">Deadline date</td>
+                                <td class="padding-l-5">Complete Progress</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($empPdfArray[$eValue] as $row => $employeeArr)
+                            <tr>
+                                <td>  {{ $employeeArr['task'] }}</td>
+                                <td>  {{ $employeeArr['about_task'] }}</td>
+                                <td>  {{ $employeeArr['priority'] }}</td>
+                                <td>  {{ $employeeArr['assign_date'] }}</td>
+                                <td>  {{ $employeeArr['deadline_date'] }}</td>
+                                <td>  {{ $employeeArr['complete_progress'] }}</td>
+                            </tr>  
+                        @endforeach
+                        </tbody>
+                    </table>
+                    <br>
+                </div>
+                <hr/>
+                
+                @endif
+            @endforeach
     </body>
 </html>

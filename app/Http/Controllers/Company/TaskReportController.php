@@ -8,12 +8,14 @@ use App\Model\TaskReport;
 use App\Model\Employee;
 use App\Model\Department;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Response;
 use App\Model\Company;
 use App\Model\Task;
 use Auth;
 use Route;
 use APP;
 use PDF;
+use File;
 use Illuminate\Http\Request;
 
 
@@ -36,29 +38,70 @@ class TaskReportController extends Controller {
             $postData = $request->input();
             // print_r($postData);exit;
             $empArray = $postData['emparray'];
+            
+            // print_r($postData);exit;
             $empEmplodeArray = explode(',', $empArray);
-            foreach ($empEmplodeArray as $key => $value) {
-                $objTaskReport = new TaskReport();
-                if(empty($postData['downloadstatus'])){
-                    $employeeArr = $objTaskReport->addTaskReport($postData,$value);    
-                }
+            $data['empArray']=$empEmplodeArray;
+            $objTaskReport = new TaskReport();
+            
+            
                 
-                $employeeArr = $objTaskReport->getTaskReportPdfDetail($postData,$value);  
-                    if(!empty($employeeArr)){
-                        for($i=0;$i<count($employeeArr);$i++)
-                        {
-                            $dataPdf[] = $employeeArr[$i];
+                if(empty($postData['downloadstatus'])){
+                    if($postData['emp_id']=='All')
+                    {
+                        $taskReportId = $objTaskReport->addTaskReport($postData,0,$companyId->id);
+
+                        $objEmployee = new Employee();
+                        $empEmplodeArray=$objEmployee->getEmployeeByDept($postData['dept_id']);
+                        foreach ($empEmplodeArray as $key => $value) {
+                            $getEmployeeArr = $objTaskReport->getTaskReportPdfDetail($taskReportId, $key, $companyId->id); 
+                            // print_r($getEmployeeArr); 
+                            if(!empty($getEmployeeArr)){
+                                for($i=0;$i<count($getEmployeeArr);$i++)
+                                {
+                                    $dataPdf[$key][] = $getEmployeeArr[$i];
+                                }
+                            }
+                        }
+                    }else{
+                        $taskReportId = $objTaskReport->addTaskReport($postData,$postData['emp_id'],$companyId->id);
+                        foreach ($empEmplodeArray as $key => $value) {
+                            $getEmployeeArr = $objTaskReport->getTaskReportPdfDetail($taskReportId, $value, $companyId->id); 
+                            // print_r($getEmployeeArr); 
+                            if(!empty($getEmployeeArr)){
+                                for($i=0;$i<count($getEmployeeArr);$i++)
+                                {
+                                    $dataPdf[$value][] = $getEmployeeArr[$i];
+                                }
+                            }
                         }
                     }
                 }
+                
+                // print_r($empEmplodeArray);
+               
+                // print_r($dataPdf);exit;
+                if(count($dataPdf) > 0){
+
+                    if (!file_exists(public_path('/uploads/task_report'))) {
+                        mkdir(public_path('/uploads/task_report'),'0777',false);
+                    }
+
+                    $data['empPdfArray'] = $dataPdf;
+                    $file_task_report= "task-report".$taskReportId.".pdf";
+                    $pdf = PDF::loadView('company.task-report.task-pdf', $data);
+
+                    $path = public_path(). "/uploads/task_report/".$file_task_report;                   
+
+                    // PDF::loadHTML('company.task-report.task-pdf', $data) ->setPaper('a4', 'portrait') ->save($path);
+                    // move_uploaded_file("pdf", $path);
+                    $output = $pdf->output();
+        // $file_to_save = FCPATH . 'assets/surat_acara/' . $new_filename . '.pdf';
+                    file_put_contents($path, $output);
+                    return $pdf->download($file_task_report);  
+                }
             }
-            // print_r($dataPdf);exit;
-            if(count($dataPdf) > 0){
-                $data['empPdfArray'] = $dataPdf;
-                $file= date('dmYHis')."task-system.pdf";
-                $pdf = PDF::loadView('company.task-report.task-pdf', $data);
-                return $pdf->download($file);    
-            }
+            
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/task-report.js');
         $data['funinit'] = array('TaskReport.init()');
@@ -116,6 +159,20 @@ class TaskReportController extends Controller {
             }
             echo json_encode($return);
             exit;
+        }
+    }
+
+    public function downloadTaskReport(Request $request,$file_name)
+    {
+        // echo "<pre>"; print_r($file_name); exit();
+        $file = public_path(). "/uploads/task_report/".$file_name;
+        if(file_exists($file))
+        {
+            return Response::download($file,$file_name);
+            //  return $pdf->download($file);
+        }else
+        {
+            return redirect('company/task-report')->with('status', 'file not found!');
         }
     }
 

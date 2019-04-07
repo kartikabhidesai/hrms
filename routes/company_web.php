@@ -153,6 +153,7 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
     Route::match(['get', 'post'], 'report-list', ['as' => 'report-list', 'uses' => 'Company\ReportController@index']);
     Route::match(['get', 'post'], 'task-report', ['as' => 'task-report', 'uses' => 'Company\TaskReportController@index']);
     Route::match(['get', 'post'], 'taskreport-ajaxAction', ['as' => 'taskreport-ajaxAction', 'uses' => 'Company\TaskReportController@ajaxAction']);
+    Route::match(['get', 'post'], 'download-taskreport/{file_name}', ['as' => 'download-taskreport/{file_name}', 'uses' => 'Company\TaskReportController@downloadTaskReport']);
     Route::match(['get', 'post'], 'ticket-report', ['as' => 'ticket-report', 'uses' => 'Company\TicketReportController@index']);
     Route::match(['get', 'post'], 'ticket-report-ajaxAction', ['as' => 'ticket-report-ajaxAction', 'uses' => 'Company\TicketReportController@ajaxaction']);
     Route::match(['get', 'post'], 'client-report', ['as' => 'client-report', 'uses' => 'Company\ClientReportController@index']);

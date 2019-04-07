@@ -16,31 +16,32 @@ class TaskReport extends Model {
 
     protected $table = 'task_report';
 
-    public function addTaskReport($postData, $id)
+    public function addTaskReport($postData, $id,$companyid)
     {
         // print_r($id);
         // print_r($postData);exit;
-        $empCount = Task::where('tasks.employee_id', '=', $id)
-                ->count();
-        if ($empCount > 0) {
-            $taskCount = TaskReport::where('employee_id', '=', $id)
-                            ->where('department_id', '=', $postData['dept_id'])
-                            ->count();
-                            // print_r($taskCount);exit;
-            if($taskCount == 0){
+        // $empCount = Task::where('tasks.employee_id', '=', $id)
+        //         ->count();
+        // if ($empCount > 0) {
+            // $taskCount = TaskReport::where('employee_id', '=', $id)
+            //                 ->where('department_id', '=', $postData['dept_id'])
+            //                 ->count();
+            //                 // print_r($taskCount);exit;
+            // if($taskCount == 0){
                 $taskNumber = $this->getTaskNumber();
                 $objPayroll = new TaskReport();
                 $objPayroll->employee_id = $id;
-                $objPayroll->company_id = '';
+                $objPayroll->company_id = $companyid;
                 $objPayroll->department_id = $postData['dept_id'];
                 $objPayroll->task_report_number = $taskNumber;
                 $objPayroll->download_date = date('Y-m-d');
                 $objPayroll->created_at = date('Y-m-d H:i:s');
                 $objPayroll->updated_at = date('Y-m-d H:i:s');
                 $objPayroll->save();    
-                $objPayroll = '';
-            }                
-        } 
+                // $objPayroll = '';
+                return $objPayroll->id;
+            // }                
+        // } 
     }
     
     public function getTaskNumber()
@@ -60,16 +61,36 @@ class TaskReport extends Model {
         return $generateString.$num;
     }
     
-    public function getTaskReportPdfDetail($postData, $id)
+    public function getTaskReportPdfDetailById($id,$employee_id)
     {
-        // echo $postData['emparray'];exit;
+        echo $id;
+        // exit;
         // $collageArr = [$postData['emparray']];
-        $result = TaskReport::select('task_report.*','tasks.*', 'employee.id as emp_id', 'employee.name as empName', 'comapnies.company_name')
+        $result = TaskReport::select('task_report.*','tasks.task','tasks.assign_date','tasks.deadline_date','tasks.priority','tasks.about_task','tasks.complete_progress','tasks.task_status', 'employee.id as emp_id', 'employee.name as empName', 'comapnies.company_name')
                             ->leftjoin('employee', 'employee.id', '=', 'task_report.employee_id')
-                            ->leftjoin('department', 'employee.department', '=', 'department.id')
-                            ->leftjoin('comapnies', 'comapnies.id', '=', 'employee.company_id')
+                            ->leftjoin('department', 'department.id','=','task_report.department_id')
+                            ->leftjoin('comapnies', 'comapnies.id', '=', 'task_report.company_id')
                             ->leftjoin('tasks', 'tasks.employee_id', '=', 'task_report.employee_id')
-                            ->where('task_report.employee_id', $id)
+                            ->where('task_report.id', $id)
+                            ->where('task_report.employee_id', $employee_id)
+                            ->get()
+                            ->toArray();
+                            // print_r($result);exit;
+        return $result;
+    }
+
+    public function getTaskReportPdfDetail($taskReportId, $id, $companyid)
+    {
+        // echo $taskReportId.",". $id.",". $companyid;exit;
+        // $collageArr = [$postData['emparray']];
+        $result = TaskReport::select('task_report.*','tasks.task','tasks.assign_date','tasks.deadline_date','tasks.priority','tasks.about_task','tasks.complete_progress','tasks.task_status', 'employee.id as emp_id', 'employee.name as empName', 'comapnies.company_name')
+                            ->leftjoin('department', 'department.id', '=', 'task_report.department_id')
+                            ->leftjoin('employee', 'employee.department', '=', 'department.id')
+                            ->leftjoin('comapnies', 'comapnies.id', '=', 'employee.company_id')
+                            ->leftjoin('tasks', 'tasks.employee_id', '=', 'employee.id')
+                            ->where('tasks.employee_id', $id)
+                            ->where('task_report.id', $taskReportId)
+                            ->where('task_report.company_id', $companyid)
                             ->get()
                             ->toArray();
                             // print_r($result);
@@ -126,8 +147,8 @@ class TaskReport extends Model {
         $data = array();
        
         foreach ($resultArr as $row) {
-            
-            $action= '<a href="javascript:;"  data-id="'.$row['employee_id'].'"  data-department="'.$row['department_id'].'"  class="link-black text-sm singlePdfDownload" data-toggle="tooltip" data-original-title="View"><i class="fa fa-eye"></i></a>';
+            // $action='<a href="'.'download-taskreport/task-report'.$row['id'].'" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" >'.$value["file_attachment"].'</a>';
+            $action= '<a href="'.'download-taskreport/task-report'.$row['id'].'.pdf" class="link-black text-sm"  data-toggle="tooltip" data-original-title="View"><i class="fa fa-eye"></i></a>';
             $action.= ' | <a href="#deleteModel" data-toggle="modal" data-id="'.$row['id'].'" class="link-black text-sm taskReportDelete" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';
 //            
             $nestedData = array();
