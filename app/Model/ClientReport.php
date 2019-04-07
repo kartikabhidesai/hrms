@@ -106,6 +106,7 @@ class ClientReport extends Model {
                 $sql->Where(function($sql) use($startDate, $endDate) {
                     $sql->orWhere(function($sql) use($startDate, $endDate) {
                         $sql->whereBetween('client.date_of_joining', [$startDate, $endDate]);
+                        // $sql->whereBetween('client.date_of_joining', [$startDate, $endDate]);
                     });
                 });
             }

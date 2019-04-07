@@ -57,8 +57,8 @@
                         <table class="table table-striped table-bordered table-hover dataTables-company" >
                             <thead>
                                 <tr>
-                                    <th>Report Title</th>
-                                    <th>Report Title</th>
+                                    <th>Numner of report</th>
+                                    <th>Download Date</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
