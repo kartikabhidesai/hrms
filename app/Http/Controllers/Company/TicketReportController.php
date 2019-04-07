@@ -43,7 +43,7 @@ class TicketReportController extends Controller {
             foreach ($empEmplodeArray as $key => $value) {
                 $objTicketReport = new TicketReport();
                 if(empty($postData['downloadstatus'])){
-                    $employeeArr = $objTicketReport->addTicketReport($postData,$value);    
+                    $employeeArr = $objTicketReport->addTicketReport($postData,$value,$companyId->id);    
                     
                 }
                 

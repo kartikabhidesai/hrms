@@ -15,7 +15,9 @@ class TicketReport extends Model {
 
     protected $table = 'ticket_report';
 
-    public function addTicketReport($postData, $id){
+    public function addTicketReport($postData, $id,$compid){
+        $ticketNumber = $this->getTicketNumber();
+
         $empCount = Ticket::where('assign_to', '=', $id)
                 ->count();
         if ($empCount > 0) {
@@ -27,7 +29,7 @@ class TicketReport extends Model {
                 $ticketNumber = $this->getTicketNumber();
                 $objPayroll = new TicketReport();
                 $objPayroll->employee_id = $id;
-                $objPayroll->company_id = '';
+                $objPayroll->company_id = $compid;
                 $objPayroll->department_id = $postData['dept_id'];
                 $objPayroll->ticket_report_number = $ticketNumber;
                 $objPayroll->download_date = date('Y-m-d');
@@ -40,18 +42,19 @@ class TicketReport extends Model {
     }
 
     public function getTicketNumber(){
-        $ticketCount = TicketReport::orderBy('id', 'desc')->first();
-        $num = 1;
-        if(isset($ticketCount) && !empty($ticketCount) && $ticketCount->count() > 0){
-            $num = $ticketCount->id;
-            $num + 1;
-        }        
+
+        $ticketCount =  DB::table('system_generate_no')->where('id', 1)->first();
+        $str = ltrim($ticketCount->generated_no, '0');
+        $str = (empty($str)) ? 1 : $str;
         $tolalLength = 4;
-        $forCount = $tolalLength - strlen($num);
+        $forCount = $tolalLength - strlen($str);
+        $num =  $str+1;
         $generateString = '';
         for ($i=1; $i <= $forCount; $i++) { 
             $generateString .= 0;
         }
+        DB::table('system_generate_no')->where('id', 1)
+            ->update(['generated_no' => $generateString.$num]);
         return $generateString.$num;
     }
     
@@ -86,7 +89,7 @@ class TicketReport extends Model {
     }
 
     public function getAllEmployeeForTicket($cId){
-        $result = Ticket::where('company_id', $cId)->select(DB::raw('GROUP_CONCAT( tickets.assign_to SEPARATOR ",") AS empId'))->orderBy('tickets.assign_to')->get()->toArray();
+        $result = Ticket::where('company_id', $cId)->select(DB::raw('GROUP_CONCAT(DISTINCT tickets.assign_to SEPARATOR ",") AS empId'))->orderBy('tickets.assign_to')->get()->toArray();
         return $result;
     }
 }
