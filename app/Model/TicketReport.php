@@ -78,11 +78,12 @@ class TicketReport extends Model {
     }
 
     public function getTicketReportDetailV2(){
-        $result = TicketReport::select('ticket_report.*','tickets.*', 'employee.id as emp_id', 'employee.name as empName', 'comapnies.company_name')
-                            ->leftjoin('tickets', 'tickets.assign_to', '=', 'ticket_report.employee_id')
-                            ->leftjoin('employee', 'employee.id', '=', 'ticket_report.employee_id')
-                            ->leftjoin('department', 'employee.department', '=', 'department.id')
-                            ->leftjoin('comapnies', 'comapnies.id', '=', 'employee.company_id')
+        $result = TicketReport::select('ticket_report.*', 'employee.id as emp_id', 'employee.name as empName', 'comapnies.company_name')
+                            ->join('tickets', 'tickets.assign_to', '=', 'ticket_report.employee_id')
+                            ->join('employee', 'employee.id', '=', 'ticket_report.employee_id')
+                            ->join('department', 'employee.department', '=', 'department.id')
+                            ->join('comapnies', 'comapnies.id', '=', 'employee.company_id')
+                            ->groupBy('ticket_report.employee_id')
                             ->get()
                             ->toArray();
         return $result;
