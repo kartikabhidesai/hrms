@@ -55,8 +55,8 @@ class TicketReportController extends Controller {
             }
 
         $objTicketReport = new TicketReport();
-        $data['ticketSystemArray'] = $objTicketReport->getTicketSystemData();
-        
+        $data['ticketSystemArray'] = $objTicketReport->getTicketReportDetailV2();
+        // print_r($data['ticketSystemArray']);exit;
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/ticket_report.js');
         $data['funinit'] = array('TicketReport.init()');

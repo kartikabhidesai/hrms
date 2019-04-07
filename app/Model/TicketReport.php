@@ -84,4 +84,20 @@ class TicketReport extends Model {
         return $result;
     }
 
+    public function getTicketReportDetailV2()
+    {
+        // echo $postData['emparray'];exit;
+        // $collageArr = [$postData['emparray']];
+        $result = TicketReport::select('ticket_report.*','tickets.*', 'employee.id as emp_id', 'employee.name as empName', 'comapnies.company_name')
+                            ->leftjoin('tickets', 'tickets.assign_to', '=', 'ticket_report.employee_id')
+                            ->leftjoin('employee', 'employee.id', '=', 'ticket_report.employee_id')
+                            ->leftjoin('department', 'employee.department', '=', 'department.id')
+                            ->leftjoin('comapnies', 'comapnies.id', '=', 'employee.company_id')
+                            
+                            // ->where('ticket_report.employee_id', $id)
+                            ->get()
+                            ->toArray();
+        return $result;
+    }
+
 }
