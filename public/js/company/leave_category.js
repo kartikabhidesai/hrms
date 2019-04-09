@@ -217,13 +217,13 @@ var LeaveCategory = function () {
         
         $('body').on('click','.addnewHTML',function (){
             
-             var new_HTML='<div class="col-lg-2"></div>'+'<div class="col-lg-10 removediv">'+'<div class="col-lg-2">'+'<select class="form-control" name="period" id="period">'+'<option value="">Select</option>'+''+'</select>'+'</div>'+'<div class="col-lg-2">'+'<input type="text" class="form-control" name="leave_cat_name" placeholder="Enter Name">'+'</div>'+'<label class="col-lg-1 control-label">Y</label><div class="col-lg-2">'+'<input type="text" class="form-control" name="leave_cat_name" placeholder="Enter Name">'+'</div>'+'<label class="col-lg-1 control-label">M</label>'+'<div class="col-lg-2">'+'<input type="text" class="form-control" name="leave_cat_name" placeholder="Enter Name">'+'</div>'+'<div class="col-lg-2">'+'<button type="button" class="red btn-sm btn-primary removebtn"><i class="fa fa-trash"></i></button>'+'</div>'+'</div>';
+             var new_HTML='<div class="col-lg-2"></div>'+'<div class="col-lg-10 removediv" style="padding-bottom: 15px;">'+'<div class="col-lg-2">'+'<select class="form-control" name="period" id="period">'+'<option value="">Select</option>'+''+'</select>'+'</div>'+'<div class="col-lg-2">'+'<input type="text" class="form-control" name="leave_cat_name" placeholder="Enter Name">'+'</div>'+'<label class="col-lg-1 control-label">Y</label><div class="col-lg-2">'+'<input type="text" class="form-control" name="leave_cat_name" placeholder="Enter Name">'+'</div>'+'<label class="col-lg-1 control-label">M</label>'+'<div class="col-lg-2">'+'<input type="text" class="form-control" name="leave_cat_name" placeholder="Enter Name">'+'</div>'+'<div class="col-lg-2">'+'<button type="button" class="red btn-sm btn-primary removebtn"><i class="fa fa-trash"></i></button>'+'</div>'+'</div>';
                     
            $('.experience_lib').append(new_HTML);
         });
         
         $('body').on('click','.removebtn',function(){
-            //$(this).closest('.removediv').remove();
+            $(this).closest('.removediv').remove();
         });
     }
     return {

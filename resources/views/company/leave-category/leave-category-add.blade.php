@@ -154,7 +154,7 @@
                     </div>
                     <div class="form-group experience_lib" style="display:none">
                         <div class="col-lg-2"></div>
-                        <div class="col-lg-10">
+                        <div class="col-lg-10 ddd" style="padding-bottom: 15px;">
                             <div class="col-lg-2">
                                 <select class="form-control" name="period" id="period">
                                     <option value="">Select</option>
@@ -174,7 +174,6 @@
                             <div class="col-lg-2">
                                 <button type="button" class="btn btn-sm btn-primary addnewHTML"><i class="fa fa-plus"></i></button>
                             </div>
-                            &nbsp;
                         </div>
                         
                     </div>
