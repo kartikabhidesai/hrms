@@ -142,7 +142,7 @@ var LeaveCategory = function () {
             success: function (data) {
                 var output = JSON.parse(data);
                 //$('#role').empty();
-               
+
                 $.each(output, function (key, value) {
                     $('#role')
                             .append($("<option></option>")
@@ -203,13 +203,37 @@ var LeaveCategory = function () {
         });
     }
 
+    function experience_base() {
+
+        $("input[name$='for_employee_type']").click(function () {
+
+            if ($(this).val() == "experience_base") {
+                $('.experience_lib').show();
+            } else {
+                $('.experience_lib').hide();
+            }
+
+        });
+        
+        $('body').on('click','.addnewHTML',function (){
+            
+             var new_HTML='<div class="col-lg-2"></div>'+'<div class="col-lg-10 removediv">'+'<div class="col-lg-2">'+'<select class="form-control" name="period" id="period">'+'<option value="">Select</option>'+''+'</select>'+'</div>'+'<div class="col-lg-2">'+'<input type="text" class="form-control" name="leave_cat_name" placeholder="Enter Name">'+'</div>'+'<label class="col-lg-1 control-label">Y</label><div class="col-lg-2">'+'<input type="text" class="form-control" name="leave_cat_name" placeholder="Enter Name">'+'</div>'+'<label class="col-lg-1 control-label">M</label>'+'<div class="col-lg-2">'+'<input type="text" class="form-control" name="leave_cat_name" placeholder="Enter Name">'+'</div>'+'<div class="col-lg-2">'+'<button type="button" class="red btn-sm btn-primary removebtn"><i class="fa fa-trash"></i></button>'+'</div>'+'</div>';
+                    
+           $('.experience_lib').append(new_HTML);
+        });
+        
+        $('body').on('click','.removebtn',function(){
+            //$(this).closest('.removediv').remove();
+        });
+    }
     return {
         init: function () {
             handleList();
+            
         },
         add: function () {
             addNewLeaveCategory();
-
+            experience_base();
         },
     }
 }();

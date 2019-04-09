@@ -126,7 +126,7 @@
                         <label class="col-lg-2 control-label">Period:</label>
                         <div class="col-lg-8">
                             <select class="form-control" name="period" id="period">
-                                 <option value="">Select Period</option>
+                                <option value="">Select Period</option>
                             </select>
                         </div>
                         <div class="col-lg-2">
@@ -138,10 +138,10 @@
                         <label class="col-lg-2 control-label">For :</label>
                         <div class="col-lg-10">
                             <label class="radio-inline">
-                                <input type="radio" name="for_employee_type" class="fulltime" value="All Employees" checked>All Employees
+                                <input type="radio" name="for_employee_type" class="fulltime" value="all_emp" checked >All Employees
                             </label>
                             <label class="radio-inline">
-                                <input type="radio" name="for_employee_type" class="fulltime" value="Experience Based">Experience Based
+                                <input type="radio" name="for_employee_type" class="fulltime" value="experience_base">Experience Based
                             </label>
                         </div>
                     </div>
@@ -152,7 +152,33 @@
                             <input type="number" name="leave_count" class="form-control"> day(s)/year
                         </div>
                     </div>
-
+                    <div class="form-group experience_lib" style="display:none">
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-10">
+                            <div class="col-lg-2">
+                                <select class="form-control" name="period" id="period">
+                                    <option value="">Select</option>
+                                    <option value="">For new joney</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <input type="text" class="form-control" name="leave_cat_name" placeholder="Enter Name">
+                            </div>
+                            <label class="col-lg-1 control-label">Y</label>
+                            <div class="col-lg-2">
+                                <input type="text" class="form-control" name="leave_cat_name" placeholder="Enter Name">
+                            </div><label class="col-lg-1 control-label">M</label>
+                            <div class="col-lg-2">
+                                <input type="text" class="form-control" name="leave_cat_name" placeholder="Enter Name">
+                            </div>
+                            <div class="col-lg-2">
+                                <button type="button" class="btn btn-sm btn-primary addnewHTML"><i class="fa fa-plus"></i></button>
+                            </div>
+                            &nbsp;
+                        </div>
+                        
+                    </div>
+                   
                     <div class="form-group">
                         <div class="col-lg-offset-5 col-lg-6">
                             <button class="btn btn-sm btn-primary" type="submit">Submit</button>
