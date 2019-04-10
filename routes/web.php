@@ -98,4 +98,9 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function() {
 
     Route::match(['get', 'post'], 'payment-list', ['as' => 'payment-list', 'uses' => 'Admin\PaymentController@index']);
     Route::match(['get', 'post'], 'payment-ajaxAction', ['as' => 'payment-ajaxAction', 'uses' => 'Admin\PaymentController@ajaxAction']); 
+
+    /*plan management*/
+    Route::match(['get','post'],'plan-management',['as' => 'plan-management','uses'=>'Admin\PlanManagementController@index']);
+    Route::match(['get','post'],'add-plan',['as' => 'add-plan','uses'=>'Admin\PlanManagementController@createPlan']);
+    
 });
