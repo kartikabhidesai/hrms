@@ -12,6 +12,7 @@
                 <div class="ibox-content">
                     <select class="form-control time_period" id="time_period" name="time_period">
                       <option value="">select</option>
+                      <option value="all">All Client</option>
                       <option value="3-months">3 Months</option>
                       <option value="6-months">6 Months</option>
                       <option value="1-year">1 Year</option>

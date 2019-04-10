@@ -44,15 +44,44 @@ class TaskReportController extends Controller {
             $data['empArray']=$empEmplodeArray;
             $objTaskReport = new TaskReport();
             
-            
-                
                 if(empty($postData['downloadstatus'])){
-                    if($postData['emp_id']=='All')
+                    if($postData['dept_id']=='all')
+                    {
+                        $taskReportId = $objTaskReport->addTaskReport($postData,0,$companyId->id);
+                        $latest_tr = TaskReport::where('id',$taskReportId)->first();
+                        $objEmployee = new Employee();
+                        $empEmplodeArray=$objEmployee->getEmployeeByDept($postData['dept_id'],$companyId->id);
+                        $getTask = $objTaskReport->getTaskDeptAllEmpAll($companyId->id,$postData['emp_id']);
+
+                        $dataPdf = [];
+                        if(!empty($empEmplodeArray) && !empty($getTask))
+                        {
+                            foreach ($empEmplodeArray as $key1 => $value1) 
+                            {
+                                foreach ($getTask as $key2 => $value2) 
+                                {
+                                    if ($key1 == $value2['employee_id']) 
+                                    {
+                                        $value2['task_report_number'] = $latest_tr->task_report_number;
+                                        $value2['download_date'] = $latest_tr->download_date;
+                                        // $value2['created_at'] = \Carbon::createFromFormat('d-m-Y',$latest_tr->created_at,'UTC');
+                                        $value2['created_at'] = $latest_tr->created_at;
+                                        $value2['updated_at'] = $latest_tr->updated_at;
+                                        // echo "<pre>"; print_r($value2); exit();
+                                        $dataPdf[$key1][] = $value2;
+                                    }
+                                }
+                            }
+                        }
+                        // echo "<pre>aaaa"; print_r($dataPdf); exit();exit();
+                        // echo "<pre>"; print_r($empEmplodeArray); exit();
+                    }
+                    elseif($postData['emp_id']=='All')
                     {
                         $taskReportId = $objTaskReport->addTaskReport($postData,0,$companyId->id);
 
                         $objEmployee = new Employee();
-                        $empEmplodeArray=$objEmployee->getEmployeeByDept($postData['dept_id']);
+                        $empEmplodeArray=$objEmployee->getEmployeeByDept($postData['dept_id'],$companyId->id);
                         foreach ($empEmplodeArray as $key => $value) {
                             $getEmployeeArr = $objTaskReport->getTaskReportPdfDetail($taskReportId, $key, $companyId->id); 
                             // print_r($getEmployeeArr); 
@@ -79,8 +108,7 @@ class TaskReportController extends Controller {
                 }
                 
                 // print_r($empEmplodeArray);
-               
-                // print_r($dataPdf);exit;
+                // echo "<pre>"; print_r($dataPdf);exit;
                 if(count($dataPdf) > 0){
 
                     if (!file_exists(public_path('/uploads/task_report'))) {
