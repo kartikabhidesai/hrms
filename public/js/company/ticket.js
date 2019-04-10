@@ -165,6 +165,35 @@ var Ticket = function() {
     };
     
     var addlist = function() {
+
+            // var unavailableDates = ["09-04-2019", "14-04-2019", "15-04-2019"];
+
+            // function unavailable(date) {
+            //     dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+            //     if ($.inArray(dmy, unavailableDates) == -1) {
+            //         return [true, ""];
+            //     } else {
+            //         return [false, "", "Unavailable"];
+            //     }
+            // }
+    
+            // $("#due_date").datepicker({
+            //     dateFormat: 'dd-MM-yyyy',
+            //     beforeShowDay: unavailable
+            // });
+
+            var arrayD = ['04/14/2019','04/15/2019','04/16/2019'];
+          
+            // console.log(Date());
+            $("#due_date").datepicker({
+                format: 'mm/dd/yyyy',
+                autoclose:true,
+                weekStart:1,
+                firstDay:1,
+                startDate:new Date(),
+                todayBtn:true,
+                datesDisabled:arrayD
+            });
         
         var form = $('#ticket-add');
         var rules = {
@@ -174,6 +203,10 @@ var Ticket = function() {
         handleFormValidate(form, rules, function(form) {
             handleAjaxFormSubmit(form,true);
         });
+
+        function truncateDate(date) {
+            return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+          }
         
         $('body').on('click','.add_designation',function(){
             var button='<div class="form-group removediv">'+

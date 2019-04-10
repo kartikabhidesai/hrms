@@ -68,6 +68,16 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Due Date</label>
+                            <div class="col-lg-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <input type="text" name="due_date" id="due_date" placeholder="Due Date" class="form-control due_date" >
+                                </div>
+                            </div>
+                        </div> 
                         
                         <div class="form-group">
                             <div class="col-lg-offset-2 col-lg-10">
