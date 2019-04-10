@@ -17,6 +17,7 @@
                                 <div class="col-sm-9">
                                     <select class="form-control dept_id"  id="dept_id" name="dept_id">
                                         <option value="" selected="">Select Department</option>
+                                        <option value="all">All Department</option>
                                         @foreach($departments as $dept)
                                             <option value="{{ $dept->id }}">{{ $dept->department_name }}</option>
                                         @endforeach

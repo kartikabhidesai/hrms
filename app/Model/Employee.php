@@ -464,11 +464,21 @@ class Employee extends Model {
                 ->toArray();
         return $arrEmployee;
     }   
-    public function getEmployeeByDept($dept) {
-        // echo $company_id;exit;
-        $arrEmployee = Employee::where('department', $dept)
-                ->pluck('name', 'id')
-                ->toArray();
+    public function getEmployeeByDept($dept,$company_id='') {
+        // echo $dept; echo " - "; echo $company_id; exit;
+        if ($company_id == '' && $dept != 'all' && $dept != '') 
+        {
+            $arrEmployee = Employee::where('department', $dept)->pluck('name', 'id')->toArray();
+        }
+        elseif ($company_id != '' && $dept == 'all') 
+        {
+            $arrEmployee = Employee::where('company_id', $company_id)->pluck('name', 'id')->toArray();
+        }
+        else
+        {
+            $arrEmployee = Employee::where('department', $dept)->where('company_id', $company_id)->pluck('name', 'id')->toArray();
+        }
+        // echo "<pre>"; print_r($arrEmployee); exit();
         return $arrEmployee;
     }
 

@@ -45,8 +45,12 @@ class SendSMSController extends Controller
                 break;
             case 'getEmployee':
                 $empId = $request->input('data');
+
+                $userid = $this->loginUser->id;
+                $companyId = Company::select('id')->where('user_id', $userid)->first();
+
                 $objEmployee = new Employee();
-                $employee = $objEmployee->getEmployeeByDept($empId);
+                $employee = $objEmployee->getEmployeeByDept($empId,$companyId->id);
                 // print_r($employee);exit;
                 echo json_encode($employee);
                 break;

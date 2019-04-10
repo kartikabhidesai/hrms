@@ -63,7 +63,7 @@ class TaskReport extends Model {
     
     public function getTaskReportPdfDetailById($id,$employee_id)
     {
-        echo $id;
+        // echo $id;
         // exit;
         // $collageArr = [$postData['emparray']];
         $result = TaskReport::select('task_report.*','tasks.task','tasks.assign_date','tasks.deadline_date','tasks.priority','tasks.about_task','tasks.complete_progress','tasks.task_status', 'employee.id as emp_id', 'employee.name as empName', 'comapnies.company_name')
@@ -94,6 +94,24 @@ class TaskReport extends Model {
                             ->get()
                             ->toArray();
                             // print_r($result);
+        return $result;
+    }
+
+    public function getTaskDeptAllEmpAll($companyid,$empid = '')
+    {
+        $query=Task::select(['tasks.*','employee.id as emp_id','employee.name as empName','comapnies.company_name as company_name'])->join('employee','tasks.employee_id','employee.id')->join('comapnies','tasks.company_id','comapnies.id');
+
+            if ($empid == 'All') 
+            {
+                
+            }
+            else
+            {
+                $query->where('tasks.employee_id',$empid);
+            }
+
+            $result = $query->where('tasks.company_id',$companyid)->get()->toArray();
+                            // print_r($result);    
         return $result;
     }
 

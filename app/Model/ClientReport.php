@@ -99,10 +99,13 @@ class ClientReport extends Model {
             }else if($request->time_period  == 'last_year'){
                 $startDate = date('Y-m-d', strtotime("-12 months", strtotime($currentDate)));
                 $endDate = date('Y-m-d');
+            }elseif ($request->time_period == 'all') {
+                
             }
 
             $sql = Client::select('client.*');
-            if (!empty($startDate) && !empty($endDate)) {
+            if (!empty($startDate) && !empty($endDate)) 
+            {
                 $sql->Where(function($sql) use($startDate, $endDate) {
                     $sql->orWhere(function($sql) use($startDate, $endDate) {
                         $sql->whereBetween('client.date_of_joining', [$startDate, $endDate]);
