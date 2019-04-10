@@ -55,17 +55,24 @@ class TaskController extends Controller {
         $companyId = Company::select('id')->where('user_id', $userId)->first();
 
         if ($request->isMethod('post')) {
-            
-            $objCompany = new Task();
-            $ret = $objCompany->addTask($request, $companyId->id);
-
-            if ($ret) {
-                $return['status'] = 'success';
-                $return['message'] = 'Task created successfully.';
-                $return['redirect'] = route('task-list');
-            } else {
+            $objNonWorkingDate = new NonWorkingDate();
+            $resultNonWorkingDate = $objNonWorkingDate->getCompanyNonWorkingDateArrayList($companyId->id);
+           
+            if(in_array(date('Y-m-d',strtotime($request->input('assign_date'))), $resultNonWorkingDate)) {
                 $return['status'] = 'error';
-                $return['message'] = 'Somethin went wrong while creating new task!';
+                $return['message'] = $request->input('assign_date'). ' is Non Working Date';
+            }else{
+                $objCompany = new Task();
+                $ret = $objCompany->addTask($request, $companyId->id);
+
+                if ($ret) {
+                    $return['status'] = 'success';
+                    $return['message'] = 'Task created successfully.';
+                    $return['redirect'] = route('task-list');
+                } else {
+                    $return['status'] = 'error';
+                    $return['message'] = 'Somethin went wrong while creating new task!';
+                }
             }
             echo json_encode($return);
             exit;

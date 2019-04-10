@@ -182,7 +182,7 @@ var Ticket = function() {
             //     beforeShowDay: unavailable
             // });
 
-            var arrayD = ['04/14/2019','04/15/2019','04/16/2019'];
+            // var arrayD = ['04/14/2019','04/15/2019','04/16/2019'];
           
             // console.log(Date());
             $("#due_date").datepicker({
@@ -192,7 +192,7 @@ var Ticket = function() {
                 firstDay:1,
                 startDate:new Date(),
                 todayBtn:true,
-                datesDisabled:arrayD
+                // datesDisabled:arrayD
             });
         
         var form = $('#ticket-add');
