@@ -165,6 +165,16 @@ var Ticket = function() {
     };
     
     var addlist = function() {
+
+        $("#due_date").datepicker({
+            format: 'mm/dd/yyyy',
+            autoclose:true,
+            weekStart:1,
+            firstDay:1,
+            startDate:new Date(),
+            todayBtn:true,
+            // datesDisabled:arrayD
+        });
         
         var form = $('#ticket-add');
         var rules = {

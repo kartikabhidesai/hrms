@@ -11,6 +11,7 @@ use App\Model\TicketComment;
 use App\Model\Employee;
 use App\Model\Company;
 use App\Model\Attendance;
+use App\Model\NonWorkingDate;
 use App\Model\Designation;
 use Config;
 use Auth;
@@ -81,17 +82,27 @@ class TicketController extends Controller
     
     public function add(Request $request){
         $session = $request->session()->all();
-
+        $userID = $this->loginUser->id;
+        $empId = Employee::select('id','company_id')->where('user_id', $userID)->first();
+        // $employee_list = $objEmployee->getEmployeeList($companyId->id);
         if ($request->isMethod('post')) {
-            $objTicket = new Ticket();
-            $result = $objTicket->saveTicket($request);
-            if($result) {
-                $return['status'] = 'success';
-                $return['message'] = 'Ticket created successfully.';
-                $return['redirect'] = route('ticket-list-emp');
-            } else {
+            $objNonWorkingDate = new NonWorkingDate();
+            $resultNonWorkingDate = $objNonWorkingDate->getCompanyNonWorkingDateArrayList($empId->company_id);
+            
+            if(in_array(date('Y-m-d',strtotime($request->input('due_date'))), $resultNonWorkingDate)) {
                 $return['status'] = 'error';
-                $return['message'] = 'Something will be wrong.';
+                $return['message'] = $request->input('due_date'). ' is Non Working Date';
+            }else{
+                $objTicket = new Ticket();
+                $result = $objTicket->saveTicket($request);
+                if($result) {
+                    $return['status'] = 'success';
+                    $return['message'] = 'Ticket created successfully.';
+                    $return['redirect'] = route('ticket-list-emp');
+                } else {
+                    $return['status'] = 'error';
+                    $return['message'] = 'Something will be wrong.';
+                }
             }
 
             echo json_encode($return);
