@@ -45,6 +45,7 @@ class Ticket extends Model
                                                 'status' => 'New',
                                                 'priority' => $request->input('priority'),
                                                 'assign_to' => $empData->id,
+                                                'due_date' => date('Y-m-d', strtotime($request->input('due_date'))),
                                                 'details' => $request->input('details'),
                                                 'company_id' => $empData->company_id,
                                                 'created_by'=>'EMPLOYEE',

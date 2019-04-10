@@ -12,6 +12,7 @@ use App\Model\Employee;
 use App\Model\Company;
 use App\Model\Attendance;
 use App\Model\Designation;
+use App\Model\NonWorkingDate;
 use Config;
 use Auth;
 use Route;
@@ -60,29 +61,38 @@ class TicketController extends Controller
     
     public function add(Request $request){
         $session = $request->session()->all();
+        $objEmployee = new Employee();
+        $userid = $this->loginUser->id;
+        $companyId = Company::select('id')->where('user_id', $userid)->first();
+        $employee_list = $objEmployee->getEmployeeList($companyId->id);
 
         if ($request->isMethod('post')) {
-            $objTicket = new Ticket();
-            $result = $objTicket->saveTicket($request);
-            if($result) {
-                $return['status'] = 'success';
-                $return['message'] = 'Ticket created successfully.';
-                $return['redirect'] = route('ticket-list');
-            } else {
+            $objNonWorkingDate = new NonWorkingDate();
+            $resultNonWorkingDate = $objNonWorkingDate->getCompanyNonWorkingDateArrayList($companyId->id);
+            // print_r($resultNonWorkingDate);
+            //  $dateaa=date('Y-m-d', strtotime($request->input('due_date')));
+            // exit;
+            
+            if(in_array(date('Y-m-d',strtotime($request->input('due_date'))), $resultNonWorkingDate)) {
                 $return['status'] = 'error';
-                $return['message'] = 'Something will be wrong.';
+                $return['message'] = $request->input('due_date'). ' is Non Working Date';
+            }else{
+                $objTicket = new Ticket();
+                $result = $objTicket->saveTicket($request);
+                if($result) {
+                    $return['status'] = 'success';
+                    $return['message'] = 'Ticket created successfully.';
+                    $return['redirect'] = route('ticket-list');
+                } else {
+                    $return['status'] = 'error';
+                    $return['message'] = 'Something will be wrong.';
+                }
             }
 
             echo json_encode($return);
             exit;
         }
 
-        $objEmployee = new Employee();
-        $userid = $this->loginUser->id;
-        $companyId = Company::select('id')->where('user_id', $userid)->first();
-        $employee_list = $objEmployee->getEmployeeList($companyId->id);
-
-        $session = $request->session()->all();
         $data['employee_list'] = $employee_list;
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/ticket.js', 'jquery.form.min.js');

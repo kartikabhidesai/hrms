@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Announcement;
 use App\Model\Company;
+use App\Model\NonWorkingDate;
 use Auth;
 use Config;
 
@@ -49,15 +50,24 @@ class AnnouncementController extends Controller {
             $userData = Auth::guard('company')->user();
             $getAuthCompanyId = Company::where('email', $userData->email)->first();
             $logedcompanyId = $getAuthCompanyId->id;
-            $result = $objAnnoucement->addAnnouncementData($request, $logedcompanyId);
 
-            if ($result) {
-                $return['status'] = 'success';
-                $return['message'] = 'Annoucement Add Successfully.';
-                $return['redirect'] = route('announcement');
-            } else {
+            $objNonWorkingDate = new NonWorkingDate();
+            $resultNonWorkingDate = $objNonWorkingDate->getCompanyNonWorkingDateArrayList($logedcompanyId);
+           
+            if(in_array(date('Y-m-d',strtotime($request->input('start_date'))), $resultNonWorkingDate)) {
                 $return['status'] = 'error';
-                $return['message'] = 'Something went wrong!';
+                $return['message'] = $request->input('start_date'). ' is Non Working Date';
+            }else{
+                $result = $objAnnoucement->addAnnouncementData($request, $logedcompanyId);
+
+                if ($result) {
+                    $return['status'] = 'success';
+                    $return['message'] = 'Annoucement Add Successfully.';
+                    $return['redirect'] = route('announcement');
+                } else {
+                    $return['status'] = 'error';
+                    $return['message'] = 'Something went wrong!';
+                }
             }
             echo json_encode($return);
             exit;
