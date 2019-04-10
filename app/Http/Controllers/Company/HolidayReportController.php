@@ -34,7 +34,7 @@ class HolidayReportController extends Controller {
         if ($request->isMethod('post')) {
             $postData = $request->input();
             $empArray = $postData['emparray'];
-
+// print_r($postData);exit;
             if( $postData['emp_id'] == 'All' && $postData['dept_id'] == 'All'){
                 $objHolidayReport = new HolidayReport();
                 $ticketArr = $objHolidayReport->getAllEmployeeForHoliday($companyId->id);        
@@ -49,7 +49,6 @@ class HolidayReportController extends Controller {
                 if(empty($postData['downloadstatus'])){
                     $employeeArr = $objHolidayReport->addHolidayReport($postData,$value);    
                 }
-                
                 $employeeArr = $objHolidayReport->getHolidayReportPdfDetail($postData,$value);  
                 foreach ($employeeArr as $key => $value) {
                         if(!empty($employeeArr)){
@@ -57,8 +56,8 @@ class HolidayReportController extends Controller {
                         }
                     }
                 }
-            //     echo '<pre/>';
-            // print_r($dataPdf);exit;
+                echo '<pre/>';
+            print_r($dataPdf);exit;
             if(count($dataPdf) > 0){
                 $data['empPdfArray'] = $dataPdf;
                 $file= date('dmYHis')."holiday-report.pdf";
