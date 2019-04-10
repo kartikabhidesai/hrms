@@ -160,5 +160,6 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
     Route::match(['get', 'post'], 'client-report-ajaxAction', ['as' => 'client-report-ajaxAction', 'uses' => 'Company\ClientReportController@ajaxAction']);
     Route::match(['get', 'post'], 'transaction-report', ['as' => 'transaction-report', 'uses' => 'Company\TransactionReportController@index']);
     Route::match(['get', 'post'], 'holiday-report', ['as' => 'holiday-report', 'uses' => 'Company\HolidayReportController@index']);
+    Route::match(['get', 'post'], 'holiday-report-ajaxAction', ['as' => 'holiday-report-ajaxAction', 'uses' => 'Company\HolidayReportController@ajaxAction']);
 
 });

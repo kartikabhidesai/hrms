@@ -10,6 +10,7 @@ use App\Model\Company;
 use App\Model\Department;
 use App\Model\Employee;
 use App\Model\TicketReport;
+use App\Model\HolidayReport;
 use Auth;
 use Route;
 use APP;
@@ -32,32 +33,44 @@ class HolidayReportController extends Controller {
         $dataPdf = array();
         if ($request->isMethod('post')) {
             $postData = $request->input();
-            // print_r($postData);exit;
             $empArray = $postData['emparray'];
-            $empEmplodeArray = explode(',', $empArray);
+
+            if( $postData['emp_id'] == 'All' && $postData['dept_id'] == 'All'){
+                $objHolidayReport = new HolidayReport();
+                $ticketArr = $objHolidayReport->getAllEmployeeForHoliday($companyId->id);        
+                $empEmplodeArray = explode(',', $ticketArr[0]['empId']);
+            }else{
+                $empArray = $postData['emparray'];    
+                $empEmplodeArray = explode(',', $empArray);
+            }
+
             foreach ($empEmplodeArray as $key => $value) {
-                $objTicketReport = new TicketReport();
+                $objHolidayReport = new HolidayReport();
                 if(empty($postData['downloadstatus'])){
-                    $employeeArr = $objTicketReport->addTicketReport($postData,$value);    
+                    $employeeArr = $objHolidayReport->addHolidayReport($postData,$value);    
                 }
                 
-                $employeeArr = $objTicketReport->getTicketReportPdfDetail($postData,$value);  
-                    if(!empty($employeeArr)){
-                        $dataPdf[] = $employeeArr[0];
+                $employeeArr = $objHolidayReport->getHolidayReportPdfDetail($postData,$value);  
+                foreach ($employeeArr as $key => $value) {
+                        if(!empty($employeeArr)){
+                            $dataPdf[] = $value;
+                        }
                     }
                 }
-            }
+            //     echo '<pre/>';
             // print_r($dataPdf);exit;
             if(count($dataPdf) > 0){
                 $data['empPdfArray'] = $dataPdf;
-                $file= date('dmYHis')."ticket-system.pdf";
-                $pdf = PDF::loadView('company.ticket-report.ticket-pdf', $data);
+                $file= date('dmYHis')."holiday-report.pdf";
+                $pdf = PDF::loadView('company.holiday-report.holiday-pdf', $data);
                 return $pdf->download($file);    
             }
+            }
 
-        $objTicketReport = new TicketReport();
-        $data['ticketSystemArray'] = $objTicketReport->getTicketSystemData();
-        
+
+        $objHolidayReport = new HolidayReport();
+        $data['holidayArray'] = $objHolidayReport->getHolidaySystemData();
+        // print_r($data['holidayArray']);exit;
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/holiday_report.js');
         $data['funinit'] = array('HolidayReport.init()');
@@ -69,6 +82,35 @@ class HolidayReportController extends Controller {
                 'Report List' => route("report-list"),
                 'Holiday Report' => 'holiday-report'));
         return view('company.holiday-report.holiday-report', $data);
+    }
+
+     public function ajaxAction(Request $request) {
+        $action = $request->input('action');
+        switch ($action) {
+            case'deleteHoliday':
+                $result = $this->deleteHoliday($request->input('data'));
+                break;
+        }
+    }
+
+    public function deleteHoliday($postData) {
+        if ($postData) {
+            $findAnnounmnt = HolidayReport::where('id', $postData['id'])->first();
+            $result = $findAnnounmnt->delete();
+            if ($result) {
+                $return['status'] = 'success';
+                $return['message'] = 'Record deleted successfully.';
+                $return['jscode'] = "setTimeout(function(){
+                        $('#deleteModel').modal('hide');
+                        location.reload();
+                    },1000)";
+            } else {
+                $return['status'] = 'error';
+                $return['message'] = 'Something will be wrong.';
+            }
+            echo json_encode($return);
+            exit;
+        }
     }
 
 }

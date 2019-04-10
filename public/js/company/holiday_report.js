@@ -25,7 +25,6 @@ var HolidayReport = function () {
         $('body').on('click','.downloadPdf',function(){
             var emp_id = $('.emp_id').val();
             var dept_id = $('.dept_id').val();
-            
             if(!emp_id && !dept_id) {
                 alert('Please select any Employee OR Department!');
                 return false;
@@ -38,7 +37,9 @@ var HolidayReport = function () {
             
             if(emp_id != '' && dept_id != '') {
                 var arrEmp = [];
-                if (emp_id == 'All') {
+                if (emp_id == 'All' && dept_id == 'All') {
+                    $('#ticketSystem').submit()
+                }else if (emp_id == 'All') {
                     $("#emp_id > option").each(function() {
                         if(this.value > 0){
                             arrEmp.push(this.value);    
@@ -133,8 +134,8 @@ var HolidayReport = function () {
                 headers: {
                     'X-CSRF-TOKEN': $('input[name="_token"]').val(),
                 },
-                url: baseurl + "company/ticket-report-ajaxAction",
-                data: {'action': 'deleteTicketSystem', 'data': data},
+                url: baseurl + "company/holiday-report-ajaxAction",
+                data: {'action': 'deleteHoliday', 'data': data},
                 success: function (data) {
                     handleAjaxResponse(data);
                 }
