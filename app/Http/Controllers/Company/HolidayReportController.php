@@ -56,8 +56,8 @@ class HolidayReportController extends Controller {
                         }
                     }
                 }
-                echo '<pre/>';
-            print_r($dataPdf);exit;
+            //     echo '<pre/>';
+            // print_r($dataPdf);exit;
             if(count($dataPdf) > 0){
                 $data['empPdfArray'] = $dataPdf;
                 $file= date('dmYHis')."holiday-report.pdf";
