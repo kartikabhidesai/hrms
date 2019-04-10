@@ -62,7 +62,7 @@
                         <td>  {{ (!empty($employeeArr['end_date'])) ?  date('d-m-Y',strtotime($employeeArr['end_date'])) : 'N/A' }}</td>
                         <td>  {{ (!empty($employeeArr['from_date'])) ?  date('d-m-Y',strtotime($employeeArr['from_date'])) : 'N/A' }}</td>
                         <td>  {{ (!empty($employeeArr['to_date'])) ?  date('d-m-Y',strtotime($employeeArr['to_date'])) : 'N/A' }}</td>
-                        <td>  {{ (!empty($employeeArr['reason'])) ?  date('d-m-Y',strtotime($employeeArr['reason'])) : 'N/A' }}</td>
+                        <td>  {{ $employeeArr['reason'] }}</td>
                     </tr>  
                 </tbody>
             </table>
