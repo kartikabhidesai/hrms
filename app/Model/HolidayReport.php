@@ -61,14 +61,15 @@ class HolidayReport extends Model {
     public function getHolidayReportPdfDetail($postData, $id)
     {
         $result = AttendanceHistory::select('attendance_history.*','holiday_report.id as holiday_report_id','holiday_report.holiday_report_number','holiday_report.download_date','employee.id as emp_id', 'employee.name as empName', 'comapnies.company_name','leaves.start_date', 'leaves.end_date', 'leaves.type_of_req_id', 'department.department_name', 'time_change_requests.request_type', 'time_change_requests.from_date', 'time_change_requests.to_date','leaves.reason')
-                ->leftjoin('holiday_report', 'holiday_report.employee_id', '=', 'attendance_history.employee_id')
-                ->leftjoin('employee', 'employee.id', '=', 'attendance_history.employee_id')
-                ->leftjoin('department','department.id', '=', 'employee.department' )
+                ->join('holiday_report', 'holiday_report.employee_id', '=', 'attendance_history.employee_id')
+                ->join('employee', 'employee.id', '=', 'attendance_history.employee_id')
+                ->join('department','department.id', '=', 'employee.department' )
                 ->leftjoin('comapnies', 'comapnies.id', '=', 'employee.company_id')
                 ->leftjoin('tickets', 'tickets.assign_to', '=', 'attendance_history.employee_id')
                 ->leftjoin('time_change_requests', 'attendance_history.time_change_request_id', '=', 'time_change_requests.id')
                 ->leftjoin('leaves', 'attendance_history.leave_id', '=', 'leaves.id')
                 ->where('attendance_history.employee_id', $id)
+                ->groupBy('attendance_history.id')
                 ->get()->toArray();
         return $result;
     }
