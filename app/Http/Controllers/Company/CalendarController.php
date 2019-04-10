@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\CalendarEvent;
 use App\Model\Company;
+use App\Model\NonWorkingDate;
 use Auth;
 use Route;
 
@@ -41,17 +42,25 @@ class CalendarController extends Controller
         
         switch ($action) {
             case 'addNewEvent':
-                $objNewEvent = new CalendarEvent();
-                $newEvent = $objNewEvent->addNewEvent($request, $companyId->id);
+                $objNonWorkingDate = new NonWorkingDate();
+                $resultNonWorkingDate = $objNonWorkingDate->getCompanyNonWorkingDateArrayList($companyId->id);
+            
+                if(in_array(date('Y-m-d',strtotime($request->date)), $resultNonWorkingDate)) {
+                    $return['status'] = 'error';
+                    $return['message'] = $request->date. ' is Non Working Date';
+                }else{
+                    $objNewEvent = new CalendarEvent();
+                    $newEvent = $objNewEvent->addNewEvent($request, $companyId->id);
 
-                if ($newEvent) {
-	                $return['status'] = 'success';
-	                $return['message'] = 'New Event created successfully.';
-	                $return['redirect'] = route('calendar');
-	            } else {
-	                $return['status'] = 'error';
-	                $return['message'] = 'Something went wrong while creating new Event!';
-	            }
+                    if ($newEvent) {
+                        $return['status'] = 'success';
+                        $return['message'] = 'New Event created successfully.';
+                        $return['redirect'] = route('calendar');
+                    } else {
+                        $return['status'] = 'error';
+                        $return['message'] = 'Something went wrong while creating new Event!';
+                    }
+                }
                 echo json_encode($return);
             exit;
             break;
