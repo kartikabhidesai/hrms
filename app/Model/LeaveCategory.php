@@ -11,35 +11,66 @@ use App\Model\Sendmail;
 use App\Model\Company;
 use App\Model\TypeOfRequest;
 use App\Model\AttendanceHistory;
+use App\Model\ExperiencBased;
 use Config;
 
 class LeaveCategory extends Model {
 
     protected $table = 'leave_categories';
-
+    protected $fillable = ['company_id','leave_cat_name','type','leave_unit','description','applicable_for','role','work_location','gender','marital_status','period','for_employee_type','leave_count','created_at','updated_at'];
+   
     public function addnewleaveCategory($request,$cmp_id) {
         // echo "<pre>as"; print_r($cmp_id); print_r($request->toArray()); exit();
-        $objLeave = new LeaveCategory();
-        $objLeave->company_id = $cmp_id; 
-        $objLeave->leave_cat_name = $request->input('leave_cat_name');
-        $objLeave->type = $request->input('type');
-        $objLeave->leave_unit = $request->input('leave_unit');
-        $objLeave->description = $request->input('description');
-        $objLeave->applicable_for = $request->input('applicable_for');
-        $objLeave->work_location = $request->input('work_location');
-        $objLeave->role = $request->input('role');
-        $objLeave->gender = $request->input('gender');
-        $objLeave->marital_status = $request->input('marital_status');
-        $objLeave->period = $request->input('period');
-        $objLeave->for_employee_type = $request->input('for_employee_type');
-        $objLeave->leave_count = $request->input('leave_count');
-        $objLeave->created_at = date('Y-m-d H:i:s');
-        $objLeave->updated_at = date('Y-m-d H:i:s');
-        $objLeave->save();
-
-        return TRUE;
+        $id = DB::table('leave_categories')->insertGetId(
+            [
+            "company_id" => $cmp_id,
+            "leave_cat_name" => $request->input('leave_cat_name'),
+            "type" => $request->input('type'),
+            "leave_unit" => $request->input('leave_unit'),
+            "description" => $request->input('description'),
+            "applicable_for" => $request->input('applicable_for'),
+            "work_location" => $request->input('work_location'),
+            "role" => $request->input('role'),
+            "gender" => $request->input('gender'),
+            "marital_status" => $request->input('marital_status'),
+            "period" => $request->input('period'),
+            "for_employee_type" => $request->input('for_employee_type'),
+            "leave_count" => $request->input('leave_count'),
+            "created_at" => date('Y-m-d H:i:s'),
+            "updated_at" => date('Y-m-d H:i:s')]
+        );
+        
+        if($id){
+            if($request->input('for_employee_type') == "experience_base"){
+               for($i=0;$i<count($request->input('expriances'));$i++){
+                 $id = DB::table('exprience_basd_leave_count')->insertGetId(
+                    [
+                        "leave_categories_id"=>$id,
+                        "employee_type"=>$request->input('expriances')[$i],
+                        "name"=>$request->input('entitlement_name')[$i],
+                        "year"=>$request->input('year')[$i],
+                        "month"=>$request->input('month')[$i],
+                        "created_at" => date('Y-m-d H:i:s'),
+                        "updated_at" => date('Y-m-d H:i:s')
+                    ]); 
+                 
+               } 
+               return true;
+            }else{
+                return true;
+            }
+        }else{
+            return false;
+        }
+        
     }
     
+    public function leaveDetails($id){
+        $query = LeaveCategory::from('leave_categories')
+                ->where('leave_categories.id',$id)
+                ->select('leave_categories.*')->get();
+        return $query;
+    }   
 
     public function getleaveCategoryList($request, $companyId) {
         $requestData = $_REQUEST;
@@ -52,6 +83,7 @@ class LeaveCategory extends Model {
             'applicable_for',
             'gender',
             'marital_status',
+            'action'
         );
         $query = LeaveCategory::from('leave_categories')
                 ->where('company_id',$companyId);
@@ -79,7 +111,7 @@ class LeaveCategory extends Model {
         }
 
         $temp = $query->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir']);
-
+        
         $totalData = count($temp->get());
         $totalFiltered = count($temp->get());
 
@@ -90,7 +122,7 @@ class LeaveCategory extends Model {
 
         foreach ($resultArr as $row) {
 //           $actionHtml = $request->input('gender');
-           $actionHtml = '<a href="' . route('edit-leave', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
+            $actionHtml = '<a href="' . route('edit-category-leave', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
             $actionHtml .= '<a href="#deleteModel" data-toggle="modal" data-id="'.$row['id'].'" class="link-black text-sm leaveDelete" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';
             $nestedData = array();
             $nestedData[] = $row["leave_cat_name"];
@@ -100,7 +132,7 @@ class LeaveCategory extends Model {
             $nestedData[] = $row["applicable_for"];
             $nestedData[] = $row["gender"];
             $nestedData[] = $row["marital_status"];
-            // $nestedData[] = $actionHtml;
+             $nestedData[] = $actionHtml;
             $data[] = $nestedData;
         }
        // echo "<pre>";print_r($data);exit;
@@ -113,4 +145,49 @@ class LeaveCategory extends Model {
         );
         return $json_data;
     }
+    
+    public function editnewleaveCategory($request){
+        $id = DB::table('leave_categories')
+                ->where('id',$request['editId'])
+                ->update(
+                    [
+                    "leave_cat_name" => $request->input('leave_cat_name'),
+                    "type" => $request->input('type'),
+                    "leave_unit" => $request->input('leave_unit'),
+                    "description" => $request->input('description'),
+                    "applicable_for" => $request->input('applicable_for'),
+                    "work_location" => $request->input('work_location'),
+                    "role" => $request->input('role'),
+                    "gender" => $request->input('gender'),
+                    "marital_status" => $request->input('marital_status'),
+                    "period" => $request->input('period'),
+                    "for_employee_type" => $request->input('for_employee_type'),
+                    "leave_count" => $request->input('leave_count'),
+                    "updated_at" => date('Y-m-d H:i:s')]
+                );
+                if($id){
+                    $deletResult = DB::table('exprience_basd_leave_count')->where('leave_categories_id',$request['editId'])->delete();
+                    if($request->input('for_employee_type') == "experience_base"){
+                    for($i=0;$i<count($request->input('expriances'));$i++){
+                        $id = DB::table('exprience_basd_leave_count')->insertGetId(
+                           [
+                               "leave_categories_id"=>$id,
+                               "employee_type"=>$request->input('expriances')[$i],
+                               "name"=>$request->input('entitlement_name')[$i],
+                               "year"=>$request->input('year')[$i],
+                               "month"=>$request->input('month')[$i],
+                               "created_at" => date('Y-m-d H:i:s'),
+                               "updated_at" => date('Y-m-d H:i:s')
+                           ]); 
+                        
+                    }
+                    return true;
+                    }else{
+                        return true;
+                    } 
+                }else{
+                    return false;
+                }
+    }
 }
+?>

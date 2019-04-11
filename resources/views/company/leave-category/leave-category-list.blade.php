@@ -24,7 +24,7 @@
                                     <th>Applicable For</th>
                                     <th>Gender</th>
                                     <th>Marital Status</th>
-                                    <!-- <th>Action</th> -->
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>

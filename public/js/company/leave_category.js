@@ -34,7 +34,7 @@ var LeaveCategory = function () {
             marital_status: {required: true},
             period: {required: true},
             for_employee_type: {required: true},
-            leave_count: {required: true}
+            leave_count: {required: true},
 
         };
         handleFormValidate(form, rules, function (form) {
@@ -47,7 +47,30 @@ var LeaveCategory = function () {
     }
 
 
+    var editLeaveCategory=function(){
+        var form = $('#editLeaveCategoryType');
+        var rules = {
+            leave_cat_name: {required: true},
+            type: {required: true},
+            leave_unit: {required: true},
+            applicable_for: {required: true},
+            role: {required: true},
+            work_location: {required: true},
+            gender: {required: true},
+            marital_status: {required: true},
+            period: {required: true},
+            for_employee_type: {required: true},
+            leave_count: {required: true},
 
+        };
+        handleFormValidate(form, rules, function (form) {
+            handleAjaxFormSubmit(form, true);
+        });
+        
+        getRoleList();
+        getWorkLocationList();
+        getPeriodList();
+    };
     $('body').on('click', '.addRole', function () {
         var form = $('#addRole');
         var rules = {
@@ -141,8 +164,6 @@ var LeaveCategory = function () {
             data: {'action': 'getRoleCompanyList'},
             success: function (data) {
                 var output = JSON.parse(data);
-                //$('#role').empty();
-
                 $.each(output, function (key, value) {
                     $('#role')
                             .append($("<option></option>")
@@ -217,7 +238,35 @@ var LeaveCategory = function () {
         
         $('body').on('click','.addnewHTML',function (){
             
-             var new_HTML='<div class="col-lg-2"></div>'+'<div class="col-lg-10 removediv" style="padding-bottom: 15px;">'+'<div class="col-lg-2">'+'<select class="form-control" name="period" id="period">'+'<option value="">Select</option>'+''+'</select>'+'</div>'+'<div class="col-lg-2">'+'<input type="text" class="form-control" name="leave_cat_name" placeholder="Enter Name">'+'</div>'+'<label class="col-lg-1 control-label">Y</label><div class="col-lg-2">'+'<input type="text" class="form-control" name="leave_cat_name" placeholder="Enter Name">'+'</div>'+'<label class="col-lg-1 control-label">M</label>'+'<div class="col-lg-2">'+'<input type="text" class="form-control" name="leave_cat_name" placeholder="Enter Name">'+'</div>'+'<div class="col-lg-2">'+'<button type="button" class="red btn-sm btn-primary removebtn"><i class="fa fa-trash"></i></button>'+'</div>'+'</div>';
+               var new_HTML='<div class="col-lg-12 removediv"><div class="col-lg-2"></div>'+
+                            '<div class="col-lg-10 " style="padding-bottom: 15px;">'+
+                                '<div class="col-lg-3">'+
+                                    '<select class="form-control" name="expriances[]" id="period">'+
+                                        '<option value="">Select Employee type</option>'+
+                                        '<option value="For new joining">For New joining</option>'+
+                                    '</select>'+
+                                '</div>'+
+                                
+                                '<div class="col-lg-2">'+
+                                    '<input type="text" class="form-control" name="entitlement_name[]" placeholder="Enter Name">'+
+                                '</div>'+
+                                
+                                '<label class="col-lg-1 control-label">Y</label>'+
+                                
+                                '<div class="col-lg-2">'+
+                                    '<input type="number" class="form-control" name="year[]" placeholder="Enter Name">'+
+                                '</div>'+
+                                
+                                '<label class="col-lg-1 control-label">M</label>'+
+                                
+                                '<div class="col-lg-2">'+
+                                    '<input type="number" class="form-control" name="month[]" placeholder="Enter Name">'+
+                                '</div>'+
+                                
+                                '<div class="col-lg-1">'+
+                                    '<button type="button" class="red btn-sm btn-primary removebtn"><i class="fa fa-trash"></i></button>'+
+                                '</div>'+
+                            '</div></div>';
                     
            $('.experience_lib').append(new_HTML);
         });
@@ -233,6 +282,10 @@ var LeaveCategory = function () {
         },
         add: function () {
             addNewLeaveCategory();
+            experience_base();
+        },
+        edit: function () {
+            editLeaveCategory();
             experience_base();
         },
     }
