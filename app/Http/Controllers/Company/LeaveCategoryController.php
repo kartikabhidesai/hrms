@@ -88,7 +88,7 @@ class LeaveCategoryController extends Controller {
                 }
                 echo json_encode($return);
                 break;
-
+            
 
             case 'getRoleCompanyList':
                 $userID = $this->loginUser->id;
@@ -104,12 +104,30 @@ class LeaveCategoryController extends Controller {
                 $workList = $Obj->getWorkLocationCompanyList($companyId->id);
                 echo json_encode($workList);
                 break;
+            
             case 'getPeriodList':
                 $userID = $this->loginUser->id;
                 $companyId = Company::select('id')->where('user_id', $userID)->first();
                 $Obj = new Period;
                 $PeriodList = $Obj->getPeriodCompanyList($companyId->id);
                 echo json_encode($PeriodList);
+                break;
+            
+            case 'deleteleave':
+                
+                $result = LeaveCategory::where('id', $request->input('data')['id'])->delete();
+                if($result){
+                    $resultNew = ExperiencBased::where('leave_categories_id', $request->input('data')['id'])->delete();
+                    
+                    $return['status'] = 'success';
+                    $return['message'] = 'Leave categories successfully deleted.';
+                    $return['redirect'] = route('leave-category');
+                    
+                }else{
+                   $return['status'] = 'error';
+                    $return['message'] = 'Somethin went wrong while creating new role!'; 
+                }
+                echo json_encode($return);
                 break;
         }
     }
