@@ -103,6 +103,9 @@
                         <label class="col-lg-2 control-label">Gender:</label>
                         <div class="col-lg-10">
                             <label class="radio-inline">
+                                <input type="radio" name="gender" class="fulltime" value="All" {{ (($leaveDetails[0]['gender'] == "All"))? ' checked="checked"' : '' }}>All
+                            </label>
+                            <label class="radio-inline">
                                 <input type="radio" name="gender" class="fulltime" value="Male" {{ (($leaveDetails[0]['gender'] == "Male"))? ' checked="checked"' : '' }}>Male
                             </label>
                             <label class="radio-inline">
@@ -114,6 +117,9 @@
                     <div class="form-group">
                         <label class="col-lg-2 control-label">Marital Status:</label>
                         <div class="col-lg-10">
+                            <label class="radio-inline">
+                                <input type="radio" name="marital_status" class="fulltime" value="All" {{ (($leaveDetails[0]['marital_status'] == "All"))? ' checked="checked"' : '' }}>All
+                            </label>
                             <label class="radio-inline">
                                 <input type="radio" name="marital_status" class="fulltime" value="Single" {{ (($leaveDetails[0]['marital_status'] == "Single"))? ' checked="checked"' : '' }}>Single
                             </label>

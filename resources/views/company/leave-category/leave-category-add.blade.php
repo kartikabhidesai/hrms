@@ -101,7 +101,10 @@
                         <label class="col-lg-2 control-label">Gender:</label>
                         <div class="col-lg-10">
                             <label class="radio-inline">
-                                <input type="radio" name="gender" class="fulltime" value="Male" checked>Male
+                                <input type="radio" name="gender" class="fulltime" value="All" checked>All
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="gender" class="fulltime" value="Male" >Male
                             </label>
                             <label class="radio-inline">
                                 <input type="radio" name="gender" class="fulltime" value="Female">Female
@@ -113,7 +116,10 @@
                         <label class="col-lg-2 control-label">Marital Status:</label>
                         <div class="col-lg-10">
                             <label class="radio-inline">
-                                <input type="radio" name="marital_status" class="fulltime" value="Single" checked>Single
+                                <input type="radio" name="marital_status" class="fulltime" value="All" checked>All
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="marital_status" class="fulltime" value="Single" >Single
                             </label>
                             <label class="radio-inline">
                                 <input type="radio" name="marital_status" class="fulltime" value="Married">Married
