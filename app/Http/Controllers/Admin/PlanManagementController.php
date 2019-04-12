@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\Company;
+use App\Model\PlanManagement;
+use Auth;
+use Config;
 
 class PlanManagementController extends Controller {
 
@@ -32,13 +36,28 @@ class PlanManagementController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function createPlan() {
-        
+    public function createPlan(Request $request) {
+
+        if ($request->isMethod('post')) {
+            $planObj = new PlanManagement();
+            $result = $planObj->addPlan_Management($request);
+
+            if ($result) {
+                $return['status'] = 'success';
+                $return['message'] = 'plan Add Successfully.';
+                $return['redirect'] = route('plan-management');
+            } else {
+                $return['status'] = 'error';
+                $return['message'] = 'Something went wrong!';
+            }
+            echo json_encode($return);
+            exit;
+        }
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
-        $data['js'] = array('company/systemsetting.js', 'ajaxfileupload.js', 'jquery.form.min.js');
-        $data['funinit'] = array('SysSetting.init()');
+        $data['js'] = array('admin/planmanage.js', 'ajaxfileupload.js', 'jquery.form.min.js');
+        $data['funinit'] = array('Plan.add()');
         $data['css'] = array('');
-        $data['duration'] = array('1'=>'Month','2'=>'3 Month','3'=>'6 Month','4'=>'Year',);
+        $data['duration'] = array('1' => 'Month', '2' => '3 Month', '3' => '6 Month', '4' => 'Year',);
         $data['header'] = array(
             'title' => 'System-Setting',
             'breadcrumb' => array(

@@ -1,4 +1,4 @@
-var Demo = function() {
+var Plan = function() {
     var handleList = function() {
      
         $('body').on('click', '.demoDelete', function() {
@@ -24,25 +24,19 @@ var Demo = function() {
                 }
             });
         });
-      
-        var form = $('#addDemo');
+        dateFormate('.expiry_at');
+
+        var form = $('#addPlan');
         var rules = {
-            first_name: {required: true},
-            last_name: {required: true},
-            demo_pic: {required: true},
+            code: {required: true},
+            expiry_at: {required: true},
+            duration: {required: true},
+            title: {required: true},
         };
         handleFormValidate(form, rules, function(form) {
             handleAjaxFormSubmit(form,true);
         });
-         var form = $('#editDemo');
-        var rules = {
-            first_name: {required: true},
-            last_name: {required: true},
-            
-        };
-        handleFormValidate(form, rules, function(form) {
-            handleAjaxFormSubmit(form,true);
-        });
+       
        
         
        var dataArr = {};
@@ -64,6 +58,9 @@ var Demo = function() {
     }
     return {
         init: function() {
+            handleList();
+        },
+        add: function() {
             handleList();
         }
     }

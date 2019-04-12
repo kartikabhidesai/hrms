@@ -13,7 +13,7 @@
                     </div>
                 </div>
                 <div class="ibox-content">
-                    {{ Form::open( array('method' => 'post', 'class' => 'form-horizontal','files' => true, 'id' => 'addCompany' )) }}
+                    {{ Form::open( array('method' => 'post', 'class' => 'form-horizontal','files' => true, 'id' => 'addPlan' )) }}
 
                     <div class="col-lg-12">
                         <div class="col-lg-6">
@@ -60,108 +60,128 @@
                         </div>
 
                     </div>
-
                     <div class="col-lg-12">
-                        <div class="col-lg-3">
-                            <label class="checkbox-inline"> 
-                                {{ Form::checkbox('hb', 'M', array('class' => 'form-control male' ,'id'=>'male')) }} checkbox1</label>
-                        </div>
-                        <div class="col-lg-3">
-                            <label class="checkbox-inline"> 
-                                {{ Form::checkbox('hb', 'M', array('class' => 'form-control male' ,'id'=>'male')) }} checkbox1</label>
-                        </div>
-                        <div class="col-lg-3">
-                            <label class="checkbox-inline"> 
-                                {{ Form::checkbox('hb', 'M', array('class' => 'form-control male' ,'id'=>'male')) }} checkbox1</label>
-                        </div>
-                        <div class="col-lg-3">
-                            <label class="checkbox-inline"> 
-                                {{ Form::checkbox('hb', 'M', array('class' => 'form-control male' ,'id'=>'male')) }} checkbox1</label>
+                        <div class="col-lg-8">
+                            <h3><b>Plane Feature</b></h3>
                         </div>
                     </div>
                     <div class="col-lg-12">
                         <div class="col-lg-3">
                             <label class="checkbox-inline"> 
-                                {{ Form::checkbox('hb', 'M', array('class' => 'form-control male' ,'id'=>'male')) }} checkbox1</label>
+                                <input type="checkbox"  id="plan_feature" name="plan_feature[]" value="manage_profile">
+                                Manage Profile</label>
                         </div>
                         <div class="col-lg-3">
                             <label class="checkbox-inline"> 
-                                {{ Form::checkbox('hb', 'M', array('class' => 'form-control male' ,'id'=>'male')) }} checkbox1</label>
+                                <input type="checkbox"  id="plan_feature" name="plan_feature[]" value="manage_calender">
+                                Manage Calender</label>
                         </div>
                         <div class="col-lg-3">
                             <label class="checkbox-inline"> 
-                                {{ Form::checkbox('hb', 'M', array('class' => 'form-control male' ,'id'=>'male')) }} checkbox1</label>
+                                <input type="checkbox"  id="plan_feature" name="plan_feature[]" value="attendance_manage">
+                                Attendance Management</label>
                         </div>
                         <div class="col-lg-3">
                             <label class="checkbox-inline"> 
-                                {{ Form::checkbox('hb', 'M', array('class' => 'form-control male' ,'id'=>'male')) }} checkbox1</label>
+                                <input type="checkbox"  id="plan_feature" name="plan_feature[]" value="manage_profile">
+                                Manage Profile</label>
                         </div>
                     </div>
                     <div class="col-lg-12">
                         <div class="col-lg-3">
                             <label class="checkbox-inline"> 
-                                {{ Form::checkbox('hb', 'M', array('class' => 'form-control male' ,'id'=>'male')) }} checkbox1</label>
+                                <input type="checkbox"  id="plan_feature" name="plan_feature[]" value="manage_payroll">
+                                Manage Payroll</label>
                         </div>
                         <div class="col-lg-3">
                             <label class="checkbox-inline"> 
-                                {{ Form::checkbox('hb', 'M', array('class' => 'form-control male' ,'id'=>'male')) }} checkbox1</label>
+                                <input type="checkbox"  id="plan_feature" name="plan_feature[]" value="manage_payroll">
+                                Manage payroll</label>
                         </div>
                         <div class="col-lg-3">
                             <label class="checkbox-inline"> 
-                                {{ Form::checkbox('hb', 'M', array('class' => 'form-control male' ,'id'=>'male')) }} checkbox1</label>
+                                <input type="checkbox"  id="plan_feature" name="plan_feature[]" value="managebankandcash">
+                                Manage Bank And Cash</label>
                         </div>
                         <div class="col-lg-3">
                             <label class="checkbox-inline"> 
-                                {{ Form::checkbox('hb', 'M', array('class' => 'form-control male' ,'id'=>'male')) }} checkbox1</label>
+                                <input type="checkbox"  id="plan_feature" name="plan_feature[]" value="manage_advance_salary">
+                                Manage Advance Salary</label>
                         </div>
                     </div>
                     <div class="col-lg-12">
                         <div class="col-lg-3">
                             <label class="checkbox-inline"> 
-                                {{ Form::checkbox('hb', 'M', array('class' => 'form-control male' ,'id'=>'male')) }} checkbox1</label>
+                                <input type="checkbox"  id="plan_feature" name="plan_feature[]" value="manage_recrutement">
+                                Manage Recrutement</label>
                         </div>
                         <div class="col-lg-3">
                             <label class="checkbox-inline"> 
-                                {{ Form::checkbox('hb', 'M', array('class' => 'form-control male' ,'id'=>'male')) }} checkbox1</label>
+                                <input type="checkbox"  id="plan_feature" name="plan_feature[]" value="manage_performance">
+                                Manage Performance</label>
                         </div>
                         <div class="col-lg-3">
                             <label class="checkbox-inline"> 
-                                {{ Form::checkbox('hb', 'M', array('class' => 'form-control male' ,'id'=>'male')) }} checkbox1</label>
+                                <input type="checkbox"  id="plan_feature" name="plan_feature[]" value="announcement_manage">
+                                Announcement Management</label>
                         </div>
                         <div class="col-lg-3">
                             <label class="checkbox-inline"> 
-                                {{ Form::checkbox('hb', 'M', array('class' => 'form-control male' ,'id'=>'male')) }} checkbox1</label>
+                                <input type="checkbox"  id="plan_feature" name="plan_feature[]" value="manage_task">
+                                Manage Task</label>
                         </div>
                     </div>
                     <div class="col-lg-12">
                         <div class="col-lg-3">
                             <label class="checkbox-inline"> 
-                                {{ Form::checkbox('hb', 'M', array('class' => 'form-control male' ,'id'=>'male')) }} checkbox1</label>
+                                <input type="checkbox"  id="plan_feature" name="plan_feature[]" value="manage_award">
+                                Manage Award</label>
                         </div>
                         <div class="col-lg-3">
                             <label class="checkbox-inline"> 
-                                {{ Form::checkbox('hb', 'M', array('class' => 'form-control male' ,'id'=>'male')) }} checkbox1</label>
+                                <input type="checkbox"  id="plan_feature" name="plan_feature[]" value="manage_client">
+                                Manage Client</label>
                         </div>
                         <div class="col-lg-3">
                             <label class="checkbox-inline"> 
-                                {{ Form::checkbox('hb', 'M', array('class' => 'form-control male' ,'id'=>'male')) }} checkbox1</label>
+                                <input type="checkbox"  id="plan_feature" name="plan_feature[]" value="communication">
+                                Communication</label>
                         </div>
                         <div class="col-lg-3">
                             <label class="checkbox-inline"> 
-                                {{ Form::checkbox('hb', 'M', array('class' => 'form-control male' ,'id'=>'male')) }} checkbox1</label>
+                                <input type="checkbox"  id="plan_feature" name="plan_feature[]" value="manage_report">
+                                Report Management</label>
                         </div>
-                    </div><div class="col-lg-12">
-                        <div class="col-lg-3">
-                            <label class="checkbox-inline"> 
-                                {{ Form::checkbox('hb', 'M', array('class' => 'form-control male' ,'id'=>'male')) }} checkbox1</label>
-                        </div>
-                       
-                       
-                        
                     </div>
-                    
-                    
-
+                    <div class="col-lg-12">
+                        <div class="col-lg-3">
+                            <label class="checkbox-inline"> 
+                                <input type="checkbox"  id="plan_feature" name="plan_feature[]" value="manage_user">
+                                User Manafement</label>
+                        </div>
+                        <div class="col-lg-3">
+                            <label class="checkbox-inline"> 
+                                <input type="checkbox"  id="plan_feature" name="plan_feature[]" value="manage_department">
+                                Department Manage</label>
+                        </div>
+                        <div class="col-lg-3">
+                            <label class="checkbox-inline"> 
+                                <input type="checkbox"  id="plan_feature" name="plan_feature[]" value="setting_manage">
+                                Manage setting</label>
+                        </div>
+                        <div class="col-lg-3">
+                            <label class="checkbox-inline"> 
+                                <input type="checkbox"  id="plan_feature" name="plan_feature[]" value="manage_chat">
+                                Manage chat</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="col-lg-3">
+                            <label class="checkbox-inline"> 
+                                <input type="checkbox"  id="plan_feature" name="plan_feature[]" value="user_profile">
+                                user Profile</label>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <div class="col-lg-offset-8 col-lg-4">
                             <button class="btn btn-sm btn-primary" type="submit">Save</button>
