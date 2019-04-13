@@ -26,17 +26,15 @@ class ClientReportController extends Controller {
         if ($request->isMethod('post')) 
         {
             $userid = $this->loginUser->id;
-            $companyId = Company::select('id')->where('user_id', $userid)->first();
+            $companyId = Company::select('id','company_name')->where('user_id', $userid)->first();
            
             $clientReportObj = new ClientReport;
             $data['clientReportPdfArray'] = $clientReportObj->getClientReportListPDF($request, $companyId->id);
             
-            if(empty($data['clientReportPdfArray']))
+            if(!empty($data['clientReportPdfArray']))
             {
-
-            }
-            else
-            {
+                $data['company_name'] = $companyId->company_name;
+                   
                 $clientReportObj = new ClientReport;
                 $result = $clientReportObj->addClientReport();     
                 

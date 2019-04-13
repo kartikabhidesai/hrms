@@ -27,42 +27,49 @@ class TicketReportController extends Controller {
         $userid = $session['logindata'][0]['id'];
         $companyId = Company::select('id')->where('user_id', $userid)->first();
         $data['getAllEmpOfCompany'] = Employee::where('company_id', $companyId->id)->get();
-        $data['departments'] = Department::where('company_id', $companyId['id'])->get();
+        $data['departments'] = Department::where('company_id', $companyId->id)->get();
+
         $dataPdf = array();
-        if ($request->isMethod('post')) {
+        if ($request->isMethod('post')) 
+        {
             $postData = $request->input();
-            // print_r($postData);exit;
-            if( $postData['emp_id'] == 'All' && $postData['dept_id'] == 'All'){
-                $objTicketReport = new TicketReport();
-                $ticketArr = $objTicketReport->getAllEmployeeForTicket($companyId->id);        
-                $empEmplodeArray = explode(',', $ticketArr[0]['empId']);
-            }else{
-                $empArray = $postData['emparray'];    
-                $empEmplodeArray = explode(',', $empArray);
-            }
-            foreach ($empEmplodeArray as $key => $value) {
-                $objTicketReport = new TicketReport();
-                if(empty($postData['downloadstatus'])){
-                    $employeeArr = $objTicketReport->addTicketReport($postData,$value,$companyId->id);    
-                    
-                }
-                
-                $employeeArr = $objTicketReport->getTicketReportPdfDetail($postData,$value);  
-                    if(!empty($employeeArr)){
-                        $dataPdf[] = $employeeArr[0];
+
+            $objTicketReport = new TicketReport();
+            $dataPdf = $objTicketReport->generateTicketReport($request,$companyId->id); 
+
+            if(count($dataPdf) > 0){
+
+
+                $final_data = [];
+                foreach ($dataPdf as $key1 => $value1) 
+                {
+                    foreach ($data['getAllEmpOfCompany'] as $key2 => $value2) 
+                    {
+                        if($value1['emp_id'] == $value2->id)
+                        {
+                            $final_data[$value1['emp_id']][] = $value1;
+                        }
                     }
                 }
-            }
-            // print_r($dataPdf);exit;
-            if(count($dataPdf) > 0){
-                $data['empPdfArray'] = $dataPdf;
+
+                // echo "<pre>"; print_r($final_data); exit();
+
+                $objTicketReport = new TicketReport();
+                $addTicketReport = $objTicketReport->addTicketReport($postData,$companyId->id);    
+
+                $data['ticket_report_number'] = $addTicketReport['ticket_report_number'];
+                $data['download_date'] = $addTicketReport['download_date'];
+
+                $data['empPdfArray'] = $final_data;
                 $file= date('dmYHis')."ticket-system.pdf";
                 $pdf = PDF::loadView('company.ticket-report.ticket-pdf', $data);
                 return $pdf->download($file);    
             }
 
+        }
+
         $objTicketReport = new TicketReport();
-        $data['ticketSystemArray'] = $objTicketReport->getTicketReportDetailV2();
+        $data['ticketSystemArray'] = $objTicketReport->getTicketReportList($companyId->id);
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/ticket_report.js');
         $data['funinit'] = array('TicketReport.init()');

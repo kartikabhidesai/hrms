@@ -75,7 +75,7 @@
     <table style="width: 100%; margin-top: 10px;" cellpadding="3" border='1'>
         <tr>
             <td class="light table_field" style="width: 40%;">Company Name : </td>
-            <td class="font-small" style="width: 60%;">{{ @$clientReportPdfArray[$erow][0]['company_name'] }}</td>
+            <td class="font-small" style="width: 60%;">{{ @$company_name }}</td>
         </tr>
     </table>
 
