@@ -38,10 +38,10 @@
         <div class="invoice-box">
             <table width="100%">
                 <tr>
-                    <td >Employee Name  <br/>{{ $employeeArr['empName'] }}</td>
-                    <td >Company Name <br/>{{ $employeeArr['company_name'] }}</td>
-                    <td >Holiday Report Number <br/> {{ $employeeArr['holiday_report_number'] }}</td>
-                    <td >Download Date <br/>{{ $employeeArr['download_date'] }}</td>
+                    <td >Employee Name  <br/>{{ $employeeArr[0]['empName'] }}</td>
+                    <td >Company Name <br/>{{ $employeeArr[0]['company_name'] }}</td>
+                    <td >Holiday Report Number <br/> {{ @$holiday_report_number }}</td>
+                    <td >Download Date <br/>{{ @$download_date }}</td>
                 </tr> 
             </table>
             <br/>
@@ -57,13 +57,15 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach($employeeArr as $key=>$val)
                     <tr>
-                        <td>  {{ (!empty($employeeArr['start_date'])) ?  date('d-m-Y',strtotime($employeeArr['start_date'])) : 'N/A' }}</td>
-                        <td>  {{ (!empty($employeeArr['end_date'])) ?  date('d-m-Y',strtotime($employeeArr['end_date'])) : 'N/A' }}</td>
-                        <td>  {{ (!empty($employeeArr['from_date'])) ?  date('d-m-Y',strtotime($employeeArr['from_date'])) : 'N/A' }}</td>
-                        <td>  {{ (!empty($employeeArr['to_date'])) ?  date('d-m-Y',strtotime($employeeArr['to_date'])) : 'N/A' }}</td>
-                        <td>  {{ $employeeArr['reason'] }}</td>
+                        <td>  {{ (!empty($val['start_date'])) ?  date('d-m-Y',strtotime($val['start_date'])) : 'N/A' }}</td>
+                        <td>  {{ (!empty($val['end_date'])) ?  date('d-m-Y',strtotime($val['end_date'])) : 'N/A' }}</td>
+                        <td>  {{ (!empty($val['from_date'])) ?  date('d-m-Y',strtotime($val['from_date'])) : 'N/A' }}</td>
+                        <td>  {{ (!empty($val['to_date'])) ?  date('d-m-Y',strtotime($val['to_date'])) : 'N/A' }}</td>
+                        <td>  {{ $val['reason'] }}</td>
                     </tr>  
+                    @endforeach
                 </tbody>
             </table>
             <br>
