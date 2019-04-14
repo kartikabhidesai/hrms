@@ -100,6 +100,10 @@ $file_headers = @get_headers($filename);
     <li class="{{ ($currentRoute == 'plan-management' ? 'active' : '') }}">
         <a href="{{ route('plan-management') }}"><i class="fa fa-percent"></i>
             <span class="nav-label">Plan Management</span></a>
+    </li> 
+    <li class="{{ ($currentRoute == 'add-role' || $currentRoute == 'edit-role' || $currentRoute == 'role-list' ? 'active' : '') }}">
+        <a href="{{ route('role-list') }}"><i class="fa  fa-american-sign-language-interpreting"></i>
+            <span class="nav-label">Role</span></a>
     </li>
 
     <!--   <li class="active">

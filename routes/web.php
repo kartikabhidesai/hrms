@@ -103,4 +103,9 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function() {
     Route::match(['get','post'],'plan-management',['as' => 'plan-management','uses'=>'Admin\PlanManagementController@index']);
     Route::match(['get','post'],'add-plan',['as' => 'add-plan','uses'=>'Admin\PlanManagementController@createPlan']);
     
+    Route::match(['get','post'],'add-role',['as' => 'add-role','uses'=>'Admin\RoleController@add']);
+    Route::match(['get','post'],'edit-role/{id}',['as' => 'edit-role','uses'=>'Admin\RoleController@edit']);
+    Route::match(['get','post'],'role-list',['as' => 'role-list','uses'=>'Admin\RoleController@index']);
+    Route::match(['get', 'post'], 'role-ajaxAction', ['as' => 'role-ajaxAction', 'uses' => 'Admin\RoleController@ajaxAction']); 
+
 });
