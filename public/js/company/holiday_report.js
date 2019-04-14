@@ -6,7 +6,7 @@ var HolidayReport = function () {
         
         $('#dept_id').change(function() {
             var dept_id = $('#emp_id option:selected').val();
-            if (dept_id == 'All') {
+            if (dept_id == 'all') {
                 $('#emp_id option').prop('selected', true);
             } else {
                 $('#emp_id option').prop('selected', false);
@@ -37,9 +37,9 @@ var HolidayReport = function () {
             
             if(emp_id != '' && dept_id != '') {
                 var arrEmp = [];
-                if (emp_id == 'All' && dept_id == 'All') {
+                if (emp_id == 'all' && dept_id == 'all') {
                     $('#ticketSystem').submit()
-                }else if (emp_id == 'All') {
+                }else if (emp_id == 'all') {
                     $("#emp_id > option").each(function() {
                         if(this.value > 0){
                             arrEmp.push(this.value);    
@@ -102,7 +102,7 @@ var HolidayReport = function () {
                     if (obj.length == 0) {
                         $('#emp_id').append('<option value="">No Record Found</option>').val('');
                     }else{
-                        $('#emp_id').append('<option value="All">Select All</option>').val('All');
+                        $('#emp_id').append('<option value="all">Select All</option>').val('all');
                     }
                     $.each(obj, function(i, item) {
                         $('#emp_id').append($('<option>', {

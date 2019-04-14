@@ -38,10 +38,10 @@
         <div class="invoice-box">
             <table width="100%">
                 <tr>
-                    <td >Employee Name  <br/>{{ $employeeArr['empName'] }}</td>
-                    <td >Company Name <br/>{{ $employeeArr['company_name'] }}</td>
-                    <td >Ticket Report Number <br/> {{ $employeeArr['ticket_report_number'] }}</td>
-                    <td >Download Date <br/>{{ $employeeArr['download_date'] }}</td>
+                    <td >Employee Name  <br/>{{ @$employeeArr[0]['empName'] }}</td>
+                    <td >Company Name <br/>{{ @$employeeArr[0]['company_name'] }}</td>
+                    <td >Ticket Report Number <br/> {{ @$ticket_report_number }}</td>
+                    <td >Download Date <br/>{{ @$download_date }}</td>
                 </tr> 
             </table>
             <br/>
@@ -58,14 +58,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>  {{ $employeeArr['code'] }}</td>
-                        <td>  {{ $employeeArr['subject'] }}</td>
-                        <td>  {{ $employeeArr['priority'] }}</td>
-                        <td>  {{ $employeeArr['details'] }}</td>
-                        <td>  {{ $employeeArr['created_by'] }}</td>
-                        <td>  {{ $employeeArr['complete_progress'] }}</td>
-                    </tr>  
+                    @foreach($employeeArr as $key=>$val)
+                        <tr>
+                            <td>  {{ $val['code'] }}</td>
+                            <td>  {{ $val['subject'] }}</td>
+                            <td>  {{ $val['priority'] }}</td>
+                            <td>  {{ $val['details'] }}</td>
+                            <td>  {{ $val['created_by'] }}</td>
+                            <td>  {{ $val['complete_progress'] }}</td>
+                        </tr>  
+                    @endforeach
                 </tbody>
             </table>
             <br>
