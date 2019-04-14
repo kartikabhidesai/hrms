@@ -96,7 +96,7 @@ class RoleController extends Controller {
         $data['status'] = Config::get('constants.status');
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('admin/role.js');
-        $data['funinit'] = array('Role.add()');
+        $data['funinit'] = array('Role.edit()');
         $data['css'] = array('');
         $data['header'] = array(
             'title' => 'Role',

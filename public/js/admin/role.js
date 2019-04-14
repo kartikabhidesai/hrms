@@ -43,11 +43,10 @@ var Role = function() {
     };
     
     var editRole=function(){
-        var form = $('#addRole');
+        var form = $('#editRole');
         var rules = {
             user_name: {required: true},
             email: {required: true,email:true},
-            password: {required: true},
             status: {required: true},
             department: {required: true},
             role: {required: true},

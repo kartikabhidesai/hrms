@@ -31,15 +31,14 @@ class AdminRole extends Model {
         return $newAdminRole->save();
     }    
     public function editAdminRole($request){
-        $newAdminRole=new AdminRole();
+        $newAdminRole=  AdminRole::find($request->input('role_id'));
         $newpass = Hash::make($request->input('password'));
         $newAdminRole->user_name=$request->input('user_name');
         $newAdminRole->email=$request->input('email');
-        $newAdminRole->password=$newpass;
+        // $newAdminRole->password=$newpass;
         $newAdminRole->status=$request->input('status');
         $newAdminRole->department=$request->input('department');
         $newAdminRole->role=$request->input('role');
-        $newAdminRole->created_at = date('Y-m-d H:i:s');
         $newAdminRole->updated_at = date('Y-m-d H:i:s');
         return $newAdminRole->save();
     }
