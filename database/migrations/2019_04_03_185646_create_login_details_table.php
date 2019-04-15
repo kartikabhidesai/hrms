@@ -17,7 +17,7 @@ class CreateLoginDetailsTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->dateTime('last_active');
-            $table->timestamps();
+            $table->timestamps(); 
         });
     }
 
