@@ -13,6 +13,7 @@ use App\Model\Company;
 use App\Model\Attendance;
 use App\Model\Designation;
 use App\Model\NonWorkingDate;
+use App\Model\Notification;
 use Config;
 use Auth;
 use Route;
@@ -80,6 +81,14 @@ class TicketController extends Controller
                 $objTicket = new Ticket();
                 $result = $objTicket->saveTicket($request);
                 if($result) {
+
+                    //notification add
+                    $objNotification = new Notification();
+                    $ticketName=$request->input('subject')." is a new ticket.";
+                    $objEmployee = new Employee();
+                    $u_id=$objEmployee->getUseridById($request->input('assign_to'));
+                    $ret = $objNotification->addNotification($u_id,$ticketName);
+
                     $return['status'] = 'success';
                     $return['message'] = 'Ticket created successfully.';
                     $return['redirect'] = route('ticket-list');

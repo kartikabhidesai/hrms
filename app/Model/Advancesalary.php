@@ -381,4 +381,15 @@ class Advancesalary extends Model
         }
         return true;
     } 
+
+    public function getUseridByAdvanceSalaryId($id) {
+        $result = Advancesalary::from('advance_salary_request as advance_salary')
+        ->join('employee as emp' ,'advance_salary.employee_id','=','emp.id')
+        ->select('emp.user_id')->where('advance_salary.id', $id)->get();
+        if (count($result) > 0) {
+            return $result[0]['user_id'];
+        } else {
+            return false;
+        }
+    }
 }

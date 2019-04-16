@@ -512,4 +512,13 @@ class Employee extends Model {
             return null;
         }
     }
+
+    public function getUseridById($id) {
+        $result = Employee::select('user_id')->where('id', $id)->get();
+        if (count($result) > 0) {
+            return $result[0]['user_id'];
+        } else {
+            return false;
+        }
+    }
 }

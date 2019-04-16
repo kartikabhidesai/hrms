@@ -57,6 +57,8 @@ Route::match(['get', 'post'], 'change-password', ['as' => 'change-password', 'us
 Route::match(['get', 'post'], 'update-profile', ['as' => 'update-profile', 'uses' => 'Admin\UpdateProfileController@editProfile']);
 Route::match(['get', 'post'], 'send-mail', ['as' => 'send-mail', 'uses' => 'Admin\SendmailController@sendmail']);
 
+Route::match(['get', 'post'], 'zero-notification-count', ['as' => 'zero-notification-count', 'uses' => 'LoginController@zeroNotificationCount']);
+
 $userPrefix = "";
 	Route::group(['prefix' => $userPrefix, 'middleware' => ['auth']], function() {
 	Route::match(['get', 'post'], 'dashboard', ['as' => 'dashboard', 'uses' => 'UserController@dashboard']);

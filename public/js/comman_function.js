@@ -1012,3 +1012,18 @@ $(function()
     
 });
 /* End manage datatable with Ajax & hide/show column dynamic */
+
+$('body').on('click', '.notification-count', function () {
+    var user_id = $(this).attr('data-id');
+    $.ajax({
+        type: "POST",
+        headers: {
+            'X-CSRF-TOKEN': $('input[name="_tokenNotification"]').val(),
+        },
+        url: baseurl + "zero-notification-count",
+        data: {'user_id': user_id},
+        success: function (data) {
+            
+        }
+    });
+});

@@ -14,6 +14,7 @@ use App\Model\Users;
 use App\Model\OrderInfo;
 use App\Model\OutgoingCalls;
 use App\Model\Chat;
+use App\Model\Notification;
 
 class LoginController extends Controller {
 
@@ -52,49 +53,82 @@ class LoginController extends Controller {
             ]);
 
             if (Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password'), 'type' => 'USER'])) {
+                                
+                $objNotification = new Notification();
+                $notificationList = $objNotification->getNotificationList(Auth::guard('web')->user()->id);
+                $notificationCount = $objNotification->getNotificationCount(Auth::guard('web')->user()->id);
+
                 $loginData = array(
                     'name' => Auth::guard('web')->user()->name,
                     'email' => Auth::guard('web')->user()->email,
                     'type' => Auth::guard('web')->user()->type,
                     'user_image' => Auth::guard('web')->user()->user_image,
-                    'id' => Auth::guard('web')->user()->id
+                    'id' => Auth::guard('web')->user()->id,
+                    'notification_count' => $notificationCount,
+                    'notification_list' => $notificationList,
                 );
+
                 Session::push('logindata', $loginData);
                 $this->insertLoginTime(Auth::guard('web')->user()->id);
                 $request->session()->flash('session_success', 'User Login successfully.');
                 return redirect()->route('user-dashboard');
             } else if (Auth::guard('employee')->attempt(['email' => $request->input('email'), 'password' => $request->input('password'), 'type' => 'EMPLOYEE'])) {
+
+                $objNotification = new Notification();
+                $notificationList = $objNotification->getNotificationList(Auth::guard('employee')->user()->id);
+                $notificationCount = $objNotification->getNotificationCount(Auth::guard('employee')->user()->id);
+
                 $loginData = array(
                     'name' => Auth::guard('employee')->user()->name,
                     'email' => Auth::guard('employee')->user()->email,
                     'type' => Auth::guard('employee')->user()->type,
                     'id' => Auth::guard('employee')->user()->id,
-                    'user_image' => Auth::guard('employee')->user()->user_image
+                    'user_image' => Auth::guard('employee')->user()->user_image,
+                    'notification_count' => $notificationCount,
+                    'notification_list' => $notificationList,
                 );
+                
                 Session::push('logindata', $loginData);
                 $this->insertLoginTime(Auth::guard('employee')->user()->id);
                 $request->session()->flash('session_success', 'Customer Login successfully.');
                 return redirect()->route('employee-dashboard');
             } else if (Auth::guard('company')->attempt(['email' => $request->input('email'), 'password' => $request->input('password'), 'type' => 'COMPANY'])) {
+                
+                $objNotification = new Notification();
+                $notificationList = $objNotification->getNotificationList(Auth::guard('company')->user()->id);
+                $notificationCount = $objNotification->getNotificationCount(Auth::guard('company')->user()->id);
+
                 $loginData = array(
                     'name' => Auth::guard('company')->user()->name,
                     'email' => Auth::guard('company')->user()->email,
                     'type' => Auth::guard('company')->user()->type,
                     'id' => Auth::guard('company')->user()->id,
-                    'user_image' => Auth::guard('company')->user()->user_image
+                    'user_image' => Auth::guard('company')->user()->user_image,
+                    'notification_count' => $notificationCount,
+                    'notification_list' => $notificationList,
                 );
+
                 Session::push('logindata', $loginData);
                 $this->insertLoginTime(Auth::guard('company')->user()->id);
                 $request->session()->flash('session_success', 'Company Login successfully.');
                 return redirect()->route('company-dashboard');
             } else if (Auth::guard('admin')->attempt(['email' => $request->input('email'), 'password' => $request->input('password'), 'type' => 'ADMIN'])) {
+                
+                $objNotification = new Notification();
+                $notificationList = $objNotification->getNotificationList(Auth::guard('admin')->user()->id);
+                $notificationCount = $objNotification->getNotificationCount(Auth::guard('admin')->user()->id);
+                // print_r($notificationList);
+                // exit;
                 $loginData = array(
                     'name' => Auth::guard('admin')->user()->name,
                     'email' => Auth::guard('admin')->user()->email,
                     'type' => Auth::guard('admin')->user()->type,
                     'user_image' => Auth::guard('admin')->user()->user_image,
                     'id' => Auth::guard('admin')->user()->id,
+                    'notification_count' => $notificationCount,
+                    'notification_list' => $notificationList,
                 );
+
                 Session::push('logindata', $loginData);
                 $this->insertLoginTime(Auth::guard('admin')->user()->id);
                 $request->session()->flash('session_success', 'Admin Login successfully.');
@@ -154,6 +188,20 @@ class LoginController extends Controller {
         $data['funinit'] = array('Customer.forgotInit()');
         $data['css'] = array('');
         return view('auth.passwords.forgot-password', $data);
+    }
+
+    public function zeroNotificationCount(Request $request) {
+
+        if ($request->isMethod('post')) {
+            // print_r($request->input());exit;
+            $objNotification = new Notification();
+            $getNotification = $objNotification->zeroNotificationCount($request->input('user_id'));
+            if ($getNotification) {
+                $session['logindata'][0]['notification_count']=0;
+            }
+            return 0; 
+            exit;
+        }
     }
 
 }
