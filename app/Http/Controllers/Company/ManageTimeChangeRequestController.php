@@ -9,6 +9,7 @@ use App\Model\Department;
 use App\Model\Employee;
 use App\Model\Company;
 use App\Model\Attendance;
+use App\Model\Notification;
 use Auth;
 use Route;
 class ManageTimeChangeRequestController extends Controller
@@ -62,6 +63,13 @@ class ManageTimeChangeRequestController extends Controller
                     $objManageList=new ManageTimeChangeRequest();
                     $approveRequest=$objManageList->approveRequest($id);
                     if ($approveRequest) {
+
+                        //notification add                        
+                        $seleryRequestName="Company time change request approved.";
+                        $u_id=$objManageList->getUseridByManageTimeChangeRequestId($id);
+                        $objNotification = new Notification();
+                        $ret = $objNotification->addNotification($u_id,$seleryRequestName);
+                        
                         $return['status'] = 'success';
                         $return['message'] = 'Time chnage request approved';
                         $return['redirect'] = route('time-change-request');
@@ -78,6 +86,13 @@ class ManageTimeChangeRequestController extends Controller
                     $objManageList=new ManageTimeChangeRequest();
                     $disapproveRequest=$objManageList->disapproveRequest($id);
                     if ($disapproveRequest) {
+
+                        //notification add                        
+                        $seleryRequestName="Company time change request rejected.";
+                        $u_id=$objManageList->getUseridByManageTimeChangeRequestId($id);
+                        $objNotification = new Notification();
+                        $ret = $objNotification->addNotification($u_id,$seleryRequestName);
+                        
                         $return['status'] = 'success';
                         $return['message'] = 'Time chnage request rejected';
                         $return['redirect'] = route('time-change-request');
@@ -94,6 +109,18 @@ class ManageTimeChangeRequestController extends Controller
                     $objManageList=new ManageTimeChangeRequest();
                     $disapproveRequest=$objManageList->editStatus($request->input('data'));
                     if ($disapproveRequest) {
+
+                        //notification add  
+                        $postData=$request->input('data');
+                        $status = $postData['status']; 
+                        $employeeArr = $postData['arrEmp'];
+                        foreach ($employeeArr as $key => $value) {  
+                            $seleryRequestName="Company time change request ".$status."ed.";
+                            $u_id=$objManageList->getUseridByManageTimeChangeRequestId($value);
+                            $objNotification = new Notification();
+                            $ret = $objNotification->addNotification($u_id,$seleryRequestName);
+                        }
+
                         $return['status'] = 'success';
                         $return['message'] = 'Status Change successfully.';
                         $return['redirect'] = route('time-change-request');

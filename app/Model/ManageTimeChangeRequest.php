@@ -276,5 +276,16 @@ class ManageTimeChangeRequest extends Model
         return $statusUser;
     }
 
+    public function getUseridByManageTimeChangeRequestId($id) {
+        $result = ManageTimeChangeRequest::from('time_change_requests as time_change')
+        ->join('employee as emp' ,'time_change.employee_id','=','emp.id')
+        ->select('emp.user_id')->where('time_change.id', $id)->get();
+        if (count($result) > 0) {
+            return $result[0]['user_id'];
+        } else {
+            return false;
+        }
+    }
+
 
   }
