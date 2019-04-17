@@ -466,11 +466,15 @@ class Employee extends Model {
     }   
     public function getEmployeeByDept($dept,$company_id='') {
         // echo $dept; echo " - "; echo $company_id; exit;
-        if ($company_id == '' && $dept != 'all' && $dept != '') 
+        if(strtolower($dept) == 'all' && strtolower($company_id) == 'all')
+        {
+            $arrEmployee = Employee::pluck('name', 'id')->toArray();
+        }
+        elseif (($company_id == '' || strtolower($company_id) == 'all') && strtolower($dept) != 'all' && $dept != '') 
         {
             $arrEmployee = Employee::where('department', $dept)->pluck('name', 'id')->toArray();
         }
-        elseif ($company_id != '' && $dept == 'all') 
+        elseif ($company_id != '' && strtolower($company_id) != 'all' && (strtolower($dept) == 'all' || $dept == '')) 
         {
             $arrEmployee = Employee::where('company_id', $company_id)->pluck('name', 'id')->toArray();
         }

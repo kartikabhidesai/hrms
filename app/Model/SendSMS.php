@@ -15,7 +15,7 @@ class SendSMS extends Model
 
     protected $fillable = ['id', 'emp_id', 'company_id', 'message'];
 
-    public function getSMSDatatable($request, $companyId) 
+    public function getSMSDatatable($request, $companyId='') 
     {
         $requestData = $_REQUEST;
         $columns = array(
@@ -51,15 +51,20 @@ class SendSMS extends Model
         $totalData = count($temp->get());
         $totalFiltered = count($temp->get());
 
-        $resultArr = $query->skip($requestData['start'])
-                            ->take($requestData['length'])
-                            ->join('employee', 'send_sms.emp_id', '=', 'employee.id')
-                            ->join('department', 'employee.department', '=', 'department.id')
-                            ->where('send_sms.company_id', $companyId)
-                            ->select('send_sms.id as id', 'employee.name as employee_name', 'send_sms.message as message', 'department.department_name')
-                            ->get();
+        $query->skip($requestData['start'])
+                ->take($requestData['length'])
+                ->join('employee', 'send_sms.emp_id', '=', 'employee.id')
+                ->join('department', 'employee.department', '=', 'department.id');
+                if($companyId != ''){
+                        $query->where('send_sms.company_id', $companyId);
+                    }
+
+        $resultArr = $query->select('send_sms.id as id', 'employee.name as employee_name', 'send_sms.message as message', 'department.department_name')
+                ->get();
 
         $data = array();
+
+        // echo "<pre>qwqw"; print_r($resultArr->toArray()); exit();
 
         foreach ($resultArr as $row) {
             $nestedData = array();
@@ -79,16 +84,16 @@ class SendSMS extends Model
         return $json_data;
     }
 
-       public function sendNewSMS($request, $companyId)
+       public function sendNewSMS($request)
     {
         
         $emp = explode(',', $request->input('emparray'));
         foreach ($emp as $key => $value) {
             // if($request->dept_id) {
+                $temp_emp = Employee::select('company_id')->where('id',$value)->first();
                 $newSMS = new SendSMS();
                 $newSMS->emp_id = $value;
-                $newSMS->company_id = $companyId;
-//                $newSMS->department_id =$request->dept_id;
+                $newSMS->company_id = @$temp_emp->company_id;
                 $newSMS->message = $request->message;
                 $newSMS->created_at = date('Y-m-d H:i:s');
                 $newSMS->updated_at = date('Y-m-d H:i:s');

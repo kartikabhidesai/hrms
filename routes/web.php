@@ -108,4 +108,9 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function() {
     Route::match(['get','post'],'role-list',['as' => 'role-list','uses'=>'Admin\RoleController@index']);
     Route::match(['get', 'post'], 'role-ajaxAction', ['as' => 'role-ajaxAction', 'uses' => 'Admin\RoleController@ajaxAction']); 
 
+    /* Send SMS/messages to admin */
+    Route::match(['get', 'post'], 'sendSMS-ajaxAction', ['as' => 'ajaxAction', 'uses' => 'Admin\SendSMSController@ajaxAction']);
+    Route::match(['get', 'post'], 'sms-list', ['as' => 'sms-list', 'uses' => 'Admin\SendSMSController@smsList']);
+    Route::match(['get', 'post'], 'new-sms', ['as' => 'new-sms', 'uses' => 'Admin\SendSMSController@newSMS']);
+
 });

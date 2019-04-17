@@ -105,6 +105,10 @@ $file_headers = @get_headers($filename);
         <a href="{{ route('role-list') }}"><i class="fa  fa-american-sign-language-interpreting"></i>
             <span class="nav-label">Role</span></a>
     </li>
+    <li class="{{ ($currentRoute == 'sms-list' ? 'active' : '') }} {{ ($currentRoute == 'new-sms' ? 'active' : '') }}">
+        <a href="{{ url('').'/admin/sms-list' }}"><i class="fa fa-envelope"></i>
+            <span class="nav-label">Send SMS</span></a>
+    </li> 
 
     <!--   <li class="active">
           <a href="#"><i class="fa fa-table"></i> <span class="nav-label">Tables</span><span class="fa arrow"></span></a>
