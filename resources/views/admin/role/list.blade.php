@@ -6,7 +6,7 @@
             {{ csrf_field() }}
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Create New Role</h5>
+                    <h5>Role list</h5>
                     <div class="ibox-tools">
                         <a href="{{ route('add-role') }}" class="btn btn-primary dim" ><i class="fa fa-plus">   Create New Role</i></a>
                          
