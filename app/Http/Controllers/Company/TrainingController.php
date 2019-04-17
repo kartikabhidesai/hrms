@@ -8,6 +8,7 @@ use App\Model\Training;
 use App\Model\Company;
 use App\Model\Department;
 use App\Model\TraningEmployeeDepartment;
+use App\Model\Notification;
 use App\User;
 use App\Model\Users;
 use App\Model\Employee;
@@ -47,6 +48,16 @@ class TrainingController extends Controller
             $ret = $objCompany->addTraining($request, $companyId->id);
 
             if ($ret) {
+                $empId = $request->input('employeeid');
+                foreach ($empId as $key => $value) {
+                    //notification add
+                    $objNotification = new Notification();
+                    $trainingName="Company has added a new training.";
+                    $objEmployee = new Employee();
+                    $u_id=$objEmployee->getUseridById($empId[$key]);
+                    $ret = $objNotification->addNotification($u_id,$trainingName);
+                }
+
                 $return['status'] = 'success';
                 $return['message'] = 'Training created successfully.';
                 $return['redirect'] = route('training');

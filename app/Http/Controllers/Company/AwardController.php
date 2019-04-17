@@ -9,6 +9,7 @@ use App\Model\Award;
 use App\Model\Company;
 use App\Model\Employee;
 use App\Model\Department;
+use App\Model\Notification;
 use Auth;
 
 class AwardController extends Controller {
@@ -61,6 +62,14 @@ class AwardController extends Controller {
             $result = $objAward->addAwardData($request, $logedcompanyId);
 
             if ($result) {
+
+                //notification add
+                $objNotification = new Notification();
+                $awardName=$request->input('award')." is a new award.";
+                $objEmployee = new Employee();
+                $u_id=$objEmployee->getUseridById($request->input('employee'));
+                $ret = $objNotification->addNotification($u_id,$awardName);
+
                 $return['status'] = 'success';
                 $return['message'] = 'Award Add Successfully.';
                 $return['redirect'] = route('award-company');

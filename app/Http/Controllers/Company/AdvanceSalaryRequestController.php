@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Model\Payroll;
 use App\Model\Advancesalary;
+use App\Model\Notification;
 use Response;
 use Config;
 use Excel;
@@ -93,6 +94,13 @@ class AdvanceSalaryRequestController extends Controller {
                     $objAdvancesalary=new Advancesalary();
                     $approveRequest=$objAdvancesalary->approveRequest($id);
                     if ($approveRequest) {
+
+                        //notification add                        
+                        $seleryRequestName="Company selery request approved.";
+                        $u_id=$objAdvancesalary->getUseridByAdvanceSalaryId($id);
+                        $objNotification = new Notification();
+                        $ret = $objNotification->addNotification($u_id,$seleryRequestName);
+
                         $return['status'] = 'success';
                         $return['message'] = 'Advance salary request approved';
                         $return['redirect'] = route('campany-advance-salary-request');
@@ -109,6 +117,13 @@ class AdvanceSalaryRequestController extends Controller {
                     $objAdvancesalary=new Advancesalary();
                     $disapproveRequest=$objAdvancesalary->disapproveRequest($id);
                     if ($disapproveRequest) {
+
+                         //notification add                        
+                         $seleryRequestName="Company selery request rejected.";
+                         $u_id=$objAdvancesalary->getUseridByAdvanceSalaryId($id);
+                         $objNotification = new Notification();
+                         $ret = $objNotification->addNotification($u_id,$seleryRequestName);
+
                         $return['status'] = 'success';
                         $return['message'] = 'Advance salary request rejected';
                         $return['redirect'] = route('campany-advance-salary-request');
@@ -124,6 +139,18 @@ class AdvanceSalaryRequestController extends Controller {
                     $objAdvancesalary = new Advancesalary();
                     $disapproveRequest = $objAdvancesalary->changeAdvanceSalaryStatus($request->input('data'));
                     if ($disapproveRequest) {
+
+                        //notification add  
+                        $postData=$request->input('data');
+                        $status = $postData['status']; 
+                        $employeeArr = $postData['arrEmp'];
+                        foreach ($employeeArr as $key => $value) {                      
+                            $seleryRequestName="Company selery request ".$status."ed.";
+                            $u_id=$objAdvancesalary->getUseridByAdvanceSalaryId($value);
+                            $objNotification = new Notification();
+                            $ret = $objNotification->addNotification($u_id,$seleryRequestName);
+                        }
+                        
                         $return['status'] = 'success';
                         $return['message'] = 'Status Changed successfully.';
                         $return['redirect'] = route('campany-advance-salary-request');
