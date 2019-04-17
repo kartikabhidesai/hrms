@@ -186,5 +186,14 @@ class Company extends Model
         $objCompany->save();
         return TRUE;
     }
+
+    public function getUseridById($id) {
+        $result = Company::select('user_id')->where('id', $id)->get();
+        if (count($result) > 0) {
+            return $result[0]['user_id'];
+        } else {
+            return false;
+        }
+    }
     
 }

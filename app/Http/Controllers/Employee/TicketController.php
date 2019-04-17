@@ -13,6 +13,7 @@ use App\Model\Company;
 use App\Model\Attendance;
 use App\Model\NonWorkingDate;
 use App\Model\Designation;
+use App\Model\Notification;
 use Config;
 use Auth;
 use Route;
@@ -29,11 +30,18 @@ class TicketController extends Controller
 
         if ($request->isMethod('post')) {
             $userID = $this->loginUser->id;
-            $empId = Employee::select('id')->where('user_id', $userID)->first();
+            $empId = Employee::select('id','name','company_id')->where('user_id', $userID)->first();
             $objTicket = new Ticket();
         //    print_r($request);exit;
             $res = $objTicket->updateTicketStatusEmp($request, $empId->id);
             if ($res) {
+
+                $ticketRequestName=$empId->name." update the ticket.";
+                $objCompany = new Company();
+                $u_id=$objCompany->getUseridById($empId->company_id);
+                $objNotification = new Notification();
+                $ret = $objNotification->addNotification($u_id,$ticketRequestName);
+
                 $return['status'] = 'success';
                 $return['message'] = 'Ticket status updated successfully.';
                 $return['redirect'] = route('ticket-list-emp');

@@ -8,6 +8,7 @@ use App\Model\Employee;
 use App\Model\Company;
 use App\Model\Communication;
 use App\Model\CommunicationReply;
+use App\Model\Notification;
 use Auth;
 use Response;
 
@@ -76,6 +77,14 @@ class CommunicationController extends Controller
             }
 
             if ($result) {
+                
+                     //notification add
+                    $objNotification = new Notification();
+                    $communicationName="Communication a message is received.";
+                    $objCompany = new Company();
+                    $u_id=$objCompany->getUseridById($empId->company_id);
+                    $ret = $objNotification->addNotification($u_id,$communicationName);
+
                     $return['status'] = 'success';
                     $return['message'] = 'New Communication Email sent successfully.';
                     $return['redirect'] = route('emp-communication');

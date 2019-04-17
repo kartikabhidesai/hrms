@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Model\Payroll;
 use App\Model\Advancesalary;
+use App\Model\Company;
+use App\Model\Notification;
 
 class AdvanceSalaryRequestController extends Controller {
 
@@ -41,11 +43,18 @@ class AdvanceSalaryRequestController extends Controller {
         
         $objEmployee=new Employee();
         $data['empdetails']=$objEmployee->getEmploydetails($logindata['id']);       
-       
+        // print_r($data['empdetails']);exit;
         if ($request->isMethod('post')) {
             $objNewSalaryRequest= new Advancesalary();
             $result=$objNewSalaryRequest->addSalaryRequest($request);
             if ($result) {
+
+                $seleryRequestName=$request->input('emp_name')." selery request you.";
+                $objCompany = new Company();
+                $u_id=$objCompany->getUseridById($data['empdetails'][0]['company_id']);
+                $objNotification = new Notification();
+                $ret = $objNotification->addNotification($u_id,$seleryRequestName);
+
                 $return['status'] = 'success';
                 $return['message'] = 'New Advance Salary  Request created successfully.';
                 $return['redirect'] = route('advance-salary-request');

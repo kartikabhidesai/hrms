@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Leave;
 use App\Model\Employee;
 use App\Model\Company;
+use App\Model\Notification;
 use App\Model\TypeOfRequest;
 use App\Model\AttendanceHistory;
 use Config;
@@ -50,7 +51,7 @@ class LeaveController extends Controller
         $logindata = $session['logindata'][0];
         $objEmployee=new Employee();
         $empdetails=$objEmployee->getEmploydetails($logindata['id']);
-//        print_r($empdetails);
+    //    print_r($empdetails);exit;
 //        die();
         $data['company_id']=$empdetails[0]->company_id;
         $data['emp_id']=$empdetails[0]->emp_id;
@@ -60,6 +61,13 @@ class LeaveController extends Controller
             $objLeave = new Leave();
             $ret = $objLeave->addnewleave($request);
             if ($ret) {
+
+                $leaveRequestName=$empdetails[0]->name." new leave request.";
+                $objCompany = new Company();
+                $u_id=$objCompany->getUseridById($empdetails[0]->company_id);
+                $objNotification = new Notification();
+                $ret = $objNotification->addNotification($u_id,$leaveRequestName);
+
                 $return['status'] = 'success';
                 $return['message'] = 'Leave added successfully.';
                 $return['redirect'] = route('employee-leave');

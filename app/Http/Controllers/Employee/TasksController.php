@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Task;
 use App\Model\Employee;
+use App\Model\Company;
+use App\Model\Notification;
 use File;
 use Config;
 
@@ -20,13 +22,20 @@ class TasksController extends Controller {
 
         if ($request->isMethod('post')) {
             $userID = $this->loginUser->id;
-            $empId = Employee::select('id')->where('user_id', $userID)->first();
+            $empId = Employee::select('id','name','company_id')->where('user_id', $userID)->first();
             $objEmploye = new Task();
             // print_r($request);
             // print_r($empId);
             // exit;
             $res = $objEmploye->updateTaskDetailEmp($request, $empId->id);
             if ($res) {
+
+                $taskRequestName=$empId->name." update the task.";
+                $objCompany = new Company();
+                $u_id=$objCompany->getUseridById($empId->company_id);
+                $objNotification = new Notification();
+                $ret = $objNotification->addNotification($u_id,$taskRequestName);
+
                 $return['status'] = 'success';
                 $return['message'] = 'Task updated successfully.';
                 $return['redirect'] = route('emp-task-list');
