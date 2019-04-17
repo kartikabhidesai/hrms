@@ -26,7 +26,7 @@
                     </div>  
                     <div class="form-group"><label class="col-lg-2 control-label">Password</label>
                         <div class="col-lg-9">
-                            {{ Form::text('password', null, array('class' => 'form-control' ,'required')) }}
+                            {{ Form::password('password',array('placeholder'=>'Password','class' => 'form-control password required','id'=> 'password')) }}
                         </div>
                     </div> 
 
