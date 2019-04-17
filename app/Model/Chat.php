@@ -10,8 +10,8 @@ use Doctrine\DBAL\Driver\SQLSrv\LastInsertId;
 
 class Chat extends Model{
     
-    public function fetch_user($logeduserId){
-       $result = DB::table('users')->where('id',"!=",$logeduserId)->get();
+    public function fetch_user(){
+       $result = DB::table('users')->get();
        return $result;
     }
     

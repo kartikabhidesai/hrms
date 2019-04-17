@@ -96,63 +96,8 @@
 
                                 <div class="users-list">
                                     
-                                    <div class="chat-user">
-                                        <img class="chat-avatar" src="{{ url('img/a4.jpg') }}" alt="">
-                                        <div class="chat-user-name">
-                                            
-                                            <a href="#"></a>
-                                        </div>
-                                    </div>
                                     
-<!--                                    <div class="chat-user">
-                                        <img class="chat-avatar" src="{{ url('img/a1.jpg') }}" alt="" >
-                                        <div class="chat-user-name">
-                                            <a href="#">Monica Smith</a>
-                                        </div>
-                                    </div>
-                                    <div class="chat-user">
-                                        <span class="pull-right label label-primary">Online</span>
-                                        <img class="chat-avatar" src="{{ url('img/a2.jpg') }}" alt="" >
-                                        <div class="chat-user-name">
-                                            <a href="#">Michael Smith</a>
-                                        </div>
-                                    </div>
-                                    <div class="chat-user">
-                                        <span class="pull-right label label-primary">Online</span>
-                                        <img class="chat-avatar" src="{{ url('img/a3.jpg') }}" alt="" >
-                                        <div class="chat-user-name">
-                                            <a href="#">Janet Smith</a>
-                                        </div>
-                                    </div>
-                                    <div class="chat-user">
-                                        <img class="chat-avatar" src="{{ url('img/a5.jpg') }}" alt="" >
-                                        <div class="chat-user-name">
-                                            <a href="#">Alice Smith</a>
-                                        </div>
-                                    </div>
-                                    <div class="chat-user">
-                                        <img class="chat-avatar" src="{{ url('img/a6.jpg') }}" alt="" >
-                                        <div class="chat-user-name">
-                                            <a href="#">Monica Cale</a>
-                                        </div>
-                                    </div>
-                                    <div class="chat-user">
-                                        <img class="chat-avatar" src="{{ url('img/a2.jpg') }}" alt="" >
-                                        <div class="chat-user-name">
-                                            <a href="#">Mark Jordan</a>
-                                        </div>
-                                    </div>
-                                    <div class="chat-user">
-                                        <span class="pull-right label label-primary">Online</span>
-                                        <img class="chat-avatar" src="{{ url('img/a3.jpg') }}" alt="" >
-                                        <div class="chat-user-name">
-                                            <a href="#">Janet Smith</a>
-                                        </div>
-                                    </div>-->
-
-
                                 </div>
-
                             </div>
                         </div>
 
