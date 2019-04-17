@@ -28,7 +28,7 @@ class RoleController extends Controller {
         $data['funinit'] = array('Role.init()');
         $data['css'] = array('');
         $data['header'] = array(
-            'title' => 'Email',
+            'title' => 'Role',
             'breadcrumb' => array(
                 'Home' => route("admin-dashboard"),
                 'Role' => 'Role'));
@@ -39,9 +39,12 @@ class RoleController extends Controller {
         $session = $request->session()->all();
         if($request->isMethod('post')){
             $objEmail=new AdminRole();
-         
             $result=$objEmail->createAdminRole($request);
-            if($result){
+            if($result > 1){
+                $return['status'] = 'error';
+                $return['message'] = 'Email already exists.';
+                // $return['redirect'] = route('role-list');
+            }elseif($result){
                 $return['status'] = 'success';
                 $return['message'] = 'Role created successfully.';
                 $return['redirect'] = route('role-list');
@@ -77,7 +80,11 @@ class RoleController extends Controller {
         if($request->isMethod('post')){
             $objEmail=new AdminRole();
             $result=$objEmail->editAdminRole($request);
-            if($result){
+            if($result > 1){
+                $return['status'] = 'error';
+                $return['message'] = 'Email already exists.';
+                // $return['redirect'] = route('role-list');
+            }elseif($result){
                 $return['status'] = 'success';
                 $return['message'] = 'Role Updated successfully.';
                 $return['redirect'] = route('role-list');
