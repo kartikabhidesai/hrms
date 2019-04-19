@@ -111,9 +111,12 @@ class Communication extends Model
     public function companyEmailsForCommunication($cmpId)
     {
         $getListOfEmailOfCmp = Communication::select('employee.name', 'communication.id', 'communication.employee_id', 'communication.message', 'communication.file', 'communication.is_read', 'communication.subject', 'communication.created_at',DB::raw('"communication" as communication_table'))
-                                        ->join('employee', 'communication.employee_id', '=', 'employee.id')
+                                        ->leftjoin('employee', 'communication.employee_id', '=', 'employee.id')
                                         ->where('communication.company_id', $cmpId)
-                                        ->where('communication.from', 'EMPLOYEE')
+                                        ->where(function($query){
+                                            $query->where('communication.from', 'EMPLOYEE');
+                                            $query->orWhere('communication.from', 'ADMIN');
+                                        })
                                         ->get();
 
         if(count($getListOfEmailOfCmp) > 0) {

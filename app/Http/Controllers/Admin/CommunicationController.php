@@ -106,7 +106,7 @@ class CommunicationController extends Controller
         $data['companyList'] = Company::select('id','company_name')->get();
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('admin/communication.js','ckeditor/ckeditor.js','plugins/summernote/summernote.min.js', 'jquery.form.min.js');
-        $data['funinit'] = array('Communication.init()');
+        $data['funinit'] = array('Communication.compose_mail()');
         $data['css'] = array('plugins/summernote/summernote.css','plugins/summernote/summernote-bs3.css');
         $data['header'] = array(
             'title' => 'Communcation',
