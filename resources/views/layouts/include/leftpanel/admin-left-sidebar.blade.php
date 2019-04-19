@@ -109,6 +109,10 @@ $file_headers = @get_headers($filename);
         <a href="{{ url('').'/admin/sms-list' }}"><i class="fa fa-envelope"></i>
             <span class="nav-label">Send SMS</span></a>
     </li> 
+    <li class="{{ ($currentRoute == 'communication' ? 'active' : '') }} {{ ($currentRoute == 'compose' ? 'active' : '') }} {{ ($currentRoute == 'mail-detail' ? 'active' : '') }} {{ ($currentRoute == 'mail-detail/*' ? 'active' : '') }}">
+        <a href="{{ url('').'/admin/communication' }}"><i class="fa fa-history"></i>
+            <span class="nav-label">Communication</span></a>
+    </li>
 
     <!--   <li class="active">
           <a href="#"><i class="fa fa-table"></i> <span class="nav-label">Tables</span><span class="fa arrow"></span></a>
