@@ -63,7 +63,7 @@ class TicketController extends Controller
         }
 
         $userID = $this->loginUser->id;
-        $empId = Employee::select('id')->where('user_id', $userID)->first();
+        $empId = Employee::select('id','name','company_id')->where('user_id', $userID)->first();
         $objTicketList = new Ticket();
         /*Don't remove this code*/
         /*$data['arrNewCount'] = $objTicketList->getNewTaskCount($companyId->id, 'new');
@@ -104,6 +104,13 @@ class TicketController extends Controller
                 $objTicket = new Ticket();
                 $result = $objTicket->saveTicket($request);
                 if($result) {
+                    
+                    $ticketRequestName=$empId->name." new the ticket.";
+                    $objCompany = new Company();
+                    $u_id=$objCompany->getUseridById($empId->company_id);
+                    $objNotification = new Notification();
+                    $ret = $objNotification->addNotification($u_id,$ticketRequestName);
+
                     $return['status'] = 'success';
                     $return['message'] = 'Ticket created successfully.';
                     $return['redirect'] = route('ticket-list-emp');
