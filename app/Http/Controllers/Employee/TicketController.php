@@ -91,7 +91,7 @@ class TicketController extends Controller
     public function add(Request $request){
         $session = $request->session()->all();
         $userID = $this->loginUser->id;
-        $empId = Employee::select('id','company_id')->where('user_id', $userID)->first();
+        $empId = Employee::select('id','name','company_id')->where('user_id', $userID)->first();
         // $employee_list = $objEmployee->getEmployeeList($companyId->id);
         if ($request->isMethod('post')) {
             $objNonWorkingDate = new NonWorkingDate();
