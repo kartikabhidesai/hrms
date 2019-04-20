@@ -16,6 +16,7 @@ use Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Model\Payroll;
+use App\Model\Notification;
 
 class PayrollController extends Controller {
 
@@ -87,6 +88,16 @@ class PayrollController extends Controller {
                 $return['message'] = 'Payroll Already Exists.';
                 // $return['redirect'] = route('payroll-add',array('id'=> $id));
             } elseif ($ret == 'Added') {
+
+                //notification add
+                $objNotification = new Notification();
+                $objEmployee = new Employee();
+                $empName=$objEmployee->getAllEmployee($id);
+                $payrollName=$empName['name']." is a new information in payroll.";
+                
+                $u_id=$objEmployee->getUseridById($id);
+                $ret = $objNotification->addNotification($u_id,$payrollName);
+                
                 $return['status'] = 'success';
                 $return['message'] = 'Payroll added successfully.';
                 $return['redirect'] = route('payroll-emp-detail',array('id'=> $id));
@@ -131,6 +142,16 @@ class PayrollController extends Controller {
                 $return['message'] = 'Payroll Already Exists.';
                 // $return['redirect'] = route('payroll-add',array('id'=> $id));
             }elseif ($ret) {
+
+                //notification add
+                $objNotification = new Notification();
+                $objEmployee = new Employee();
+                $empName=$objEmployee->getAllEmployee($request->input('empId'));
+                $payrollName=$empName['name']." is a update information in payroll.";
+                
+                $u_id=$objEmployee->getUseridById($request->input('empId'));
+                $ret = $objNotification->addNotification($u_id,$payrollName);
+
                 $return['status'] = 'success';
                 $return['message'] = 'Payroll updated successfully.';
                 $return['redirect'] = route('payroll-emp-detail',array('id'=> $request->input('empId')));

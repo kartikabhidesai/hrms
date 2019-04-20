@@ -223,4 +223,10 @@ class Task extends Model {
         }
     }
 
+    public function getTaskNotComplitedList() {
+        $dates=date('Y-m-d');
+        $result = Task::select('task','company_id','id')->where('deadline_date', $dates)->where('task_status','!=', '2')->get()->toArray();
+        return $result;
+    }
+
 }

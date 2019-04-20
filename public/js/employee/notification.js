@@ -15,7 +15,7 @@ var Notification = function () {
 
             var arrList = {
                 'tableID': '#notificationTable',
-                'ajaxURL': baseurl + "company/notification-ajaxAction",
+                'ajaxURL': baseurl + "employee/notification-ajaxAction",
                 'ajaxAction': 'getdatatable',
                 'postData': [],
                 'hideColumnList': [],
@@ -42,14 +42,13 @@ var Notification = function () {
                     headers: {
                         'X-CSRF-TOKEN': $('input[name="_token"]').val(),
                     },
-                    url: baseurl + "company/notification-ajaxAction",
+                    url: baseurl + "employee/notification-ajaxAction",
                     data: {'action': 'deleteNotification', 'data': data},
                     success: function(data) {
                         handleAjaxResponse(data);
                     }
                 });
             });
-
     }
     return {
         init: function () {

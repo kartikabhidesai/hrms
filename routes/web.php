@@ -59,6 +59,10 @@ Route::match(['get', 'post'], 'send-mail', ['as' => 'send-mail', 'uses' => 'Admi
 
 Route::match(['get', 'post'], 'zero-notification-count', ['as' => 'zero-notification-count', 'uses' => 'LoginController@zeroNotificationCount']);
 
+Route::match(['get', 'post'], 'taskExpired', ['as' => 'taskExpired', 'uses' => 'CronController@taskExpired']);
+Route::match(['get', 'post'], 'ticketExpired', ['as' => 'ticketExpired', 'uses' => 'CronController@ticketExpired']);
+Route::match(['get', 'post'], 'recruitment-expire', ['as' => 'recruitment-expire', 'uses' => 'CronController@recruitmentSubmissionExpiry']);
+
 $userPrefix = "";
 	Route::group(['prefix' => $userPrefix, 'middleware' => ['auth']], function() {
 	Route::match(['get', 'post'], 'dashboard', ['as' => 'dashboard', 'uses' => 'UserController@dashboard']);

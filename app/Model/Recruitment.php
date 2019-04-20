@@ -171,4 +171,11 @@ class Recruitment extends Model
         return $arrRecruitment;
     }
 
+    public function getRecruitmentNotComplitedList() {
+        $dates=date('Y-m-d');
+        $days_ago = date('Y-m-d', strtotime('+10 days', strtotime($dates)));
+        $result = Recruitment::select('requirement','company_id','expire_date','id')->whereBetween('expire_date', [$dates, $days_ago])->get()->toArray();
+        return $result;
+    }
+
 }

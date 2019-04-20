@@ -70,5 +70,6 @@ Route::group(['prefix' => $employeePrefix, 'middleware' => ['employee']], functi
 
     Route::match(['get', 'post'], 'employee-sent-notification', ['as' => 'employee-sent-notification', 'uses' => 'Employee\NotificationController@sentNotification']);
     Route::match(['get', 'post'], 'employee-notification-list', ['as' => 'employee-notification-list', 'uses' => 'Employee\NotificationController@notificationList']);
+    Route::match(['get', 'post'], 'notification-ajaxAction', ['as' => 'notification-ajaxAction', 'uses' => 'Employee\NotificationController@ajaxAction']);
 
 });

@@ -254,6 +254,12 @@ class Ticket extends Model
         return $this->hasMany('App\Model\TicketAttachments');
     }
 
+    public function getTicketNotComplitedList() {
+        $dates=date('Y-m-d');
+        $result = Ticket::select('subject','company_id','id')->where('due_date', $dates)->where('status','!=', '2')->get()->toArray();
+        return $result;
+    }
+
     /*public function getNewTaskCount($company_id,$status)
     {
         $statusCount = Ticket::where('company_id', $company_id)
