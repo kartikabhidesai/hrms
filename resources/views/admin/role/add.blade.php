@@ -35,16 +35,30 @@
                             {{ Form::select('status', $status, null, array('class' => 'form-control', 'id' => 'status','required')) }}
                         </div>
                     </div>
-                         
+
                     <div class="form-group"><label class="col-lg-2 control-label">Department</label>
                         <div class="col-lg-9">
                             {{ Form::select('department', $ArrDepartment, null, array('class' => 'form-control', 'id' => 'status','required')) }}
                         </div>
                     </div>
-                      
+<!-- 
                     <div class="form-group"><label class="col-lg-2 control-label">Role</label>
                         <div class="col-lg-9">
                             {{ Form::select('role', $role, null, array('class' => 'form-control', 'id' => 'status','required')) }}
+                        </div>
+                    </div> -->
+
+                    <div class="form-group"><label class="col-lg-2 control-label">Role</label>
+                        <div class="col-lg-9">
+                            @php
+                            $count = 1;
+                            @endphp
+                            @for($i = 0 ;$i < count($masterPermission);$i++,$count++)
+                            <div class="c-choice c-choice--checkbox col-lg-3">
+                                <input class="" value="{{ $masterPermission[$i]->id }}" id="checkbox{{ $count }}" name="checkboxes[]" type="checkbox">
+                                <label class="c-choice__label" for="checkbox{{ $count }}">{{ $masterPermission[$i]->name }}</label>
+                            </div>
+                            @endfor
                         </div>
                     </div>
                     

@@ -45,12 +45,20 @@
                         </div>
                     </div>
                       
-                    <div class="form-group"><label class="col-lg-2 control-label">Role</label>
+                     <div class="form-group"><label class="col-lg-2 control-label">Role</label>
                         <div class="col-lg-9">
-                            {{ Form::select('role', $role, $roleArray['role'], array('class' => 'form-control', 'id' => 'status','required')) }}
+                            @php
+                            $count = 1;
+                            @endphp
+                            @for($i = 0 ;$i < count($masterPermission);$i++,$count++)
+                            <div class="c-choice c-choice--checkbox col-lg-3">
+                                <input class="" value="{{ $masterPermission[$i]->id }}" id="checkbox{{ $count }}" name="checkboxes[]" type="checkbox"  {{ (in_array($masterPermission[$i]->id,$userPermission)) ? 'checked="checked" ' : '' }}>
+                                <label class="c-choice__label" for="checkbox{{ $count }}">{{ $masterPermission[$i]->name }}</label>
+                            </div>
+                            @endfor
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <div class="col-lg-offset-2 col-lg-9">
                             <button class="btn btn-sm btn-primary" type="submit">Save</button>
