@@ -32,7 +32,7 @@
                                     <td>{{ $val['email'] }} </td>
                                     <td>{{ $val['status'] }} </td>
                                     <td>{{ $ArrDepartment[$val['department']] }} </td>
-                                    <td>{{ $role[$val['role']] }} </td>
+                                    <td>-- </td>
                                     <td class="center">
                                         <a href="{{ route('edit-role', $val['id']) }}" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" >
                                                 <i class="fa fa-edit"></i>

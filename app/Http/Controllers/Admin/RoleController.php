@@ -6,6 +6,7 @@ use App\User;
 use App\Model\Users;
 use App\Model\AdminRole;
 use App\Model\Department;
+use App\Model\AdminUserHasPermission;
 use App\Http\Controllers\Controller;
 use Auth;
 use Route;
@@ -14,6 +15,11 @@ use Config;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller {
+
+    public function __construct() {
+        parent::__construct();
+        $this->middleware('admin');
+    }
 
     public function index(Request $request){
         $session = $request->session()->all();
@@ -37,7 +43,11 @@ class RoleController extends Controller {
     
     public function add(Request $request){
         $session = $request->session()->all();
+        $objRoleMaster = new AdminRole();
+        $data['masterPermission'] = $objRoleMaster->getMasterPermisson($request); 
+
         if($request->isMethod('post')){
+            // print_r($request->input());exit;
             $objEmail=new AdminRole();
             $result=$objEmail->createAdminRole($request);
             if($result > 1){
@@ -98,7 +108,17 @@ class RoleController extends Controller {
 
         $objdepartment = new Department();
         $data['ArrDepartment'] =  array('1' => 'test','2' => 'test2' );
-        $data['role'] =  array('1' => 'Customer','2' => 'Agent');
+
+        
+        $adminR = new AdminUserHasPermission();
+        $userPermission = $adminR->getPermission($id);
+        $permission = array();
+        for($i=0; $i<count($userPermission); $i++){
+            $permission[$i] = $userPermission[$i]->permission_id;
+        }
+        $data['userPermission'] = $permission;
+        $objRoleMaster = new AdminRole();
+        $data['masterPermission'] = $objRoleMaster->getMasterPermisson($request); 
 
         $data['status'] = Config::get('constants.status');
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
