@@ -13,12 +13,13 @@
                 </div>
                 <div class="ibox-content">
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover dataTables-plan" id="dataTables-plan">
+                        <table class="table table-striped table-bordered table-hover dataTables-plan" id="plan-management-datatable">
                             <thead>
                                 <tr>
                                     <th>Plan Code</th>
                                     <th>Title</th>
                                     <th>Charge</th>
+                                    <th>Expiration</th>
                                     <th>Plan Duration</th>
                                     <th>Action</th>
                                 </tr>
