@@ -3943,7 +3943,7 @@ code {
   padding: 15px 20px 20px 20px;
   border-color: #e7eaec;
   border-image: none;
-  border-style: solid solid none;
+  /*border-style: solid solid none;*/
   border-width: 1px 0;
 }
 .ibox-footer {

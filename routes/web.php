@@ -128,5 +128,9 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function() {
     Route::match(['get', 'post'], 'mail-detail/{id}', ['uses' => 'Admin\CommunicationController@mailDetail']);
     Route::match(['get', 'post'], 'download-attachment/{file_name}',['uses'=>'Admin\CommunicationController@downloadAttachment']);
     Route::match(['get', 'post'], 'send-mail', ['uses' => 'Admin\CommunicationController@sendMail']);
-
+    
+//    social Medoia Managment
+    Route::match(['get', 'post'], 'social-media', ['uses' => 'Admin\SocialMediaController@index']);
+    Route::match(['get', 'post'], 'manage-account', ['as' => 'manage-account','uses' => 'Admin\SocialMediaController@manageAccount']);
+    Route::match(['get', 'post'], 'new-post', ['as' => 'new-post','uses' => 'Admin\SocialMediaController@newPost']);
 });

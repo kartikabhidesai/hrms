@@ -1,5 +1,6 @@
 @php
 $currentRoute = Route::current()->getName();
+
 $session = Session::all();
 
 if (!empty(Auth()->guard('admin')->user())) {
@@ -57,7 +58,8 @@ $file_headers = @get_headers($filename);
             </li>
             <li class="{{ ($currentRoute == 'list-company'  ? 'active' : '') }} {{ ($currentRoute == 'add-company'  ? 'active' : '') }} {{ ($currentRoute == 'edit-company'  ? 'active' : '') }}">
                 <a href="{{ route('list-company') }}"><i class="fa fa-industry"></i> <span class="nav-label">Company</span></a>
-            </li> <li class="{{ ($currentRoute == 'list-cmspage'  ? 'active' : '') }} {{ ($currentRoute == 'edit-cmspage'  ? 'active' : '') }} {{ ($currentRoute == 'edit-company'  ? 'active' : '') }}">
+            </li> 
+            <li class="{{ ($currentRoute == 'list-cmspage'  ? 'active' : '') }} {{ ($currentRoute == 'edit-cmspage'  ? 'active' : '') }} {{ ($currentRoute == 'edit-company'  ? 'active' : '') }}">
                 <a href="{{ route('list-cmspage') }}"><i class="fa fa-industry"></i> <span class="nav-label">CMS Page</span></a>
             </li>
 
@@ -112,6 +114,11 @@ $file_headers = @get_headers($filename);
     <li class="{{ ($currentRoute == 'communication' ? 'active' : '') }} {{ ($currentRoute == 'compose' ? 'active' : '') }} {{ ($currentRoute == 'mail-detail' ? 'active' : '') }} {{ ($currentRoute == 'mail-detail/*' ? 'active' : '') }}">
         <a href="{{ url('').'/admin/communication' }}"><i class="fa fa-history"></i>
             <span class="nav-label">Communication</span></a>
+    </li>
+    
+     <li class="{{ ($currentRoute == 'social-media'   ? 'active' : '') }} ">
+        <a href="{{ url('').'/admin/social-media' }}"><i class="fa fa-comments"></i>
+            <span class="nav-label">Social Media</span></a>
     </li>
 
     <!--   <li class="active">
