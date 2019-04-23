@@ -22,7 +22,7 @@
                 </div>
             </div>
             <div class="ibox-content">
-                <h2>Coming Soon</h2>
+                <!-- <h2>Coming Soon</h2> -->
                 <div class="table-responsive">
                 <table class="table table-striped table-bordered table-hover dataTables-example" id="notificationTable">
                         <thead>
