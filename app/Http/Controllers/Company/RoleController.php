@@ -61,7 +61,7 @@ class RoleController extends Controller {
             }elseif($result){
                 $return['status'] = 'success';
                 $return['message'] = 'Role created successfully.';
-                $return['redirect'] = route('role-list');
+                $return['redirect'] = route('company-role-list');
             }else{
                 $return['status'] = 'error';
                 $return['message'] = "Something goes to wrong.";
@@ -101,7 +101,7 @@ class RoleController extends Controller {
             }elseif($result){
                 $return['status'] = 'success';
                 $return['message'] = 'Role Updated successfully.';
-                $return['redirect'] = route('role-list');
+                $return['redirect'] = route('company-role-list');
             }else{
                 $return['status'] = 'error';
                 $return['message'] = "Something goes to wrong.";
