@@ -44,7 +44,7 @@ class RoleController extends Controller {
     public function add(Request $request){
         $session = $request->session()->all();
         $objRoleMaster = new AdminRole();
-        $data['masterPermission'] = $objRoleMaster->getMasterPermisson($request); 
+        $data['masterPermission'] = $objRoleMaster->getAdminMasterPermisson($request); 
 
         if($request->isMethod('post')){
             // print_r($request->input());exit;
@@ -118,7 +118,7 @@ class RoleController extends Controller {
         }
         $data['userPermission'] = $permission;
         $objRoleMaster = new AdminRole();
-        $data['masterPermission'] = $objRoleMaster->getMasterPermisson($request); 
+        $data['masterPermission'] = $objRoleMaster->getAdminMasterPermisson($request); 
 
         $data['status'] = Config::get('constants.status');
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');

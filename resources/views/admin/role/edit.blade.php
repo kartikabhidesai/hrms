@@ -38,12 +38,6 @@
                             {{ Form::select('status', $status, $roleArray['status'], array('class' => 'form-control', 'id' => 'status','required')) }}
                         </div>
                     </div>
-                         
-                    <div class="form-group"><label class="col-lg-2 control-label">Department</label>
-                        <div class="col-lg-9">
-                            {{ Form::select('department', $ArrDepartment, $roleArray['department'], array('class' => 'form-control', 'id' => 'status','required')) }}
-                        </div>
-                    </div>
                       
                      <div class="form-group"><label class="col-lg-2 control-label">Role</label>
                         <div class="col-lg-9">

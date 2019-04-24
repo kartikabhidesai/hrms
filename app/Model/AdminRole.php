@@ -28,7 +28,6 @@ class AdminRole extends Model {
             $newAdminRole->email=$request->input('email');
             $newAdminRole->password=$newpass;
             $newAdminRole->status=$request->input('status');
-            $newAdminRole->department=$request->input('department');
             $newAdminRole->created_at = date('Y-m-d H:i:s');
             $newAdminRole->updated_at = date('Y-m-d H:i:s');
             if($newAdminRole->save()){
@@ -58,11 +57,8 @@ class AdminRole extends Model {
             $newpass = Hash::make($request->input('password'));
             $newAdminRole->user_name=$request->input('user_name');
             $newAdminRole->email=$request->input('email');
-            // $newAdminRole->password=$newpass;
             $newAdminRole->status=$request->input('status');
-            $newAdminRole->department=$request->input('department');
             $newAdminRole->updated_at = date('Y-m-d H:i:s');
-            // return $newAdminRole->save();
             if($newAdminRole->save()){
                 $lastId = $newAdminRole->id;
                 $delete = AdminUserHasPermission::where('user_id',  $request->input('role_id'))->delete();

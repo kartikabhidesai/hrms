@@ -36,18 +36,6 @@
                         </div>
                     </div>
 
-                    <div class="form-group"><label class="col-lg-2 control-label">Department</label>
-                        <div class="col-lg-9">
-                            {{ Form::select('department', $ArrDepartment, null, array('class' => 'form-control', 'id' => 'status','required')) }}
-                        </div>
-                    </div>
-<!-- 
-                    <div class="form-group"><label class="col-lg-2 control-label">Role</label>
-                        <div class="col-lg-9">
-                            {{ Form::select('role', $role, null, array('class' => 'form-control', 'id' => 'status','required')) }}
-                        </div>
-                    </div> -->
-
                     <div class="form-group"><label class="col-lg-2 control-label">Role</label>
                         <div class="col-lg-9">
                             @php
