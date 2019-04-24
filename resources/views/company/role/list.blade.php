@@ -8,7 +8,7 @@
                 <div class="ibox-title">
                     <h5>Role list</h5>
                     <div class="ibox-tools">
-                        <a href="{{ route('add-role') }}" class="btn btn-primary dim" ><i class="fa fa-plus">   Create New Role</i></a>
+                        <a href="{{ route('company-add-role') }}" class="btn btn-primary dim" ><i class="fa fa-plus">   Create New Role</i></a>
                          
                     </div>
                 </div>
@@ -32,7 +32,7 @@
                                     <td>{{ $val['status'] }} </td>
                                     <td>-- </td>
                                     <td class="center">
-                                        <a href="{{ route('edit-role', $val['id']) }}" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" >
+                                        <a href="{{ route('company-edit-role', $val['id']) }}" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" >
                                                 <i class="fa fa-edit"></i>
                                         </a>
                                         <a href="#deleteModel" data-toggle="modal" data-id="{{  $val['id'] }}" class="link-black text-sm roleDelete" data-original-title="Delete">
