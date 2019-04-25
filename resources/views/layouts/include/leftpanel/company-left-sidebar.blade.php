@@ -193,6 +193,12 @@ $file_headers = @get_headers($filename);
                 <a href="{{ route('chat') }}"><i class="fa fa-comments"></i>
                     <span class="nav-label">Chat</span></a>
             </li>
+            <li class="{{ ($currentRoute == 'company-add-role' || $currentRoute == 'company-edit-role' || $currentRoute == 'company-role-list' ? 'active' : '') }}">
+                <a href="{{ route('company-role-list') }}"><i class="fa  fa-american-sign-language-interpreting"></i>
+                <span class="nav-label">Role</span></a>
+            </li>
         </ul>
+         
+
     </div>
 </nav>

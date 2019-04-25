@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Company;
 
 use App\User;
 use App\Model\Users;
 use App\Model\AdminRole;
 use App\Model\Department;
 use App\Model\AdminUserHasPermission;
+use App\Model\Company;
 use App\Http\Controllers\Controller;
 use Auth;
 use Route;
@@ -18,38 +19,41 @@ class RoleController extends Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->middleware('admin');
+        $this->middleware('company');
     }
 
     public function index(Request $request){
         $session = $request->session()->all();
+        $userid = $this->loginUser->id;
+        $companyId = Company::select('id')->where('user_id', $userid)->first();
 
         $objRole = new AdminRole();
-        $data['roleArray'] = $objRole->getAdminRole();
+        $data['roleArray'] = $objRole->getAdminRoleByCompany($companyId->id);
         $data['ArrDepartment'] =  array('1' => 'test','2' => 'test2' );
         $data['role'] =  array('1' => 'Customer','2' => 'Agent');
 
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
-        $data['js'] = array('admin/role.js');
+        $data['js'] = array('company/role.js');
         $data['funinit'] = array('Role.init()');
         $data['css'] = array('');
         $data['header'] = array(
             'title' => 'Role',
             'breadcrumb' => array(
-                'Home' => route("admin-dashboard"),
+                'Home' => route("company-dashboard"),
                 'Role' => 'Role'));
-        return view('admin.role.list', $data);
+        return view('company.role.list', $data);
     }
     
     public function add(Request $request){
-        $session = $request->session()->all();
         $objRoleMaster = new AdminRole();
-        $data['masterPermission'] = $objRoleMaster->getAdminMasterPermisson($request); 
+        $data['masterPermission'] = $objRoleMaster->getCompanyMasterPermisson($request); 
+        $userid = $this->loginUser->id;
+        $companyId = Company::select('id')->where('user_id', $userid)->first();
 
         if($request->isMethod('post')){
             // print_r($request->input());exit;
             $objEmail=new AdminRole();
-            $result=$objEmail->createAdminRole($request);
+            $result=$objEmail->createAdminRole($request,$companyId->id);
             if($result > 1){
                 $return['status'] = 'error';
                 $return['message'] = 'Email already exists.';
@@ -57,7 +61,7 @@ class RoleController extends Controller {
             }elseif($result){
                 $return['status'] = 'success';
                 $return['message'] = 'Role created successfully.';
-                $return['redirect'] = route('role-list');
+                $return['redirect'] = route('company-role-list');
             }else{
                 $return['status'] = 'error';
                 $return['message'] = "Something goes to wrong.";
@@ -72,15 +76,15 @@ class RoleController extends Controller {
 
         $data['status'] = Config::get('constants.status');
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
-        $data['js'] = array('admin/role.js');
+        $data['js'] = array('company/role.js');
         $data['funinit'] = array('Role.add()');
         $data['css'] = array('');
         $data['header'] = array(
             'title' => 'Role',
             'breadcrumb' => array(
-                'Home' => route("admin-dashboard"),
-                'Add Role' => 'add-role'));
-        return view('admin.role.add', $data);
+                'Home' => route("company-dashboard"),
+                'Add Role' => 'company-add-role'));
+        return view('company.role.add', $data);
     }
     
     public function edit(Request $request,$id=null){
@@ -97,7 +101,7 @@ class RoleController extends Controller {
             }elseif($result){
                 $return['status'] = 'success';
                 $return['message'] = 'Role Updated successfully.';
-                $return['redirect'] = route('role-list');
+                $return['redirect'] = route('company-role-list');
             }else{
                 $return['status'] = 'error';
                 $return['message'] = "Something goes to wrong.";
@@ -118,19 +122,19 @@ class RoleController extends Controller {
         }
         $data['userPermission'] = $permission;
         $objRoleMaster = new AdminRole();
-        $data['masterPermission'] = $objRoleMaster->getAdminMasterPermisson($request); 
+        $data['masterPermission'] = $objRoleMaster->getCompanyMasterPermisson($request); 
 
         $data['status'] = Config::get('constants.status');
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
-        $data['js'] = array('admin/role.js');
+        $data['js'] = array('company/role.js');
         $data['funinit'] = array('Role.edit()');
         $data['css'] = array('');
         $data['header'] = array(
             'title' => 'Role',
             'breadcrumb' => array(
-                'Home' => route("admin-dashboard"),
-                'Edit Role' => 'edit-role'));
-        return view('admin.role.edit', $data);
+                'Home' => route("company-dashboard"),
+                'Edit Role' => 'company-edit-role'));
+        return view('company.role.edit', $data);
     }
 
     public function ajaxAction(Request $request) {

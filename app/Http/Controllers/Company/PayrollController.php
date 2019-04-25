@@ -30,7 +30,7 @@ class PayrollController extends Controller {
         $data['header'] = array(
             'title' => 'Payroll Employee List',
             'breadcrumb' => array(
-                'Home' => route("admin-dashboard")));
+                'Home' => route("company-dashboard")));
        
         $data['departmentId'] = (empty($request->get('department'))) ? '' : $request->get('department');
         $data['employeeId'] = (empty($request->get('employee'))) ? '' : $request->get('employee');
@@ -60,7 +60,7 @@ class PayrollController extends Controller {
          $data['header'] = array(
             'title' => 'Payroll '. $data['singleemployee']['name'] .' List',
             'breadcrumb' => array(
-                'Home' => route("admin-dashboard")));
+                'Home' => route("company-dashboard")));
         $EmpObj = new Employee;
 
         $PayrollObj = new Payroll;
@@ -116,7 +116,7 @@ class PayrollController extends Controller {
         $data['header'] = array(
             'title' => 'Create new payroll',
             'breadcrumb' => array(
-                'Home' => route("admin-dashboard")));
+                'Home' => route("company-dashboard")));
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
 
         $data['js'] = array('company/payroll.js', 'ajaxfileupload.js', 'jquery.form.min.js');
@@ -169,7 +169,7 @@ class PayrollController extends Controller {
         $data['header'] = array(
             'title' => 'Create new payroll',
             'breadcrumb' => array(
-                'Home' => route("admin-dashboard")));
+                'Home' => route("company-dashboard")));
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
 
         $data['js'] = array('company/payroll.js', 'ajaxfileupload.js', 'jquery.form.min.js');

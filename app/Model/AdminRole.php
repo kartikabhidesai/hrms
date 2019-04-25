@@ -18,7 +18,7 @@ class AdminRole extends Model {
 
     protected $table = 'admin_role';
     
-    public function createAdminRole($request){
+    public function createAdminRole($request,$companyId = NULL){
 
         $result = AdminRole::select('email')->where('email', $request->input('email'))->get();
         if (count($result) == 0) {
@@ -27,8 +27,8 @@ class AdminRole extends Model {
             $newAdminRole->user_name=$request->input('user_name');
             $newAdminRole->email=$request->input('email');
             $newAdminRole->password=$newpass;
+            $newAdminRole->company_id = $companyId;
             $newAdminRole->status=$request->input('status');
-            $newAdminRole->department=$request->input('department');
             $newAdminRole->created_at = date('Y-m-d H:i:s');
             $newAdminRole->updated_at = date('Y-m-d H:i:s');
             if($newAdminRole->save()){
@@ -58,11 +58,8 @@ class AdminRole extends Model {
             $newpass = Hash::make($request->input('password'));
             $newAdminRole->user_name=$request->input('user_name');
             $newAdminRole->email=$request->input('email');
-            // $newAdminRole->password=$newpass;
             $newAdminRole->status=$request->input('status');
-            $newAdminRole->department=$request->input('department');
             $newAdminRole->updated_at = date('Y-m-d H:i:s');
-            // return $newAdminRole->save();
             if($newAdminRole->save()){
                 $lastId = $newAdminRole->id;
                 $delete = AdminUserHasPermission::where('user_id',  $request->input('role_id'))->delete();
@@ -87,6 +84,10 @@ class AdminRole extends Model {
     public function getAdminRole(){
         $objAdminRoledata=AdminRole::select('*')->get();
        return ($objAdminRoledata);
+    }  
+    public function getAdminRoleByCompany($company_id){
+        $objAdminRoledata=AdminRole::select('*')->where('company_id', '=', $company_id)->get();
+       return ($objAdminRoledata);
     }
    
     public function getMasterPermisson() {
@@ -99,7 +100,7 @@ class AdminRole extends Model {
         return $result;
     }
 
-    public function getCpmpanyMasterPermisson() {
+    public function getCompanyMasterPermisson() {
         $result = DB::table('permission_master')->where('permission_master.is_active', '=', '1')->where('permission_master.type', '=', 'COMPANY')->get();
         return $result;
     }

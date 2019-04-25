@@ -164,4 +164,10 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
     Route::match(['get', 'post'], 'holiday-report', ['as' => 'holiday-report', 'uses' => 'Company\HolidayReportController@index']);
     Route::match(['get', 'post'], 'holiday-report-ajaxAction', ['as' => 'holiday-report-ajaxAction', 'uses' => 'Company\HolidayReportController@ajaxAction']);
 
+    /* Role management */
+    Route::match(['get','post'],'company-add-role',['as' => 'company-add-role','uses'=>'Company\RoleController@add']);
+    Route::match(['get','post'],'company-edit-role/{id}',['as' => 'company-edit-role','uses'=>'Company\RoleController@edit']);
+    Route::match(['get','post'],'company-role-list',['as' => 'company-role-list','uses'=>'Company\RoleController@index']);
+    Route::match(['get', 'post'], 'company-role-ajaxAction', ['as' => 'company-role-ajaxAction', 'uses' => 'Company\RoleController@ajaxAction']); 
+
 });
