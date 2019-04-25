@@ -83,7 +83,8 @@ class CommunicationController extends Controller
                     $communicationName="Communication a message is received.";
                     $objCompany = new Company();
                     $u_id=$objCompany->getUseridById($empId->company_id);
-                    $ret = $objNotification->addNotification($u_id,$communicationName);
+                    $route_url="communication";
+                    $ret = $objNotification->addNotification($u_id,$communicationName,$route_url);
 
                     $return['status'] = 'success';
                     $return['message'] = 'New Communication Email sent successfully.';

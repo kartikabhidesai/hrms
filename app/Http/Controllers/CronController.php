@@ -33,8 +33,9 @@ class CronController extends Controller {
             $taskName=$val['task']." Task is Expired.";
             $objCompany = new Company();
             $u_id=$objCompany->getUseridById($val['company_id']);
+            $route_url="task-list";
             $objNotification = new Notification();
-            $ret = $objNotification->addNotification($u_id,$taskName);
+            $ret = $objNotification->addNotification($u_id,$taskName,$route_url);
         }
     }
 
@@ -47,8 +48,9 @@ class CronController extends Controller {
             $ticketName=$val['subject']." Ticket is Expired.";
             $objCompany = new Company();
             $u_id=$objCompany->getUseridById($val['company_id']);
+            $route_url="ticket-list";
             $objNotification = new Notification();
-            $ret = $objNotification->addNotification($u_id,$ticketName);
+            $ret = $objNotification->addNotification($u_id,$ticketName,$route_url);
         }
     }
 
@@ -61,8 +63,9 @@ class CronController extends Controller {
             $ticketName=date('d-m-Y', strtotime($val['expire_date']))." expiry of the submission period on the work offer.";
             $objCompany = new Company();
             $u_id=$objCompany->getUseridById($val['company_id']);
+            $route_url="recruitment";
             $objNotification = new Notification();
-            $ret = $objNotification->addNotification($u_id,$ticketName);
+            $ret = $objNotification->addNotification($u_id,$ticketName,$route_url);
         }
     }
 
