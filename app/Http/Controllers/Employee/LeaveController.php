@@ -66,7 +66,8 @@ class LeaveController extends Controller
                 $objCompany = new Company();
                 $u_id=$objCompany->getUseridById($empdetails[0]->company_id);
                 $objNotification = new Notification();
-                $ret = $objNotification->addNotification($u_id,$leaveRequestName);
+                $route_url="notification-list";
+                $ret = $objNotification->addNotification($u_id,$leaveRequestName,$route_url);
 
                 $return['status'] = 'success';
                 $return['message'] = 'Leave added successfully.';

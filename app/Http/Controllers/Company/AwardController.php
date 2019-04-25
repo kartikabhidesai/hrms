@@ -68,7 +68,8 @@ class AwardController extends Controller {
                 $awardName=$request->input('award')." is a new award.";
                 $objEmployee = new Employee();
                 $u_id=$objEmployee->getUseridById($request->input('employee'));
-                $ret = $objNotification->addNotification($u_id,$awardName);
+                $route_url="award";
+                $ret = $objNotification->addNotification($u_id,$awardName,$route_url);
 
                 $return['status'] = 'success';
                 $return['message'] = 'Award Add Successfully.';

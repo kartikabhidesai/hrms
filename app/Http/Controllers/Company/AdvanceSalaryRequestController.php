@@ -99,7 +99,8 @@ class AdvanceSalaryRequestController extends Controller {
                         $seleryRequestName="Company selery request approved.";
                         $u_id=$objAdvancesalary->getUseridByAdvanceSalaryId($id);
                         $objNotification = new Notification();
-                        $ret = $objNotification->addNotification($u_id,$seleryRequestName);
+                        $route_url="advance-salary-request";
+                        $ret = $objNotification->addNotification($u_id,$seleryRequestName,$route_url);
 
                         $return['status'] = 'success';
                         $return['message'] = 'Advance salary request approved';
@@ -122,7 +123,8 @@ class AdvanceSalaryRequestController extends Controller {
                          $seleryRequestName="Company selery request rejected.";
                          $u_id=$objAdvancesalary->getUseridByAdvanceSalaryId($id);
                          $objNotification = new Notification();
-                         $ret = $objNotification->addNotification($u_id,$seleryRequestName);
+                         $route_url="advance-salary-request";
+                         $ret = $objNotification->addNotification($u_id,$seleryRequestName,$route_url);
 
                         $return['status'] = 'success';
                         $return['message'] = 'Advance salary request rejected';
@@ -148,7 +150,8 @@ class AdvanceSalaryRequestController extends Controller {
                             $seleryRequestName="Company selery request ".$status."ed.";
                             $u_id=$objAdvancesalary->getUseridByAdvanceSalaryId($value);
                             $objNotification = new Notification();
-                            $ret = $objNotification->addNotification($u_id,$seleryRequestName);
+                            $route_url="advance-salary-request";
+                            $ret = $objNotification->addNotification($u_id,$seleryRequestName, $route_url);
                         }
                         
                         $return['status'] = 'success';

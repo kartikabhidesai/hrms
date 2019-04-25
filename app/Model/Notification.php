@@ -13,13 +13,14 @@ class Notification extends Model {
 
     protected $table = 'notification';
 
-    public function addNotification($user_id,$message) {
+    public function addNotification($user_id,$message,$route) {
 
         
 
         $objNotification = new Notification();
         $objNotification->user_id = $user_id;
         $objNotification->message =  $message;
+        $objNotification->route =  $route;
         $objNotification->created_at = date('Y-m-d H:i:s');
         $objNotification->updated_at = date('Y-m-d H:i:s');
         $objNotification->save();
@@ -131,7 +132,7 @@ class Notification extends Model {
         $query = Notification::from('notification as notification')
                 ->where('notification.user_id',$userid)
                 ->where('notification.status',0)
-                ->select('notification.id','notification.message','notification.created_at')->orderBy('id','DESC')
+                ->select('notification.id','notification.message','notification.route','notification.created_at')->orderBy('id','DESC')
                 ->get()->toArray();
         // $data = array();
         

@@ -72,7 +72,8 @@ class TaskController extends Controller {
                     $taskName=$request->input('task')." is a new task.";
                     $objEmployee = new Employee();
                     $u_id=$objEmployee->getUseridById($request->input('employee'));
-                    $ret = $objNotification->addNotification($u_id,$taskName);
+                    $route_url="emp-task-list";
+                    $ret = $objNotification->addNotification($u_id,$taskName,$route_url);
                     
                     $return['status'] = 'success';
                     $return['message'] = 'Task created successfully.';

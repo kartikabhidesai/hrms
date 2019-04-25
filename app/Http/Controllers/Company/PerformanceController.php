@@ -128,7 +128,8 @@ class PerformanceController extends Controller {
                 $performanceName="Performance is a new evaluates update.";
                 $objEmployee = new Employee();
                 $u_id=$objEmployee->getUseridById($request->employee_id);
-                $ret = $objNotification->addNotification($u_id,$performanceName);
+                $route_url="emp-performance";
+                $ret = $objNotification->addNotification($u_id,$performanceName,$route_url);
 
                 $return['status'] = 'success';
                 $return['message'] = 'Performance Added successfully.';

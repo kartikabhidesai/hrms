@@ -55,7 +55,8 @@ class TrainingController extends Controller
                     $trainingName="Company has added a new training.";
                     $objEmployee = new Employee();
                     $u_id=$objEmployee->getUseridById($empId[$key]);
-                    $ret = $objNotification->addNotification($u_id,$trainingName);
+                    $route_url="employee-training";
+                    $ret = $objNotification->addNotification($u_id,$trainingName,$route_url);
                 }
 
                 $return['status'] = 'success';
