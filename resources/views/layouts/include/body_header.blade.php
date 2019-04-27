@@ -102,11 +102,9 @@ $currentRoute = Route::current()->getName();
                             @endif
                                 @for($i=0; $i < $countNotific; $i++)
                                 <li>
-                                    @if(empty(Auth()->guard('company')->user())) 
-                                        <a href="{{ route('employee-notification-list') }}">
-                                    @else
-                                        <a href="{{ route('notification-list') }}">
-                                    @endif        
+                                  
+                                        <a href="{{ route($session['logindata'][0]['notification_list'][$i]['route']) }}">
+                                           
                                             <div>
                                                 <i class="fa fa-envelope fa-fw"></i> {{ $session['logindata'][0]['notification_list'][$i]['message'] }}
                                                 <!-- <span class="pull-right text-muted small">4 minutes ago</span> -->

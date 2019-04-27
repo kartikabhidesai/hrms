@@ -96,7 +96,8 @@ class PayrollController extends Controller {
                 $payrollName=$empName['name']." is a new information in payroll.";
                 
                 $u_id=$objEmployee->getUseridById($id);
-                $ret = $objNotification->addNotification($u_id,$payrollName);
+                $route_url="payroll-employee";
+                $ret = $objNotification->addNotification($u_id,$payrollName,$route_url);
                 
                 $return['status'] = 'success';
                 $return['message'] = 'Payroll added successfully.';
@@ -150,7 +151,8 @@ class PayrollController extends Controller {
                 $payrollName=$empName['name']." is a update information in payroll.";
                 
                 $u_id=$objEmployee->getUseridById($request->input('empId'));
-                $ret = $objNotification->addNotification($u_id,$payrollName);
+                $route_url="payroll-employee";
+                $ret = $objNotification->addNotification($u_id,$payrollName,$route_url);
 
                 $return['status'] = 'success';
                 $return['message'] = 'Payroll updated successfully.';

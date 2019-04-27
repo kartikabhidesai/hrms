@@ -62,11 +62,13 @@ class LeaveController extends Controller
             $ret = $objLeave->addnewleave($request);
             if ($ret) {
 
+                //notification add
                 $leaveRequestName=$empdetails[0]->name." new leave request.";
                 $objCompany = new Company();
                 $u_id=$objCompany->getUseridById($empdetails[0]->company_id);
                 $objNotification = new Notification();
-                $ret = $objNotification->addNotification($u_id,$leaveRequestName);
+                $route_url="notification-list";
+                $ret = $objNotification->addNotification($u_id,$leaveRequestName,$route_url);
 
                 $return['status'] = 'success';
                 $return['message'] = 'Leave added successfully.';
@@ -118,6 +120,15 @@ class LeaveController extends Controller
             $objLeave = new Leave();
             $ret = $objLeave->editleave($request);
             if ($ret) {
+
+                //notification add
+                $leaveRequestName=$empdetails[0]->name." leave change request.";
+                $objCompany = new Company();
+                $u_id=$objCompany->getUseridById($empdetails[0]->company_id);
+                $objNotification = new Notification();
+                $route_url="notification-list";
+                $ret = $objNotification->addNotification($u_id,$leaveRequestName,$route_url);
+
                 $return['status'] = 'success';
                 $return['message'] = 'Leave updated successfully.';
                 $return['redirect'] = route('employee-leave');

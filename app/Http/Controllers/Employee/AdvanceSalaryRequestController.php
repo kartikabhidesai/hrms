@@ -48,12 +48,14 @@ class AdvanceSalaryRequestController extends Controller {
             $objNewSalaryRequest= new Advancesalary();
             $result=$objNewSalaryRequest->addSalaryRequest($request);
             if ($result) {
-
+                
+                //notification add
                 $seleryRequestName=$request->input('emp_name')." selery request you.";
                 $objCompany = new Company();
                 $u_id=$objCompany->getUseridById($data['empdetails'][0]['company_id']);
                 $objNotification = new Notification();
-                $ret = $objNotification->addNotification($u_id,$seleryRequestName);
+                $route_url="campany-advance-salary-request";
+                $ret = $objNotification->addNotification($u_id,$seleryRequestName,$route_url);
 
                 $return['status'] = 'success';
                 $return['message'] = 'New Advance Salary  Request created successfully.';

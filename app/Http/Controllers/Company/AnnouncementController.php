@@ -67,7 +67,8 @@ class AnnouncementController extends Controller {
                     $ticketName=$request->input('subject')." is a new Announcement.";
                     $objEmployee = new Employee();
                     $u_id=$objEmployee->getUseridById($request->input('assign_to'));
-                    $ret = $objNotification->addNotification($u_id,$ticketName);
+                    $route_url="employee-notification-list";
+                    $ret = $objNotification->addNotification($u_id,$ticketName,$route_url);
 
                     $return['status'] = 'success';
                     $return['message'] = 'Annoucement Add Successfully.';

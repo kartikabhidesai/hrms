@@ -67,8 +67,9 @@ class ManageTimeChangeRequestController extends Controller
                         //notification add                        
                         $seleryRequestName="Company time change request approved.";
                         $u_id=$objManageList->getUseridByManageTimeChangeRequestId($id);
+                        $route_url="manage-time-change-request";
                         $objNotification = new Notification();
-                        $ret = $objNotification->addNotification($u_id,$seleryRequestName);
+                        $ret = $objNotification->addNotification($u_id,$seleryRequestName,$route_url);
                         
                         $return['status'] = 'success';
                         $return['message'] = 'Time chnage request approved';
@@ -91,7 +92,8 @@ class ManageTimeChangeRequestController extends Controller
                         $seleryRequestName="Company time change request rejected.";
                         $u_id=$objManageList->getUseridByManageTimeChangeRequestId($id);
                         $objNotification = new Notification();
-                        $ret = $objNotification->addNotification($u_id,$seleryRequestName);
+                        $route_url="manage-time-change-request";
+                        $ret = $objNotification->addNotification($u_id,$seleryRequestName,$route_url);
                         
                         $return['status'] = 'success';
                         $return['message'] = 'Time chnage request rejected';
@@ -117,8 +119,9 @@ class ManageTimeChangeRequestController extends Controller
                         foreach ($employeeArr as $key => $value) {  
                             $seleryRequestName="Company time change request ".$status."ed.";
                             $u_id=$objManageList->getUseridByManageTimeChangeRequestId($value);
+                            $route_url="manage-time-change-request";
                             $objNotification = new Notification();
-                            $ret = $objNotification->addNotification($u_id,$seleryRequestName);
+                            $ret = $objNotification->addNotification($u_id,$seleryRequestName,$route_url);
                         }
 
                         $return['status'] = 'success';

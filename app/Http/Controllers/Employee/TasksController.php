@@ -33,8 +33,9 @@ class TasksController extends Controller {
                 $taskRequestName=$empId->name." update the task.";
                 $objCompany = new Company();
                 $u_id=$objCompany->getUseridById($empId->company_id);
+                $route_url="task-list";
                 $objNotification = new Notification();
-                $ret = $objNotification->addNotification($u_id,$taskRequestName);
+                $ret = $objNotification->addNotification($u_id,$taskRequestName,$route_url);
 
                 $return['status'] = 'success';
                 $return['message'] = 'Task updated successfully.';
