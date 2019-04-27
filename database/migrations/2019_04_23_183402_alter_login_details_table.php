@@ -13,7 +13,7 @@ class AlterLoginDetailsTable extends Migration {
      */
     public function up() {
         Schema::table('login_details', function (Blueprint $table) {
-            $table->dateTime('last_active')->default(DB::raw('CURRENT_TIMESTAMP'))->change();
+//            $table->dateTime('last_active')->default(DB::raw('CURRENT_TIMESTAMP'))->change();
         });
     }
 
