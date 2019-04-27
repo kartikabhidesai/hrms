@@ -15,42 +15,18 @@
                 </div>
                 <div class="ibox-content">
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover dataTables-company" id="dataTables-company">
+                        <table class="table table-striped table-bordered table-hover dataTables-company" id="dataTables-social-media">
                             <thead>
                                 <tr>
                                     <th>Message</th>
                                     <th>Status</th>
-                                    <th>Delivery</th>
+                                    <th>Delivery Date</th>
+                                    <th>Delivery Time</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody>  
-                                <tr class="gradeU">
-                                    <td>ABCDEF</td>
-                                    <td><i class="fa fa-check" style="color:#1bb394;"></i> &nbsp; Sent</td>
-                                    <td>2019-12-01 04:30:59 am</td>                                    
-                                </tr>
-                                
-                                <tr class="gradeU">
-                                    <td>PQRSTUV</td>
-                                    <td><i class="fa fa-times" style="color:red;"></i> &nbsp; Failed</td>
-                                    <td>2019-12-01 04:30:59 am</td>                                    
-                                </tr>
-                                
-                                <tr class="gradeU">
-                                    <td>ABCDEF</td>
-                                    <td><i class="fa fa-exchange"  style="color:orange;"></i> &nbsp; Pending</td>
-                                    <td>2019-12-01 04:30:59 am</td>                                    
-                                </tr>
-                                
-                                <tr class="gradeU">
-                                    <td>ABCDEF</td>
-                                    <td><i class="fa fa-check" style="color:#1bb394;"></i> &nbsp; Sent</td>
-                                    <td>2019-12-01 04:30:59 am</td>                                    
-                                </tr>
-                                
-                            
+                            <tbody>
                             </tbody>
-                            
                         </table>
                     </div>
 
