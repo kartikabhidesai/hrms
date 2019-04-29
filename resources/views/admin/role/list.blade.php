@@ -14,7 +14,7 @@
                 </div>
                 <div class="ibox-content">
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover dataTables-company" id="dataTables-company">
+                        <table class="table table-striped table-bordered table-hover dataTables-adminrole" id="dataTables-adminrole">
                             <thead>
                                 <tr>
                                     <th>User Name</th>
@@ -25,7 +25,7 @@
                                 </tr>
                             </thead>
                             <tbody>  
-<!--                            @foreach($roleArray as $row  => $val)
+                            @foreach($roleArray as $row  => $val)
                                 <tr class="gradeU">
                                     <td>{{ $val['user_name'] }} </td>
                                     <td>{{ $val['email'] }} </td>
@@ -40,7 +40,7 @@
                                         </a>
                                     </td>
                                 </tr>
-                            @endforeach    -->
+                            @endforeach    
                             </tbody>
                             
                         </table>
