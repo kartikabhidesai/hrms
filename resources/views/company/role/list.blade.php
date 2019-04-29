@@ -25,7 +25,7 @@
                                 </tr>
                             </thead>
                             <tbody>  
-                            @foreach($roleArray as $row  => $val)
+                          <!--   @foreach($roleArray as $row  => $val)
                                 <tr class="gradeU">
                                     <td>{{ $val['user_name'] }} </td>
                                     <td>{{ $val['email'] }} </td>
@@ -40,7 +40,7 @@
                                         </a>
                                     </td>
                                 </tr>
-                            @endforeach    
+                            @endforeach     -->
                             </tbody>
                             
                         </table>

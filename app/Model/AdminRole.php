@@ -170,4 +170,79 @@ class AdminRole extends Model {
         return $result;
     }
 
+    public function getAdminRoleData($request,$comanyId) {
+
+        $requestData = $_REQUEST;
+        $columns = array(
+            // datatable column index  => database column name
+            0 => 'ra.user_name',
+            1 => 'ra.email',
+            2 => 'ra.status',
+            3 => 'permission_master.name',
+        );
+
+        $query = AdminRole::from('admin_role as ra')
+                ->leftjoin('admin_user_has_permission', 'admin_user_has_permission.user_id', '=', 'ra.id')
+                ->leftjoin('permission_master', 'permission_master.id', '=', 'admin_user_has_permission.permission_id');
+        if($comanyId > 0){
+             $query->where('ra.company_id',$comanyId);
+        }else{
+             $query->whereNull('ra.company_id');
+        }
+        $query->groupBy('ra.id');    
+        if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
+            $searchVal = $requestData['search']['value'];
+            $query->where(function($query) use ($columns, $searchVal, $requestData) {
+                        $flag = 0;
+                        foreach ($columns as $key => $value) {
+                            $searchVal = $requestData['search']['value'];
+                            if ($requestData['columns'][$key]['searchable'] == 'true') {
+                                if ($flag == 0) {
+                                    $query->where($value, 'like', '%' . $searchVal . '%');
+                                    $flag = $flag + 1;
+                                } else {
+                                    $query->orWhere($value, 'like', '%' . $searchVal . '%');
+                                }
+                            }
+                        }
+                    });
+        }
+
+        $temp = $query->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir']);
+
+        $totalData = count($temp->get());
+        $totalFiltered = count($temp->get());
+        $resultArr = $query->skip($requestData['start'])
+                ->take($requestData['length'])
+                ->select('ra.id', 'ra.user_name', 'ra.email', 'ra.status','ra.created_at',DB::raw('GROUP_CONCAT(permission_master.name  SEPARATOR ", ") AS permission_name'))->get();
+        $data = array();
+        foreach ($resultArr as $row) {
+           $actionHtml = '';
+            if(!empty($comanyId)){
+                $actionHtml .= '<a href="' . route('company-edit-role', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
+            }else{
+                $actionHtml .= '<a href="' . route('edit-role', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
+            }
+
+            $actionHtml .= '<a href="#deleteModel" data-toggle="modal" data-id="'.$row['id'].'" class="link-black text-sm roleDelete" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';
+            $nestedData = array();
+            $nestedData[] = $row["user_name"];
+            $nestedData[] = $row["email"];
+            $nestedData[] = $row["status"];
+            $nestedData[] = $row["permission_name"];
+            $nestedData[] = $actionHtml;
+            $data[] = $nestedData;
+        }
+       // echo "<pre>";print_r($data);exit;
+
+        $json_data = array(
+            "draw" => intval($requestData['draw']), // for every request/draw by clientside , they send a number as a parameter, when they recieve a response/data they first check the draw number, so we are sending same number in draw. 
+            "recordsTotal" => intval($totalData), // total number of records
+            "recordsFiltered" => intval($totalFiltered), // total number of records after searching, if there is no searching then totalFiltered = totalData
+            "data" => $data   // total data array
+        );
+
+        return $json_data;
+    }
+
 }
