@@ -25,6 +25,24 @@ var Role = function() {
                 }
             });
         });
+        
+       var dataArr = {};
+        var columnWidth = {"width": "10%", "targets": 0};
+
+        var arrList = {
+            'tableID': '#dataTables-company',
+            'ajaxURL': baseurl + "admin/role-ajaxAction",
+            'ajaxAction': 'getdatatable',
+            'postData': dataArr,
+            'hideColumnList': [],
+            'noSearchApply': [0],
+            'noSortingApply': [3, 5],
+            'defaultSortColumn': 0,
+            'defaultSortOrder': 'desc',
+            'setColumnWidth': columnWidth
+        };
+        getDataTable(arrList);
+        
     }
 
     var addRole=function(){
