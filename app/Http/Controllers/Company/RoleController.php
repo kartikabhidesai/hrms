@@ -139,10 +139,15 @@ class RoleController extends Controller {
 
     public function ajaxAction(Request $request) {
         $action = $request->input('action');
+
+        $session = $request->session()->all();
+        $userid = $this->loginUser->id;
+        $companyId = Company::select('id')->where('user_id', $userid)->first();
+
         switch ($action) {
-            case 'getdatatable':
+            case 'getAdminRoleData':
                 $objDemo = new AdminRole();
-                $demoList = $objDemo->getData($request);
+                $demoList = $objDemo->getAdminRoleData($request,$companyId->id);
                 echo json_encode($demoList);
                 break;
             case 'deleteRole':
