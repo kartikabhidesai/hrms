@@ -208,7 +208,8 @@ class Order extends Model {
     }
 
     public function approveRequest($request){
-       
+       print_r($request);
+       exit();
        $objSavedata=Order::where('id',$request['id'])->update(['status'=>'approve','updated_at'=>date('Y-m-d H:i:s')]);
        if($objSavedata){
                 $objUser = new Users();
