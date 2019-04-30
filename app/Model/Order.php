@@ -236,10 +236,7 @@ class Order extends Model {
                              $mailData['data']['name'] = $request['company_name'];
                              $mailData['data']['password'] = $newpassword;
                              $mailData['template'] = 'emails.aprooveOrder';
-                             
                              $res = $sendMail->sendSMTPMail($mailData);
-                             print_r($newpassword);
-                             exit();
                              return true;
                     }else{
                         return false;

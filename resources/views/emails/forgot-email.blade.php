@@ -79,8 +79,8 @@ div[style*="margin: 16px 0;"] { margin: 0 !important; }
                            
                            	Recently, you've applied forgot password for your Human Resource & Payroll Management System. Your new password is: <b>{{ $data['password'] }}</b> <br><br>
 
-                            Thanks, <br>
-                            HRMS Team.
+                                Thanks, <br>
+                                HRMS Team.
                           
                             <!-- Mit freundlichen Grüßen,<br> -->
                            <!-- <img src="images/signatur.png" width="130" height="168" style="display: block; border: 0px;"/> -->
