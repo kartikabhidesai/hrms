@@ -226,7 +226,6 @@ class Order extends Model {
                     $objCompany->password=Hash::make($newpassword);
                     $objCompany->status='ACTIVE';
                     if($objCompany->save()){
-                        if($result){
                             $newpassword = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyzASLKJHGDMNBVCXZPOIUYTREWQ", 6)), 0, 6);
 
                              $objUser = Users::find($result[0]['id']);
@@ -244,8 +243,6 @@ class Order extends Model {
                              $mailData['template'] = 'emails.aprooveOrder';
                              $res = $sendMail->sendSMTPMail($mailData);
                              return true;
-                         }
-                        return true;
                     }else{
                         return false;
                     }
