@@ -119,6 +119,10 @@ $file_headers = @get_headers($filename);
      <li class="{{ ($currentRoute == 'social-media'   ? 'active' : '') }} ">
         <a href="{{ url('').'/admin/social-media' }}"><i class="fa fa-comments"></i>
             <span class="nav-label">Social Media</span></a>
+    </li> 
+    <li class="{{ ($currentRoute == 'admin-report-list'   ? 'active' : '') }} ">
+        <a href="{{ route('admin-report-list') }}"><i class="fa fa-comments"></i>
+            <span class="nav-label">Report</span></a>
     </li>
 
     <!--   <li class="active">
