@@ -227,12 +227,7 @@ class Order extends Model {
                     $objCompany->status='ACTIVE';
                     if($objCompany->save()){
                             $newpassword = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyzASLKJHGDMNBVCXZPOIUYTREWQ", 6)), 0, 6);
-
-                             $objUser = Users::find($result[0]['id']);
-                             $objUser->password = Hash::make($newpassword);
-                             $objUser->created_at = date('Y-m-d H:i:s');
-                             $objUser->save();
-
+                                
                              $mailData['subject'] = 'Forgot password';
                              $mailData['attachment'] = array();
                              $mailData['mailto'] =  $result[0]['email'];
