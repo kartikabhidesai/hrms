@@ -66,7 +66,7 @@ class OrderController extends Controller {
             case 'approveRequest':
                 $id=$request->input('data')['id'];
                 $objorder = new Order();
-                $approveRequest=$objorder->approveRequest($id);
+                $approveRequest=$objorder->approveRequest($request->input('data'));
                     if ($approveRequest) {
                         $return['status'] = 'success';
                         $return['message'] = 'Order request approved';

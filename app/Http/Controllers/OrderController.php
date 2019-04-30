@@ -30,7 +30,6 @@ class OrderController extends Controller {
     }
 
     public function index(Request $request){
-        
         if($request->isMethod('post')){
             $objOrder= new Order();
             $result=$objOrder->createOrder($request);
@@ -45,7 +44,6 @@ class OrderController extends Controller {
             echo json_encode($return);
             exit;
         }
-        
         $data['subcription']=Config::get('constants.subcription');
         $data['request_type']=Config::get('constants.request_type');
         

@@ -14,6 +14,10 @@
                 </div>
                 
                 <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Company Email" name="company_email">
+                </div>
+                
+                <div class="form-group">
                     <select name="subcription" class="form-control" >
                         @foreach($subcription as $key=>$val)
                         <option value="{{ $key }}">{{ $val }}</option>
@@ -28,7 +32,6 @@
                         <option value="{{ $key }}">{{ $val }}</option>
                         @endforeach
                     </select>
-                    
                 </div>
                 
                 

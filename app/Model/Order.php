@@ -9,6 +9,8 @@ use Auth;
 use App\Model\UserHasPermission;
 use App\Model\Sendmail;
 use App\Model\Order;
+use App\Model\Company;
+use App\Model\Users;
 use Config;
 
 class Order extends Model {
@@ -19,6 +21,7 @@ class Order extends Model {
 
           $newOrder=new Order();
           $newOrder->company_name=$request->input('company_name');
+          $newOrder->company_email=$request->input('company_email');
           $newOrder->subcription=$request->input('subcription');
           $newOrder->request_type=$request->input('request_type');
           $newOrder->payment_type=$request->input('payment_type');
@@ -33,10 +36,11 @@ class Order extends Model {
             // datatable column index  => database column name
             0 => 'order.id',
             1 => 'order.company_name',
-            2 => 'order.subcription',
-            3 => 'order.request_type',
-            4=> 'order.payment_type',
-            5=>'order.status',
+            2 => 'order.company_email',
+            3 => 'order.subcription',
+            4 => 'order.request_type',
+            5=> 'order.payment_type',
+            6=>'order.status',
         );
 
         $query = Order::from('order');
@@ -66,7 +70,7 @@ class Order extends Model {
 
         $resultArr = $query->skip($requestData['start'])
                            ->take($requestData['length'])
-                           ->select('order.id', 'order.company_name', 'order.subcription', 'order.request_type', 'order.payment_type','order.status','order.created_at')->get();
+                           ->select('order.id', 'order.company_name', 'order.subcription', 'order.company_email','order.request_type', 'order.payment_type','order.status','order.created_at')->get();
        
         $subcription =Config::get('constants.subcription');
         $request_type =Config::get('constants.request_type');
@@ -77,7 +81,7 @@ class Order extends Model {
         foreach ($resultArr as $row) {
             
             if($row["status"] == NULL){
-                $actionHtml = '<a href="#approveModel" data-toggle="modal" data-id="'.$row['id'].'" title="Approve" class="btn btn-default link-black text-sm approve" data-toggle="tooltip" data-original-title="Approve" ><i class="fa fa-check"></i></a><a href="#disapproveModel" data-toggle="modal" data-id="'.$row['id'].'"  title="Reject" class="btn btn-default link-black text-sm disapprove" data-toggle="tooltip" data-original-title="Approve" ><i class="fa fa-close"></i></a>';
+                $actionHtml = '<a href="#approveModel" data-toggle="modal" data-company_email="'.$row['company_email'].'"  data-company_name="'.$row['company_name'].'"   data-id="'.$row['id'].'"  title="Approve" class="btn btn-default link-black text-sm approve" data-toggle="tooltip" data-original-title="Approve" ><i class="fa fa-check"></i></a><a href="#disapproveModel" data-toggle="modal" data-id="'.$row['id'].'"  title="Reject" class="btn btn-default link-black text-sm disapprove" data-toggle="tooltip" data-original-title="Approve" ><i class="fa fa-close"></i></a>';
             }else{
                 if($row["status"] == 'approve'){
                     $actionHtml='<span class="label label-success">Approved</span>';
@@ -92,7 +96,8 @@ class Order extends Model {
 //            
             $nestedData = array();
             $nestedData[] = $row["id"];
-            $nestedData[] = $row["company_name"];
+            $nestedData[] = $row["company_name"];            
+            $nestedData[] = $row["company_email"];
             $nestedData[] = date('d-m-Y',strtotime($row["created_at"]));
             $nestedData[] = $subcription[$row["subcription"]];
             $nestedData[] = $request_type[$row["request_type"]];
@@ -119,10 +124,11 @@ class Order extends Model {
             // datatable column index  => database column name
             0 => 'order.id',
             1 => 'order.company_name',
-            2 => 'order.subcription',
-            3 => 'order.request_type',
-            4=> 'order.payment_type',
-            5=>'order.status',
+            2 => 'order.company_email',
+            3 => 'order.subcription',
+            4 => 'order.request_type',
+            5=> 'order.payment_type',
+            6=>'order.status',
         );
 
         $query = Order::from('order')
@@ -153,7 +159,7 @@ class Order extends Model {
 
         $resultArr = $query->skip($requestData['start'])
                            ->take($requestData['length'])
-                           ->select('order.id', 'order.company_name', 'order.subcription', 'order.request_type', 'order.payment_type','order.status','order.created_at')->get();
+                           ->select('order.id', 'order.company_name', 'order.subcription','order.company_email', 'order.request_type', 'order.payment_type','order.status','order.created_at')->get();
        
         $subcription =Config::get('constants.subcription');
         $request_type =Config::get('constants.request_type');
@@ -180,6 +186,7 @@ class Order extends Model {
             $nestedData = array();
             $nestedData[] = $row["id"];
             $nestedData[] = $row["company_name"];
+            $nestedData[] = $row["company_email"];
             $nestedData[] = date('d-m-Y',strtotime($row["created_at"]));
             $nestedData[] = $subcription[$row["subcription"]];
             $nestedData[] = $request_type[$row["request_type"]];
@@ -200,9 +207,54 @@ class Order extends Model {
         return $json_data;
     }
 
-    public function approveRequest($id){
-        $objSavedata=Order::where('id',$id)->update(['status'=>'approve','updated_at'=>date('Y-m-d H:i:s')]);
-       return ($objSavedata);
+    public function approveRequest($request){
+       
+       $objSavedata=Order::where('id',$request['id'])->update(['status'=>'approve','updated_at'=>date('Y-m-d H:i:s')]);
+       if($objSavedata){
+                $objUser = new Users();
+                $newpassword = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyzASLKJHGDMNBVCXZPOIUYTREWQ", 6)), 0, 6);;
+                $objUser->name=$request['company_name'];
+                $objUser->email=$request['company_email'];
+                $objUser->password=Hash::make($newpassword);
+                $objUser->type='COMPANY';
+                if($objUser->save()){
+                    $user_id = $objUser->id;
+                    $objCompany = new Company();
+                    $objCompany->user_id=$user_id;
+                    $objCompany->company_name=$request['company_name'];
+                    $objCompany->email=$request['company_email'];
+                    $objCompany->password=Hash::make($newpassword);
+                    $objCompany->status='ACTIVE';
+                    if($objCompany->save()){
+                        if($result){
+                            $newpassword = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyzASLKJHGDMNBVCXZPOIUYTREWQ", 6)), 0, 6);
+
+                             $objUser = Users::find($result[0]['id']);
+                             $objUser->password = Hash::make($newpassword);
+                             $objUser->created_at = date('Y-m-d H:i:s');
+                             $objUser->save();
+
+                             $mailData['subject'] = 'Forgot password';
+                             $mailData['attachment'] = array();
+                             $mailData['mailto'] =  $result[0]['email'];
+                             $sendMail = new Sendmail;
+                             $mailData['data']['caller_email'] = $result[0]['email'];
+                             $mailData['data']['name'] = $result[0]['name'];
+                             $mailData['data']['password'] = $newpassword;
+                             $mailData['template'] = 'emails.aprooveOrder';
+                             $res = $sendMail->sendSMTPMail($mailData);
+                             return true;
+                         }
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }else{
+                    return false;
+                }
+       }else{
+          return false; 
+       }
     }
     
     public function disapproveRequest($id){

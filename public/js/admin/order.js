@@ -1,15 +1,22 @@
 var Order = function() {
     var handleList = function() {
         $('body').on('click', '.approve', function() {
-            var id = $(this).data('id');            
+            var id = $(this).data('id');   
+            var company_name = $(this).data('company_name');
+            var company_email = $(this).data('company_email');
             setTimeout(function() {
                 $('.yesapprove:visible').attr('data-id', id);
+                $('.yesapprove:visible').attr('data-company_name', company_name);
+                $('.yesapprove:visible').attr('data-company_email', company_email);
             }, 500);
         });
         
         $('body').on('click', '.yesapprove', function() {
             var id = $(this).attr('data-id');
-            var data = {id: id, _token: $('#_token').val()};
+            var company_name = $(this).attr('data-company_name');
+            var company_email = $(this).attr('data-company_email');
+            var data = {id: id,
+                        company_email:company_email,company_name:company_name, _token: $('#_token').val()};
             $.ajax({
                 type: "POST",
                 headers: {

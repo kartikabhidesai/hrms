@@ -16,6 +16,7 @@
                                 <tr>
                                     <th>Order Number</th>
                                     <th>Company Name</th>
+                                    <th>Company Email</th>
                                     <th>Date</th>
                                     <th>Subscription</th>
                                     <th>Request Type</th>
