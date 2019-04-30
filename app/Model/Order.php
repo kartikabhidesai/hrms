@@ -230,10 +230,10 @@ class Order extends Model {
                                 
                              $mailData['subject'] = 'Forgot password';
                              $mailData['attachment'] = array();
-                             $mailData['mailto'] =  $result[0]['email'];
+                             $mailData['mailto'] =  $request['company_email'];
                              $sendMail = new Sendmail;
-                             $mailData['data']['caller_email'] = $result[0]['email'];
-                             $mailData['data']['name'] = $result[0]['name'];
+                             $mailData['data']['caller_email'] = $request['company_email'];
+                             $mailData['data']['name'] = $request['company_name'];
                              $mailData['data']['password'] = $newpassword;
                              $mailData['template'] = 'emails.aprooveOrder';
                              $res = $sendMail->sendSMTPMail($mailData);
