@@ -142,7 +142,9 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function() {
     Route::match(['get', 'post'], 'company-report-ajaxAction', ['as' => 'company-report-ajaxAction', 'uses' => 'Admin\CompanyReportController@ajaxAction']);
     Route::match(['get', 'post'], 'finance-report', ['as' => 'finance-report', 'uses' => 'Admin\FinanceReportController@index']);
     Route::match(['get', 'post'], 'finance-report-ajaxAction', ['as' => 'finance-report-ajaxAction', 'uses' => 'Admin\FinanceReportController@ajaxAction']);
-     Route::match(['get', 'post'], 'order-report', ['as' => 'order-report', 'uses' => 'Admin\OrderReportController@index']);
+    Route::match(['get', 'post'], 'order-report', ['as' => 'order-report', 'uses' => 'Admin\OrderReportController@index']);
     Route::match(['get', 'post'], 'order-report-ajaxAction', ['as' => 'order-report-ajaxAction', 'uses' => 'Admin\OrderReportController@ajaxAction']);
+    Route::match(['get', 'post'], 'plan-package-report', ['as' => 'plan-package-report', 'uses' => 'Admin\PlanAndPackageReportController@index']);
+    Route::match(['get', 'post'], 'plan-package-report-ajaxAction', ['as' => 'plan-package-report-ajaxAction', 'uses' => 'Admin\PlanAndPackageReportController@ajaxAction']);
 
 });

@@ -32,7 +32,7 @@
                                 </tr>
                                 <tr>
                                     <td>Plan and Packaging report </td>
-                                    <td><a href="#" >View</a></td>
+                                    <td><a href="{{ route('plan-package-report') }}" >View</a></td>
                                 </tr>
                             </tbody>
                         </table>
