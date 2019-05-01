@@ -1,18 +1,21 @@
 var Role = function() {
    
     var handleList=function(){
-
+        
         $('body').on('click', '.roleDelete', function() {
             // $('#deleteModel').modal('show');
             var id = $(this).data('id');
+            var user_id = $(this).data('user_id');
             setTimeout(function() {
                 $('.yes-sure:visible').attr('data-id', id);
+                $('.yes-sure:visible').attr('data-user_id', user_id);
             }, 500);
         })
 
         $('body').on('click', '.yes-sure', function() {
             var id = $(this).attr('data-id');
-            var data = {id: id, _token: $('#_token').val()};
+            var user_id = $(this).attr('data-user_id');
+            var data = {id: id,user_id:user_id, _token: $('#_token').val()};
             $.ajax({
                 type: "POST",
                 headers: {
@@ -64,21 +67,28 @@ var Role = function() {
         getDataTable(arrList);
         
         var addRole=function(){
-        var form = $('#addRole');
-        var rules = {
-            user_name: {required: true},
-            email: {required: true,email:true},
-            password: {required: true},
-            status: {required: true},
-            department: {required: true},
-            role: {required: true},
-        };
-        handleFormValidate(form, rules, function(form) {
-            handleAjaxFormSubmit(form);
-        });
+            $(".permissionCheckboxAll").click(function(){
+                $('.permissionCheckbox').not(this).prop('checked', this.checked);
+            });
+            
+            var form = $('#addRole');
+            var rules = {
+                user_name: {required: true},
+                email: {required: true,email:true},
+                password: {required: true},
+                status: {required: true},
+                department: {required: true},
+                role: {required: true},
+            };
+            handleFormValidate(form, rules, function(form) {
+                handleAjaxFormSubmit(form);
+            });
     };
     
     var editRole=function(){
+        $(".permissionCheckboxAll").click(function(){
+                $('.permissionCheckbox').not(this).prop('checked', this.checked);
+            });
         var form = $('#editRole');
         var rules = {
             user_name: {required: true},

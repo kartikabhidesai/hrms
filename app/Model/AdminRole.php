@@ -18,33 +18,55 @@ class AdminRole extends Model {
 
     protected $table = 'admin_role';
     
-    public function createAdminRole($request,$companyId = NULL){
-
+    public function createAdminRole($request,$user_id = NULL){
+        $UserFind = Users::select('email')->where('email', $request->input('email'))->get();
         $result = AdminRole::select('email')->where('email', $request->input('email'))->get();
-        if (count($result) == 0) {
+        if (count($result) == 0 &&  count($UserFind) == 0) {
             $newAdminRole=new AdminRole();
             $newpass = Hash::make($request->input('password'));
             $newAdminRole->user_name=$request->input('user_name');
             $newAdminRole->email=$request->input('email');
             $newAdminRole->password=$newpass;
-            $newAdminRole->company_id = $companyId;
+            $newAdminRole->user_id = $user_id;
             $newAdminRole->status=$request->input('status');
             $newAdminRole->created_at = date('Y-m-d H:i:s');
             $newAdminRole->updated_at = date('Y-m-d H:i:s');
             if($newAdminRole->save()){
-                $lastId = $newAdminRole->id;
-                if (!empty($request->input('checkboxes'))) {
-                    $permisson = $request->input('checkboxes');
-                    for ($i = 0; $i < count($permisson); $i++) {
-                        $systemUser = new AdminUserHasPermission();
-                        $systemUser->permission_id = $permisson[$i];
-                        $systemUser->user_id = $lastId;
-                        $systemUser->updated_at = date('Y-m-d H:i:s');
-                        $systemUser->created_at = date('Y-m-d H:i:s');
-                        $result = $systemUser->save();
+                    $lastId = $newAdminRole->id;
+                    
+                    $newUser=new Users();
+                    $newUser->name = $request->input('user_name');
+                    $newUser->email = $request->input('email');
+                    $newUser->password = $newpass ;
+                    $newUser->type = "ADMIN";
+                    $newUser->created_at = date('Y-m-d H:i:s');
+                    $newUser->updated_at = date('Y-m-d H:i:s');
+                    $result = $newUser->save();
+                    if($result){
+                        $userId = $newUser->id;                    
+                        $objAdminRole=AdminRole::find($lastId);
+                        $objAdminRole->user_id=$userId;
+                        $objAdminRole->save();
+                        if($result){
+                            if (!empty($request->input('checkboxes'))) {
+                            $permisson = $request->input('checkboxes');
+                                for ($i = 0; $i < count($permisson); $i++) {
+                                    $systemUser = new AdminUserHasPermission();
+                                    $systemUser->permission_id = $permisson[$i];
+                                    $systemUser->admin_role_id = $lastId;
+                                    $systemUser->user_id = $userId;
+                                    $systemUser->updated_at = date('Y-m-d H:i:s');
+                                    $systemUser->created_at = date('Y-m-d H:i:s');
+                                    $result = $systemUser->save();
+                                }
+                            }
+                            return true;
+                        }else{
+                            return false; 
+                        }
+                    }else{
+                       return false; 
                     }
-                }
-                return true;
             }
         }else{
             return '2';
@@ -52,23 +74,32 @@ class AdminRole extends Model {
     }    
 
     public function editAdminRole($request){
+        $UserFind = Users::select('email')->where('id', '!=' , $request->input('role_id'))->where('email', $request->input('email'))->get();
         $result = AdminRole::select('email')->where('id', '!=' , $request->input('role_id'))->where('email', $request->input('email'))->get();
-        if (count($result) == 0) {
+        
+        if (count($result) == 0 || count($UserFind) == 0 ) {
             $newAdminRole=  AdminRole::find($request->input('role_id'));
-            $newpass = Hash::make($request->input('password'));
             $newAdminRole->user_name=$request->input('user_name');
             $newAdminRole->email=$request->input('email');
             $newAdminRole->status=$request->input('status');
             $newAdminRole->updated_at = date('Y-m-d H:i:s');
             if($newAdminRole->save()){
+                
+                $newUser=Users::find($request->input('user_id'));
+                $newUser->name = $request->input('user_name');
+                $newUser->email = $request->input('email');
+                $newUser->updated_at = date('Y-m-d H:i:s');
+                $result = $newUser->save();
+                
                 $lastId = $newAdminRole->id;
-                $delete = AdminUserHasPermission::where('user_id',  $request->input('role_id'))->delete();
+                $delete = AdminUserHasPermission::where('admin_role_id',  $request->input('role_id'))->delete();
                 if (!empty($request->input('checkboxes'))) {
                     $permisson = $request->input('checkboxes');
                     for ($i = 0; $i < count($permisson); $i++) {
                         $systemUser = new AdminUserHasPermission();
                         $systemUser->permission_id = $permisson[$i];
-                        $systemUser->user_id = $lastId;
+                        $systemUser->user_id = $request->input('user_id');
+                        $systemUser->admin_role_id = $lastId;
                         $systemUser->updated_at = date('Y-m-d H:i:s');
                         $systemUser->created_at = date('Y-m-d H:i:s');
                         $result = $systemUser->save();
@@ -81,7 +112,7 @@ class AdminRole extends Model {
         }
     }
     
-         public function getData($request) {
+    public function getData($request) {
         $requestData = $_REQUEST;
         $columns = array(
             // datatable column index  => database column name
@@ -182,10 +213,10 @@ class AdminRole extends Model {
         );
 
         $query = AdminRole::from('admin_role as ra')
-                ->leftjoin('admin_user_has_permission', 'admin_user_has_permission.user_id', '=', 'ra.id')
+                ->leftjoin('admin_user_has_permission', 'admin_user_has_permission.admin_role_id', '=', 'ra.id')
                 ->leftjoin('permission_master', 'permission_master.id', '=', 'admin_user_has_permission.permission_id');
         if($comanyId > 0){
-             $query->where('ra.company_id',$comanyId);
+             $query->where('ra.user_id',$comanyId);
         }else{
              $query->whereNull('ra.company_id');
         }
@@ -214,7 +245,7 @@ class AdminRole extends Model {
         $totalFiltered = count($temp->get());
         $resultArr = $query->skip($requestData['start'])
                 ->take($requestData['length'])
-                ->select('ra.id', 'ra.user_name', 'ra.email', 'ra.status','ra.created_at',DB::raw('GROUP_CONCAT(permission_master.name  SEPARATOR ", ") AS permission_name'))->get();
+                ->select('ra.id','ra.user_id', 'ra.user_name', 'ra.email', 'ra.status','ra.created_at',DB::raw('GROUP_CONCAT(permission_master.name  SEPARATOR ", ") AS permission_name'))->get();
         $data = array();
         foreach ($resultArr as $row) {
            $actionHtml = '';
@@ -223,8 +254,7 @@ class AdminRole extends Model {
             }else{
                 $actionHtml .= '<a href="' . route('edit-role', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
             }
-
-            $actionHtml .= '<a href="#deleteModel" data-toggle="modal" data-id="'.$row['id'].'" class="link-black text-sm roleDelete" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';
+            $actionHtml .= '<a href="#deleteModel" data-toggle="modal" data-id="'.$row['id'].'" data-user_id="'.$row["user_id"].'"  class="link-black text-sm roleDelete" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';
             $nestedData = array();
             $nestedData[] = $row["user_name"];
             $nestedData[] = $row["email"];
@@ -241,7 +271,6 @@ class AdminRole extends Model {
             "recordsFiltered" => intval($totalFiltered), // total number of records after searching, if there is no searching then totalFiltered = totalData
             "data" => $data   // total data array
         );
-
         return $json_data;
     }
 

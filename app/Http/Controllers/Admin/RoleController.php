@@ -47,7 +47,7 @@ class RoleController extends Controller {
         $data['masterPermission'] = $objRoleMaster->getAdminMasterPermisson($request); 
 
         if($request->isMethod('post')){
-            // print_r($request->input());exit;
+//             print_r($request->input());exit;
             $objEmail=new AdminRole();
             $result=$objEmail->createAdminRole($request);
             if($result > 1){
@@ -86,8 +86,11 @@ class RoleController extends Controller {
     public function edit(Request $request,$id=null){
         $session = $request->session()->all();
         $data['roleArray'] = AdminRole::find($id);
-        // print_r($data['roleArray']);exit;
+        $objAdminUserHasPermission = new AdminUserHasPermission();
+        $data['permissionList']=$objAdminUserHasPermission->permissionList($id);
+//        print_r($data['permissionList']);exit;
         if($request->isMethod('post')){
+//            print_r($request->input());exit;
             $objEmail=new AdminRole();
             $result=$objEmail->editAdminRole($request);
             if($result > 1){
@@ -111,12 +114,6 @@ class RoleController extends Controller {
 
         
         $adminR = new AdminUserHasPermission();
-        $userPermission = $adminR->getPermission($id);
-        $permission = array();
-        for($i=0; $i<count($userPermission); $i++){
-            $permission[$i] = $userPermission[$i]->permission_id;
-        }
-        $data['userPermission'] = $permission;
         $objRoleMaster = new AdminRole();
         $data['masterPermission'] = $objRoleMaster->getAdminMasterPermisson($request); 
 
@@ -142,6 +139,7 @@ class RoleController extends Controller {
                 echo json_encode($demoList);
                 break;
             case 'deleteRole':
+                
                 $result = $this->deleteRole($request->input('data'));
                 break;
         }
@@ -149,15 +147,28 @@ class RoleController extends Controller {
 
     public function deleteRole($postData) {
         if ($postData) {
-            $result = AdminRole::where('id', $postData['id'])->delete();
-            if ($result) {
-                $return['status'] = 'success';
-                $return['message'] = 'Record delete successfully.';
-                $return['jscode'] = "setTimeout(function(){
-                        $('#deleteModel').modal('hide');
-                        location.reload();
-                    },1000)";
-            } else {
+            
+            $userDelete = User::where('id', $postData['user_id'])->delete();
+            if($userDelete){
+                $result = AdminRole::where('id', $postData['id'])->delete();
+                if($result){
+                    $permission = AdminUserHasPermission::where('admin_role_id', $postData['id'])->delete();
+                    if ($permission) {
+                        $return['status'] = 'success';
+                        $return['message'] = 'Record delete successfully.';
+                        $return['jscode'] = "setTimeout(function(){
+                                $('#deleteModel').modal('hide');
+                                location.reload();
+                            },1000)";
+                    }else{
+                        $return['status'] = 'error';
+                        $return['message'] = 'something will be wrong.';
+                    }
+                }else{
+                    $return['status'] = 'error';
+                    $return['message'] = 'something will be wrong.';
+                }
+            }else{
                 $return['status'] = 'error';
                 $return['message'] = 'something will be wrong.';
             }
