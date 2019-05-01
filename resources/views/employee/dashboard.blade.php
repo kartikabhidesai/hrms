@@ -3,9 +3,11 @@
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         <div class="col-lg-12">
+
+
+
             <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5>Collaps panels</h5>
+                <div class="ibox-title text-center">
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -25,7 +27,151 @@
                     </div>
                 </div>
                 <div class="ibox-content" style="">
-                    <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="contact-box">
+                                <a href="javascript:void(0);">
+                                    <div class="col-sm-12 text-center">
+                                        <span style="font-size: 60px;"><b>14</b></span>
+                                        <span style="font-size: 15px;">days</span>
+                                        <p style="font-size: 15px;">For the next salary</p>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="contact-box">
+                                <a href="javascript:void(0);">
+                                    <div class="col-sm-12 text-center">
+                                        <span style="font-size: 60px;"><b>14</b></span>
+                                        <span style="font-size: 15px;">days</span>
+                                        <p style="font-size: 15px;">off</p>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="contact-box">
+                                <a href="javascript:void(0);">
+                                    <div class="col-sm-12 text-center">
+                                        <span style="font-size: 60px;"><b>4.2</b></span>
+                                        <span style="font-size: 15px;">/5</span>
+                                        <p style="font-size: 15px;">Your completion rate of tasks</p>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-lg-4">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title">Task name</h5>
+                                </div>
+                                <div class="panel-body text-center">
+                                    <div class="col-lg-6 panel">
+                                        Write a commnet
+                                    </div>
+                                    <div class="col-lg-6 panel">
+                                        Upload media
+                                    </div>
+                                    <div class="col-lg-6 panel">
+                                        Share location
+                                    </div>
+                                    <div class="col-lg-6 panel">
+                                        Set statues
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-8">
+
+                            <div class="col-lg-2">
+                                <div class="panel panel-default">
+                                    <a href="javascript:void(0);">
+                                        <div class="text-center">
+                                            <div style="font-size:50px;" class="text-center">
+                                                <i class="fa fa-bank"></i>
+                                            </div>
+                                            <p>Bank info</p>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-2">
+                                <div class="panel panel-default">
+                                    <a href="javascript:void(0);">
+                                        <div class="text-center">
+                                            <div style="font-size:50px;" class="text-center">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <p>Leave</p>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-2">
+                                <div class="panel panel-default">
+                                    <a href="javascript:void(0);">
+                                        <div class="text-center">
+                                            <div style="font-size:50px;" class="text-center">
+                                                <i class="fa fa-money"></i>
+                                            </div>
+                                            <p>Advanced Salary</p>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-2">
+                                <div class="panel panel-default">
+                                    <a href="javascript:void(0);">
+                                        <div class="text-center">
+                                            <div style="font-size:50px;" class="text-center">
+                                                <i class="fa fa-id-badge"></i>
+                                            </div>
+                                            <p>Relocate</p>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </a>
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-2">
+                                <div class="panel panel-default">
+                                    <a href="javascript:void(0);">
+                                        <div class="text-center">
+                                            <div style="font-size:50px;" class="text-center">
+                                                <i class="fa fa-child"></i>
+                                            </div>
+                                            <p>Retirement</p>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>    
+
+
+                    </div>
+
+                    {{-- <div class="panel-body">
                         <div class="panel-group" id="accordion">
                             @if($announcementList->count() == 0)
                             <div class="ibox-content">
@@ -54,7 +200,7 @@
                             @endforeach
                         </div>
                         @endif
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
