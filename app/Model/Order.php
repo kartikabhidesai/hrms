@@ -18,7 +18,15 @@ class Order extends Model {
     protected $table = 'order';
 
     public function createOrder($request){
-
+            
+            $findCompany = Company::where('email', $request->input('company_email'))->first();
+            $findUser = Users::where('email', $request->input('company_email'))->first();
+            $findOrder = Order::where('company_email', $request->input('company_email'))->first();
+           
+            if(!empty($findCompany || $findUser || $findOrder )) {
+                return "emailExits";
+            }
+        
           $newOrder=new Order();
           $newOrder->company_name=$request->input('company_name');
           $newOrder->company_email=$request->input('company_email');
@@ -27,7 +35,12 @@ class Order extends Model {
           $newOrder->payment_type=$request->input('payment_type');
           $newOrder->created_at = date('Y-m-d H:i:s');
           $newOrder->updated_at = date('Y-m-d H:i:s');
-          return $newOrder->save();
+          if($newOrder->save()){
+              return "added";
+          }else{
+              return "wrong";
+          }
+          
     }
     
     public function getOrderData(){
@@ -81,7 +94,7 @@ class Order extends Model {
         foreach ($resultArr as $row) {
             
             if($row["status"] == NULL){
-                $actionHtml = '<a href="#approveModel" data-toggle="modal" data-company_email="'.$row['company_email'].'"  data-company_name="'.$row['company_name'].'"   data-id="'.$row['id'].'"  title="Approve" class="btn btn-default link-black text-sm approve" data-toggle="tooltip" data-original-title="Approve" ><i class="fa fa-check"></i></a><a href="#disapproveModel" data-toggle="modal" data-id="'.$row['id'].'"  title="Reject" class="btn btn-default link-black text-sm disapprove" data-toggle="tooltip" data-original-title="Approve" ><i class="fa fa-close"></i></a>';
+                $actionHtml = '<a href="#approveModel" data-toggle="modal" data-company_email="'.$row['company_email'].'" data-subcription="'.$subcription[$row["subcription"]].'"  data-company_name="'.$row['company_name'].'"   data-id="'.$row['id'].'"  title="Approve" class="btn btn-default link-black text-sm approve" data-toggle="tooltip" data-original-title="Approve" ><i class="fa fa-check"></i></a><a href="#disapproveModel" data-toggle="modal" data-id="'.$row['id'].'"  title="Reject" class="btn btn-default link-black text-sm disapprove" data-toggle="tooltip" data-original-title="Approve" ><i class="fa fa-close"></i></a>';
             }else{
                 if($row["status"] == 'approve'){
                     $actionHtml='<span class="label label-success">Approved</span>';
@@ -91,9 +104,6 @@ class Order extends Model {
             }
             
             $action= '<a href="#deleteModel" data-toggle="modal" data-id="'.$row['id'].'" class="link-black text-sm requestDelete" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';
-//            $actionHtml .= '<a href="' . route('edit-company', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
-//            $actionHtml .= '<a href="#deleteModel" data-toggle="modal" data-id="'.$row['id'].'" class="link-black text-sm CompanyDelete" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';
-//            
             $nestedData = array();
             $nestedData[] = $row["id"];
             $nestedData[] = $row["company_name"];            
@@ -208,7 +218,7 @@ class Order extends Model {
     }
 
     public function approveRequest($request){
-       
+      
        $objSavedata=Order::where('id',$request['id'])->update(['status'=>'approve','updated_at'=>date('Y-m-d H:i:s')]);
        if($objSavedata){
                 $objUser = new Users();
@@ -223,7 +233,8 @@ class Order extends Model {
                     $objCompany->user_id=$user_id;
                     $objCompany->company_name=$request['company_name'];
                     $objCompany->email=$request['company_email'];
-                    $objCompany->password=Hash::make($newpassword);
+                    $objCompany->password=Hash::make($newpassword);                    
+                    $objCompany->subcription=$request['subcription'];
                     $objCompany->status='ACTIVE';
                     if($objCompany->save()){
                              $mailData['subject'] = 'Forgot password';

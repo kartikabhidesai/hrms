@@ -19,6 +19,7 @@ class Company extends Model
 
     public function addCompany($request) 
     {
+       
         //Find unique company/user
         $findCompany = Company::where('email', $request->input('email'))->first();
         $findUser = Users::where('email', $request->input('email'))->first();
@@ -26,6 +27,7 @@ class Company extends Model
         if(!empty($findCompany || $findUser)) {
             return false;
         }
+        
         $name = '';
         if($request->file()){
             $image = $request->file('company_image');

@@ -4,10 +4,12 @@ var Order = function() {
             var id = $(this).data('id');   
             var company_name = $(this).data('company_name');
             var company_email = $(this).data('company_email');
+            var subcription = $(this).data('subcription');
             setTimeout(function() {
                 $('.yesapprove:visible').attr('data-id', id);
                 $('.yesapprove:visible').attr('data-company_name', company_name);
                 $('.yesapprove:visible').attr('data-company_email', company_email);
+                $('.yesapprove:visible').attr('data-subcription', subcription);
             }, 500);
         });
         
@@ -15,7 +17,9 @@ var Order = function() {
             var id = $(this).attr('data-id');
             var company_name = $(this).attr('data-company_name');
             var company_email = $(this).attr('data-company_email');
-            var data = {id: id,
+            
+            var subcription = $(this).attr('data-subcription');
+            var data = {id: id,subcription:subcription,
                         company_email:company_email,company_name:company_name, _token: $('#_token').val()};
             $.ajax({
                 type: "POST",

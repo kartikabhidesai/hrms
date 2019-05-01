@@ -33,13 +33,18 @@ class OrderController extends Controller {
         if($request->isMethod('post')){
             $objOrder= new Order();
             $result=$objOrder->createOrder($request);
-            if ($result) {
+            if ($result == 'added') {
                 $return['status'] = 'success';
                 $return['message'] = 'Order Created Succeessfully.';
                 $return['redirect'] = route('order');
             } else {
-                $return['status'] = 'error';
-                $return['message'] = 'Something goes to wrong.Try again';
+                if ($result == 'emailExits') {
+                    $return['status'] = 'error';
+                    $return['message'] = 'Email already exists';
+                }else{
+                    $return['status'] = 'error';
+                    $return['message'] = 'Something goes to wrong.Try again';
+                }
             }
             echo json_encode($return);
             exit;

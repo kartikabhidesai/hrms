@@ -76,8 +76,9 @@ return [
     
     'subcription'=>[
         ''=>'Select Subscription Type',
-        '1'=>'Pro',
-        '2'=>'Premium',
+        'PREMIUM'=>'PREMIUM',
+        'GOLD'=>'GOLD',
+        'SILVER'=>'SILVER',
     ],
     
     'request_type'=>[
