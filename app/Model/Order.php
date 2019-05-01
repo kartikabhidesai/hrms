@@ -109,7 +109,7 @@ class Order extends Model {
             $nestedData[] = $row["company_name"];            
             $nestedData[] = $row["company_email"];
             $nestedData[] = date('d-m-Y',strtotime($row["created_at"]));
-            $nestedData[] = $subcription[$row["subcription"]];
+            $nestedData[] = $row["subcription"];
             $nestedData[] = $request_type[$row["request_type"]];
             $nestedData[] = $payment_type[$row["payment_type"]];
             $nestedData[] = $actionHtml;$nestedData[] = $action;
@@ -198,7 +198,7 @@ class Order extends Model {
             $nestedData[] = $row["company_name"];
             $nestedData[] = $row["company_email"];
             $nestedData[] = date('d-m-Y',strtotime($row["created_at"]));
-            $nestedData[] = $subcription[$row["subcription"]];
+            $nestedData[] = $row["subcription"];
             $nestedData[] = $request_type[$row["request_type"]];
             $nestedData[] = $payment_type[$row["payment_type"]];
             $nestedData[] = $actionHtml;$nestedData[] = $action;
