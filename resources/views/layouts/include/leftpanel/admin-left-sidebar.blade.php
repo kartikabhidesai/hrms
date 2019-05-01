@@ -2,7 +2,8 @@
 $currentRoute = Route::current()->getName();
 
 $session = Session::all();
-
+$roles = Session::get('userRole');
+$roles  = array_values($roles);
 if (!empty(Auth()->guard('admin')->user())) {
 $data = Auth()->guard('admin')->user();
 }
@@ -42,97 +43,129 @@ $file_headers = @get_headers($filename);
                     HRMS
                 </div>
             </li>
-
+            @if($roles == NULL)
             <li class="{{ ($currentRoute == 'admin-dashboard'  ? 'active' : '') }}">
                 <a href="{{ route('admin-dashboard') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span> </a>
-                <!--  <ul class="nav nav-second-level collapse">
-                     <li><a href="index.html">Dashboard v.1</a></li>
-                     <li><a href="dashboard_2.html">Dashboard v.2</a></li>
-                     <li><a href="dashboard_3.html">Dashboard v.3</a></li>
-                     <li><a href="dashboard_4_1.html">Dashboard v.4</a></li>
-                     <li><a href="dashboard_5.html">Dashboard v.5 </a></li>
-                 </ul> -->
+               
             </li>
+            
             <li class="{{ ($currentRoute == 'list-demo'  ? 'active' : '') }}">
                 <a href="{{ route('list-demo') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Demo</span></a>
             </li>
+            
+            
             <li class="{{ ($currentRoute == 'list-company'  ? 'active' : '') }} {{ ($currentRoute == 'add-company'  ? 'active' : '') }} {{ ($currentRoute == 'edit-company'  ? 'active' : '') }}">
                 <a href="{{ route('list-company') }}"><i class="fa fa-industry"></i> <span class="nav-label">Company</span></a>
             </li> 
+            
+            
             <li class="{{ ($currentRoute == 'list-cmspage'  ? 'active' : '') }} {{ ($currentRoute == 'edit-cmspage'  ? 'active' : '') }} {{ ($currentRoute == 'edit-company'  ? 'active' : '') }}">
                 <a href="{{ route('list-cmspage') }}"><i class="fa fa-industry"></i> <span class="nav-label">CMS Page</span></a>
             </li>
-<!--            <li class="{{ ($currentRoute == 'edit-email' || $currentRoute == 'add-email' || $currentRoute == 'list-email'  ? 'active' : '') }} ">
-                <a href="{{ route('list-email') }}"><i class="fa fa-envelope-o"></i> <span class="nav-label">Email</span></a>
-            </li>-->
 
-    </li> 
-    <li class="{{ ($currentRoute == 'setting'   ? 'active' : '') }} ">
-        <a href="{{ route('setting') }}"><i class="fa fa-cog" ></i> <span class="nav-label">Setting</span></a>
-    </li>
-    <li class="{{ ($currentRoute == 'set-tax' ? 'active' : '') }}">
-        <a href="{{ route('set-tax') }}"><i class="fa fa-percent"></i>
-            <span class="nav-label">Set Tax</span></a>
-    </li>
+            <!--            <li class="{{ ($currentRoute == 'edit-email' || $currentRoute == 'add-email' || $currentRoute == 'list-email'  ? 'active' : '') }} ">
+                            <a href="{{ route('list-email') }}"><i class="fa fa-envelope-o"></i> <span class="nav-label">Email</span></a>
+                        </li>-->
 
-
-    <!--                <li class="{{ ($currentRoute == 'order-list' ? 'active' : '') }}">
-                        <a href="{{ route('order-list') }}"><i class="fa fa-first-order"></i>
-                        <span class="nav-label">Order</span></a>
-                    </li>-->
-
-    <li class="{{ ($currentRoute == 'order-list' || $currentRoute == 'order-approved-list' ? 'active' : '') }}">
-        <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Order</span> <span class="fa arrow"></span></a>
-        <ul class="nav nav-second-level">
-            <li class="{{ ($currentRoute == 'order-list' ? 'active' : '') }}">
-                <a href="{{ route('order-list') }}"><i class="fa fa-money" ></i> <span class="nav-label">Order List</span></a>
+            <li class="{{ ($currentRoute == 'setting'   ? 'active' : '') }} ">
+                <a href="{{ route('setting') }}"><i class="fa fa-cog" ></i> <span class="nav-label">Setting</span></a>
             </li>
-            <li class="{{ ($currentRoute == 'order-approved-list' ? 'active' : '') }}">
-                <a href="{{ route('order-approved-list') }}"><i class="fa fa-money" ></i> <span class="nav-label">Order Approved List</span></a>
-            </li>
-        </ul>
-    </li>
 
-    <li class="{{ ($currentRoute == 'payment-list' ? 'active' : '') }}">
-        <a href="{{ route('payment-list') }}"><i class="fa fa-percent"></i>
-            <span class="nav-label">Payment</span></a>
-    </li>
-    
-    <li class="{{ ($currentRoute == 'plan-management' ? 'active' : '') }}">
-        <a href="{{ route('plan-management') }}"><i class="fa fa-percent"></i>
-            <span class="nav-label">Plan Management</span></a>
-    </li> 
-    <li class="{{ ($currentRoute == 'add-role' || $currentRoute == 'edit-role' || $currentRoute == 'role-list' ? 'active' : '') }}">
-        <a href="{{ route('role-list') }}"><i class="fa  fa-american-sign-language-interpreting"></i>
-            <span class="nav-label">Role</span></a>
-    </li>
-    <li class="{{ ($currentRoute == 'sms-list' ? 'active' : '') }} {{ ($currentRoute == 'new-sms' ? 'active' : '') }}">
-        <a href="{{ url('').'/admin/sms-list' }}"><i class="fa fa-envelope"></i>
-            <span class="nav-label">Send SMS</span></a>
-    </li> 
-    <li class="{{ ($currentRoute == 'communication' ? 'active' : '') }} {{ ($currentRoute == 'compose' ? 'active' : '') }} {{ ($currentRoute == 'mail-detail' ? 'active' : '') }} {{ ($currentRoute == 'mail-detail/*' ? 'active' : '') }}">
-        <a href="{{ url('').'/admin/communication' }}"><i class="fa fa-history"></i>
-            <span class="nav-label">Communication</span></a>
-    </li>
-    
-     <li class="{{ ($currentRoute == 'social-media'   ? 'active' : '') }} ">
-        <a href="{{ url('').'/admin/social-media' }}"><i class="fa fa-comments"></i>
-            <span class="nav-label">Social Media</span></a>
-    </li> 
-    <li class="{{ ($currentRoute == 'admin-report-list'   ? 'active' : '') }} ">
+            <li class="{{ ($currentRoute == 'set-tax' ? 'active' : '') }}">
+                <a href="{{ route('set-tax') }}"><i class="fa fa-percent"></i>
+                    <span class="nav-label">Set Tax</span></a>
+            </li>
+
+
+            <!--                <li class="{{ ($currentRoute == 'order-list' ? 'active' : '') }}">
+                                <a href="{{ route('order-list') }}"><i class="fa fa-first-order"></i>
+                                <span class="nav-label">Order</span></a>
+                            </li>-->
+
+            <li class="{{ ($currentRoute == 'order-list' || $currentRoute == 'order-approved-list' ? 'active' : '') }}">
+                <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Order</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li class="{{ ($currentRoute == 'order-list' ? 'active' : '') }}">
+                        <a href="{{ route('order-list') }}"><i class="fa fa-money" ></i> <span class="nav-label">Order List</span></a>
+                    </li>
+                    <li class="{{ ($currentRoute == 'order-approved-list' ? 'active' : '') }}">
+                        <a href="{{ route('order-approved-list') }}"><i class="fa fa-money" ></i> <span class="nav-label">Order Approved List</span></a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="{{ ($currentRoute == 'payment-list' ? 'active' : '') }}">
+                <a href="{{ route('payment-list') }}"><i class="fa fa-percent"></i>
+                    <span class="nav-label">Payment</span></a>
+            </li>
+
+            <li class="{{ ($currentRoute == 'plan-management' ? 'active' : '') }}">
+                <a href="{{ route('plan-management') }}"><i class="fa fa-percent"></i>
+                    <span class="nav-label">Plan Management</span></a>
+            </li> 
+            <li class="{{ ($currentRoute == 'add-role' || $currentRoute == 'edit-role' || $currentRoute == 'role-list' ? 'active' : '') }}">
+                <a href="{{ route('role-list') }}"><i class="fa  fa-american-sign-language-interpreting"></i>
+                    <span class="nav-label">Role</span></a>
+            </li>
+            <li class="{{ ($currentRoute == 'sms-list' ? 'active' : '') }} {{ ($currentRoute == 'new-sms' ? 'active' : '') }}">
+                <a href="{{ url('').'/admin/sms-list' }}"><i class="fa fa-envelope"></i>
+                    <span class="nav-label">Send SMS</span></a>
+            </li> 
+            <li class="{{ ($currentRoute == 'communication' ? 'active' : '') }} {{ ($currentRoute == 'compose' ? 'active' : '') }} {{ ($currentRoute == 'mail-detail' ? 'active' : '') }} {{ ($currentRoute == 'mail-detail/*' ? 'active' : '') }}">
+                <a href="{{ url('').'/admin/communication' }}"><i class="fa fa-history"></i>
+                    <span class="nav-label">Communication</span></a>
+            </li>
+
+             <li class="{{ ($currentRoute == 'social-media'   ? 'active' : '') }} ">
+                <a href="{{ url('').'/admin/social-media' }}"><i class="fa fa-comments"></i>
+                    <span class="nav-label">Social Media</span></a>
+            </li> 
+            <li class="{{ ($currentRoute == 'admin-report-list'   ? 'active' : '') }} ">
         <a href="{{ route('admin-report-list') }}"><i class="fa fa-comments"></i>
             <span class="nav-label">Report</span></a>
     </li>
-
-    <!--   <li class="active">
-          <a href="#"><i class="fa fa-table"></i> <span class="nav-label">Tables</span><span class="fa arrow"></span></a>
-          <ul class="nav nav-second-level">
-              <li><a href="table_basic.html">Static Tables</a></li>
-              <li class="active"><a href="table_data_tables.html">Data Tables</a></li>
-              <li><a href="table_foo_table.html">Foo Tables</a></li>
-              <li><a href="jq_grid.html">jqGrid</a></li>
-          </ul>
-      </li> -->
+    
+        @else
+            <li class="{{ ($currentRoute == 'admin-dashboard'  ? 'active' : '') }}">
+                <a href="{{ route('admin-dashboard') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span> </a>
+               
+            </li>
+            @if(in_array(6, $roles))
+                <li class="{{ ($currentRoute == 'list-cmspage'  ? 'active' : '') }} {{ ($currentRoute == 'edit-cmspage'  ? 'active' : '') }} {{ ($currentRoute == 'edit-company'  ? 'active' : '') }}">
+                    <a href="{{ route('list-cmspage') }}"><i class="fa fa-industry"></i> <span class="nav-label">CMS Page</span></a>
+                </li>
+            @endif
+            
+            @if(in_array(7, $roles))
+                <li class="{{ ($currentRoute == 'list-company'  ? 'active' : '') }} {{ ($currentRoute == 'add-company'  ? 'active' : '') }} {{ ($currentRoute == 'edit-company'  ? 'active' : '') }}">
+                    <a href="{{ route('list-company') }}"><i class="fa fa-industry"></i> <span class="nav-label">Company</span></a>
+                </li> 
+            @endif
+            
+            
+            @if(in_array(9, $roles))
+                 <li class="{{ ($currentRoute == 'sms-list' ? 'active' : '') }} {{ ($currentRoute == 'new-sms' ? 'active' : '') }}">
+                <a href="{{ url('').'/admin/sms-list' }}"><i class="fa fa-envelope"></i>
+                    <span class="nav-label">Send SMS</span></a>
+            </li> 
+            @endif
+            
+            @if(in_array(8, $roles))
+                 <li class="{{ ($currentRoute == 'communication' ? 'active' : '') }} {{ ($currentRoute == 'compose' ? 'active' : '') }} {{ ($currentRoute == 'mail-detail' ? 'active' : '') }} {{ ($currentRoute == 'mail-detail/*' ? 'active' : '') }}">
+                    <a href="{{ url('').'/admin/communication' }}"><i class="fa fa-history"></i>
+                        <span class="nav-label">Communication</span></a>
+                </li>
+            @endif
+            
+            
+            
+            @if(in_array(11, $roles))
+                <li class="{{ ($currentRoute == 'social-media'   ? 'active' : '') }} ">
+                    <a href="{{ url('').'/admin/social-media' }}"><i class="fa fa-comments"></i>
+                        <span class="nav-label">Social Media</span></a>
+                </li> 
+            @endif
+        @endif
 
 </ul>
 

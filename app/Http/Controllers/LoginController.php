@@ -9,10 +9,8 @@ use Auth;
 use DB;
 use Session;
 use Redirect;
-use App\Model\Calls;
+use App\Model\AdminUserHasPermission;
 use App\Model\Users;
-use App\Model\OrderInfo;
-use App\Model\OutgoingCalls;
 use App\Model\Chat;
 use App\Model\Notification;
 
@@ -117,8 +115,13 @@ class LoginController extends Controller {
                 $objNotification = new Notification();
                 $notificationList = $objNotification->getNotificationList(Auth::guard('admin')->user()->id);
                 $notificationCount = $objNotification->getNotificationCount(Auth::guard('admin')->user()->id);
-                // print_r($notificationList);
+                
+                $this->getUserRoleList(Auth::guard('admin')->user()->id,$request);
+//                $role = $request->session()->get('userRole');
+// print_r($notificationList);
                 // exit;
+                $roles =  Session::get('userRole');
+                
                 $loginData = array(
                     'name' => Auth::guard('admin')->user()->name,
                     'email' => Auth::guard('admin')->user()->email,
@@ -202,6 +205,12 @@ class LoginController extends Controller {
             return 0; 
             exit;
         }
+    }
+    
+    public function getUserRoleList($id,Request $request){
+        $objAdminPermission = new AdminUserHasPermission();
+        $roleList = $objAdminPermission->permissionListAdmin($id);
+        $request->session()->put('userRole', $roleList);
     }
 
 }
