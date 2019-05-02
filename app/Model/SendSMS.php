@@ -86,21 +86,30 @@ class SendSMS extends Model
 
        public function sendNewSMS($request)
     {
-        
-        $emp = explode(',', $request->input('emparray'));
-        foreach ($emp as $key => $value) {
-            // if($request->dept_id) {
-                $temp_emp = Employee::select('company_id')->where('id',$value)->first();
+       
+        if($request->input('company_id') == "All"){
+            $temp_emp = Employee::select('id','company_id')->get()->toarray();
+            for($i = 0 ; $i < count($temp_emp) ;$i++){
                 $newSMS = new SendSMS();
-                $newSMS->emp_id = $value;
-                $newSMS->company_id = @$temp_emp->company_id;
+                $newSMS->emp_id = $temp_emp[$i]['id'];
+                $newSMS->company_id = $temp_emp[$i]['company_id'] ;
                 $newSMS->message = $request->message;
                 $newSMS->created_at = date('Y-m-d H:i:s');
                 $newSMS->updated_at = date('Y-m-d H:i:s');
                 $newSMS->save();
-                $newSMS = '';
-           // }
-           }
+            }
+        }else{
+            $temp_emp = Employee::select('id')->where('company_id',$request->input('company_id'))->get()->toarray();
+            for($i = 0 ; $i < count($temp_emp) ;$i++){
+                $newSMS = new SendSMS();
+                $newSMS->emp_id = $temp_emp[$i]['id'];
+                $newSMS->company_id = $request->input('company_id') ;
+                $newSMS->message = $request->message;
+                $newSMS->created_at = date('Y-m-d H:i:s');
+                $newSMS->updated_at = date('Y-m-d H:i:s');
+                $newSMS->save();
+            }
+        }
         return TRUE;
     }
 

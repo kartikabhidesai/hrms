@@ -24,23 +24,23 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group">
+<!--                            <div class="form-group">
                                 <label class="col-sm-2 control-label">Department</label>
                                 <div class="col-sm-9">
                                     <select class="form-control dept_id"  id="dept_id" name="dept_id" required="required">
                                         <option value="" selected="selected">Select Department</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div>-->
                             <input type="hidden" name="emparray" id="emparray" class="emparray">
-                            <div class="form-group">
+<!--                            <div class="form-group">
                                 <label class="col-sm-2 control-label">Employees</label>
                                 <div class="col-sm-9">
                                     <select class="form-control emp_id" id="emp_id" name="emp_id" required="required">
                                         <option value="" selected="selected">Select Employee</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div>-->
 
                             <div class="form-group" id="data_1">
                                 <label class="col-sm-2 control-label">Message</label>
