@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Model\chat;
+use App\Model\Chat;
 // use Illuminate\Support\Facades\Auth;
 use App\Model\Company;
 use App\User;
