@@ -146,7 +146,9 @@ class LoginController extends Controller {
     }
 
     public function insertLoginTime($user_id) {
-        DB::insert('insert into login_details (user_id) values(?)', [$user_id]);
+
+        $last_active=date('Y-m-d H:i:s');
+        DB::insert('insert into login_details (user_id,last_active) values(?,?)', [$user_id,$last_active]);
     }
 
     public function getLogout() {

@@ -147,4 +147,8 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function() {
     Route::match(['get', 'post'], 'plan-package-report', ['as' => 'plan-package-report', 'uses' => 'Admin\PlanAndPackageReportController@index']);
     Route::match(['get', 'post'], 'plan-package-report-ajaxAction', ['as' => 'plan-package-report-ajaxAction', 'uses' => 'Admin\PlanAndPackageReportController@ajaxAction']);
 
+     // Chet
+     Route::match(['get', 'post'], 'chat', ['as' => 'admin-chat', 'uses' => 'Admin\ChatController@index']);
+     Route::match(['get', 'post'], 'chat-ajaxAction', ['as' => 'admin-chat-ajaxAction', 'uses' => 'Admin\ChatController@ajaxAction']);
+
 });

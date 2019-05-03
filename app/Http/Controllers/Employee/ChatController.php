@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Company;
+namespace App\Http\Controllers\Employee;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\chat;
 use Illuminate\Support\Facades\Auth;
 use App\Model\Company;
+use App\Model\Employee;
 
 
 
@@ -17,11 +18,11 @@ class ChatController extends Controller{
         $data['header'] = array(
             'title' => 'Chat',
             'breadcrumb' => array(
-                'Home' => route("company-dashboard"),
+                'Home' => route("employee-dashboard"),
                 'Chat view' => 'Chat view'));
                 $data['funinit'] = array('Chat.init()');
-        $data['js'] = array('company/chat.js');
-        return view('company.chat.chat',$data);
+        $data['js'] = array('employee/chat.js');
+        return view('employee.chat.chat',$data);
     }
     
     public function ajaxAction(Request $request){
@@ -29,9 +30,9 @@ class ChatController extends Controller{
         $action = $request->input('action');
         switch($action){
             case 'fetch_user':
-                $userData = Auth::guard('company')->user();
-                $getAuthCompanyId = Company::where('email', $userData->email)->first();
-                $logeduserId = $getAuthCompanyId->id;
+                $userData = Auth::guard('employee')->user();
+                $getAuthEmployeeId = Employee::where('email', $userData->email)->first();
+                $logeduserId = $getAuthEmployeeId->id;
                 $chatObj = new chat();
                 $user_fetch = $chatObj->fetch_user($logeduserId);
                 return $user_fetch;
@@ -42,9 +43,9 @@ class ChatController extends Controller{
                 return json_encode($last_active);
                 break;
             case 'insert_chat':
-                $userData = Auth::guard('company')->user();
-                $getAuthCompanyId = Company::where('email', $userData->email)->first();
-                $logeduserId = $getAuthCompanyId->user_id;
+                $userData = Auth::guard('employee')->user();
+                $getAuthEmployeeId = Employee::where('email', $userData->email)->first();
+                $logeduserId = $getAuthEmployeeId->user_id;
                 $insertChat = new chat();
                 $insertData = $insertChat->insert_chat($logeduserId,$request);
                 $user_fetch = $insertChat->fetchUserLastMessage($logeduserId,$request->input('to_user_id'));
@@ -52,9 +53,9 @@ class ChatController extends Controller{
                 // return json_encode($insertData);
                 break;
             case 'user-message-list':
-                $userData = Auth::guard('company')->user();
-                $getAuthCompanyId = Company::where('email', $userData->email)->first();
-                $logeduserId = $getAuthCompanyId->user_id;
+                $userData = Auth::guard('employee')->user();
+                $getAuthEmployeeId = Employee::where('email', $userData->email)->first();
+                $logeduserId = $getAuthEmployeeId->user_id;
                 $chatObj = new chat();
                 $user_fetch = $chatObj->fetchUserMessageList($logeduserId,$request->input('to_user_id'));
                 return $user_fetch;

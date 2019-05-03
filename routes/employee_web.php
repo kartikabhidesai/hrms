@@ -72,4 +72,8 @@ Route::group(['prefix' => $employeePrefix, 'middleware' => ['employee']], functi
     Route::match(['get', 'post'], 'employee-notification-list', ['as' => 'employee-notification-list', 'uses' => 'Employee\NotificationController@notificationList']);
     Route::match(['get', 'post'], 'notification-ajaxAction', ['as' => 'notification-ajaxAction', 'uses' => 'Employee\NotificationController@ajaxAction']);
 
+    /* chat */
+    Route::match(['get', 'post'], 'chat', ['as' => 'employee-chat', 'uses' => 'Employee\ChatController@index']);
+    Route::match(['get', 'post'], 'chat-ajaxAction', ['as' => 'employee-chat-ajaxAction', 'uses' => 'Employee\ChatController@ajaxAction']);
+
 });

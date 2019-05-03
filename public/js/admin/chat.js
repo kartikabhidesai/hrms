@@ -13,9 +13,10 @@ var Chat = function () {
                 success: function(data) {
                     if(data){
                         for(i = 0; i< data.length; i++){
+
                             if(data[i].user_image!=""){
-                            // var userimg=baseurl+"uploads/client/"+data[i].user_image;
-                            var userimg=baseurl+"uploads/client/user.jpg";
+                                // var userimg=baseurl+"uploads/client/"+data[i].user_image;
+                                var userimg=baseurl+"uploads/client/user.jpg";
                             }else{
                                 var userimg=baseurl+"uploads/client/user.jpg";
                             }
@@ -69,7 +70,7 @@ var Chat = function () {
             if (scroll == 0) {
                 var to_user_id = $('#to_user_id').val();
                 var page_no = $('#page_no').val();
-                // chetuserlist(to_user_id,page_no);
+                chetuserlist(to_user_id,page_no);
             }
         });
 
