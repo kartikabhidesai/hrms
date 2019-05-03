@@ -31,7 +31,7 @@ class ChatController extends Controller{
             case 'fetch_user':
                 $userData = Auth::guard('company')->user();
                 $getAuthCompanyId = Company::where('email', $userData->email)->first();
-                $logeduserId = $getAuthCompanyId->id;
+                $logeduserId = $getAuthCompanyId->user_id;
                 $chatObj = new chat();
                 $user_fetch = $chatObj->fetch_user($logeduserId);
                 return $user_fetch;

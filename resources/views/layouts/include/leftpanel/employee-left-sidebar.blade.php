@@ -85,6 +85,10 @@ $currentRoute = Route::current()->getName();
             </li>
             
                 </li>
+                <li class="{{ ($currentRoute == 'employee-chat' ? 'active' : '') }}">
+                    <a href="{{ route('employee-chat') }}"><i class="fa fa-comments"></i>
+                        <span class="nav-label">Chat</span></a>
+                </li>
                    <li class="{{ ($currentRoute == 'emp-performance' ||  $currentRoute == 'emp-performance-emp-detail' || $currentRoute == 'emp-employee-performance-list' || $currentRoute == 'emp-performance-emp-detail/*' ? 'active' : '') }}">
                     <a href="{{ route('emp-performance') }}"><i class="fa fa-user"></i>
                         <span class="nav-label">Performance</span></a>

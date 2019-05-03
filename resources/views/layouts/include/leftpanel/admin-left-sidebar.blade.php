@@ -157,7 +157,10 @@ $file_headers = @get_headers($filename);
                 </li>
             @endif
             
-            
+            <li class="{{ ($currentRoute == 'admin-chat' ? 'active' : '') }}">
+                <a href="{{ route('admin-chat') }}"><i class="fa fa-comments"></i>
+                    <span class="nav-label">Chat</span></a>
+            </li>            
             
             @if(in_array(11, $roles))
                 <li class="{{ ($currentRoute == 'social-media'   ? 'active' : '') }} ">
