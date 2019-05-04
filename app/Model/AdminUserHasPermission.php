@@ -12,10 +12,18 @@ class AdminUserHasPermission extends Model {
     protected $table = 'admin_user_has_permission';
     
     public function getPermission($userId) {
-        $result = AdminUserHasPermission::select('admin_user_has_permission.*')->where('admin_user_has_permission.user_id', '=', $userId)->get();
+        
+        $result = AdminUserHasPermission::select('admin_user_has_permission.*')
+                ->where('admin_user_has_permission.user_id', '=', $userId)->get();
         return $result;
     }
-    
+     
+    public function getPermissionNew($userId){
+        $result = AdminUserHasPermission::select('admin_user_has_permission.*')
+                ->where('admin_user_has_permission.admin_role_id', '=', $userId)->get();
+        return $result;
+    }
+
     public function permissionList($id){
         $result = AdminUserHasPermission::select('permission_id')
                  ->where('admin_role_id', '=',$id)->get()->toarray();

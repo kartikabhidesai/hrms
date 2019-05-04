@@ -22,6 +22,7 @@
                         </div>
                     </div>
                     <input type="hidden" name="role_id" value="{{ $roleArray['id'] }}">
+                    <input type="hidden" name="user_id" value="{{ $roleArray['user_id'] }}">
                     <div class="form-group"><label class="col-lg-2 control-label">Email</label>
                         <div class="col-lg-9">
                             {{ Form::text('email', $roleArray['email'], array('class' => 'form-control' ,'required')) }}

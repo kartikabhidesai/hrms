@@ -89,10 +89,11 @@ class RoleController extends Controller {
     public function edit(Request $request,$id=null){
         $session = $request->session()->all();
         $data['roleArray'] = AdminRole::find($id);
-        // print_r($data['roleArray']);exit;
+        
+//         print_r($data['roleArray']);exit;
         if($request->isMethod('post')){
             $objEmail=new AdminRole();
-            $result=$objEmail->editAdminRole($request);
+            $result=$objEmail->editCompanyRole($request);
             if($result > 1){
                 $return['status'] = 'error';
                 $return['message'] = 'Email already exists.';
@@ -114,12 +115,13 @@ class RoleController extends Controller {
 
         
         $adminR = new AdminUserHasPermission();
-        $userPermission = $adminR->getPermission($id);
+        $userPermission = $adminR->getPermissionNew($id);
         $permission = array();
         for($i=0; $i<count($userPermission); $i++){
             $permission[$i] = $userPermission[$i]->permission_id;
         }
-        $data['userPermission'] = $permission;
+        
+        $data['userPermission'] = $permission;        
         $objRoleMaster = new AdminRole();
         $data['masterPermission'] = $objRoleMaster->getCompanyMasterPermisson($request); 
 
