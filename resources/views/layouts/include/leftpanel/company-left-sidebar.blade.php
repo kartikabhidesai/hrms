@@ -1,6 +1,8 @@
 @php
 $currentRoute = Route::current()->getName();
 $session = Session::all();
+$roles = Session::get('userRole');
+$roles  = array_values($roles);
 
 if (!empty(Auth()->guard('admin')->user())) {
 $data = Auth()->guard('admin')->user();
@@ -37,13 +39,14 @@ $file_headers = @get_headers($filename);
                     </ul>
                 </div>
                 <div class="logo-element">
-                    IN+
+                     HRMS
                 </div>
             </li>
-
+            @if($roles == NULL)
             <li class="{{ ($currentRoute == 'company-dashboard' ? 'active' : '') }}">
                 <a href="{{ route('company-dashboard') }}"><i class="fa fa-home"></i> <span class="nav-label">Dashboard</span></a>
             </li>
+            
             <li class="{{ ($currentRoute == 'employee-add' || $currentRoute == 'employee-edit' || $currentRoute == 'employee-list'  ? 'active' : '') }}">
                 <a href="{{ route('employee-list') }}"><i class="fa fa-user"></i> <span class="nav-label">Employee</span></a>
             </li>
@@ -52,6 +55,7 @@ $file_headers = @get_headers($filename);
                 <a href="{{ route('department-list') }}"><i class="fa fa-address-card"></i>
                     <span class="nav-label">Department</span></a>
             </li> 
+            
             <li class="{{ ( $currentRoute == 'campany-advance-salary-request' || $currentRoute == 'add-advance-salary-request' ? 'active' : '') }} {{ ( $currentRoute == 'approved-advance-salary-request' ? 'active' : '') }}">
                 <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Salary</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
@@ -103,9 +107,6 @@ $file_headers = @get_headers($filename);
                 <a href="{{ route('sms-list') }}"><i class="fa fa-envelope"></i>
                     <span class="nav-label">Send SMS</span></a>
             </li> 
-
-
-
 
             <li class="{{ ($currentRoute == 'communication' ? 'active' : '') }} {{ ($currentRoute == 'compose' ? 'active' : '') }} {{ ($currentRoute == 'mail-detail' ? 'active' : '') }} {{ ($currentRoute == 'mail-detail/*' ? 'active' : '') }}">
                 <a href="{{ route('communication') }}"><i class="fa fa-history"></i>
@@ -162,10 +163,12 @@ $file_headers = @get_headers($filename);
                 <a href="{{ route('award-company') }}"><i class="fa fa-bullhorn"></i>
                     <span class="nav-label">Award</span></a>
             </li>
+            
             <li class="{{ ($currentRoute == 'report-list' || $currentRoute == 'task-report' || $currentRoute == 'ticket-report' || $currentRoute == 'client-report' || $currentRoute == 'transaction-report' || $currentRoute == 'holiday-report' ? 'active' : '') }}">
                 <a href="{{ route('report-list') }}"><i class="fa fa-bullhorn"></i>
                     <span class="nav-label">Report</span></a>
             </li>
+            
             <li class="{{ ($currentRoute == 'system-setting' || $currentRoute == 'system-setting' ? 'active' : '') }} {{ ($currentRoute == 'working-day-setting' ? 'active' : '') }} {{ ($currentRoute == 'leave-category' ? 'active' : '') }}">
                 <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Setting</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
@@ -185,18 +188,77 @@ $file_headers = @get_headers($filename);
                     </li>
                 </ul>
             </li>
+            
             <li class="{{ ($currentRoute == 'client' ? 'active' : '') }}">
                 <a href="{{ route('client') }}"><i class="fa fa-users"></i>
                     <span class="nav-label">Client</span></a>
             </li>
+            
             <li class="{{ ($currentRoute == 'chat' ? 'active' : '') }}">
                 <a href="{{ route('chat') }}"><i class="fa fa-comments"></i>
                     <span class="nav-label">Chat</span></a>
             </li>
+            
             <li class="{{ ($currentRoute == 'company-add-role' || $currentRoute == 'company-edit-role' || $currentRoute == 'company-role-list' ? 'active' : '') }}">
                 <a href="{{ route('company-role-list') }}"><i class="fa  fa-american-sign-language-interpreting"></i>
                 <span class="nav-label">Role</span></a>
             </li>
+            @else
+                <li class="{{ ($currentRoute == 'company-dashboard' ? 'active' : '') }}">
+                    <a href="{{ route('company-dashboard') }}"><i class="fa fa-home"></i> <span class="nav-label">Dashboard</span></a>
+                </li>
+                
+                @if(in_array(1, $roles))
+                <li class="{{ ($currentRoute == 'department-list' || $currentRoute == 'department-add' || $currentRoute == 'department-edit'  ? 'active' : '') }}">
+                    <a href="{{ route('department-list') }}"><i class="fa fa-address-card"></i>
+                    <span class="nav-label">Department</span></a>
+                </li> 
+                @endif
+
+                @if(in_array(2, $roles))
+                <li class="{{ ( $currentRoute == 'campany-advance-salary-request' || $currentRoute == 'add-advance-salary-request' ? 'active' : '') }} {{ ( $currentRoute == 'approved-advance-salary-request' ? 'active' : '') }}">
+                    <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Salary</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+
+                        <li class="{{ ($currentRoute == 'payroll-list' || $currentRoute == 'payroll-emp-detail' || $currentRoute == 'payroll-add' || $currentRoute == 'payroll-edit'  ? 'active' : '') }}">
+                            <a href="{{ route('payroll-list') }}"><i class="fa fa-money"></i>
+                                <span class="nav-label">Payroll</span></a>
+                        </li>
+                        <li class="{{ ($currentRoute == 'pay-slip' ? 'active' : '') }}">
+                            <a href="{{ route('pay-slip') }}"><i class="fa fa-history"></i>
+                                <span class="nav-label">Pay Slip</span></a>
+                        </li>
+                        <li class="{{ ( $currentRoute == 'campany-advance-salary-request'  || $currentRoute == 'add-advance-salary-request' ? 'active' : '') }}">
+                            <a href="{{ route('campany-advance-salary-request') }}"><i class="fa fa-money" ></i> <span class="nav-label">Advance Salary Request</span></a>
+                        </li>
+                        <li class="{{ ( $currentRoute == 'approved-advance-salary-request' ? 'active' : '') }}">
+                            <a href="{{ route('approved-advance-salary-request') }}"><i class="fa fa-money" ></i> <span class="nav-label">Approved Advance Salary</span></a>
+                        </li>
+                    </ul>
+                </li>
+                @endif
+                
+                @if(in_array(3, $roles))
+                <li class="{{ ($currentRoute == 'add-task' || $currentRoute == 'task-list' ? 'active' : '') }}">
+                    <a href="{{ route('task-list') }}"><i class="fa fa-tasks"></i>
+                        <span class="nav-label">Task List</span></a>
+                </li>
+                @endif
+                
+                @if(in_array(5, $roles))
+                <li class="{{ ($currentRoute == 'performance' ||  $currentRoute == 'performance-emp-detail' || $currentRoute == 'employee-performance-list' || $currentRoute == 'performance-emp-detail/*' ? 'active' : '') }}">
+                    <a href="{{ route('performance') }}"><i class="fa fa-user"></i>
+                        <span class="nav-label">Performance</span></a>
+                </li>
+                @endif
+                
+                @if(in_array(4, $roles))
+                <li class="{{ ($currentRoute == 'ticket-list' || $currentRoute == 'add-ticket' ? 'active' : '') }}">
+                    <a href="{{ route('ticket-list') }}"><i class="fa fa-ticket"></i>
+                        <span class="nav-label">Tickets</span></a>
+                </li>
+                @endif
+            @endif
         </ul>
          
 

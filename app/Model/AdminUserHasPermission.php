@@ -28,6 +28,8 @@ class AdminUserHasPermission extends Model {
     }
     
     public function permissionListAdmin($id){
+        
+        
         $result = AdminUserHasPermission::select('permission_id')
                  ->where('user_id', '=',$id)
                  ->get()
@@ -36,6 +38,7 @@ class AdminUserHasPermission extends Model {
         for($i = 0; $i < count($result) ;$i++){
             array_push($permissionArray,$result[$i]['permission_id']);
         }
+       
         return $permissionArray;
     }
 

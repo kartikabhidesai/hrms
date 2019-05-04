@@ -95,7 +95,10 @@ class LoginController extends Controller {
                 $objNotification = new Notification();
                 $notificationList = $objNotification->getNotificationList(Auth::guard('company')->user()->id);
                 $notificationCount = $objNotification->getNotificationCount(Auth::guard('company')->user()->id);
-
+                
+                $this->getUserRoleList(Auth::guard('company')->user()->id,$request);
+                $roles =  Session::get('userRole');
+                
                 $loginData = array(
                     'name' => Auth::guard('company')->user()->name,
                     'email' => Auth::guard('company')->user()->email,
@@ -117,9 +120,7 @@ class LoginController extends Controller {
                 $notificationCount = $objNotification->getNotificationCount(Auth::guard('admin')->user()->id);
                 
                 $this->getUserRoleList(Auth::guard('admin')->user()->id,$request);
-//                $role = $request->session()->get('userRole');
-// print_r($notificationList);
-                // exit;
+
                 $roles =  Session::get('userRole');
                 
                 $loginData = array(

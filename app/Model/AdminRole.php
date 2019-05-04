@@ -67,11 +67,77 @@ class AdminRole extends Model {
                     }else{
                        return false; 
                     }
+            }else{
+                return false; 
             }
         }else{
             return '2';
         }
     }    
+    
+    
+    public function createCompanyRole($request,$companyId = NULL){
+        $UserFind = Users::select('email')->where('email', $request->input('email'))->get();
+        $result = AdminRole::select('email')->where('email', $request->input('email'))->get();
+        
+        if (count($result) == 0 &&  count($UserFind) == 0) {
+            
+            $newAdminRole=new AdminRole();
+            
+            $newpass = Hash::make($request->input('password'));
+            
+            $newAdminRole->user_name=$request->input('user_name');
+            $newAdminRole->email=$request->input('email');
+            $newAdminRole->password=$newpass;
+            $newAdminRole->company_id = $companyId;
+            $newAdminRole->status=$request->input('status');
+            $newAdminRole->created_at = date('Y-m-d H:i:s');
+            $newAdminRole->updated_at = date('Y-m-d H:i:s');
+            if($newAdminRole->save()){
+                   
+                    $lastId = $newAdminRole->id;
+                    
+                    $newUser=new Users();
+                    $newUser->name = $request->input('user_name');
+                    $newUser->email = $request->input('email');
+                    $newUser->password = $newpass ;
+                    $newUser->type = "COMPANY";
+                    $newUser->created_at = date('Y-m-d H:i:s');
+                    $newUser->updated_at = date('Y-m-d H:i:s');
+                    $result = $newUser->save();
+                    if($result){
+                        $userId = $newUser->id;                    
+                        $objAdminRole=AdminRole::find($lastId);
+                        $objAdminRole->user_id=$userId;
+                        $objAdminRole->save();
+                        if($result){
+                            if (!empty($request->input('role'))) {
+                            $permisson = $request->input('role');
+                                for ($i = 0; $i < count($permisson); $i++) {
+                                    $systemUser = new AdminUserHasPermission();
+                                    $systemUser->permission_id = $permisson[$i];
+                                    $systemUser->admin_role_id = $lastId;
+                                    $systemUser->user_id = $userId;
+                                    $systemUser->updated_at = date('Y-m-d H:i:s');
+                                    $systemUser->created_at = date('Y-m-d H:i:s');
+                                    $result = $systemUser->save();
+                                }
+                            }
+                            return "added";
+                        }else{
+                            return "fails"; 
+                        }
+                    }else{
+                       return false; 
+                    }
+            }else{
+                
+            }
+        }else{
+            return "userExits";
+        }
+        
+    }
 
     public function editAdminRole($request){
         $UserFind = Users::select('email')->where('id', '!=' , $request->input('role_id'))->where('email', $request->input('email'))->get();
@@ -183,8 +249,10 @@ class AdminRole extends Model {
     }  
     public function getAdminRoleByCompany($company_id){
         $objAdminRoledata=AdminRole::select('*')->where('company_id', '=', $company_id)->get();
-       return ($objAdminRoledata);
+        return ($objAdminRoledata);
     }
+    
+    
    
     public function getMasterPermisson() {
         $result = DB::table('permission_master')->where('permission_master.is_active', '=', '1')->get();
@@ -218,7 +286,7 @@ class AdminRole extends Model {
                 ->leftjoin('admin_user_has_permission', 'admin_user_has_permission.admin_role_id', '=', 'ra.id')
                 ->leftjoin('permission_master', 'permission_master.id', '=', 'admin_user_has_permission.permission_id');
         if($comanyId > 0){
-             $query->where('ra.user_id',$comanyId);
+             $query->where('ra.company_id',$comanyId);
         }else{
              $query->whereNull('ra.company_id');
         }
