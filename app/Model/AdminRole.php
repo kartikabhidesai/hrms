@@ -249,7 +249,7 @@ class AdminRole extends Model {
     }  
     public function getAdminRoleByCompany($company_id){
         $objAdminRoledata=AdminRole::select('*')->where('company_id', '=', $company_id)->get();
-       return ($objAdminRoledata);
+        return ($objAdminRoledata);
     }
     
     

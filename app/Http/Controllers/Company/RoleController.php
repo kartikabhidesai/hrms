@@ -26,9 +26,9 @@ class RoleController extends Controller {
         $session = $request->session()->all();
         $userid = $this->loginUser->id;
         $companyId = Company::select('id')->where('user_id', $userid)->first();
-
+        
         $objRole = new AdminRole();
-        $data['roleArray'] = $objRole->getAdminRoleByCompany($companyId->id);
+        $data['roleArray'] = $objRole->getAdminRoleByCompany($companyId['id']);
         $data['ArrDepartment'] =  array('1' => 'test','2' => 'test2' );
         $data['role'] =  array('1' => 'Customer','2' => 'Agent');
 
