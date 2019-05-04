@@ -30,8 +30,10 @@
                     <div class="row">
 
                         <div class="col-md-9 ">
-                            <div class="chat-discussion chat-users user-message-list" style="margin-left: 0px">
-                                
+                            <div class="chat-discussion chat-users user-message-list-div" style="margin-left: 0px">
+                            <div class="user-message-list">
+                            No data
+                            </div>
                             </div>
                             <div class="row">
                                 <form method="POST">
@@ -54,7 +56,7 @@
                         <div class="col-md-3">
                             <div class="chat-users">
                                 <div class="users-list">                                   
-                                    
+                                   
                                 </div>
                             </div>
                         </div>
