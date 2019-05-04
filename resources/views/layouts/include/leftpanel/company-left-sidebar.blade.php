@@ -207,6 +207,57 @@ $file_headers = @get_headers($filename);
                 <li class="{{ ($currentRoute == 'company-dashboard' ? 'active' : '') }}">
                     <a href="{{ route('company-dashboard') }}"><i class="fa fa-home"></i> <span class="nav-label">Dashboard</span></a>
                 </li>
+                
+                @if(in_array(1, $roles))
+                <li class="{{ ($currentRoute == 'department-list' || $currentRoute == 'department-add' || $currentRoute == 'department-edit'  ? 'active' : '') }}">
+                    <a href="{{ route('department-list') }}"><i class="fa fa-address-card"></i>
+                    <span class="nav-label">Department</span></a>
+                </li> 
+                @endif
+
+                @if(in_array(2, $roles))
+                <li class="{{ ( $currentRoute == 'campany-advance-salary-request' || $currentRoute == 'add-advance-salary-request' ? 'active' : '') }} {{ ( $currentRoute == 'approved-advance-salary-request' ? 'active' : '') }}">
+                    <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Salary</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+
+                        <li class="{{ ($currentRoute == 'payroll-list' || $currentRoute == 'payroll-emp-detail' || $currentRoute == 'payroll-add' || $currentRoute == 'payroll-edit'  ? 'active' : '') }}">
+                            <a href="{{ route('payroll-list') }}"><i class="fa fa-money"></i>
+                                <span class="nav-label">Payroll</span></a>
+                        </li>
+                        <li class="{{ ($currentRoute == 'pay-slip' ? 'active' : '') }}">
+                            <a href="{{ route('pay-slip') }}"><i class="fa fa-history"></i>
+                                <span class="nav-label">Pay Slip</span></a>
+                        </li>
+                        <li class="{{ ( $currentRoute == 'campany-advance-salary-request'  || $currentRoute == 'add-advance-salary-request' ? 'active' : '') }}">
+                            <a href="{{ route('campany-advance-salary-request') }}"><i class="fa fa-money" ></i> <span class="nav-label">Advance Salary Request</span></a>
+                        </li>
+                        <li class="{{ ( $currentRoute == 'approved-advance-salary-request' ? 'active' : '') }}">
+                            <a href="{{ route('approved-advance-salary-request') }}"><i class="fa fa-money" ></i> <span class="nav-label">Approved Advance Salary</span></a>
+                        </li>
+                    </ul>
+                </li>
+                @endif
+                
+                @if(in_array(3, $roles))
+                <li class="{{ ($currentRoute == 'add-task' || $currentRoute == 'task-list' ? 'active' : '') }}">
+                    <a href="{{ route('task-list') }}"><i class="fa fa-tasks"></i>
+                        <span class="nav-label">Task List</span></a>
+                </li>
+                @endif
+                
+                @if(in_array(5, $roles))
+                <li class="{{ ($currentRoute == 'performance' ||  $currentRoute == 'performance-emp-detail' || $currentRoute == 'employee-performance-list' || $currentRoute == 'performance-emp-detail/*' ? 'active' : '') }}">
+                    <a href="{{ route('performance') }}"><i class="fa fa-user"></i>
+                        <span class="nav-label">Performance</span></a>
+                </li>
+                @endif
+                
+                @if(in_array(4, $roles))
+                <li class="{{ ($currentRoute == 'ticket-list' || $currentRoute == 'add-ticket' ? 'active' : '') }}">
+                    <a href="{{ route('ticket-list') }}"><i class="fa fa-ticket"></i>
+                        <span class="nav-label">Tickets</span></a>
+                </li>
+                @endif
             @endif
         </ul>
          

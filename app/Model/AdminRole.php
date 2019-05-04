@@ -286,7 +286,7 @@ class AdminRole extends Model {
                 ->leftjoin('admin_user_has_permission', 'admin_user_has_permission.admin_role_id', '=', 'ra.id')
                 ->leftjoin('permission_master', 'permission_master.id', '=', 'admin_user_has_permission.permission_id');
         if($comanyId > 0){
-             $query->where('ra.user_id',$comanyId);
+             $query->where('ra.company_id',$comanyId);
         }else{
              $query->whereNull('ra.company_id');
         }
