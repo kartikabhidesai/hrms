@@ -45,6 +45,15 @@ var Role = function() {
     }
 
     var addRole=function(){
+        $(".salary").change(function(){
+            
+        });
+        
+        
+        $(".attandance").change(function(){
+            
+        });
+        
         var form = $('#addRole');
         var rules = {
             user_name: {required: true},

@@ -197,7 +197,9 @@ class AdminRole extends Model {
     }
 
     public function getCompanyMasterPermisson() {
-        $result = DB::table('permission_master')->where('permission_master.is_active', '=', '1')->where('permission_master.type', '=', 'COMPANY')->get();
+        $result = DB::table('permission_master')
+                ->where('permission_master.is_active', '=', '1')
+                ->where('permission_master.type', '=', 'COMPANY')->get();
         return $result;
     }
 
