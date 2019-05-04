@@ -51,17 +51,16 @@ class RoleController extends Controller {
         $companyId = Company::select('id')->where('user_id', $userid)->first();
 
         if($request->isMethod('post')){
-            // print_r($request->input());exit;
+//             print_r($request->input());exit;
             $objEmail=new AdminRole();
-            $result=$objEmail->createAdminRole($request,$companyId->id);
-            if($result > 1){
+            $result=$objEmail->createCompanyRole($request,$companyId->id);
+            if($result == 'userExits'){
                 $return['status'] = 'error';
                 $return['message'] = 'Email already exists.';
-                // $return['redirect'] = route('role-list');
-            }elseif($result){
+            }elseif($result == "added"){
                 $return['status'] = 'success';
                 $return['message'] = 'Role created successfully.';
-                $return['redirect'] = route('company-role-list');
+                $return['redirect'] = route('company-add-role');
             }else{
                 $return['status'] = 'error';
                 $return['message'] = "Something goes to wrong.";

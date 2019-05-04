@@ -43,7 +43,7 @@
                             @endphp
                             @for($i = 0 ;$i < count($masterPermission);$i++,$count++)
                                 <div class="c-choice c-choice--checkbox col-lg-3">
-                                    <input class="roleCheckbox {{ ( $masterPermission[$i]->id == 1 ? 'salary' : '') }} {{ ( $masterPermission[$i]->id == 2 ? 'attandance' : '') }}" value="{{ $masterPermission[$i]->id }}" id="checkbox{{ $count }}" name="checkboxes[]" type="checkbox"  {{ ($masterPermission[$i]->id == '1') ? 'class="salayRole"' : '' }}>
+                                    <input class="roleCheckbox" value="{{ $masterPermission[$i]->id }}" id="checkbox{{ $count }}" name="role[]" type="checkbox">
                                     <label class="c-choice__label" for="checkbox{{ $count }}">{{ $masterPermission[$i]->name }}</label>
                                 </div>
                             @endfor
