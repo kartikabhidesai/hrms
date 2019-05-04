@@ -60,7 +60,7 @@ class RoleController extends Controller {
             }elseif($result == "added"){
                 $return['status'] = 'success';
                 $return['message'] = 'Role created successfully.';
-                $return['redirect'] = route('company-add-role');
+                $return['redirect'] = route('company-role-list');
             }else{
                 $return['status'] = 'error';
                 $return['message'] = "Something goes to wrong.";
