@@ -178,6 +178,47 @@ class AdminRole extends Model {
         }
     }
     
+    public function editCompanyRole($request){
+        
+        $UserFind = Users::select('email')->where('id', '!=' , $request->input('role_id'))->where('email', $request->input('email'))->get();
+        $result = AdminRole::select('email')->where('id', '!=' , $request->input('role_id'))->where('email', $request->input('email'))->get();
+        
+        if (count($result) == 0 || count($UserFind) == 0 ) {
+            
+            $newAdminRole=  AdminRole::find($request->input('role_id'));
+            $newAdminRole->user_name=$request->input('user_name');
+            $newAdminRole->email=$request->input('email');
+            $newAdminRole->status=$request->input('status');
+            $newAdminRole->updated_at = date('Y-m-d H:i:s');
+            if($newAdminRole->save()){
+                
+                $newUser=Users::find($request->input('user_id'));
+                $newUser->name = $request->input('user_name');
+                $newUser->email = $request->input('email');
+                $newUser->updated_at = date('Y-m-d H:i:s');
+                $result = $newUser->save();
+                
+                $lastId = $newAdminRole->id;
+                $delete = AdminUserHasPermission::where('admin_role_id',  $request->input('role_id'))->delete();
+                if (!empty($request->input('checkboxes'))) {
+                    $permisson = $request->input('checkboxes');
+                    for ($i = 0; $i < count($permisson); $i++) {
+                        $systemUser = new AdminUserHasPermission();
+                        $systemUser->permission_id = $permisson[$i];
+                        $systemUser->user_id = $request->input('user_id');
+                        $systemUser->admin_role_id = $lastId;
+                        $systemUser->updated_at = date('Y-m-d H:i:s');
+                        $systemUser->created_at = date('Y-m-d H:i:s');
+                        $result = $systemUser->save();
+                    }
+                }
+                return true;
+            }
+        }else{
+            return '2';
+        }
+    }
+    
     public function getData($request) {
         $requestData = $_REQUEST;
         $columns = array(
@@ -186,6 +227,7 @@ class AdminRole extends Model {
             1 => 'ra.user_name',
             2 => 'ra.email',
             3 => 'ra.status',
+            4 => 'permission_master.name',
         );
 
         $query = AdminRole::from('admin_role as ra')->get();
@@ -285,6 +327,7 @@ class AdminRole extends Model {
         $query = AdminRole::from('admin_role as ra')
                 ->leftjoin('admin_user_has_permission', 'admin_user_has_permission.admin_role_id', '=', 'ra.id')
                 ->leftjoin('permission_master', 'permission_master.id', '=', 'admin_user_has_permission.permission_id');
+                
         if($comanyId > 0){
              $query->where('ra.company_id',$comanyId);
         }else{
@@ -343,5 +386,5 @@ class AdminRole extends Model {
         );
         return $json_data;
     }
-
+    
 }

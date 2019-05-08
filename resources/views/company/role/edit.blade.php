@@ -22,6 +22,7 @@
                         </div>
                     </div>
                     <input type="hidden" name="role_id" value="{{ $roleArray['id'] }}">
+                    <input type="hidden" name="user_id" value="{{ $roleArray['user_id'] }}">
                     <div class="form-group"><label class="col-lg-2 control-label">Email</label>
                         <div class="col-lg-9">
                             {{ Form::text('email', $roleArray['email'], array('class' => 'form-control' ,'required')) }}
@@ -45,7 +46,7 @@
                             $count = 1;
                             @endphp
                             @for($i = 0 ;$i < count($masterPermission);$i++,$count++)
-                                <div class="c-choice c-choice--checkbox col-lg-3">
+                                <div class="c-choice c-choice--checkbox col-lg-4">
                                     <input class="" value="{{ $masterPermission[$i]->id }}" id="checkbox{{ $count }}" name="checkboxes[]" type="checkbox"  {{ (in_array($masterPermission[$i]->id,$userPermission)) ? 'checked="checked" ' : '' }}>
                                     <label class="c-choice__label" for="checkbox{{ $count }}">{{ $masterPermission[$i]->name }}</label>
                                 </div>

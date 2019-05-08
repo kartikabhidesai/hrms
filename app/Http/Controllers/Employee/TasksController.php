@@ -42,7 +42,7 @@ class TasksController extends Controller {
                 $return['redirect'] = route('emp-task-list');
             } else {
                 $return['status'] = 'error';
-                $return['message'] = 'Somethin went wrong while creating new task!';
+                $return['message'] = 'Something went wrong while creating new task!';
             }
             echo json_encode($return);
 
