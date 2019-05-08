@@ -31,6 +31,38 @@ var Chat = function () {
             });
         } 
 
+        $("#search_user").keyup(function(){
+            var search_name=$('#search_user').val();
+            console.log(search_name);
+            $.ajax({
+                type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val()
+                },
+                url: "chat-ajaxAction",
+                data: {'action': 'search_user_list','search_name':search_name},
+                success: function(data) {
+                    if(data){
+                        $('.users-list').empty();
+                        for(i = 0; i< data.length; i++){
+                            if(data[i].user_image!=""){
+                            // var userimg=baseurl+"uploads/client/"+data[i].user_image;
+                            var userimg=baseurl+"uploads/client/user.jpg";
+                            }else{
+                                var userimg=baseurl+"uploads/client/user.jpg";
+                            }
+
+                            $('.users-list').append("<div class='chat-user'><img class='chat-avatar' src='"+userimg+"' alt=''><div class='chat-user-name'><a data-id='"+data[i].id+"' class='user-message' href='javascript:void(0);'  >"+data[i].name+"</a></div></div>");
+                        }
+                        
+                    }
+                },
+                error: function(err) {
+                    //alert("error"+JSON.stringify(err));
+                }
+            });
+        });
+
         $('body').on('click', '.user-message', function () {
             var to_user_id = $(this).attr('data-id');
             var page=1;

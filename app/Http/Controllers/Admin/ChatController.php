@@ -46,6 +46,14 @@ class ChatController extends Controller{
                 $user_fetch = $chatObj->fetch_user($logeduserId);
                 return $user_fetch;
                 break;
+            case 'search_user_list':
+                $userData = Auth::guard('admin')->user();
+                $getAuthAdminId = User::where('email', $userData->email)->first();
+                $logeduserId = $getAuthAdminId->id;
+                $chatObj = new chat();
+                $user_fetch = $chatObj->search_user_list($logeduserId,$request->input('search_name'));
+                return $user_fetch;
+                break;
             case 'update_last_activity':
                 $updateActivity = new chat();
                 $last_active = $updateActivity->update_last_activity();

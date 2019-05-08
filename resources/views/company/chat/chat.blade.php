@@ -55,6 +55,7 @@
                         </div>
                         <div class="col-md-3">
                             <div class="chat-users">
+                            <input type="text" class="form-control" name="search_user" id="search_user" placeholder="Search User" />
                                 <div class="users-list">                                   
                                    
                                 </div>
