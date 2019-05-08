@@ -46,7 +46,6 @@ var Role = function() {
 
     var addRole=function(){
         
-        
         var form = $('#addRole');
         var rules = {
             user_name: {required: true},

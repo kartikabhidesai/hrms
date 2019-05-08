@@ -160,6 +160,8 @@ class RoleController extends Controller {
     public function deleteRole($postData) {
         if ($postData) {
             $result = AdminRole::where('id', $postData['id'])->delete();
+            $result = AdminUserHasPermission::where('admin_role_id', $postData['id'])->delete();
+//            $result = AdminRole::where('id', $postData['id'])->delete();
             if ($result) {
                 $return['status'] = 'success';
                 $return['message'] = 'Record delete successfully.';

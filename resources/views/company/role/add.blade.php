@@ -42,7 +42,7 @@
                             $count = 1;
                             @endphp
                             @for($i = 0 ;$i < count($masterPermission);$i++,$count++)
-                                <div class="c-choice c-choice--checkbox col-lg-3">
+                                <div class="c-choice c-choice--checkbox col-lg-4">
                                     <input class="roleCheckbox" value="{{ $masterPermission[$i]->id }}" id="checkbox{{ $count }}" name="role[]" type="checkbox">
                                     <label class="c-choice__label" for="checkbox{{ $count }}">{{ $masterPermission[$i]->name }}</label>
                                 </div>
