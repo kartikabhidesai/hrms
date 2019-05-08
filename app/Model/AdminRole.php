@@ -227,6 +227,7 @@ class AdminRole extends Model {
             1 => 'ra.user_name',
             2 => 'ra.email',
             3 => 'ra.status',
+            4 => 'permission_master.name',
         );
 
         $query = AdminRole::from('admin_role as ra')->get();
@@ -320,6 +321,7 @@ class AdminRole extends Model {
             0 => 'ra.user_name',
             1 => 'ra.email',
             2 => 'ra.status',
+            3 => 'permission_master.name',
         );
 
         $query = AdminRole::from('admin_role as ra')
