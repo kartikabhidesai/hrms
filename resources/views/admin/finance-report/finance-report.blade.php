@@ -2,12 +2,13 @@
 @section('content')
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
+        <form action="{{url('')}}/admin/finance-report" method="post" id="pdfForm">
         {{ csrf_field() }}
         <div class="col-lg-4">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <span class="label label-info pull-right"></span>
-                    <h5>For</h5>
+                    <h5>For Time Period</h5>
                 </div>
                 <div class="ibox-content">
                     <select class="form-control monthreport" id="monthreport" name="monthreport">
@@ -26,15 +27,11 @@
                     <span class="label label-info pull-right"></span>
                 </div>
                 <div class="ibox-content">
-                    <button id="downloadPDF" class="btn btn-sm btn-primary" type="button">Download as PDF</button>
-                    <form action="{{url('')}}/company/client-report" method="post" id="pdfForm">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <input type="hidden" id="form_time_period" name="time_period" value="">
-                        <input type="hidden" id="form_date_period" name="date_period" value="">
-                    </form>
+                    <input type="submit" id="downloadPDF" class="btn btn-sm btn-primary" value="Download as PDF">
                 </div>
             </div>
         </div>
+        </form>
 
         <div class="col-lg-12">
             {{ csrf_field() }}
@@ -47,10 +44,11 @@
                 </div>
                 <div class="ibox-content">
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover dataTables-example" id="dataTables-clientReport">
+                        <table class="table table-striped table-bordered table-hover dataTables-example" id="dataTables-financeReport">
                             <thead>
                                 <tr>
                                     <th>Number of Report</th>
+                                    <th>Downloaded Report TimePeriod</th>
                                     <th>Downloaded Time</th>
                                     <th>Action</th>
                                 </tr>

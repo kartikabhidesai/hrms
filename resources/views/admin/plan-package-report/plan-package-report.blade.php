@@ -2,6 +2,7 @@
 @section('content')
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
+        <form action="{{url('')}}/admin/plan-package-report" method="post" id="pdfForm">
         {{ csrf_field() }}
         <div class="col-lg-4">
             <div class="ibox float-e-margins">
@@ -10,10 +11,11 @@
                     <h5>Plan</h5>
                 </div>
                 <div class="ibox-content">
-                    <select class="form-control monthreport" id="status" name="status">
-                      <option value="premium">Premium</option>
-                      <option value="pro">Pro</option>
-                      <option value="all">All</option>
+                    <select class="form-control monthreport" id="subcription" name="subcription" required="required">
+                        <option value="">select</option>
+                        <option value="premium">Premium</option>
+                        <option value="pro">Pro</option>
+                        <option value="all">All</option>
                     </select>
                 </div>
             </div>
@@ -25,15 +27,11 @@
                     <span class="label label-info pull-right"></span>
                 </div>
                 <div class="ibox-content">
-                    <button id="downloadPDF" class="btn btn-sm btn-primary" type="button">Download as PDF</button>
-                    <form action="{{url('')}}/company/client-report" method="post" id="pdfForm">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <input type="hidden" id="form_time_period" name="time_period" value="">
-                        <input type="hidden" id="form_date_period" name="date_period" value="">
-                    </form>
+                    <button type="submit" id="downloadPDF" class="btn btn-sm btn-primary" type="button">Download as PDF</button>
                 </div>
             </div>
         </div>
+        </form>
 
         <div class="col-lg-12">
             {{ csrf_field() }}
@@ -46,10 +44,11 @@
                 </div>
                 <div class="ibox-content">
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover dataTables-example" id="dataTables-clientReport">
+                        <table class="table table-striped table-bordered table-hover" id="dataTables-planAndPackageReport">
                             <thead>
                                 <tr>
                                     <th>Number of Report</th>
+                                    <th>Downloaded Report Subscription</th>
                                     <th>Downloaded Time</th>
                                     <th>Action</th>
                                 </tr>
