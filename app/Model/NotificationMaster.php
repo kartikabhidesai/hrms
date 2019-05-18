@@ -23,7 +23,7 @@ class NotificationMaster extends Model {
         foreach($NotificationMaster as $row)
         {
             DB::table('user_notification')->insert(
-                ['company_id' => $userdata->id,'notification_master_id'=> $row->id]
+                ['company_id' => $userdata[0]->id,'notification_master_id'=> $row->id]
             );
         }
         return TRUE;
