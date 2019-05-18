@@ -28,8 +28,6 @@
                 <div class="ibox-content">
                     <button id="downloadPDF" class="btn btn-sm btn-primary" type="submit">Download as PDF</button>
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <input type="hidden" id="downloadstatus" class="downloadstatus" name="downloadstatus" value="">
-                        <input type="hidden" id="emparray" class="emparray" name="emparray" value="">
                 </div>
             </div>
         </div>
@@ -48,15 +46,17 @@
                             <thead>
                                 <tr>
                                     <th>Number of Report</th>
+                                    <th>Status</th>
                                     <th>Download Date</th>
                                     <th>Action</th>
                                 </tr> 
                             </thead>
-                            <tbody>
+                            {{-- <tbody>
                                 @foreach($companyReportArray as $row => $val)
 
                                     <tr>
                                         <td>{{ $val->company_report_number }}</td>
+                                        <td>{{ $val->status }}</td>
                                         <td>{{ $val->download_date }}</td>
                                         <td class="center">
                                             <a href="javascript:;"  data-id="{{ $val->id }}"  data-department="{{ $val->id }}"  class="link-black text-sm singlePdfDownload" data-toggle="tooltip" data-original-title="View"><i class="fa fa-eye"></i>
@@ -67,7 +67,7 @@
                                         </td>
                                     </tr>
                                 @endforeach
-                            </tbody>
+                            </tbody> --}}
                         </table>
                     </div>
                 </div>
