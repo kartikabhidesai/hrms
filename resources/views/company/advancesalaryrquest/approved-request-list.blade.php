@@ -86,7 +86,9 @@
                             <table class="table table-striped table-bordered table-hover dataTables-example" id="approvedRequestlist1">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
+                                        <th class="c-table__cell c-table__cell--head no-sort">
+                                            <input  type="checkbox" id="selectall"/>
+                                        </th>
                                         <th>Name</th>
                                         <th>Department Name</th>
                                         <th>Request Date</th>
