@@ -67,7 +67,7 @@ class OrderReportController extends Controller {
                 // move_uploaded_file("pdf", $path);
                 $output = $pdf->output();
     // $file_to_save = FCPATH . 'assets/surat_acara/' . $new_filename . '.pdf';
-                file_put_contents($path, $output);
+                // file_put_contents($path, $output);
 
                 $insert = DB::table('order_report')->insertGetId(['downloaded_report_status'=>$request->status,'download_date' =>date('Y-m-d'),'created_at'=>date('Y-m-d H:i:s'),'updated_at'=>date('Y-m-d H:i:s')]);
 
