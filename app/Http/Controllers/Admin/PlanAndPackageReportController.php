@@ -44,7 +44,7 @@ class PlanAndPackageReportController extends Controller {
                 $pdf = PDF::loadView('admin.plan-package-report.plan-package-report-pdf', $data);
                 $path = public_path(). "/uploads/plan_and_package_report/".$plan_and_package_report;                   
                 $output = $pdf->output();
-                file_put_contents($path, $output);
+                // file_put_contents($path, $output);
 
                 $insert = DB::table('plan_and_package_report')->insertGetId(['downloaded_report_subscription'=>$request->subcription,'download_date' =>date('Y-m-d'),'created_at'=>date('Y-m-d H:i:s'),'updated_at'=>date('Y-m-d H:i:s')]);
 
