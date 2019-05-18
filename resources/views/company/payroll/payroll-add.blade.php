@@ -62,6 +62,7 @@
                     </div>
 
                     <input type="hidden" name="empId" value="{{@$employee['id']}}" id="empId">
+                    <input type="hidden" name="companyId" value="{{@$employee['company_id']}}" id="companyId">
 
                     <div class="form-group">
                         <label class="col-sm-3 control-label">Remarks</label>

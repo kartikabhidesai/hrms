@@ -52,50 +52,26 @@
                     <table class="table table-striped table-bordered table-hover dataTables-example" id="">
                         <thead>
                             <tr>
-                                <th >Task</th>
-                                <th>Notify When:</th>
-                                <th>to all employee</th>
+                               
+                                <th>Name</th>
+                                <th>Description</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                               <!--  <tr class="gradeU">
-                                    <td>Department 
-                                        <div class="" style="margin-left: 250px; margin-top: -23px">SMS <input type="checkbox" name=""> <br/> 
-                                            Chat <input type="checkbox" name=""><br/> 
-                                            In system notify <input type="checkbox" name=""></div>
-                                    </td>
-                                    <td>
-                                        Purchases <input type="checkbox" name=""> <br/> 
-                                        Storage <input type="checkbox" name=""><br/> 
-                                        Finance <input type="checkbox" name="">
-                                    </td>
-                                    <td>
-                                        Business Deve. <input type="checkbox" name=""> <br/> 
-                                        Marketing <input type="checkbox" name=""><br/> 
-                                        Event And Planing <input type="checkbox" name="">
-                                    </td>
-                                    <td>
-                                        Add More <a href="javascript:;" class="btn btn-xs btn-primary"><i class="fa fa-plus"></i> </a>
-                                    </td>
-                                </tr> -->
+                        
+                            
+                                @foreach($notifiactionList as $row)
                                 <tr class="gradeU">
-                                    <td >Inform an employee when new task</td>
-                                    <td>SMS <br/> Chat <br/> In system notify</td>
-                                    <td>To all Employee</td>
+                                    <td>{{$row->notification_name}}</td>
+                                    <td>{{$row->description}}</td>
+                                   
                                     <td class="center">
-                                        <div class="switch">
-                                            <div class="onoffswitch">
-                                                <input type="checkbox"  class="onoffswitch-checkbox" id="example1">
-                                                <label class="onoffswitch-label" for="example1">
-                                                    <span class="onoffswitch-inner"></span>
-                                                    <span class="onoffswitch-switch"></span>
-                                                </label>
-                                            </div>
-                                        </div>
+                                    <input type="checkbox" class="custom-switch" <?php if($row->status==1){ echo "checked"; } ?> name="{{$row->id}}">
                                     </td>
                                 </tr>
-                                <tr class="gradeU">
+                                @endforeach
+                                <!-- <tr class="gradeU">
                                     <td >Tihs onee is new addred task</td>
                                     <td>
                                         SMS <input type="checkbox" name=""> <br/> 
@@ -134,7 +110,7 @@
                                             </div>
                                         </div>
                                     </td>
-                                </tr>
+                                </tr> -->
                             </tbody>
                         </table>
                     </div>
@@ -147,3 +123,4 @@
 <script type="text/javascript">
 
 </script>
+

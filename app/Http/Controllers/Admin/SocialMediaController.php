@@ -79,6 +79,20 @@ class SocialMediaController extends Controller {
             exit;
         }
     }
+
+    public function manageAccount (Request $request){
+        $session = $request->session()->all();
+        $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
+        $data['js'] = array('admin/socialmedia.js', 'ajaxfileupload.js', 'jquery.form.min.js','jquery.timepicker.js');
+        $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css','jquery.timepicker.css');
+        $data['funinit'] = array('Socialmedia.init()');
+        $data['header'] = array(
+            'title' => 'Social Media',
+            'breadcrumb' => array(
+                'Home' => route("admin-dashboard"),
+                'Social Media' => 'Social Media'));
+        return view('admin.socialmedia.social-media', $data);
+    }
     
     
     public function editPost(Request $request){

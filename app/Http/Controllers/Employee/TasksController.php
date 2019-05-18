@@ -8,6 +8,7 @@ use App\Model\Task;
 use App\Model\Employee;
 use App\Model\Company;
 use App\Model\Notification;
+use App\Model\NotificationMaster;
 use File;
 use Config;
 
@@ -30,12 +31,21 @@ class TasksController extends Controller {
             $res = $objEmploye->updateTaskDetailEmp($request, $empId->id);
             if ($res) {
 
-                $taskRequestName=$empId->name." update the task.";
                 $objCompany = new Company();
                 $u_id=$objCompany->getUseridById($empId->company_id);
-                $route_url="task-list";
-                $objNotification = new Notification();
-                $ret = $objNotification->addNotification($u_id,$taskRequestName,$route_url);
+
+                $notificationMasterId=15;
+                $objNotificationMaster = new NotificationMaster();
+                $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($u_id,$notificationMasterId);
+                
+                if($NotificationUserStatus==1)
+                {
+                    $taskRequestName=$empId->name." update the task.";
+                    
+                    $route_url="task-list";
+                    $objNotification = new Notification();
+                    $ret = $objNotification->addNotification($u_id,$taskRequestName,$route_url,$notificationMasterId);
+                }
 
                 $return['status'] = 'success';
                 $return['message'] = 'Task updated successfully.';

@@ -10,6 +10,7 @@ use App\Model\Employee;
 use App\Model\Company;
 use App\Model\Attendance;
 use App\Model\Notification;
+use App\Model\NotificationMaster;
 use Auth;
 use Route;
 class ManageTimeChangeRequestController extends Controller
@@ -59,17 +60,26 @@ class ManageTimeChangeRequestController extends Controller
                     break;
                 
                 case 'approveRequest':
+                    $userID = $this->loginUser;
                     $id=$request->input('data')['id'];
                     $objManageList=new ManageTimeChangeRequest();
                     $approveRequest=$objManageList->approveRequest($id);
                     if ($approveRequest) {
 
-                        //notification add                        
-                        $seleryRequestName="Company time change request approved.";
-                        $u_id=$objManageList->getUseridByManageTimeChangeRequestId($id);
-                        $route_url="manage-time-change-request";
-                        $objNotification = new Notification();
-                        $ret = $objNotification->addNotification($u_id,$seleryRequestName,$route_url);
+                        $notificationMasterId=9;
+                        $objNotificationMaster = new NotificationMaster();
+                        $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($userID->id,$notificationMasterId);
+                        
+                        if($NotificationUserStatus==1)
+                        {
+
+                            //notification add                        
+                            $seleryRequestName="Company time change request approved.";
+                            $u_id=$objManageList->getUseridByManageTimeChangeRequestId($id);
+                            $route_url="manage-time-change-request";
+                            $objNotification = new Notification();
+                            $ret = $objNotification->addNotification($u_id,$seleryRequestName,$route_url,$notificationMasterId);
+                        }
                         
                         $return['status'] = 'success';
                         $return['message'] = 'Time chnage request approved';
@@ -83,18 +93,26 @@ class ManageTimeChangeRequestController extends Controller
                     break;
                     
                case 'disapproveRequest':
+                    $userID = $this->loginUser;
                     $id=$request->input('data')['id'];
                     $objManageList=new ManageTimeChangeRequest();
                     $disapproveRequest=$objManageList->disapproveRequest($id);
                     if ($disapproveRequest) {
 
-                        //notification add                        
-                        $seleryRequestName="Company time change request rejected.";
-                        $u_id=$objManageList->getUseridByManageTimeChangeRequestId($id);
-                        $objNotification = new Notification();
-                        $route_url="manage-time-change-request";
-                        $ret = $objNotification->addNotification($u_id,$seleryRequestName,$route_url);
+                        $notificationMasterId=9;
+                        $objNotificationMaster = new NotificationMaster();
+                        $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($userID->id,$notificationMasterId);
                         
+                        if($NotificationUserStatus==1)
+                        {
+                            //notification add                        
+                            $seleryRequestName="Company time change request rejected.";
+                            $u_id=$objManageList->getUseridByManageTimeChangeRequestId($id);
+                            $objNotification = new Notification();
+                            $route_url="manage-time-change-request";
+                            $ret = $objNotification->addNotification($u_id,$seleryRequestName,$route_url);
+                        }
+
                         $return['status'] = 'success';
                         $return['message'] = 'Time chnage request rejected';
                         $return['redirect'] = route('time-change-request');
@@ -107,21 +125,29 @@ class ManageTimeChangeRequestController extends Controller
                     break;  
 
                 case 'changeStatus':
-                    
+                    $userID = $this->loginUser;
                     $objManageList=new ManageTimeChangeRequest();
                     $disapproveRequest=$objManageList->editStatus($request->input('data'));
                     if ($disapproveRequest) {
 
-                        //notification add  
-                        $postData=$request->input('data');
-                        $status = $postData['status']; 
-                        $employeeArr = $postData['arrEmp'];
-                        foreach ($employeeArr as $key => $value) {  
-                            $seleryRequestName="Company time change request ".$status."ed.";
-                            $u_id=$objManageList->getUseridByManageTimeChangeRequestId($value);
-                            $route_url="manage-time-change-request";
-                            $objNotification = new Notification();
-                            $ret = $objNotification->addNotification($u_id,$seleryRequestName,$route_url);
+                        $notificationMasterId=9;
+                        $objNotificationMaster = new NotificationMaster();
+                        $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($userID->id,$notificationMasterId);
+                        
+                        if($NotificationUserStatus==1)
+                        {
+
+                            //notification add  
+                            $postData=$request->input('data');
+                            $status = $postData['status']; 
+                            $employeeArr = $postData['arrEmp'];
+                            foreach ($employeeArr as $key => $value) {  
+                                $seleryRequestName="Company time change request ".$status."ed.";
+                                $u_id=$objManageList->getUseridByManageTimeChangeRequestId($value);
+                                $route_url="manage-time-change-request";
+                                $objNotification = new Notification();
+                                $ret = $objNotification->addNotification($u_id,$seleryRequestName,$route_url,$notificationMasterId);
+                            }
                         }
 
                         $return['status'] = 'success';

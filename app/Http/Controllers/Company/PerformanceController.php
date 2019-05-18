@@ -9,6 +9,7 @@ use App\Model\Company;
 use App\Model\Department;
 use App\Model\Performance;
 use App\Model\Notification;
+use App\Model\NotificationMaster;
 use Config;
 use PDF;
 
@@ -123,13 +124,21 @@ class PerformanceController extends Controller {
                 $return['message'] = 'Performance Already Exist.';
             }elseif ($ret == 1) {
 
-                //notification add
-                $objNotification = new Notification();
-                $performanceName="Performance is a new evaluates update.";
-                $objEmployee = new Employee();
-                $u_id=$objEmployee->getUseridById($request->employee_id);
-                $route_url="emp-performance";
-                $ret = $objNotification->addNotification($u_id,$performanceName,$route_url);
+
+                $notificationMasterId=4;
+                $objNotificationMaster = new NotificationMaster();
+                $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($userid,$notificationMasterId);
+                
+                if($NotificationUserStatus==1)
+                {
+                    //notification add
+                    $objNotification = new Notification();
+                    $performanceName="Performance is a new evaluates update.";
+                    $objEmployee = new Employee();
+                    $u_id=$objEmployee->getUseridById($request->employee_id);
+                    $route_url="emp-performance";
+                    $ret = $objNotification->addNotification($u_id,$performanceName,$route_url,$notificationMasterId);
+                }
 
                 $return['status'] = 'success';
                 $return['message'] = 'Performance Added successfully.';

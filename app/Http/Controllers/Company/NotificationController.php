@@ -8,6 +8,7 @@ use App\Model\Employee;
 use App\Model\Company;
 use App\Model\SendSMS;
 use App\Model\Notification;
+use App\Model\NotificationMaster;
 use App\Model\Tax;
 use App\Model\Department;
 
@@ -21,16 +22,24 @@ class NotificationController extends Controller
     public function sentNotification(Request $request) 
     {
         $session = $request->session()->all();
-       
+
+        $userID = $this->loginUser;
+        $companyId = Company::select('id')->where('user_id', $userID->id)->first();
+        // print_r($userID);exit;
+              
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
-        $data['js'] = array('company/notification.js');
+        $data['js'] = array('company/notification.js','on-off-switch.js','on-off-switch-onload.js');
         $data['funinit'] = array('Notification.init()');
-        $data['css'] = array('');
+        $data['css'] = array('on-off-switch.css');
         $data['header'] = array(
             'title' => 'Sent Notification',
             'breadcrumb' => array(
                 'Home' => route("company-dashboard"),
                 'Sent Notification' => 'Sent Notification'));
+        
+        $objNotificationMaster = new NotificationMaster();
+        $data['notifiactionList'] = $objNotificationMaster->getEmployeeNotificationList($userID->id);
+
         return view('company.notification.notification-add', $data);
     }
 
@@ -58,13 +67,30 @@ class NotificationController extends Controller
                 $objEmploye=new Employee();
                 // $userid=$objEmploye->getUserid($userID->id);
                 // print_r($userID);
-                // print_r($userid);
-                $objNotification = new Notification();
-                $demoList = $objNotification->getNotificationDatatable($userID->id);
+                // print_r($userID);exit;
+                $objNotificationMaster = new NotificationMaster();
+                $demoList = $objNotificationMaster->getNotificationMasterDatatable($userID->id);
                 echo json_encode($demoList);
                 break;
             case 'deleteNotification':
                 $result = $this->deleteNotification($request->input('data'));
+                break;
+
+            case 'onOffNotification':
+                $id=$request->input('data')['id'];
+                $status=$request->input('data')['status'];
+                $objNotificationMaster=new NotificationMaster();
+                $approveRequest=$objNotificationMaster->onOffUserNotificationStatus($id,$status);
+                if ($status==1) {
+                    $return['status'] = 'success';
+                    $return['message'] = 'Notification On';
+                   
+                } else {
+                    $return['status'] = 'success';
+                    $return['message'] = 'Notification Off';
+                }
+                echo json_encode($return);
+                exit;
                 break;
         }
     }

@@ -11,6 +11,9 @@ var Notification = function () {
         });
 
 
+
+         
+
         var columnWidth = {"width": "10%", "targets": 0};
 
             var arrList = {
@@ -26,6 +29,49 @@ var Notification = function () {
                 'setColumnWidth': columnWidth
             };
             getDataTable(arrList);
+            
+            new DG.OnOffSwitchAuto({
+                cls:'.custom-switch',
+                textOn:"YES",
+                height:35,
+                textOff:"NO",
+                textSizeRatio:0.35,
+                listener:function(name, checked){
+                    if(checked==true)
+                    {
+                        var id =name;
+                        var data = {id: id,status:1};
+                        $.ajax({
+                            type: "POST",
+                            headers: {
+                                'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                            },
+                            url: baseurl + "company/notification-ajaxAction",
+                            data: {'action': 'onOffNotification', 'data': data},
+                            success: function(data) {
+                                handleAjaxResponse(data);
+                            }
+                        });
+                    }else{
+                        var id =name;
+                        var data = {id: id,status:0};
+                        $.ajax({
+                            type: "POST",
+                            headers: {
+                                'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                            },
+                            url: baseurl + "company/notification-ajaxAction",
+                            data: {'action': 'onOffNotification', 'data': data},
+                            success: function(data) {
+                                handleAjaxResponse(data);
+                            }
+                        });
+                    }
+                    // document.getElementById("listener-text-table").innerHTML = "Switch " + name + " changed value to " + checked;
+                }
+            });
+
+            
 
             $('body').on('click', '.deleteNotification', function() {
                 var id = $(this).data('id');
@@ -49,6 +95,8 @@ var Notification = function () {
                     }
                 });
             });
+
+            
 
     }
     return {

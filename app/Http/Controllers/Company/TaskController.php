@@ -9,6 +9,7 @@ use App\Model\Company;
 use App\Model\Task;
 use App\Model\NonWorkingDate;
 use App\Model\Notification;
+use App\Model\NotificationMaster;
 use App\Http\Controllers\Controller;
 use Auth;
 use Route;
@@ -68,12 +69,19 @@ class TaskController extends Controller {
 
                 if ($ret) {
                     //notification add
-                    $objNotification = new Notification();
-                    $taskName=$request->input('task')." is a new task.";
-                    $objEmployee = new Employee();
-                    $u_id=$objEmployee->getUseridById($request->input('employee'));
-                    $route_url="emp-task-list";
-                    $ret = $objNotification->addNotification($u_id,$taskName,$route_url);
+                    $notificationMasterId=1;
+                    $objNotificationMaster = new NotificationMaster();
+                    $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($userId,$notificationMasterId);
+                    
+                    if($NotificationUserStatus==1)
+                    {
+                        $objNotification = new Notification();
+                        $taskName=$request->input('task')." is a new task.";
+                        $objEmployee = new Employee();
+                        $u_id=$objEmployee->getUseridById($request->input('employee'));
+                        $route_url="emp-task-list";
+                        $ret = $objNotification->addNotification($u_id,$taskName,$route_url,$notificationMasterId);
+                    }
                     
                     $return['status'] = 'success';
                     $return['message'] = 'Task created successfully.';

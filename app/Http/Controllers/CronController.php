@@ -9,6 +9,7 @@ use App\Model\Company;
 use App\Model\Task;
 use App\Model\Ticket;
 use App\Model\Notification;
+use App\Model\NotificationMaster;
 use App\Model\TypeOfRequest;
 use App\Model\Recruitment;
 use Config;
@@ -34,8 +35,15 @@ class CronController extends Controller {
             $objCompany = new Company();
             $u_id=$objCompany->getUseridById($val['company_id']);
             $route_url="task-list";
-            $objNotification = new Notification();
-            $ret = $objNotification->addNotification($u_id,$taskName,$route_url);
+            $notificationMasterId=16;
+            $objNotificationMaster = new NotificationMaster();
+            $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($u_id,$notificationMasterId);
+            
+            if($NotificationUserStatus==1)
+            {
+                $objNotification = new Notification();
+                $ret = $objNotification->addNotification($u_id,$taskName,$route_url,$notificationMasterId);
+            }
         }
     }
 
@@ -49,8 +57,15 @@ class CronController extends Controller {
             $objCompany = new Company();
             $u_id=$objCompany->getUseridById($val['company_id']);
             $route_url="ticket-list";
-            $objNotification = new Notification();
-            $ret = $objNotification->addNotification($u_id,$ticketName,$route_url);
+            $notificationMasterId=18;
+            $objNotificationMaster = new NotificationMaster();
+            $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($u_id,$notificationMasterId);
+            
+            if($NotificationUserStatus==1)
+            {
+                $objNotification = new Notification();
+                $ret = $objNotification->addNotification($u_id,$ticketName,$route_url,$notificationMasterId);
+            }
         }
     }
 
@@ -64,8 +79,15 @@ class CronController extends Controller {
             $objCompany = new Company();
             $u_id=$objCompany->getUseridById($val['company_id']);
             $route_url="recruitment";
-            $objNotification = new Notification();
-            $ret = $objNotification->addNotification($u_id,$ticketName,$route_url);
+            $notificationMasterId=19;
+            $objNotificationMaster = new NotificationMaster();
+            $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($u_id,$notificationMasterId);
+            
+            if($NotificationUserStatus==1)
+            {
+                $objNotification = new Notification();
+                $ret = $objNotification->addNotification($u_id,$ticketName,$route_url,$notificationMasterId);
+            }
         }
     }
 
