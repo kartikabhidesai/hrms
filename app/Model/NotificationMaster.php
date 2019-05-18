@@ -19,6 +19,7 @@ class NotificationMaster extends Model {
         $userdata = DB::table('users')->orderBy('id', 'desc')
         ->take(1)
         ->get();
+        print_r($userdata);exit;
         $NotificationMaster=DB::table('notification_master')->get();
         foreach($NotificationMaster as $row)
         {
