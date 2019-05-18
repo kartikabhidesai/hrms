@@ -13,12 +13,13 @@ class Notification extends Model {
 
     protected $table = 'notification';
 
-    public function addNotification($user_id,$message,$route) {
+    public function addNotification($user_id,$message,$route,$notificationMasterId) {
 
         
 
         $objNotification = new Notification();
         $objNotification->user_id = $user_id;
+        $objNotification->notification_master_id = $notificationMasterId;
         $objNotification->message =  $message;
         $objNotification->route =  $route;
         $objNotification->created_at = date('Y-m-d H:i:s');
@@ -142,6 +143,16 @@ class Notification extends Model {
     public function getNotificationCount($userid) {
        
         $query = Notification::where('notification.user_id',$userid)->where('notification.status',0)->get()->count();
+        return $query;
+    }
+
+    public function getEmployeeNotificationList($userid) {
+        $query = DB::table('notification_master as nm')
+                ->select(array('nm.id','nm.notification_name','nm.description'))
+                ->where('nm.key',$type)
+                ->get();
+        // $data = array();
+        
         return $query;
     }
 }

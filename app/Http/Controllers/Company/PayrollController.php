@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Model\Payroll;
 use App\Model\Notification;
+use App\Model\NotificationMaster;
 
 class PayrollController extends Controller {
 
@@ -89,15 +90,26 @@ class PayrollController extends Controller {
                 // $return['redirect'] = route('payroll-add',array('id'=> $id));
             } elseif ($ret == 'Added') {
 
-                //notification add
-                $objNotification = new Notification();
-                $objEmployee = new Employee();
-                $empName=$objEmployee->getAllEmployee($id);
-                $payrollName=$empName['name']." is a new information in payroll.";
+                $objCompany = new Company();
+                $company_id=$objCompany->getUseridById($request->input('companyId'));
+
+                $notificationMasterId=2;
+                $objNotificationMaster = new NotificationMaster();
+                $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($company_id,$notificationMasterId);
                 
-                $u_id=$objEmployee->getUseridById($id);
-                $route_url="payroll-employee";
-                $ret = $objNotification->addNotification($u_id,$payrollName,$route_url);
+                if($NotificationUserStatus==1)
+                {
+
+                    //notification add
+                    $objNotification = new Notification();
+                    $objEmployee = new Employee();
+                    $empName=$objEmployee->getAllEmployee($id);
+                    $payrollName=$empName['name']." is a new information in payroll.";
+                    
+                    $u_id=$objEmployee->getUseridById($id);
+                    $route_url="payroll-employee";
+                    $ret = $objNotification->addNotification($u_id,$payrollName,$route_url,$notificationMasterId);
+                }
                 
                 $return['status'] = 'success';
                 $return['message'] = 'Payroll added successfully.';
@@ -145,14 +157,28 @@ class PayrollController extends Controller {
             }elseif ($ret) {
 
                 //notification add
-                $objNotification = new Notification();
-                $objEmployee = new Employee();
-                $empName=$objEmployee->getAllEmployee($request->input('empId'));
-                $payrollName=$empName['name']." is a update information in payroll.";
+
+               
+            //    $company_id=$request->input('companyId');
+
+               $objCompany = new Company();
+                $company_id=$objCompany->getUseridById($request->input('companyId'));
+
+                $notificationMasterId=2;
+                $objNotificationMaster = new NotificationMaster();
+                $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($company_id,$notificationMasterId);
                 
-                $u_id=$objEmployee->getUseridById($request->input('empId'));
-                $route_url="payroll-employee";
-                $ret = $objNotification->addNotification($u_id,$payrollName,$route_url);
+                if($NotificationUserStatus==1)
+                {
+                    $objNotification = new Notification();
+                    $objEmployee = new Employee();
+                    $empName=$objEmployee->getAllEmployee($request->input('empId'));
+                    $payrollName=$empName['name']." is a update information in payroll.";
+                
+                    $u_id=$objEmployee->getUseridById($request->input('empId'));
+                    $route_url="payroll-employee";
+                    $ret = $objNotification->addNotification($u_id,$payrollName,$route_url,$notificationMasterId);
+                }
 
                 $return['status'] = 'success';
                 $return['message'] = 'Payroll updated successfully.';

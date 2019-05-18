@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Model\Announcement;
 use App\Model\Company;
 use App\Model\NonWorkingDate;
+use App\Model\Employee;
+use App\Model\Notification;
+use App\Model\NotificationMaster;
 use Auth;
 use Config;
 
@@ -45,9 +48,10 @@ class AnnouncementController extends Controller {
     public function anounment_add(Request $request) {
 
         if ($request->isMethod('post')) {
-
+            print_r($request);exit;
             $objAnnoucement = new Announcement();
             $userData = Auth::guard('company')->user();
+            
             $getAuthCompanyId = Company::where('email', $userData->email)->first();
             $logedcompanyId = $getAuthCompanyId->id;
 
@@ -62,13 +66,21 @@ class AnnouncementController extends Controller {
 
                 if ($result) {
 
-                    //notification add
-                    $objNotification = new Notification();
-                    $ticketName=$request->input('subject')." is a new Announcement.";
-                    $objEmployee = new Employee();
-                    $u_id=$objEmployee->getUseridById($request->input('assign_to'));
-                    $route_url="employee-notification-list";
-                    $ret = $objNotification->addNotification($u_id,$ticketName,$route_url);
+                    $notificationMasterId=10;
+                    $objNotificationMaster = new NotificationMaster();
+                    $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($userData->id,$notificationMasterId);
+                    
+                    if($NotificationUserStatus==1)
+                    {
+
+                        //notification add
+                        $objNotification = new Notification();
+                        $ticketName=$request->input('subject')." is a new Announcement.";
+                        $objEmployee = new Employee();
+                        $u_id=$objEmployee->getUseridById($request->input('assign_to'));
+                        $route_url="employee-notification-list";
+                        $ret = $objNotification->addNotification($u_id,$ticketName,$route_url,$notificationMasterId);
+                    }
 
                     $return['status'] = 'success';
                     $return['message'] = 'Annoucement Add Successfully.';

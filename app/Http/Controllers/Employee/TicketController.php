@@ -14,6 +14,7 @@ use App\Model\Attendance;
 use App\Model\NonWorkingDate;
 use App\Model\Designation;
 use App\Model\Notification;
+use App\Model\NotificationMaster;
 use Config;
 use Auth;
 use Route;
@@ -35,13 +36,21 @@ class TicketController extends Controller
         //    print_r($request);exit;
             $res = $objTicket->updateTicketStatusEmp($request, $empId->id);
             if ($res) {
-
-                $ticketRequestName=$empId->name." update the ticket.";
+                
                 $objCompany = new Company();
                 $u_id=$objCompany->getUseridById($empId->company_id);
-                $route_url="ticket-list";
-                $objNotification = new Notification();
-                $ret = $objNotification->addNotification($u_id,$ticketRequestName,$route_url);
+                    
+                $notificationMasterId=17;
+                $objNotificationMaster = new NotificationMaster();
+                $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($u_id,$notificationMasterId);
+                
+                if($NotificationUserStatus==1)
+                {
+                    $ticketRequestName=$empId->name." update the ticket.";
+                    $route_url="ticket-list";
+                    $objNotification = new Notification();
+                    $ret = $objNotification->addNotification($u_id,$ticketRequestName,$route_url,$notificationMasterId);
+                }
 
                 $return['status'] = 'success';
                 $return['message'] = 'Ticket status updated successfully.';

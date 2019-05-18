@@ -123,7 +123,7 @@ class Leave extends Model {
             $nestedData[] = $row["department_name"];
             $nestedData[] = date('d-m-Y',strtotime($row["start_date"]));
             $nestedData[] = date('d-m-Y',strtotime($row["end_date"]));
-            $nestedData[] = $type_of_request[$row["type_of_req_id"]];
+            // $nestedData[] = $type_of_request[$row["type_of_req_id"]];
             $nestedData[] = $row["reason"] ? $row["reason"] : 'N.A.';
             
             $nestedData[] = $actionHtml;

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Company;
+use App\Model\NotificationMaster;
 use App\Model\Users;
 use Config;
 use File;
@@ -47,6 +48,8 @@ class ComapnyController extends Controller {
             $ret = $objCompany->addCompany($request);
 
             if ($ret) {
+                $objNotificationMaster = new NotificationMaster();
+                $objNotificationMaster->addNotificationMasterUser();
                 $return['status'] = 'success';
                 $return['message'] = 'Record created successfully.';
                 $return['redirect'] = route('list-company');
