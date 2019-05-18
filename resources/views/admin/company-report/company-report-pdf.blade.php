@@ -1,110 +1,65 @@
-<style>
-    body
-    {
-      margin: 0mm 0mm 0mm 0mm;
-      font-family: sans-serif;
-    }
-    @page { 
-        margin-top: 0px;
-        margin-left: 10px;
-        margin-right: 10px;
-        margin-bottom: 0px; 
-    }
-    @media print {
-        body
-        {
-          margin: 0px;
-        }
-        .wrap{word-break: break-all;
-        display: inline-block;
-        word-break: break-word;}
-    }
-    table
-    {
-        border-color: #000;
-        color: #000;
-        border-collapse: collapse;
-        font-family: sans-serif;
-    }
-    .table_field{
-        font-size: 14px;
-    }
-    .font-small{
-        font-size: 13px;
-        height: 13px;
-    }
-    .dark{
-        /*color: white;*/
-        /*background-color: #75b979;*/
-        background-color: #ffaa00;
-        font-weight: bold;
-    }
-    .white{
-        color: white;
-    }
-    .light{
-        font-size: 12px;
-        background-color: #DCDCDC;
-        font-weight: bold;
-    }
-    .pfont{
-        font-size: 10px;
-    }
-    * {
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-    }
-    .brdr{
-        border: 2px solid orange;
-    }
-</style>
-    <table  style="width: 100%; margin:10px;">
-        <tr>
-            <td style="font-size: 25px; font-weight: bold; width: 20%;">
-                HRMS
-            </td>
-            <td style="font-size: 25px; font-weight: bold; width: 60%; text-align: center;">
-                Client List
-            </td>
-            <td valign="top" style="width: 20%;">
-            </td>
-         </tr>
-    </table>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Pay Slip</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <style>
+            .main-header{
+                font-size: 35px;
+                /*line-height: 35px;
+                text-align: right !important;*/
+            }
+            .text-undeline{
+                text-decoration: underline;
+            }
+            .small-fornt{
+                font-size: 11px;
+                text-align: right;
+            }
+            .page-break {
+                page-break-after: always;
+            }
+            .padding-l-5{
+                padding-left: 5px;
+            }
+        </style>
+        <!-- Favicon -->
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    </head>
+    
+    <body>
+        <table width="100%">
+            <tr>
+                <td class="main-header"><span >HRMS</span></td>
+                <td style="text-align: right;">Company Report</td>
+            </tr>
+        </table>
 
-    <table style="width: 100%; margin-top: 10px;" cellpadding="3" border='1'>
-        <tr>
-            <td class="light table_field" style="width: 40%;">Company Name : </td>
-            <td class="font-small" style="width: 60%;">{{ @$company_name }}</td>
-        </tr>
-    </table>
-
-    <table style="width: 100%; margin-top: 10px;" cellpadding="3" border='1'>
-        <tr class="light">
-            <!-- <td>Payments</td> -->
-            <td>Name</td>
-            <td>National</td>
-            <td>Work</td>
-            <td>Company</td>
-            <td>Date of joining</td>
-            <td>Bank</td>
-            <td>iban</td>
-            <td>Phone number</td>
-            <td>Mobile number</td>
-            <td>Email</td>
-        </tr>
-        @foreach($clientReportPdfArray as $employeeArr)
-            <tr class="font-small">
-                <td>{{ $employeeArr['name'] }}</td>
-                <td>{{ $employeeArr['national_id'] }}</td>
-                <td>{{ $employeeArr['work'] }}</td>
-                <td>{{ $employeeArr['company'] }}</td>
-                <td>{{ $employeeArr['date_of_joining'] }}</td>
-                <td>{{ $employeeArr['bank'] }}</td>
-                <td>{{ $employeeArr['iban'] }}</td>
-                <td>{{ $employeeArr['phone_number'] }}</td>
-                <td>{{ $employeeArr['mobile_number'] }}</td>
-                <td>{{ $employeeArr['email'] }}</td>
-            </tr>  
-        @endforeach
-    </table>
+        <table width="100%" border="1">
+            <thead>
+                <tr>
+                    <td class="padding-l-5">Company Name</td>
+                    <td class="padding-l-5">Company Email</td>
+                    <td class="padding-l-5">Subscription</td>
+                    <td class="padding-l-5">Request Type</td>
+                    <td class="padding-l-5">Payment Type</td>
+                    <td class="padding-l-5">Status</td>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach($companyDetails as $key => $value)
+                <tr>
+                    <td>  {{ $value['company_name'] }}</td>
+                    <td>  {{ $value['email'] }}</td>
+                    <td>  {{ $value['subcription'] }}</td>
+                    <td>  {{ $value['request_type'] }}</td>
+                    <td>  {{ $value['payment_type'] }}</td>
+                    <td>  {{ $value['status'] }}</td>
+                </tr>  
+            @endforeach
+            </tbody>
+        </table>
+            
+    </body>
+</html>
