@@ -16,7 +16,9 @@ class NotificationMaster extends Model {
 
     public function addNotificationMasterUser() {
 
-        $user_id = DB::table('users')->lastInsertId();
+        $user_id = DB::table('users')->orderBy('id', 'desc')
+        ->take(1)
+        ->get();
         $NotificationMaster=DB::table('notification_master')->get();
         foreach($NotificationMaster as $row)
         {
