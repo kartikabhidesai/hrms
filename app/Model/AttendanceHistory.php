@@ -95,14 +95,14 @@ class AttendanceHistory extends Model
 
         $objTypeOfRequest = new TypeOfRequest();
         $type_of_request = $objTypeOfRequest->getTypeOfRequest($companyId->id);
-
+//print_r($type_of_request);exit;
         $temp = $query->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir']);
         $totalData = count($temp->get());
         $totalFiltered = count($temp->get());
         $resultArr = $query->skip($requestData['start'])
                             ->take($requestData['length'])
                             ->get();
-		
+        //print_r($resultArr);exit;
         $data = array();
         foreach ($resultArr as $row) {
             $actionHtml ='';
@@ -112,7 +112,7 @@ class AttendanceHistory extends Model
             $nestedData[] = $row["end_date"] ? $row["end_date"] : $row["to_date"];
             $nestedData[] = $row["name"];
             $nestedData[] = $row["department_name"];
-            $nestedData[] = $row["type_of_req_id"] ? $type_of_request[$row["type_of_req_id"]] : $type_of_request[$row["request_type"]];
+            $nestedData[] = (($row["type_of_req_id"] != '') ? $type_of_request[$row["type_of_req_id"]] : (($row["request_type"] != '')?$type_of_request[$row["request_type"]]:''));
             $desigArr = [];
             $nestedData[] = $actionHtml;
             $data[] = $nestedData;
