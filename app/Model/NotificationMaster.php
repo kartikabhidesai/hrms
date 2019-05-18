@@ -16,14 +16,14 @@ class NotificationMaster extends Model {
 
     public function addNotificationMasterUser() {
 
-        $user_id = DB::table('users')->orderBy('id', 'desc')
+        $userdata = DB::table('users')->orderBy('id', 'desc')
         ->take(1)
         ->get();
         $NotificationMaster=DB::table('notification_master')->get();
         foreach($NotificationMaster as $row)
         {
             DB::table('user_notification')->insert(
-                ['company_id' => $user_id,'notification_master_id'=> $row->id]
+                ['company_id' => $userdata->id,'notification_master_id'=> $row->id]
             );
         }
         return TRUE;
