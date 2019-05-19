@@ -114,14 +114,22 @@ class TicketController extends Controller
                 $objTicket = new Ticket();
                 $result = $objTicket->saveTicket($request);
                 if($result) {
-                    
-                    $ticketRequestName=$empId->name." new the ticket.";
-                    $objCompany = new Company();
-                    $u_id=$objCompany->getUseridById($empId->company_id);
-                    $route_url="ticket-list";
-                    $objNotification = new Notification();
-                    $ret = $objNotification->addNotification($u_id,$ticketRequestName,$route_url);
 
+                    $objCompany = new Company();
+                        $u_id=$objCompany->getUseridById($empId->company_id);
+                        
+                    $notificationMasterId=17;
+                    $objNotificationMaster = new NotificationMaster();
+                    $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($u_id,$notificationMasterId);
+                    
+                    if($NotificationUserStatus==1)
+                    {                    
+                        $ticketRequestName=$empId->name." new the ticket.";
+                        
+                        $route_url="ticket-list";
+                        $objNotification = new Notification();
+                        $ret = $objNotification->addNotification($u_id,$ticketRequestName,$route_url,$notificationMasterId);
+                    }
                     $return['status'] = 'success';
                     $return['message'] = 'Ticket created successfully.';
                     $return['redirect'] = route('ticket-list-emp');
