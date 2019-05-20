@@ -190,7 +190,7 @@
                         </div>    
                     </div>
                 </div>
-                
+                @if(count($annousmentList) > 0)
                 <div class="ibox-content">
                     <div class="ibox-title">
                         <h5>Announcement List</h5>
@@ -224,6 +224,7 @@
                                 </div>
                             </div>
                         </div>
+                @endif
             </div>
             
         </div>
