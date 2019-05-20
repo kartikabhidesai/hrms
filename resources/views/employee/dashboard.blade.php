@@ -190,7 +190,42 @@
                         </div>    
                     </div>
                 </div>
+                
+                <div class="ibox-content">
+                    <div class="ibox-title">
+                        <h5>Announcement List</h5>
+                    </div>
+                            <div class="panel-body">
+                                <div class="panel-group" id="accordion">
+                                    @php 
+                                        $i =0;
+                                    @endphp
+                                    @foreach($annousmentList as $key => $value)
+                                         @php 
+                                            $i++;
+                                        @endphp
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne{{ $i }}">
+                                                <h5 class="panel-title">
+                                                        {{ $value['title'] }}
+                                                        <span class="pull-right">Date : {{ date("d-m-y", strtotime($value['date'])) }}</span>
+                                                </h5>
+                                                </a>
+                                            </div>
+                                            <div id="collapseOne{{ $i }}" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    {{ $value['content'] }}<br><br>
+                                                    <b>Expiry Date : {{ date("d-m-y", strtotime($value['expiry_date'])) }}</b>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
             </div>
+            
         </div>
     </div>
 </div>

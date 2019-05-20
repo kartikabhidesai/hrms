@@ -13,6 +13,8 @@ use APP;
 use Illuminate\Http\Request;
 use App\Model\Task;
 use App\Model\Advancesalary;
+use App\Model\Announcement;
+
 
 class DashboardController extends Controller {
 
@@ -27,6 +29,12 @@ class DashboardController extends Controller {
         $data['login_user'] = $session['logindata'][0];
         $logged_in_user_id = $session['logindata'][0]['id'];
         $logged_in_user = Employee::select('*')->where('user_id', $logged_in_user_id)->first();
+        $objannousmentList =new Announcement();
+        $data['annousmentList']= $objannousmentList->annousmentList($logged_in_user['company_id']);
+//        Announcement::select('title','content','date','expiry_date')->where('company_id', $logged_in_user['company_id'])->get();
+       
+//        print_r($data['annousmentList']);
+//        die();
 
         $latest_task = Task::select('*')->where('employee_id',$logged_in_user->id)->orderBy('id','desc')->first();
         $latest_advance_salary_request = Advancesalary::select('*')->where('employee_id',$logged_in_user->id)->orderBy('id','desc')->first();
