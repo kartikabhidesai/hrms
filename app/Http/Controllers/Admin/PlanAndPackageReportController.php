@@ -11,6 +11,7 @@ use APP;
 use Illuminate\Http\Request;
 use App\Model\PlanAndPackageReport;
 use App\Model\Company;
+use App\Model\PlanManagement;
 use PDF;
 use DB;
 
@@ -66,6 +67,7 @@ class PlanAndPackageReportController extends Controller {
         }
 
         $session = $request->session()->all();
+        $data['planmanagement'] = PlanManagement::get();
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('admin/plan_and_package_report.js');
         $data['funinit'] = array('PlanAndPackageReport.init()');

@@ -25,6 +25,7 @@ class FinanceReportController extends Controller {
 
         if ($request->isMethod('post')) 
         {
+            return redirect()->back()->with(['status'=>'failed','message'=>'Data not found.']);
             if($request->status == 'all' || $request->status == '')
             {
                 echo "<pre>"; print_r($request->toArray()); exit();
@@ -44,7 +45,7 @@ class FinanceReportController extends Controller {
             {
                 foreach ($finances as $key => $value) 
                 {
-                    $finances[$key]['subcription'] = $subcription[$value['subcription']];
+                    // $finances[$key]['subcription'] = $subcription[$value['subcription']];
                     $finances[$key]['request_type'] = $request_type[$value['request_type']];
                     $finances[$key]['payment_type'] = $payment_type[$value['payment_type']];
                 }

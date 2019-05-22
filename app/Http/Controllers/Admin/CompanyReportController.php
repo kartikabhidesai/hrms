@@ -37,7 +37,7 @@ class CompanyReportController extends Controller {
                 {
                     foreach ($data['companyDetails'] as $key => $value) 
                     {
-                        $data['companyDetails'][$key]['subcription'] = @$subcription[$value['subcription']];
+                        // $data['companyDetails'][$key]['subcription'] = @$subcription[$value['subcription']];
                         $data['companyDetails'][$key]['request_type'] = @$request_type[$value['request_type']];
                         $data['companyDetails'][$key]['payment_type'] = @$payment_type[$value['payment_type']];
                     }

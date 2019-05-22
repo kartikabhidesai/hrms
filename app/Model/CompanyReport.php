@@ -97,7 +97,7 @@ class CompanyReport extends Model {
 
     public function getCompanyPdfData($request)
     {
-        if(@$request->status=='all' || @$request->status=='')
+        if(strtolower(@$request->status)=='all' || @$request->status=='')
         {
             $res = Company::get()->toArray();
         }   

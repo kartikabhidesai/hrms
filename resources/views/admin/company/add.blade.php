@@ -66,7 +66,14 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Subcription</label>
                         <div class="col-sm-9"> 
-                            {{ Form::select('subcription', $subcription, null, array('class' => 'form-control m-b', 'id' => 'subcription' ,'required')) }}
+                            <select id="subcription" name="subcription" class="form-control m-b" required>
+                                @if(isset($planmanagement))
+                                    <option value="">Select</option>
+                                    @foreach($planmanagement as $value)
+                                        <option value="{{$value->code}}">{{$value->code}}</option>
+                                    @endforeach
+                                @endif
+                            </select>
                         </div>
                     </div>
                     <!-- <div class="form-group">

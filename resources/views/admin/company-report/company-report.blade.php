@@ -14,7 +14,8 @@
                     <select class="form-control time_period" required="true" id="status" name="status">
                       <option value="">Status</option>
                       <option value="ACTIVE">Active</option>
-                      <option value="DE-ACTIVE">In-active</option>
+                      <option value="DE-ACTIVE">DE-active</option>
+                      <option value="All">All</option>
                     </select>
                 </div>
             </div>

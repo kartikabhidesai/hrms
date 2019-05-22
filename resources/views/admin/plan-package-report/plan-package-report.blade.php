@@ -12,10 +12,12 @@
                 </div>
                 <div class="ibox-content">
                     <select class="form-control monthreport" id="subcription" name="subcription" required="required">
-                        <option value="">select</option>
-                        <option value="premium">Premium</option>
-                        <option value="pro">Pro</option>
-                        <option value="all">All</option>
+                        @if(isset($planmanagement))
+                            <option value="">Select</option>
+                            @foreach($planmanagement as $value)
+                                <option value="{{$value->code}}">{{$value->code}}</option>
+                            @endforeach
+                        @endif
                     </select>
                 </div>
             </div>

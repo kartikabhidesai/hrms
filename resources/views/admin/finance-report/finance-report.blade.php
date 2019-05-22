@@ -13,6 +13,8 @@
                 <div class="ibox-content">
                     <select class="form-control monthreport" id="monthreport" name="monthreport">
                       <option value="">select</option>
+                      <option value="1-months">1 Month</option>
+                      <option value="3-months">3 Months</option>
                       <option value="6-months">6 Months</option>
                       <option value="1-year">Last Year</option>
                       <option value="custom">All</option>
