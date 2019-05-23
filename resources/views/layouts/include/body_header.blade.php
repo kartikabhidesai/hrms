@@ -102,9 +102,15 @@ $currentRoute = Route::current()->getName();
                             @endif
                                 @for($i=0; $i < $countNotific; $i++)
                                 <li>
-                                  
-                                        <a class="notification-count" href="{{ route($session['notificationdata'][0]['notification_list'][$i]['route']) }}" data-id="{{ $session['logindata'][0]['id'] }}" notification-id="{{ $session['notificationdata'][0]['notification_list'][$i]['id'] }}">
-                                           
+                                    @if(!empty($session['notificationdata'][0]['notification_list'][$i]['route'])) 
+                                            <a class="notification-count" href="{{ route($session['notificationdata'][0]['notification_list'][$i]['route']) }}" data-id="{{ $session['logindata'][0]['id'] }}" notification-id="{{ $session['notificationdata'][0]['notification_list'][$i]['id'] }}">
+                                    @else 
+                                        @if(!empty(Auth()->guard('employee')->user())) 
+                                        <a class="notification-count" href="{{ route('employee-notification-list') }}" data-id="{{ $session['logindata'][0]['id'] }}" notification-id="{{ $session['notificationdata'][0]['notification_list'][$i]['id'] }}">
+                                        @else
+                                            <a class="notification-count" href="{{ route('notification-list') }}" data-id="{{ $session['logindata'][0]['id'] }}" notification-id="{{ $session['notificationdata'][0]['notification_list'][$i]['id'] }}">
+                                        @endif
+                                    @endif         
                                             <div>
                                                 <i class="fa fa-envelope fa-fw"></i> {{ $session['notificationdata'][0]['notification_list'][$i]['message'] }}
                                                 <!-- <span class="pull-right text-muted small">4 minutes ago</span> -->
