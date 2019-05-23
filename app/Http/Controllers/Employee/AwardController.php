@@ -9,6 +9,9 @@ use App\Model\Award;
 use App\Model\Company;
 use App\Model\Employee;
 use App\Model\Department;
+use Session;
+use App\Model\Notification;
+use App\Model\NotificationMaster;
 use Auth;
 
 class AwardController extends Controller {
@@ -24,6 +27,16 @@ class AwardController extends Controller {
     }
 
     public function index() {
+
+        $session = $request->session()->all();
+
+        $items = Session::get('notificationdata');
+        $userID = $this->loginUser;
+        $objNotification = new Notification();
+        $items=$objNotification->SessionNotificationCount($userID->id);        
+        Session::put('notificationdata', $items);
+
+
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('employee/award.js', 'jquery.form.min.js', 'jquery.timepicker.js');
         $data['funinit'] = array('Award.init()');

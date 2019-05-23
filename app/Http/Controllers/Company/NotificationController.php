@@ -11,6 +11,7 @@ use App\Model\Notification;
 use App\Model\NotificationMaster;
 use App\Model\Tax;
 use App\Model\Department;
+use Session;
 
 class NotificationController extends Controller
 {
@@ -45,8 +46,16 @@ class NotificationController extends Controller
 
 	public function notificationList(Request $request)
 	{
-		$session = $request->session()->all();
-       
+        $session = $request->session()->all();
+        
+        $items = Session::get('notificationdata');
+        $userID = $this->loginUser;
+        $objNotification = new Notification();
+        $items=$objNotification->SessionNotificationCount($userID->id);
+
+        Session::put('notificationdata', $items);
+        // print_r($request->session());
+        // exit;
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/notification.js','jquery.form.min.js');
         $data['funinit'] = array('Notification.init()');

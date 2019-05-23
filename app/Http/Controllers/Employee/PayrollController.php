@@ -12,6 +12,9 @@ use APP;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Model\Payroll;
+use App\Model\Notification;
+use App\Model\NotificationMaster;
+use Session;
 
 class PayrollController extends Controller {
 
@@ -34,7 +37,16 @@ class PayrollController extends Controller {
 
     public function payrollEmpList() {
         // $id = Auth()->guard('employee')->user()['id'];
+        
+        $session = $request->session()->all();
+        
+        $items = Session::get('notificationdata');
         $userid = $this->loginUser->id;
+        $objNotification = new Notification();
+        $items=$objNotification->SessionNotificationCount($userid);        
+        Session::put('notificationdata', $items);
+
+
         $empId = Employee::select('id')->where('user_id', $userid)->first();
         $data['detail'] = $this->loginUser;
         $EmpObj = new Employee;

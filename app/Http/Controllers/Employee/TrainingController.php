@@ -11,6 +11,9 @@ use App\Model\TraningEmployeeDepartment;
 use App\User;
 use App\Model\Users;
 use App\Model\Employee;
+use App\Model\Notification;
+use App\Model\NotificationMaster;
+use Session;
 use Auth;
 use Route;
 
@@ -24,6 +27,13 @@ class TrainingController extends Controller
     public function index(Request $request)
     {
         $session = $request->session()->all();
+
+        $items = Session::get('notificationdata');
+        $userID = $this->loginUser;
+        $objNotification = new Notification();
+        $items=$objNotification->SessionNotificationCount($userID->id);        
+        Session::put('notificationdata', $items);
+        
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('employee/training.js');
         $data['funinit'] = array('Training.init()');

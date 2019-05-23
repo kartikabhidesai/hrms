@@ -20,6 +20,7 @@ use App\Model\NotificationMaster;
 use Response;
 use Config;
 use Excel;
+use Session;
 
 class AdvanceSalaryRequestController extends Controller {
 
@@ -28,6 +29,15 @@ class AdvanceSalaryRequestController extends Controller {
     }
     
     public function requestList(Request $request){
+
+        $session = $request->session()->all();
+
+        $items = Session::get('notificationdata');
+        $userID = $this->loginUser;
+        $objNotification = new Notification();
+        $items=$objNotification->SessionNotificationCount($userID->id);        
+        Session::put('notificationdata', $items);
+
         $data['detail'] = $this->loginUser;
         $data['header'] = array(
             'title' => 'Advance Salary Request List',

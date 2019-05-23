@@ -15,6 +15,7 @@ use App\Model\Designation;
 use App\Model\NonWorkingDate;
 use App\Model\Notification;
 use App\Model\NotificationMaster;
+use Session;
 use Config;
 use Auth;
 use Route;
@@ -29,6 +30,12 @@ class TicketController extends Controller
     {
         $session = $request->session()->all();
 
+        $items = Session::get('notificationdata');
+        $userID = $this->loginUser;
+        $objNotification = new Notification();
+        $items=$objNotification->SessionNotificationCount($userID->id);        
+        Session::put('notificationdata', $items);
+
         $data['priority'] = "";
         $data['status'] = "";
         
@@ -37,7 +44,7 @@ class TicketController extends Controller
             $data['status'] = $request->input('status');
         }
 
-        $userID = $this->loginUser;
+        
         $companyId = Company::select('id')->where('user_id', $userID->id)->first();
         $objTicketList = new Ticket();
 

@@ -15,6 +15,7 @@ use Auth;
 use Route;
 use Config;
 use APP;
+use Session;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller {
@@ -28,6 +29,13 @@ class TaskController extends Controller {
     {
         
         $session = $request->session()->all();
+
+        $items = Session::get('notificationdata');
+        $userID = $this->loginUser;
+        $objNotification = new Notification();
+        $items=$objNotification->SessionNotificationCount($userID->id);        
+        Session::put('notificationdata', $items);
+         
 
         $data['priority'] = "";
         $data['status'] = "";

@@ -61,12 +61,15 @@ class LoginController extends Controller {
                     'email' => Auth::guard('web')->user()->email,
                     'type' => Auth::guard('web')->user()->type,
                     'user_image' => Auth::guard('web')->user()->user_image,
-                    'id' => Auth::guard('web')->user()->id,
-                    'notification_count' => $notificationCount,
-                    'notification_list' => $notificationList,
+                    'id' => Auth::guard('web')->user()->id
                 );
-
                 Session::push('logindata', $loginData);
+
+                $notificationData=array(
+                    'notification_count' => $notificationCount,
+                    'notification_list' => $notificationList);
+
+                Session::push('notificationdata', $notificationData);
                 $this->insertLoginTime(Auth::guard('web')->user()->id);
                 $request->session()->flash('session_success', 'User Login successfully.');
                 return redirect()->route('user-dashboard');
@@ -81,20 +84,20 @@ class LoginController extends Controller {
                     'email' => Auth::guard('employee')->user()->email,
                     'type' => Auth::guard('employee')->user()->type,
                     'id' => Auth::guard('employee')->user()->id,
-                    'user_image' => Auth::guard('employee')->user()->user_image,
-                    'notification_count' => $notificationCount,
-                    'notification_list' => $notificationList,
+                    'user_image' => Auth::guard('employee')->user()->user_image
                 );
-                
                 Session::push('logindata', $loginData);
+
+                    $notificationData=array(
+                    'notification_count' => $notificationCount,
+                    'notification_list' => $notificationList);
+
+                Session::push('notificationdata', $notificationData);
                 $this->insertLoginTime(Auth::guard('employee')->user()->id);
                 $request->session()->flash('session_success', 'Customer Login successfully.');
                 return redirect()->route('employee-dashboard');
             } else if (Auth::guard('company')->attempt(['email' => $request->input('email'), 'password' => $request->input('password'), 'type' => 'COMPANY'])) {
                 
-                $objNotification = new Notification();
-                $notificationList = $objNotification->getNotificationList(Auth::guard('company')->user()->id);
-                $notificationCount = $objNotification->getNotificationCount(Auth::guard('company')->user()->id);
                 
                 $this->getUserRoleList(Auth::guard('company')->user()->id,$request);
                 $roles =  Session::get('userRole');
@@ -104,12 +107,21 @@ class LoginController extends Controller {
                     'email' => Auth::guard('company')->user()->email,
                     'type' => Auth::guard('company')->user()->type,
                     'id' => Auth::guard('company')->user()->id,
-                    'user_image' => Auth::guard('company')->user()->user_image,
-                    'notification_count' => $notificationCount,
-                    'notification_list' => $notificationList,
+                    'user_image' => Auth::guard('company')->user()->user_image
                 );
-
                 Session::push('logindata', $loginData);
+
+                $objNotification = new Notification();
+                $notificationList = $objNotification->getNotificationList(Auth::guard('company')->user()->id);
+                $notificationCount = $objNotification->getNotificationCount(Auth::guard('company')->user()->id);
+                
+
+                $notificationData=array(
+                    'notification_count' => $notificationCount,
+                    'notification_list' => $notificationList);
+
+                Session::push('notificationdata', $notificationData);
+                // print_r($request->session());exit;
                 $this->insertLoginTime(Auth::guard('company')->user()->id);
                 $request->session()->flash('session_success', 'Company Login successfully.');
                 return redirect()->route('company-dashboard');
@@ -128,13 +140,18 @@ class LoginController extends Controller {
                     'email' => Auth::guard('admin')->user()->email,
                     'type' => Auth::guard('admin')->user()->type,
                     'user_image' => Auth::guard('admin')->user()->user_image,
-                    'id' => Auth::guard('admin')->user()->id,
-                    'notification_count' => $notificationCount,
-                    'notification_list' => $notificationList,
+                    'id' => Auth::guard('admin')->user()->id
                 );
-
                 Session::push('logindata', $loginData);
+
+                $notificationData=array(
+                    'notification_count' => $notificationCount,
+                    'notification_list' => $notificationList);
+
+                Session::push('notificationdata', $notificationData);
                 $this->insertLoginTime(Auth::guard('admin')->user()->id);
+                print_r();
+                exit;
                 $request->session()->flash('session_success', 'Admin Login successfully.');
                 return redirect()->route('admin-dashboard');
             } else {
@@ -163,6 +180,7 @@ class LoginController extends Controller {
         Auth::guard('company')->logout();
         Auth::guard('employee')->logout();
         Session::forget('logindata');
+        Session::forget('notificationdata');
         Session::forget('userRole');
     }
 
@@ -201,11 +219,62 @@ class LoginController extends Controller {
         if ($request->isMethod('post')) {
             // print_r($request->input());exit;
             $objNotification = new Notification();
-            $getNotification = $objNotification->zeroNotificationCount($request->input('user_id'));
+            $getNotification = $objNotification->zeroNotificationCount($request->input('user_id'),$request->input('notification_id'));
             if ($getNotification) {
-                $session['logindata'][0]['notification_count']=0;
+                $countNotification = $objNotification->getNotificationCount($request->input('user_id'));
+                $notificationList = $objNotification->getNotificationList($request->input('user_id'));
+                $items = Session::get('logindata');
+                // print_r($notificationList);
+                foreach ($items as &$item) {
+                    // if ($items[0]['notification_count'] != 0) {
+                        $items[0]['notification_count']--;
+                    // }
+                }
+                $items[0]['notification_list']=$notificationList;
+                // $items[0]['notification_count']=$countNotification;
+                // print_r($items[0]['notification_list']);
+
+                Session::put('logindata', $items);
+                return  $items[0]['notification_count'];
+                exit;
             }
             return 0; 
+            exit;
+        }
+    }
+
+    
+    public function zeroNotificationCount_old(Request $request) {
+
+        if ($request->isMethod('post')) {
+            // print_r($request->input());exit;
+            $objNotification = new Notification();
+            $getNotification = $objNotification->zeroNotificationCount($request->input('user_id'),$request->input('notification_id'));
+            if ($getNotification) {
+                $countNotification = $objNotification->getNotificationCount($request->input('user_id'));
+                // $loginData = array('notification_count' => $countNotification);
+                // print_r($request->session());
+                // $request->session()->flash(logindata[0]['notification_count']);
+                // foreach(session::get('logindata') as $rr)
+                // {
+                //     $request->session()->put(['logindata'][0]['notification_count'], $countNotification);
+                // }
+
+                $items = Session::get('logindata');
+
+                foreach ($items as &$item) {
+                    if ($item['notification_count'] != 0) {
+                        $item['notification_count']--;
+                    }
+                }
+
+                Session::put('logindata', $items);
+                return $item['notification_count'];
+                // print_r($request->session());
+                // return $session['logindata'][0]['notification_count']=$countNotification;
+                // exit;
+            }
+            // return 0; 
             exit;
         }
     }

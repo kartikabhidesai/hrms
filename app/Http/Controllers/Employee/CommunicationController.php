@@ -10,6 +10,7 @@ use App\Model\Communication;
 use App\Model\CommunicationReply;
 use App\Model\Notification;
 use App\Model\NotificationMaster;
+use Session;
 use Auth;
 use Response;
 
@@ -23,6 +24,12 @@ class CommunicationController extends Controller
     public function communication(Request $request) 
     {
         $session = $request->session()->all();
+
+        $items = Session::get('notificationdata');
+        $userID = $this->loginUser;
+        $objNotification = new Notification();
+        $items=$objNotification->SessionNotificationCount($userID->id);        
+        Session::put('notificationdata', $items);
         
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('employee/communication.js');

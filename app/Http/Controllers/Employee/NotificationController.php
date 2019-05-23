@@ -10,6 +10,7 @@ use App\Model\SendSMS;
 use App\Model\Notification;
 use App\Model\Tax;
 use App\Model\Department;
+use Session;
 
 class NotificationController extends Controller
 {
@@ -35,6 +36,14 @@ class NotificationController extends Controller
 
 	public function notificationList(Request $request)
 	{
+
+        $session = $request->session()->all();
+
+        $items = Session::get('notificationdata');
+        $userID = $this->loginUser;
+        $objNotification = new Notification();
+        $items=$objNotification->SessionNotificationCount($userID->id);        
+        Session::put('notificationdata', $items);
 		 
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('employee/notification.js');
