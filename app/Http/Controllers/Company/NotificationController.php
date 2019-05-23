@@ -77,9 +77,10 @@ class NotificationController extends Controller
                 // $userid=$objEmploye->getUserid($userID->id);
                 // print_r($userID);
                 // print_r($userID);exit;
-                $objNotificationMaster = new NotificationMaster();
-                $demoList = $objNotificationMaster->getNotificationMasterDatatable($userID->id);
-                echo json_encode($demoList);
+                $objNotification = new Notification();
+                $demoList = $objNotification->getNotificationDatatable($userID->id);
+                // print_r($demoList);
+                 echo json_encode($demoList);
                 break;
             case 'deleteNotification':
                 $result = $this->deleteNotification($request->input('data'));
