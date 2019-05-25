@@ -23,48 +23,48 @@
                                             <div class="ibox-content red-bg">
                                                 <div>
                                                     <div class="pull-right text-right">
-                                                        <small class="font-bold">$ 20 054.43</small>
+                                                        <small class="font-bold"><h3>$ 20 054.43</h3></small>
                                                     </div>
-                                                    <h4><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;&nbsp;Todays Income
+                                                    <h3><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;&nbsp;Todays Income
                                                         <br/>
                                                         <small class="m-r"><a href="#"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i>&nbsp;&nbsp; More Info </a> </small>
-                                                    </h4>
+                                                    </h3>
                                                 </div>
                                             </div>
 
                                             <div class="ibox-content red-bg">
                                                 <div>
                                                     <div class="pull-right text-right">
-                                                        <small class="font-bold">$ 20 054.43</small>
+                                                        <small class="font-bold"><h3>$ 20 054.43</h3></small>
                                                     </div>
-                                                    <h4><i class="fa fa-long-arrow-right" aria-hidden="true"></i>&nbsp;&nbsp;Todays Expenses
+                                                    <h3><i class="fa fa-long-arrow-right" aria-hidden="true"></i>&nbsp;&nbsp;Todays Expenses
                                                         <br/>
                                                         <small class="m-r"><a href="#"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i>&nbsp;&nbsp; More Info </a> </small>
-                                                    </h4>
+                                                    </h3>
                                                 </div>
                                             </div>
                                             
                                             <div class="ibox-content red-bg">
                                                 <div>
                                                     <div class="pull-right text-right">
-                                                        <small class="font-bold">$ 20 054.43</small>
+                                                        <small class="font-bold"><h3>$ 20 054.43</h3></small>
                                                     </div>
-                                                    <h4><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;&nbsp;Todays Income
+                                                    <h3><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;&nbsp;Todays Income
                                                         <br/>
                                                         <small class="m-r"><a href="#"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i>&nbsp;&nbsp; More Info </a> </small>
-                                                    </h4>
+                                                    </h3>
                                                 </div>
                                             </div>
 
                                             <div class="ibox-content red-bg">
                                                 <div>
                                                     <div class="pull-right text-right">
-                                                        <small class="font-bold">$ 20 054.43</small>
+                                                        <small class="font-bold"><h3>$ 20 054.43</h3></small>
                                                     </div>
-                                                    <h4><i class="fa fa-long-arrow-right" aria-hidden="true"></i>&nbsp;&nbsp;Todays Expenses
+                                                    <h3><i class="fa fa-long-arrow-right" aria-hidden="true"></i>&nbsp;&nbsp;Todays Expenses
                                                         <br/>
                                                         <small class="m-r"><a href="#"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i>&nbsp;&nbsp; More Info </a> </small>
-                                                    </h4>
+                                                    </h3>
                                                 </div>
                                             </div>
 
@@ -85,52 +85,53 @@
                                             <div class="ibox-content bg-warning">
                                                 <div>
                                                     <div class="pull-right text-right">
-                                                        <small class="font-bold">$ 20 054.43</small>
+                                                        <small class="font-bold"><h3>{{ $presentEmployee }}</h3></small>
                                                     </div>
-                                                    <h4><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;&nbsp;Todays Invoice
+                                                    <h3><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;&nbsp;Present Employee
                                                         <br/>
                                                         <small class="m-r"><a href="#"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i>&nbsp;&nbsp; More Info </a> </small>
-                                                    </h4>
+                                                    </h3>
                                                 </div>
                                             </div>
 
                                             <div class="ibox-content bg-warning">
                                                 <div>
                                                     <div class="pull-right text-right">
-                                                        <small class="font-bold">$ 20 054.43</small>
+                                                        <small class="font-bold"><h3>{{ $absentEmployee }}</h3></small>
                                                     </div>
-                                                    <h4><i class="fa fa-long-arrow-right" aria-hidden="true"></i>&nbsp;&nbsp;Todays Payments
+                                                    <h3><i class="fa fa-long-arrow-right" aria-hidden="true"></i>&nbsp;&nbsp;Absent Employee
                                                         <br/>
                                                         <small class="m-r"><a href="#"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i>&nbsp;&nbsp; More Info </a> </small>
-                                                    </h4>
+                                                    </h3>
                                                 </div>
                                             </div>
                                             
+                                            
+
                                             <div class="ibox-content bg-warning">
                                                 <div>
                                                     <div class="pull-right text-right">
-                                                        <small class="font-bold">$ 20 054.43</small>
+                                                        <small class="font-bold"><h3>{{ $totalEmployee }}</h3></small>
                                                     </div>
-                                                    <h4><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;&nbsp;Paid Amount
+                                                    <h3><i class="fa fa-long-arrow-right" aria-hidden="true"></i>&nbsp;&nbsp;Total Employee
                                                         <br/>
                                                         <small class="m-r"><a href="#"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i>&nbsp;&nbsp; More Info </a> </small>
-                                                    </h4>
+                                                    </h3>
                                                 </div>
                                             </div>
 
                                             <div class="ibox-content bg-warning">
                                                 <div>
                                                     <div class="pull-right text-right">
-                                                        <small class="font-bold">$ 20 054.43</small>
+                                                        <small class="font-bold"><h3></h3></small>
                                                     </div>
-                                                    <h4><i class="fa fa-long-arrow-right" aria-hidden="true"></i>&nbsp;&nbsp;Due Amount
+                                                    <h3>
                                                         <br/>
-                                                        <small class="m-r"><a href="#"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i>&nbsp;&nbsp; More Info </a> </small>
-                                                    </h4>
+                                                        <small class="m-r"><a href="#"></a> </small>
+                                                    </h3>
                                                 </div>
                                             </div>
-
-
+                                            
                                         </div>
                                     </div>
 
@@ -147,48 +148,48 @@
                                            <div class="ibox-content bg-info">
                                                <div>
                                                    <div class="pull-right text-right">
-                                                       <small class="font-bold">{{ $progressTask }}</small>
+                                                       <small class="font-bold"><h3>{{ $penddingTask }}</h3></small>
                                                    </div>
-                                                   <h4><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;&nbsp;In Progress Task
+                                                   <h3><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;&nbsp;Pending Task
                                                        <br/>
                                                        <small class="m-r"><a href="{{ route('task-list')}}"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i>&nbsp;&nbsp; More Info </a> </small>
-                                                   </h4>
+                                                   </h3>
                                                </div>
                                            </div>
 
                                            <div class="ibox-content bg-info">
                                                <div>
                                                    <div class="pull-right text-right">
-                                                       <small class="font-bold"> {{ $totalTicket }}</small>
+                                                       <small class="font-bold"><h3> {{ $progressTask }}</h3></small>
                                                    </div>
-                                                   <h4><i class="fa fa-long-arrow-right" aria-hidden="true"></i>&nbsp;&nbsp;Total Tickets
+                                                   <h3><i class="fa fa-long-arrow-right" aria-hidden="true"></i>&nbsp;&nbsp;In Progress Task
                                                        <br/>
-                                                       <small class="m-r"><a href="{{ route('ticket-list')}}"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i>&nbsp;&nbsp; More Info </a> </small>
-                                                   </h4>
+                                                       <small class="m-r"><a href="{{ route('task-list')}}"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i>&nbsp;&nbsp; More Info </a> </small>
+                                                   </h3>
                                                </div>
                                            </div>
                                            
                                            <div class="ibox-content bg-info">
                                                <div>
                                                    <div class="pull-right text-right">
-                                                       <small class="font-bold">$ 20 054.43</small>
+                                                       <small class="font-bold"><h3>{{ $completedTask }}</h3></small>
                                                    </div>
-                                                   <h4><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;&nbsp;Present Today
+                                                   <h3><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;&nbsp;Completed Task
                                                        <br/>
                                                        <small class="m-r"><a href="{{ route('daily-attendance')}}"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i>&nbsp;&nbsp; More Info </a> </small>
-                                                   </h4>
+                                                   </h3>
                                                </div>
                                            </div>
 
                                            <div class="ibox-content bg-info">
                                                <div>
                                                    <div class="pull-right text-right">
-                                                       <small class="font-bold">$ 20 054.43</small>
+                                                       <small class="font-bold"><h3>{{ $totalTask }}</h3></small>
                                                    </div>
-                                                   <h4><i class="fa fa-long-arrow-right" aria-hidden="true"></i>&nbsp;&nbsp;Total Absent
+                                                   <h3><i class="fa fa-long-arrow-right" aria-hidden="true"></i>&nbsp;&nbsp;Total Task
                                                        <br/>
                                                        <small class="m-r"><a href="{{ route('daily-attendance')}}"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i>&nbsp;&nbsp; More Info </a> </small>
-                                                   </h4>
+                                                   </h3>
                                                </div>
                                            </div>
 

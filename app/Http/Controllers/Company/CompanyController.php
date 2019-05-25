@@ -8,6 +8,7 @@ use App\Model\Company;
 use App\Model\Task;
 use App\Model\Ticket;
 use App\Model\Employee;
+use App\Model\Attendance;
 use App\Http\Controllers\Controller;
 use Auth;
 use Route;
@@ -36,19 +37,37 @@ class CompanyController extends Controller {
                                 ->where('task_status','2')
                                 ->count();
         
+        $data['penddingTask']=  Task::where('company_id', $companyId['id'])
+                                ->where('task_status','0')
+                                ->count();
+        
+        $data['totalTask']=  Task::where('company_id', $companyId['id'])
+                                ->count();
+        
         $data['statusBar']=  Task::where('company_id', $companyId['id'])
                                 ->where('task_status','1')
                                 ->orderBy('id', 'desc')
                                 ->limit(2)
                                 ->get();
         
-        
-        $data['totalTicket']=  Ticket::where('company_id', $companyId['id'])
-                                ->count();
-        
         $data['birthday']= Employee::where('company_id', $companyId['id'])
                                 ->where('date_of_birth', 'like', '%-'.$month.'-%')
                                 ->count();
+        
+        $data['totalEmployee']= Employee::where('company_id', $companyId['id'])
+                                ->count();
+        
+        $data['presentEmployee']= Employee::leftjoin('attendance', 'employee.id', '=', 'attendance.emp_id') 
+                                            ->where('attendance.date',date('Y-m-d'))
+                                            ->where('attendance.attendance','present')
+                                            ->where('employee.company_id', $companyId['id'])
+                                            ->count();
+        
+        $data['absentEmployee']= Employee::leftjoin('attendance', 'employee.id', '=', 'attendance.emp_id') 
+                                            ->where('attendance.attendance','absent')
+                                            ->where('attendance.date',date('Y-m-d'))
+                                            ->where('employee.company_id', $companyId['id'])
+                                            ->count();
         
         
         $data['header'] = array(
