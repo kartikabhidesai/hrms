@@ -150,8 +150,8 @@ class LoginController extends Controller {
 
                 Session::push('notificationdata', $notificationData);
                 $this->insertLoginTime(Auth::guard('admin')->user()->id);
-                print_r();
-                exit;
+                // print_r();
+                // exit;
                 $request->session()->flash('session_success', 'Admin Login successfully.');
                 return redirect()->route('admin-dashboard');
             } else {
