@@ -15,7 +15,7 @@
                         @if(isset($planmanagement))
                             <option value="">Select</option>
                             @foreach($planmanagement as $value)
-                                <option value="{{$value->code}}">{{$value->code}}</option>
+                                <option value="{{$value->code}}">{{$value->title}}</option>
                             @endforeach
                         @endif
                     </select>

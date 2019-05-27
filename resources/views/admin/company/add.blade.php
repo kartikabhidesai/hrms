@@ -68,9 +68,9 @@
                         <div class="col-sm-9"> 
                             <select id="subcription" name="subcription" class="form-control m-b" required>
                                 @if(isset($planmanagement))
-                                    
-                                    @foreach($subcription as $key => $value)
-                                        <option value="{{$key}}">{{$value}}</option>
+                                    <option value="">Select</option>
+                                    @foreach($planmanagement as $value)
+                                        <option value="{{$value->title}}">{{$value->title}}</option>
                                     @endforeach
                                 @endif
                             </select>

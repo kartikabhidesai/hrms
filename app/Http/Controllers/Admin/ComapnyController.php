@@ -63,9 +63,9 @@ class ComapnyController extends Controller {
             exit;
         }
         $data['planmanagement'] = $planmanagement;
-        $data['status'] = Config::get('constants.status');
-        $data['subcription']=Config::get('constants.subcription');
         
+        $data['status'] = Config::get('constants.status');
+        $data['subcription'] = Config::get('constants.subcription');
         $session = $request->session()->all();
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('admin/company.js', 'ajaxfileupload.js', 'jquery.form.min.js');

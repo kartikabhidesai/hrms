@@ -74,7 +74,12 @@ return [
         '4'=>'Absence',
     ],
     
-    
+    'subcription'=>[
+        ''=>'Select Subscription Type',
+        'PREMIUM'=>'PREMIUM',
+        'GOLD'=>'GOLD',
+        'SILVER'=>'SILVER',
+    ],
     
     'request_type'=>[
         ''=>'Select Request Type',
