@@ -28,7 +28,7 @@ class FinanceReportController extends Controller {
             return redirect()->back()->with(['status'=>'failed','message'=>'Data not found.']);
             if($request->status == 'all' || $request->status == '')
             {
-                echo "<pre>"; print_r($request->toArray()); exit();
+//                echo "<pre>"; print_r($request->toArray()); exit();
                 $finances = Finance::get()->toArray();
             }
             else
@@ -82,7 +82,11 @@ class FinanceReportController extends Controller {
             }
             else
             {
-                return redirect()->back()->with(['status'=>'failed','message'=>'Data not found.']);
+                $return['status'] = 'error';
+                $return['message'] = 'Data not found.';
+                echo json_encode($return);
+                exit;
+//                return redirect()->back()->with(['status'=>'failed','message'=>'Data not found.']);
             }   
         }
 

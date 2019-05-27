@@ -16,6 +16,7 @@ class AttendanceHistory extends Model
 
     public function getDataTableForHistoy($request)
     {
+            
         $data=$request->input('data');
          if($data['from_date'] != NULL){
             $fromDate=date('Y-m-d', strtotime($data['from_date']));
@@ -108,7 +109,7 @@ class AttendanceHistory extends Model
             $actionHtml ='';
             $actionHtml .= '<a href="#historyDetailsModel" class="historyDetailsModel" data-toggle="modal" data-id="'.$row['id'].'"  title="Review" data-toggle="tooltip" data-original-title="Review" >Review</a>';
             $nestedData = array();
-            $nestedData[] = $row["start_date"] ? $row["start_date"] : $row["from_date"];
+            $nestedData[] = $row["start_date"] ? date("d-m-Y",strtotime($row["start_date"])) : date("d-m-Y",strtotime($row["from_date"]));
             $nestedData[] = $row["end_date"] ? $row["end_date"] : $row["to_date"];
             $nestedData[] = $row["name"];
             $nestedData[] = $row["department_name"];

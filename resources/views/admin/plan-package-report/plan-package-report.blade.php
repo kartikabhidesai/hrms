@@ -11,7 +11,7 @@
                     <h5>Plan</h5>
                 </div>
                 <div class="ibox-content">
-                    <select class="form-control monthreport" id="subcription" name="subcription" required="required">
+                    <select class="form-control monthreport" id="subcription" name="subcription" >
                         @if(isset($planmanagement))
                             <option value="">Select</option>
                             @foreach($planmanagement as $value)
