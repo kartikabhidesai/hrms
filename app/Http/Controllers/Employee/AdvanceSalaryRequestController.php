@@ -15,6 +15,8 @@ use App\Model\Payroll;
 use App\Model\Advancesalary;
 use App\Model\Company;
 use App\Model\Notification;
+use App\Model\NotificationMaster;
+use Session;
 
 class AdvanceSalaryRequestController extends Controller {
 
@@ -23,6 +25,16 @@ class AdvanceSalaryRequestController extends Controller {
     }
     
     public function requestList(Request $request){
+
+        $session = $request->session()->all();
+
+        $items = Session::get('notificationdata');
+        $userID = $this->loginUser;
+        $objNotification = new Notification();
+        $items=$objNotification->SessionNotificationCount($userID->id);        
+        Session::put('notificationdata', $items);
+
+        
         $data['detail'] = $this->loginUser;
         $data['header'] = array(
             'title' => 'Advance Salary Request List',
@@ -49,13 +61,22 @@ class AdvanceSalaryRequestController extends Controller {
             $result=$objNewSalaryRequest->addSalaryRequest($request);
             if ($result) {
                 
-                //notification add
-                $seleryRequestName=$request->input('emp_name')." selery request you.";
                 $objCompany = new Company();
                 $u_id=$objCompany->getUseridById($data['empdetails'][0]['company_id']);
-                $objNotification = new Notification();
-                $route_url="campany-advance-salary-request";
-                $ret = $objNotification->addNotification($u_id,$seleryRequestName,$route_url);
+
+                $notificationMasterId=12;
+                $objNotificationMaster = new NotificationMaster();
+                $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($u_id,$notificationMasterId);
+                
+                if($NotificationUserStatus==1)
+                {
+                
+                    //notification add
+                    $seleryRequestName=$request->input('emp_name')." selery request you.";                   
+                    $objNotification = new Notification();
+                    $route_url="campany-advance-salary-request";
+                    $ret = $objNotification->addNotification($u_id,$seleryRequestName,$route_url,$notificationMasterId);
+                }
 
                 $return['status'] = 'success';
                 $return['message'] = 'New Advance Salary  Request created successfully.';

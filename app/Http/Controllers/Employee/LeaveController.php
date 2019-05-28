@@ -8,6 +8,7 @@ use App\Model\Leave;
 use App\Model\Employee;
 use App\Model\Company;
 use App\Model\Notification;
+use App\Model\NotificationMaster;
 use App\Model\TypeOfRequest;
 use App\Model\AttendanceHistory;
 use Config;
@@ -62,13 +63,22 @@ class LeaveController extends Controller
             $ret = $objLeave->addnewleave($request);
             if ($ret) {
 
-                //notification add
-                $leaveRequestName=$empdetails[0]->name." new leave request.";
                 $objCompany = new Company();
                 $u_id=$objCompany->getUseridById($empdetails[0]->company_id);
-                $objNotification = new Notification();
-                $route_url="notification-list";
-                $ret = $objNotification->addNotification($u_id,$leaveRequestName,$route_url);
+             
+                $notificationMasterId=13;
+                $objNotificationMaster = new NotificationMaster();
+                $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($u_id,$notificationMasterId);
+                
+                if($NotificationUserStatus==1)
+                {
+
+                    //notification add
+                    $leaveRequestName=$empdetails[0]->name." new leave request.";
+                    $objNotification = new Notification();
+                    $route_url="notification-list";
+                    $ret = $objNotification->addNotification($u_id,$leaveRequestName,$route_url,$notificationMasterId);
+                }
 
                 $return['status'] = 'success';
                 $return['message'] = 'Leave added successfully.';
@@ -120,14 +130,22 @@ class LeaveController extends Controller
             $objLeave = new Leave();
             $ret = $objLeave->editleave($request);
             if ($ret) {
-
-                //notification add
-                $leaveRequestName=$empdetails[0]->name." leave change request.";
                 $objCompany = new Company();
                 $u_id=$objCompany->getUseridById($empdetails[0]->company_id);
-                $objNotification = new Notification();
-                $route_url="notification-list";
-                $ret = $objNotification->addNotification($u_id,$leaveRequestName,$route_url);
+               
+                
+                $notificationMasterId=14;
+                $objNotificationMaster = new NotificationMaster();
+                $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($u_id,$notificationMasterId);
+                
+                if($NotificationUserStatus==1)
+                {
+                    //notification add
+                    $leaveRequestName=$empdetails[0]->name." leave change request.";
+                    $objNotification = new Notification();
+                    $route_url="notification-list";
+                    $ret = $objNotification->addNotification($u_id,$leaveRequestName,$route_url,$notificationMasterId);
+                }
 
                 $return['status'] = 'success';
                 $return['message'] = 'Leave updated successfully.';

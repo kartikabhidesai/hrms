@@ -11,49 +11,14 @@ use App\Model\CLientReport;
 use App\Model\Client;
 use Config;
 
-class CompanyReport extends Model {
+class ClientReport extends Model {
 
-    protected $table = 'company_report';
+    protected $table = 'client_report';
 
-    public function addCompanyReport($request) {
-     
-        $taskNumber = $this->getCompanyNumber();
-        $objTaskReport = new CompanyReport();
-        $objTaskReport->company_report_number = $taskNumber;
-        $objTaskReport->status = $request->input('status');
-        $objTaskReport->download_date = date('Y-m-d');
-        $objTaskReport->created_at = date('Y-m-d H:i:s');
-        $objTaskReport->updated_at = date('Y-m-d H:i:s');
-        $objTaskReport->save();    
-        return $objTaskReport->id;
-    }
+    public function addClientReport() {
 
-    public function getCompanyNumber()
-    {
-        $taskCount = CompanyReport::orderBy('id', 'desc')->first();
-        $num = 1;
-        if(isset($taskCount) && !empty($taskCount) && $taskCount->count() > 0){
-            $num = $taskCount->id;
-            $num + 1;
-        }        
-        $tolalLength = 4;
-        $forCount = $tolalLength - strlen($num);
-        $generateString = '';
-        for ($i=1; $i <= $forCount; $i++) { 
-            $generateString .= 0;
-        }
-        return $generateString.$num;
-    }
-    
-    public function getCompanyPdfData($request){
-        if($request->post('downloadstatus') == 'single'){
-            $CompanyReport = CompanyReport::find($request->post('emparray'));
-            $taskCount = Company::where('status', $CompanyReport->status)->orderBy('id', 'desc')->get();
-            // $taskCount = CompanyReport::where('id', $request->post('emparray'))->orderBy('id', 'desc')->get();
-        }else{
-            $taskCount = Company::where('status',$request->post('status'))->orderBy('id', 'desc')->get();
-        }
-        return $taskCount;
+        $objCLientReport = new CLientReport();
+        return ($objCLientReport->save());
     }
 
     public function getClientReportList($request) {

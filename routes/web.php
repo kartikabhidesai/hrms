@@ -48,6 +48,16 @@ Route::get('/config-cache', function() {
 Route::get('/', function () {
     return Redirect::to('login');
 });
+
+Route::get('/social-media/{account}','TokenController@tokenCall');
+Route::get('/facebook-user-profile','FacebookController@facebookUser');
+Route::match(['get', 'post'], '/facebook/callback', ['as' => 'facebook', 'uses' => 'TokenController@facebook']);
+
+Route::match(['get', 'post'], '/twitter/callback', ['as' => 'twitter', 'uses' => 'TokenController@twitter']);
+
+Route::get('/facebook/share','TokenController@fbShare');
+Route::get('/twitter/share','TokenController@twShare');
+
 Route::match(['get', 'post'], 'exportxls', ['as' => 'login', 'uses' => 'ExcelController@exportxls']);
 Route::match(['get', 'post'], 'login', ['as' => 'login', 'uses' => 'LoginController@auth']);
 Route::match(['get', 'post'], 'order', ['as' => 'order', 'uses' => 'OrderController@index']);

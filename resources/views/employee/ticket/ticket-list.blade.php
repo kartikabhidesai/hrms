@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <div class="wrapper wrapper-content animated fadeInRight">
-    <div class="row">
+<!--    <div class="row">
         <div class="col-lg-2">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
@@ -83,7 +83,7 @@
             </div>
         </div>
         {{ Form::close() }}
-    </div>
+    </div>-->
 
     @if (session('status'))
         <div class="alert alert-danger">

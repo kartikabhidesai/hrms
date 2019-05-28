@@ -8,17 +8,19 @@ use DB;
 use Auth;
 use App\Model\Company;
 use Config;
+use Session;
 
 class Notification extends Model {
 
     protected $table = 'notification';
 
-    public function addNotification($user_id,$message,$route) {
+    public function addNotification($user_id,$message,$route,$notificationMasterId) {
 
         
 
         $objNotification = new Notification();
         $objNotification->user_id = $user_id;
+        $objNotification->notification_master_id = $notificationMasterId;
         $objNotification->message =  $message;
         $objNotification->route =  $route;
         $objNotification->created_at = date('Y-m-d H:i:s');
@@ -106,15 +108,23 @@ class Notification extends Model {
         return TRUE;
     }
 
-    public function zeroNotificationCount($user_id) {
-        $notificationid=$this->getNotificationList($user_id);
-        foreach($notificationid as $nid)
-        {
-            $objNotification = Notification::find($nid['id']);
+    public function zeroNotificationCount($user_id,$notificationID) {
+        // $notificationid=$this->getNotificationList($user_id);
+
+        $objNotification = Notification::find($notificationID);
+        // print_r($objNotification);
+        // exit;
                 $objNotification->status =  1;
                 $objNotification->updated_at = date('Y-m-d H:i:s');
                 $objNotification->save();
-        }
+
+        // foreach($notificationid as $nid)
+        // {
+        //     $objNotification = Notification::find($nid['id']);
+        //         $objNotification->status =  1;
+        //         $objNotification->updated_at = date('Y-m-d H:i:s');
+        //         $objNotification->save();
+        // }
 
         // $objNotification = Notification::where('id', $user_id);
         // if (!empty($objNotification)) {
@@ -132,7 +142,8 @@ class Notification extends Model {
         $query = Notification::from('notification as notification')
                 ->where('notification.user_id',$userid)
                 ->where('notification.status',0)
-                ->select('notification.id','notification.message','notification.route','notification.created_at')->orderBy('id','DESC')
+                ->select('notification.id','notification.message','notification.route','notification.created_at')
+                ->orderBy('id','DESC')
                 ->get()->toArray();
         // $data = array();
         
@@ -141,7 +152,35 @@ class Notification extends Model {
 
     public function getNotificationCount($userid) {
        
-        $query = Notification::where('notification.user_id',$userid)->where('notification.status',0)->get()->count();
+        $query = Notification::where('notification.user_id',$userid)
+        ->where('notification.status',0)
+        ->get()->count();
+        return $query;
+    }
+
+    public function SessionNotificationCount($user_id) {
+       
+        $countNotification = $this->getNotificationCount($user_id);
+        $notificationList = $this->getNotificationList($user_id);
+        // $items = Session::get('logindata');
+
+        $items[0]['notification_list']=$notificationList;
+                $items[0]['notification_count']=$countNotification;
+            
+        return $items;
+            // Session::put('logindata', $items);
+
+    }
+
+    
+
+    public function getEmployeeNotificationList($userid) {
+        $query = DB::table('notification_master as nm')
+                ->select(array('nm.id','nm.notification_name','nm.description'))
+                ->where('nm.key',$type)
+                ->get();
+        // $data = array();
+        
         return $query;
     }
 }

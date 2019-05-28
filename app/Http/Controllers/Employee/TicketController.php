@@ -14,6 +14,8 @@ use App\Model\Attendance;
 use App\Model\NonWorkingDate;
 use App\Model\Designation;
 use App\Model\Notification;
+use App\Model\NotificationMaster;
+use Session;
 use Config;
 use Auth;
 use Route;
@@ -35,13 +37,21 @@ class TicketController extends Controller
         //    print_r($request);exit;
             $res = $objTicket->updateTicketStatusEmp($request, $empId->id);
             if ($res) {
-
-                $ticketRequestName=$empId->name." update the ticket.";
+                
                 $objCompany = new Company();
                 $u_id=$objCompany->getUseridById($empId->company_id);
-                $route_url="ticket-list";
-                $objNotification = new Notification();
-                $ret = $objNotification->addNotification($u_id,$ticketRequestName,$route_url);
+                    
+                $notificationMasterId=17;
+                $objNotificationMaster = new NotificationMaster();
+                $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($u_id,$notificationMasterId);
+                
+                if($NotificationUserStatus==1)
+                {
+                    $ticketRequestName=$empId->name." update the ticket.";
+                    $route_url="ticket-list";
+                    $objNotification = new Notification();
+                    $ret = $objNotification->addNotification($u_id,$ticketRequestName,$route_url,$notificationMasterId);
+                }
 
                 $return['status'] = 'success';
                 $return['message'] = 'Ticket status updated successfully.';
@@ -55,6 +65,13 @@ class TicketController extends Controller
         }
         $session = $request->session()->all();
 
+        $items = Session::get('notificationdata');
+        $userID = $this->loginUser->id;
+        $objNotification = new Notification();
+        $items=$objNotification->SessionNotificationCount($userID);        
+        Session::put('notificationdata', $items);
+        
+
         $data['priority'] = "";
         $data['status'] = "";
         
@@ -63,7 +80,7 @@ class TicketController extends Controller
             $data['status'] = $request->input('status');
         }
 
-        $userID = $this->loginUser->id;
+        
         $empId = Employee::select('id','name','company_id')->where('user_id', $userID)->first();
         $objTicketList = new Ticket();
         /*Don't remove this code*/
@@ -105,14 +122,22 @@ class TicketController extends Controller
                 $objTicket = new Ticket();
                 $result = $objTicket->saveTicket($request);
                 if($result) {
-                    
-                    $ticketRequestName=$empId->name." new the ticket.";
-                    $objCompany = new Company();
-                    $u_id=$objCompany->getUseridById($empId->company_id);
-                    $route_url="ticket-list";
-                    $objNotification = new Notification();
-                    $ret = $objNotification->addNotification($u_id,$ticketRequestName,$route_url);
 
+                    $objCompany = new Company();
+                        $u_id=$objCompany->getUseridById($empId->company_id);
+                        
+                    $notificationMasterId=17;
+                    $objNotificationMaster = new NotificationMaster();
+                    $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($u_id,$notificationMasterId);
+                    
+                    if($NotificationUserStatus==1)
+                    {                    
+                        $ticketRequestName=$empId->name." new the ticket.";
+                        
+                        $route_url="ticket-list";
+                        $objNotification = new Notification();
+                        $ret = $objNotification->addNotification($u_id,$ticketRequestName,$route_url,$notificationMasterId);
+                    }
                     $return['status'] = 'success';
                     $return['message'] = 'Ticket created successfully.';
                     $return['redirect'] = route('ticket-list-emp');

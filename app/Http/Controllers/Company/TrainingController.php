@@ -9,6 +9,7 @@ use App\Model\Company;
 use App\Model\Department;
 use App\Model\TraningEmployeeDepartment;
 use App\Model\Notification;
+use App\Model\NotificationMaster;
 use App\User;
 use App\Model\Users;
 use App\Model\Employee;
@@ -49,14 +50,21 @@ class TrainingController extends Controller
 
             if ($ret) {
                 $empId = $request->input('employeeid');
-                foreach ($empId as $key => $value) {
-                    //notification add
-                    $objNotification = new Notification();
-                    $trainingName="Company has added a new training.";
-                    $objEmployee = new Employee();
-                    $u_id=$objEmployee->getUseridById($empId[$key]);
-                    $route_url="employee-training";
-                    $ret = $objNotification->addNotification($u_id,$trainingName,$route_url);
+                $notificationMasterId=7;
+                $objNotificationMaster = new NotificationMaster();
+                $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($userId,$notificationMasterId);
+                if($NotificationUserStatus==1)
+                {
+                    foreach ($empId as $key => $value) {
+
+                        //notification add
+                        $objNotification = new Notification();
+                        $trainingName="Company has added a new training.";
+                        $objEmployee = new Employee();
+                        $u_id=$objEmployee->getUseridById($empId[$key]);
+                        $route_url="employee-training";
+                        $ret = $objNotification->addNotification($u_id,$trainingName,$route_url,$notificationMasterId);
+                    }
                 }
 
                 $return['status'] = 'success';

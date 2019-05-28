@@ -136,5 +136,13 @@ class Announcement extends Model {
             return FALSE;
         }
     }
+    
+    public function annousmentList($id){
+        $resut= Announcement::select('title','content','date','expiry_date')
+                    ->where('company_id',$id)
+                    ->where('expiry_date', '>=', date('Y-m-d').' 00:00:00')
+                    ->get();
+        return $resut;
+    }
 
 }

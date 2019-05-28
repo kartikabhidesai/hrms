@@ -13,6 +13,8 @@ use APP;
 use Illuminate\Http\Request;
 use App\Model\Task;
 use App\Model\Advancesalary;
+use App\Model\Announcement;
+
 
 class DashboardController extends Controller {
 
@@ -27,6 +29,8 @@ class DashboardController extends Controller {
         $data['login_user'] = $session['logindata'][0];
         $logged_in_user_id = $session['logindata'][0]['id'];
         $logged_in_user = Employee::select('*')->where('user_id', $logged_in_user_id)->first();
+        $objAnnouncementList =new Announcement();
+        $announcementList = $objAnnouncementList->annousmentList($logged_in_user['company_id']);
 
         $latest_task = Task::select('*')->where('employee_id',$logged_in_user->id)->orderBy('id','desc')->first();
         $latest_advance_salary_request = Advancesalary::select('*')->where('employee_id',$logged_in_user->id)->orderBy('id','desc')->first();
@@ -34,6 +38,7 @@ class DashboardController extends Controller {
         $data['latest_task'] = @$latest_task;
         $data['employee_data'] = @$logged_in_user;
         $data['advance_salary_request'] = @$latest_advance_salary_request;
+        $data['announcementList'] = $announcementList;
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('employee/dashbord.js');
         $data['funinit'] = array('Dashboard.init()');

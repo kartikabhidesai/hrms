@@ -11,6 +11,9 @@ use App\Model\Company;
 use App\Model\Attendance;
 use App\Model\AttendanceHistory;
 use App\Model\TypeOfRequest;
+use App\Model\Notification;
+use App\Model\NotificationMaster;
+use Session;
 use Auth;
 use Config;
 use Route;
@@ -21,6 +24,15 @@ class ManageTimeChangeRequestController extends Controller
     }
 
     public function manageTimeChangeRequestList() {
+
+        $session = $request->session()->all();
+
+        $items = Session::get('notificationdata');
+        $userID = $this->loginUser;
+        $objNotification = new Notification();
+        $items=$objNotification->SessionNotificationCount($userID->id);        
+        Session::put('notificationdata', $items);
+        
     	$id = Auth()->guard('employee')->user()['id'];
         $data['detail'] = $this->loginUser;
         $data['header'] = array(

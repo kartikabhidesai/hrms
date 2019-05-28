@@ -14,6 +14,8 @@ use App\Model\Attendance;
 use App\Model\Designation;
 use App\Model\NonWorkingDate;
 use App\Model\Notification;
+use App\Model\NotificationMaster;
+use Session;
 use Config;
 use Auth;
 use Route;
@@ -28,6 +30,12 @@ class TicketController extends Controller
     {
         $session = $request->session()->all();
 
+        $items = Session::get('notificationdata');
+        $userID = $this->loginUser;
+        $objNotification = new Notification();
+        $items=$objNotification->SessionNotificationCount($userID->id);        
+        Session::put('notificationdata', $items);
+
         $data['priority'] = "";
         $data['status'] = "";
         
@@ -36,7 +44,7 @@ class TicketController extends Controller
             $data['status'] = $request->input('status');
         }
 
-        $userID = $this->loginUser;
+        
         $companyId = Company::select('id')->where('user_id', $userID->id)->first();
         $objTicketList = new Ticket();
 
@@ -82,13 +90,20 @@ class TicketController extends Controller
                 $result = $objTicket->saveTicket($request);
                 if($result) {
 
-                    //notification add
-                    $objNotification = new Notification();
-                    $ticketName=$request->input('subject')." is a new ticket.";
-                    $objEmployee = new Employee();
-                    $u_id=$objEmployee->getUseridById($request->input('assign_to'));
-                    $route_url="ticket-list";
-                    $ret = $objNotification->addNotification($u_id,$ticketName,$route_url);
+                    $notificationMasterId=8;
+                    $objNotificationMaster = new NotificationMaster();
+                    $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($userid,$notificationMasterId);
+                    
+                    if($NotificationUserStatus==1)
+                    {
+                        //notification add
+                        $objNotification = new Notification();
+                        $ticketName=$request->input('subject')." is a new ticket.";
+                        $objEmployee = new Employee();
+                        $u_id=$objEmployee->getUseridById($request->input('assign_to'));
+                        $route_url="ticket-list";
+                        $ret = $objNotification->addNotification($u_id,$ticketName,$route_url,$notificationMasterId);
+                    }
 
                     $return['status'] = 'success';
                     $return['message'] = 'Ticket created successfully.';

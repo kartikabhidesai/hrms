@@ -9,6 +9,8 @@ use App\Model\Company;
 use App\Model\Communication;
 use App\Model\CommunicationReply;
 use App\Model\Notification;
+use App\Model\NotificationMaster;
+use Session;
 use Auth;
 use Response;
 
@@ -22,6 +24,12 @@ class CommunicationController extends Controller
     public function communication(Request $request) 
     {
         $session = $request->session()->all();
+
+        $items = Session::get('notificationdata');
+        $userID = $this->loginUser;
+        $objNotification = new Notification();
+        $items=$objNotification->SessionNotificationCount($userID->id);        
+        Session::put('notificationdata', $items);
         
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/communication.js');
@@ -104,14 +112,20 @@ class CommunicationController extends Controller
             // print_r($request->all());exit;
             
             if ($result) {
-
-                //notification add
-                $objNotification = new Notification();
-                $communicationName="Communication a message is received.";
-                $objEmployee = new Employee();
-                $u_id=$objEmployee->getUseridById($request->input('emp_id'));
-                $route_url="emp-communication";
-                $ret = $objNotification->addNotification($u_id,$communicationName,$route_url);
+                $notificationMasterId=5;
+                $objNotificationMaster = new NotificationMaster();
+                $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($userid,$notificationMasterId);
+                
+                if($NotificationUserStatus==1)
+                {
+                    //notification add
+                    $objNotification = new Notification();
+                    $communicationName="Communication a message is received.";
+                    $objEmployee = new Employee();
+                    $u_id=$objEmployee->getUseridById($request->input('emp_id'));
+                    $route_url="emp-communication";
+                    $ret = $objNotification->addNotification($u_id,$communicationName,$route_url,$notificationMasterId);
+                }
 
                 $return['status'] = 'success';
                 $return['message'] = 'New Communication Email sent successfully.';

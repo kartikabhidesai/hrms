@@ -8,6 +8,9 @@ use App\Model\Employee;
 use App\Model\Company;
 use App\Model\Department;
 use App\Model\Performance;
+use App\Model\Notification;
+use App\Model\NotificationMaster;
+use Session;
 use Config;
 use PDF;
 
@@ -21,7 +24,14 @@ class PerformanceController extends Controller {
 
     public function index(Request $request) {
 
+        $session = $request->session()->all();
+
+        $items = Session::get('notificationdata');        
         $userID = $this->loginUser->id;
+        $objNotification = new Notification();
+        $items=$objNotification->SessionNotificationCount($userID);        
+        Session::put('notificationdata', $items);
+
         $id = Employee::select('id')->where('user_id', $userID)->first();
 
         $performanceObj = new Performance;

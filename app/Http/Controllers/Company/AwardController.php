@@ -10,6 +10,7 @@ use App\Model\Company;
 use App\Model\Employee;
 use App\Model\Department;
 use App\Model\Notification;
+use App\Model\NotificationMaster;
 use Auth;
 
 class AwardController extends Controller {
@@ -59,17 +60,25 @@ class AwardController extends Controller {
             $userData = Auth::guard('company')->user();
             $getAuthCompanyId = Company::where('email', $userData->email)->first();
             $logedcompanyId = $getAuthCompanyId->id;
+            $userId = $getAuthCompanyId->user_id;
             $result = $objAward->addAwardData($request, $logedcompanyId);
 
             if ($result) {
 
-                //notification add
-                $objNotification = new Notification();
-                $awardName=$request->input('award')." is a new award.";
-                $objEmployee = new Employee();
-                $u_id=$objEmployee->getUseridById($request->input('employee'));
-                $route_url="award";
-                $ret = $objNotification->addNotification($u_id,$awardName,$route_url);
+                $notificationMasterId=3;
+                $objNotificationMaster = new NotificationMaster();
+                $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($userId,$notificationMasterId);
+                
+                if($NotificationUserStatus==1)
+                {
+                    //notification add
+                    $objNotification = new Notification();
+                    $awardName=$request->input('award')." is a new award.";
+                    $objEmployee = new Employee();
+                    $u_id=$objEmployee->getUseridById($request->input('employee'));
+                    $route_url="award";
+                    $ret = $objNotification->addNotification($u_id,$awardName,$route_url,$notificationMasterId);
+                }
 
                 $return['status'] = 'success';
                 $return['message'] = 'Award Add Successfully.';

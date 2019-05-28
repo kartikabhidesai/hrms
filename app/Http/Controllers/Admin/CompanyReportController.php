@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Model\CompanyReport;
 use App\Model\Company;
 use PDF;
+use Config;
 
 class CompanyReportController extends Controller {
 
@@ -25,10 +26,27 @@ class CompanyReportController extends Controller {
         $data['companyReportArray'] = CompanyReport::all();
         if ($request->isMethod('post')){
                 $clientReportObj = new CompanyReport;
-                if($request->post('downloadstatus') != 'single'){
-                    $result = $clientReportObj->addCompanyReport($request);         
-                }
                 $data['companyDetails'] = $clientReportObj->getCompanyPdfData($request);     
+                $result = $clientReportObj->addCompanyReport($request);         
+
+                $subcription =Config::get('constants.subcription');
+                $request_type =Config::get('constants.request_type');
+                $payment_type =Config::get('constants.payment_type');
+
+                if(!empty($data['companyDetails']))
+                {
+                    foreach ($data['companyDetails'] as $key => $value) 
+                    {
+                        // $data['companyDetails'][$key]['subcription'] = @$subcription[$value['subcription']];
+                        $data['companyDetails'][$key]['request_type'] = @$request_type[$value['request_type']];
+                        $data['companyDetails'][$key]['payment_type'] = @$payment_type[$value['payment_type']];
+                    }
+                }
+                else
+                {
+                    return redirect()->back();
+                }
+                // echo "<pre>as"; print_r($data['companyDetails']); exit();
                 $file= "Company-Repost" . date('dmYHis') .".pdf";
                 $pdf = PDF::loadView('admin.company-report.company-report-pdf', $data);
                 return $pdf->download($file);
@@ -52,12 +70,20 @@ class CompanyReportController extends Controller {
         $action = $request->input('action');
         switch ($action) {
             case 'getdatatable':
-                $objClientReport = new ClientReport;
-                $clientReportList = $objClientReport->getClientReportList($request);
-                echo json_encode($clientReportList);
+                $objCompanyReport = new CompanyReport;
+                $companyReportList = $objCompanyReport->getCompanyReportData($request);
+                echo json_encode($companyReportList);
                 break;
-            case'downloadPDF':
-                $result = $this->downloadPDF($request);
+            case'deleteCompanyReport':
+                $objCompanyReport = CompanyReport::find($request->data['id']);
+                if($objCompanyReport->delete())
+                {
+                    return redirect('admin/company-report')->with(json_encode(['success','Record deleted successfully.']));
+                }
+                else
+                {
+                    return redirect('admin/company-report')->with(json_encode(['failed','Something Went Wrong.']));
+                }
                 break;
         }
     }

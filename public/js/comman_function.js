@@ -1013,17 +1013,19 @@ $(function()
 });
 /* End manage datatable with Ajax & hide/show column dynamic */
 
-$('body').on('click', '.notification-count', function () {
+$('body').on('click', 'li .notification-count', function () {
     var user_id = $(this).attr('data-id');
+    var notification_id = $(this).attr('notification-id');
+    console.log(notification_id);
     $.ajax({
         type: "POST",
         headers: {
             'X-CSRF-TOKEN': $('input[name="_tokenNotification"]').val(),
         },
         url: baseurl + "zero-notification-count",
-        data: {'user_id': user_id},
+        data: {'user_id': user_id,'notification_id':notification_id},
         success: function (data) {
-            
+            $('#countNotification').html(data);
         }
     });
 });

@@ -69,8 +69,19 @@
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Subcription</label>
-                        <div class="col-sm-9"> 
-                            {{ Form::select('subcription', $subcription, $detail->subcription, array('class' => 'form-control m-b', 'id' => 'subcription' ,'required')) }}
+                        <div class="col-sm-9">
+                            <select id="subcription" name="subcription" class="form-control m-b" required>
+                                @if(isset($planmanagement))
+                                        <option value="">Select</option>
+                                    @foreach($planmanagement as $value)
+                                        @if($value->code == $detail->subcription)
+                                            <option value="{{$value->code}}" selected>{{$value->code}}</option>
+                                        @else
+                                            <option value="{{$value->code}}">{{$value->code}}</option>
+                                        @endif
+                                    @endforeach
+                                @endif
+                            </select>
                         </div>
                     </div>
                     <!-- <div class="form-group">

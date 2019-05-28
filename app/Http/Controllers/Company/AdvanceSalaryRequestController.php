@@ -16,9 +16,11 @@ use Illuminate\Support\Facades\Input;
 use App\Model\Payroll;
 use App\Model\Advancesalary;
 use App\Model\Notification;
+use App\Model\NotificationMaster;
 use Response;
 use Config;
 use Excel;
+use Session;
 
 class AdvanceSalaryRequestController extends Controller {
 
@@ -27,6 +29,15 @@ class AdvanceSalaryRequestController extends Controller {
     }
     
     public function requestList(Request $request){
+
+        $session = $request->session()->all();
+
+        $items = Session::get('notificationdata');
+        $userID = $this->loginUser;
+        $objNotification = new Notification();
+        $items=$objNotification->SessionNotificationCount($userID->id);        
+        Session::put('notificationdata', $items);
+
         $data['detail'] = $this->loginUser;
         $data['header'] = array(
             'title' => 'Advance Salary Request List',
@@ -95,12 +106,25 @@ class AdvanceSalaryRequestController extends Controller {
                     $approveRequest=$objAdvancesalary->approveRequest($id);
                     if ($approveRequest) {
 
-                        //notification add                        
-                        $seleryRequestName="Company selery request approved.";
-                        $u_id=$objAdvancesalary->getUseridByAdvanceSalaryId($id);
-                        $objNotification = new Notification();
-                        $route_url="advance-salary-request";
-                        $ret = $objNotification->addNotification($u_id,$seleryRequestName,$route_url);
+                        $session = $request->session()->all();
+                        $logindata = $session['logindata'][0];
+
+                        $userId = $logindata['id'];
+
+                        $notificationMasterId=6;
+                        $objNotificationMaster = new NotificationMaster();
+                        $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($userId,$notificationMasterId);
+                        
+                        if($NotificationUserStatus==1)
+                        {
+
+                            //notification add                        
+                            $seleryRequestName="Company selery request approved.";
+                            $u_id=$objAdvancesalary->getUseridByAdvanceSalaryId($id);
+                            $objNotification = new Notification();
+                            $route_url="advance-salary-request";
+                            $ret = $objNotification->addNotification($u_id,$seleryRequestName,$route_url,$notificationMasterId);
+                        }
 
                         $return['status'] = 'success';
                         $return['message'] = 'Advance salary request approved';
@@ -118,13 +142,24 @@ class AdvanceSalaryRequestController extends Controller {
                     $objAdvancesalary=new Advancesalary();
                     $disapproveRequest=$objAdvancesalary->disapproveRequest($id);
                     if ($disapproveRequest) {
+                        $session = $request->session()->all();
+                        $logindata = $session['logindata'][0];
 
-                         //notification add                        
-                         $seleryRequestName="Company selery request rejected.";
-                         $u_id=$objAdvancesalary->getUseridByAdvanceSalaryId($id);
-                         $objNotification = new Notification();
-                         $route_url="advance-salary-request";
-                         $ret = $objNotification->addNotification($u_id,$seleryRequestName,$route_url);
+                        $userId = $logindata['id'];
+
+                        $notificationMasterId=6;
+                        $objNotificationMaster = new NotificationMaster();
+                        $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($userId,$notificationMasterId);
+                        
+                        if($NotificationUserStatus==1)
+                        {
+                            //notification add                        
+                            $seleryRequestName="Company selery request rejected.";
+                            $u_id=$objAdvancesalary->getUseridByAdvanceSalaryId($id);
+                            $objNotification = new Notification();
+                            $route_url="advance-salary-request";
+                            $ret = $objNotification->addNotification($u_id,$seleryRequestName,$route_url,$notificationMasterId);
+                        }
 
                         $return['status'] = 'success';
                         $return['message'] = 'Advance salary request rejected';

@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Company;
+use App\Model\NotificationMaster;
 use App\Model\Users;
+use App\Model\PlanManagement;
 use Config;
 use File;
 
@@ -28,8 +30,8 @@ class ComapnyController extends Controller {
         $data['funinit'] = array('Company.init()');
         $data['css'] = array('');
         $data['header'] = array(
-            'title' => 'Company',
-            'breadcrumb' => array(
+                'title' => 'Company',
+                'breadcrumb' => array(
                 'Home' => route("admin-dashboard"),
                 'Company' => 'Company'));
         return view('admin.company.list', $data);
@@ -41,12 +43,15 @@ class ComapnyController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function addNewCompany(Request $request) {
+        $planmanagement = PlanManagement::get();
         if ($request->isMethod('post')) {
 
             $objCompany = new Company();
             $ret = $objCompany->addCompany($request);
 
             if ($ret) {
+                $objNotificationMaster = new NotificationMaster();
+                $objNotificationMaster->addNotificationMasterUser();
                 $return['status'] = 'success';
                 $return['message'] = 'Record created successfully.';
                 $return['redirect'] = route('list-company');
@@ -57,6 +62,8 @@ class ComapnyController extends Controller {
             echo json_encode($return);
             exit;
         }
+        $data['planmanagement'] = $planmanagement;
+        
         $data['status'] = Config::get('constants.status');
         $data['subcription'] = Config::get('constants.subcription');
         $session = $request->session()->all();
@@ -126,6 +133,7 @@ class ComapnyController extends Controller {
 
     public function edit(Request $request, $id) 
     {
+        $planmanagement = PlanManagement::get();
         $data['status'] = Config::get('constants.status');
         $data['subcription'] = Config::get('constants.subcription');
         $data['detail'] = Company::find($id);
@@ -147,6 +155,7 @@ class ComapnyController extends Controller {
             exit;
         }
 
+        $data['planmanagement'] = $planmanagement;
         $session = $request->session()->all();
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('admin/company.js', 'ajaxfileupload.js', 'jquery.form.min.js');

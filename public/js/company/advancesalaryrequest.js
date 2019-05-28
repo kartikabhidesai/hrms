@@ -159,7 +159,9 @@ var Advancesalaryrequest = function (){
     }
 
     var approvedReqList = function () {
-
+        $('body').on('click','#selectall',function() {
+            $('.approved_chk_id').not(this).prop('checked', this.checked);
+        });
         var checkedBoxArr = [];
   
         $('body').on('click','#approved_chk_id',function(){

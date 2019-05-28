@@ -87,26 +87,32 @@ $currentRoute = Route::current()->getName();
                 <li class="dropdown">
                 <input type="hidden" name="_tokenNotification" value="{{ csrf_token() }}">
 
-                    <a class="dropdown-toggle count-info notification-count" data-id="{{ $session['logindata'][0]['id'] }}" data-toggle="dropdown" href="#">
+                    <a class="dropdown-toggle count-info " data-id="{{ $session['logindata'][0]['id'] }}" data-toggle="dropdown" href="#">
                         <i class="fa fa-bell"></i> 
-                         <span class="label label-primary">
-                         {{ $session['logindata'][0]['notification_count'] }}
+                         <span class="label label-primary" id="countNotification">
+                         {{ $session['notificationdata'][0]['notification_count'] }}
                         </span>
                     </a>
                    
                     <ul class="dropdown-menu dropdown-alerts">
-                        @if($session['logindata'][0]['notification_count']!='0')
+                        @if($session['notificationdata'][0]['notification_count']!='0')
                            <?php $countNotific=3; ?>
-                            @if($session['logindata'][0]['notification_count'] < 3)
-                            <?php $countNotific=$session['logindata'][0]['notification_count']; ?>
+                            @if($session['notificationdata'][0]['notification_count'] < 3)
+                            <?php $countNotific=$session['notificationdata'][0]['notification_count']; ?>
                             @endif
                                 @for($i=0; $i < $countNotific; $i++)
                                 <li>
-                                  
-                                        <a href="{{ route($session['logindata'][0]['notification_list'][$i]['route']) }}">
-                                           
+                                    @if(!empty($session['notificationdata'][0]['notification_list'][$i]['route'])) 
+                                            <a class="notification-count" href="{{ route($session['notificationdata'][0]['notification_list'][$i]['route']) }}" data-id="{{ $session['logindata'][0]['id'] }}" notification-id="{{ $session['notificationdata'][0]['notification_list'][$i]['id'] }}">
+                                    @else 
+                                        @if(!empty(Auth()->guard('employee')->user())) 
+                                        <a class="notification-count" href="{{ route('employee-notification-list') }}" data-id="{{ $session['logindata'][0]['id'] }}" notification-id="{{ $session['notificationdata'][0]['notification_list'][$i]['id'] }}">
+                                        @else
+                                            <a class="notification-count" href="{{ route('notification-list') }}" data-id="{{ $session['logindata'][0]['id'] }}" notification-id="{{ $session['notificationdata'][0]['notification_list'][$i]['id'] }}">
+                                        @endif
+                                    @endif         
                                             <div>
-                                                <i class="fa fa-envelope fa-fw"></i> {{ $session['logindata'][0]['notification_list'][$i]['message'] }}
+                                                <i class="fa fa-envelope fa-fw"></i> {{ $session['notificationdata'][0]['notification_list'][$i]['message'] }}
                                                 <!-- <span class="pull-right text-muted small">4 minutes ago</span> -->
                                             </div>
                                         </a>
@@ -116,7 +122,7 @@ $currentRoute = Route::current()->getName();
                             @endif
                         <li>
                             <div class="text-center link-block">
-                                @if(empty(Auth()->guard('company')->user())) 
+                            @if(!empty(Auth()->guard('employee')->user())) 
                              <a href="{{ route('employee-notification-list') }}">
                             @else
                                 <a href="{{ route('notification-list') }}">
