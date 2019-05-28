@@ -65,7 +65,7 @@
                 HRMS
             </td>
             <td style="font-size: 25px; font-weight: bold; width: 60%; text-align: center;">
-                Client List
+                Company Report
             </td>
             <td valign="top" style="width: 20%;">
             </td>
@@ -73,38 +73,22 @@
     </table>
 
     <table style="width: 100%; margin-top: 10px;" cellpadding="3" border='1'>
-        <tr>
-            <td class="light table_field" style="width: 40%;">Company Name : </td>
-            <td class="font-small" style="width: 60%;">{{ @$company_name }}</td>
-        </tr>
-    </table>
-
-    <table style="width: 100%; margin-top: 10px;" cellpadding="3" border='1'>
         <tr class="light">
-            <!-- <td>Payments</td> -->
-            <td>Name</td>
-            <td>National</td>
-            <td>Work</td>
-            <td>Company</td>
-            <td>Date of joining</td>
-            <td>Bank</td>
-            <td>iban</td>
-            <td>Phone number</td>
-            <td>Mobile number</td>
+            <td>Company Name</td>
             <td>Email</td>
+            <td>Status</td>
+            <td>Subscription</td>
+            <td>Expiry Date</td>
+            <td>Created Date</td>
         </tr>
-        @foreach($clientReportPdfArray as $employeeArr)
+        @foreach($companyDetails as $objCompanyReport)
             <tr class="font-small">
-                <td>{{ $employeeArr['name'] }}</td>
-                <td>{{ $employeeArr['national_id'] }}</td>
-                <td>{{ $employeeArr['work'] }}</td>
-                <td>{{ $employeeArr['company'] }}</td>
-                <td>{{ $employeeArr['date_of_joining'] }}</td>
-                <td>{{ $employeeArr['bank'] }}</td>
-                <td>{{ $employeeArr['iban'] }}</td>
-                <td>{{ $employeeArr['phone_number'] }}</td>
-                <td>{{ $employeeArr['mobile_number'] }}</td>
-                <td>{{ $employeeArr['email'] }}</td>
+                <td>{{ $objCompanyReport['company_name'] }}</td>
+                <td>{{ $objCompanyReport['email'] }}</td>
+                <td>{{ $objCompanyReport['status'] }}</td>
+                <td>{{ $objCompanyReport['subcription'] }}</td>
+                <td>{{ date('d-m-Y',strtotime($objCompanyReport['expiry_at'])) }}</td>
+                <td>{{ date('d-m-Y',strtotime($objCompanyReport['created_at'])) }}</td>
             </tr>  
         @endforeach
     </table>
