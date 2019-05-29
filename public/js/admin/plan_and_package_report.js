@@ -27,6 +27,14 @@ var PlanAndPackageReport = function() {
                 }
             });
         });
+       
+        var form = $('#pdfForm');
+        var rules = {
+            subcription: {required: true},
+        };
+        handleFormValidate(form, rules, function(form) {
+            handleAjaxFormSubmit(form);
+        });
         
        var dataArr = {};
         var columnWidth = {"width": "10%", "targets": 0};
@@ -49,12 +57,6 @@ var PlanAndPackageReport = function() {
     return {
         init: function() {
             handleList();
-        },
-        add:function(){
-            addRole();
-        },
-        edit:function(){
-            editRole();
         },
     }
 }();

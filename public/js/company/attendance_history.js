@@ -3,8 +3,9 @@ var AttendanceHistory = function() {
         var from_date=$("#from_date").val();
         var to_date=$("#to_date").val();
         var department_id=$("#department_id").val();
-       var dataArr = {"from_date":from_date,"to_date":to_date,"department_id":department_id};
-       var columnWidth = {"width": "10%", "targets": 0};
+        
+        var dataArr = {"from_date":from_date,"to_date":to_date,"department_id":department_id};
+        var columnWidth = {"width": "10%", "targets": 0};
             
             
             var arrList = {

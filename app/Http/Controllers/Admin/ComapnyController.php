@@ -30,8 +30,8 @@ class ComapnyController extends Controller {
         $data['funinit'] = array('Company.init()');
         $data['css'] = array('');
         $data['header'] = array(
-            'title' => 'Company',
-            'breadcrumb' => array(
+                'title' => 'Company',
+                'breadcrumb' => array(
                 'Home' => route("admin-dashboard"),
                 'Company' => 'Company'));
         return view('admin.company.list', $data);
@@ -63,6 +63,7 @@ class ComapnyController extends Controller {
             exit;
         }
         $data['planmanagement'] = $planmanagement;
+        
         $data['status'] = Config::get('constants.status');
         $data['subcription'] = Config::get('constants.subcription');
         $session = $request->session()->all();

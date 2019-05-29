@@ -27,15 +27,16 @@ class PlanAndPackageReportController extends Controller {
 
         if ($request->isMethod('post')) 
         {
-
+            
             if($request->subcription != '')
             {
                 $companies = Company::where('subcription',strtoupper($request->subcription))->get()->toArray();
             }
-            // echo "<pre>"; print_r($companies); exit();
+            
+//            echo "<pre>"; print_r($companies); exit();
 
             if(count($companies) > 0){
-
+               
                 if (!file_exists(public_path('/uploads/plan_and_package_report'))) {
                     mkdir(public_path('/uploads/plan_and_package_report'),'0777',false);
                 }
@@ -62,7 +63,11 @@ class PlanAndPackageReportController extends Controller {
             }
             else
             {
-                return redirect()->back()->with(['status'=>'failed','message'=>'Data not found.']);
+                $return['status'] = 'error';
+                $return['message'] = 'Data not found.';
+                echo json_encode($return);
+                exit;
+//                return redirect()->back()->with(['status'=>'failed','message'=>'Data not found.']);
             }   
         }
 

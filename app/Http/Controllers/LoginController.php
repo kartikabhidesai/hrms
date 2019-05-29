@@ -55,7 +55,7 @@ class LoginController extends Controller {
                 $objNotification = new Notification();
                 $notificationList = $objNotification->getNotificationList(Auth::guard('web')->user()->id);
                 $notificationCount = $objNotification->getNotificationCount(Auth::guard('web')->user()->id);
-
+                
                 $loginData = array(
                     'name' => Auth::guard('web')->user()->name,
                     'email' => Auth::guard('web')->user()->email,
@@ -150,7 +150,6 @@ class LoginController extends Controller {
 
                 Session::push('notificationdata', $notificationData);
                 $this->insertLoginTime(Auth::guard('admin')->user()->id);
-                
                 $request->session()->flash('session_success', 'Admin Login successfully.');
                 return redirect()->route('admin-dashboard');
             } else {
