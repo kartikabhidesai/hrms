@@ -43,6 +43,10 @@ $file_headers = @get_headers($filename);
                     HRMS
                 </div>
             </li>
+            <li class="{{ ($currentRoute == 'admin-calendar' ? 'active' : '') }}">
+                <a href="{{ route('admin-calendar') }}"><i class="fa fa-calendar"></i>
+                    <span class="nav-label">Calendar</span></a>
+            </li>
             @if($roles == NULL)
             <li class="{{ ($currentRoute == 'admin-dashboard'  ? 'active' : '') }}">
                 <a href="{{ route('admin-dashboard') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span> </a>

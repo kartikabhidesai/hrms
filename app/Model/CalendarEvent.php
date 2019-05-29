@@ -29,11 +29,16 @@ class CalendarEvent extends Model
 
     public function getCompanyEvent($companyId)
     {
-        
+        if($companyId==1)
+        {
         $getListOfEvent = CalendarEvent::select('title','notes','event_date as start','event_time')
+                                        // ->where('company_id', 1)
+                                        ->get();
+        }else{
+            $getListOfEvent = CalendarEvent::select('title','notes','event_date as start','event_time')
                                         ->where('company_id', $companyId)
                                         ->get();
-
+        }
         if(count($getListOfEvent) > 0) {
 
             foreach ($getListOfEvent as $key => $value) {
