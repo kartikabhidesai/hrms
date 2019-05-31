@@ -161,4 +161,9 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function() {
      Route::match(['get', 'post'], 'admin-chat', ['as' => 'admin-chat', 'uses' => 'Admin\ChatController@index']);
      Route::match(['get', 'post'], 'chat-ajaxAction', ['as' => 'admin-chat-ajaxAction', 'uses' => 'Admin\ChatController@ajaxAction']);
 
+     /* Calendar */
+    Route::match(['get', 'post'], 'admin-calendar', ['as' => 'admin-calendar', 'uses' => 'Admin\CalendarController@index']);
+    Route::match(['get', 'post'], 'admin-calendar-ajaxAction', ['as' => 'admin-calendar-ajaxAction', 'uses' => 'Admin\CalendarController@ajaxAction']);
+    Route::match(['get', 'post'], 'admin-getevents', ['as' => 'admin-getevents', 'uses' => 'Admin\CalendarController@getEvent']);
+
 });
