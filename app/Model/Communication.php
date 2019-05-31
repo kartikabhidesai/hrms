@@ -13,7 +13,7 @@ class Communication extends Model
 {
     protected $table = 'communication';
 
-    protected $fillable = ['id', 'employee_id', 'company_id', 'message', 'is_read'];
+    protected $fillable = ['id','communication_id','send_by', 'company_id','send_emp_id','recieve_emp_id','message', 'is_read','file','subject'];
 
     public function addNewCommunication($request, $companyId)
     {
@@ -43,13 +43,24 @@ class Communication extends Model
 
     public function addNewCommunicationEmp($request, $companyId, $empId)
     {
-        $file = '';
         $newCommnucation = new Communication();
-        $newCommnucation->employee_id = $empId;
+        $newCommnucation->communication_id = isset($request->communication_id) ? $request->communication_id : 0;
+
+        if(isset($request->mail_to) && $request->mail_to == 'employee')
+        {
+            $newCommnucation->recieve_emp_id = $request->emp_id;
+        }
+        else
+        {
+            $newCommnucation->recieve_emp_id = '';   
+        }
+
+        $newCommnucation->send_by = 'EMPLOYEE';
         $newCommnucation->company_id = $companyId;
+        $newCommnucation->send_emp_id = $empId;
         $newCommnucation->message = trim($request->summernote, '');
         $newCommnucation->subject = $request->subject;
-        $newCommnucation->from = 'EMPLOYEE';
+        $file = '';
         if ($request->file('file')) {
             $image = $request->file('file');
             $file = 'communication' . time() . '.' . $image->getClientOriginalExtension();
@@ -62,7 +73,7 @@ class Communication extends Model
         }
         $newCommnucation->is_read = 0;
         $newCommnucation->created_at = date('Y-m-d H:i:s');
-        $newCommnucation->created_at = date('Y-m-d H:i:s');
+        $newCommnucation->updated_at = date('Y-m-d H:i:s');
         $newCommnucation->save();
         return TRUE;
     }
@@ -95,11 +106,13 @@ class Communication extends Model
 
     public function employeeEmailsForCommunication($empId)
     {
-        $getListOfEmailOfEmp = Communication::select('comapnies.company_name', 'communication.id', 'communication.employee_id', 'communication.message', 'communication.file', 'communication.is_read', 'communication.subject', 'communication.created_at',DB::raw('"communication" as communication_table'))
-                                        ->join('comapnies', 'communication.company_id', '=', 'comapnies.id')
-                                        ->where('communication.employee_id', $empId)
-                                        ->where('communication.from', 'COMPANY')
-                                        ->get();
+        $getListOfEmailOfEmp = Communication::select('communication.*','comapnies.company_name as companyName','employee.name as send_emp_name')
+            ->leftjoin('comapnies', 'communication.company_id','comapnies.id')
+            ->leftjoin('employee', 'communication.send_emp_id','employee.id')
+            ->where('communication.recieve_emp_id',$empId)
+            ->get();
+
+        // echo "<pre>"; print_r($getListOfEmailOfEmp->toArray()); exit();
 
         if(count($getListOfEmailOfEmp) > 0) {
             return $getListOfEmailOfEmp;
@@ -169,14 +182,16 @@ class Communication extends Model
         }
     }
 
-    public function employeeEmailCommunicationDetail($empId, $id)
+    public function employeeEmailCommunicationDetail($id)
     {
-        $findCommunication = Communication::select('comapnies.email', 'communication.id', 'communication.employee_id', 'communication.message', 'communication.file', 'communication.is_read', 'communication.subject', 'communication.created_at',DB::raw('"communication" as communication_table'))
-                                        ->join('comapnies', 'communication.company_id', '=', 'comapnies.id')
-                                        ->where('communication.employee_id', $empId)
+        $findCommunication = Communication::select('comapnies.email as companyEmail',
+                                                'employee.name as employeeName',
+                                                'employee.email as employeeEmail',
+                                                'communication.*')
+                                        ->leftjoin('comapnies', 'communication.company_id', 'comapnies.id')
+                                        ->leftjoin('employee', 'communication.send_emp_id', 'employee.id')
                                         ->where('communication.id', $id)
                                         ->first();
-
         if($findCommunication) {
             return $findCommunication;
         } else {
@@ -216,11 +231,12 @@ class Communication extends Model
 
     public function sendEmployeeEmails($empId)
     {
-        $getListOfEmailOfCmp = Communication::select('employee.name', 'communication.id', 'communication.employee_id', 'communication.message', 'communication.file', 'communication.is_read', 'communication.subject', 'communication.created_at')
-                                        ->join('employee', 'communication.employee_id', '=', 'employee.id')
-                                        ->where('communication.employee_id', $empId)
-                                        ->where('communication.from', 'EMPLOYEE')
-                                        ->get();
+        $getListOfEmailOfCmp = Communication::select('employee.name as employeeName','comapnies.company_name as companyName','communication.*')
+            ->leftjoin('employee','communication.send_emp_id','employee.id')
+            ->leftjoin('comapnies','communication.company_id','comapnies.id')
+            ->where('communication.send_emp_id',$empId)
+            ->where('communication.send_by', 'EMPLOYEE')
+            ->get();
 
         if(count($getListOfEmailOfCmp) > 0) {
             return $getListOfEmailOfCmp;
@@ -231,9 +247,7 @@ class Communication extends Model
 
     public function getComminucationDataEmp($id)
     {
-        $getComminucationDataEmp = Communication::select('subject')
-                                                ->where('id', $id)
-                                                ->first();
+        $getComminucationDataEmp = Communication::select('communication.*')->where('id', $id)->first();
 
         if($getComminucationDataEmp) {
             return $getComminucationDataEmp;

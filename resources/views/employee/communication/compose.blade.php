@@ -1,5 +1,13 @@
 @extends('layouts.app')
 @section('content')
+
+<style type="text/css">
+    .my-read-only-class 
+    {   
+       cursor: not-allowed;
+    }
+</style>
+
 <div class="wrapper wrapper-content">
     <div class="row">
         <div class="col-lg-3">
@@ -40,10 +48,70 @@
                 <div class="mail-box">
                     <div class="mail-body">
                         <form class="form-horizontal" method="get">
+                            <div class="form-group"><label class="col-sm-2 control-label">To :</label>
+                                <div class="col-sm-5">
+                                    @if(isset($CommunicationData))
+                                        <input type="hidden" name="mail_to" value="{{$CommunicationData->send_by}}">
+                                    @endif
+                                    <select class="form-control" required="required" name="mail_to" id="mail_to" {{isset($CommunicationData)?'disabled="disabled"':''}}>
+                                        <option value="">Select</option>
+                                        <option value="company" {{$CommunicationData->send_by=='COMPANY'?'selected':''}}>Company</option>
+                                        <option value="employee" {{$CommunicationData->send_by=='EMPLOYEE'?'selected':''}}>Employee</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            @if(isset($CommunicationData))
+
+                                @if($CommunicationData->send_emp_id != '' && $CommunicationData->send_emp_id != 0 && $CommunicationData->send_by == 'EMPLOYEE')
+
+                                    <div class="form-group" id="emp_div"><label class="col-sm-2 control-label">Employees :</label>
+                                        <div class="col-sm-5">
+                                            <input type="hidden" name="emp_id" value="{{$CommunicationData->send_emp_id}}">
+                                            <select class="form-control" required="required" name="emp_id" id="emp_id" disabled="disabled">
+                                                <option value="">Select</option>
+                                                @if(isset($companyEmployees) && !empty($companyEmployees))
+                                                    @foreach($companyEmployees as $key => $val)
+                                                        @if($CommunicationData->send_emp_id == $val->id)
+                                                            <option value="{{$val->id}}" selected="selected">{{$val->name}}</option>
+                                                        @else
+                                                            <option value="{{$val->id}}">{{$val->name}}</option>
+                                                        @endif
+                                                    @endforeach
+                                                @else
+                                                    <option value="">No data found.</option>
+                                                @endif
+                                            </select>
+                                        </div>
+                                    </div>
+                                @else
+
+                                @endif
+
+                            @else
+
+                                <div class="form-group" id="emp_div"><label class="col-sm-2 control-label">Employees :</label>
+                                    <div class="col-sm-5">
+                                        <select class="form-control" required="required" name="emp_id" id="emp_id">
+                                            <option value="">Select</option>
+                                            @if(isset($companyEmployees) && !empty($companyEmployees))
+                                                @foreach($companyEmployees as $key => $val)
+                                                    <option value="{{$val->id}}">{{$val->name}}</option>
+                                                @endforeach
+                                            @else
+                                                <option value="">No data found.</option>
+                                            @endif
+                                        </select>
+                                    </div>
+                                </div>
+
+                            @endif
+
                             <div class="form-group"><label class="col-sm-2 control-label">Subject:</label>
                                 <div class="col-sm-10">
                                     @if(isset($communication_id) && $communication_id != '')
-                                        <input type="text" class="form-control subject" name="subject" value="{{ $subject ? $subject : 'N.A.' }}" readonly>
+                                        <input type="text" class="form-control subject" name="subject" value="{{ $CommunicationData->subject ? $CommunicationData->subject : 'N.A.' }}" readonly>
                                     @else
                                         <input type="text" class="form-control subject" name="subject" value="">
                                     @endif

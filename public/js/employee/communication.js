@@ -42,6 +42,16 @@ var Communication = function () {
         handleFormValidate(form, rules, function (form) {
             handleAjaxFormSubmit(form, true);
         });
+
+        $('#mail_to').change(function(){
+            if($(this).val() == 'employee'){
+                $('#emp_div').show();
+                $('#emp_id').attr('required','required');
+            }else{
+                $('#emp_div').hide();
+                $('#emp_id').removeAttr('required');
+            }
+        });
     }
 
     return {
