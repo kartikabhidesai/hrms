@@ -14,41 +14,25 @@
                 </div>
                 <div class="ibox-content">
                     {{ Form::open( array('method' => 'post', 'class' => 'form-horizontal', 'id' => 'addRole' )) }}
-                   
-                    
-                    <div class="form-group">
-                        <label class="col-lg-2 control-label"></label>
-                         <div class="col-lg-9">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="i-checks">
-                                        <label>
-                                            <input type="radio" value="existingEmployee" name="employeeType" checked="checked">&nbsp;Existing Employee
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6">
-                                    <div class="i-checks">
-                                        <label>
-                                            <input type="radio" value="newEmployee" name="employeeType" >&nbsp;New Employee
-                                        </label>
-                                        
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="form-group"><label class="col-lg-2 control-label">User</label>
+                        <div class="col-lg-9">
+                            {{ Form::text('user_name', null, array('class' => 'form-control' ,'required')) }}
                         </div>
                     </div>
-                    
-                    <div class="form-group"><label class="col-lg-2 control-label">Employee Name</label>
+                    <div class="form-group"><label class="col-lg-2 control-label">Email</label>
                         <div class="col-lg-9">
-                            <select class="form-control" name="employeeId" id="employeeId">
-                                <option value="">Select employee</option>
-                                @foreach($employeeList as $key => $value)
-                                <option value="{{ $value['id'] }}">{{ $value['name']  }}</option>
-                                @endforeach
-                            </select>
-                            
+                            {{ Form::text('email', null, array('class' => 'form-control' ,'required')) }}
+                        </div>
+                    </div>  
+                    <div class="form-group"><label class="col-lg-2 control-label">Password</label>
+                        <div class="col-lg-9">
+                            {{ Form::password('password',array('placeholder'=>'Password','class' => 'form-control password required','id'=> 'password')) }}
+                        </div>
+                    </div> 
+
+                    <div class="form-group"><label class="col-lg-2 control-label">Status</label>
+                        <div class="col-lg-9">
+                            {{ Form::select('status', $status, null, array('class' => 'form-control', 'id' => 'status','required')) }}
                         </div>
                     </div>
 

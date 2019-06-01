@@ -8,6 +8,7 @@ use App\Model\AdminRole;
 use App\Model\Department;
 use App\Model\AdminUserHasPermission;
 use App\Model\Company;
+use App\Model\Employee;
 use App\Http\Controllers\Controller;
 use Auth;
 use Route;
@@ -49,11 +50,15 @@ class RoleController extends Controller {
         $data['masterPermission'] = $objRoleMaster->getCompanyMasterPermisson($request); 
         $userid = $this->loginUser->id;
         $companyId = Company::select('id')->where('user_id', $userid)->first();
-
+        
+        $objEmployeelist = new Employee();
+        $data['employeeList'] =  $objEmployeelist->getEmployeeList($companyId['id']);
+       
         if($request->isMethod('post')){
 //             print_r($request->input());exit;
-            $objEmail=new AdminRole();
-            $result=$objEmail->createCompanyRole($request,$companyId->id);
+            
+            $objAdminRole=new AdminRole();
+            $result=$objAdminRole->createCompanyRole($request,$companyId->id);
             if($result == 'userExits'){
                 $return['status'] = 'error';
                 $return['message'] = 'Email already exists.';
