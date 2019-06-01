@@ -18,6 +18,7 @@ use Abraham\TwitterOAuth\TwitterOAuth;
 class TokenController extends Controller
 {
 
+
     public function tokenCall($token_type)
     {
 

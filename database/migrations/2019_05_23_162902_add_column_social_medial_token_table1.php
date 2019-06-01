@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class AddColumnSocialMedialTokenTable1 extends Migration
 {
+
     /**
      * Run the migrations.
      *

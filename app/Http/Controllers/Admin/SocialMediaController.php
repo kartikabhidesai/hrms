@@ -114,6 +114,7 @@ class SocialMediaController extends Controller {
             exit;
         }
 
+
         $session = $request->session()->all();
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('admin/socialmedia.js', 'ajaxfileupload.js', 'jquery.form.min.js','jquery.timepicker.js');

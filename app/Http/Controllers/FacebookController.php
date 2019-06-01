@@ -10,6 +10,7 @@ use App;
 
 class FacebookController extends Controller
 {
+
     private $api;
     public function __construct(Facebook $fb)
     {

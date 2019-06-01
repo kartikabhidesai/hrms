@@ -35,6 +35,7 @@
                             }
                         @endphp
 
+
                         <div class="ibox-content">
 
                              <ul class="sortable-list connectList agile-list" id="todo">

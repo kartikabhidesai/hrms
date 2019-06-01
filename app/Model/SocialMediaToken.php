@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class SocialMediaToken extends Model
 {
     protected $table='social_media_token';
-	
+
+
 	function addSocialMediaToken($r){
 		$obj=new SocialMediaToken();
 		$obj->user_id=1;

@@ -59,6 +59,7 @@ Route::get('/facebook/share','TokenController@fbShare');
 Route::get('/twitter/share','TokenController@twShare');
 
 
+
 Route::match(['get', 'post'], 'exportxls', ['as' => 'login', 'uses' => 'ExcelController@exportxls']);
 Route::match(['get', 'post'], 'login', ['as' => 'login', 'uses' => 'LoginController@auth']);
 Route::match(['get', 'post'], 'order', ['as' => 'order', 'uses' => 'OrderController@index']);
