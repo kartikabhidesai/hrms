@@ -53,6 +53,7 @@ return [
     */
 
     'url' => env('APP_URL', 'http://localhost'),
+    'document_root'=>'/public/uploads/social_media/',
 
     /*
     |--------------------------------------------------------------------------
@@ -64,6 +65,7 @@ return [
     | ahead and set this to a sensible default for you out of the box.
     |
     */
+
 
     'timezone' => 'UTC',
 

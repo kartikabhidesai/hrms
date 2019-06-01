@@ -4,8 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-
-class AddColumnSocialMedialTokenTable1 extends Migration
+class AddColumnSocialMediaTableuserId extends Migration
 {
 
     /**
@@ -15,9 +14,8 @@ class AddColumnSocialMedialTokenTable1 extends Migration
      */
     public function up()
     {
-        Schema::table('social_media_token', function (Blueprint $table) {
-             $table->renameColumn('account_key', 'account_id');
-			 $table->string('account_type')->default('facebook')->after('user_id');
+        Schema::table('social_media', function (Blueprint $table) {
+            $table->unsignedInteger('user_id')->after('id');	
         });
     }
 
@@ -28,7 +26,7 @@ class AddColumnSocialMedialTokenTable1 extends Migration
      */
     public function down()
     {
-        Schema::table('social_media_token', function (Blueprint $table) {
+        Schema::table('social_media', function (Blueprint $table) {
             //
         });
     }

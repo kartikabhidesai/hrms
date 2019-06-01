@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        'App\Console\Commands\SocialMediaCron',
     ];
 
     /**
@@ -24,9 +24,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command('socialMeida:cron')->everyMinute();
         // $schedule->command('inspire')
         //          ->hourly();
     }
+
 
     /**
      * Register the commands for the application.
