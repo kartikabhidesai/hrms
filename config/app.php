@@ -53,6 +53,7 @@ return [
     */
 
     'url' => env('APP_URL', 'http://localhost'),
+    'document_root'=>'/public/uploads/social_media/',
 
     /*
     |--------------------------------------------------------------------------

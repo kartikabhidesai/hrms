@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Model\SocialMediaToken;
 use App\User;
 use App\Model\Users;
 use App\Model\Order;
@@ -20,8 +21,6 @@ class SocialMediaController extends Controller {
     }
 
     public function index(Request $request) {
-
-
 
         $session = $request->session()->all();
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
@@ -91,7 +90,7 @@ class SocialMediaController extends Controller {
             'breadcrumb' => array(
                 'Home' => route("admin-dashboard"),
                 'Social Media' => 'Social Media'));
-        return view('admin.socialmedia.social-media', $data);
+       return view('admin.socialmedia.mangeAccounts', $data);
     }
     
     
@@ -132,9 +131,10 @@ class SocialMediaController extends Controller {
     
     public function newPost(Request $request){
 
-        $post_to_data = [1,2,3];        
+        $post_to_data= SocialMediaToken::groupBy('account_type')->get();
 
         if($request->isMethod('post')) {
+
 
             // echo "<pre>"; print_r($request->toArray()); exit();
 
@@ -167,5 +167,6 @@ class SocialMediaController extends Controller {
                 'New Post' => 'New Post'));
         return view('admin.socialmedia.newPost', $data);
     }
+	
 
 }

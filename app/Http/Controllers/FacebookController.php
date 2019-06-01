@@ -28,9 +28,8 @@ class FacebookController extends Controller
             $data = json_decode($user);
 
             if(empty($data->data)){
-                 setcookie('facebook_user_page_error','Facebook user page not avalibale', time() + (86400 * 30), "/");
-                 $url = App::make('url')->to($_COOKIE['redirect']);
-                echo '<script> location.href="' . $url . '"; </script>';
+                 setcookie('facebook_user_page_error','Facebook user page not avalibale', time() + 30, "/");
+                return redirect('admin/manage-account');
             }else {					
 					foreach($data->data as $fbdata){
 						$r['token']=$fbdata->access_token;
@@ -40,8 +39,8 @@ class FacebookController extends Controller
 						$smTokenObj=new SocialMediaToken();
 						$smTokenObj->addSocialMediaToken($r);
 					}
-	            setcookie('facebooksuccess', "Facebook authentication successfully done.", time() + (60 * 10), "/");
-                setcookie('facebook_user_page_token',$user, time() + (60 * 10), "/");
+	            setcookie('facebooksuccess', "Facebook authentication successfully done.", time() + 30, "/");
+                return redirect('admin/manage-account');
             //    $url = App::make('url')->to($_COOKIE['redirect']);
               //  echo '<script> location.href="' . $url . '"; </script>';
             }   

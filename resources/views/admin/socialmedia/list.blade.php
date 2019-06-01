@@ -9,8 +9,8 @@
                     <h5>Social Media</h5>
                     
                     <div class="ibox-tools">
-                        <!-- <a href="{{ route('manage-account') }}" class="btn btn-default  dim" ><i class="fa fa-cog">   Manage Accounts</i></a> -->
-                        <a href="{{ url('').'/admin/social-media' }}" class="btn btn-default  dim" ><i class="fa fa-cog">   Manage Accounts</i></a>
+                         <a href="{{ route('manage-account') }}" class="btn btn-default  dim" ><i class="fa fa-cog">   Manage Accounts</i></a>
+                        {{--<a href="{{ url('').'/admin/social-media' }}" class="btn btn-default  dim" ><i class="fa fa-cog">   Manage Accounts</i></a>--}}
                         <a href="{{ route('new-post') }}" class="btn btn-success  dim" ><i class="fa fa-plus">   New Post</i></a>
                     </div>
                 </div>

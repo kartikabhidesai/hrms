@@ -12,25 +12,26 @@ use App\Model\TicketAttahcments;
 use PDF;
 use Config;
 use File;
+use App\Http\Controllers\TokenController;
 
 class SocialMedia extends Model
 {
     protected $table = 'social_media';
 
     public function addSocialMedia($request)
-    {   
-        $post_to = '';
+    {
+      $post_to = '';
         if($request->post_to) 
         {
             $post_to = implode(',',$request->post_to); 
         }
 
-        $id = DB::table('social_media')->insertGetId(['accounts' => $post_to,
+        $id = DB::table('social_media')->insertGetId(['user_id'=>1,'accounts' => $post_to,
                                             'message' => $request->input('message'),
-                                            'deliver_option' => $request->input('delivery_option'),
+                                            'deliver_to' => $request->input('delivery_option'),
                                             'deliver_date' => $request->input('delivery_date') != null ? date('Y-m-d', strtotime($request->input('delivery_date'))) : date('Y-m-d'),
                                             'deliver_time' => $request->input('delivery_time') != null ? date('H:i:s', strtotime($request->input('delivery_time'))) : date('H:i:s'), 
-                                            'status'=> $request->input('delivery_time') != null && $request->input('delivery_time') != null ? 'pending' : 'posted',
+                                            'status'=> 'pending',//$request->input('delivery_time') != null && $request->input('delivery_time') != null ? 'pending' : 'posted',
                                             'created_at' => date('Y-m-d H:i:s'),
                                             'updated_at' => date('Y-m-d H:i:s')]);
 
@@ -55,6 +56,16 @@ class SocialMedia extends Model
                                             );
             }
         }
+        if($request->input('delivery_time')==''){
+            $obj=new TokenController();
+            foreach ($request->post_to as $pst){
+                if($pst=='facebook')
+                    $obj->fbShare(1,$id);
+                elseif($pst=='twitter')
+                    $obj->twShare(1,$id);
+            }
+        }
+
         return TRUE;
     }
 
@@ -121,6 +132,15 @@ class SocialMedia extends Model
         );
         return $json_data;
     }
+	
+	function getPost($post_id,$user_id){
+		$post=SocialMedia::join('social_media_files as smf','smf.social_media_id','=','social_media.id')
+							->where(['social_media.id'=>$post_id,'user_id'=>$user_id])
+							->first(['social_media.id as sm_id','user_id','accounts','message','smf.file_name']);
+							
+		return $post;				
+	}
+	
 
     public function getEmpviewTicketStatus($ticketId,$Empid) {
         // echo $ticketId."-".$Empid;

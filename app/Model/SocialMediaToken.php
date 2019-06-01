@@ -12,7 +12,7 @@ class SocialMediaToken extends Model
 		$obj=new SocialMediaToken();
 		$obj->user_id=1;
 		$obj->account_name=$r['account_name'];
-		$obj->account_key=$r['account_key'];
+		$obj->account_id=$r['account_key'];
 		$obj->token=$r['token'];
 		$obj->account_type=$r['account_type'];
 		$obj->token_secret=(isset($r['token_secret'])?$r['token_secret']:'');

@@ -17,9 +17,9 @@
                                     @if(!empty($post_to_data))
                                         @foreach($post_to_data as $pf)
                                             <div class="col-lg-3">
-                                                <label class="checkbox-inline"> 
-                                                    <input type="checkbox" class="post_to" name="post_to[]" value="{{$pf}}" required>
-                                                    Test Data
+                                                <label class="checkbox-inline">
+                                                    <input type="checkbox" class="post_to" name="post_to[]" value="{{$pf->account_type}}" required>
+                                                    {{$pf->account_name}} ({{$pf->account_type}})
                                                 </label>
                                             </div>
                                         @endforeach
