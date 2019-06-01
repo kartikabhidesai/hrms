@@ -55,7 +55,27 @@ var Role = function() {
                 url: baseurl + "company/company-role-ajaxAction",
                 data: {'action': 'employeeType', 'val': val},
                 success: function(data) {
-                    handleAjaxResponse(data);
+                    $('.append').html(data);
+                    var form = $('#addRole');
+                    var rules = {
+                        employeeType: {required: true},
+                        employeeId: {required: true},
+                    };
+                    handleFormValidate(form, rules, function(form) {
+                        handleAjaxFormSubmit(form);
+                    });
+
+
+                    var form = $('#addNewEmployeeRole');
+                    var rules = {
+                        employeeType: {required: true},
+                        user_name: {required: true},
+                        email: {required: true},
+                        password: {required: true},
+                    };
+                    handleFormValidate(form, rules, function(form) {
+                        handleAjaxFormSubmit(form);
+                    });
                 }
             });
             
@@ -65,6 +85,18 @@ var Role = function() {
         var rules = {
             employeeType: {required: true},
             employeeId: {required: true},
+        };
+        handleFormValidate(form, rules, function(form) {
+            handleAjaxFormSubmit(form);
+        });
+        
+        
+        var form = $('#addNewEmployeeRole');
+        var rules = {
+            employeeType: {required: true},
+            user_name: {required: true},
+            email: {required: true},
+            password: {required: true},
         };
         handleFormValidate(form, rules, function(form) {
             handleAjaxFormSubmit(form);

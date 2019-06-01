@@ -391,38 +391,43 @@ class AdminRole extends Model {
         $objUserDetails= Users::select('*')
                         ->where('id',$request['employeeId'])
                         ->get();
-//        print_r($request['companyId']);
-//        die();
-        if($objUserDetails[0]['name']){
-            $newAdminRole=new AdminRole();
-            $newAdminRole->user_name=$objUserDetails[0]['name'];
-            $newAdminRole->email=$objUserDetails[0]['email'];
-            $newAdminRole->password=$objUserDetails[0]['password'];
-            $newAdminRole->company_id = $request['companyId'];
-            $newAdminRole->user_id = $request['companyId'];
-            $newAdminRole->status='ACTIVE';
-            $newAdminRole->created_at = date('Y-m-d H:i:s');
-            $newAdminRole->updated_at = date('Y-m-d H:i:s');
-            if($newAdminRole->save()){
-                $lastId = $newAdminRole->id;
-                if (!empty($request->input('role'))) {
-                    $permisson = $request->input('role');
-                        for ($i = 0; $i < count($permisson); $i++) {
-                            $systemUser = new AdminUserHasPermission();
-                            $systemUser->permission_id = $permisson[$i];
-                            $systemUser->admin_role_id = $lastId;
-                            $systemUser->user_id = $request['companyId'];
-                            $systemUser->updated_at = date('Y-m-d H:i:s');
-                            $systemUser->created_at = date('Y-m-d H:i:s');
-                            $result = $systemUser->save();
-                        }
+        $result = AdminRole::select('email')->where('email', $objUserDetails[0]['email'])->get();
+        
+        if (count($result) == 0) {      
+        
+            if($objUserDetails[0]['name']){
+                $newAdminRole=new AdminRole();
+                $newAdminRole->user_name=$objUserDetails[0]['name'];
+                $newAdminRole->email=$objUserDetails[0]['email'];
+                $newAdminRole->password=$objUserDetails[0]['password'];
+                $newAdminRole->company_id = $request['companyId'];
+                $newAdminRole->user_id = $request['companyId'];
+                $newAdminRole->status='ACTIVE';
+                $newAdminRole->created_at = date('Y-m-d H:i:s');
+                $newAdminRole->updated_at = date('Y-m-d H:i:s');
+                if($newAdminRole->save()){
+                    $lastId = $newAdminRole->id;
+                    if (!empty($request->input('role'))) {
+                        $permisson = $request->input('role');
+                            for ($i = 0; $i < count($permisson); $i++) {
+                                $systemUser = new AdminUserHasPermission();
+                                $systemUser->permission_id = $permisson[$i];
+                                $systemUser->admin_role_id = $lastId;
+                                $systemUser->user_id = $request['companyId'];
+                                $systemUser->updated_at = date('Y-m-d H:i:s');
+                                $systemUser->created_at = date('Y-m-d H:i:s');
+                                $result = $systemUser->save();
+                            }
+                    }
+                    return "added";
+                }else{
+                      return "fails"; 
                 }
-                return "added";
             }else{
                   return "fails"; 
             }
         }else{
-              return "fails"; 
+            return "userExits";
         }
     }
 }

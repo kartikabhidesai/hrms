@@ -158,10 +158,29 @@ class RoleController extends Controller {
                 $result = $this->deleteRole($request->input('data'));
                 break;
             case 'employeeType':
-                print_r($request->input('val'));
-                exit;
-                $result = $this->employeeType($request->input('val'));
-                break;
+                $objRoleMaster = new AdminRole();
+                $data['masterPermission'] = $objRoleMaster->getCompanyMasterPermisson($request); 
+                if($request->input('val') == 'newEmployee'){
+                    $userid = $this->loginUser->id;
+                    $companyId = Company::select('id')->where('user_id', $userid)->first();
+                    $data['companyId']=$companyId['id'];
+                    $data['status'] = Config::get('constants.status');
+                    $result = view('company.role.newEmployee',$data);
+                    echo $result;
+                    break;
+                }else{
+                    $userid = $this->loginUser->id;
+                    $companyId = Company::select('id')->where('user_id', $userid)->first();
+                    $data['companyId']=$companyId['id'];
+
+                    $objEmployeelist = new Employee();
+                    $data['employeeList'] =  $objEmployeelist->getEmployeeList($companyId['id']);
+
+                    $result = view('company.role.existingEmployee',$data);
+                    echo $result;
+                    break; 
+                }
+                
         }
     }
 
