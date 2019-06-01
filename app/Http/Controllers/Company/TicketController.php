@@ -101,7 +101,7 @@ class TicketController extends Controller
                         $ticketName=$request->input('subject')." is a new ticket.";
                         $objEmployee = new Employee();
                         $u_id=$objEmployee->getUseridById($request->input('assign_to'));
-                        $route_url="ticket-list";
+                        $route_url="ticket-list-emp";
                         $ret = $objNotification->addNotification($u_id,$ticketName,$route_url,$notificationMasterId);
                     }
 
