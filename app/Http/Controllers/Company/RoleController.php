@@ -50,6 +50,7 @@ class RoleController extends Controller {
         $data['masterPermission'] = $objRoleMaster->getCompanyMasterPermisson($request); 
         $userid = $this->loginUser->id;
         $companyId = Company::select('id')->where('user_id', $userid)->first();
+        $data['companyId']=$companyId['id'];
         
         $objEmployeelist = new Employee();
         $data['employeeList'] =  $objEmployeelist->getEmployeeList($companyId['id']);
@@ -58,7 +59,7 @@ class RoleController extends Controller {
 //             print_r($request->input());exit;
             
             $objAdminRole=new AdminRole();
-            $result=$objAdminRole->createCompanyRole($request,$companyId->id);
+            $result=$objAdminRole->createEmployeeRole($request);
             if($result == 'userExits'){
                 $return['status'] = 'error';
                 $return['message'] = 'Email already exists.';

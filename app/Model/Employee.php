@@ -506,7 +506,7 @@ class Employee extends Model {
     
     public function getEmployeeList($companyId)
     {
-        $result = Employee::select('id', 'name')
+        $result = Employee::select('id','user_id','name')
                             ->where('company_id',$companyId)
                             ->get();
 

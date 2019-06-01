@@ -12,10 +12,13 @@
                         </a>
                     </div>
                 </div>
-                <div class="ibox-content">
-                    {{ Form::open( array('method' => 'post', 'class' => 'form-horizontal', 'id' => 'addRole' )) }}
-                   
-                    
+                <div class="ibox-content append">
+                    <form method="POST" accept-charset="UTF-8" class="form-horizontal" id="addRole">
+                        <input name="_token" type="hidden" value="UvRWN9eybslLgmlnHxwfXXaZKZ3tlwRDoqI7Cd8j">
+                        <div class="hidden">
+                            <input type="text" name="companyId" value="{{ $companyId }}">
+                        </div>
+
                     <div class="form-group">
                         <label class="col-lg-2 control-label"></label>
                          <div class="col-lg-9">
@@ -45,7 +48,7 @@
                             <select class="form-control" name="employeeId" id="employeeId">
                                 <option value="">Select employee</option>
                                 @foreach($employeeList as $key => $value)
-                                <option value="{{ $value['id'] }}">{{ $value['name']  }}</option>
+                                <option value="{{ $value['user_id'] }}">{{ $value['name']  }}</option>
                                 @endforeach
                             </select>
                             
@@ -71,7 +74,7 @@
                             <button class="btn btn-sm btn-primary" type="submit">Save</button>
                         </div>
                     </div>
-                    {{ Form::close() }}
+           </form>
                 </div>
             </div>
         </div>	
