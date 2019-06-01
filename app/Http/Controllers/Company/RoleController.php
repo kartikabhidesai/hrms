@@ -56,7 +56,6 @@ class RoleController extends Controller {
         $data['employeeList'] =  $objEmployeelist->getEmployeeList($companyId['id']);
        
         if($request->isMethod('post')){
-//             print_r($request->input());exit;
             
             $objAdminRole=new AdminRole();
             $result=$objAdminRole->createEmployeeRole($request);
@@ -95,8 +94,7 @@ class RoleController extends Controller {
     public function edit(Request $request,$id=null){
         $session = $request->session()->all();
         $data['roleArray'] = AdminRole::find($id);
-        
-//         print_r($data['roleArray']);exit;
+//      print_r($data['roleArray']);exit;
         if($request->isMethod('post')){
             $objEmail=new AdminRole();
             $result=$objEmail->editCompanyRole($request);
@@ -118,7 +116,6 @@ class RoleController extends Controller {
 
         $objdepartment = new Department();
         $data['ArrDepartment'] =  array('1' => 'test','2' => 'test2' );
-
         
         $adminR = new AdminUserHasPermission();
         $userPermission = $adminR->getPermissionNew($id);

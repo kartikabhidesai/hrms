@@ -60,6 +60,7 @@ var Role = function() {
             });
             
         });
+        
         var form = $('#addRole');
         var rules = {
             employeeType: {required: true},

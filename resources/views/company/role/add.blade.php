@@ -14,7 +14,7 @@
                 </div>
                 <div class="ibox-content append">
                     <form method="POST" accept-charset="UTF-8" class="form-horizontal" id="addRole">
-                        <input name="_token" type="hidden" value="UvRWN9eybslLgmlnHxwfXXaZKZ3tlwRDoqI7Cd8j">
+                        <input name="_token" type="hidden" value="{{ csrf_token() }}">
                         <div class="hidden">
                             <input type="text" name="companyId" value="{{ $companyId }}">
                         </div>
