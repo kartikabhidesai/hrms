@@ -160,6 +160,11 @@ class RoleController extends Controller {
             case 'deleteRole':
                 $result = $this->deleteRole($request->input('data'));
                 break;
+            case 'employeeType':
+                print_r($request->input('val'));
+                exit;
+                $result = $this->employeeType($request->input('val'));
+                break;
         }
     }
 

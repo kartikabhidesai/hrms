@@ -26,7 +26,7 @@
                                 <div class="col-lg-6">
                                     <div class="i-checks">
                                         <label>
-                                            <input type="radio" value="existingEmployee" name="employeeType" checked="checked">&nbsp;Existing Employee
+                                            <input type="radio" class="employeeType" value="existingEmployee" name="employeeType" checked="checked">&nbsp;Existing Employee
                                         </label>
                                     </div>
                                 </div>
@@ -34,7 +34,7 @@
                                 <div class="col-lg-6">
                                     <div class="i-checks">
                                         <label>
-                                            <input type="radio" value="newEmployee" name="employeeType" >&nbsp;New Employee
+                                            <input type="radio" class="employeeType" value="newEmployee" name="employeeType" >&nbsp;New Employee
                                         </label>
                                         
                                     </div>

@@ -45,7 +45,21 @@ var Role = function() {
     }
 
     var addRole=function(){
-        
+        $("body").on('change','.employeeType',function(){
+            var val=$(".employeeType:checked").val();
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                },
+                url: baseurl + "company/company-role-ajaxAction",
+                data: {'action': 'employeeType', 'val': val},
+                success: function(data) {
+                    handleAjaxResponse(data);
+                }
+            });
+            
+        });
         var form = $('#addRole');
         var rules = {
             employeeType: {required: true},
