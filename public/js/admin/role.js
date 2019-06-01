@@ -73,12 +73,8 @@ var Role = function() {
             
             var form = $('#addRole');
             var rules = {
-                user_name: {required: true},
+                employeeId: {required: true},
                 email: {required: true,email:true},
-                password: {required: true},
-                status: {required: true},
-                department: {required: true},
-                role: {required: true},
             };
             handleFormValidate(form, rules, function(form) {
                 handleAjaxFormSubmit(form);

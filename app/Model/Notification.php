@@ -153,8 +153,8 @@ class Notification extends Model {
     public function getNotificationCount($userid) {
        
         $query = Notification::where('notification.user_id',$userid)
-        ->where('notification.status',0)
-        ->get()->count();
+                ->where('notification.status',0)
+                ->get()->count();
         return $query;
     }
 
