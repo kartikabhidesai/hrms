@@ -34,10 +34,11 @@ class DashboardController extends Controller {
 
         $latest_task = Task::select('*')->where('employee_id',$logged_in_user->id)->orderBy('id','desc')->first();
         $latest_advance_salary_request = Advancesalary::select('*')->where('employee_id',$logged_in_user->id)->orderBy('id','desc')->first();
-
+       
         $data['latest_task'] = @$latest_task;
         $data['employee_data'] = @$logged_in_user;
         $data['advance_salary_request'] = @$latest_advance_salary_request;
+       
         $data['announcementList'] = $announcementList;
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('employee/dashbord.js');

@@ -402,7 +402,12 @@
                                         <label><b>Date of Submit : </b></label>
                                     </div>
                                     <div class="col-lg-8">
-                                        <label class="date_of_submit">{{ $advance_salary_request->date_of_submit }}</label>
+                                        @if(isset($advance_salary_request->date_of_submit))
+                                            <label class="date_of_submit">{{ $advance_salary_request->date_of_submit }}</label>
+                                        @else
+                                            <label class="date_of_submit"> N/A </label>
+                                        @endif
+                                        
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
@@ -410,7 +415,12 @@
                                         <span><b>Status : </b></span>
                                     </div>
                                     <div class="col-lg-8">
-                                        <label class="status">{{$advance_salary_request->status}}</label>
+                                        @if(isset($advance_salary_request->status))
+                                            <label class="date_of_submit">{{ $advance_salary_request->status }}</label>
+                                        @else
+                                            <label class="date_of_submit"> N/A </label>
+                                        @endif
+                                       
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
@@ -418,7 +428,13 @@
                                         <label><b>Comments : </b></label>
                                     </div>
                                     <div class="col-lg-8">
-                                        <label class="comments">{{$advance_salary_request->comments}}</label>
+                                        @if(isset($advance_salary_request->comments))
+                                            <label class="date_of_submit">{{$advance_salary_request->comments}}</label>
+                                        @else
+                                            <label class="date_of_submit"> N/A </label>
+                                        @endif
+                                        
+                                        <label class="comments"></label>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
