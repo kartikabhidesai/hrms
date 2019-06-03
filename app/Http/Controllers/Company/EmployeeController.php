@@ -7,6 +7,8 @@ use App\Model\Employee;
 use App\Model\Department;
 use App\Model\Designation;
 use App\Model\Company;
+use App\Model\AdminRole;
+use App\Model\AdminUserHasPermission;
 use App\Http\Controllers\Controller;
 use Auth;
 use Route;
@@ -133,13 +135,17 @@ class EmployeeController extends Controller {
 
     public function deleteEmp($postData) {
         if ($postData) {
+            
             $findEmp = Employee::where('id', $postData['id'])->first();
+            $userId = $findEmp['user_id'];
             if($findEmp) {
                 $deleteUser = Users::where('id', $findEmp->user_id)->delete();
             }
             $result = Employee::where('id', $postData['id'])->delete();
-
+            $res = AdminRole::where('user_id', $userId)->delete();
+            $res = AdminUserHasPermission::where('user_id', $userId)->delete();
             if ($result) {
+                
                 $return['status'] = 'success';
                 $return['message'] = 'Employee delete successfully.';
                 $return['jscode'] = "setTimeout(function(){
@@ -166,6 +172,7 @@ class EmployeeController extends Controller {
                 echo json_encode($demoList);
                 break;
             case 'deleteEmp':
+                
                 $result = $this->deleteEmp($request->input('data'));
                 break;
             case 'getDepartmentEmployeeList':

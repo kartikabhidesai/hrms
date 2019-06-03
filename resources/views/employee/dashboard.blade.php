@@ -402,7 +402,7 @@
                                         <label><b>Date of Submit : </b></label>
                                     </div>
                                     <div class="col-lg-8">
-                                        <label class="date_of_submit">{{$advance_salary_request->date_of_submit}}</label>
+                                        <label class="date_of_submit">{{ $advance_salary_request->date_of_submit }}</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">

@@ -3,6 +3,7 @@ var Employee = function() {
      
         $('body').on('click', '.empDelete', function() {
             var id = $(this).data('id');
+            
             setTimeout(function() {
                 $('.yes-sure:visible').attr('data-id', id);
             }, 500);
@@ -17,7 +18,7 @@ var Employee = function() {
                     'X-CSRF-TOKEN': $('input[name="_token"]').val(),
                 },
                 url: baseurl + "company/employee-ajaxAction",
-                data: {'action': 'getempmodaldata', 'data': data},
+                data: {'action': 'deleteEmp', 'data': data},
                 success: function(data) {
                     handleAjaxResponse(data);
                 }

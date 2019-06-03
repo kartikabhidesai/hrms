@@ -78,7 +78,10 @@ class LoginController extends Controller {
                 $objNotification = new Notification();
                 $notificationList = $objNotification->getNotificationList(Auth::guard('employee')->user()->id);
                 $notificationCount = $objNotification->getNotificationCount(Auth::guard('employee')->user()->id);
-
+                
+                $this->getUserRoleList(Auth::guard('employee')->user()->id,$request);
+                $roles =  Session::get('userRole');
+                
                 $loginData = array(
                     'name' => Auth::guard('employee')->user()->name,
                     'email' => Auth::guard('employee')->user()->email,

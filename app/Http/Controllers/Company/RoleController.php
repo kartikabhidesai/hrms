@@ -6,6 +6,7 @@ use App\User;
 use App\Model\Users;
 use App\Model\AdminRole;
 use App\Model\Department;
+use App\Model\Designation;
 use App\Model\AdminUserHasPermission;
 use App\Model\Company;
 use App\Model\Employee;
@@ -61,7 +62,7 @@ class RoleController extends Controller {
             $result=$objAdminRole->createEmployeeRole($request);
             if($result == 'userExits'){
                 $return['status'] = 'error';
-                $return['message'] = 'Email already exists.';
+                $return['message'] = 'Email already exists. Or You already asign role to this user.';
             }elseif($result == "added"){
                 $return['status'] = 'success';
                 $return['message'] = 'Role created successfully.';
@@ -94,8 +95,8 @@ class RoleController extends Controller {
     public function edit(Request $request,$id=null){
         $session = $request->session()->all();
         $data['roleArray'] = AdminRole::find($id);
-//      print_r($data['roleArray']);exit;
         if($request->isMethod('post')){
+           
             $objEmail=new AdminRole();
             $result=$objEmail->editCompanyRole($request);
             if($result > 1){
@@ -161,6 +162,15 @@ class RoleController extends Controller {
                 $objRoleMaster = new AdminRole();
                 $data['masterPermission'] = $objRoleMaster->getCompanyMasterPermisson($request); 
                 if($request->input('val') == 'newEmployee'){
+                    $objdepartment = new Department();
+                    $objDesignation = new Designation();
+                    $data['ArrDepartment'] = $objdepartment->getDepartment();
+                    $data['ArrDesignation'] = $objDesignation->getDesignation();
+                    $data['testarray'] = Config::get('constants.testarray');
+                    $data['statusArray'] = Config::get('constants.statusArray');
+                    $data['genderArray'] = Config::get('constants.genderArray');
+                    $data['martialArray'] = Config::get('constants.martialArray');
+                    $data['nationalityArray'] = Config::get('constants.nationalityArray');
                     $userid = $this->loginUser->id;
                     $companyId = Company::select('id')->where('user_id', $userid)->first();
                     $data['companyId']=$companyId['id'];
@@ -188,7 +198,6 @@ class RoleController extends Controller {
         if ($postData) {
             $result = AdminRole::where('id', $postData['id'])->delete();
             $result = AdminUserHasPermission::where('admin_role_id', $postData['id'])->delete();
-//            $result = AdminRole::where('id', $postData['id'])->delete();
             if ($result) {
                 $return['status'] = 'success';
                 $return['message'] = 'Record delete successfully.';

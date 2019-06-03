@@ -16,23 +16,14 @@
 
                 <div class="ibox-content">
                     {{ Form::open( array('method' => 'post', 'class' => 'form-horizontal', 'id' => 'editRole' )) }}
-                    <div class="form-group"><label class="col-lg-2 control-label">User</label>
-                        <div class="col-lg-9">
-                            {{ Form::text('user_name', $roleArray['user_name'], array('class' => 'form-control' ,'required')) }}
-                        </div>
-                    </div>
+                    
                     <input type="hidden" name="role_id" value="{{ $roleArray['id'] }}">
                     <input type="hidden" name="user_id" value="{{ $roleArray['user_id'] }}">
                     <div class="form-group"><label class="col-lg-2 control-label">Email</label>
                         <div class="col-lg-9">
-                            {{ Form::text('email', $roleArray['email'], array('class' => 'form-control' ,'required')) }}
+                            <input type="text" class="form-control" name="email" value="{{ $roleArray['email'] }}" disabled='disabled'>
                         </div>
                     </div>  
-                  <!--   <div class="form-group"><label class="col-lg-2 control-label">Password</label>
-                        <div class="col-lg-9">
-                            {{ Form::text('password', null, array('class' => 'form-control' ,'required')) }}
-                        </div>
-                    </div> --> 
 
                     <div class="form-group"><label class="col-lg-2 control-label">Status</label>
                         <div class="col-lg-9">
