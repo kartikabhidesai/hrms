@@ -56,6 +56,7 @@ var Role = function() {
                 data: {'action': 'employeeType', 'val': val},
                 success: function(data) {
                     $('.append').html(data);
+                    
                     var form = $('#addRole');
                     var rules = {
                         employeeType: {required: true},
@@ -69,9 +70,19 @@ var Role = function() {
                     var form = $('#addNewEmployeeRole');
                     var rules = {
                         employeeType: {required: true},
-                        user_name: {required: true},
-                        email: {required: true},
-                        password: {required: true},
+                        name: {required: true},
+                        first_name: {required: true},
+                        Phone: {required: true,number:true},
+                        email: {required: true,email:true},
+                        gender: {required: true},
+                        religion: {required: true},
+                        martial_status: {required: true},
+                        department: {required: true},
+                        employee_id: {required: true},
+                        newpassword: {required: true},
+                        join_salary: {required: true},
+                        status: {required: true},
+                        employee_type: {required: true},
                     };
                     handleFormValidate(form, rules, function(form) {
                         handleAjaxFormSubmit(form);
@@ -94,9 +105,19 @@ var Role = function() {
         var form = $('#addNewEmployeeRole');
         var rules = {
             employeeType: {required: true},
-            user_name: {required: true},
-            email: {required: true},
-            password: {required: true},
+            name: {required: true},
+            first_name: {required: true},
+            Phone: {required: true,number:true},
+            email: {required: true,email:true},
+            gender: {required: true},
+            religion: {required: true},
+            martial_status: {required: true},
+            department: {required: true},
+            employee_id: {required: true},
+            newpassword: {required: true},
+            join_salary: {required: true},
+            status: {required: true},
+            employee_type: {required: true},
         };
         handleFormValidate(form, rules, function(form) {
             handleAjaxFormSubmit(form);
