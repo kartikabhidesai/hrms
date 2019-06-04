@@ -50,6 +50,9 @@ Route::group(['prefix' => $employeePrefix, 'middleware' => ['employee']], functi
     
     Route::match(['get', 'post'], 'employee-attendance-report', ['as' => 'employee-attendance-report', 'uses' => 'Employee\AttendanceController@attendanceReport']);
     
+    Route::match(['get', 'post'], 'employee-manage-attendance-history', ['as' => 'employee-manage-attendance-history', 'uses' => 'Employee\AttendanceController@manageAttendanceHistory']);
+    Route::match(['get', 'post'], 'employee-attendance-history-ajaxAction', ['as' => 'employee-attendance-history-ajaxAction', 'uses' => 'Employee\AttendanceController@ajaxAction']);
+    
     //edit-advance-salary-request
     Route::match(['get', 'post'], 'advance-salary-request', ['as' => 'advance-salary-request', 'uses' => 'Employee\AdvanceSalaryRequestController@requestList']);    
     Route::match(['get', 'post'], 'new-advance-salary-request', ['as' => 'new-advance-salary-request', 'uses' => 'Employee\AdvanceSalaryRequestController@newRequest']);    

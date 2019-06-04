@@ -177,26 +177,28 @@ class AttendanceController extends Controller
         $data['fromdate']="";
         $data['toDate']="";
         $data['department_id']="";
+        $userId = $this->loginUser->id;
+        $companyId = Employee::select('company_id')->where('user_id', $userId)->get();
         
         if($request->method('get')){
             $data['fromdate']=$request->input('from_date');
             $data['toDate']=$request->input('to_date');
             $data['department_id']=$request->input('department_id');
         }
-        $userid = $this->loginUser->id;
-        $companyId = Company::select('id')->where('user_id', $userid)->first();
-        $data['departmentList'] = Department::where('company_id', $companyId['id'])->get();
+        
+        
+        $data['departmentList'] = Department::where('company_id', $companyId[0]['company_id'])->get();
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
-        $data['js'] = array('company/attendance_history.js', 'jquery.form.min.js');
+        $data['js'] = array('employee/attendance_history.js', 'jquery.form.min.js');
         $data['funinit'] = array('AttendanceHistory.init()');
         $data['css'] = array('');
         $data['header'] = array(
             'title' => 'Manage Attendance History',
             'breadcrumb' => array(
-                'Home' => route("company-dashboard"),
+                'Home' => route("employee-dashboard"),
                 'Manage Attendance History' => 'Manage Attendance History'));
       
-        return view('company.attendance.manage-attendance-history', $data);
+        return view('employee.attendance.manage-attendance-history', $data);
     }
 
     public function ajaxAction(Request $request)
@@ -206,7 +208,7 @@ class AttendanceController extends Controller
         switch ($action) {
             case 'getdatatable':
                 $objAttendanceHistory = new AttendanceHistory();
-                $historyList = $objAttendanceHistory->getDataTableForHistoy($request);
+                $historyList = $objAttendanceHistory->getDataEmployeeTableForHistoy($request);
                 echo json_encode($historyList);
             break;
             case 'getHistoryDetails':
