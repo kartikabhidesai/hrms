@@ -36,9 +36,9 @@ class PayrollController extends Controller {
     }
 
     public function payrollEmpList() {
-        // $id = Auth()->guard('employee')->user()['id'];
+        $id = Auth()->guard('employee')->user()['id'];
         
-        $session = $request->session()->all();
+//        $session = $request->session()->all();
         
         $items = Session::get('notificationdata');
         $userid = $this->loginUser->id;

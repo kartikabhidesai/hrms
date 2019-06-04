@@ -50,19 +50,33 @@ $currentRoute = Route::current()->getName();
                 <li class="{{ ($currentRoute == 'employee-leave' || $currentRoute == 'add-leave'  || $currentRoute == 'edit-leave' ? 'active' : '') }}">
                     <a href="{{ route('employee-leave') }}"><i class="fa fa-calendar-check-o"></i> <span class="nav-label">Leave</span></a>
                 </li>  
+                
                 @if(in_array(12, $roles))
                 <li class="{{ ($currentRoute == 'payroll-employee' ? 'active' : '') }}">
                     <a href="{{ route('payroll-employee') }}"><i class="fa fa-calendar-check-o"></i> <span class="nav-label">Payroll</span></a>
                 </li>
                 @endif
                 
-                
-                <li class="{{ ($currentRoute == 'employee-pay-slip' ? 'active' : '') }}">
-                    <a href="{{ route('employee-pay-slip') }}"><i class="fa fa-history"></i>
+                @if(in_array(13, $roles))
+                    <li class="{{ ($currentRoute == 'employee-pay-slip' ? 'active' : '') }}">
+                        <a href="{{ route('employee-pay-slip') }}"><i class="fa fa-history"></i>
                         <span class="nav-label">Pay Slip</span></a>
-                </li>
+                    </li>
+                @endif
                 
-                        
+                @if(in_array(15, $roles))
+                    <li class="{{ ( $currentRoute == 'employee-approved-advance-salary-request' ? 'active' : '') }}">
+                        <a href="{{ route('employee-approved-advance-salary-request') }}"><i class="fa fa-money" ></i> <span class="nav-label">Approved Advance Salary</span></a>
+                    </li>
+                @endif
+                
+                @if(in_array(19, $roles))
+                    <li class="{{ ($currentRoute == 'employee-daily-attendance' ? 'active' : '') }}">
+                        <a href="{{ route('employee-daily-attendance') }}"><i class="fa fa-thumb-tack"></i>
+                        <span class="nav-label">Daily Attendance</span></a>
+                    </li>
+                @endif
+                
                 <li class="{{ ($currentRoute == 'emp-communication' ? 'active' : '') }} {{ ($currentRoute == 'emp-compose' ? 'active' : '') }} {{ ($currentRoute == 'emp-communication-detail' ? 'active' : '') }} {{ ($currentRoute == 'emp-communication-detail/*' ? 'active' : '') }}">
                     <a href="{{ route('emp-communication') }}"><i class="fa fa-history"></i>
                     <span class="nav-label">Communication</span></a>

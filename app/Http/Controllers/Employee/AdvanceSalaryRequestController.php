@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Auth;
 use Route;
 use APP;
+use PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Model\Payroll;
@@ -16,6 +17,9 @@ use App\Model\Advancesalary;
 use App\Model\Company;
 use App\Model\Notification;
 use App\Model\NotificationMaster;
+use Response;
+use Config;
+use Excel;
 use Session;
 
 class AdvanceSalaryRequestController extends Controller {
@@ -71,7 +75,6 @@ class AdvanceSalaryRequestController extends Controller {
                 if($NotificationUserStatus==1)
                 {
                 
-                    //notification add
                     $seleryRequestName=$request->input('emp_name')." selery request you.";                   
                     $objNotification = new Notification();
                     $route_url="campany-advance-salary-request";
@@ -153,6 +156,53 @@ class AdvanceSalaryRequestController extends Controller {
         }
     }
     
+    public function approvedRequestList(Request $request)
+    {
+        $data['monthis'] = Config::get('constants.months');
+        $id = Auth()->guard('employee')->user()['id'];
+        
+        $companyId = Employee::select('company_id')->where('user_id', $id)->first();
+        
+        $data['get_year'] = $request->get('year');
+        $data['get_month'] = $request->get('month');
+        $data['month'] = $request->get('month');
+
+        $objAdvanceSalary = new Advancesalary();
+        $data['datalist'] = $objAdvanceSalary->getCompanyApprovedAdvanceSalaryListV2($companyId['company_id'],$data['get_year'],$data['month']);
+
+        $data['detail'] = $this->loginUser;
+        $data['header'] = array(
+            'title' => 'Approved Salary Request List',
+            'breadcrumb' => array(
+                'Home' => route("employee-dashboard"),
+                'Approved Advance Salary Request' => 'Approved Advance Salary Request'));
+        $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
+        $data['js'] = array('employee/advancesalaryrequestnew.js');
+        $data['funinit'] = array('Advancesalaryrequest.initApprovedReqList()');
+        $data['css'] = array('');
+
+        return view('employee.advancesalaryrquest.approved-request-list', $data);
+    }
+    
+    public function createApprovedPdf(Request $request){
+        if($request->method('post')){
+            $objAdvanceSalary=new Advancesalary();
+            $data['advanceSalaryApprovedRequest']=$objAdvanceSalary->getDetails($request);
+            $pdf = PDF::loadView('employee.advancesalaryrquest.advance-salary-rquest-pdf', compact('data'));
+            $pdfName='advance-salary'.time().'.pdf';
+            $pdf->save(public_path('uploads/employee/'.$pdfName));
+            return $pdfName;
+        }
+    } 
+    
+    public function downloadApprovedPdf(Request $request){
+        if($request->method('get')){
+            $pdfName=$request->input('pdfname');
+            $file=public_path('uploads/employee/'.$request->input('pdfname'));
+            return Response::download($file, $pdfName);
+        }
+    }
+    
     public function ajaxAction(Request $request){
         $action = $request->input('action');
         
@@ -170,6 +220,32 @@ class AdvanceSalaryRequestController extends Controller {
             case 'deleteLeave':
                 $result = $this->deleteLeave($request->input('data'));
                 break;
+        }
+    }
+    
+    public function createApprovedExcel(Request $request){
+        if($request->method('post')){
+            
+            $objAdvanceSalary=new Advancesalary();
+            $advanceSalaryApprovedRequest = $objAdvanceSalary->getDetailsV2($request);
+            
+            Excel::create('Approved Advance Salary Request-'.date('dmY'), function($excel) use ($advanceSalaryApprovedRequest){
+                $headers = array('Name', 'Comment', 'Date of Submit', 'Department Name', 'Company Name','Phone');
+                        $excel->sheet("Student_Offers_List", function($sheet) use ($headers, $advanceSalaryApprovedRequest) {
+                        for ($i = 0; $i < count($advanceSalaryApprovedRequest); $i++) {
+                            $sheet->prependRow($headers);
+                            $sheet->fromArray(array(
+                                array(
+                                    $advanceSalaryApprovedRequest[$i]['name'],
+                                    $advanceSalaryApprovedRequest[$i]['comments'],
+                                    $advanceSalaryApprovedRequest[$i]['date_of_submit'],
+                                    $advanceSalaryApprovedRequest[$i]['department_name'],
+                                    $advanceSalaryApprovedRequest[$i]['company_name'],
+                                    $advanceSalaryApprovedRequest[$i]['phone'],
+                                )), null, 'A2', false, false);
+                            }
+                        });
+            })->export('xls');
         }
     }
 }

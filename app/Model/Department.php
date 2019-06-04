@@ -8,6 +8,7 @@ use DB;
 use Auth;
 use App\Model\UserHasPermission;
 use App\Model\Sendmail;
+use App\Model\Employee;
 use App\Model\Users;
 use App\Model\Department;
 use PDF;
@@ -55,6 +56,19 @@ class Department extends Model
         $arrDepartment = Department::
                             // where('company_id', $company_id)
                             where('company_id', $getAuthCompanyId->id)
+                            ->pluck('department_name', 'id')
+                            ->toArray();
+                
+        return $arrDepartment;
+    }
+    
+    public function getEmployeeDepartment()
+    {
+        $userData = Auth::guard('employee')->user();
+        $getAuthCompanyId = Employee::where('email', $userData->email)->first();
+        $arrDepartment = Department::
+                            // where('company_id', $company_id)
+                            where('company_id', $getAuthCompanyId['company_id'])
                             ->pluck('department_name', 'id')
                             ->toArray();
                 

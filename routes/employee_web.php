@@ -37,9 +37,16 @@ Route::group(['prefix' => $employeePrefix, 'middleware' => ['employee']], functi
     Route::match(['get', 'post'], 'download-attachment/{file}', ['as' => 'download-attachment-emp', 'uses' => 'Employee\TicketController@downloadAttachment']);
     Route::match(['get', 'post'], 'ticket-comments/{id}', ['as' => 'ticket-comments', 'uses' => 'Employee\TicketController@viewTicketComments']);
     
-    Route::match(['get', 'post'], 'employee-pay-slip', ['as' => 'employee-pay-slip', 'uses' => 'Company\PayslipController@create']);
-    Route::match(['get', 'post'], 'create-pdf', ['as' => 'create-pdf', 'uses' => 'Company\PayslipController@createPDF']);
+    Route::match(['get', 'post'], 'employee-pay-slip', ['as' => 'employee-pay-slip', 'uses' => 'Employee\PayslipController@create']);
+    Route::match(['get', 'post'], 'employee-create-pdf', ['as' => 'employee-create-pdf', 'uses' => 'Employee\PayslipController@createPDF']);
+    Route::match(['get', 'post'], 'employee-payslip-ajaxAction', ['as' => 'employee-payslip-ajaxAction', 'uses' => 'Employee\PayslipController@ajaxAction']);
     
+    Route::match(['get', 'post'], 'employee-approved-advance-salary-request', ['as' => 'employee-approved-advance-salary-request', 'uses' => 'Employee\AdvanceSalaryRequestController@approvedRequestList']);
+    Route::match(['get', 'post'], 'employee-createApprovedPdf', ['as' => 'employee-createApprovedPdf', 'uses' => 'Employee\AdvanceSalaryRequestController@createApprovedPdf']);
+    Route::match(['get', 'post'], 'employee-downloadApprovedPdf', ['as' => 'employee-downloadApprovedPdf', 'uses' => 'Employee\AdvanceSalaryRequestController@downloadApprovedPdf']);
+    Route::match(['get', 'post'], 'employee-createApprovedExcel', ['as' => 'employee-createApprovedExcel', 'uses' => 'Employee\AdvanceSalaryRequestController@createApprovedExcel']);
+    
+    Route::match(['get', 'post'], 'employee-daily-attendance', ['as' => 'employee-daily-attendance', 'uses' => 'Employee\AttendanceController@dailyAttendance']);
     
     //edit-advance-salary-request
     Route::match(['get', 'post'], 'advance-salary-request', ['as' => 'advance-salary-request', 'uses' => 'Employee\AdvanceSalaryRequestController@requestList']);    
