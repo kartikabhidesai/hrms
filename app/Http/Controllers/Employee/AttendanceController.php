@@ -99,9 +99,10 @@ class AttendanceController extends Controller
     public function attendanceReport(Request $request) 
     {
         $userId = $this->loginUser->id;
-        $companyId = Company::select('id')->where('user_id', $userId)->first();
-        $data['detail'] = Department::where('company_id', $companyId['id'])->get();
-
+        $companyId = Employee::select('company_id')->where('user_id', $userId)->get();
+        
+        $data['detail'] = Department::where('company_id', $companyId[0]['company_id'])->get();
+        
         if (!empty($request->get('departentId'))) {
             $data['departentId'] = $request->get('departentId');
             $data['get_year'] = $request->get('year');
@@ -139,36 +140,36 @@ class AttendanceController extends Controller
                 /*$departmentName = Department::select('id', 'department_name')->where('id', $request->get('departentId'))->first();*/
             
                 $data['getAttedanceReport'] = Attendance::select('employee.name', 'attendance.id','attendance.date', 'attendance.attendance')  
-                                                        ->join('employee', 'attendance.emp_id', '=', 'employee.id')
-                                                        ->whereYear('attendance.date', '=', $request->year)
-                                                        ->whereMonth('attendance.date', '=', $request->month)
-                                                        // ->where('department_id', $departmentName->id)
-                                                        ->get();
+                                            ->join('employee', 'attendance.emp_id', '=', 'employee.id')
+                                            ->whereYear('attendance.date', '=', $request->year)
+                                            ->whereMonth('attendance.date', '=', $request->month)
+                                            // ->where('department_id', $departmentName->id)
+                                            ->get();
             } else {
                 $departmentName = Department::select('id', 'department_name')->where('id', $request->get('departentId'))->first();
                 $data['departmentname'] = $departmentName['department_name'];
 
                 $data['getAttedanceReport'] = Attendance::select('employee.name', 'attendance.id','attendance.date', 'attendance.attendance')  
-                                                        ->join('employee', 'attendance.emp_id', '=', 'employee.id')
-                                                        ->whereYear('attendance.date', '=', $request->year)
-                                                        ->whereMonth('attendance.date', '=', $request->month)
-                                                        ->where('employee.department', $departmentName->id)
-                                                        ->get();
+                                            ->join('employee', 'attendance.emp_id', '=', 'employee.id')
+                                            ->whereYear('attendance.date', '=', $request->year)
+                                            ->whereMonth('attendance.date', '=', $request->month)
+                                            ->where('employee.department', $departmentName->id)
+                                            ->get();
                 // dd($data['getAttedanceReport']);
             }
         }
 
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
-        $data['js'] = array('company/attendance_report.js', 'jquery.form.min.js');
+        $data['js'] = array('employee/attendance_report.js', 'jquery.form.min.js');
         $data['funinit'] = array('AttendanceReport.init()');
         $data['css'] = array('');
         $data['header'] = array(
             'title' => 'Attendance Report',
             'breadcrumb' => array(
-                'Home' => route("company-dashboard"),
+                'Home' => route("employee-dashboard"),
                 'Attendance Report' => 'Attendance Report'));
       
-        return view('company.attendance.attendance-report', $data);
+        return view('employee.attendance.attendance-report', $data);
     }
 
     public function manageAttendanceHistory(Request $request)

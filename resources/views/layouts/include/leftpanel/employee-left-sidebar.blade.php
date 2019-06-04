@@ -77,6 +77,12 @@ $currentRoute = Route::current()->getName();
                     </li>
                 @endif
                 
+                @if(in_array(17, $roles))
+                <li class="{{ ($currentRoute == 'employee-attendance-report' ? 'active' : '') }}">
+                    <a href="{{ route('employee-attendance-report') }}"><i class="fa fa-bar-chart"></i>
+                    <span class="nav-label">Attendance Report</span></a>
+                </li>
+                @endif
                 <li class="{{ ($currentRoute == 'emp-communication' ? 'active' : '') }} {{ ($currentRoute == 'emp-compose' ? 'active' : '') }} {{ ($currentRoute == 'emp-communication-detail' ? 'active' : '') }} {{ ($currentRoute == 'emp-communication-detail/*' ? 'active' : '') }}">
                     <a href="{{ route('emp-communication') }}"><i class="fa fa-history"></i>
                     <span class="nav-label">Communication</span></a>
