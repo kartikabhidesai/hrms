@@ -55,6 +55,14 @@ $currentRoute = Route::current()->getName();
                     <a href="{{ route('payroll-employee') }}"><i class="fa fa-calendar-check-o"></i> <span class="nav-label">Payroll</span></a>
                 </li>
                 @endif
+                
+                
+                <li class="{{ ($currentRoute == 'employee-pay-slip' ? 'active' : '') }}">
+                    <a href="{{ route('employee-pay-slip') }}"><i class="fa fa-history"></i>
+                        <span class="nav-label">Pay Slip</span></a>
+                </li>
+                
+                        
                 <li class="{{ ($currentRoute == 'emp-communication' ? 'active' : '') }} {{ ($currentRoute == 'emp-compose' ? 'active' : '') }} {{ ($currentRoute == 'emp-communication-detail' ? 'active' : '') }} {{ ($currentRoute == 'emp-communication-detail/*' ? 'active' : '') }}">
                     <a href="{{ route('emp-communication') }}"><i class="fa fa-history"></i>
                     <span class="nav-label">Communication</span></a>

@@ -68,7 +68,7 @@ class CompanyReportController extends Controller {
 
     public function ajaxAction(Request $request) {
         $action = $request->input('action');
-        switch ($action) {
+        switch ($action){
             case 'getdatatable':
                 $objCompanyReport = new CompanyReport;
                 $companyReportList = $objCompanyReport->getCompanyReportData($request);
