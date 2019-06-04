@@ -55,8 +55,8 @@
                                     @endif
                                     <select class="form-control" required="required" name="mail_to" id="mail_to" {{isset($CommunicationData)?'disabled="disabled"':''}}>
                                         <option value="">Select</option>
-                                        <option value="company" {{$CommunicationData->send_by=='COMPANY'?'selected':''}}>Company</option>
-                                        <option value="employee" {{$CommunicationData->send_by=='EMPLOYEE'?'selected':''}}>Employee</option>
+                                        <option value="company" {{@$CommunicationData->send_by=='COMPANY'?'selected':''}}>Company</option>
+                                        <option value="employee" {{@$CommunicationData->send_by=='EMPLOYEE'?'selected':''}}>Employee</option>
                                     </select>
                                 </div>
                             </div>
