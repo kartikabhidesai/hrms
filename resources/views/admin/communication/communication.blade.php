@@ -54,23 +54,41 @@
             </div>
             <div class="mail-box">
 
-                <table class="table table-hover table-mail">
+                <table class="table table-hover table-mail text-center">
+                    <tr>
+                        <th class="text-center">From</th>
+                        <th class="text-center">Subject</th>
+                        <th class="text-center">Attachment</th>
+                        <th class="text-center">Message</th>
+                        <th class="text-center">Created At</th>
+                    </tr>
                     <tbody>
                         @if($cmpMails)
                             @foreach($cmpMails as $emailList)
                                 <tr class="unread">
-                                    <td class="check-mail">
-                                        <!-- <div class="icheckbox_square-green checked" style="position: relative;"><input type="checkbox" class="i-checks" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> -->
+                                    <td class="mail-ontact">
+                                        <a href="{{ url('/admin/mail-detail/'.$emailList['id']) }}">{{ $emailList['companyName'] }}</a>
                                     </td>
-                                    <td class="mail-ontact"><a href="{{ url('/admin/mail-detail/'.$emailList['id'].'?communication_table='.$emailList['communication_table']) }}">{{ $emailList['company_name'] }}</a></td>
-                                    <td class="mail-subject"><a href="{{ url('/admin/mail-detail/'.$emailList['id'].'?communication_table='.$emailList['communication_table']) }}">{{ $emailList['subject'] ? $emailList['subject'] : strip_tags($emailList['message']) }}</a></td>
+                                    <td>
+                                        <a href="{{ url('/admin/mail-detail/'.$emailList['id']) }}">
+                                            {{ $emailList['subject'] ? $emailList['subject'] : strip_tags($emailList['subject']) }}
+                                        </a>
+                                    </td>
                                     @if($emailList['file'])
                                         <td class=""><i class="fa fa-paperclip"></i></td>
                                     @else
                                         <td class=""></td>
                                     @endif
-                                    <td class="text-right mail-date">{{ date('Y-m-d H:i A', strtotime($emailList['created_at'])) }}</td>
-                                    <input type="hidden" name="mail_id" value="{{ $emailList['id'] }}">
+                                    <td class="mail-subject">
+                                        <a href="{{ url('/admin/mail-detail/'.$emailList['id']) }}">
+                                            {{ strlen($emailList['message']) > 18 ? substr($emailList['message'],0,18)."..." : $emailList['message'] }}
+                                        </a>
+                                    </td>
+                                    <td class="text-right mail-date">
+                                        <a href="{{ url('/admin/mail-detail/'.$emailList['id']) }}">
+                                            {{ date('Y-m-d H:i A', strtotime($emailList['created_at'])) }}
+                                        </a>
+                                    </td>
                                 </tr>
                             @endforeach
                         @else

@@ -44,8 +44,8 @@
                             <div class="form-group"><label class="col-sm-2 control-label">To:</label>
                                 <div class="col-sm-10">
                                     @if(isset($communication_id) && $communication_id != '')
-                                        <input type="hidden" name="emp_id" value="{{$employee_id}}">
-                                        <input class="form-control emp_id" type="text" name="emp_name" value="{{$employee_name}}" readonly="readonly">
+                                        <input type="hidden" name="emp_id" value="{{$cmpMailDetail->send_emp_id}}">
+                                        <input class="form-control emp_id" type="text" name="emp_name" value="{{$cmpMailDetail->employeeName}}" readonly="readonly">
                                     @else
                                         <select class="form-control emp_id" name="emp_id">
                                             @if($employeeList)
@@ -63,7 +63,7 @@
                             <div class="form-group"><label class="col-sm-2 control-label">Subject:</label>
                                 <div class="col-sm-10">
                                     @if(isset($communication_id) && $communication_id != '')
-                                        <input type="text" class="form-control subject" name="subject" value="{{ $subject ? $subject : 'N.A.' }}" readonly>
+                                        <input type="text" class="form-control subject" name="subject" value="{{ $cmpMailDetail->subject ? $cmpMailDetail->subject : 'N.A.' }}" readonly>
                                     @else
                                         <input type="text" class="form-control subject" name="subject" value="">
                                     @endif

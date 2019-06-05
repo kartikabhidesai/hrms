@@ -36,9 +36,7 @@ class CommunicationController extends Controller
         
         $communicationobj = new Communication();
         $cmpMails = $communicationobj->companyEmailsForAdminCommunication();
-
         $cmpMails = $cmpMails ? $cmpMails->toArray() : [];
-
         $data['cmpMails'] = array_merge($cmpMails);
 
         return view('admin.communication.communication', $data);
@@ -48,41 +46,18 @@ class CommunicationController extends Controller
     {
         if(isset($request->communication_id) && $request->communication_id != '' && $request->isMethod('get'))
         {
-            if($request->communication_table == 'communication_reply')
-            {
-                $objCommunicationReply = new CommunicationReply();
-                $result = $objCommunicationReply->companyEmailCommunicationReplyDetail('', $request->communication_id);
-                $data['communication_id'] = $result->communication_id;
-                // echo "<pre>"; print_r($result->toArray()); exit();
-            }
-            else
-            {
-                $objCommunication = new Communication();
-                $result = $objCommunication->companyEmailCommunicationDetail('', $request->communication_id);
-                $data['communication_id'] = $request->communication_id;
-            }
             
-            $data['employee_id'] = $result->employee_id;
-            $data['employee_name'] = $result->name;
-            $data['subject'] = $result->subject;
-            $data['communication_table'] = $request->communication_table;
+            $objCommunication = new Communication();
+            $result = $objCommunication->adminEmailCommunicationDetail($request->communication_id);
+            $data['communication_id'] = $request->communication_id;
+            $data['adminComDetail'] = $result;
         }
 
         if ($request->isMethod('post')) {
 
-            if(isset($request->communication_id) && $request->communication_id != '')
-            {
-                $objCommunicationReply = new CommunicationReply();
-                $result = $objCommunicationReply->addNewCommunicationReply($request, $companyId->id);
-            }
-            else
-            {
-                $objCommunication = new Communication();
-                $result = $objCommunication->addNewCommunicationAdmin($request);
-            }
+            $objCommunication = new Communication();
+            $result = $objCommunication->addNewCommunicationAdmin($request);
 
-            // print_r($request->all());exit;
-            
             if ($result) {
 
                 //notification add
@@ -90,7 +65,7 @@ class CommunicationController extends Controller
                 $communicationName="Communication a message is received.";
                 $objEmployee = new Employee();
                 $u_id=$objEmployee->getUseridById($request->input('emp_id'));
-                $ret = $objNotification->addNotification($u_id,$communicationName);
+                // $ret = $objNotification->addNotification($u_id,$communicationName);
 
                 $return['status'] = 'success';
                 $return['message'] = 'New Communication Email sent successfully.';
@@ -131,16 +106,8 @@ class CommunicationController extends Controller
                 'Communcation' => url("admin/communication"),
                 'Communcation Detail' => 'Communcation Detail'));
 
-        if($request->communication_table == 'communication')
-        {
-            $communicationobj = new Communication();
-            $data['cmpMailDetail'] = $communicationobj->adminEmailCommunicationDetail($id);
-        }
-        else
-        {
-            $communicationreplyobj = new CommunicationReply();
-            $data['cmpMailDetail'] = $communicationreplyobj->companyEmailCommunicationReplyDetail($logedcompanyId, $id);
-        }   
+        $communicationobj = new Communication();
+        $data['cmpMailDetail'] = $communicationobj->adminEmailCommunicationDetail($id);
         
         return view('admin.communication.communication-detail', $data);
     }
@@ -179,7 +146,6 @@ class CommunicationController extends Controller
         $communicationobj = new Communication();
         $cmpMails = $communicationobj->sendAdminEmails();
         $cmpMails = $cmpMails ? $cmpMails->toArray() : [];
-
         $data['cmpMails'] = array_merge($cmpMails);
 
         return view('admin.communication.send-communication', $data);

@@ -65,23 +65,12 @@ class CommunicationController extends Controller
             $data['communication_id'] = $request->communication_id;
             $objCommunication = new Communication();
             $data['CommunicationData'] = $objCommunication->getComminucationDataEmp($request->communication_id);
-            // echo "<pre>"; print_r($data['CommunicationData']); exit();        
         }
 
         if ($request->isMethod('post')) {
-
-            // echo "<pre>"; print_r($request->toArray()); exit();
             
-            if(isset($request->communication_id) && !empty(isset($request->communication_id)))
-            {
-                $objCommunication = new Communication();
-                $result = $objCommunication->addNewCommunicationEmp($request, $empId->company_id, $empId->id);
-            }
-            else
-            {
-                $objCommunication = new Communication();
-                $result = $objCommunication->addNewCommunicationEmp($request, $empId->company_id, $empId->id);
-            }
+            $objCommunication = new Communication();                
+            $result = $objCommunication->addNewCommunicationEmp($request, $empId->company_id, $empId->id);
 
             if ($result) {
 

@@ -44,8 +44,8 @@
                             <div class="form-group"><label class="col-sm-2 control-label">To:</label>
                                 <div class="col-sm-10">
                                     @if(isset($communication_id) && $communication_id != '')
-                                        <input type="hidden" name="cmp_id" value="{{$company_id}}">
-                                        <input class="form-control cmp_id" type="text" name="emp_name" value="{{$company_name}}" readonly="readonly">
+                                        <input type="hidden" name="cmp_id" value="{{$adminComDetail->company_id}}">
+                                        <input class="form-control cmp_id" type="text" name="emp_name" value="{{$adminComDetail->company_name}}" readonly="readonly">
                                     @else
                                         <select class="form-control cmp_id" name="cmp_id">
                                             @if($companyList && !empty($companyList))
@@ -63,7 +63,7 @@
                             <div class="form-group"><label class="col-sm-2 control-label">Subject:</label>
                                 <div class="col-sm-10">
                                     @if(isset($communication_id) && $communication_id != '')
-                                        <input type="text" class="form-control subject" name="subject" value="{{ $subject ? $subject : 'N.A.' }}" readonly>
+                                        <input type="text" class="form-control subject" name="subject" value="{{ $adminComDetail->subject ? $adminComDetail->subject : 'N.A.' }}" readonly>
                                     @else
                                         <input type="text" class="form-control subject" name="subject" value="">
                                     @endif
