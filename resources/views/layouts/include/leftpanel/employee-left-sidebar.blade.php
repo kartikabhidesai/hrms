@@ -51,11 +51,11 @@ $currentRoute = Route::current()->getName();
                     <a href="{{ route('employee-leave') }}"><i class="fa fa-calendar-check-o"></i> <span class="nav-label">Leave</span></a>
                 </li>  
                 
-                @if(in_array(12, $roles))
+                
                 <li class="{{ ($currentRoute == 'payroll-employee' ? 'active' : '') }}">
                     <a href="{{ route('payroll-employee') }}"><i class="fa fa-calendar-check-o"></i> <span class="nav-label">Payroll</span></a>
                 </li>
-                @endif
+              
                 
                 @if(in_array(13, $roles))
                     <li class="{{ ($currentRoute == 'employee-pay-slip' ? 'active' : '') }}">
@@ -96,19 +96,19 @@ $currentRoute = Route::current()->getName();
                     <span class="nav-label">Communication</span></a>
                 </li>
                 
-                @if(in_array(3, $roles))
+                
                 <li class="{{ ($currentRoute == 'emp-task-list' ? 'active' : '') }}">
                     <a href="{{ route('emp-task-list') }}"><i class="fa fa-tasks"></i>
                     <span class="nav-label">Task List</span></a>
                 </li>
-                @endif
                 
-                @if(in_array(4, $roles))
+                
+              
                 <li class="{{ ($currentRoute == 'ticket-list' || $currentRoute == 'add-ticket' ? 'active' : '') }}">
                     <a href="{{ route('ticket-list-emp') }}"><i class="fa fa-ticket"></i>
                     <span class="nav-label">Tickets</span></a>
                 </li>
-                @endif
+             
                 
                 
                 <li class="{{ ($currentRoute == 'employee-training' || $currentRoute == 'add-training' ? 'active' : '') }}">
@@ -132,30 +132,29 @@ $currentRoute = Route::current()->getName();
                         <span class="nav-label">Chat</span></a>
                 </li>
                 
-                @if(in_array(5, $roles))
+                
                 <li class="{{ ($currentRoute == 'emp-performance' ||  $currentRoute == 'emp-performance-emp-detail' || $currentRoute == 'emp-employee-performance-list' || $currentRoute == 'emp-performance-emp-detail/*' ? 'active' : '') }}">
                     <a href="{{ route('emp-performance') }}"><i class="fa fa-user"></i>
                         <span class="nav-label">Performance</span>
                     </a>
                 </li>
-                @endif
-                @if(in_array(14, $roles) || in_array(18, $roles))
+                
+                
                 <li class="{{ ($currentRoute == 'manage-time-change-request' ? 'active' : '') }} {{ ($currentRoute == 'new-time-change-request' ? 'active' : '') }} {{ ($currentRoute == 'edit-advance-salary-request' ? 'active' : '') }} {{ ($currentRoute == 'advance-salary-request' ? 'active' : '') }}">
                     <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Role</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                        @if(in_array(14, $roles))
+                        
                         <li class="{{ ($currentRoute == 'manage-time-change-request' ? 'active' : '') }} {{ ($currentRoute == 'new-time-change-request' ? 'active' : '') }}">
                             <a href="{{ route('manage-time-change-request') }}"><i class="fa fa-calendar-check-o"></i> <span class="nav-label">Manage Time Change Request</span></a>
                         </li>  
-                        @endif
-                        @if(in_array(18, $roles))
+                       
                         <li class="{{ ( $currentRoute == 'edit-advance-salary-request' || $currentRoute == 'new-advance-salary-request' || $currentRoute == 'advance-salary-request' ? 'active' : '') }} ">
                             <a href="{{ route('advance-salary-request') }}"><i class="fa fa-money" ></i> <span class="nav-label">Advance Salary Request</span></a>
                         </li>
-                        @endif
+                        
                     </ul>
                 </li>
-                @endif
+                
             </ul>
         </div>
     </nav>
