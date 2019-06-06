@@ -106,5 +106,12 @@ Route::group(['prefix' => $employeePrefix, 'middleware' => ['employee']], functi
     Route::match(['get', 'post'], 'employee-ticket-ajaxAction', ['as' => 'employee-ticket-ajaxAction', 'uses' => 'Employee\CompanyTicketController@ajaxaction']);
     Route::match(['get', 'post'], 'employee-download-attachment/{file}', ['as' => 'employee-download-attachment', 'uses' => 'Employee\CompanyTicketController@downloadAttachment']);
     Route::match(['get', 'post'], 'employee-ticket-comments/{id}', ['as' => 'employee-ticket-comments', 'uses' => 'Employee\CompanyTicketController@viewTicketComments']);
+    
+    Route::match(['get', 'post'], 'employee-performance', ['as' => 'employee-performance', 'uses' => 'Employee\CompanyPerformanceController@index']);
+    Route::match(['get', 'post'], 'employee-addperformance', ['as' => 'employee-addperformance', 'uses' => 'Employee\CompanyPerformanceController@addPerformance']);
+    Route::match(['get', 'post'], 'employee-employee-performance-list/{id}', ['as' => 'employee-employee-performance-list', 'uses' => 'Employee\CompanyPerformanceController@employeePerList']);
+    Route::match(['get', 'post'], 'employee-performance-emp-detail/{id}', ['as' => 'employee-performance-emp-detail', 'uses' => 'Employee\CompanyPerformanceController@performanceEmpList']);
+    Route::match(['get', 'post'], 'employee-performance-download-pdf', ['as' => 'employee-performance-download-pdf', 'uses' => 'Employee\CompanyPerformanceController@PerformanceDownloadPDF']);
+    Route::match(['get', 'post'], 'employee-performance-ajaxAction', ['as' => 'employee-performance-ajaxAction', 'uses' => 'Employee\CompanyPerformanceController@ajaxAction']);
 
 });

@@ -136,6 +136,13 @@ $currentRoute = Route::current()->getName();
                             </li>
                         @endif
                         
+                        @if(in_array(5, $roles))
+                            <li class="{{ ($currentRoute == 'employee-performance' ||  $currentRoute == 'employee-performance-emp-detail' || $currentRoute == 'employee-employee-performance-list' || $currentRoute == 'employee-performance-emp-detail/*' ? 'active' : '') }}">
+                                <a href="{{ route('employee-performance') }}"><i class="fa fa-user"></i>
+                                    <span class="nav-label">Company Performance</span></a>
+                            </li>
+                        @endif
+                        
                         @if(in_array(13, $roles))
                             <li class="{{ ($currentRoute == 'employee-pay-slip' ? 'active' : '') }}">
                                 <a href="{{ route('employee-pay-slip') }}"><i class="fa fa-history"></i>
