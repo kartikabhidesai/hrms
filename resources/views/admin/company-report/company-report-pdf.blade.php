@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <style>
     body
     {
@@ -93,13 +92,74 @@
             </tr>  
         @endforeach
     </table>
-=======
+
+
+{{-- =======
 <html>
     <head>
         <meta charset="utf-8">
         <title>Pay Slip</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <style>
+            body
+            {
+              margin: 0mm 0mm 0mm 0mm;
+              font-family: sans-serif;
+            }
+            @page { 
+                margin-top: 0px;
+                margin-left: 10px;
+                margin-right: 10px;
+                margin-bottom: 0px; 
+            }
+            @media print {
+                body
+                {
+                  margin: 0px;
+                }
+                .wrap{word-break: break-all;
+                display: inline-block;
+                word-break: break-word;}
+            }
+            table
+            {
+                border-color: #000;
+                color: #000;
+                border-collapse: collapse;
+                font-family: sans-serif;
+            }
+            .table_field{
+                font-size: 14px;
+            }
+            .font-small{
+                font-size: 13px;
+                height: 13px;
+            }
+            .dark{
+                /*color: white;*/
+                /*background-color: #75b979;*/
+                background-color: #ffaa00;
+                font-weight: bold;
+            }
+            .white{
+                color: white;
+            }
+            .light{
+                font-size: 12px;
+                background-color: #DCDCDC;
+                font-weight: bold;
+            }
+            .pfont{
+                font-size: 10px;
+            }
+            * {
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+            }
+            .brdr{
+                border: 2px solid orange;
+            }
             .main-header{
                 font-size: 35px;
                 /*line-height: 35px;
@@ -160,3 +220,4 @@
     </body>
 </html>
 >>>>>>> 0663674d4da32a663eb20a7854942882821f2e4f
+ --}}

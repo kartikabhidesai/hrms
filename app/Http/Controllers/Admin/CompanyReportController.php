@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Model\CompanyReport;
 use App\Model\Company;
 use PDF;
+use DB;
 use Config;
 
 class CompanyReportController extends Controller {
@@ -24,32 +25,55 @@ class CompanyReportController extends Controller {
     
     public function index(Request $request){
         $data['companyReportArray'] = CompanyReport::all();
-        if ($request->isMethod('post')){
-                $clientReportObj = new CompanyReport;
-                $data['companyDetails'] = $clientReportObj->getCompanyPdfData($request);     
-                $result = $clientReportObj->addCompanyReport($request);         
+        if ($request->isMethod('post'))
+        {
+            $companyReportObj = new CompanyReport;
+            $companyReportData = $companyReportObj->getCompanyPdfData($request);     
 
-                $subcription =Config::get('constants.subcription');
-                $request_type =Config::get('constants.request_type');
-                $payment_type =Config::get('constants.payment_type');
+            // $subcription =Config::get('constants.subcription');
+            // $request_type =Config::get('constants.request_type');
+            // $payment_type =Config::get('constants.payment_type');
 
-                if(!empty($data['companyDetails']))
-                {
-                    foreach ($data['companyDetails'] as $key => $value) 
-                    {
-                        // $data['companyDetails'][$key]['subcription'] = @$subcription[$value['subcription']];
-                        $data['companyDetails'][$key]['request_type'] = @$request_type[$value['request_type']];
-                        $data['companyDetails'][$key]['payment_type'] = @$payment_type[$value['payment_type']];
-                    }
+            if(count($companyReportData) > 0){
+
+                if (!file_exists(public_path('/uploads/company_report'))) {
+                    mkdir(public_path('/uploads/company_report'),'0777',false);
                 }
-                else
-                {
-                    return redirect()->back();
-                }
-                // echo "<pre>as"; print_r($data['companyDetails']); exit();
-                $file= "Company-Repost" . date('dmYHis') .".pdf";
+
+                $data['companyDetails'] = $companyReportData;
+                $company_report= "company-report_".time().".pdf";
                 $pdf = PDF::loadView('admin.company-report.company-report-pdf', $data);
-                return $pdf->download($file);
+                $path = public_path(). "/uploads/company_report/".$company_report;                   
+                $output = $pdf->output();
+                // PDF::loadHTML('company.task-report.task-pdf', $data) ->setPaper('a4', 'portrait') ->save($path);
+                // move_uploaded_file("pdf", $path);
+                // $file_to_save = FCPATH . 'assets/surat_acara/' . $new_filename . '.pdf';
+                // file_put_contents($path, $output);
+
+                $insert = DB::table('company_report')->insertGetId(['status'=>$request->status,'download_date' =>date('Y-m-d'),'created_at'=>date('Y-m-d H:i:s'),'updated_at'=>date('Y-m-d H:i:s')]);
+
+                $numlength = strlen((string)$insert);
+                $append_letter = 7 - $numlength;
+                $str = '';
+                for($i=0;$i<=$append_letter;$i++)
+                {
+                    $str.='0';
+                }
+                $update = DB::table('company_report')->where('id',$insert)->update(['company_report_number' =>$str.$insert]);
+                return $pdf->download($company_report);  
+            }
+            else
+            {
+                $return['status'] = 'error';
+                $return['message'] = 'Data not found.';
+                echo json_encode($return);
+                exit;
+//                return redirect()->back()->with(['status'=>'failed','message'=>'Data not found.']);
+            }   
+            // echo "<pre>as"; print_r($data['companyDetails']); exit();
+            $file= "Company-Report" . date('dmYHis') .".pdf";
+            $pdf = PDF::loadView('admin.company-report.company-report-pdf', $data);
+            return $pdf->download($file);
         }
 
         $session = $request->session()->all();

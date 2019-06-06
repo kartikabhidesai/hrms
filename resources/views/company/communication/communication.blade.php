@@ -71,7 +71,7 @@
                                 <td>
                                     <a href="{{ url('/company/mail-detail/'.$emailList['id']) }}">
                                         <input type="hidden" name="mail_id" value="{{ $emailList['id'] }}">
-                                        {{ $emailList['send_emp_id'] == '' || $emailList['send_emp_id'] == 0 ? $emailList['companyName'] : $emailList['employeeName'] }}
+                                        {{ $emailList['employeeName'] != '' ? $emailList['employeeName'] : 'Admin' }}
                                     </a>
                                 </td>
                                 <td>

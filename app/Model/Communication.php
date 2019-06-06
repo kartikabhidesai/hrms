@@ -171,7 +171,7 @@ class Communication extends Model
 
     public function companyEmailCommunicationDetail($id)
     {
-        $findCommunication = Communication::select('employee.name as employeeName','comapnies.company_name as companyName','communication.*')
+        $findCommunication = Communication::select('employee.name as employeeName','employee.email as employeeEmail','comapnies.company_name as companyName','communication.*')
                                         ->leftjoin('employee','communication.send_emp_id','employee.id')
                                         ->leftjoin('comapnies','communication.company_id','comapnies.id')
                                         ->where('communication.id',$id)
