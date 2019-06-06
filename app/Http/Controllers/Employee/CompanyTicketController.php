@@ -19,6 +19,7 @@ use Session;
 use Config;
 use Auth;
 use Route;
+
 class CompanyTicketController  extends Controller
 {
     public function __construct() {
