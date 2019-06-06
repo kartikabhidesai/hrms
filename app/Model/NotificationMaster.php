@@ -46,7 +46,8 @@ class NotificationMaster extends Model {
 
     public function checkNotificationUserStatus($userid,$notification_master_id){
         
-        $getdata=DB::table('user_notification')->where('company_id',$userid)->where('notification_master_id',$notification_master_id)->select('status')->first();
+        $getdata=DB::table('user_notification')->where('company_id',$userid)->where('notification_master_id',$notification_master_id)->select('*')->first();
+       
         return $getdata->status;
     }
      

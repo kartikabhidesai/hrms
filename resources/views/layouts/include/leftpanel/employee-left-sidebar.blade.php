@@ -57,39 +57,7 @@ $currentRoute = Route::current()->getName();
                 </li>
               
                 
-                @if(in_array(13, $roles))
-                    <li class="{{ ($currentRoute == 'employee-pay-slip' ? 'active' : '') }}">
-                        <a href="{{ route('employee-pay-slip') }}"><i class="fa fa-history"></i>
-                        <span class="nav-label">Pay Slip</span></a>
-                    </li>
-                @endif
-                
-                @if(in_array(15, $roles))
-                    <li class="{{ ( $currentRoute == 'employee-approved-advance-salary-request' ? 'active' : '') }}">
-                        <a href="{{ route('employee-approved-advance-salary-request') }}"><i class="fa fa-money" ></i> <span class="nav-label">Approved Advance Salary</span></a>
-                    </li>
-                @endif
-                
-                @if(in_array(19, $roles))
-                    <li class="{{ ($currentRoute == 'employee-daily-attendance' ? 'active' : '') }}">
-                        <a href="{{ route('employee-daily-attendance') }}"><i class="fa fa-thumb-tack"></i>
-                        <span class="nav-label">Daily Attendance</span></a>
-                    </li>
-                @endif
-                
-                @if(in_array(17, $roles))
-                <li class="{{ ($currentRoute == 'employee-attendance-report' ? 'active' : '') }}">
-                    <a href="{{ route('employee-attendance-report') }}"><i class="fa fa-bar-chart"></i>
-                    <span class="nav-label">Attendance Report</span></a>
-                </li>
-                @endif
-                
-                @if(in_array(18, $roles))
-                    <li class="{{ ($currentRoute == 'employee-manage-attendance-history' ? 'active' : '') }}">
-                        <a href="{{ route('employee-manage-attendance-history') }}"><i class="fa fa-envelope"></i>
-                            <span class="nav-label">Manage Attendance History</span></a>
-                    </li>
-                @endif
+               
                 
                 <li class="{{ ($currentRoute == 'emp-communication' ? 'active' : '') }} {{ ($currentRoute == 'emp-compose' ? 'active' : '') }} {{ ($currentRoute == 'emp-communication-detail' ? 'active' : '') }} {{ ($currentRoute == 'emp-communication-detail/*' ? 'active' : '') }}">
                     <a href="{{ route('emp-communication') }}"><i class="fa fa-history"></i>
@@ -101,7 +69,12 @@ $currentRoute = Route::current()->getName();
                     <a href="{{ route('emp-task-list') }}"><i class="fa fa-tasks"></i>
                     <span class="nav-label">Task List</span></a>
                 </li>
-                
+                @if(in_array(3, $roles))
+                    <li class="{{ ($currentRoute == 'employee-add-task' || $currentRoute == 'employee-task-list' ? 'active' : '') }}">
+                        <a href="{{ route('employee-task-list') }}"><i class="fa fa-tasks"></i>
+                            <span class="nav-label">Company Task List</span></a>
+                    </li>
+                @endif
                 
               
                 <li class="{{ ($currentRoute == 'ticket-list' || $currentRoute == 'add-ticket' ? 'active' : '') }}">
@@ -138,6 +111,40 @@ $currentRoute = Route::current()->getName();
                         <span class="nav-label">Performance</span>
                     </a>
                 </li>
+                
+                @if(in_array(13, $roles))
+                    <li class="{{ ($currentRoute == 'employee-pay-slip' ? 'active' : '') }}">
+                        <a href="{{ route('employee-pay-slip') }}"><i class="fa fa-history"></i>
+                        <span class="nav-label">Company Pay Slip</span></a>
+                    </li>
+                @endif
+                
+                @if(in_array(15, $roles))
+                    <li class="{{ ( $currentRoute == 'employee-approved-advance-salary-request' ? 'active' : '') }}">
+                        <a href="{{ route('employee-approved-advance-salary-request') }}"><i class="fa fa-money" ></i> <span class="nav-label">Company Approved Advance Salary</span></a>
+                    </li>
+                @endif
+                
+                @if(in_array(19, $roles))
+                    <li class="{{ ($currentRoute == 'employee-daily-attendance' ? 'active' : '') }}">
+                        <a href="{{ route('employee-daily-attendance') }}"><i class="fa fa-thumb-tack"></i>
+                        <span class="nav-label">Company Daily Attendance</span></a>
+                    </li>
+                @endif
+                
+                @if(in_array(17, $roles))
+                <li class="{{ ($currentRoute == 'employee-attendance-report' ? 'active' : '') }}">
+                    <a href="{{ route('employee-attendance-report') }}"><i class="fa fa-bar-chart"></i>
+                    <span class="nav-label">Company Attendance Report</span></a>
+                </li>
+                @endif
+                
+                @if(in_array(18, $roles))
+                    <li class="{{ ($currentRoute == 'employee-manage-attendance-history' ? 'active' : '') }}">
+                        <a href="{{ route('employee-manage-attendance-history') }}"><i class="fa fa-envelope"></i>
+                            <span class="nav-label">Company Manage Attendance History</span></a>
+                    </li>
+                @endif
                 
                 
                 <li class="{{ ($currentRoute == 'manage-time-change-request' ? 'active' : '') }} {{ ($currentRoute == 'new-time-change-request' ? 'active' : '') }} {{ ($currentRoute == 'edit-advance-salary-request' ? 'active' : '') }} {{ ($currentRoute == 'advance-salary-request' ? 'active' : '') }}">

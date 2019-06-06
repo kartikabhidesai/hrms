@@ -35,7 +35,7 @@ class AdvanceSalaryRequestController extends Controller {
         $items = Session::get('notificationdata');
         $userID = $this->loginUser;
         $objNotification = new Notification();
-        $items=$objNotification->SessionNotificationCount($userID->id);        
+        $items=$objNotification->SessionNotificationCount($session['logindata'][0]['id']);        
         Session::put('notificationdata', $items);
 
         

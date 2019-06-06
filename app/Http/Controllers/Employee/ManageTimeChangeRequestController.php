@@ -23,14 +23,15 @@ class ManageTimeChangeRequestController extends Controller
         $this->middleware('employee');
     }
 
-    public function manageTimeChangeRequestList() {
+    public function manageTimeChangeRequestList(Request $request) {
 
         $session = $request->session()->all();
 
         $items = Session::get('notificationdata');
         $userID = $this->loginUser;
+        
         $objNotification = new Notification();
-        $items=$objNotification->SessionNotificationCount($userID->id);        
+        $items=$objNotification->SessionNotificationCount($session['logindata'][0]['id']);        
         Session::put('notificationdata', $items);
         
     	$id = Auth()->guard('employee')->user()['id'];

@@ -24,10 +24,9 @@ class AttendanceController extends Controller
         $data['date']="";
     	$userid = $this->loginUser->id;
         $companyId = Employee::select('company_id')->where('user_id', $userid)->get();
-//        print_r($companyId[0]['company_id']);
+
         $userID = Company::select('user_id')->where('id', $companyId[0]['company_id'])->get();
-//        print_r($userID[0]['user_id']);
-//        die();
+
     	if (!empty($request->get('departentId'))){
             $data['departentId'] = $request->get('departentId');
             $dateformate = date('Y-m-d', strtotime($request->get('date')));

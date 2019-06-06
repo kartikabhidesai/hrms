@@ -62,6 +62,17 @@ class Department extends Model
         return $arrDepartment;
     }
     
+    public function getDepartmentCompany($company_Id)
+    {
+        $arrDepartment = Department::
+                            // where('company_id', $company_id)
+                            where('company_id', $company_Id)
+                            ->pluck('department_name', 'id')
+                            ->toArray();
+               
+        return $arrDepartment;
+    }
+    
     public function getEmployeeDepartment()
     {
         $userData = Auth::guard('employee')->user();

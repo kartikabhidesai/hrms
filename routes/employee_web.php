@@ -94,5 +94,11 @@ Route::group(['prefix' => $employeePrefix, 'middleware' => ['employee']], functi
     /* chat */
     Route::match(['get', 'post'], 'employee-chat', ['as' => 'employee-chat', 'uses' => 'Employee\ChatController@index']);
     Route::match(['get', 'post'], 'chat-ajaxAction', ['as' => 'employee-chat-ajaxAction', 'uses' => 'Employee\ChatController@ajaxAction']);
+    
+    
+//    Role 
+     Route::match(['get', 'post'],'employee-task-list', ['as' => 'employee-task-list', 'uses' => 'Employee\CompanyTaskController@index']);
+    Route::match(['get', 'post'], 'employee-task-ajaxAction', ['as' => 'employee-task-ajaxAction', 'uses' => 'Employee\CompanyTaskController@ajaxAction']);
+    Route::match(['get', 'post'], 'employee-add-task', ['as' => 'employee-add-task', 'uses' => 'Employee\CompanyTaskController@addTask']);
 
 });
