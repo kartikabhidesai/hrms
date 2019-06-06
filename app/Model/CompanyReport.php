@@ -7,26 +7,31 @@ use Illuminate\Support\Facades\Hash;
 use DB;
 use Auth;
 use App\Model\Users;
-use App\Model\CLientReport;
-use App\Model\Client;
+use App\Model\Company;
 use Config;
 
-class ClientReport extends Model {
+class CompanyReport extends Model {
 
-    protected $table = 'client_report';
+    protected $table = 'company_report';
 
     public function addClientReport() {
 
-        $objCLientReport = new CLientReport();
-        return ($objCLientReport->save());
+        $objCompanyReport = new CompanyReport();
+        return ($objCompanyReport->save());
     }
 
-    public function getClientReportList($request) {
+    public function getCompanyReportData($request) {
         $requestData = $_REQUEST;
+        $columns = array(
+            // datatable column index  => database column name
+            0 => 'order_report.num_of_report',
+            1 => 'order_report.downloaded_report_timeperiod',
+            2 => 'order_report.download_date',
+        );
 
-        $columns = array('id','created_at');
+        $columns = array('id','status','company_report_number','created_at');
 
-        $query = CLientReport::select('client_report.*');
+        $query = CompanyReport::select('company_report.*');
 
         if (!empty($requestData['search']['value'])) {
             $searchVal = $requestData['search']['value'];
@@ -61,10 +66,11 @@ class ClientReport extends Model {
             $nestedData = array();
             $actionHtml = '';
 
-            $actionHtml .= '<a href="#" data-toggle="modal" data-id="'.$row['id'].'" title="Details" class="link-black text-sm" data-toggle="tooltip" data-original-title="Show"><i class="fa fa-eye"></i></a>';
-            $actionHtml .= '<a href="#" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
+            $actionHtml .= '<a href="#deleteModel" data-toggle="modal" data-id="'.$row['id'].'" class="link-black text-sm companyReportDelete" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';
+            // $actionHtml .= '<a href="#" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
             
-            $nestedData[] = $row["id"];
+            $nestedData[] = $row["company_report_number"];
+            $nestedData[] = $row["status"];
             $nestedData[] = date("d-m-Y", strtotime($row["created_at"]));
             $nestedData[] = $actionHtml;
             $data[] = $nestedData;
@@ -80,82 +86,18 @@ class ClientReport extends Model {
         return $json_data;
     }
 
-    public function getClientReportListPDF($request,$id) {
+    public function getCompanyPdfData($request) {
 
-        $client_report_data = [];
-        $todayDate = date('Y-m-d');
-         $startDate = '';
-            $endDate = '';
-            $currentDate = date('Y-m-d');
-            if($request->time_period == 'custom'){
-                $startDate = date('Y-m-d', strtotime($request->date_period));
-                $endDate = date('Y-m-d');
-            }else if($request->time_period == '3-months'){
-                $startDate = date('Y-m-d', strtotime("-3 months", strtotime($currentDate)));
-                $endDate = date('Y-m-d');
-            }else if($request->time_period == '6-months'){
-                $startDate = date('Y-m-d', strtotime("-6 months", strtotime($currentDate)));
-                $endDate = date('Y-m-d');
-            }else if($request->time_period  == '1-year'){
-                $startDate = date('Y-m-d', strtotime("-12 months", strtotime($currentDate)));
-                $endDate = date('Y-m-d');
-            }elseif ($request->time_period == 'all') {
-                
-            }
+        // echo "<pre>"; print_r($request->toArray()); exit();
+        $company_report_data = [];
 
-            $sql = Client::select('client.*');
-            if (!empty($startDate) && !empty($endDate)) 
-            {
-                $sql->Where(function($sql) use($startDate, $endDate) {
-                    $sql->orWhere(function($sql) use($startDate, $endDate) {
-                        $sql->whereBetween('client.date_of_joining', [$startDate, $endDate]);
-                        // $sql->whereBetween('client.date_of_joining', [$startDate, $endDate]);
-                    });
-                });
-            }
-            
-            $sql->where('company_id',$id);
-            $client_report_data = $sql->get()->toArray();
-
-        return $client_report_data;
-        // echo "<pre>aaa"; print_r($client_report_data->toArray()); exit();
+        $sql = Company::select('comapnies.*');
+        if (!empty($request->status) && $request->status != 'All') 
+        {
+            $sql->where('status',$request->status);
+        }
+        $company_report_data = $sql->get()->toArray();
+        // echo "<pre>aaa"; print_r($company_report_data); exit();
+        return $company_report_data;
     }
-    
-    public function getClientReportListPDFV2($request,$id) {
-
-        $client_report_data = [];
-        $todayDate = date('Y-m-d');
-        if(isset($request->time_period) && !empty($request->time_period) && $request->date_period == '')
-        {
-            $emp_time = explode('-',$request->time_period);
-                
-            $newtimeYear = date("Y",strtotime("-".$emp_time[0]." ".$emp_time[1]));
-            $newtimeMonth = date("m",strtotime("-".$emp_time[0]." ".$emp_time[1]));
-            $todayDay = date('d');
-
-            $newDate = $newtimeYear.'-'.$newtimeMonth.'-'.$todayDay; 
-            // echo $todayDate; echo $newDate; exit();
-
-            $client_report_data = Client::select('client.*')
-                                    // ->whereBetween('date_of_joining',[$todayDate,$newDate])
-                                    ->where('company_id',$id)
-                                    ->get()->toArray();;
-        }
-        elseif (isset($request->date_period) && $request->date_period != '') 
-        {
-            $client_report_data = Client::select('client.*')
-                                    // ->whereBetween('date_of_joining',[$todayDate,date('Y-m-d',strtotime($request->date_period))])
-                                    ->where('company_id',$id)
-                                    ->get()->toArray();
-
-        }
-        else
-        {
-
-        }
-
-        return $client_report_data;
-        // echo "<pre>aaa"; print_r($client_report_data->toArray()); exit();
-    }
-
 }
