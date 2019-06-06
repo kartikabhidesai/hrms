@@ -97,8 +97,14 @@ Route::group(['prefix' => $employeePrefix, 'middleware' => ['employee']], functi
     
     
 //    Role 
-     Route::match(['get', 'post'],'employee-task-list', ['as' => 'employee-task-list', 'uses' => 'Employee\CompanyTaskController@index']);
+    Route::match(['get', 'post'],'employee-task-list', ['as' => 'employee-task-list', 'uses' => 'Employee\CompanyTaskController@index']);
     Route::match(['get', 'post'], 'employee-task-ajaxAction', ['as' => 'employee-task-ajaxAction', 'uses' => 'Employee\CompanyTaskController@ajaxAction']);
     Route::match(['get', 'post'], 'employee-add-task', ['as' => 'employee-add-task', 'uses' => 'Employee\CompanyTaskController@addTask']);
+    
+    Route::match(['get', 'post'], 'employee-ticket-list', ['as' => 'employee-ticket-list', 'uses' => 'employee\CompanyTicketController@index']);
+    Route::match(['get', 'post'], 'employee-add-ticket', ['as' => 'employee-add-ticket', 'uses' => 'employee\CompanyTicketController@add']);
+    Route::match(['get', 'post'], 'employee-ticket-ajaxAction', ['as' => 'employee-ticket-ajaxAction', 'uses' => 'employee\CompanyTicketController@ajaxaction']);
+    Route::match(['get', 'post'], 'employee-download-attachment/{file}', ['as' => 'employee-download-attachment', 'uses' => 'employee\CompanyTicketController@downloadAttachment']);
+    Route::match(['get', 'post'], 'employee-ticket-comments/{id}', ['as' => 'employee-ticket-comments', 'uses' => 'employee\CompanyTicketController@viewTicketComments']);
 
 });

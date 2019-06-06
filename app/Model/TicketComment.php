@@ -43,6 +43,33 @@ class TicketComment extends Model
         return TRUE;
     }
     
+    public function saveTicketCommentCompany($request)
+    {    
+    	if(Auth::guard('company')->check()) {
+    		$userData = Auth::guard('company')->user();
+            $getAuthCompanyId = Company::where('email', $userData->email)->first();
+            
+            $id = DB::table('ticket_comments')->insertGetId(['user_id' => $getAuthCompanyId->user_id,
+                                                'ticket_id' => $request->ticket_id,
+                                                'comments'=> $request->comments,
+                                                'created_at' => date('Y-m-d H:i:s'),
+                                                'updated_at' => date('Y-m-d H:i:s')]);
+
+    	}else{
+            $userData = Auth::guard('employee')->user();
+            $empData = Employee::select('employee.*')->where('user_id',$userData->id)->first();
+            // echo "<pre>"; print_r($userData->id); print_r($empData); exit();
+            $id = DB::table('ticket_comments')->insertGetId(['user_id' => $empData->user_id,
+                                                            'ticket_id' => $request->ticket_id,
+                                                            'comments'=> $request->comments,
+                                                            'created_at' => date('Y-m-d H:i:s'),
+                                                            'updated_at' => date('Y-m-d H:i:s')]);
+        }
+
+        return TRUE;
+    }
+    
+    
     public function getTicketCommentDetails($ticket_id)
     {
         $arrTicketCommentList = TicketComment::join('users','users.id','=','ticket_comments.user_id')

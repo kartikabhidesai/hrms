@@ -228,7 +228,148 @@ class Ticket extends Model
         );
         return $json_data;
     }
+    
+    public function getdatatableCompany($request)
+    {
+        $requestData = $_REQUEST;
 
+        $data = $request->input('data');
+
+        if ($data['priority'] != NULL) {
+            $priority = $data['priority'];
+        } else {
+            $priority = "";
+        }
+
+        /* Don't remove this code as it's in-progress */
+        if($data['status'] != NULL) {
+            $status = $data['status'];
+        } else {
+            $status = "";
+        }
+        
+        
+        if(Auth::guard('employee')->check()) 
+        {
+            $userData = Auth::guard('employee')->user();
+            
+            $companyId = Employee::select('*')->where('user_id', $userData['id'])->get();
+            $userID = Company::select('user_id')->where('id', $companyId[0]['company_id'])->get();
+//            print_r($companyId);
+//            exit;
+            $company_Id = $companyId[0]['company_id'];
+//            print_r($userData['id']);
+//            die();
+//            $companyId = Company::where('email', $companyId[0]['email'])->first();
+            $query = Ticket::join('employee','employee.id','tickets.assign_to')
+                            ->join('comapnies','comapnies.id','tickets.company_id')
+                            ->with(['ticketAttachments'])->where('tickets.company_id', $company_Id)
+                            ->select('tickets.*','employee.name as emp_name', 'comapnies.company_name');
+        }
+        if ($priority) {
+            $query->where('tickets.priority', "=", $priority);
+        }
+        $columns = array(
+            // datatable column index  => database column name
+            'tickets.code',
+            'tickets.priority',
+            'tickets.status',
+            'tickets.subject',
+            // 'tickets.assign_to',
+            'tickets.created_by',
+            'tickets.details',
+            // 'tickets.updated_by',
+            // 'ticket_attachments.file_attachment'
+        );
+
+        
+        if (!empty($requestData['search']['value'])) {
+            $searchVal = $requestData['search']['value'];
+            $query->where(function($query) use ($columns, $searchVal, $requestData) {
+                $flag = 0;
+                foreach ($columns as $key => $value) {
+                    $searchVal = $requestData['search']['value'];
+                    if ($requestData['columns'][$key]['searchable'] == 'true') {
+                        if ($flag == 0) {
+                            $query->where($value, 'like', '%' . $searchVal . '%');
+                            $flag = $flag + 1;
+                        } else {
+                            $query->orWhere($value, 'like', '%' . $searchVal . '%');
+                        }
+                    }
+                }
+            });
+        }
+        
+        $temp = $query->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir']);
+        $totalData = count($temp->get());
+        $totalFiltered = count($temp->get());
+        $resultArr = $query->skip($requestData['start'])
+                            ->take($requestData['length'])
+                            ->get();
+
+        if(Auth::guard('company')->check()){
+            $loginuser = 'company';
+        }else{
+            $loginuser = 'employee';
+        }
+       
+        $data = array();
+        foreach ($resultArr as $row) {
+            $actionHtml ='';
+            // $actionHtml .= '<a href="#deleteModel" data-toggle="modal" data-id="'.$row['id'].'" class="link-black text-sm deleteDepartment" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';
+            $nestedData = array();
+            $nestedData[] = $row["code"];
+            $nestedData[] = $row["priority"];
+            $nestedData[] = $row["status"];
+            $nestedData[] = $row["subject"];
+
+            if($loginuser == 'company'){
+                $nestedData[] = $row["emp_name"];
+            }else{
+                $nestedData[] = $row["emp_name"];
+            }
+            
+            $nestedData[] = $row["created_by"];
+            $nestedData[] = $row["details"];
+            $fileAttachmentArr = [];
+
+            foreach ($row->ticketAttachments as $key => $value) {
+                // $fileAttachmentArr[] = $value["file_attachment"];
+                $fileAttachmentArr[] = '<a href="'.'download-attachment/'.$value["file_attachment"].'" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" >'.$value["file_attachment"].'</a>';
+            }
+
+            $nestedData[] = implode(', ', $fileAttachmentArr);
+
+            if($loginuser == 'company'){
+                $actionHtml = '<a href="#ticketDetailsModel" data-toggle="modal" data-id="'.$row['id'].'" title="Details" class="link-black text-sm ticketDetails" data-toggle="tooltip" data-original-title="Show"><i class="fa fa-eye"></i></a>&nbsp;&nbsp;';
+                $actionHtml .='<a href="ticket-comments/'.$row['id'].'" class="link-black text-sm" data-id="'.$row['id'].'" data-toggle="tooltip" data-original-title="View Details"> <i class="fa fa-comments"></i></a>';
+            }else{
+                
+                if($loginuser == 'employee'){
+                    $actionHtml = '<a href="#ticketDetailsModel" data-toggle="modal" data-id="'.$row['id'].'" title="Details" class="link-black text-sm ticketDetails" data-toggle="tooltip" data-original-title="Show"><i class="fa fa-eye"></i></a>&nbsp;&nbsp;';
+                    $actionHtml .='<a href="employee-ticket-comments/'.$row['id'].'" class="link-black text-sm" data-id="'.$row['id'].'" data-toggle="tooltip" data-original-title="View Details"> <i class="fa fa-comments"></i></a>';
+                }else{
+                    $actionHtml = '<a href="#ticketDetailsModel" data-toggle="modal" data-id="'.$row['id'].'" title="Details" class="link-black text-sm ticketDetails" data-toggle="tooltip" data-original-title="Show"><i class="fa fa-eye"></i></a>&nbsp;&nbsp;';
+                    // $actionHtml .= '<a href="#ticketEditModel" data-toggle="modal" data-id="' . $row['id'] . '" class="link-black text-sm ticketEdit" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-edit"></i></a>';   
+                    $actionHtml .='<a href="employee-ticket-comments/'.$row['id'].'" class="link-black text-sm" data-id="'.$row['id'].'" data-toggle="tooltip" data-original-title="View Details"> <i class="fa fa-comments"></i></a>';
+                    $actionHtml .= '<a href="#updateTicketStatusModel"  data-toggle="modal" data-id="' . $row['id'] . '" title="Update" class="link-black text-sm updateTicketStatusModel" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';   
+                }               
+            }
+
+            $nestedData[] = $actionHtml;
+            $data[] = $nestedData;
+        }
+
+        $json_data = array(
+            "draw" => intval($requestData['draw']),
+            "recordsTotal" => intval($totalData),
+            "recordsFiltered" => intval($totalFiltered),
+            "data" => $data
+        );
+        return $json_data;
+    }
+    
     public function getEmpviewTicketStatus($ticketId,$Empid) {
         // echo $ticketId."-".$Empid;
         $result = Ticket::select('code', 'subject', 'status', 'priority','details', 'complete_progress','id')->where('assign_to', $Empid)->where('id', $ticketId)->first();
