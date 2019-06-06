@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Employee;
-namespace App\Http\Controllers\Employee;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\Controller;
