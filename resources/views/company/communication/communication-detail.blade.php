@@ -39,7 +39,7 @@
                     </h3>
                     <h5>
                         <span class="pull-right font-normal">{{ date('Y-m-d H:i A', strtotime($cmpMailDetail->created_at)) }}</span>
-                        <span class="font-normal">From: </span>{{ $cmpMailDetail->email }}
+                        <span class="font-normal">From: </span>{{ $cmpMailDetail->employeeEmail != '' ? $cmpMailDetail->employeeEmail  : 'Admin' }}
                     </h5>
                 </div>
             </div>
