@@ -121,5 +121,15 @@ Route::group(['prefix' => $employeePrefix, 'middleware' => ['employee']], functi
     Route::match(['get', 'post'], 'employee-payroll-ajaxAction', ['as' => 'employee-payroll-ajaxAction', 'uses' => 'Employee\CompanyPayrollController@ajaxAction']);
     Route::match(['get', 'post'], 'employee-payroll-check-award', ['uses' => 'Employee\CompanyPayrollController@payrollCheckAward']);
     Route::match(['get', 'post'], 'employee-payslip-ajaxAction', ['as' => 'employee-payslip-ajaxAction', 'uses' => 'Employee\CompanyPayslipController@ajaxAction']);
+    
+    Route::match(['get', 'post'], 'employee-company-advance-salary-request', ['as' => 'employee-company-advance-salary-request', 'uses' => 'Employee\CompanyAdvanceSalaryRequestController@requestList']);
+    Route::match(['get', 'post'], 'employee-approved-advance-salary-request', ['as' => 'employee-approved-advance-salary-request', 'uses' => 'Employee\CompanyAdvanceSalaryRequestController@approvedRequestList']);
+    Route::match(['get', 'post'], 'employee-advance-salary-request-ajaxAction', ['as' => 'employee-advance-salary-request-ajaxAction', 'uses' => 'Employee\CompanyAdvanceSalaryRequestController@ajaxaction']);
+    Route::match(['get', 'post'], 'employee-approved-salary-request-ajaxAction', ['as' => 'employee-approved-salary-request-ajaxAction', 'uses' => 'Employee\CompanyAdvanceSalaryRequestController@approvedListAjaxaction']);
+    Route::match(['get', 'post'], 'employee-createApprovedPdf', ['as' => 'employee-createApprovedPdf', 'uses' => 'Employee\CompanyAdvanceSalaryRequestController@createApprovedPdf']);
+    Route::match(['get', 'post'], 'employee-downloadApprovedPdf', ['as' => 'employee-downloadApprovedPdf', 'uses' => 'Employee\CompanyAdvanceSalaryRequestController@downloadApprovedPdf']);
+    Route::match(['get', 'post'], 'employee-add-advance-salary-request', ['as' => 'employee-add-advance-salary-request', 'uses' => 'Employee\CompanyAdvanceSalaryRequestController@newRequest']);
+    Route::match(['get', 'post'], 'employee-createApprovedExcel', ['as' => 'employee-createApprovedExcel', 'uses' => 'Employee\CompanyAdvanceSalaryRequestController@createApprovedExcel']);
+    
 
 });

@@ -151,15 +151,14 @@ class Advancesalary extends Model
     }
     
     public function getCompanyAdvanceSalaryList($companyId){
+        
         $requestData = $_REQUEST;
         $columns = array(
-            // datatable column index  => database column name
             0 => 'advance_salary.name',
             1 => 'depart.department_name',            
             2 => 'advance_salary.date_of_submit',
             3 => 'advance_salary.comments',
             4 => 'advance_salary.status',
-            
         );
          $query = ManageTimeChangeRequest::from('advance_salary_request as advance_salary')
                  ->join('employee as emp' ,'advance_salary.employee_id','=','emp.id')
@@ -196,7 +195,6 @@ class Advancesalary extends Model
 
          $objTypeOfRequest = new TypeOfRequest();
         $type_of_request = $objTypeOfRequest->getTypeOfRequest($companyId);
-
 
         foreach ($resultArr as $row) {
             if($row["status"] == NULL){

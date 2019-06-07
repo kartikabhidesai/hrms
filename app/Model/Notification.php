@@ -16,8 +16,6 @@ class Notification extends Model {
 
     public function addNotification($user_id,$message,$route,$notificationMasterId) {
 
-        
-
         $objNotification = new Notification();
         $objNotification->user_id = $user_id;
         $objNotification->notification_master_id = $notificationMasterId;
