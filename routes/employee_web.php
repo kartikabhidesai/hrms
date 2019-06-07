@@ -131,5 +131,7 @@ Route::group(['prefix' => $employeePrefix, 'middleware' => ['employee']], functi
     Route::match(['get', 'post'], 'employee-add-advance-salary-request', ['as' => 'employee-add-advance-salary-request', 'uses' => 'Employee\CompanyAdvanceSalaryRequestController@newRequest']);
     Route::match(['get', 'post'], 'employee-createApprovedExcel', ['as' => 'employee-createApprovedExcel', 'uses' => 'Employee\CompanyAdvanceSalaryRequestController@createApprovedExcel']);
     
+    Route::match(['get', 'post'], 'employee-time-change-request', ['as' => 'employee-time-change-request', 'uses' => 'Employee\CompanyManageTimeChangeRequestController@timeChangeRequest']);
+    Route::match(['get', 'post'], 'employee-timeChangeRequest-ajaxAction', ['as' => 'employee-timeChangeRequest-ajaxAction', 'uses' => 'Employee\CompanyManageTimeChangeRequestController@ajaxaction']);
 
 });

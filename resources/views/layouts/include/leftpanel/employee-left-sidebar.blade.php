@@ -190,6 +190,12 @@ $currentRoute = Route::current()->getName();
                             </li>
                         @endif
                         
+                        @if(in_array(19, $roles))
+                        <li class="{{ ($currentRoute == 'employee-time-change-request' ? 'active' : '') }}">
+                            <a href="{{ route('employee-time-change-request') }}"><i class="fa fa-envelope"></i>
+                                <span class="nav-label">Manage Time Change Request</span></a>
+                        </li>
+                        @endif
                     </ul>
                 </li>
                 @endif
