@@ -59,7 +59,7 @@ class AttendanceHistory extends Model
                                                 ->where('attendance_history.company_id', $companyId->id);
                                                 
                                                 if($department_id != "all"){
-                                                    $query->where('employee.department',"=",$department_id);
+                                                    $query->where('employee.department1',"=",$department_id);
                                                 }
                                                 
 
@@ -254,7 +254,7 @@ class AttendanceHistory extends Model
                                                             $query2->Where('time_change_requests.to_date', '>=', $to_date);
                                                         });
                                                 });
-                                                
+
                                                 // if($fromDate != NULL){
                                                 //     $query->where('leaves.start_date','>=',$fromDate);
                                                 //     $query->orWhere('time_change_requests.from_date','>=',$fromDate);
