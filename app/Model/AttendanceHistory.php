@@ -59,7 +59,7 @@ class AttendanceHistory extends Model
                                                 ->where('attendance_history.company_id', $companyId->id);
                                                 
                                                 if($department_id != "all"){
-                                                    $query->orWhere('employee.department',"=",$department_id);
+                                                    $query->where('employee.department',"=",$department_id);
                                                 }
                                                 
 
