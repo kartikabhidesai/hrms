@@ -173,7 +173,7 @@ class CompanyAdvanceSalaryRequestController  extends Controller {
 
                         $notificationMasterId=6;
                         $objNotificationMaster = new NotificationMaster();
-                        $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($userId,$notificationMasterId);
+                        $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($company_Id,$notificationMasterId);
                         
                         if($NotificationUserStatus==1)
                         {
