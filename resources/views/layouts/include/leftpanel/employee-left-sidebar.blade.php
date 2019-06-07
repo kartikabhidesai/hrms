@@ -149,7 +149,14 @@ $currentRoute = Route::current()->getName();
                                 <span class="nav-label">Company Pay Slip</span></a>
                             </li>
                         @endif
-
+                        
+                        @if(in_array(12, $roles))    
+                        <li class="{{ ($currentRoute == 'employee-payroll-list' || $currentRoute == 'employee-payroll-emp-detail' || $currentRoute == 'employee-payroll-add' || $currentRoute == 'employee-payroll-edit'  ? 'active' : '') }}">
+                            <a href="{{ route('employee-payroll-list') }}"><i class="fa fa-money"></i>
+                                <span class="nav-label">Company Payroll</span></a>
+                        </li>
+                        @endif
+                        
                         @if(in_array(15, $roles))
                             <li class="{{ ( $currentRoute == 'employee-approved-advance-salary-request' ? 'active' : '') }}">
                                 <a href="{{ route('employee-approved-advance-salary-request') }}"><i class="fa fa-money" ></i> <span class="nav-label">Company Approved Advance Salary</span></a>

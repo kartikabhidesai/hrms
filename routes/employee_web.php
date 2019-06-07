@@ -113,5 +113,13 @@ Route::group(['prefix' => $employeePrefix, 'middleware' => ['employee']], functi
     Route::match(['get', 'post'], 'employee-performance-emp-detail/{id}', ['as' => 'employee-performance-emp-detail', 'uses' => 'Employee\CompanyPerformanceController@performanceEmpList']);
     Route::match(['get', 'post'], 'employee-performance-download-pdf', ['as' => 'employee-performance-download-pdf', 'uses' => 'Employee\CompanyPerformanceController@PerformanceDownloadPDF']);
     Route::match(['get', 'post'], 'employee-performance-ajaxAction', ['as' => 'employee-performance-ajaxAction', 'uses' => 'Employee\CompanyPerformanceController@ajaxAction']);
+    
+    Route::match(['get', 'post'], 'employee-payroll-list', ['as' => 'employee-payroll-list', 'uses' => 'Employee\CompanyPayrollController@index']);
+    Route::match(['get', 'post'], 'employee-payroll-add/{id}', ['as' => 'employee-payroll-add', 'uses' => 'Employee\CompanyPayrollController@add']);
+    Route::match(['get', 'post'], 'employee-payroll-edit/{id}', ['as' => 'employee-payroll-edit', 'uses' => 'Employee\CompanyPayrollController@edit']);
+    Route::match(['get', 'post'], 'employee-payroll-emp-detail/{id}', ['as' => 'employee-payroll-emp-detail', 'uses' => 'Employee\CompanyPayrollController@payrollEmpList']);
+    Route::match(['get', 'post'], 'employee-payroll-ajaxAction', ['as' => 'employee-payroll-ajaxAction', 'uses' => 'Employee\CompanyPayrollController@ajaxAction']);
+    Route::match(['get', 'post'], 'employee-payroll-check-award', ['uses' => 'Employee\CompanyPayrollController@payrollCheckAward']);
+    Route::match(['get', 'post'], 'employee-payslip-ajaxAction', ['as' => 'employee-payslip-ajaxAction', 'uses' => 'Employee\CompanyPayslipController@ajaxAction']);
 
 });
