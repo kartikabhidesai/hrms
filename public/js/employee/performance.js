@@ -315,7 +315,7 @@ var Performance = function () {
               headers: {
                   'X-CSRF-TOKEN': $('input[name="_token"]').val(),
               },
-              url: baseurl + "company/performance-ajaxAction",
+              url: baseurl + "employee/emp-performance-ajaxAction",
               data: {
                       _token: $('#_token').val(),
                       empid: empid, 
@@ -323,7 +323,6 @@ var Performance = function () {
                       action:'getPerformancePercentage'
               },
               success: function(data) {
-                console.log(data);
                   if (data['status'] == 'success') 
                   {
                     $('#performance-percentage').html(data.percentage+'%');

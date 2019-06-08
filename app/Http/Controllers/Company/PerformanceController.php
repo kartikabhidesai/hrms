@@ -179,18 +179,19 @@ class PerformanceController extends Controller {
                 echo json_encode($performanceList);
                 break;
             case 'getPerformancePercentage':
-
                 if($request->empid != '' && $request->time_period != '')
                 {
+                    
                     $performanceObj = new Performance;
                     $performanceList = $performanceObj->getEmployeePerformanceList($request->empid);
 
                     $emp_time = explode('-',$request->time_period);
-                
+                   
                     $newtimeYear = date("Y",strtotime("-".$emp_time[0]." ".$emp_time[1]));
                     $newtimeMonth = date("m",strtotime("-".$emp_time[0]." ".$emp_time[1]));
+                    
                     // echo "<pre>"; print_r($emp_time[0].' - '.$emp_time[1].' - '.$newtimeYear.' - '.$newtimeMonth);
-
+                    
                     $emp_total = $count = 0;
                     if (isset($performanceList) && !empty($performanceList)) 
                     {
@@ -209,11 +210,6 @@ class PerformanceController extends Controller {
                                 }
                             }
 
-                            // echo "<pre>"; print_r($newtimeYear.' - '.$value['year']);
-                            // echo "<pre>"; print_r($newtimeMonth.' - '.$value['month']);
-                            // var_dump($temp_check); 
-                            // echo "<br/>";
-
                             if ($temp_check == true) 
                             {
                                 $emp_total = $emp_total+(int)$value['availability']+
@@ -226,7 +222,7 @@ class PerformanceController extends Controller {
                                 $count++;
                             }
                         }
-
+                       
                         if ($count != 0) 
                         {
                             $grand_total = 5 * 7 * $count; 
