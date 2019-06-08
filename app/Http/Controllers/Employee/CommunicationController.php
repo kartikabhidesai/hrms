@@ -66,11 +66,10 @@ class CommunicationController extends Controller
             $objCommunication = new Communication();
             $data['CommunicationData'] = $objCommunication->getComminucationDataEmp($request->communication_id);
         }
-
         if ($request->isMethod('post')) {
             
             $objCommunication = new Communication();                
-            $result = $objCommunication->addNewCommunicationEmp($request, $empId->company_id, $empId->id);
+            $result = $objCommunication->addNewCommunication($request, $empId->company_id, $empId->id);
 
             if ($result) {
 
