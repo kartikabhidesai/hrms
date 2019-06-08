@@ -9,6 +9,8 @@ use App\Model\Task;
 use App\Model\Ticket;
 use App\Model\Employee;
 use App\Model\Attendance;
+use App\Model\Recruitment;
+use App\Model\Leave;
 use App\Http\Controllers\Controller;
 use Auth;
 use Route;
@@ -68,7 +70,9 @@ class CompanyController extends Controller {
                                             ->where('attendance.date',date('Y-m-d'))
                                             ->where('employee.company_id', $companyId['id'])
                                             ->count();
-        
+
+        $data['recruitment'] = Recruitment::where('company_id',$companyId['id'])->where('status',0)->get()->count();
+        $data['leaves'] = Leave::where('cmp_id',$companyId['id'])->where('start_date','>=',date('Y-m-d'))->get()->count();
         
         $data['header'] = array(
             'title' => 'Dashboard',

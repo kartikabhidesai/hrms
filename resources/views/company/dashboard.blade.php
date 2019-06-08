@@ -278,7 +278,7 @@
                         <div class="col-lg-4">
                             <div class="tabs-container">
                                 <ul class="nav nav-tabs">
-                                    <li class="active"><a data-toggle="tab" href="#tab-111">Recsent Application</a></li>
+                                    <li class="active"><a data-toggle="tab" href="#tab-111">Recent Application</a></li>
                                     <li class=""><a data-toggle="tab" href="#tab-222">Pending Leaves</a></li>
                                 </ul>
                                 <div class="tab-content">
@@ -289,8 +289,8 @@
                                                      <strong><i class="fa fa-gg fa-4x" aria-hidden="true"></i></strong>
                                                 </div>
                                                 <div class="col-lg-8">
-                                                    <h3><strong>102</strong></h3>
-                                                    <h3><strong>Compelted Task</strong></h3>
+                                                    <h3><strong>{{$recruitment}}</strong></h3>
+                                                    <h3><strong>Recent Application</strong></h3>
                                                 </div>
                                             </div>
                                         </div>
@@ -302,8 +302,8 @@
                                                      <strong><i class="fa fa-yelp fa-4x" aria-hidden="true"></i></strong>
                                                 </div>
                                                 <div class="col-lg-8">
-                                                    <h3><strong>102</strong></h3>
-                                                    <h3><strong>Compelted Task</strong></h3>
+                                                    <h3><strong>{{$leaves}}</strong></h3>
+                                                    <h3><strong>Pending Leaves</strong></h3>
                                                 </div>
                                             </div>
                                         </div>
