@@ -62,38 +62,38 @@ class AttendanceHistory extends Model
                                                     $query->where('employee.department',"=",$department_id);
                                                 }
                                                 
+                                                if($fromDate != NULL && $to_date != NULL){
+                                                    $query->where(function($query1) use ($fromDate, $to_date) {
+                                                        $query1->Where(function($query1) use ($fromDate, $to_date) {
+                                                                $query1->where('leaves.start_date', '>=', $fromDate);
+                                                                $query1->Where('leaves.start_date', '<=', $to_date);
+                                                            });                                
+                                                        $query1->orWhere(function($query1) use ($fromDate, $to_date) {
+                                                                $query1->where('leaves.end_date', '>=', $fromDate);
+                                                                $query1->Where('leaves.end_date', '<=', $to_date);
+                                                            });
+                                                        $query1->orWhere(function($query1) use ($fromDate, $to_date) {
+                                                                $query1->where('leaves.start_date', '<=', $fromDate);
+                                                                $query1->Where('leaves.end_date', '>=', $to_date);
+                                                            });
+                                                    });
 
-                                                $query->where(function($query1) use ($fromDate, $to_date) {
-                                                    $query1->Where(function($query1) use ($fromDate, $to_date) {
-                                                            $query1->where('leaves.start_date', '>=', $fromDate);
-                                                            $query1->Where('leaves.start_date', '<=', $to_date);
-                                                        });                                
-                                                    $query1->orWhere(function($query1) use ($fromDate, $to_date) {
-                                                            $query1->where('leaves.end_date', '>=', $fromDate);
-                                                            $query1->Where('leaves.end_date', '<=', $to_date);
-                                                        });
-                                                      $query1->orWhere(function($query1) use ($fromDate, $to_date) {
-                                                            $query1->where('leaves.start_date', '<=', $fromDate);
-                                                            $query1->Where('leaves.end_date', '>=', $to_date);
-                                                        });
-                                                });
+                                                    $query->orWhere(function($query2) use ($fromDate, $to_date) {
+                                                        $query2->Where(function($query2) use ($fromDate, $to_date) {
+                                                                $query2->where('time_change_requests.from_date', '>=', $fromDate);
+                                                                $query2->Where('time_change_requests.from_date', '<=', $to_date);
+                                                            });                                
+                                                        $query2->orWhere(function($query2) use ($fromDate, $to_date) {
+                                                                $query2->where('time_change_requests.to_date', '>=', $fromDate);
+                                                                $query2->Where('time_change_requests.to_date', '<=', $to_date);
+                                                            });
+                                                        $query2->orWhere(function($query2) use ($fromDate, $to_date) {
+                                                                $query2->where('time_change_requests.from_date', '<=', $fromDate);
+                                                                $query2->Where('time_change_requests.to_date', '>=', $to_date);
+                                                            });
+                                                    });
 
-                                                $query->orWhere(function($query2) use ($fromDate, $to_date) {
-                                                    $query2->Where(function($query2) use ($fromDate, $to_date) {
-                                                            $query2->where('time_change_requests.from_date', '>=', $fromDate);
-                                                            $query2->Where('time_change_requests.from_date', '<=', $to_date);
-                                                        });                                
-                                                    $query2->orWhere(function($query2) use ($fromDate, $to_date) {
-                                                            $query2->where('time_change_requests.to_date', '>=', $fromDate);
-                                                            $query2->Where('time_change_requests.to_date', '<=', $to_date);
-                                                        });
-                                                      $query2->orWhere(function($query2) use ($fromDate, $to_date) {
-                                                            $query2->where('time_change_requests.from_date', '<=', $fromDate);
-                                                            $query2->Where('time_change_requests.to_date', '>=', $to_date);
-                                                        });
-                                                });
-
-                                                
+                                                }
                                                 
                                                 // if($fromDate != NULL){
                                                 //     $query->where('leaves.start_date','<=',$fromDate);
@@ -225,35 +225,37 @@ class AttendanceHistory extends Model
                                                     $query->where('employee.department',"=",$department_id);
                                                 }
                                                 
-                                                $query->where(function($query1) use ($fromDate, $to_date) {
-                                                    $query1->Where(function($query1) use ($fromDate, $to_date) {
-                                                            $query1->where('leaves.start_date', '>=', $fromDate);
-                                                            $query1->Where('leaves.start_date', '<=', $to_date);
-                                                        });                                
-                                                    $query1->orWhere(function($query1) use ($fromDate, $to_date) {
-                                                            $query1->where('leaves.end_date', '>=', $fromDate);
-                                                            $query1->Where('leaves.end_date', '<=', $to_date);
-                                                        });
-                                                      $query1->orWhere(function($query1) use ($fromDate, $to_date) {
-                                                            $query1->where('leaves.start_date', '<=', $fromDate);
-                                                            $query1->Where('leaves.end_date', '>=', $to_date);
-                                                        });
-                                                });
+                                                if($fromDate != NULL && $to_date != NULL){
+                                                    $query->where(function($query1) use ($fromDate, $to_date) {
+                                                        $query1->Where(function($query1) use ($fromDate, $to_date) {
+                                                                $query1->where('leaves.start_date', '>=', $fromDate);
+                                                                $query1->Where('leaves.start_date', '<=', $to_date);
+                                                            });                                
+                                                        $query1->orWhere(function($query1) use ($fromDate, $to_date) {
+                                                                $query1->where('leaves.end_date', '>=', $fromDate);
+                                                                $query1->Where('leaves.end_date', '<=', $to_date);
+                                                            });
+                                                        $query1->orWhere(function($query1) use ($fromDate, $to_date) {
+                                                                $query1->where('leaves.start_date', '<=', $fromDate);
+                                                                $query1->Where('leaves.end_date', '>=', $to_date);
+                                                            });
+                                                    });
 
-                                                $query->orWhere(function($query2) use ($fromDate, $to_date) {
-                                                    $query2->Where(function($query2) use ($fromDate, $to_date) {
-                                                            $query2->where('time_change_requests.from_date', '>=', $fromDate);
-                                                            $query2->Where('time_change_requests.from_date', '<=', $to_date);
-                                                        });                                
-                                                    $query2->orWhere(function($query2) use ($fromDate, $to_date) {
-                                                            $query2->where('time_change_requests.to_date', '>=', $fromDate);
-                                                            $query2->Where('time_change_requests.to_date', '<=', $to_date);
-                                                        });
-                                                      $query2->orWhere(function($query2) use ($fromDate, $to_date) {
-                                                            $query2->where('time_change_requests.from_date', '<=', $fromDate);
-                                                            $query2->Where('time_change_requests.to_date', '>=', $to_date);
-                                                        });
-                                                });
+                                                    $query->orWhere(function($query2) use ($fromDate, $to_date) {
+                                                        $query2->Where(function($query2) use ($fromDate, $to_date) {
+                                                                $query2->where('time_change_requests.from_date', '>=', $fromDate);
+                                                                $query2->Where('time_change_requests.from_date', '<=', $to_date);
+                                                            });                                
+                                                        $query2->orWhere(function($query2) use ($fromDate, $to_date) {
+                                                                $query2->where('time_change_requests.to_date', '>=', $fromDate);
+                                                                $query2->Where('time_change_requests.to_date', '<=', $to_date);
+                                                            });
+                                                        $query2->orWhere(function($query2) use ($fromDate, $to_date) {
+                                                                $query2->where('time_change_requests.from_date', '<=', $fromDate);
+                                                                $query2->Where('time_change_requests.to_date', '>=', $to_date);
+                                                            });
+                                                    });
+                                                }
                                                 
                                                 // if($fromDate != NULL){
                                                 //     $query->where('leaves.start_date','>=',$fromDate);
