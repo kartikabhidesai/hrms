@@ -26,7 +26,7 @@ class AwardController extends Controller {
         $this->middleware('employee');
     }
 
-    public function index() {
+    public function index(Request $request) {
 
         $session = $request->session()->all();
 
