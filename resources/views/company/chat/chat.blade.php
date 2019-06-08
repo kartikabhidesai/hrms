@@ -21,7 +21,7 @@
 
                 <div class="ibox-title">
                     <small class="pull-right text-muted">Last message:  Mon Jan 26 2015 - 18:39:23</small>
-                    Chat room panel
+                    <span id="to_user_name" > Chat room panel <span > 
                 </div>
 
 

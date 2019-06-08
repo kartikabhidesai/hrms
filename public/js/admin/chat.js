@@ -21,7 +21,7 @@ var Chat = function () {
                                 var userimg=baseurl+"uploads/client/user.jpg";
                             }
 
-                            $('.users-list').append("<div class='chat-user'><img class='chat-avatar' src='"+userimg+"' alt=''><div class='chat-user-name'><a data-id='"+data[i].id+"' class='user-message' href='javascript:void(0);'  >"+data[i].name+"</a></div></div>");
+                            $('.users-list').append("<div class='chat-user'><img class='chat-avatar' src='"+userimg+"' alt=''><div class='chat-user-name'><a data-id='"+data[i].id+"'  data-user-name='"+data[i].name+"' class='user-message' href='javascript:void(0);'  >"+data[i].name+"</a></div></div>");
                         }
                         
                     }
@@ -53,7 +53,7 @@ var Chat = function () {
                                 var userimg=baseurl+"uploads/client/user.jpg";
                             }
 
-                            $('.users-list').append("<div class='chat-user'><img class='chat-avatar' src='"+userimg+"' alt=''><div class='chat-user-name'><a data-id='"+data[i].id+"' class='user-message' href='javascript:void(0);'  >"+data[i].name+"</a></div></div>");
+                            $('.users-list').append("<div class='chat-user'><img class='chat-avatar' src='"+userimg+"' alt=''><div class='chat-user-name'><a data-id='"+data[i].id+"'  data-user-name='"+data[i].name+"' class='user-message' href='javascript:void(0);'  >"+data[i].name+"</a></div></div>");
                         }
                         
                     }
@@ -66,6 +66,8 @@ var Chat = function () {
 
         $('body').on('click', '.user-message', function () {
             var to_user_id = $(this).attr('data-id');
+            var to_user_name = $(this).attr('data-user-name');
+            $('#to_user_name').html(to_user_name);
             var page=1;
             chetuserlist(to_user_id,page);
         });
