@@ -112,9 +112,15 @@ class CompanyManageTimeChangeRequestController extends Controller
                case 'disapproveRequest':
                     $userID = $this->loginUser;
                     $id=$request->input('data')['id'];
+                    $session = $request->session()->all();
+                    $logindata = $session['logindata'][0];
+                    $userid = $logindata['id'];
+                    $companyId = Employee::select('company_id')->where('user_id', $userid)->get();
+                    $userID = Company::select('user_id')->where('id', $companyId[0]['company_id'])->get();
+                    $company_Id = $companyId[0]['company_id'];
                     $objManageList=new ManageTimeChangeRequest();
                     $disapproveRequest=$objManageList->disapproveRequest($id);
-                    if ($disapproveRequest) {
+                    if ($disapproveRequest){
 
                         $notificationMasterId=9;
                         $objNotificationMaster = new NotificationMaster();
@@ -127,7 +133,7 @@ class CompanyManageTimeChangeRequestController extends Controller
                             $u_id=$objManageList->getUseridByManageTimeChangeRequestId($id);
                             $objNotification = new Notification();
                             $route_url="manage-time-change-request";
-                            $ret = $objNotification->addNotification($u_id,$seleryRequestName,$route_url);
+                            $ret = $objNotification->addNotification($company_Id,$seleryRequestName,$route_url);
                         }
 
                         $return['status'] = 'success';
@@ -143,13 +149,20 @@ class CompanyManageTimeChangeRequestController extends Controller
 
                 case 'changeStatus':
                     $userID = $this->loginUser;
+                    $session = $request->session()->all();
+                    $logindata = $session['logindata'][0];
+                    $userid = $logindata['id'];
+                    $companyId = Employee::select('company_id')->where('user_id', $userid)->get();
+                    $userID = Company::select('user_id')->where('id', $companyId[0]['company_id'])->get();
+                    $company_Id = $companyId[0]['company_id'];
+                    
                     $objManageList=new ManageTimeChangeRequest();
                     $disapproveRequest=$objManageList->editStatus($request->input('data'));
                     if ($disapproveRequest) {
 
                         $notificationMasterId=9;
                         $objNotificationMaster = new NotificationMaster();
-                        $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($userID->id,$notificationMasterId);
+                        $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($company_Id,$notificationMasterId);
                         
                         if($NotificationUserStatus==1)
                         {
@@ -163,10 +176,9 @@ class CompanyManageTimeChangeRequestController extends Controller
                                 $u_id=$objManageList->getUseridByManageTimeChangeRequestId($value);
                                 $route_url="manage-time-change-request";
                                 $objNotification = new Notification();
-                                $ret = $objNotification->addNotification($u_id,$seleryRequestName,$route_url,$notificationMasterId);
+                                $ret = $objNotification->addNotification($company_Id,$seleryRequestName,$route_url,$notificationMasterId);
                             }
                         }
-
                         $return['status'] = 'success';
                         $return['message'] = 'Status Change successfully.';
                         $return['redirect'] = route('time-change-request');

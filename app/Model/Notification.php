@@ -151,34 +151,33 @@ class Notification extends Model {
     public function getNotificationCount($userid) {
        
         $query = Notification::where('notification.user_id',$userid)
-                ->where('notification.status',0)
-                ->get()->count();
+                                    ->where('notification.status',0)
+                                    ->get()
+                                    ->count();
         return $query;
     }
 
     public function SessionNotificationCount($user_id) {
-       
         $countNotification = $this->getNotificationCount($user_id);
         $notificationList = $this->getNotificationList($user_id);
-        // $items = Session::get('logindata');
-
         $items[0]['notification_list']=$notificationList;
-                $items[0]['notification_count']=$countNotification;
-            
+        $items[0]['notification_count']=$countNotification;
         return $items;
-            // Session::put('logindata', $items);
-
     }
-
-    
 
     public function getEmployeeNotificationList($userid) {
         $query = DB::table('notification_master as nm')
                 ->select(array('nm.id','nm.notification_name','nm.description'))
                 ->where('nm.key',$type)
                 ->get();
-        // $data = array();
-        
         return $query;
+    }
+    
+    public function UpdateNotification($userId){
+        $objNotification= DB::table('notification')
+                ->where('user_id',$userId)
+                ->where('status',0)
+                ->update(['status' => 1,
+                          'updated_at' => date('Y-m-d H:i:s')]);
     }
 }

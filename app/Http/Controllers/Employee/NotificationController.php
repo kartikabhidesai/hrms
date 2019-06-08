@@ -41,6 +41,10 @@ class NotificationController extends Controller
 
         $items = Session::get('notificationdata');
         $userID = $this->loginUser;
+        
+        $objUpdateNotification = new Notification();
+        $result = $objUpdateNotification->UpdateNotification($userID->id);
+        
         $objNotification = new Notification();
         $items=$objNotification->SessionNotificationCount($userID->id);        
         Session::put('notificationdata', $items);
