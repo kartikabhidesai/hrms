@@ -102,7 +102,7 @@ class SendSMS extends Model
             }
         }else{
             if($request->input('emp_id') == "All"){
-                $temp_emp = Employee::select('id')
+                $temp_emp = Employee::select('id','company_id')
                             ->where('department',$request->input('dept_id'))
                             ->where('company_id',$companyId)
                             ->get()->toarray();
@@ -116,7 +116,7 @@ class SendSMS extends Model
                     $newSMS->save();
                 }
             }else{
-                $temp_emp = Employee::select('id')
+                $temp_emp = Employee::select('id','company_id')
                             ->where('id',$request->input('emp_id'))
                             ->where('company_id',$companyId)
                             ->get()->toarray();
