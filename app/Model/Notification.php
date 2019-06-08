@@ -151,9 +151,9 @@ class Notification extends Model {
     public function getNotificationCount($userid) {
        
         $query = Notification::where('notification.user_id',$userid)
-                            ->where('notification.status',0)
-                            ->get()
-                            ->count();
+                                    ->where('notification.status',0)
+                                    ->get()
+                                    ->count();
         return $query;
     }
 
@@ -171,5 +171,13 @@ class Notification extends Model {
                 ->where('nm.key',$type)
                 ->get();
         return $query;
+    }
+    
+    public function UpdateNotification($userId){
+        $objNotification= DB::table('notification')
+                ->where('user_id',$userId)
+                ->where('status',0)
+                ->update(['status' => 1,
+                          'updated_at' => date('Y-m-d H:i:s')]);
     }
 }
