@@ -11,6 +11,9 @@ use App\Model\Employee;
 use App\Model\Attendance;
 use App\Model\Recruitment;
 use App\Model\Leave;
+use App\Model\NonWorkingDate;
+use App\Model\Payroll;
+use App\Model\CalendarEvent;
 use App\Http\Controllers\Controller;
 use Auth;
 use Route;
@@ -52,10 +55,33 @@ class CompanyController extends Controller {
                                 ->limit(2)
                                 ->get();
         
-        $data['birthday']= Employee::where('company_id', $companyId['id'])
+        $birthday= Employee::where('company_id', $companyId['id'])
                                 ->where('date_of_birth', 'like', '%-'.$month.'-%')
+                                ->where('date_of_birth', '>=', date('Y-m-d'))
                                 ->count();
         
+        $event = CalendarEvent::where('company_id', $companyId['id'])
+                                ->where('event_date', 'like', '%-'.$month.'-%')
+                                ->where('event_date', '>=', date('Y-m-d'))
+                                ->count();
+        
+        $data['birthday']= $birthday + $event ;
+        
+        $data['overdueTask']= Task::where('company_id', $companyId['id'])
+                                ->where('deadline_date', '<', date('Y-m-d'))
+                                ->count();
+        
+        $data['salaryPayment']=Payroll::where('employee.company_id', $companyId['id'])
+                                        ->join('employee', 'employee.id', '=', 'pay_roll.employee_id')
+                                        ->sum('pay_roll.salary_grade');
+        
+        $data['salaryPayment']=Payroll::where('employee.company_id', $companyId['id'])
+                                        ->join('employee', 'employee.id', '=', 'pay_roll.employee_id')
+                                        ->sum('pay_roll.salary_grade');
+        
+         $data['otherPayment']=Payroll::where('employee.company_id', $companyId['id'])
+                                        ->join('employee', 'employee.id', '=', 'pay_roll.employee_id')
+                                        ->sum('pay_roll.over_time');
         $data['totalEmployee']= Employee::where('company_id', $companyId['id'])
                                 ->count();
         

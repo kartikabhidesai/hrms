@@ -204,8 +204,8 @@
                         <div class="col-lg-4">
                             <div class="tabs-container">
                                 <ul class="nav nav-tabs">
-                                    <li class="active"><a data-toggle="tab" href="#tab-1"> Birthday- {{ date('F') }} ({{ $birthday }})</a></li>
-                                    <li class=""><a data-toggle="tab" href="#tab-2">OverDue Task(2)</a></li>
+                                    <li class="active"><a data-toggle="tab" href="#tab-1"> Events - {{ date('F') }}</a></li>
+                                    <li class=""><a data-toggle="tab" href="#tab-2">Overdue Task</a></li>
                                 </ul>
                                 <div class="tab-content">
                                     <div id="tab-1" class="tab-pane active">
@@ -215,8 +215,8 @@
                                                      <strong><i class="fa fa-check-circle fa-4x" aria-hidden="true"></i></strong>
                                                 </div>
                                                 <div class="col-lg-8">
-                                                    <h3><strong>{{ $completedTask }}</strong></h3>
-                                                    <h3><strong>Compelted Task</strong></h3>
+                                                    <h3><strong>{{ $birthday }}</strong></h3>
+                                                    <h3><strong>Events</strong></h3>
                                                 </div>
                                             </div>
                                         </div>
@@ -228,8 +228,8 @@
                                                      <strong><i class="fa fa-rocket fa-4x" aria-hidden="true"></i></strong>
                                                 </div>
                                                 <div class="col-lg-8">
-                                                    <h3><strong>102</strong></h3>
-                                                    <h3><strong>Compelted Task</strong></h3>
+                                                    <h3><strong>{{ $overdueTask }}</strong></h3>
+                                                    <h3><strong>Overdue Task</strong></h3>
                                                 </div>
                                             </div>
                                         </div>
@@ -241,19 +241,19 @@
                         <div class="col-lg-4">
                             <div class="tabs-container">
                                 <ul class="nav nav-tabs">
-                                    <li class="active"><a data-toggle="tab" href="#tab-11">OverDue Invoice(2)</a></li>
-                                    <li class=""><a data-toggle="tab" href="#tab-22">Expired Estimate</a></li>
+                                    <li class="active"><a data-toggle="tab" href="#tab-11">Salary Payments</a></li>
+                                    <li class=""><a data-toggle="tab" href="#tab-22">Other Payments</a></li>
                                 </ul>
                                 <div class="tab-content">
                                     <div id="tab-11" class="tab-pane active">
                                         <div class="panel-body">
                                             <div class="row">
                                                 <div class="col-lg-4">
-                                                     <strong><i class="fa fa-caret-square-o-down fa-4x" aria-hidden="true"></i></strong>
+                                                     <strong><i class="fa fa-money fa-4x" aria-hidden="true"></i></strong>
                                                 </div>
                                                 <div class="col-lg-8">
-                                                    <h3><strong>102</strong></h3>
-                                                    <h3><strong>Compelted Task</strong></h3>
+                                                    <h3><strong>{{ $salaryPayment }}</strong></h3>
+                                                    <h3><strong>Salary Payments</strong></h3>
                                                 </div>
                                             </div>
                                         </div>
@@ -265,8 +265,8 @@
                                                      <strong><i class="fa fa-empire fa-4x" aria-hidden="true"></i></strong>
                                                 </div>
                                                 <div class="col-lg-8">
-                                                    <h3><strong>102</strong></h3>
-                                                    <h3><strong>Compelted Task</strong></h3>
+                                                    <h3><strong>{{ $otherPayment }}</strong></h3>
+                                                    <h3><strong>Other Payments</strong></h3>
                                                 </div>
                                             </div>
                                         </div>

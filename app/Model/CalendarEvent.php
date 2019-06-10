@@ -12,12 +12,13 @@ class CalendarEvent extends Model
 
     public function addNewEvent($request, $companyId)
     {
+      
         $newEvent = new CalendarEvent();
     	$newEvent->company_id = $companyId;
-    	$newEvent->title = $request->title;
-    	$newEvent->notes = $request->notes;
-        $newEvent->event_date = date('Y-m-d', strtotime($request->date));
-        $newEvent->event_time = $request->time;
+    	$newEvent->title = $request->input('title');
+    	$newEvent->notes = $request->input('notes');
+        $newEvent->event_date = date('Y-m-d', strtotime($request->input('date')));
+        $newEvent->event_time =$request->input('time');
     	$newEvent->save();
 
     	if($newEvent) {

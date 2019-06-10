@@ -57,8 +57,8 @@ var Calendar = function () {
 		    var rules = {
 		        title: {required: true},
 		        notes: {required: true},
-                date: {required: true},
-                time: {required: true},
+                        date: {required: true},
+                        time: {required: true},
 		    };
 
         	var title = $('.title').val();
