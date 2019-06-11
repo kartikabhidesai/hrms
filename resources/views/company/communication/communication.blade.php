@@ -10,7 +10,7 @@
                         <div class="space-25"></div>
                         <h5>Folders</h5>
                         <ul class="folder-list m-b-md" style="padding: 0">
-                            <li><a href="{{ route('communication') }}"> <i class="fa fa-inbox "></i> Inbox <span class="label label-warning pull-right">16</span> </a></li>
+                            <li><a href="{{ route('communication') }}"> <i class="fa fa-inbox "></i> Inbox <span class="label label-warning pull-right">{{ $unread }}</span> </a></li>
                             <!-- <li><a href="mailbox.html"> <i class="fa fa-envelope-o"></i> Send Mail</a></li>
                             <li><a href="mailbox.html"> <i class="fa fa-certificate"></i> Important</a></li>
                             <li><a href="mailbox.html"> <i class="fa fa-file-text-o"></i> Drafts <span class="label label-danger pull-right">2</span></a></li> -->
@@ -37,7 +37,7 @@
                     </div>
                 </form> -->
                 <h2>
-                    Inbox (16)
+                    Inbox ({{ $unread }})
                 </h2>
                 <div class="mail-tools tooltip-demo m-t-md">
                     <div class="btn-group pull-right">

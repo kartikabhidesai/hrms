@@ -45,17 +45,13 @@ class CommunicationController extends Controller
         $userData = Auth::guard('company')->user();
         $getAuthCompanyId = Company::where('email', $userData->email)->first();
         $logedcompanyId = $getAuthCompanyId->id;
+        
+        $unreadobj = new Communication();
+        $data['unread'] = $unreadobj->unreadEmailsForCommunication($logedcompanyId);
+        
         $communicationobj = new Communication();
         $cmpMails = $communicationobj->companyEmailsForCommunication($logedcompanyId);
         $data['cmpMails'] = $cmpMails ? $cmpMails->toArray() : [];
-        // echo "<pre>"; print_r($cmpMails); exit();
-        // if (!empty($cmpMails)) 
-        // {
-        //     foreach ($cmpMails as $key => $value) 
-        //     {
-        //         $value['employee_id'] == 0 ? $cmpMails[$key]['name'] = 'Admin' : '';   
-        //     }    
-        // }
         return view('company.communication.communication', $data);
     }
 
@@ -64,7 +60,12 @@ class CommunicationController extends Controller
         $session = $request->session()->all();
         $userid = $this->loginUser->id;
         $companyId = Company::select('id')->where('user_id', $userid)->first();
-
+         $userData = Auth::guard('company')->user();
+        $getAuthCompanyId = Company::where('email', $userData->email)->first();
+        $logedcompanyId = $getAuthCompanyId->id;
+        $unreadobj = new Communication();
+        $data['unread'] = $unreadobj->unreadEmailsForCommunication($logedcompanyId);
+        
         if(isset($request->communication_id) && $request->communication_id != '' && $request->isMethod('get'))
         {         
             $objCommunication = new Communication();

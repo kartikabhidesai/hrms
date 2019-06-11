@@ -145,6 +145,22 @@ class Communication extends Model
             return null;
         }
     }
+    
+    public function unreadEmailsForCommunication($cmpId)
+    {
+        $unreadMail = Communication::select('employee.name as employeeName','comapnies.company_name as companyName','communication.*')
+                            ->leftjoin('employee','communication.send_emp_id','employee.id')
+                            ->leftjoin('comapnies','communication.company_id','comapnies.id')
+                            ->where('communication.recieve_emp_id',0)
+                            ->where('communication.is_read',0)
+                            ->where('communication.send_by','!=','COMPANY')
+                            ->where('communication.company_id',$cmpId)
+                            ->orderBy('communication.id','desc')
+                            ->get();
+            return count($unreadMail);
+    }
+    
+    
 
     public function companyEmailsForAdminCommunication()
     {
