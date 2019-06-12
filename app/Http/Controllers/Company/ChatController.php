@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\Company;
 
+use App\User;
+use App\Model\Users;
+use App\Model\Employee;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\Chat;
 use Illuminate\Support\Facades\Auth;
 use App\Model\Company;
-
+use App\Model\Notification;
+use App\Model\NotificationMaster;
 
 
 class ChatController extends Controller{
@@ -52,9 +56,27 @@ class ChatController extends Controller{
             case 'insert_chat':
                 $userData = Auth::guard('company')->user();
                 $getAuthCompanyId = Company::where('email', $userData->email)->first();
+                
                 $logeduserId = $getAuthCompanyId->user_id;
+
                 $insertChat = new chat();
                 $insertData = $insertChat->insert_chat($logeduserId,$request);
+
+                $notificationMasterId=20;
+                $objNotificationMaster = new NotificationMaster();
+                $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($logeduserId,$notificationMasterId);
+                
+                if($NotificationUserStatus==1)
+                {
+                    //notification add
+                    $objNotification = new Notification();
+                    $objEmployee = new Employee();
+                    $chatMessage="Chat in  New Message.";
+                    
+                    $route_url="employee-chat";
+                    $ret = $objNotification->addNotification($request->input('to_user_id'),$chatMessage,$route_url,$notificationMasterId);
+                }
+
                 $user_fetch = $insertChat->fetchUserLastMessage($logeduserId,$request->input('to_user_id'));
                 return $user_fetch;
                 // return json_encode($insertData);
