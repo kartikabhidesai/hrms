@@ -75,6 +75,9 @@ Route::match(['get', 'post'], 'taskExpired', ['as' => 'taskExpired', 'uses' => '
 Route::match(['get', 'post'], 'ticketExpired', ['as' => 'ticketExpired', 'uses' => 'CronController@ticketExpired']);
 Route::match(['get', 'post'], 'recruitment-expire', ['as' => 'recruitment-expire', 'uses' => 'CronController@recruitmentSubmissionExpiry']);
 
+Route::match(['get', 'post'], 'frontend', ['as' => 'frontend', 'uses' => 'FrontendController@index']);
+
+
 $userPrefix = "";
 	Route::group(['prefix' => $userPrefix, 'middleware' => ['auth']], function() {
 	Route::match(['get', 'post'], 'dashboard', ['as' => 'dashboard', 'uses' => 'UserController@dashboard']);
