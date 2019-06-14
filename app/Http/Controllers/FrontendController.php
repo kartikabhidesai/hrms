@@ -25,6 +25,8 @@ class FrontendController extends Controller {
     }
     
     public function index(){
+        print_r("HELLo");
+        die();
         $data['title'] = "HRMS - Home" ;
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('front.js','jquery.form.min.js');
