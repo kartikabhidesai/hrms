@@ -17,16 +17,14 @@ use App\Model\Notification;
 
 class FrontendController extends Controller {
 
-    use AuthenticatesUsers;
-
-    protected $redirectTo = '/';
+//    use AuthenticatesUsers;
+//
+//    protected $redirectTo = '/';
     public function __construct() {
         
     }
     
     public function index(){
-        print_r("HELLo");
-        die();
         $data['title'] = "HRMS - Home" ;
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('front.js','jquery.form.min.js');
