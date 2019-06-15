@@ -18,7 +18,6 @@ class AdminController extends Controller {
     }
 
     public function dashboard() {
-        echo "as"; exit();
         $data['detail'] = $this->loginUser;
         $data['header'] = array(
             'title' => 'Dashboard',
