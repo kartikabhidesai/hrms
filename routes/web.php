@@ -12,7 +12,7 @@
 */
 
 // Route::match(['get', 'post'], 'frontend', ['as' => 'frontend', 'uses' => 'FrontendController@index']);
-Route::get('/frontend','FrontendController@index');
+Route::get('/ravi1','FrontendController@index');
 Route::get('/ravi',function(){
     return "AAAAAAA";
 });
