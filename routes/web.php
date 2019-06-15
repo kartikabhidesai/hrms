@@ -10,13 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-// Route::match(['get', 'post'], 'frontend', ['as' => 'frontend', 'uses' => 'FrontendController@index']);
-Route::get('/ravi1','FrontendController@index');
-Route::get('/ravi',function(){
-    return "AAAAAAA";
-});
-
 Route::get('/clear-cache', function() {
     $exitCode = Artisan::call('cache:clear');
     return '<h1>Cache facade value cleared</h1>';
@@ -81,6 +74,9 @@ Route::match(['get', 'post'], 'zero-notification-count', ['as' => 'zero-notifica
 Route::match(['get', 'post'], 'taskExpired', ['as' => 'taskExpired', 'uses' => 'CronController@taskExpired']);
 Route::match(['get', 'post'], 'ticketExpired', ['as' => 'ticketExpired', 'uses' => 'CronController@ticketExpired']);
 Route::match(['get', 'post'], 'recruitment-expire', ['as' => 'recruitment-expire', 'uses' => 'CronController@recruitmentSubmissionExpiry']);
+
+Route::match(['get', 'post'], 'front_end', ['as' => 'frontend', 'uses' => 'FrontendController@index']);
+
 
 $userPrefix = "";
 	Route::group(['prefix' => $userPrefix, 'middleware' => ['auth']], function() {
