@@ -45,9 +45,11 @@ Route::get('/config-cache', function() {
     return '<h1>Clear Config cleared</h1>';
 });
 
-Route::get('/', function () {
+Route::get('/login', function () {
     return Redirect::to('login');
 });
+
+Route::get('/','FrontendController@index');
 
 Route::get('/social-media/{account}','TokenController@tokenCall');
 Route::get('/facebook-user-profile','FacebookController@facebookUser');
@@ -60,7 +62,7 @@ Route::get('/twitter/share','TokenController@twShare');
 
 
 
-Route::match(['get', 'post'], 'exportxls', ['as' => 'login', 'uses' => 'ExcelController@exportxls']);
+Route::match(['get', 'post'], 'exportxls', ['as' => 'exportxls', 'uses' => 'ExcelController@exportxls']);
 Route::match(['get', 'post'], 'login', ['as' => 'login', 'uses' => 'LoginController@auth']);
 Route::match(['get', 'post'], 'order', ['as' => 'order', 'uses' => 'OrderController@index']);
 Route::match(['get', 'post'], 'logout', ['as' => 'logout', 'uses' => 'LoginController@getLogout']);
@@ -74,8 +76,6 @@ Route::match(['get', 'post'], 'zero-notification-count', ['as' => 'zero-notifica
 Route::match(['get', 'post'], 'taskExpired', ['as' => 'taskExpired', 'uses' => 'CronController@taskExpired']);
 Route::match(['get', 'post'], 'ticketExpired', ['as' => 'ticketExpired', 'uses' => 'CronController@ticketExpired']);
 Route::match(['get', 'post'], 'recruitment-expire', ['as' => 'recruitment-expire', 'uses' => 'CronController@recruitmentSubmissionExpiry']);
-
-Route::match(['get', 'post'], 'front_end', ['as' => 'frontend', 'uses' => 'FrontendController@index']);
 
 
 $userPrefix = "";
