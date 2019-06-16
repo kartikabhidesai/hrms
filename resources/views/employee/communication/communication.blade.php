@@ -10,7 +10,7 @@
                         <div class="space-25"></div>
                         <h5>Folders</h5>
                         <ul class="folder-list m-b-md" style="padding: 0">
-                            <li><a href="{{ route('emp-communication') }}"> <i class="fa fa-inbox "></i> Inbox <span class="label label-warning pull-right">16</span> </a></li>
+                            <li><a href="{{ route('emp-communication') }}"> <i class="fa fa-inbox "></i> Inbox <span class="label label-warning pull-right">{{$unread}}</span> </a></li>
                             <!-- <li><a href="mailbox.html"> <i class="fa fa-envelope-o"></i> Send Mail</a></li>
                             <li><a href="mailbox.html"> <i class="fa fa-certificate"></i> Important</a></li>
                             <li><a href="mailbox.html"> <i class="fa fa-file-text-o"></i> Drafts <span class="label label-danger pull-right">2</span></a></li> -->
@@ -85,7 +85,7 @@
                                 @endif
                                 <td class="mail-subject">
                                     <a href="{{ url('/employee/emp-communication-detail/'.$emailList['id']) }}">
-                                        {{ strlen($emailList['message']) > 18 ? substr($emailList['message'],0,18)."..." : $emailList['message'] }}
+                                        {{ strlen(strip_tags($emailList['message'])) > 18 ? substr(strip_tags($emailList['message']),0,18)."..." : strip_tags($emailList['message']) }}
                                     </a>
                                 </td>
                                 <td class="text-right mail-date">
@@ -97,7 +97,7 @@
                             @endforeach
                         @else
                             <tr class="unread">
-                                <td class="check-mail">
+                                <td class="check-mail text-center" colspan="5">
                                     No Emails are present for you!
                                 </td>
                             </tr>

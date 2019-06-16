@@ -141,6 +141,7 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function() {
     Route::match(['get', 'post'], 'communication', ['uses' => 'Admin\CommunicationController@communication']);
     Route::match(['get', 'post'], 'compose', ['uses' => 'Admin\CommunicationController@compose']);
     Route::match(['get', 'post'], 'mail-detail/{id}', ['uses' => 'Admin\CommunicationController@mailDetail']);
+    Route::match(['get', 'post'], 'send-mail-detail/{id}', ['uses' => 'Admin\CommunicationController@sendMailDetail']);
     Route::match(['get', 'post'], 'download-attachment/{file_name}',['uses'=>'Admin\CommunicationController@downloadAttachment']);
     Route::match(['get', 'post'], 'send-mail', ['uses' => 'Admin\CommunicationController@sendMail']);
     

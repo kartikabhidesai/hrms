@@ -26,9 +26,9 @@
         <div class="col-lg-9 animated fadeInRight">
             <div class="mail-box-header">
                 <div class="pull-right tooltip-demo">
-                    <a href="{{url('')}}/employee/emp-compose?communication_id={{$empMailDetail->id}}" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Reply"><i class="fa fa-reply"></i> Reply</a>
+                    {{-- <a href="{{url('')}}/employee/emp-compose?communication_id={{$empMailDetail->id}}" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Reply"><i class="fa fa-reply"></i> Reply</a>
                     <a href="#" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Print email"><i class="fa fa-print"></i></a>
-                    <a href="mailbox.html" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Move to trash"><i class="fa fa-trash-o"></i> </a>
+                    <a href="mailbox.html" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Move to trash"><i class="fa fa-trash-o"></i> </a> --}}
                 </div>
                 <h2>
                     View Message
@@ -39,7 +39,7 @@
                     </h3>
                     <h5>
                         <span class="pull-right font-normal">{{ date('Y-m-d H:i A', strtotime($empMailDetail->created_at)) }}</span>
-                        <span class="font-normal">From: </span>{{ !empty($empMailDetail->employeeEmail) ? $empMailDetail->employeeEmail : $empMailDetail->companyEmail }}
+                        <span class="font-normal">To: </span>{{ !empty($empMailDetail->employeeEmail) ? $empMailDetail->employeeEmail : $empMailDetail->companyEmail }}
                     </h5>
                 </div>
             </div>
@@ -75,10 +75,10 @@
                     </div>
                 @endif
                 <div class="mail-body text-right tooltip-demo">
-                        <a class="btn btn-sm btn-white" href="{{url('')}}/employee/emp-compose?communication_id={{$empMailDetail->id}}"><i class="fa fa-reply"></i> Reply</a>
+                        {{-- <a class="btn btn-sm btn-white" href="{{url('')}}/employee/emp-compose?communication_id={{$empMailDetail->id}}"><i class="fa fa-reply"></i> Reply</a>
                         <a class="btn btn-sm btn-white" href="mail_compose.html"><i class="fa fa-arrow-right"></i> Forward</a>
                         <button title="" data-placement="top" data-toggle="tooltip" type="button" data-original-title="Print" class="btn btn-sm btn-white"><i class="fa fa-print"></i> Print</button>
-                        <button title="" data-placement="top" data-toggle="tooltip" data-original-title="Trash" class="btn btn-sm btn-white"><i class="fa fa-trash-o"></i> Remove</button>
+                        <button title="" data-placement="top" data-toggle="tooltip" data-original-title="Trash" class="btn btn-sm btn-white"><i class="fa fa-trash-o"></i> Remove</button> --}}
                 </div>
                 <div class="clearfix"></div>
             </div>

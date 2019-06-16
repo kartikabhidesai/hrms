@@ -58,13 +58,13 @@ class CommunicationController extends Controller
     public function compose(Request $request)
     {
         $session = $request->session()->all();
-        $userid = $this->loginUser->id;
-        $companyId = Company::select('id')->where('user_id', $userid)->first();
-         $userData = Auth::guard('company')->user();
-        $getAuthCompanyId = Company::where('email', $userData->email)->first();
-        $logedcompanyId = $getAuthCompanyId->id;
+        // $userid = $this->loginUser->id;
+        $userid = Auth::guard('company')->user();
+        $companyId = Company::select('id')->where('user_id', $userid->id)->first();
+        // $getAuthCompanyId = Company::where('email', $userData->email)->first();
+        // $logedcompanyId = $getAuthCompanyId->id;
         $unreadobj = new Communication();
-        $data['unread'] = $unreadobj->unreadEmailsForCommunication($logedcompanyId);
+        $data['unread'] = $unreadobj->unreadEmailsForCommunication($companyId->id);
         
         if(isset($request->communication_id) && $request->communication_id != '' && $request->isMethod('get'))
         {         
@@ -76,8 +76,8 @@ class CommunicationController extends Controller
         if ($request->isMethod('post')) 
         {
             $objCommunication = new Communication();
-            $result = $objCommunication->addNewCommunication($request, $companyId->id);
-            
+            $result = $objCommunication->addNewCommunicationCmp($request, $companyId->id);
+
             if ($result) {
                 $notificationMasterId=5;
                 $objNotificationMaster = new NotificationMaster();
@@ -142,6 +142,7 @@ class CommunicationController extends Controller
         $logedcompanyId = $getAuthCompanyId->id;
         $communicationobj = new Communication();
         $data['cmpMailDetail'] = $communicationobj->companyEmailCommunicationDetail($id);
+        $data['unread'] = $communicationobj->unreadEmailsForCommunication($logedcompanyId);
         return view('company.communication.communication-detail', $data);
     }
 
@@ -165,7 +166,6 @@ class CommunicationController extends Controller
     public function sendMail(Request $request)
     {
         $session = $request->session()->all();
-        
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/communication.js');
         $data['funinit'] = array('Communication.init()');
@@ -182,7 +182,34 @@ class CommunicationController extends Controller
         $logedcompanyId = $getAuthCompanyId->id; 
         $communicationobj = new Communication();
         $cmpMails = $communicationobj->sendCompanyEmails($logedcompanyId);
+        $unreadobj = new Communication();
+        $data['unread'] = $unreadobj->unreadEmailsForCommunication($logedcompanyId);
         $data['cmpMails'] = $cmpMails ? $cmpMails->toArray() : [];
         return view('company.communication.send-communication', $data);
+    }
+
+    public function sendMailDetail(Request $request, $id)
+    {
+        $session = $request->session()->all();
+        
+        $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
+        $data['js'] = array('company/communication.js');
+        $data['funinit'] = array('Communication.init()');
+        $data['css'] = array('');
+        $data['header'] = array(
+            'title' => 'Communcation',
+            'breadcrumb' => array(
+                'Home' => route("company-dashboard"),
+                'Communcation' => route("communication"),
+                'Communcation Detail' => 'Communcation Detail'));
+
+        $empobj = new Employee();
+        $userData = Auth::guard('company')->user();
+        $getAuthCompanyId = Company::where('email', $userData->email)->first();
+        $logedcompanyId = $getAuthCompanyId->id;
+        $communicationobj = new Communication();
+        $data['cmpMailDetail'] = $communicationobj->companySendEmailCommunicationDetail($id);
+        $data['unread'] = $communicationobj->unreadEmailsForCommunication($logedcompanyId);
+        return view('company.communication.send-communication-detail', $data);
     }
 }

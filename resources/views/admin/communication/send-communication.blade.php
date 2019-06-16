@@ -10,7 +10,7 @@
                         <div class="space-25"></div>
                         <h5>Folders</h5>
                         <ul class="folder-list m-b-md" style="padding: 0">
-                            <li><a href="{{ url('admin/communication') }}"> <i class="fa fa-inbox "></i> Inbox <span class="label label-warning pull-right">16</span> </a></li>
+                            <li><a href="{{ url('admin/communication') }}"> <i class="fa fa-inbox "></i> Inbox <span class="label label-warning pull-right">{{$unread}}</span> </a></li>
                             <!-- <li><a href="mailbox.html"> <i class="fa fa-envelope-o"></i> Send Mail</a></li>
                             <li><a href="mailbox.html"> <i class="fa fa-certificate"></i> Important</a></li>
                             <li><a href="mailbox.html"> <i class="fa fa-file-text-o"></i> Drafts <span class="label label-danger pull-right">2</span></a></li> -->
@@ -37,7 +37,7 @@
                     </div>
                 </form> -->
                 <h2>
-                    Inbox (16)
+                    Inbox ({{$unread}})
                 </h2>
                 <div class="mail-tools tooltip-demo m-t-md">
                     <div class="btn-group pull-right">
@@ -70,7 +70,7 @@
                                 <tr class="unread">
                                     <td>
                                         <input type="hidden" name="mail_id" value="{{ $emailList['id'] }}">
-                                        <a href="#">{{ $emailList['recieve_emp_id'] == 0 || $emailList['recieve_emp_id'] == null ? $emailList['companyName'] : $emailList['employeeName'] }}</a>
+                                        <a href="{{ url('/admin/send-mail-detail/'.$emailList['id']) }}">{{ $emailList['recieve_emp_id'] == 0 || $emailList['recieve_emp_id'] == null ? $emailList['companyName'] : $emailList['employeeName'] }}</a>
                                     </td>
                                     <td>
                                         <a href="#">{{ $emailList['subject'] ? $emailList['subject'] : strip_tags($emailList['employeeName']) }}</a>
@@ -81,7 +81,7 @@
                                         <td class=""></td>
                                     @endif
                                     <td>
-                                        {{ strlen($emailList['message']) > 18 ? substr($emailList['message'],0,18)."..." : $emailList['message'] }}
+                                        {{ strlen(strip_tags($emailList['message'])) > 18 ? substr(strip_tags($emailList['message']),0,18)."..." : strip_tags($emailList['message']) }}
                                     </td>
                                     <td class="text-right mail-date">
                                         {{ date('Y-m-d H:i A', strtotime($emailList['created_at'])) }}
@@ -90,7 +90,7 @@
                             @endforeach
                         @else
                             <tr class="unread">
-                                <td class="check-mail">
+                                <td class="check-mail text-center" colspan="5">
                                     No Emails are present for you!
                                 </td>
                             </tr>

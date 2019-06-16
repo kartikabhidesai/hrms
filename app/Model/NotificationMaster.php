@@ -50,7 +50,7 @@ class NotificationMaster extends Model {
                     ->where('notification_master_id',$notification_master_id)
                     ->select('*')
                     ->first();
-        return $getdata->status;
+        return @$getdata->status;
     }
      
      

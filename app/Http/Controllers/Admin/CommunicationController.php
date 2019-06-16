@@ -36,8 +36,8 @@ class CommunicationController extends Controller
         
         $communicationobj = new Communication();
         $cmpMails = $communicationobj->companyEmailsForAdminCommunication();
-        $cmpMails = $cmpMails ? $cmpMails->toArray() : [];
-        $data['cmpMails'] = array_merge($cmpMails);
+        $data['unread'] = $communicationobj->unreadEmailsForCommunicationAdmin();
+        $data['cmpMails'] = $cmpMails ? $cmpMails->toArray() : [];
 
         return view('admin.communication.communication', $data);
     }
@@ -54,7 +54,6 @@ class CommunicationController extends Controller
         }
 
         if ($request->isMethod('post')) {
-
             $objCommunication = new Communication();
             $result = $objCommunication->addNewCommunicationAdmin($request);
 
@@ -65,8 +64,7 @@ class CommunicationController extends Controller
                 $communicationName="Communication a message is received.";
                 $objEmployee = new Employee();
                 $u_id=$objEmployee->getUseridById($request->input('emp_id'));
-                $ret = $objNotification->addNotification($u_id,$communicationName);
-
+                $ret = $objNotification->addNotification($request->cmp_id,$communicationName,'company/compose',11);
                 $return['status'] = 'success';
                 $return['message'] = 'New Communication Email sent successfully.';
                 $return['redirect'] = route('communication');
@@ -77,7 +75,7 @@ class CommunicationController extends Controller
             echo json_encode($return);
             exit;
         }
-
+        $data['unread'] = $objCommunication->unreadEmailsForCommunicationAdmin();
         $data['companyList'] = Company::select('id','company_name')->get();
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('admin/communication.js','ckeditor/ckeditor.js','plugins/summernote/summernote.min.js', 'jquery.form.min.js');
@@ -107,6 +105,7 @@ class CommunicationController extends Controller
                 'Communcation Detail' => 'Communcation Detail'));
 
         $communicationobj = new Communication();
+        $data['unread'] = $communicationobj->unreadEmailsForCommunicationAdmin();
         $data['cmpMailDetail'] = $communicationobj->adminEmailCommunicationDetail($id);
         
         return view('admin.communication.communication-detail', $data);
@@ -147,7 +146,28 @@ class CommunicationController extends Controller
         $cmpMails = $communicationobj->sendAdminEmails();
         $cmpMails = $cmpMails ? $cmpMails->toArray() : [];
         $data['cmpMails'] = array_merge($cmpMails);
+        $data['unread'] = $communicationobj->unreadEmailsForCommunicationAdmin();
 
         return view('admin.communication.send-communication', $data);
+    }
+
+    public function sendMailDetail(Request $request, $id)
+    {        
+        $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
+        $data['js'] = array('admin/communication.js');
+        $data['funinit'] = array('Communication.init()');
+        $data['css'] = array('');
+        $data['header'] = array(
+            'title' => 'Communcation',
+            'breadcrumb' => array(
+                'Home' => route("admin-dashboard"),
+                'Communcation' => url("admin/communication"),
+                'Communcation Detail' => 'Communcation Detail'));
+
+        $communicationobj = new Communication();
+        $data['unread'] = $communicationobj->unreadEmailsForCommunicationAdmin();
+        $data['cmpMailDetail'] = $communicationobj->adminEmailCommunicationDetail($id);
+        
+        return view('admin.communication.send-communication-detail', $data);
     }
 }

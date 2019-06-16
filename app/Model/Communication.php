@@ -15,7 +15,7 @@ class Communication extends Model
 
     protected $fillable = ['id','communication_id','send_by', 'company_id','send_emp_id','recieve_emp_id','message', 'is_read','file','subject'];
 
-    public function addNewCommunication($request, $companyId)
+    public function addNewCommunicationCmp($request, $companyId)
     {
         // echo "<pre>new"; print_r($request->toArray()); exit();
         $file = '';
@@ -45,7 +45,7 @@ class Communication extends Model
         return TRUE;
     }
 
-    public function addNewCommunicationCmp($request, $companyId, $empId)
+    public function addNewCommunicationEmp($request, $companyId, $empId)
     {
         $newCommnucation = new Communication();
         $newCommnucation->communication_id = isset($request->communication_id) ? $request->communication_id : 0;
@@ -151,7 +151,10 @@ class Communication extends Model
         $unreadMail = Communication::select('employee.name as employeeName','comapnies.company_name as companyName','communication.*')
                             ->leftjoin('employee','communication.send_emp_id','employee.id')
                             ->leftjoin('comapnies','communication.company_id','comapnies.id')
-                            ->where('communication.recieve_emp_id',0)
+                            ->where(function($q){
+                                $q->where('communication.recieve_emp_id',0);
+                                $q->orWhereNull('communication.recieve_emp_id');
+                            })
                             ->where('communication.is_read',0)
                             ->where('communication.send_by','!=','COMPANY')
                             ->where('communication.company_id',$cmpId)
@@ -160,7 +163,33 @@ class Communication extends Model
             return count($unreadMail);
     }
     
-    
+    public function unreadEmailsForCommunicationEmployee($empId)
+    {
+        $unreadMail = Communication::select('employee.name as employeeName','comapnies.company_name as companyName','communication.*')
+                            ->leftjoin('employee','communication.send_emp_id','employee.id')
+                            ->leftjoin('comapnies','communication.company_id','comapnies.id')
+                            ->where('communication.recieve_emp_id',$empId)
+                            ->where('communication.is_read',0)
+                            ->where('communication.send_by','!=','EMPLOYEE')
+                            // ->where('communication.company_id',$cmpId)
+                            ->orderBy('communication.id','desc')
+                            ->get();
+        // echo "<pre>"; print_r($unreadMail->toArray()); exit(); 
+            return count($unreadMail);
+    }
+
+    public function unreadEmailsForCommunicationAdmin()
+    {
+        $unreadMail = Communication::select('comapnies.company_name as companyName','communication.*')
+                            ->leftjoin('comapnies','communication.company_id','comapnies.id')
+                            ->where('communication.recieve_emp_id',0)
+                            ->where('communication.send_emp_id',0)
+                            ->where('communication.is_read',0)
+                            ->where('communication.send_by','COMPANY')
+                            ->orderBy('communication.id','desc')
+                            ->get();
+            return count($unreadMail);
+    }
 
     public function companyEmailsForAdminCommunication()
     {
@@ -192,6 +221,24 @@ class Communication extends Model
                                         ->leftjoin('comapnies','communication.company_id','comapnies.id')
                                         ->where('communication.id',$id)
                                         ->first();
+
+        if($findCommunication) {
+            return $findCommunication;
+        } else {
+            return null;
+        }
+    }
+
+    public function companySendEmailCommunicationDetail($id)
+    {
+        $findCommunication = Communication::select('employee.name as employeeName','employee.email as employeeEmail','comapnies.company_name as companyName','communication.*')
+                                        ->leftjoin('employee','communication.recieve_emp_id','employee.id')
+                                        ->leftjoin('comapnies','communication.company_id','comapnies.id')
+                                        ->where('communication.id',$id)
+                                        ->first();
+
+        // echo "<pre>"; print_r($findCommunication->toArray()); exit();
+
         if($findCommunication) {
             return $findCommunication;
         } else {
@@ -220,7 +267,7 @@ class Communication extends Model
                                                 'employee.email as employeeEmail',
                                                 'communication.*')
                                         ->leftjoin('comapnies', 'communication.company_id', 'comapnies.id')
-                                        ->leftjoin('employee', 'communication.send_emp_id', 'employee.id')
+                                        ->leftjoin('employee', 'communication.recieve_emp_id', 'employee.id')
                                         ->where('communication.id', $id)
                                         ->first();
         if($findCommunication) {
@@ -277,7 +324,7 @@ class Communication extends Model
     public function sendEmployeeEmails($empId)
     {
         $getListOfEmailOfCmp = Communication::select('employee.name as employeeName','comapnies.company_name as companyName','communication.*')
-            ->leftjoin('employee','communication.send_emp_id','employee.id')
+            ->leftjoin('employee','communication.recieve_emp_id','employee.id')
             ->leftjoin('comapnies','communication.company_id','comapnies.id')
             ->where('communication.send_emp_id',$empId)
             ->where('communication.send_by', 'EMPLOYEE')
