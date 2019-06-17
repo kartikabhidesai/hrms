@@ -76,8 +76,13 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
     // Communication task-list
 
     Route::match(['get', 'post'], 'communication', ['as' => 'communication', 'uses' => 'Company\CommunicationController@communication']);
+    Route::match(['get', 'post'], 'trashMailList', ['as' => 'trashMailList', 'uses' => 'Company\CommunicationController@trashMailList']);
     Route::match(['get', 'post'], 'compose', ['as' => 'compose', 'uses' => 'Company\CommunicationController@compose']);
+    Route::match(['get', 'post'], 'trashMail', ['as' => 'trashMail', 'uses' => 'Company\CommunicationController@trashMail']);
     Route::match(['get', 'post'], 'mail-detail/{id}', ['as' => 'mail-detail/{id}', 'uses' => 'Company\CommunicationController@mailDetail']);
+    
+    Route::match(['get', 'post'], 'mail-detail-trash/{id}', ['as' => 'mail-detail-trash/{id}', 'uses' => 'Company\CommunicationController@mailDetailTrash']);
+    
     Route::match(['get', 'post'], 'send-mail-detail/{id}', ['as' => 'send-mail-detail/{id}', 'uses' => 'Company\CommunicationController@sendMailDetail']);
     Route::match(['get', 'post'], 'download-attachment/{file_name}', ['as' => 'download-attachment/{file_name}', 'uses' => 'Company\CommunicationController@downloadAttachment']);
     Route::match(['get', 'post'], 'send-mail', ['as' => 'send-mail', 'uses' => 'Company\CommunicationController@sendMail']);

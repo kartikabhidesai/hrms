@@ -14,7 +14,7 @@
                             <!-- <li><a href="mailbox.html"> <i class="fa fa-envelope-o"></i> Send Mail</a></li>
                             <li><a href="mailbox.html"> <i class="fa fa-certificate"></i> Important</a></li>
                             <li><a href="mailbox.html"> <i class="fa fa-file-text-o"></i> Drafts <span class="label label-danger pull-right">2</span></a></li> -->
-                            <li><a href="#"> <i class="fa fa-trash-o"></i> Trash</a></li>
+                            <li><a href="{{ route('emp-trash') }}"> <i class="fa fa-trash-o"></i> Trash</a></li>
                             <li><a href="{{ route('emp-send-mail') }}"> <i class="fa fa-reply"></i> Send</a></li>
                         </ul>
                        
@@ -26,18 +26,8 @@
         <div class="col-lg-9 animated fadeInRight">
             <div class="mail-box-header">
 
-                <!-- <form method="get" action="index.html" class="pull-right mail-search">
-                    <div class="input-group">
-                        <input type="text" class="form-control input-sm" name="search" placeholder="Search email">
-                        <div class="input-group-btn">
-                            <button type="submit" class="btn btn-sm btn-primary">
-                                Search
-                            </button>
-                        </div>
-                    </div>
-                </form> -->
                 <h2>
-                    Inbox (100)
+                    Inbox ({{$unread}})
                 </h2>
                 <div class="mail-tools tooltip-demo m-t-md">
                     <div class="btn-group pull-right">

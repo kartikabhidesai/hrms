@@ -26,18 +26,8 @@
         <div class="col-lg-9 animated fadeInRight">
             <div class="mail-box-header">
 
-                <!-- <form method="get" action="index.html" class="pull-right mail-search">
-                    <div class="input-group">
-                        <input type="text" class="form-control input-sm" name="search" placeholder="Search email">
-                        <div class="input-group-btn">
-                            <button type="submit" class="btn btn-sm btn-primary">
-                                Search
-                            </button>
-                        </div>
-                    </div>
-                </form> -->
-               <h2>
-                    Sent Mails ({{count($empMails)}})
+                <h2>
+                    Trash ({{count($empMails)}})
                 </h2>
                 <div class="mail-tools tooltip-demo m-t-md">
                     <div class="btn-group pull-right">
@@ -46,17 +36,17 @@
 
                     </div>
                     <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="left" title="" data-original-title="Refresh inbox"><i class="fa fa-refresh"></i> Refresh</button>
-                   
+                    <!-- <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="Mark as read"><i class="fa fa-eye"></i> </button>
+                    <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="Mark as important"><i class="fa fa-exclamation"></i> </button> -->
                     <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Move to trash"><i class="fa fa-trash-o"></i> </button>
 
                 </div>
             </div>
             <div class="mail-box">
-
                 <table class="table table-hover table-mail text-center">
                     <thead>
                         <tr>
-                            <th class="text-center">To</th>
+                            <th class="text-center">From</th>
                             <th class="text-center">Subject</th>
                             <th class="text-center">Attachment</th>
                             <th class="text-center">Message</th>
@@ -66,26 +56,34 @@
                     <tbody>
                         @if($empMails)
                             @foreach($empMails as $emailList)
-                                <tr class="unread">
-                                    <td>
+                            <tr class="unread">
+                                <td>
+                                    <a href="{{ url('/employee/emp-communication-detail-trash/'.$emailList['id']) }}">
                                         <input type="hidden" name="mail_id" value="{{ $emailList['id'] }}">
-                                        <a href="{{ url('/employee/send-emp-communication-detail/'.$emailList['id']) }}">{{ $emailList['recieve_emp_id'] == 0 || $emailList['recieve_emp_id'] == null ? $emailList['companyName'] : $emailList['employeeName'] }}</a>
-                                    </td>
-                                    <td>
-                                        <a href="#">{{ $emailList['subject'] ? $emailList['subject'] : strip_tags($emailList['employeeName']) }}</a>
-                                    </td>
-                                    @if($emailList['file'])
-                                        <td class=""><i class="fa fa-paperclip"></i></td>
-                                    @else
-                                        <td class=""></td>
-                                    @endif
-                                    <td>
+                                        {{ $emailList['send_emp_id'] == '' || $emailList['send_emp_id'] == 0 ? $emailList['companyName'] : $emailList['send_emp_name'] }}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="{{ url('/employee/emp-communication-detail-trash/'.$emailList['id']) }}">
+                                        {{ $emailList['subject'] ? $emailList['subject'] : strip_tags($emailList['subject']) }}
+                                    </a>
+                                </td>
+                                @if($emailList['file'])
+                                    <td class=""><i class="fa fa-paperclip"></i></td>
+                                @else
+                                    <td class=""></td>
+                                @endif
+                                <td class="mail-subject">
+                                    <a href="{{ url('/employee/emp-communication-detail-trash/'.$emailList['id']) }}">
                                         {{ strlen(strip_tags($emailList['message'])) > 18 ? substr(strip_tags($emailList['message']),0,18)."..." : strip_tags($emailList['message']) }}
-                                    </td>
-                                    <td class="text-right mail-date">
+                                    </a>
+                                </td>
+                                <td class="text-right mail-date">
+                                    <a href="{{ url('/employee/emp-communication-detail-trash/'.$emailList['id']) }}">
                                         {{ date('Y-m-d H:i A', strtotime($emailList['created_at'])) }}
-                                    </td>
-                                </tr>
+                                    </a>
+                                </td>
+                            </tr>
                             @endforeach
                         @else
                             <tr class="unread">
@@ -96,8 +94,6 @@
                         @endif
                     </tbody>
                 </table>
-
-
             </div>
         </div>
     </div>

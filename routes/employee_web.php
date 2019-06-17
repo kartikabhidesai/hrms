@@ -61,8 +61,11 @@ Route::group(['prefix' => $employeePrefix, 'middleware' => ['employee']], functi
 
     /*Communication routes*/
     Route::match(['get', 'post'], 'emp-communication', ['as' => 'emp-communication', 'uses' => 'Employee\CommunicationController@communication']);
+    Route::match(['get', 'post'], 'emp-trash', ['as' => 'emp-trash', 'uses' => 'Employee\CommunicationController@emptrashlist']);
+    Route::match(['get', 'post'], 'emp-trashMail', ['as' => 'emp-trashMail', 'uses' => 'Employee\CommunicationController@empTrash']);
     Route::match(['get', 'post'], 'emp-compose', ['as' => 'emp-compose', 'uses' => 'Employee\CommunicationController@compose']);
     Route::match(['get', 'post'], 'emp-communication-detail/{id}', ['as' => 'emp-communication-detail/{id}', 'uses' => 'Employee\CommunicationController@empCommunicationDetail']);
+    Route::match(['get', 'post'], 'emp-communication-detail-trash/{id}', ['as' => 'emp-communication-detail-trash/{id}', 'uses' => 'Employee\CommunicationController@empCommunicationDetailTrash']);
     Route::match(['get', 'post'], 'send-emp-communication-detail/{id}', ['as' => 'send-emp-communication-detail/{id}', 'uses' => 'Employee\CommunicationController@sendEmpCommunicationDetail']);
     Route::match(['get', 'post'], 'empdownload-attachment/{file_name}', ['as' => 'empdownload-attachment/{file_name}', 'uses' => 'Employee\CommunicationController@downloadAttachment']);
     Route::match(['get', 'post'], 'emp-send-mail', ['as' => 'emp-send-mail', 'uses' => 'Employee\CommunicationController@sendMail']);
