@@ -2,7 +2,6 @@
 <script src="{{ asset('frontend/js/popper.min.js') }}"></script>
 <script src="{{ asset('frontend/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('frontend/js/classie.js') }}"></script>
-<script src="{{ asset('frontend/js/color-switcher.js') }}"></script>
 <script src="{{ asset('frontend/js/jquery.mixitup.js') }}"></script>
 <script src="{{ asset('frontend/js/nivo-lightbox.js') }}"></script>
 <script src="{{ asset('frontend/js/owl.carousel.js') }}"></script>
