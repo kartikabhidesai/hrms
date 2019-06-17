@@ -60,6 +60,30 @@ class CompanyController extends Controller {
                                 ->where('date_of_birth', '>=', date('Y-m-d'))
                                 ->count();
         
+        $birth= Employee::where('company_id', $companyId['id'])
+                                ->where('date_of_birth', 'like', '%-'.$month.'-%')
+                                ->where('date_of_birth', '>=', date('Y-m-d'))
+                                ->get()->first();
+        
+        $eventfirst = CalendarEvent::where('company_id', $companyId['id'])
+                                ->where('event_date', 'like', '%-'.$month.'-%')
+                                ->where('event_date', '>=', date('Y-m-d'))
+                                ->get()->first();
+//        print_r();die();
+//        
+        if(isset($eventfirst)){
+            $data['title']=$eventfirst['title'];
+            $data['date']=date('d-m-Y', strtotime($eventfirst['event_date']));
+        }else{
+            if(isset($birth)){
+                $data['title']='Birthdate';
+                $data['date']=date('d-m-Y', strtotime($birth['date_of_birth']));
+            }else{
+                $data['title']='Events';
+                $data['date']=date('F') ;
+            }
+        }
+        
         $event = CalendarEvent::where('company_id', $companyId['id'])
                                 ->where('event_date', 'like', '%-'.$month.'-%')
                                 ->where('event_date', '>=', date('Y-m-d'))

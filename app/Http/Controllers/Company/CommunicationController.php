@@ -124,7 +124,14 @@ class CommunicationController extends Controller
     public function mailDetail(Request $request, $id)
     {
         $session = $request->session()->all();
-        
+        $objMakeread = new Communication();
+        $makeRead = $objMakeread->Makeread($id);
+        $empobj = new Employee();
+        $userData = Auth::guard('company')->user();
+        $getAuthCompanyId = Company::where('email', $userData->email)->first();
+        $logedcompanyId = $getAuthCompanyId->id;
+        $unreadobj = new Communication();
+        $data['unread'] = $unreadobj->unreadEmailsForCommunication($logedcompanyId);
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/communication.js');
         $data['funinit'] = array('Communication.init()');
@@ -135,12 +142,12 @@ class CommunicationController extends Controller
                 'Home' => route("company-dashboard"),
                 'Communcation' => route("communication"),
                 'Communcation Detail' => 'Communcation Detail'));
-
         $empobj = new Employee();
         $userData = Auth::guard('company')->user();
         $getAuthCompanyId = Company::where('email', $userData->email)->first();
         $logedcompanyId = $getAuthCompanyId->id;
         $communicationobj = new Communication();
+        $data['id']=$id;
         $data['cmpMailDetail'] = $communicationobj->companyEmailCommunicationDetail($id);
         $data['unread'] = $communicationobj->unreadEmailsForCommunication($logedcompanyId);
         return view('company.communication.communication-detail', $data);
@@ -211,5 +218,85 @@ class CommunicationController extends Controller
         $data['cmpMailDetail'] = $communicationobj->companySendEmailCommunicationDetail($id);
         $data['unread'] = $communicationobj->unreadEmailsForCommunication($logedcompanyId);
         return view('company.communication.send-communication-detail', $data);
+    }
+    
+    public function trashMail(Request $request){
+        $objTrashMail = new Communication();
+        $result= $objTrashMail->trashMail($request['data']);
+            if ($result) {
+                $return['status'] = 'success';
+                $return['message'] = 'Communication Email deleted successfully.';
+                $return['redirect'] = route('communication');
+            } else {
+                $return['status'] = 'error';
+                $return['message'] = 'Something goes to wrong';
+            }
+            echo json_encode($return);
+            exit;
+    }
+    
+    public function trashMailList(Request $request){
+        $session = $request->session()->all();
+
+        $items = Session::get('notificationdata');
+        $userID = $this->loginUser;
+        $objNotification = new Notification();
+        $items=$objNotification->SessionNotificationCount($userID->id);        
+        Session::put('notificationdata', $items);
+        
+        $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
+        $data['js'] = array('company/communication.js');
+        $data['funinit'] = array('Communication.trash()');
+        $data['css'] = array('');
+        $data['header'] = array(
+            'title' => 'Communcation',
+            'breadcrumb' => array(
+                'Home' => route("company-dashboard"),
+                'Communcation' => 'Communcation'));
+
+        $empobj = new Employee();
+        $userData = Auth::guard('company')->user();
+        $getAuthCompanyId = Company::where('email', $userData->email)->first();
+        $logedcompanyId = $getAuthCompanyId->id;
+        
+        $unreadobj = new Communication();
+        $data['unread'] = $unreadobj->unreadEmailsForCommunication($logedcompanyId);
+        
+        $communicationobj = new Communication();
+        $cmpMails = $communicationobj->companyTrashEmailsForCommunication($logedcompanyId);
+        $data['cmpMails'] = $cmpMails ? $cmpMails->toArray() : [];
+        
+        return view('company.communication.communicationTrash', $data);
+    }
+    
+    public function mailDetailTrash(Request $request,$id){
+        $session = $request->session()->all();
+        $objMakeread = new Communication();
+        $makeRead = $objMakeread->Makeread($id);
+        $empobj = new Employee();
+        $userData = Auth::guard('company')->user();
+        $getAuthCompanyId = Company::where('email', $userData->email)->first();
+        $logedcompanyId = $getAuthCompanyId->id;
+        $unreadobj = new Communication();
+        $data['unread'] = $unreadobj->unreadEmailsForCommunication($logedcompanyId);
+        $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
+        $data['js'] = array('company/communication.js');
+        $data['funinit'] = array('Communication.init()');
+        $data['css'] = array('');
+        $data['header'] = array(
+            'title' => 'Communcation',
+            'breadcrumb' => array(
+                'Home' => route("company-dashboard"),
+                'Communcation' => route("communication"),
+                'Communcation Detail' => 'Communcation Detail'));
+        $empobj = new Employee();
+        $userData = Auth::guard('company')->user();
+        $getAuthCompanyId = Company::where('email', $userData->email)->first();
+        $logedcompanyId = $getAuthCompanyId->id;
+        $communicationobj = new Communication();
+        $data['id']=$id;
+        $data['cmpMailDetail'] = $communicationobj->companyEmailCommunicationDetail($id);
+        $data['unread'] = $communicationobj->unreadEmailsForCommunication($logedcompanyId);
+        return view('company.communication.communication-detail-trash', $data);
     }
 }

@@ -123,7 +123,8 @@ class CommunicationController extends Controller
     public function empCommunicationDetail(Request $request, $id)
     {
         $session = $request->session()->all();
-        
+        $objMakeread = new Communication();
+        $makeRead = $objMakeread->Makeread($id);
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('employee/communication.js');
         $data['funinit'] = array('Communication.init()');
@@ -141,7 +142,7 @@ class CommunicationController extends Controller
        
         $getAuthEmployeeId = Employee::where('email', $userData->email)->first();
         $logedEmpId = $getAuthEmployeeId->id;
-        
+        $data['id']=$id;
         $communicationobj = new Communication();
         $data['empMailDetail'] = $communicationobj->employeeEmailCommunicationDetail($id);
         $data['unread'] = $communicationobj->unreadEmailsForCommunicationEmployee($logedEmpId);
@@ -217,5 +218,79 @@ class CommunicationController extends Controller
         $data['empMailDetail'] = $communicationobj->employeeEmailCommunicationDetail($id);
         $data['unread'] = $communicationobj->unreadEmailsForCommunicationEmployee($logedEmpId);
         return view('employee.communication.send-communication-detail', $data);
+    }
+    
+    public function empTrash(Request $request){
+           $objTrashMail = new Communication();
+        $result= $objTrashMail->trashMail($request['data']);
+            if ($result) {
+                $return['status'] = 'success';
+                $return['message'] = 'Communication Email deleted successfully.';
+                $return['redirect'] = route('emp-communication');
+            } else {
+                $return['status'] = 'error';
+                $return['message'] = 'Something goes to wrong';
+            }
+            echo json_encode($return);
+            exit;
+    }
+    
+    public function emptrashlist(Request $request){
+        $session = $request->session()->all();
+
+        $items = Session::get('notificationdata');
+        $userID = $this->loginUser;
+        $objNotification = new Notification();
+        $items=$objNotification->SessionNotificationCount($userID->id);        
+        Session::put('notificationdata', $items);
+        
+        $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
+        $data['js'] = array('employee/communication.js');
+        $data['funinit'] = array('Communication.init()');
+        $data['css'] = array('');
+        $data['header'] = array(
+            'title' => 'Communcation',
+            'breadcrumb' => array(
+                'Home' => route("employee-dashboard"),
+                'Communcation' => 'Communcation'));
+
+        $communicationobj = new Communication();
+        $userData = Auth::guard('employee')->user();
+        $getAuthEmpId = Employee::where('email', $userData->email)->first();
+        $logedEmpId = $getAuthEmpId->id; 
+        $empMails = $communicationobj->employeeTrashEmailsForCommunication($logedEmpId);
+        $data['unread'] = $communicationobj->unreadEmailsForCommunicationEmployee($logedEmpId);
+        $data['empMails'] = $empMails ? $empMails->toArray() : [];
+
+        return view('employee.communication.communication-trash', $data);
+    }
+    
+    
+    public function empCommunicationDetailTrash(Request $request, $id){
+        $session = $request->session()->all();
+        $objMakeread = new Communication();
+        $makeRead = $objMakeread->Makeread($id);
+        $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
+        $data['js'] = array('employee/communication.js');
+        $data['funinit'] = array('Communication.init()');
+        $data['css'] = array('');
+        $data['header'] = array(
+            'title' => 'Communcation',
+            'breadcrumb' => array(
+                'Home' => route("employee-dashboard"),
+                'Communcation' => route("emp-communication"),
+                'Communcation Detail' => 'Communcation Detail'));
+
+        $empobj = new Employee();
+        
+        $userData = Auth::guard('employee')->user();
+       
+        $getAuthEmployeeId = Employee::where('email', $userData->email)->first();
+        $logedEmpId = $getAuthEmployeeId->id;
+        $data['id']=$id;
+        $communicationobj = new Communication();
+        $data['empMailDetail'] = $communicationobj->employeeEmailCommunicationDetail($id);
+        $data['unread'] = $communicationobj->unreadEmailsForCommunicationEmployee($logedEmpId);
+        return view('employee.communication.communication-detail-trash', $data);
     }
 }

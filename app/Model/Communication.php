@@ -116,6 +116,7 @@ class Communication extends Model
             ->leftjoin('comapnies', 'communication.company_id','comapnies.id')
             ->leftjoin('employee', 'communication.send_emp_id','employee.id')
             ->where('communication.recieve_emp_id',$empId)
+            ->where('communication.is_trash','0')
             ->orderBy('communication.id','desc')
             ->get();
 
@@ -136,6 +137,7 @@ class Communication extends Model
                             ->where('communication.recieve_emp_id',0)
                             ->where('communication.send_by','!=','COMPANY')
                             ->where('communication.company_id',$cmpId)
+                            ->where('communication.is_trash','0')
                             ->orderBy('communication.id','desc')
                             ->get();
 
@@ -156,6 +158,7 @@ class Communication extends Model
                                 $q->orWhereNull('communication.recieve_emp_id');
                             })
                             ->where('communication.is_read',0)
+                            ->where('communication.is_trash','0')
                             ->where('communication.send_by','!=','COMPANY')
                             ->where('communication.company_id',$cmpId)
                             ->orderBy('communication.id','desc')
@@ -171,6 +174,7 @@ class Communication extends Model
                             ->where('communication.recieve_emp_id',$empId)
                             ->where('communication.is_read',0)
                             ->where('communication.send_by','!=','EMPLOYEE')
+                            ->where('communication.is_trash','0')
                             // ->where('communication.company_id',$cmpId)
                             ->orderBy('communication.id','desc')
                             ->get();
@@ -348,4 +352,59 @@ class Communication extends Model
             return null;
         }
     }
-}
+    
+    
+    public function Makeread($id){
+        $objCommunication = Communication::find($id);
+        $objCommunication->is_read = 1;
+        $objCommunication->updated_at = date('Y-m-d H:i:s');
+        $objCommunication->save();
+        return TRUE;
+        
+    }
+    
+    public function trashMail($request){
+        
+        $objCommunication = Communication::find($request['id']);
+        $objCommunication->is_trash ='1';
+        $objCommunication->updated_at = date('Y-m-d H:i:s');
+        return $objCommunication->save();
+    }
+    
+    public function companyTrashEmailsForCommunication($cmpId) {
+        $getListOfEmailOfCmp = Communication::select('employee.name as employeeName','comapnies.company_name as companyName','communication.*')
+                            ->leftjoin('employee','communication.send_emp_id','employee.id')
+                            ->leftjoin('comapnies','communication.company_id','comapnies.id')
+                            ->where('communication.recieve_emp_id',0)
+                            ->where('communication.send_by','!=','COMPANY')
+                            ->where('communication.company_id',$cmpId)
+                            ->where('communication.is_trash','1')
+                            ->orderBy('communication.id','desc')
+                            ->get();
+
+        if(count($getListOfEmailOfCmp) > 0) {
+            return $getListOfEmailOfCmp;
+        } else {
+            return null;
+        }
+    }
+    
+    
+    public function employeeTrashEmailsForCommunication($empId){
+        $getListOfEmailOfEmp = Communication::select('communication.*','comapnies.company_name as companyName','employee.name as send_emp_name')
+            ->leftjoin('comapnies', 'communication.company_id','comapnies.id')
+            ->leftjoin('employee', 'communication.send_emp_id','employee.id')
+            ->where('communication.recieve_emp_id',$empId)
+            ->where('communication.is_trash','1')
+            ->orderBy('communication.id','desc')
+            ->get();
+
+        // echo "<pre>"; print_r($getListOfEmailOfEmp->toArray()); exit();
+
+        if(count($getListOfEmailOfEmp) > 0) {
+            return $getListOfEmailOfEmp;
+        } else {
+            return null;
+        }
+    }
+}?>

@@ -1,6 +1,33 @@
 var Communication = function () {
 
     var send_sms = function () {
+        
+         $('body').on('click', '.deleteMail', function() {
+            var id = $(this).data('id');
+            setTimeout(function() {
+                $('.yes-sure-deletmail:visible').attr('data-id', id);
+            }, 500);
+        })
+
+        $('body').on('click', '.yes-sure-deletmail', function() {
+            var id = $(this).attr('data-id');
+            var data = {id: id, _token: $('#_token').val()};
+           
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                },
+                url: baseurl + "employee/emp-trashMail",
+                data: {'data': data},
+                success: function(data) {
+                    handleAjaxResponse(data);
+                }
+            });
+        });
+
+
+
         $('.chat-user').on("click", function () {
             console.log($(this).attr("data-id"));
         });

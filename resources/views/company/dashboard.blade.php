@@ -204,7 +204,7 @@
                         <div class="col-lg-4">
                             <div class="tabs-container">
                                 <ul class="nav nav-tabs">
-                                    <li class="active"><a data-toggle="tab" href="#tab-1"> Events - {{ date('F') }}</a></li>
+                                    <li class="active"><a data-toggle="tab" href="#tab-1"> {{ $title }} - {{ $date }}</a></li>
                                     <li class=""><a data-toggle="tab" href="#tab-2">Overdue Task</a></li>
                                 </ul>
                                 <div class="tab-content">

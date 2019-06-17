@@ -14,7 +14,7 @@
                             <!-- <li><a href="mailbox.html"> <i class="fa fa-envelope-o"></i> Send Mail</a></li>
                             <li><a href="mailbox.html"> <i class="fa fa-certificate"></i> Important</a></li>
                             <li><a href="mailbox.html"> <i class="fa fa-file-text-o"></i> Drafts <span class="label label-danger pull-right">2</span></a></li> -->
-                            <li><a href="#"> <i class="fa fa-trash-o"></i> Trash</a></li>
+                            <li><a href="{{ route('emp-trash') }}"> <i class="fa fa-trash-o"></i> Trash</a></li>
                             <li><a href="{{ route('emp-send-mail') }}"> <i class="fa fa-reply"></i> Send</a></li>
                         </ul>
                        
@@ -23,12 +23,13 @@
                 </div>
             </div>
         </div>
+        <input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}">
         <div class="col-lg-9 animated fadeInRight">
             <div class="mail-box-header">
                 <div class="pull-right tooltip-demo">
                     <a href="{{url('')}}/employee/emp-compose?communication_id={{$empMailDetail->id}}" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Reply"><i class="fa fa-reply"></i> Reply</a>
                     <a href="#" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Print email"><i class="fa fa-print"></i></a>
-                    <a href="mailbox.html" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Move to trash"><i class="fa fa-trash-o"></i> </a>
+                    <a href="#deleteMail"  data-id="{{ $id }}" data-toggle="modal" class="btn btn-white btn-sm deleteMail" data-original-title="Delete"> <i class="fa fa-trash"></i></a>
                 </div>
                 <h2>
                     View Message
@@ -85,6 +86,25 @@
         </div>
     </div>
 </div>
+<div id="deleteMail" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12"><h3 class="m-t-none m-b">Delete Mail</h3>
+                        <b>Are You sure want to delete Mail ?</b><br/>
+                        <form role="form">
+                            <div>
+                                <button class="btn btn-sm btn-primary pull-right m-l" data-dismiss="modal">Cancel</button>
+                                <button class="btn btn-sm btn-danger pull-right yes-sure-deletmail m-l" type="button"><strong><i class="fa fa-trash"></i> Delete </strong></button>
+                            </div>
+                        </form>
+                    </div>
 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @endsection
