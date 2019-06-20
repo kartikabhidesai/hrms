@@ -24,15 +24,7 @@
               <li class="nav-item">
                 <a class="nav-link page-scroll" href="#pricing">Pricing</a>
               </li> 
-              <li class="nav-item">
-                <a class="nav-link page-scroll" href="#team">Team</a>
-              </li>    
-              <li class="nav-item">
-                <a class="nav-link page-scroll" href="#subscribe">Subscribe</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link page-scroll" href="#blog">Blog</a>
-              </li> 
+              
               <li class="nav-item">
                 <a class="nav-link page-scroll" href="#contact">Contact</a>
               </li> 
@@ -161,22 +153,6 @@
     </section>
     <!-- Services Section End -->
 
-    <!-- Call to Action Start -->
-    <section class="call-action section">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-10">
-            <div class="cta-trial text-center">
-              <h3>Are You Ready To Get Started?</h3>
-              <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod<br> Lorem ipsum dolor sit amet, consectetuer</p>
-              <a href="#" class="btn btn-common btn-effect">Purchase Now!</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- Call to Action End -->
-
     <!-- Features Section Start -->
     <section id="features" class="section">
       <div class="container">
@@ -301,26 +277,7 @@
           <span>Works</span>
           <p class="section-subtitle">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos debitis.</p>
         </div>
-        <div class="row">          
-          <div class="col-md-12">
-            <!-- Portfolio Controller/Buttons -->
-            <div class="controls text-center">
-              <a class="filter active btn btn-common btn-effect" data-filter="all">
-                All 
-              </a>
-              <a class="filter btn btn-common btn-effect" data-filter=".design">
-                Design 
-              </a>
-              <a class="filter btn btn-common btn-effect" data-filter=".development">
-                Development
-              </a>
-              <a class="filter btn btn-common btn-effect" data-filter=".print">
-                Print 
-              </a>
-            </div>
-            <!-- Portfolio Controller/Buttons Ends-->
-          </div>
-        </div>
+        
 
         <!-- Portfolio Recent Projects -->
         <div id="portfolio" class="row">
@@ -557,154 +514,7 @@
     </div>
     <!-- Counter Section End -->
 
-    <!-- Testimonial Section Start -->
-    <section class="testimonial section">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div id="testimonials" class="touch-slider owl-carousel">
-              <div class="item">
-                <div class="testimonial-item">
-                  <div class="author">
-                    <div class="img-thumb">
-                    <img src="{{ asset('frontend/img/testimonial/img1.jpg')}}" alt="">
-                    </div>
-                    <div class="author-info">
-                      <h2><a href="#">Johnathan Doe</a></h2>
-                      <span>Marketing Head Matrix media</span>
-                    </div>
-                  </div>
-                  <div class="content-inner">
-                    <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo quidem, excepturi facere magnam illum, at accusantium doloremque odio.</p>
-                    <span><i class="lni-star-filled"></i></span>
-                    <span><i class="lni-star-filled"></i></span>
-                    <span><i class="lni-star-filled"></i></span>
-                    <span><i class="lni-star"></i></span>
-                    <span><i class="lni-star"></i></span>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="testimonial-item">
-                  <div class="author">
-                    <div class="img-thumb">
-                    <img src="{{ asset('frontend/img/testimonial/img2.jpg') }}" alt="">
-                    </div>
-                    <div class="author-info">
-                      <h2><a href="#">Oidila Matik</a></h2>
-                      <span>President Lexo Inc</span>
-                    </div>
-                  </div>
-                  <div class="content-inner">
-                    <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo quidem, excepturi facere magnam illum, at accusantium doloremque odio.</p>
-                    <span><i class="lni-star-filled"></i></span>
-                    <span><i class="lni-star-filled"></i></span>
-                    <span><i class="lni-star-filled"></i></span>
-                    <span><i class="lni-star-filled"></i></span>
-                    <span><i class="lni-star-filled"></i></span>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="testimonial-item">
-                  <div class="author">
-                    <div class="img-thumb">
-                    <img src="{{ asset('frontend/img/testimonial/img3.jpg') }}" alt="">
-                    </div>
-                    <div class="author-info">
-                      <h2><a href="#">- Alex Dattilo</a></h2>
-                      <span>CEO Optima Inc</span>
-                    </div>
-                  </div>
-                  <div class="content-inner">
-                    <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo quidem, excepturi facere magnam illum, at accusantium doloremque odio.</p>
-                    <span><i class="lni-star-filled"></i></span>
-                    <span><i class="lni-star-filled"></i></span>
-                    <span><i class="lni-star-filled"></i></span>
-                    <span><i class="lni-star-filled"></i></span>
-                    <span><i class="lni-star"></i></span>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="testimonial-item">
-                  <div class="author">
-                    <div class="img-thumb">
-                    <img src="{{ asset('frontend/img/testimonial/img2.jpg') }}" alt="">
-                    </div>
-                    <div class="author-info">
-                      <h2><a href="#">Oidila Matik</a></h2>
-                      <span>President Lexo Inc</span>
-                    </div>
-                  </div>
-                  <div class="content-inner">
-                    <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo quidem, excepturi facere magnam illum, at accusantium doloremque odio.</p>
-                    <span><i class="lni-star-filled"></i></span>
-                    <span><i class="lni-star-filled"></i></span>
-                    <span><i class="lni-star-filled"></i></span>
-                    <span><i class="lni-star-filled"></i></span>
-                    <span><i class="lni-star-filled"></i></span>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="testimonial-item">
-                  <div class="author">
-                    <div class="img-thumb">
-                    <img src="{{ asset('frontend/img/testimonial/img1.jpg') }}" alt="">
-                    </div>
-                    <div class="author-info">
-                      <h2><a href="#">- Alex Dattilo</a></h2>
-                      <span>CEO Optima Inc</span>
-                    </div>
-                  </div>
-                  <div class="content-inner">
-                    <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo quidem, excepturi facere magnam illum, at accusantium doloremque odio.</p>
-                    <span><i class="lni-star-filled"></i></span>
-                    <span><i class="lni-star-filled"></i></span>
-                    <span><i class="lni-star"></i></span>
-                    <span><i class="lni-star"></i></span>
-                    <span><i class="lni-star"></i></span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
     
-
-    
-
-    <!-- Clients Section -->
-    <div id="clients" class="section">
-      <!-- Container Ends -->
-      <div class="container">
-        <!-- Row and Scroller Wrapper Starts -->
-        <div class="row" id="clients-scroller">
-          <div class="client-item-wrapper">
-            <img src="{{ asset('frontend/img/clients/img1.png')}}" alt="">
-          </div>
-          <div class="client-item-wrapper">
-            <img src="{{ asset('frontend/img/clients/img2.png') }}" alt="">
-          </div>
-          <div class="client-item-wrapper">
-            <img src="{{ asset('frontend/img/clients/img3.png') }}" alt="">
-          </div>
-          <div class="client-item-wrapper">
-            <img src="{{ asset('frontend/img/clients/img4.png') }}" alt="">
-          </div>
-          <div class="client-item-wrapper">
-            <img src="{{ asset('frontend/img/clients/img5.png')}}" alt="">
-          </div>
-          <div class="client-item-wrapper">
-            <img src="{{ asset('frontend/img/clients/img6.png')}}" alt="">
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Client Section End --> 
 
     <!-- Contact Section Start -->
     <section id="contact" class="section">
