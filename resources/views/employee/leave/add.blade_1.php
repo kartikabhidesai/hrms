@@ -48,19 +48,15 @@
                         <label class="col-sm-2 control-label">Type of Request</label>
                         <div class="col-sm-9">
                             <select class="c-select form-control typeRequest" id="typeRequest" name="typeRequest">
-                                <option value="">Select Type of Request</option>
                                 @if(isset($leaveEdit) && !empty($leaveEdit['type_of_req_id']))
-                                    
-                                        @for($i = 0 ; $i < count($type_of_request_new) ; $i++)
-                                            <option value="{{ $type_of_request_new[$i]['id'] }}" {{ ( $type_of_request_new[$i]['id'] == $leaveEdit['type_of_req_id'] ? 'selected="selected"' : '') }}  >{{ $type_of_request_new[$i]['leave_cat_name'] }}</option>
-                                        @endfor
+                                    @foreach ($type_of_request as $indexkey=>$val)
+                                          <option value="{{ $indexkey }}"  {{ ( $leaveEdit['type_of_req_id'] == $indexkey ? 'selected="selected"' : '') }}>{{ $val }}</option>
+                                    @endforeach
                                 @else
-                                    @for($i = 0 ; $i < count($type_of_request_new) ; $i++)
-                                     <option value="{{ $type_of_request_new[$i]['id'] }}">{{ $type_of_request_new[$i]['leave_cat_name'] }}</option>
-                                @endfor
+                                    @foreach ($type_of_request as $indexkey=>$val)
+                                          <option value="{{ $indexkey }}">{{ $val }}</option>
+                                    @endforeach
                                 @endif
-                                
-                                
                             </select>
                         </div>
                     </div>

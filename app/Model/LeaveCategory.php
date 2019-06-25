@@ -12,6 +12,7 @@ use App\Model\Company;
 use App\Model\TypeOfRequest;
 use App\Model\AttendanceHistory;
 use App\Model\ExperiencBased;
+use App\Model\Employee;
 use Config;
 
 class LeaveCategory extends Model {
@@ -26,6 +27,7 @@ class LeaveCategory extends Model {
             "company_id" => $cmp_id,
             "leave_cat_name" => $request->input('leave_cat_name'),
             "type" => $request->input('type'),
+            "leave_type"=>$request->input('leave_type'),
             "leave_unit" => $request->input('leave_unit'),
             "description" => $request->input('description'),
             "applicable_for" => $request->input('applicable_for'),
@@ -78,6 +80,7 @@ class LeaveCategory extends Model {
             // datatable column index  => database column name
             'leave_cat_name',
             'type',
+            'leave_type',
             'leave_unit',
             'description',
             'applicable_for',
@@ -121,12 +124,18 @@ class LeaveCategory extends Model {
         $data = array();
 
         foreach ($resultArr as $row) {
+            if($row["leave_type"] == 'leave_request'){
+                $row["leave_type"] = "Leave Request";
+            }else{
+                $row["leave_type"] = "Time Change Request";
+            }
 //           $actionHtml = $request->input('gender');
             $actionHtml = '<a href="' . route('edit-category-leave', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
             $actionHtml .= '<a href="#deleteModel" data-toggle="modal" data-id="'.$row['id'].'" class="link-black text-sm leaveDelete" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';
             $nestedData = array();
             $nestedData[] = $row["leave_cat_name"];
             $nestedData[] = $row["type"];
+            $nestedData[] = $row["leave_type"];
             $nestedData[] = $row["leave_unit"];
             $nestedData[] = $row["description"];
             $nestedData[] = $row["applicable_for"];
@@ -188,6 +197,85 @@ class LeaveCategory extends Model {
                 }else{
                     return false;
                 }
+    }
+    
+    public function getTypeOfRequest($id){
+        $query = Employee::where('user_id',$id)
+                ->select('*')->get();
+        
+        $company_id = $query[0]['company_id'];
+        $gender = $query[0]['gender'];
+        $martial_status = $query[0]['martial_status'];
+         
+        $type_of_request = LeaveCategory::select('leave_cat_name','id')
+                        ->where('company_id',$company_id)
+                        ->where('leave_type','leave_request')
+                        ->where('applicable_for','Employee')
+                        ->where('for_employee_type','all_emp')
+                        ->where('gender','All')
+                        ->where('marital_status','All')
+                        ->get()->toarray();
+        
+        $type_of_request_new = LeaveCategory::select('leave_cat_name','id')
+                        ->where('company_id',$company_id)
+                        ->where('leave_type','leave_request')
+                        ->where('applicable_for','Employee')
+                        ->where('for_employee_type','all_emp')
+                        ->where('gender',$gender)
+                        ->where('marital_status',$martial_status)
+                        ->get()->toarray();
+        
+        if(count($type_of_request_new) > 0){
+            for($i = 0 ; $i < count($type_of_request_new) ; $i++){
+                array_push($type_of_request,$type_of_request_new[$i]);
+            }
+        }
+        
+        return $type_of_request;
+    }
+    
+    public function getleaveCategoryListTable($id){
+     
+         $type_of_request = LeaveCategory::select('leave_cat_name')
+                            ->where('id',$id)
+                            ->get()
+                            ->toarray();
+         return $type_of_request[0]['leave_cat_name'];
+    }   
+    
+    public function getTypeOfRequestTimeChangeRequest($id){
+         $query = Employee::where('user_id',$id)
+                ->select('*')->get();
+        
+        $company_id = $query[0]['company_id'];
+        $gender = $query[0]['gender'];
+        $martial_status = $query[0]['martial_status'];
+         
+        $type_of_request = LeaveCategory::select('leave_cat_name','id')
+                        ->where('company_id',$company_id)
+                        ->where('leave_type','time_change_request')
+                        ->where('applicable_for','Employee')
+                        ->where('for_employee_type','all_emp')
+                        ->where('gender','All')
+                        ->where('marital_status','All')
+                        ->get()->toarray();
+        
+        $type_of_request_new = LeaveCategory::select('leave_cat_name','id')
+                        ->where('company_id',$company_id)
+                        ->where('leave_type','time_change_request')
+                        ->where('applicable_for','Employee')
+                        ->where('for_employee_type','all_emp')
+                        ->where('gender',$gender)
+                        ->where('marital_status',$martial_status)
+                        ->get()->toarray();
+        
+        if(count($type_of_request_new) > 0){
+            for($i = 0 ; $i < count($type_of_request_new) ; $i++){
+                array_push($type_of_request,$type_of_request_new[$i]);
+            }
+        }
+       
+        return $type_of_request;
     }
 }
 ?>

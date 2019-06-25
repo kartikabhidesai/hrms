@@ -19,6 +19,7 @@
                                 <tr>
                                     <th>Name</th>
                                     <th>Type</th>
+                                    <th>Leave Type</th>
                                     <th>Unit</th>
                                     <th>Description</th>
                                     <th>Applicable For</th>

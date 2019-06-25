@@ -13,6 +13,7 @@ use App\Model\AttendanceHistory;
 use App\Model\TypeOfRequest;
 use App\Model\Notification;
 use App\Model\NotificationMaster;
+use App\Model\LeaveCategory;
 use Session;
 use Auth;
 use Config;
@@ -66,6 +67,8 @@ class ManageTimeChangeRequestController extends Controller
         $data['emp_id']=$empdetails[0]->emp_id;
         $data['name']=$logindata['name'];
         
+        $objLeaveCategory = new LeaveCategory;
+        $data['type_of_request_new'] = $objLeaveCategory->getTypeOfRequestTimeChangeRequest($logindata['id']);
         // $data['type_of_request'] = Config::get('constants.type_of_request');
         if ($request->isMethod('post')) {
            $objTimeManagement=new ManageTimeChangeRequest();

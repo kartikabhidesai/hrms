@@ -72,12 +72,12 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Type of Request</label>
                                 <div class="col-sm-9">
-                                    {{ Form::select('typeRequest', $type_of_request , null, array('class' => 'form-control m-b c-select typeRequest', 'id' => 'typeRequest')) }}
-                                    <!-- <select class="c-select form-control" name="typeRequest">
-                                        @foreach ($type_of_request as $indexkey=>$val)
-                                          <option value="{{$indexkey}}">{{ $val }}</option>
-                                        @endforeach
-                                    </select> -->
+                                    <select class="c-select form-control" id="typeRequest" name="typeRequest">
+                                        <option value="">Select type of request</option>
+                                        @for($i = 0 ; $i < count($type_of_request_new) ; $i++)
+                                             <option value="{{ $type_of_request_new[$i]['id'] }}">{{ $type_of_request_new[$i]['leave_cat_name'] }}</option>
+                                        @endfor
+                                    </select>
                                 </div>
                             </div>
 

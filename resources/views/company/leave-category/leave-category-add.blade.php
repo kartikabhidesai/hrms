@@ -40,7 +40,17 @@
                             </label>
                         </div>
                     </div>
-
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label"></label>
+                        <div class="col-lg-10">
+                            <label class="radio-inline">
+                                <input type="radio" name="leave_type" class="fulltime" value="leave_request" checked>Leave Request
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="leave_type" class="fulltime" value="time_change_request">Time Change Request
+                            </label>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label class="col-lg-2 control-label">Leave Unit:</label>
                         <div class="col-lg-10">

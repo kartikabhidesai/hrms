@@ -11,6 +11,7 @@ use App\Model\Notification;
 use App\Model\NotificationMaster;
 use App\Model\TypeOfRequest;
 use App\Model\AttendanceHistory;
+use App\Model\LeaveCategory;
 use Config;
 class LeaveController extends Controller
 {
@@ -20,8 +21,7 @@ class LeaveController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
-        // $data['type_of_request']=Config::get('constants.type_of_request');
-
+        
         $session = $request->session()->all();
         $logindata = $session['logindata'][0];
 
@@ -52,13 +52,9 @@ class LeaveController extends Controller
         $logindata = $session['logindata'][0];
         $objEmployee=new Employee();
         $empdetails=$objEmployee->getEmploydetails($logindata['id']);
-    //    print_r($empdetails);exit;
-//        die();
         $data['company_id']=$empdetails[0]->company_id;
         $data['emp_id']=$empdetails[0]->emp_id;
-//        $data['dep_id']=$empdetails[0]->dep_id;
         if ($request->isMethod('post')) {
-            
             $objLeave = new Leave();
             $ret = $objLeave->addnewleave($request);
             if ($ret) {
@@ -72,8 +68,6 @@ class LeaveController extends Controller
                 
                 if($NotificationUserStatus==1)
                 {
-
-                    //notification add
                     $leaveRequestName=$empdetails[0]->name." new leave request.";
                     $objNotification = new Notification();
                     $route_url="notification-list";
@@ -96,7 +90,9 @@ class LeaveController extends Controller
 
         $objTypeOfRequest = new TypeOfRequest();
         $data['type_of_request']= $objTypeOfRequest->getTypeOfRequestV2($data['emp_id']);
-
+        
+        $objLeaveCategory = new LeaveCategory;
+        $data['type_of_request_new'] = $objLeaveCategory->getTypeOfRequest($logindata['id']);
 
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('employee/leave.js', 'ajaxfileupload.js', 'jquery.form.min.js');
@@ -159,6 +155,8 @@ class LeaveController extends Controller
         }
         $data['leaveEdit'] = Leave::find($id);
        // $data['type_of_request']=Config::get('constants.type_of_request');
+ $objLeaveCategory = new LeaveCategory;
+        $data['type_of_request_new'] = $objLeaveCategory->getTypeOfRequest($logindata['id']);
 
         $objTypeOfRequest = new TypeOfRequest();
         $data['type_of_request']= $objTypeOfRequest->getTypeOfRequestV2($data['emp_id']);

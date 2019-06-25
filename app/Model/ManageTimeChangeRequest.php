@@ -104,11 +104,14 @@ class ManageTimeChangeRequest extends Model
         $data = array();
         // $type_of_request=Config::get('constants.type_of_request');
     
-        $objTypeOfRequest = new TypeOfRequest();
-        $type_of_request = $objTypeOfRequest->getTypeOfRequestV2($employeeid);
+//        $objTypeOfRequest = new TypeOfRequest();
+//        $type_of_request = $objTypeOfRequest->getTypeOfRequestV2($employeeid);
 
         foreach ($resultArr as $row) {
-
+            
+            $objLeaveCategrory = new LeaveCategory;
+            $type_of_request = $objLeaveCategrory->getleaveCategoryListTable($row['request_type']);
+            
             if($row["status"] == NULL){
                 $statusHtml='<span class="label label-warning">Pending</span>';
             }else{
@@ -126,7 +129,7 @@ class ManageTimeChangeRequest extends Model
             $nestedData[] = $row["date_of_submit"];
             $nestedData[] = $row["from_date"];
             $nestedData[] = $row["to_date"];
-            $nestedData[] = $type_of_request[$row["request_type"]];
+            $nestedData[] = $type_of_request;
             $nestedData[] = $row["total_hours"];
             $nestedData[] = $row["request_description"];
             $nestedData[] = $statusHtml;

@@ -11,6 +11,7 @@ use App\Model\Sendmail;
 use App\Model\Company;
 use App\Model\TypeOfRequest;
 use App\Model\AttendanceHistory;
+use App\Model\LeaveCategory;
 use Config;
 
 class Leave extends Model {
@@ -113,17 +114,20 @@ class Leave extends Model {
         $objTypeOfRequest = new TypeOfRequest();
         $type_of_request = $objTypeOfRequest->getTypeOfRequestV2($userid);
         // $type_of_request=Config::get('constants.type_of_request');
-
-
+        
+//        
+        
         foreach ($resultArr as $row) {
+            $objLeaveCategrory = new LeaveCategory;
+            $type_of_request = $objLeaveCategrory->getleaveCategoryListTable($row['type_of_req_id']);
 //           $actionHtml = $request->input('gender');
-           $actionHtml = '<a href="' . route('edit-leave', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
+            $actionHtml = '<a href="' . route('edit-leave', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
             $actionHtml .= '<a href="#deleteModel" data-toggle="modal" data-id="'.$row['id'].'" class="link-black text-sm leaveDelete" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';
             $nestedData = array();
             $nestedData[] = $row["department_name"];
             $nestedData[] = date('d-m-Y',strtotime($row["start_date"]));
             $nestedData[] = date('d-m-Y',strtotime($row["end_date"]));
-             $nestedData[] = $type_of_request[$row["type_of_req_id"]];
+            $nestedData[] = $type_of_request;
             $nestedData[] = $row["reason"] ? $row["reason"] : 'N.A.';
             
             $nestedData[] = $actionHtml;
