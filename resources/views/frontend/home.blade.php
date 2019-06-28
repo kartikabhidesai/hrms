@@ -397,12 +397,21 @@
           <span>Pricing</span>
           <p class="section-subtitle">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos debitis.</p>
         </div>
-
+         <div class="row pricing-tables">
+            <div class="col-lg-12 col-md-12 col-xs-12">
+                <div>
+                    <div >
+                        <center><a href="#" class="btn btn-common btn-effect">Get Trial Button</a></center>
+                    </div>
+                </div>
+            </div>
+         </div>
+          <br>
         <div class="row pricing-tables">
           <div class="col-lg-4 col-md-4 col-xs-12">
             <div class="pricing-table">
               <div class="pricing-details">
-                <h2>Starter Plan</h2>
+                <h2>{{ $subcription['PREMIUM'] }}</h2>
                 <div class="price">49$ <span>/mo</span></div>
                 <ul>
                   <li>Consectetur adipiscing</li>
@@ -413,7 +422,7 @@
                 </ul>
               </div>
               <div class="plan-button">
-                <a href="#" class="btn btn-common btn-effect">Get Plan</a>
+                <a href="#" class="btn btn-common btn-effect">Buy Now</a>
               </div>
             </div>
           </div>
@@ -421,7 +430,7 @@
           <div class="col-lg-4 col-md-4 col-xs-12">
             <div class="pricing-table pricing-big">
               <div class="pricing-details">
-                <h2>Popular Plan</h2>
+                <h2>{{ $subcription['GOLD'] }}</h2>
                 <div class="price">99$ <span>/mo</span></div>
                 <ul>
                   <li>Consectetur adipiscing</li>
@@ -440,7 +449,7 @@
           <div class="col-lg-4 col-md-4 col-xs-12">
             <div class="pricing-table">
               <div class="pricing-details">
-                <h2>Premium Plan</h2>
+                <h2>{{ $subcription['SILVER'] }}</h2>
                 <div class="price">199$ <span>/mo</span></div>
                 <ul>
                   <li>Consectetur adipiscing</li>
@@ -628,11 +637,12 @@
               <div class="widget">
                 <h3 class="block-title">Short Link</h3>
                 <ul class="menu">
-                  <li><a href="#">Service</a></li>
-                  <li><a href="#">Wishlist</a></li>
-                  <li><a href="#">FAQ</a></li>
-                  <li><a href="#">Advance Sarch</a></li>
-                  <li><a href="#">Site Map</a></li>
+                  <li><a href="#">Term and condition</a></li>
+                  <li><a href="#">Support</a></li>
+                  <li><a href="#">About Us</a></li>
+                  <li><a href="#">News and event page</a></li>
+                  <li><a href="#">Testimonial pages</a></li>
+                  <li><a href="#">Blog Page</a></li>
                 </ul>
               </div>
             </div>

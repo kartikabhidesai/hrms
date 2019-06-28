@@ -9,6 +9,7 @@ use Auth;
 use DB;
 use Session;
 use Redirect;
+use Config;
 
 
 class FrontendController extends Controller {
@@ -17,11 +18,13 @@ class FrontendController extends Controller {
     }
     
     public function index(){
+        $data['subcription']=Config::get('constants.subcription');
         $data['title'] = "HRMS - Home" ;
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('front.js','jquery.form.min.js');
         $data['funinit'] = array('Front.init()');
         $data['css'] = array('');
+       
         return view('frontend.home', $data);
     }
 
