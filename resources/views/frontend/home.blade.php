@@ -390,9 +390,10 @@
     <!-- Portfolio Section Ends --> 
 
     <!-- Start Pricing Table Section -->
-    <div id="pricing" class="section pricing-section">
-      <div class="container">
-        <div class="section-header">          
+    
+    <section class="testimonial section">
+        <div class="container">
+            <div class="section-header">          
           <h2 class="section-title">Pricing Plans</h2>
           <span>Pricing</span>
           <p class="section-subtitle">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos debitis.</p>
@@ -401,75 +402,47 @@
             <div class="col-lg-12 col-md-12 col-xs-12">
                 <div>
                     <div >
-                        <center><a href="#" class="btn btn-common btn-effect">Get Trial Button</a></center>
+                        <center><a href="#" class="btn btn-common btn-effect">Get Free Trial</a></center>
                     </div>
                 </div>
             </div>
          </div>
-          <br>
-        <div class="row pricing-tables">
-          <div class="col-lg-4 col-md-4 col-xs-12">
-            <div class="pricing-table">
-              <div class="pricing-details">
-                <h2>{{ $subcription['PREMIUM'] }}</h2>
-                <div class="price">49$ <span>/mo</span></div>
-                <ul>
-                  <li>Consectetur adipiscing</li>
-                  <li>Nunc luctus nulla et tellus</li>
-                  <li>Suspendisse quis metus</li>
-                  <li>Vestibul varius fermentum erat</li>
-                  <li> - </li>
-                </ul>
-              </div>
-              <div class="plan-button">
-                <a href="#" class="btn btn-common btn-effect">Buy Now</a>
-              </div>
+            <br>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div id="testimonials" class="touch-slider owl-carousel">
+                        
+                        @for($i = 0 ; $i < count($plans) ; $i++)
+                            <div class="item">
+                            <div class="testimonial-item">
+                                <div class="pricing-table">
+                                    <div class="pricing-details">
+                                      <h2>{{ strtoupper($plans[$i]['title']) }}</h2>
+                                      <div class="price">{{ $plans[$i]['charge'] }}$ </div>
+                                      <ul>
+                                        <li>Plan Code : {{ $plans[$i]['code'] }}</li>
+                                        <li>Plan Duration : {{ $duration[$plans[$i]['duration']] }}</li>
+                                        <li>Plan expriay date : {{ date("d-m-Y",strtotime($plans[$i]['expiration'])) }}</li>
+                                       
+                                      </ul>
+                                    </div>
+                                    <div class="plan-button">
+                                      <a href="#" class="btn btn-common btn-effect">Get Plan</a>
+                                    </div>
+                                  </div>
+                            </div>
+                        </div>
+                        
+                        @endfor
+                        
+                        
+                    </div>
+                </div>
             </div>
-          </div>
-
-          <div class="col-lg-4 col-md-4 col-xs-12">
-            <div class="pricing-table pricing-big">
-              <div class="pricing-details">
-                <h2>{{ $subcription['GOLD'] }}</h2>
-                <div class="price">99$ <span>/mo</span></div>
-                <ul>
-                  <li>Consectetur adipiscing</li>
-                  <li>Nunc luctus nulla et tellus</li>
-                  <li>Suspendisse quis metus</li>
-                  <li>Vestibul varius fermentum erat</li>
-                  <li> - </li>
-                </ul>
-              </div>
-              <div class="plan-button">
-                <a href="#" class="btn btn-common btn-effect">Buy Now</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-4 col-xs-12">
-            <div class="pricing-table">
-              <div class="pricing-details">
-                <h2>{{ $subcription['SILVER'] }}</h2>
-                <div class="price">199$ <span>/mo</span></div>
-                <ul>
-                  <li>Consectetur adipiscing</li>
-                  <li>Nunc luctus nulla et tellus</li>
-                  <li>Suspendisse quis metus</li>
-                  <li>Vestibul varius fermentum erat</li>
-                  <li>Suspendisse quis metus</li>
-                </ul>
-              </div>
-              <div class="plan-button">
-                <a href="#" class="btn btn-common btn-effect">Buy Now</a>
-              </div>
-            </div>
-          </div>
-
         </div>
-      </div>
-    </div>
+    </section>
     <!-- End Pricing Table Section -->
-
+   
     <!-- Counter Section Start -->
     <div class="counters section bg-defult">
       <div class="container">

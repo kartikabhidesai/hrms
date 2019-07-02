@@ -63,9 +63,9 @@ $file_headers = @get_headers($filename);
             </li> 
             
             
-            <li class="{{ ($currentRoute == 'list-cmspage'  ? 'active' : '') }} {{ ($currentRoute == 'edit-cmspage'  ? 'active' : '') }} {{ ($currentRoute == 'edit-company'  ? 'active' : '') }}">
+<!--            <li class="{{ ($currentRoute == 'list-cmspage'  ? 'active' : '') }} {{ ($currentRoute == 'edit-cmspage'  ? 'active' : '') }} {{ ($currentRoute == 'edit-company'  ? 'active' : '') }}">
                 <a href="{{ route('list-cmspage') }}"><i class="fa fa-industry"></i> <span class="nav-label">CMS Page</span></a>
-            </li>
+            </li>-->
 
             <!--            <li class="{{ ($currentRoute == 'edit-email' || $currentRoute == 'add-email' || $currentRoute == 'list-email'  ? 'active' : '') }} ">
                             <a href="{{ route('list-email') }}"><i class="fa fa-envelope-o"></i> <span class="nav-label">Email</span></a>

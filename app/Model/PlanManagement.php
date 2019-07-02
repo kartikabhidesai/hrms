@@ -103,7 +103,7 @@ class PlanManagement extends Model
         return ($objplanManagement->save());
     }
 
-        public function updatePlan_Management($request,$id) {
+    public function updatePlan_Management($request,$id) {
         
         $final_arr = [];
         if(isset($request->plan_feature_name) && !empty($request->plan_feature_name)) 
@@ -131,5 +131,11 @@ class PlanManagement extends Model
     {
         $plan_management = PlanManagement::select('plan_managent.*')->where('id',$id)->first();
         return $plan_management;
+    }
+    
+    public function getPlans() 
+    {
+        $query = PlanManagement::from('plan_managent')->get();
+        return $query;
     }
 }

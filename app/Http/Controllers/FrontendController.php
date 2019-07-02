@@ -10,7 +10,8 @@ use DB;
 use Session;
 use Redirect;
 use Config;
-
+use App\Model\PlanManagement;
+use App\Model\PlanFeature;
 
 class FrontendController extends Controller {
 
@@ -18,6 +19,11 @@ class FrontendController extends Controller {
     }
     
     public function index(){
+        $data['duration'] = array('1' => 'Month', '2' => '3 Month', '3' => '6 Month', '4' => 'Year',);
+       
+        $planObj = new PlanManagement();
+        $data['plans'] = $planObj->getPlans();
+        
         $data['subcription']=Config::get('constants.subcription');
         $data['title'] = "HRMS - Home" ;
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
