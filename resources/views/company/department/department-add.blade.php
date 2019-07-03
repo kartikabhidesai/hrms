@@ -20,6 +20,20 @@
                                     {{ Form::text('department_name', null, array('placeholder'=>'Department Name', 'class' => 'form-control department_name' ,'required')) }}
                             </div>
                         </div>
+                    
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Manager Name</label>
+                            <div class="col-lg-10">
+                                    {{ Form::text('manager_name', null, array('placeholder'=>'Manager Name', 'class' => 'form-control ' ,'required')) }}
+                            </div>
+                        </div>
+                    
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Co-Manager Name</label>
+                            <div class="col-lg-10">
+                                    {{ Form::text('comanager_name', null, array('placeholder'=>'Co Manager Name', 'class' => 'form-control ' ,'required')) }}
+                            </div>
+                        </div>
                         
                         <div class="form-group">
                             <label class="col-lg-2 control-label">Designation</label>
@@ -27,6 +41,13 @@
                                     {{ Form::text('designation[]', null, array('placeholder'=>'Designation', 'class' => 'form-control designation' ,'required')) }}
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Supervisor Name</label>
+                            <div class="col-lg-10">
+                                    {{ Form::text('supervisor_name[]', null, array('placeholder'=>'Supervisor Name', 'class' => 'form-control ' ,'required')) }}
+                            </div>
+                        </div>
+                        
                         <div class="add_designation_div">
                             <div class="form-group">
                                 <div class="col-lg-offset-2 col-lg-8">
@@ -34,6 +55,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                         
                         <div class="form-group">
                             <div class="col-lg-offset-2 col-lg-10">

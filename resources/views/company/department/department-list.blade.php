@@ -17,9 +17,12 @@
                     		<table class="table table-striped table-bordered table-hover dataTables-example" id="DepartmentDatatables">
                     			<thead>
                                     <tr>
-                                        <th>Department Name</th>
-                        				<th>Designation</th>
-                        				<th>Total Employees</th>
+                                                        <th>Department Name</th>                        				
+                                                        <th>Manager Name</th>
+                                                        <th>Co-Manager Name</th>
+                                                        <th>Designation</th>
+                                                        <th>Supervisor</th>
+                        				<!--<th>Total Employees</th>-->
                         				<th>Action</th>
                                     </tr>
                     			</thead>

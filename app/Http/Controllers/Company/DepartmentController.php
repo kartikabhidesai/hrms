@@ -49,7 +49,6 @@ class DepartmentController extends Controller {
                 $return['status'] = 'error';
                 $return['message'] = 'Something will be wrong.';
             }
-
             echo json_encode($return);
             exit;
         }
@@ -74,7 +73,7 @@ class DepartmentController extends Controller {
     public function edit(Request $request, $id)
     {
         $data['detail'] = Department::with('designation')->find($id);
-
+        
         if ($request->isMethod('post')) {
             $objDepartment = new Department();
             $ret = $objDepartment->editDepartment($request);

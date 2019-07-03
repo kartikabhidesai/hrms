@@ -21,25 +21,29 @@ class Department extends Model
 
     public function saveDepartment($request)
     {    
+       
     	if(Auth::guard('company')->check()) {
     		$userData = Auth::guard('company')->user();
     		$getAuthCompanyId = Company::where('email', $userData->email)->first();
     	}       
 
         $id = DB::table('department')->insertGetId(
-                                                    ['department_name' => $request->input('department_name'),
-                                                    'company_id' => $getAuthCompanyId->id,
-                                                    'created_at' => date('Y-m-d H:i:s'),
-                                                    'updated_at' => date('Y-m-d H:i:s')
-                                                    ]
-                                                );
+                    ['department_name' => $request->input('department_name'),
+                    'company_id' => $getAuthCompanyId->id,
+                    'manager_name' => $request->input('manager_name'),
+                    'co_manager_name' => $request->input('comanager_name'),
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s')
+                    ]
+                );
         $designation = $request->input('designation');
-        
+        $supervisor = $request->input('supervisor_name');
         for($i=0;$i<count($request->input('designation'));$i++) {
             $objDesignation = new Designation();
             if($designation[$i] != "") {
                 $objDesignation->department_id = $id;
                 $objDesignation->designation_name = $designation[$i];
+                $objDesignation->supervisor_name = $supervisor[$i];
                 $objDesignation->created_at = date('Y-m-d H:i:s');
                 $objDesignation->updated_at = date('Y-m-d H:i:s');
                 $objDesignation->save();
@@ -93,9 +97,11 @@ class Department extends Model
         $columns = array(
             // datatable column index  => database column name
             0 => 'department.department_name',
-            1 => 'designation.designation_name',
-            2 => 'department.id',
-            3 => 'department.company_id'
+            1 => 'department.manager_name',
+            2 => 'department.co_manager_name',
+            3 => 'designation.designation_name',
+            4 => 'department.id',
+            5 => 'department.company_id'
         );
 
         $query = Department::leftjoin('designation', 'designation.department_id', '=', 'department.id');
@@ -123,23 +129,22 @@ class Department extends Model
         $totalFiltered = count($temp->get());
         $resultArr = $query->skip($requestData['start'])
                             ->take($requestData['length'])           
-                            ->select('department.id', 'department.company_id','department.department_name',DB::raw('GROUP_CONCAT(designation.designation_name) AS designation_name'))
+                            ->select('department.manager_name', 'department.co_manager_name', 'department.id', 'department.company_id','department.department_name',DB::raw('GROUP_CONCAT(designation.designation_name) AS designation_name'),DB::raw('GROUP_CONCAT(designation.supervisor_name) AS supervisor_name'))
                             ->get();
 
         $data = array();
+       
         foreach ($resultArr as $row) {
             $actionHtml ='';
             $actionHtml .= '<a href="' . route('department-edit', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
             $actionHtml .= '<a href="#deleteModel" data-toggle="modal" data-id="'.$row['id'].'" class="link-black text-sm deleteDepartment" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';
             $nestedData = array();
             $nestedData[] = $row["department_name"];
-            // $desigArr = [];
-            // foreach ($row->designation as $key => $value) {
-            //     $desigArr[] = $value["designation_name"];
-            // }
-            // $nestedData[] = implode(', ', $desigArr); 
+            $nestedData[] = $row["manager_name"];
+            $nestedData[] = $row["co_manager_name"];
             $nestedData[] =  $row["designation_name"];
-            $nestedData[] = '1';
+            $nestedData[] =  $row["supervisor_name"];
+//            $nestedData[] = '1';
             $nestedData[] = $actionHtml;
             $data[] = $nestedData;
         }
@@ -226,6 +231,7 @@ class Department extends Model
 
     public function editDepartment($request)
     {
+        
         $name = '';
         $id = $request->input('edit_id');
 
@@ -233,7 +239,12 @@ class Department extends Model
         	return false;
         }
         /*find & update department*/
-        $findDepartment = Department::where('id', $id)->update(['department_name' => $request->department_name, 'updated_at' => date('Y-m-d H:i:s')]);
+        $findDepartment = Department::where('id', $id)
+                        ->update([
+                                'department_name' => $request->department_name,
+                                'manager_name' => $request->input('manager_name'),
+                                'co_manager_name' => $request->input('comanager_name'),
+                                'updated_at' => date('Y-m-d H:i:s')]);
 
         /*find & update designations*/
         $findDesignation = Designation::where('department_id', $id)->get();
@@ -243,11 +254,13 @@ class Department extends Model
         }
 
         $designation = $request->input('designation');
+        $supervisor = $request->input('supervisor_name');
         for($i=0;$i<count($request->input('designation'));$i++){
             $objDesignation = new Designation();
             if($designation[$i] != ""){
                 $objDesignation->department_id = $id;
                 $objDesignation->designation_name = $designation[$i];
+                $objDesignation->supervisor_name = $supervisor[$i];
                 $objDesignation->created_at = date('Y-m-d H:i:s');
                 $objDesignation->updated_at = date('Y-m-d H:i:s');
                 $objDesignation->save();

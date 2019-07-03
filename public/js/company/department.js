@@ -48,21 +48,33 @@ var Department = function() {
         var rules = {
             department_name: {required: true},
             designation: {required: true},
+            manager_name: {required: true},
+            comanager_name: {required: true},
         };
         handleFormValidate(form, rules, function(form) {
             handleAjaxFormSubmit(form,true);
         });
         
         $('body').on('click','.add_designation',function(){
-            var button='<div class="form-group removediv">'+
+            var button='<div class="removediv">'+
+                            '<div class="form-group ">'+
                             '<label class="col-lg-2 control-label"></label>'+
                                 '<div class="col-lg-8">'+
                                     '<input name="designation[]" class="form-control" placeholder="Add more Designation" required>'+
                                 '</div>'+
+                                
+                            '</div>'+
+                            
+                            '<div class="form-group ">'+
+                            '<label class="col-lg-2 control-label"></label>'+
+                                '<div class="col-lg-8">'+
+                                    '<input name="supervisor_name[]" class="form-control" placeholder="Supervisor Name" required>'+
+                                '</div>'+
                                 '<div class="col-lg-2">'+
                                     '<input type="button" class="red form-control removebtn" value="Remove">'+
                                 '</div>'+
-                            '</div>';
+                            '</div>'+
+                        '</div>';
             $('.add_designation_div').prepend(button);
         });
         
@@ -76,21 +88,33 @@ var Department = function() {
         var rules = {
             department_name: {required: true},
             designation: {required: true},
+            manager_name: {required: true},
+            comanager_name: {required: true},
         };
         handleFormValidate(form, rules, function(form) {
             handleAjaxFormSubmit(form,true);
         });
         
         $('body').on('click','.add_designation',function(){
-            var button='<div class="form-group removediv">'+
+            var button='<div class="removediv">'+
+                            '<div class="form-group ">'+
                             '<label class="col-lg-2 control-label"></label>'+
                                 '<div class="col-lg-8">'+
                                     '<input name="designation[]" class="form-control" placeholder="Add more Designation" required>'+
                                 '</div>'+
+                                
+                            '</div>'+
+                            
+                            '<div class="form-group ">'+
+                            '<label class="col-lg-2 control-label"></label>'+
+                                '<div class="col-lg-8">'+
+                                    '<input name="supervisor_name[]" class="form-control" placeholder="Supervisor Name" required>'+
+                                '</div>'+
                                 '<div class="col-lg-2">'+
                                     '<input type="button" class="red form-control removebtn" value="Remove">'+
                                 '</div>'+
-                            '</div>';
+                            '</div>'+
+                        '</div>';
             $('.add_designation_div').prepend(button);
         });
         
