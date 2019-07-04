@@ -63,6 +63,23 @@ var Advancesalaryrequest = function (){
                 alert('Please Select at least one Record');
             }
         });
+        
+        $("body").on('click', '.all', function () {
+            window.location.replace(baseurl + "company/campany-advance-salary-request");
+        });
+        
+        $("body").on('click', '.newRequest', function () {
+            window.location.replace(baseurl + "company/campany-advance-salary-request?requestType=newRequest");
+        });
+        
+        $("body").on('click', '.aprroved', function () {
+            window.location.replace(baseurl + "company/campany-advance-salary-request?requestType=aprrovedRequest");
+        });
+        
+        $("body").on('click', '.rejected', function () {
+            window.location.replace(baseurl + "company/campany-advance-salary-request?requestType=rejectedRequest");
+        });
+        
         $('body').on('change', '.empName', function() {
             var dept = $('option:selected', this).attr('data-dept');
             var comp = $('option:selected', this).attr('data-comp');
@@ -112,21 +129,7 @@ var Advancesalaryrequest = function (){
             });
         });
         
-        var dataArr = {};
-        var columnWidth = {"width": "10%", "targets": 0};
-        var arrList = {
-            'tableID': '#requestlist',
-            'ajaxURL': baseurl + "company/advance-salary-request-ajaxAction",
-            'ajaxAction': 'getdatatable',
-            'postData': dataArr,
-            'hideColumnList': [],
-            'noSearchApply': [0],
-            'noSortingApply': [0,3],
-            'defaultSortColumn': 2,
-            'defaultSortOrder': 'desc',
-            'setColumnWidth': columnWidth
-        };
-        getDataTable(arrList);
+        
     };
     
     var addRequest = function () {
@@ -279,7 +282,77 @@ var Advancesalaryrequest = function (){
         getDataTable(arrList);
     };
 
+    var newRequestList = function(){
+         var dataArr = {};
+            var columnWidth = {"width": "10%", "targets": 0};
+            var arrList = {
+                'tableID': '#requestlist',
+                'ajaxURL': baseurl + "company/advance-salary-request-ajaxAction",
+                'ajaxAction': 'getdatatable-newRequestList',
+                'postData': dataArr,
+                'hideColumnList': [],
+                'noSearchApply': [0],
+                'noSortingApply': [0,3],
+                'defaultSortColumn': 2,
+                'defaultSortOrder': 'desc',
+                'setColumnWidth': columnWidth
+            };
+            getDataTable(arrList);
+    }
     
+    var approvedRequestList = function(){
+         var dataArr = {};
+        var columnWidth = {"width": "10%", "targets": 0};
+        var arrList = {
+            'tableID': '#requestlist',
+            'ajaxURL': baseurl + "company/advance-salary-request-ajaxAction",
+            'ajaxAction': 'getdatatable-approvedRequestList',
+            'postData': dataArr,
+            'hideColumnList': [],
+            'noSearchApply': [0],
+            'noSortingApply': [0,3],
+            'defaultSortColumn': 2,
+            'defaultSortOrder': 'desc',
+            'setColumnWidth': columnWidth
+        };
+        getDataTable(arrList);
+    }
+    
+    var rejectedRequestList = function(){
+         var dataArr = {};
+        var columnWidth = {"width": "10%", "targets": 0};
+        var arrList = {
+            'tableID': '#requestlist',
+            'ajaxURL': baseurl + "company/advance-salary-request-ajaxAction",
+            'ajaxAction': 'getdatatable-rejectedRequestList',
+            'postData': dataArr,
+            'hideColumnList': [],
+            'noSearchApply': [0],
+            'noSortingApply': [0,3],
+            'defaultSortColumn': 2,
+            'defaultSortOrder': 'desc',
+            'setColumnWidth': columnWidth
+        };
+        getDataTable(arrList);
+    }
+    
+    var allRequestList = function(){
+        var dataArr = {};
+        var columnWidth = {"width": "10%", "targets": 0};
+        var arrList = {
+            'tableID': '#requestlist',
+            'ajaxURL': baseurl + "company/advance-salary-request-ajaxAction",
+            'ajaxAction': 'getdatatable',
+            'postData': dataArr,
+            'hideColumnList': [],
+            'noSearchApply': [0],
+            'noSortingApply': [0,3],
+            'defaultSortColumn': 2,
+            'defaultSortOrder': 'desc',
+            'setColumnWidth': columnWidth
+        };
+        getDataTable(arrList);
+    }
       
     return {
         init: function () {
@@ -293,6 +366,19 @@ var Advancesalaryrequest = function (){
         },
         initApprovedReqList:function(){
             approvedReqList();
+        },
+        
+        all : function(){
+            allRequestList();
+        },
+        new : function(){
+            newRequestList();
+        },
+        approved : function(){
+            approvedRequestList();
+        },
+        rejected : function(){
+            rejectedRequestList();
         },
     }
 }();

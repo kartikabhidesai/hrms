@@ -71,9 +71,9 @@ $file_headers = @get_headers($filename);
                     <li class="{{ ( $currentRoute == 'campany-advance-salary-request'  || $currentRoute == 'add-advance-salary-request' ? 'active' : '') }}">
                         <a href="{{ route('campany-advance-salary-request') }}"><i class="fa fa-money" ></i> <span class="nav-label">Advance Salary Request</span></a>
                     </li>
-                    <li class="{{ ( $currentRoute == 'approved-advance-salary-request' ? 'active' : '') }}">
+<!--                    <li class="{{ ( $currentRoute == 'approved-advance-salary-request' ? 'active' : '') }}">
                         <a href="{{ route('approved-advance-salary-request') }}"><i class="fa fa-money" ></i> <span class="nav-label">Approved Advance Salary</span></a>
-                    </li>
+                    </li>-->
                 </ul>
             </li>
 

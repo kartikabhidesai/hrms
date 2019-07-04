@@ -150,7 +150,7 @@ class Advancesalary extends Model
          return($objEditAdvaceSalary->save());
     }
     
-    public function getCompanyAdvanceSalaryList($companyId){
+    public function getCompanyAdvanceSalaryList($companyId,$requestType){
         
         $requestData = $_REQUEST;
         $columns = array(
@@ -164,7 +164,18 @@ class Advancesalary extends Model
                  ->join('employee as emp' ,'advance_salary.employee_id','=','emp.id')
                  ->join('department as depart', 'emp.department', '=', 'depart.id')
                  ->where('advance_salary.company_id',$companyId);
-         
+                 
+            if($requestType == 'newRequest'){
+                $query->where('advance_salary.status',NULL);
+            }
+            
+            if($requestType == 'appovedRequest'){
+                $query->where('advance_salary.status',"approve");
+            }
+            
+            if($requestType == 'rejectedRequest'){
+                $query->where('advance_salary.status',"reject");
+            }
           if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
             $searchVal = $requestData['search']['value'];
             $query->where(function($query) use ($columns, $searchVal, $requestData) {
@@ -182,7 +193,7 @@ class Advancesalary extends Model
                    }
                });
         }
-      $temp = $query->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir']);
+        $temp = $query->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir']);
 
         $totalData = count($temp->get());
         $totalFiltered = count($temp->get());
@@ -390,4 +401,6 @@ class Advancesalary extends Model
             return false;
         }
     }
+    
+   
 }

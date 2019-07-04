@@ -29,7 +29,17 @@ class AdvanceSalaryRequestController extends Controller {
     }
     
     public function requestList(Request $request){
-
+        $requestType = $request->input('requestType');
+        $companyId = Auth()->guard('company')->user()['id'];
+        
+        $objAdvanceSalary=new Advancesalary();
+        
+//        $data['allRequestCount'] = $objAdvanceSalary->allRequestCount($companyId);
+//        $data['allNewRequestCount'] = $objAdvanceSalary->allNewRequestCount($companyId);
+//        $data['allApprovedRequestCount'] = $objAdvanceSalary->allApprovedRequestCount($companyId);
+//        $data['allRejectedRequestCount'] = $objAdvanceSalary->allRejectedRequestCount($companyId);
+       
+        
         $session = $request->session()->all();
 
         $items = Session::get('notificationdata');
@@ -43,11 +53,27 @@ class AdvanceSalaryRequestController extends Controller {
         $data['header'] = array(
             'title' => 'Advance Salary Request List',
             'breadcrumb' => array(
-                'Home' => route("company-dashboard"),
-                'Advance Salary Request' => 'Advance Salary Request'));
+            'Home' => route("company-dashboard"),
+            'Advance Salary Request' => 'Advance Salary Request'));
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/advancesalaryrequest.js');
-        $data['funinit'] = array('Advancesalaryrequest.init()');
+        
+        if($requestType == 'newRequest'){
+            $data['funinit'] = array('Advancesalaryrequest.init()','Advancesalaryrequest.new()');
+        }
+        
+        if($requestType == 'aprrovedRequest'){
+            $data['funinit'] = array('Advancesalaryrequest.init()','Advancesalaryrequest.approved()');
+        }
+        
+        if($requestType == 'rejectedRequest'){
+            $data['funinit'] = array('Advancesalaryrequest.init()','Advancesalaryrequest.rejected()');
+        }
+        
+        if($requestType == '' || $requestType == NULL){
+            $data['funinit'] = array('Advancesalaryrequest.init()','Advancesalaryrequest.all()');
+        }
+        
         $data['css'] = array('');
 
         return view('company.advancesalaryrquest.request-list', $data);
@@ -98,9 +124,34 @@ class AdvanceSalaryRequestController extends Controller {
                 $id = Auth()->guard('company')->user()['id'];
                 $companyId = Company::select('id')->where('user_id', $id)->first();
                 $objAdvanceSalary=new Advancesalary();
-                $datalist=$objAdvanceSalary->getCompanyAdvanceSalaryList($companyId['id']);
+                $datalist=$objAdvanceSalary->getCompanyAdvanceSalaryList($companyId['id'],"all");
                 echo json_encode($datalist);
                 break;
+            
+            case 'getdatatable-newRequestList':
+                $id = Auth()->guard('company')->user()['id'];
+                $companyId = Company::select('id')->where('user_id', $id)->first();
+                $objAdvanceSalary=new Advancesalary();
+                $datalist=$objAdvanceSalary->getCompanyAdvanceSalaryList($companyId['id'],"newRequest");
+                echo json_encode($datalist);
+                break;
+            
+            case 'getdatatable-approvedRequestList':
+                $id = Auth()->guard('company')->user()['id'];
+                $companyId = Company::select('id')->where('user_id', $id)->first();
+                $objAdvanceSalary=new Advancesalary();
+                $datalist=$objAdvanceSalary->getCompanyAdvanceSalaryList($companyId['id'],'appovedRequest');
+                echo json_encode($datalist);
+                break;
+            
+            case 'getdatatable-rejectedRequestList':
+                $id = Auth()->guard('company')->user()['id'];
+                $companyId = Company::select('id')->where('user_id', $id)->first();
+                $objAdvanceSalary=new Advancesalary();
+                $datalist=$objAdvanceSalary->getCompanyAdvanceSalaryList($companyId['id'],"rejectedRequest");
+                echo json_encode($datalist);
+                break;
+            
             case 'approveRequest':
                     $id=$request->input('data')['id'];
                     $objAdvancesalary=new Advancesalary();
