@@ -175,5 +175,8 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
     Route::match(['get','post'],'company-edit-role/{id}',['as' => 'company-edit-role','uses'=>'Company\RoleController@edit']);
     Route::match(['get','post'],'company-role-list',['as' => 'company-role-list','uses'=>'Company\RoleController@index']);
     Route::match(['get', 'post'], 'company-role-ajaxAction', ['as' => 'company-role-ajaxAction', 'uses' => 'Company\RoleController@ajaxAction']); 
-
+    
+//    Payroll Setting
+//    
+    Route::match(['get','post'],'payroll-setting',['as' => 'payroll-setting','uses'=>'Company\PayrolesettingController@index']);
 });

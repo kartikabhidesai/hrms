@@ -136,7 +136,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Update Bank Details</h4>
             </div>
-            {{ Form::open( array('method' => 'post', 'class' => 'form-horizontal updateBank', 'id' => 'updateBank' )) }}
+            {{ Form::open( array('method' => 'post', 'class' => 'form-horizontal', 'id' => 'updateBank' )) }}
             <div class="modal-body">
                 <div class="row">
                     <div class="col-sm-12">

@@ -56,7 +56,7 @@ $file_headers = @get_headers($filename);
                     <span class="nav-label">Department</span></a>
             </li> 
             
-            <li class="{{ ( $currentRoute == 'campany-advance-salary-request' || $currentRoute == 'add-advance-salary-request' ? 'active' : '') }} {{ ( $currentRoute == 'approved-advance-salary-request' ? 'active' : '') }}">
+            <li class="{{ ( $currentRoute == 'payroll-setting' || $currentRoute == 'campany-advance-salary-request' || $currentRoute == 'add-advance-salary-request' ? 'active' : '') }} {{ ( $currentRoute == 'approved-advance-salary-request' ? 'active' : '') }}">
                 <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Salary</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
 
@@ -71,6 +71,11 @@ $file_headers = @get_headers($filename);
                     <li class="{{ ( $currentRoute == 'campany-advance-salary-request'  || $currentRoute == 'add-advance-salary-request' ? 'active' : '') }}">
                         <a href="{{ route('campany-advance-salary-request') }}"><i class="fa fa-money" ></i> <span class="nav-label">Advance Salary Request</span></a>
                     </li>
+                    
+                    <li class="{{ ( $currentRoute == 'payroll-setting'   ? 'active' : '') }}">
+                        <a href="{{ route('payroll-setting') }}"><i class="fa fa-cog" ></i> <span class="nav-label">Payroll Setting</span></a>
+                    </li>
+                    
 <!--                    <li class="{{ ( $currentRoute == 'approved-advance-salary-request' ? 'active' : '') }}">
                         <a href="{{ route('approved-advance-salary-request') }}"><i class="fa fa-money" ></i> <span class="nav-label">Approved Advance Salary</span></a>
                     </li>-->
