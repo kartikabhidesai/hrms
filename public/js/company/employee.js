@@ -3,7 +3,6 @@ var Employee = function() {
      
         $('body').on('click', '.empDelete', function() {
             var id = $(this).data('id');
-            
             setTimeout(function() {
                 $('.yes-sure:visible').attr('data-id', id);
             }, 500);

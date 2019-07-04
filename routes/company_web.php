@@ -179,4 +179,7 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
 //    Payroll Setting
 //    
     Route::match(['get','post'],'payroll-setting',['as' => 'payroll-setting','uses'=>'Company\PayrolesettingController@index']);
+    Route::match(['get','post'],'payrollSetting-ajaxAction',['as' => 'payrollSetting-ajaxAction','uses'=>'Company\PayrolesettingController@ajaxAction']);
+    Route::match(['get','post'],'payrollsettingdelete-ajaxAction',['as' => 'payrollsettingdelete-ajaxAction','uses'=>'Company\PayrolesettingController@ajaxAction']);
+    
 });

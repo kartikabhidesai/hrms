@@ -89,7 +89,6 @@ class AdvanceSalaryRequestController extends Controller {
         $data['getAllEmpOfCompany'] = Employee::where('company_id', $companyId->id)->get();
 
         if ($request->isMethod('post')) {
-            // print_r($request->input());exit;
             $objNewSalaryRequest= new Advancesalary();
             $result=$objNewSalaryRequest->addSalaryRequest($request);
             if ($result) {

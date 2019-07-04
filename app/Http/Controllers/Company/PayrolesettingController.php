@@ -35,12 +35,20 @@ class PayrolesettingController extends Controller {
         $session = $request->session()->all();
         $items = Session::get('notificationdata');
         $userID = $session['logindata'][0]['id'];
-//        if ($request->isMethod('post')) {
-////            addpayrollSetting
-////            $objPayrollSetting = new PayrollSetting;
-////            $result= $objPayrollSetting->addpayrollSetting($request);
-//            
-//        }
+        if ($request->isMethod('post')) {
+            $objPayrollSetting = new PayrollSetting;
+            $result= $objPayrollSetting->addpayrollSetting($request);
+            if ($result) {
+                $return['status'] = 'success';
+                $return['message'] = 'New greade created successfully.';
+                $return['redirect'] = route('payroll-setting');
+            } else {
+                $return['status'] = 'error';
+                $return['message'] = 'Something goes to wrong';
+            }
+            echo json_encode($return);
+            exit;
+        }
         $objNotification = new Notification();
         $items=$objNotification->SessionNotificationCount($userID);        
         Session::put('notificationdata', $items);
@@ -56,5 +64,33 @@ class PayrolesettingController extends Controller {
         $data['funinit'] = array('Payrollsetting.init()');
         $data['css'] = array('');
         return view('company.payrollsetting.list', $data);
+    }
+    
+    public function ajaxAction(Request $request){
+        $action = $request->input('action');
+        
+        switch ($action) {
+            case 'getdatatable':
+                $objPayrollSetting = new PayrollSetting;
+                $result= $objPayrollSetting->getdatatable();
+                echo json_encode($result);
+                break;
+            
+            case 'payrollsettingdelete':
+                
+                $objPayrollSetting = new PayrollSetting;
+                $result= $objPayrollSetting->payrollsettingdelete($request);
+                if ($result) {
+                    $return['status'] = 'success';
+                    $return['message'] = 'Payroll Setting deleted successfully.';
+                    $return['redirect'] = route('payroll-setting');
+                } else {
+                    $return['status'] = 'error';
+                    $return['message'] = 'something will be wrong.';
+                }
+                echo json_encode($return);
+                exit;
+                
+        }
     }
 }
