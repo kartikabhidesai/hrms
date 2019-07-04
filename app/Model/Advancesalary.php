@@ -151,7 +151,6 @@ class Advancesalary extends Model
     }
     
     public function getCompanyAdvanceSalaryList($companyId,$requestType){
-        
         $requestData = $_REQUEST;
         $columns = array(
             0 => 'advance_salary.name',
@@ -402,5 +401,45 @@ class Advancesalary extends Model
         }
     }
     
-   
+    public function allRequestCount($companyId){
+        $allRequestCount = ManageTimeChangeRequest::from('advance_salary_request as advance_salary')
+               ->join('employee as emp' ,'advance_salary.employee_id','=','emp.id')
+               ->join('department as depart', 'emp.department', '=', 'depart.id')
+               ->where('advance_salary.company_id',$companyId)
+               ->count();
+       return $allRequestCount;
+    }
+    
+     public function allNewRequestCount($companyId){
+     
+        $allNewRequestCount = ManageTimeChangeRequest::from('advance_salary_request as advance_salary')
+               ->join('employee as emp' ,'advance_salary.employee_id','=','emp.id')
+               ->join('department as depart', 'emp.department', '=', 'depart.id')
+               ->where('advance_salary.company_id',$companyId)
+               ->where('advance_salary.status',NULL)
+               ->count();
+        return $allNewRequestCount;
+    }
+    
+     public function allApprovedRequestCount($companyId){
+     
+        $allApprovedRequestCount = ManageTimeChangeRequest::from('advance_salary_request as advance_salary')
+               ->join('employee as emp' ,'advance_salary.employee_id','=','emp.id')
+               ->join('department as depart', 'emp.department', '=', 'depart.id')
+               ->where('advance_salary.company_id',$companyId)
+               ->where('advance_salary.status','approve')
+               ->count();
+       return $allApprovedRequestCount;
+    }
+    
+    public function allRejectedRequestCount($companyId){
+     
+        $allRejectedRequestCount = ManageTimeChangeRequest::from('advance_salary_request as advance_salary')
+               ->join('employee as emp' ,'advance_salary.employee_id','=','emp.id')
+               ->join('department as depart', 'emp.department', '=', 'depart.id')
+               ->where('advance_salary.company_id',$companyId)
+               ->where('advance_salary.status','reject')
+               ->count();
+       return $allRejectedRequestCount;
+    }
 }

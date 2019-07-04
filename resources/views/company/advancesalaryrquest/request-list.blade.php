@@ -11,7 +11,7 @@
             {{ csrf_field() }}
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Advance Salary Request List</h5>
+                    <h5>{{ $requestType }}</h5>
                      <div class="ibox-tools">
                             <a href="{{ route('add-advance-salary-request') }}" class="btn btn-primary dim" ><i class="fa fa-plus"> Add</i></a>
                         </div>
@@ -22,10 +22,10 @@
                              <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <button class="btn btn-info pull-left changeStatus" style="margin:0px 5px" value="approve" type="button">Approved </button>
                                 <button class="btn btn-danger pull-left changeStatus" style="margin:0px 5px" value="reject" type="button"> Deny </button>
-                                <button class="btn btn-default pull-left all"  style="margin:0px 5px" type="button"> All Request :</button>
-                                <button class="btn btn-primary pull-left newRequest" style="margin:0px 5px" type="button"> New Request :</button>
-                                <button class="btn btn-success pull-left aprroved"  style="margin:0px 5px" type="button"> Approved Request :</button>
-                                <button class="btn btn-warning pull-left rejected"  style="margin:0px 5px" type="button"> Rejected Request :</button>
+                                <button class="btn btn-default pull-left all"  style="margin:0px 5px" type="button"> All Request : {{ $allRequestCount }}</button>
+                                <button class="btn btn-primary pull-left newRequest" style="margin:0px 5px" type="button"> New Request : {{ $allNewRequestCount }}</button>
+                                <button class="btn btn-success pull-left aprroved"  style="margin:0px 5px" type="button"> Approved Request : {{ $allApprovedRequestCount }}</button>
+                                <button class="btn btn-warning pull-left rejected"  style="margin:0px 5px" type="button"> Rejected Request : {{ $allRejectedRequestCount }}</button>
                             </div>
                         <table class="table table-striped table-bordered table-hover dataTables-example" id="requestlist">
                             <thead>

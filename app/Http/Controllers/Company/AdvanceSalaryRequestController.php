@@ -30,18 +30,16 @@ class AdvanceSalaryRequestController extends Controller {
     
     public function requestList(Request $request){
         $requestType = $request->input('requestType');
-        $companyId = Auth()->guard('company')->user()['id'];
-        
+        $id = Auth()->guard('company')->user()['id'];
+        $companyId = Company::select('id')->where('user_id', $id)->first();
         $objAdvanceSalary=new Advancesalary();
         
-//        $data['allRequestCount'] = $objAdvanceSalary->allRequestCount($companyId);
-//        $data['allNewRequestCount'] = $objAdvanceSalary->allNewRequestCount($companyId);
-//        $data['allApprovedRequestCount'] = $objAdvanceSalary->allApprovedRequestCount($companyId);
-//        $data['allRejectedRequestCount'] = $objAdvanceSalary->allRejectedRequestCount($companyId);
-       
-        
+        $data['allRequestCount'] = $objAdvanceSalary->allRequestCount($companyId['id']);
+        $data['allNewRequestCount'] = $objAdvanceSalary->allNewRequestCount($companyId['id']);
+        $data['allApprovedRequestCount'] = $objAdvanceSalary->allApprovedRequestCount($companyId['id']);
+        $data['allRejectedRequestCount'] = $objAdvanceSalary->allRejectedRequestCount($companyId['id']);
+     
         $session = $request->session()->all();
-
         $items = Session::get('notificationdata');
         $userID = $session['logindata'][0]['id'];
         
@@ -59,18 +57,22 @@ class AdvanceSalaryRequestController extends Controller {
         $data['js'] = array('company/advancesalaryrequest.js');
         
         if($requestType == 'newRequest'){
+            $data['requestType'] = "New Request";
             $data['funinit'] = array('Advancesalaryrequest.init()','Advancesalaryrequest.new()');
         }
         
         if($requestType == 'aprrovedRequest'){
+            $data['requestType'] = "Appoved Request";
             $data['funinit'] = array('Advancesalaryrequest.init()','Advancesalaryrequest.approved()');
         }
         
         if($requestType == 'rejectedRequest'){
+            $data['requestType'] = "Rejected Request";
             $data['funinit'] = array('Advancesalaryrequest.init()','Advancesalaryrequest.rejected()');
         }
         
         if($requestType == '' || $requestType == NULL){
+            $data['requestType'] = "All Request";
             $data['funinit'] = array('Advancesalaryrequest.init()','Advancesalaryrequest.all()');
         }
         
