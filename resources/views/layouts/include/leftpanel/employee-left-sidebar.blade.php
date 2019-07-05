@@ -57,13 +57,21 @@ $currentRoute = Route::current()->getName();
                 </li>
               
                 
-               
+            <li class="{{ ($currentRoute == 'employee-chat' ? 'active' : '') }}{{ ($currentRoute == 'emp-communication' ? 'active' : '') }} {{ ($currentRoute == 'emp-compose' ? 'active' : '') }} {{ ($currentRoute == 'emp-communication-detail' ? 'active' : '') }} {{ ($currentRoute == 'emp-communication-detail/*' ? 'active' : '') }}">
+                <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Communication</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">   
                 
                 <li class="{{ ($currentRoute == 'emp-communication' ? 'active' : '') }} {{ ($currentRoute == 'emp-compose' ? 'active' : '') }} {{ ($currentRoute == 'emp-communication-detail' ? 'active' : '') }} {{ ($currentRoute == 'emp-communication-detail/*' ? 'active' : '') }}">
                     <a href="{{ route('emp-communication') }}"><i class="fa fa-history"></i>
-                    <span class="nav-label">Communication</span></a>
+                    <span class="nav-label">Email</span></a>
                 </li>
                 
+                 <li class="{{ ($currentRoute == 'employee-chat' ? 'active' : '') }}">
+                    <a href="{{ route('employee-chat') }}"><i class="fa fa-comments"></i>
+                        <span class="nav-label">Chat</span></a>
+                </li>
+                </ul>
+            </li>
                 
                 <li class="{{ ($currentRoute == 'emp-task-list' ? 'active' : '') }}">
                     <a href="{{ route('emp-task-list') }}"><i class="fa fa-tasks"></i>
@@ -103,10 +111,7 @@ $currentRoute = Route::current()->getName();
                 </li>
             
                 </li>
-                <li class="{{ ($currentRoute == 'employee-chat' ? 'active' : '') }}">
-                    <a href="{{ route('employee-chat') }}"><i class="fa fa-comments"></i>
-                        <span class="nav-label">Chat</span></a>
-                </li>
+               
                 
                 
                 <li class="{{ ($currentRoute == 'emp-performance' ||  $currentRoute == 'emp-performance-emp-detail' || $currentRoute == 'emp-employee-performance-list' || $currentRoute == 'emp-performance-emp-detail/*' ? 'active' : '') }}">

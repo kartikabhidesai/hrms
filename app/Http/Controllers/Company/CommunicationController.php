@@ -36,10 +36,10 @@ class CommunicationController extends Controller
         $data['funinit'] = array('Communication.init()');
         $data['css'] = array('');
         $data['header'] = array(
-            'title' => 'Communcation',
+            'title' => 'Email',
             'breadcrumb' => array(
                 'Home' => route("company-dashboard"),
-                'Communcation' => 'Communcation'));
+                'Email' => 'Email'));
 
         $empobj = new Employee();
         $userData = Auth::guard('company')->user();
@@ -112,10 +112,10 @@ class CommunicationController extends Controller
         $data['funinit'] = array('Communication.compose_mail()');
         $data['css'] = array('plugins/summernote/summernote.css','plugins/summernote/summernote-bs3.css');
         $data['header'] = array(
-            'title' => 'Communcation',
+            'title' => 'Email',
             'breadcrumb' => array(
                 'Home' => route("company-dashboard"),
-                'Communcation' => route("communication"),
+                'Email' => route("communication"),
                 'Compose' => 'Compose'));
 
         return view('company.communication.compose', $data);
@@ -137,11 +137,11 @@ class CommunicationController extends Controller
         $data['funinit'] = array('Communication.init()');
         $data['css'] = array('');
         $data['header'] = array(
-            'title' => 'Communcation',
+            'title' => 'Email',
             'breadcrumb' => array(
                 'Home' => route("company-dashboard"),
-                'Communcation' => route("communication"),
-                'Communcation Detail' => 'Communcation Detail'));
+                'Email' => route("communication"),
+                'Email Detail' => 'Email Detail'));
         $empobj = new Employee();
         $userData = Auth::guard('company')->user();
         $getAuthCompanyId = Company::where('email', $userData->email)->first();
@@ -178,10 +178,10 @@ class CommunicationController extends Controller
         $data['funinit'] = array('Communication.init()');
         $data['css'] = array('');
         $data['header'] = array(
-            'title' => 'Communcation',
+            'title' => 'Email',
             'breadcrumb' => array(
                 'Home' => route("company-dashboard"),
-                'Communcation' => 'Communcation'));
+                'Email' => 'Email'));
 
         $empobj = new Employee();
         $userData = Auth::guard('company')->user();
@@ -204,11 +204,11 @@ class CommunicationController extends Controller
         $data['funinit'] = array('Communication.init()');
         $data['css'] = array('');
         $data['header'] = array(
-            'title' => 'Communcation',
+            'title' => 'Email',
             'breadcrumb' => array(
                 'Home' => route("company-dashboard"),
-                'Communcation' => route("communication"),
-                'Communcation Detail' => 'Communcation Detail'));
+                'Email' => route("communication"),
+                'Email Detail' => 'Email Detail'));
 
         $empobj = new Employee();
         $userData = Auth::guard('company')->user();
@@ -249,10 +249,10 @@ class CommunicationController extends Controller
         $data['funinit'] = array('Communication.trash()');
         $data['css'] = array('');
         $data['header'] = array(
-            'title' => 'Communcation',
+            'title' => 'Email',
             'breadcrumb' => array(
                 'Home' => route("company-dashboard"),
-                'Communcation' => 'Communcation'));
+                'Email' => 'Email'));
 
         $empobj = new Employee();
         $userData = Auth::guard('company')->user();
@@ -284,11 +284,11 @@ class CommunicationController extends Controller
         $data['funinit'] = array('Communication.init()');
         $data['css'] = array('');
         $data['header'] = array(
-            'title' => 'Communcation',
+            'title' => 'Email',
             'breadcrumb' => array(
                 'Home' => route("company-dashboard"),
-                'Communcation' => route("communication"),
-                'Communcation Detail' => 'Communcation Detail'));
+                'Email' => route("communication"),
+                'Email Detail' => 'Email Detail'));
         $empobj = new Employee();
         $userData = Auth::guard('company')->user();
         $getAuthCompanyId = Company::where('email', $userData->email)->first();
