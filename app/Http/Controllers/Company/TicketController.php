@@ -11,6 +11,7 @@ use App\Model\TicketComment;
 use App\Model\Employee;
 use App\Model\Company;
 use App\Model\Attendance;
+use App\Model\Department;
 use App\Model\Designation;
 use App\Model\NonWorkingDate;
 use App\Model\Notification;
@@ -74,7 +75,10 @@ class TicketController extends Controller
         $userid = $this->loginUser->id;
         $companyId = Company::select('id')->where('user_id', $userid)->first();
         $employee_list = $objEmployee->getEmployeeList($companyId->id);
-
+        $objDepartment = new Department();
+        $data['department'] = $objDepartment->getAllDepartment($companyId->id);
+        
+        
         if ($request->isMethod('post')) {
             $objNonWorkingDate = new NonWorkingDate();
             $resultNonWorkingDate = $objNonWorkingDate->getCompanyNonWorkingDateArrayList($companyId->id);
@@ -124,8 +128,8 @@ class TicketController extends Controller
         $data['funinit'] = array('Ticket.add()');
         $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
         $data['css_plugin'] = array(
-                                  'bootstrap-fileinput/bootstrap-fileinput.css',  
-                                );
+            'bootstrap-fileinput/bootstrap-fileinput.css',  
+          );
         $data['header'] = array(
             'title' => 'Ticket',
             'breadcrumb' => array(
@@ -146,10 +150,17 @@ class TicketController extends Controller
                 break;
             case 'ticketDetails':
                 $result = $this->getTicketDetailsJson($request->input('data'));
-            break;
+                break;
             case 'ticketEdit':
                 $result = $this->getTicketDetails($request->input('data'));
-            break;
+                break;
+            
+            case 'changeManager':
+                
+                $objDepartment = new Department();
+                $result = $objDepartment->changeManager($request->input('value'));
+                echo json_encode($result);
+                break;
             /*case 'deleteDepartment':
                 $result = $this->deleteDepartment($request->input('data'));
                 break;*/
@@ -178,7 +189,8 @@ class TicketController extends Controller
         $userId = $this->loginUser->id;
         $companyId = Company::select('id')->where('user_id', $userId)->first();
 
-        $ticketDetails = Ticket::select('tickets.code', 'tickets.subject', 'tickets.status', 'tickets.priority', 'tickets.details', 'tickets.created_by', 'tickets.assign_to', 'emp.name as emp_name')
+        $ticketDetails = Ticket::select('department.department_name as departmentName','tickets.manager_name','tickets.code', 'tickets.subject', 'tickets.status', 'tickets.priority', 'tickets.details', 'tickets.created_by', 'tickets.assign_to', 'emp.name as emp_name')
+                            ->join('department','department.id','tickets.department_id')
                             ->join('employee as emp', 'tickets.assign_to', '=', 'emp.id')
                             ->where('tickets.id', $postData)
                             ->first();
@@ -192,7 +204,8 @@ class TicketController extends Controller
         $userId = $this->loginUser->id;
         $companyId = Company::select('id')->where('user_id', $userId)->first();
 
-        $ticketDetails = Ticket::select('tickets.id','tickets.code', 'tickets.subject', 'tickets.status', 'tickets.priority', 'tickets.details', 'tickets.created_by', 'tickets.assign_to', 'emp.name as emp_name')
+        $ticketDetails = Ticket::select('department.department_name as departmentName','tickets.manager_name','tickets.id','tickets.code', 'tickets.subject', 'tickets.status', 'tickets.priority', 'tickets.details', 'tickets.created_by', 'tickets.assign_to', 'emp.name as emp_name')
+                            ->join('department','department.id','tickets.department_id')            
                             ->join('employee as emp', 'tickets.assign_to', '=', 'emp.id')
                             ->where('tickets.id', $postData)
                             ->first();

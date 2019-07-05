@@ -36,6 +36,16 @@
                                 Priority : {{$ticket_details['priority']}}
                             </div>
                         </div>
+                        
+                        <div class="row">
+                            <div class="col-lg-6">
+                                Department Name: {{$ticket_details['departmentName']}}
+                            </div>
+                            <div class="col-lg-6">
+                                Manager Name : {{$ticket_details['manager_name']}}
+                            </div>
+                        </div>
+                        
                         <div class="row">
                             <div class="col-lg-12">
                                 Details : {{$ticket_details['details']}}

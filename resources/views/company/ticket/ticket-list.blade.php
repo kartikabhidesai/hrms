@@ -114,6 +114,8 @@
                                         <th>Subject</th>
                                         <th>Assign to</th>
                                         <th>Created by</th>
+                                        <th>Department</th>
+                                        <th>Manager Name</th>
                                         <th>Details</th>
                                         <th>Attachment</th>
                                         <th>Action</th>
@@ -151,6 +153,14 @@
                             </div>
                             <div class="assignedToDiv">
                                 <b>Assigned To: </b><span class="m-t-none m-b assignedTo"></span><br/>
+                            </div>
+                            
+                            <div class="departmentNameDiv">
+                                <b>Department : </b><span class="m-t-none m-b departmentName"></span><br/>
+                            </div>
+                            
+                             <div class="managerNameDiv">
+                                <b>Manager Name : </b><span class="m-t-none m-b managerName"></span><br/>
                             </div>
                             <div class="detailsDiv">
                                 <b>Details : </b><span class="m-t-none m-b details"></span><br/>

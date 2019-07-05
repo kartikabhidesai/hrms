@@ -39,7 +39,31 @@
                                 	</select>
                             </div>
                         </div>
-	                        
+	                
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Department</label>
+                            <div class="col-lg-10">
+                                <select name="department" class="form-control department" id="department" required="required">
+                                    <option value="">Select Department</option>
+                                        @if(!empty($department))
+                                            @foreach($department as $depat)
+                                                <option value="{{$depat->id}}">{{$depat->department_name}}</option>
+                                            @endforeach
+                                        @endif
+                                </select>
+                            </div>
+                        </div>
+                    
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Manager</label>
+                            <div class="col-lg-10">
+                                    <select name="manager" class="form-control manager" id="manager" required="required">
+                                    	<option value="">Select Manager</option>
+                                    	
+                                	</select>
+                            </div>
+                        </div>
+                    
                         <div class="form-group">
                             <label class="col-lg-2 control-label">Assign to</label>
                             <div class="col-lg-10">
@@ -81,7 +105,7 @@
                         
                         <div class="form-group">
                             <div class="col-lg-offset-2 col-lg-10">
-                                <button class="btn btn-sm btn-primary" type="submit">Save Ticket</button>
+                                <button class="btn btn-sm btn-primary" type="submit">Send Ticket</button>
                             </div>
                         </div>
 	               {{ Form::close() }}

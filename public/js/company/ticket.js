@@ -94,6 +94,20 @@ var Ticket = function() {
                     } else {
                         $('.status').html(output.status);
                     }
+                    
+                    if(output.departmentName === null) {
+                        $('.departmentName').hide();
+                    } else {
+                        $('.departmentName').html(output.departmentName);
+                    }
+                    
+                    if(output.manager_name === null) {
+                        $('.managerName').hide();
+                    } else {
+                        $('.managerName').html(output.manager_name);
+                    }
+                    
+                    
                     if(output.details === null) {
                         $('.details').hide();
                     } else {
@@ -165,7 +179,29 @@ var Ticket = function() {
     };
     
     var addlist = function() {
-
+        
+            $("body").on("change",".department",function(){
+                var val = $(this).val();
+                $.ajax({
+                    type: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                    },
+                    url: baseurl + "company/ticket-ajaxAction",
+                    data: {'action': 'changeManager', 'value': val},
+                    success: function(data) {
+                         var  output = JSON.parse(data);
+                         var html ='<option value="">Select Manager</option>';
+                         for(var i = 0 ; i < output.length; i++){
+                             var temp = "";
+                             temp = '<option value="'+ output[i].manager_name +'">'+ output[i].manager_name +'</option>';
+                             html = html + temp;
+                         }
+                         $(".manager").html(html);
+                         
+                    }
+                });
+            });
             // var unavailableDates = ["09-04-2019", "14-04-2019", "15-04-2019"];
 
             // function unavailable(date) {

@@ -66,6 +66,14 @@ class Department extends Model
         return $arrDepartment;
     }
     
+    public function getAllDepartment($companyId){
+        $department = Department::select("department_name","id")
+                    ->where('company_id', $companyId)
+                    ->get();
+        return $department;
+        
+    }
+
     public function getDepartmentCompany($company_Id)
     {
         $arrDepartment = Department::
@@ -277,5 +285,12 @@ class Department extends Model
         // print_r($arrDepartment);exit;
         return $arrDepartment;
     }
-
+    
+    public function changeManager($request){
+        
+        $managerName = Department::where("id", $request)
+                        ->select('manager_name')
+                        ->get();
+                return $managerName;
+    }
 }
