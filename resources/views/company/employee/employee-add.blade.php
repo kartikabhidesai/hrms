@@ -47,9 +47,9 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-lg-3 control-label">Local Address</label>
+							<label class="col-lg-3 control-label">Regular Address</label>
 							<div class="col-lg-9">
-								{{ Form::text('local_address', null, array('placeholder'=>'Local Address', 'class' => 'form-control address' ,'required')) }}
+								{{ Form::text('local_address', null, array('placeholder'=>'Regular Address', 'class' => 'form-control address' ,'required')) }}
 							</div>
 						</div>
 						<div class="form-group">
@@ -61,7 +61,13 @@
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Nationality</label>
 							<div class="col-lg-9">
-								{{ Form::select('nationality', $nationalityArray , null , array('class' => 'form-control nationality','required', 'id' => 'nationality')) }}
+								
+                                                                <select class="form-control nationality" id="nationality" name="nationality">
+                                                                    <option value="">Select Nationality</option>
+                                                                    @for($i = 0;$i < count($nationalityArray) ;$i++)
+                                                                        <option value="{{ $nationalityArray[$i]->id }}">{{ $nationalityArray[$i]->country_name }}</option>
+                                                                    @endfor
+								</select>
 							</div>
 						</div>
 

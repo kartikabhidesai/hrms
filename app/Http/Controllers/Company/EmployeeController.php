@@ -15,7 +15,7 @@ use Route;
 use Config;
 use APP;
 use Illuminate\Http\Request;
-
+use DB;
 class EmployeeController extends Controller {
 
     public function __construct() {
@@ -38,6 +38,10 @@ class EmployeeController extends Controller {
     }   
 
     public function add(Request $request) {
+        $data['nationalityArray']=DB::table('country')
+                        ->select('country_name','id')
+                        ->get()->toarray();
+        
          if ($request->isMethod('post')) {
             $objUsers = new Users();
             $userid = $this->loginUser->id;
@@ -77,7 +81,7 @@ class EmployeeController extends Controller {
         $data['statusArray'] = Config::get('constants.statusArray');
         $data['genderArray'] = Config::get('constants.genderArray');
         $data['martialArray'] = Config::get('constants.martialArray');
-        $data['nationalityArray'] = Config::get('constants.nationalityArray');
+//        $data['nationalityArray'] = Config::get('constants.nationalityArray');
 
         $session = $request->session()->all();
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
