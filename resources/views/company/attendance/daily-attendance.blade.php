@@ -46,7 +46,7 @@
 
                             <div class="form-group">
                                 <div class="col-lg-offset-2 col-lg-10">
-                                    <button class="btn btn-sm btn-primary getattdance" type="button">Manage Attendance</button>
+                                    <button class="btn btn-sm btn-primary getattdance" type="button">Apply</button>
                                 </div>
                             </div>
                         
