@@ -8,6 +8,7 @@ use App\Model\Department;
 use App\Model\Designation;
 use App\Model\Company;
 use App\Model\AdminRole;
+use App\Model\PayrollSetting;
 use App\Model\AdminUserHasPermission;
 use App\Http\Controllers\Controller;
 use Auth;
@@ -41,7 +42,8 @@ class EmployeeController extends Controller {
         $data['nationalityArray']=DB::table('country')
                         ->select('country_name','id')
                         ->get()->toarray();
-        
+        $objPayrollsetting = new PayrollSetting();
+        $data['testarray'] = $objPayrollsetting->getPayrollSetting();
          if ($request->isMethod('post')) {
             $objUsers = new Users();
             $userid = $this->loginUser->id;
@@ -77,17 +79,20 @@ class EmployeeController extends Controller {
         $objDesignation = new Designation();
         $data['ArrDepartment'] = $objdepartment->getDepartment();
         $data['ArrDesignation'] = $objDesignation->getDesignation();
-        $data['testarray'] = Config::get('constants.testarray');
         $data['statusArray'] = Config::get('constants.statusArray');
         $data['genderArray'] = Config::get('constants.genderArray');
         $data['martialArray'] = Config::get('constants.martialArray');
-//        $data['nationalityArray'] = Config::get('constants.nationalityArray');
-
         $session = $request->session()->all();
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
-        $data['js'] = array('company/employee.js', 'ajaxfileupload.js','jquery.form.min.js');
+        $data['js'] = array('company/employee.js', 
+                            'ajaxfileupload.js',
+                            'jquery.form.min.js',
+                            'plugins/jasny/jasny-bootstrap.min.js',
+                            'plugins/codemirror/codemirror.js',
+                            'plugins/codemirror/mode/xml/xml.js');
         $data['funinit'] = array('Employee.init()');
-        $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
+        $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css',
+                             'plugins/codemirror/codemirror.css');
         $data['header'] = array(
             'title' => 'Employee',
             'breadcrumb' => array(
@@ -99,6 +104,12 @@ class EmployeeController extends Controller {
     
     public function edit(Request $request,$id) {
         $data['details'] = Employee::find($id);
+         $data['nationalityArray']=DB::table('country')
+                        ->select('country_name','id')
+                        ->get()->toarray();
+        $objPayrollsetting = new PayrollSetting();
+        $data['testarray'] = $objPayrollsetting->getPayrollSetting();
+        
         if ($request->isMethod('post')) {
             $objEmployee = new Employee();
             $res = $objEmployee->editEmployee($request,$id);
@@ -119,20 +130,24 @@ class EmployeeController extends Controller {
                 'Home' => route("company-dashboard"),
                 'Employee' => route("employee-list"),
                 'Edit Employee'=>'Edit Employee'));
-        $data['testarray'] = Config::get('constants.testarray');
         $data['statusArray'] = Config::get('constants.statusArray');
         $data['genderArray'] = Config::get('constants.genderArray');
         $data['martialArray'] = Config::get('constants.martialArray');
-        $data['nationalityArray'] = Config::get('constants.nationalityArray');
         $objdepartment = new Department();
         $objDesignation = new Designation();
         $data['ArrDepartment'] = $objdepartment->getDepartment();
         $data['ArrDesignation'] = $objDesignation->getDesignation();
         $session = $request->session()->all();
+        $data['js'] = array('company/employee.js', 
+                            'ajaxfileupload.js',
+                            'jquery.form.min.js',
+                            'plugins/jasny/jasny-bootstrap.min.js',
+                            'plugins/codemirror/codemirror.js',
+                            'plugins/codemirror/mode/xml/xml.js');
+        $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css',
+                             'plugins/codemirror/codemirror.css');
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
-        $data['js'] = array('company/employee.js', 'ajaxfileupload.js','jquery.form.min.js');
         $data['funinit'] = array('Employee.init()');
-        $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
         return view('company.employee.employee-edit', $data);
     }
 

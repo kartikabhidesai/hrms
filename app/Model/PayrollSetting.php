@@ -13,6 +13,15 @@ use Config;
 class PayrollSetting extends Model {
 
     protected $table = 'payroll_setting';
+    
+    public function getPayrollSetting(){
+        $id = Auth()->guard('company')->user()['id'];
+        $companyId = Company::select('id')->where('user_id', $id)->first();
+        $query = PayrollSetting::where('payroll_setting.company_id',$companyId['id'])
+                                 ->select('payroll_setting.grade','payroll_setting.id')
+                                 ->get();
+        return $query;    
+    }
 
     public function addpayrollSetting($request){
        

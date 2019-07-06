@@ -17,6 +17,7 @@ class Employee extends Model {
     protected $table = 'employee';
 
     public function addEmployee($request, $userId, $companyId) {
+      
         $emp_pic = '';
         if ($request->file('emp_pic')) {
             $image = $request->file('emp_pic');
@@ -69,21 +70,6 @@ class Employee extends Model {
             $image->move($destinationPath, $driver_license);
         }
 
-        $national_id = '';
-        if ($request->file('national_id')) {
-            $image = $request->file('national_id');
-            $national_id = 'national_id' . time() . '.' . $image->getClientOriginalExtension();
-            $destinationPath = public_path('/uploads/client/');
-            $image->move($destinationPath, $national_id);
-        }
-
-        $iqama_id = '';
-        if ($request->file('iqama_id')) {
-            $image = $request->file('iqama_id');
-            $iqama_id = 'iqama_id' . time() . '.' . $image->getClientOriginalExtension();
-            $destinationPath = public_path('/uploads/client/');
-            $image->move($destinationPath, $iqama_id);
-        }
 
         $passport = '';
         if ($request->file('passport')) {
@@ -107,7 +93,7 @@ class Employee extends Model {
         $objEmployee->martial_status = $request->input('martial_status');
         $objEmployee->photo = $emp_pic;
         $objEmployee->email = $request->input('email');
-        $objEmployee->password = Hash::make($request->input('newpassword'));
+        $objEmployee->password = Hash::make($request->input('id'));
         $objEmployee->employee_id = $request->input('employee_id');
 
         $objEmployee->department = $request->input('department');
@@ -130,14 +116,14 @@ class Employee extends Model {
         /* Save newly added fields to DB */
         $objEmployee->religion = $request->input('religion');
         $objEmployee->driver_license = $driver_license;
-        $objEmployee->iqama_id = $iqama_id;
+
         $objEmployee->iqama_expire_date = date('Y-m-d', strtotime($request->input('iqama_expire_date')));
         $objEmployee->passport = $passport;
         $objEmployee->passport_expire_date = date('Y-m-d', strtotime($request->input('passport_expire_date')));
         $objEmployee->job_title = $request->input('job_title');
         $objEmployee->employee_type = $request->input('employee_type');
-        $objEmployee->national_id = $national_id;
-
+        $objEmployee->type_of_id = $request->input('national_id');
+        $objEmployee->natonal_iqama_id = $request->input('id');
         $objEmployee->created_at = date('Y-m-d H:i:s');
         $objEmployee->updated_at = date('Y-m-d H:i:s');
         $objEmployee->save();
@@ -145,6 +131,7 @@ class Employee extends Model {
     }
 
     public function editEmployee($request, $id) {
+      
         $emp_pic = '';
         if ($request->file('emp_pic')) {
             $image = $request->file('emp_pic');
@@ -196,23 +183,6 @@ class Employee extends Model {
             $destinationPath = public_path('/uploads/client/');
             $image->move($destinationPath, $driver_license);
         }
-
-        $national_id = '';
-        if ($request->file('national_id')) {
-            $image = $request->file('national_id');
-            $national_id = 'national_id' . time() . '.' . $image->getClientOriginalExtension();
-            $destinationPath = public_path('/uploads/client/');
-            $image->move($destinationPath, $national_id);
-        }
-
-        $iqama_id = '';
-        if ($request->file('iqama_id')) {
-            $image = $request->file('iqama_id');
-            $iqama_id = 'iqama_id' . time() . '.' . $image->getClientOriginalExtension();
-            $destinationPath = public_path('/uploads/client/');
-            $image->move($destinationPath, $iqama_id);
-        }
-
         $passport = '';
         if ($request->file('passport')) {
             $image = $request->file('passport');
@@ -231,9 +201,15 @@ class Employee extends Model {
         $objEmployee->permanent_address = $request->input('permanent_address');
         $objEmployee->nationality = $request->input('nationality');
         $objEmployee->martial_status = $request->input('martial_status');
-        $objEmployee->photo = $emp_pic;
+        $objEmployee->type_of_id = $request->input('national_id');
+        $objEmployee->natonal_iqama_id = $request->input('id');
+        
+        if($emp_pic != NULL || $emp_pic != ''){
+            $objEmployee->photo = $emp_pic;
+        }
+        
         $objEmployee->email = $request->input('email');
-        $objEmployee->password = empty($request->input('newpassword')) ? $request->input('oldpassword') : Hash::make($request->input('newpassword'));
+        $objEmployee->password = empty($request->input('id')) ? $request->input('oldpassword') : Hash::make($request->input('id'));
         ;
         $objEmployee->employee_id = $request->input('employee_id');
         $objEmployee->department = $request->input('department');
@@ -246,25 +222,41 @@ class Employee extends Model {
         $objEmployee->account_number = $request->input('account_number');
         $objEmployee->bank_name = $request->input('bank_name');
         $objEmployee->branch = $request->input('branch');
-
-        $objEmployee->resume_file = $resume;
-        $objEmployee->offer_letter = $offer_latter;
-        $objEmployee->joining_letter = $join_letter;
-        $objEmployee->contact_agreement = $contect_agre;
-        $objEmployee->other = $other;
-
+        if($resume != NULL || $resume != ''){
+            $objEmployee->resume_file = $resume;
+        }
+        
+        if($offer_latter != NULL || $offer_latter != ''){
+            $objEmployee->offer_letter = $offer_latter;
+        }
+        
+        if($join_letter != NULL || $join_letter != ''){
+            $objEmployee->joining_letter = $join_letter;
+        }
+        
+        if($contect_agre != NULL || $contect_agre != ''){
+            $objEmployee->contact_agreement = $contect_agre;
+        }
+        
+        if($other != NULL || $other != ''){
+             $objEmployee->other = $other;
+        }
         /* Edit newly added fields to DB */
         $objEmployee->religion = $request->input('religion');
-        $objEmployee->driver_license = $driver_license;
-        $objEmployee->iqama_id = $iqama_id;
+        
+        if($driver_license != NULL || $driver_license != ''){
+            $objEmployee->driver_license = $driver_license;
+        }
+       
         $objEmployee->iqama_expire_date = date('Y-m-d', strtotime($request->input('iqama_expire_date')));
-        $objEmployee->passport = $passport;
+        
+        if($passport != NULL || $passport != ''){
+            $objEmployee->passport = $passport;
+        }
+        
         $objEmployee->passport_expire_date = date('Y-m-d', strtotime($request->input('passport_expire_date')));
         $objEmployee->job_title = $request->input('job_title');
         $objEmployee->employee_type = $request->input('employee_type');
-        $objEmployee->national_id = $national_id;
-
-        $objEmployee->created_at = date('Y-m-d H:i:s');
         $objEmployee->updated_at = date('Y-m-d H:i:s');
         $objEmployee->save();
         return TRUE;
