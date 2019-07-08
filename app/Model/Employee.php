@@ -371,8 +371,9 @@ class Employee extends Model {
 
         if ($id) {
 
-            $result = Employee::select('employee.*', 'department.department_name')
+            $result = Employee::select('employee.*', 'department.department_name','designation.supervisor_name')
                                 ->join('department', 'employee.department', '=', 'department.id')
+                                ->join('designation', 'designation.id', '=', 'employee.designation')
                                 ->where('employee.id', '=', $id)
                                 ->get()
                                 ->first()

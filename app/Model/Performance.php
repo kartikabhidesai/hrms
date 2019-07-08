@@ -257,5 +257,21 @@ class Performance extends Model {
        
         return $result;
     }
-
+    
+    public function lastPerformance($id){
+        $result = Performance::select('performances.*')
+                ->where('performances.employee_id', '=', $id)
+                ->orderBy('created_at', 'desc')
+                ->first()->toarray();
+//        return $result;
+        $emp_total = (int)$result['availability'] + 
+                     (int)$result['dependability'] + 
+                     (int)$result['job_knowledge'] + 
+                     (int)$result['quality'] + 
+                     (int)$result['productivity'] + 
+                     (int)$result['working_relationship'] + 
+                     (int)$result['honesty'] ;
+        $perstange = ($emp_total*100)/35 ;
+        return $perstange;
+    }
 }

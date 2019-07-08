@@ -265,13 +265,7 @@ border-radius: 4px;
                                             <input type="hidden" name="qualityVal" id="qualityVal" />
                                             <input type="hidden" name="workingVal" id="workingVal" />
                                             <input type="hidden" name="honestyVal" id="honestyVal" />
-                                           <!--  <ul onMouseOut="resetRating();">
-                                                <li onmouseover="highlightStar(this);" onmouseout="removeHighlight();" onClick="addRating(this);">&#9733;</li>
-                                                <li onmouseover="highlightStar(this);" onmouseout="removeHighlight();" onClick="addRating(this);">&#9733;</li>
-                                                <li onmouseover="highlightStar(this);" onmouseout="removeHighlight();" onClick="addRating(this);">&#9733;</li>
-                                                <li onmouseover="highlightStar(this);" onmouseout="removeHighlight();" onClick="addRating(this);">&#9733;</li>
-                                                <li onmouseover="highlightStar(this);" onmouseout="removeHighlight();" onClick="addRating(this);">&#9733;</li>
-                                            </ul> -->
+                                         
 
                                             <div class='rating-stars text-center'>
                                                 <ul id='availability'>
