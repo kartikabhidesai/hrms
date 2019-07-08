@@ -3,7 +3,8 @@
 <div class="wrapper wrapper-content animated fadeInRight">
 	<div class="row">
 		{{ Form::open( array('method' => 'post', 'class' => 'form-horizontal','files' => true, 'id' => 'editEmployee' )) }}
-			<div class="col-lg-6">
+                
+                <div class="col-lg-6">
 			<div class="ibox float-e-margins">
                             <div class="ibox-title">
                                 <h5>Basic Details</h5>
@@ -224,12 +225,15 @@
                                                             <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
                                                         </div> 
                                                     </div>
-                                                    <label class="col-lg-3 control-label">&nbsp;</label>
-                                                    <div class="col-sm-9">
-                                                        <a href="{{ url('uploads/client/'.$details->passport) }}" download>
-                                                            <label class="col-lg-3 pull-left"> {{ $details->passport }}</label>
-                                                        </a>
-                                                    </div>
+                                                    @if($details->passport != NULL || $details->passport != '')
+                                                        <label class="col-lg-3 control-label">&nbsp;</label>
+                                                        <div class="col-sm-9">
+                                                            <a href="{{ url('uploads/client/'.$details->passport) }}" download>
+                                                                <label class="col-lg-3 pull-left"> {{ $details->passport }}</label>
+                                                            </a>
+                                                        </div>
+                                                    @endif
+                                                    
 						</div>
 
 						<div class="form-group">
@@ -242,34 +246,33 @@
 						</div>
                             </div>
 			</div>
-		</div>	
+                </div>	</div>
 		<div class="col-lg-6">
-			<div class="ibox float-e-margins">
-				<div class="ibox-title">
-					<h5>Login Details</h5>
-					<div class="ibox-tools">
-						<a class="collapse-link">
-							<i class="fa fa-chevron-up"></i>
-						</a>
-					</div>
-				</div>
-				<div class="ibox-content">
-					 
-						<div class="form-group">
-							<label class="col-lg-3 control-label">Email</label>
-							<div class="col-lg-9">
-								{{ Form::text('email', $details->email , array('placeholder'=>'Email','class' => 'form-control email' ,'readonly')) }}
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-lg-3 control-label">Password</label>
-							<div class="col-lg-9">
-                                                                <input placeholder="Password" class="form-control newpassword " id="newpassword" name="newpassword" type="password" value="{{  $details->natonal_iqama_id }}">
-								
-							</div>
-						</div>
-				</div>
-			</div>
+                    <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                    <h5>Login Details</h5>
+                                    <div class="ibox-tools">
+                                            <a class="collapse-link">
+                                                    <i class="fa fa-chevron-up"></i>
+                                            </a>
+                                    </div>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="form-group">
+                                        <label class="col-lg-3 control-label">Email</label>
+                                        <div class="col-lg-9">
+                                                {{ Form::text('email', $details->email , array('placeholder'=>'Email','class' => 'form-control email' ,'readonly')) }}
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <label class="col-lg-3 control-label">Password</label>
+                                        <div class="col-lg-9">
+                                                <input placeholder="Password" class="form-control newpassword " id="newpassword" name="newpassword" type="password" value="{{  $details->natonal_iqama_id }}">
+
+                                        </div>
+                                </div>
+                            </div>
+                    </div>
 		</div>
 		<div class="col-lg-6">
 			<div class="ibox float-e-margins">
