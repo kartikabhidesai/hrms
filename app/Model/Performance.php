@@ -264,14 +264,19 @@ class Performance extends Model {
                 ->orderBy('created_at', 'desc')
                 ->first()->toarray();
 //        return $result;
-        $emp_total = (int)$result['availability'] + 
+        if(count($result) > 0){
+          $emp_total = (int)$result['availability'] + 
                      (int)$result['dependability'] + 
                      (int)$result['job_knowledge'] + 
                      (int)$result['quality'] + 
                      (int)$result['productivity'] + 
                      (int)$result['working_relationship'] + 
                      (int)$result['honesty'] ;
-        $perstange = ($emp_total*100)/35 ;
-        return $perstange;
+            $perstange = ($emp_total*100)/35 ;
+            return $perstange;  
+        }else{
+            return "0";  
+        }
+        
     }
 }
