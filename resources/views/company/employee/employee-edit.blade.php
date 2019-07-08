@@ -190,7 +190,7 @@
                                                                 </div>
                                                         </div>
                                                     @else
-                                                        <div class="form-group">+
+                                                        <div class="form-group">
                                                             <label class="col-lg-3 control-label">Iqama ID</label>
                                                                 <div class="col-sm-9">
                                                                     <input placeholder="Iqama Id" class="form-control id" required="" name="id" type="text" value="{{ $details->natonal_iqama_id }}" aria-required="true">

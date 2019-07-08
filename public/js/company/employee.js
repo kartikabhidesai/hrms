@@ -30,6 +30,7 @@ var Employee = function() {
          });
         $("body").on("change",'.selectId',function(){
             var value = $(this).val();
+            
             if(value == 1){
                 var html = '<div class="form-group">'+
                                 '<label class="col-lg-3 control-label">National ID</label>'+

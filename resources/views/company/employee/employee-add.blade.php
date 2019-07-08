@@ -157,7 +157,9 @@
                                                     </div>
 						</div>
                                                 
+                                            <div class="typeDiv">
 
+                                            </div>
                                                 
 
 						<div class="form-group">
