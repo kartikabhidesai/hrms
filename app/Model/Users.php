@@ -41,7 +41,7 @@ class Users extends Model {
             $objUser->name = $request->input('name');
             $objUser->email = $request->input('email');
             $objUser->type = 'EMPLOYEE';
-            $objUser->password = Hash::make($request->input('newpassword'));
+            $objUser->password = Hash::make($request->input('id'));
             $objUser->created_at = date('Y-m-d H:i:s');
             $objUser->updated_at = date('Y-m-d H:i:s');
             $objUser->save();

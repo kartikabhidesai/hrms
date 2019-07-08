@@ -267,8 +267,7 @@
                                 <div class="form-group">
                                         <label class="col-lg-3 control-label">Password</label>
                                         <div class="col-lg-9">
-                                                <input placeholder="Password" class="form-control newpassword " id="newpassword" name="newpassword" type="password" value="{{  $details->natonal_iqama_id }}">
-
+                                            <input placeholder="Password" class="form-control newpassword " id="newpassword" name="newpassword" type="password" value="{{  $details->natonal_iqama_id }}" disabled>
                                         </div>
                                 </div>
                             </div>

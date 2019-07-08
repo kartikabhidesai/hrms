@@ -111,6 +111,7 @@ class EmployeeController extends Controller {
         $data['testarray'] = $objPayrollsetting->getPayrollSetting();
         
         if ($request->isMethod('post')) {
+            
             $objEmployee = new Employee();
             $res = $objEmployee->editEmployee($request,$id);
             if ($res) {
