@@ -134,7 +134,48 @@ class SendSMS extends Model
        }
        return TRUE;
     }
-
+    
+    public  function sendNewSMSApi($request,$companyId){
+                if($request->input('emp_id') == "All" && $request->input('dept_id') == "All"){
+                     $temp_emp = Employee::select('phone')
+                                ->where('company_id',$companyId)
+                                ->get()->toarray();
+                  
+                }
+                if($request->input('emp_id') == "All" && $request->input('dept_id') != "All"){
+                    $temp_emp = Employee::select('phone')
+                                ->where('department',$request->input('dept_id'))
+                                ->where('company_id',$companyId)
+                                ->get()->toarray();
+                }
+                if($request->input('emp_id') != "All" && $request->input('dept_id') != "All"){
+                    $temp_emp = Employee::select('phone')
+                                ->where('id',$request->input('emp_id'))
+                                ->get()->toarray();
+                    
+                }
+                if($request->input('emp_id') != "All" && $request->input('dept_id') == "All"){
+                    $temp_emp = Employee::select('phone')
+                                ->where('id',$request->input('emp_id'))
+                                ->get()->toarray();
+                    
+                }
+                
+                for($i = 0 ;$i < count($temp_emp) ; $i++){
+//                    print_r($temp_emp[$i]['phone']);
+                    $url="http://5.189.169.241:5012/api/SendSMS?api_id=API241020424399&api_password=12345678&sms_type=T&encoding=T&sender_id=BLKSMS&phonenumber=".$temp_emp[$i]['phone']."&textmessage=".$request->input('message').""; 
+                    $ch = curl_init($url);
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                    $curl_scraped_page = curl_exec($ch);
+                    curl_close($ch);    
+                    $json_decode = json_decode($curl_scraped_page);
+//                    print_r($json_decode);
+                }
+                
+                    return TRUE;
+    }
+    
+    
     public function sendNewSMS11($request, $companyId)
     {
         // print_r($request->all());exit();

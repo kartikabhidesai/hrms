@@ -13,52 +13,53 @@ var SendSMS = function () {
 
         var form = $('#sendSMS');
         var rules = {
-          // emp_id: {required: true},
+          dept_id: {required: true},
+          emp_id: {required: true},
           message: {required: true}
         };
         handleFormValidate(form, rules, function (form) {
             handleAjaxFormSubmit(form, true);
         });
 
-        $('body').on('click','.sendSMS',function(){
-            /*$('.emp_id').css('border','1px solid #e5e6e7');
-            $('.message').css('border','1px solid #e5e6e7');*/
-            var emp_id = $('.emp_id').val();
-            var dept_id = $('.dept_id').val();
-            var message = $('.message').val();
-            
-            if(!emp_id && !dept_id) {
-                /*$('.emp_id').css('border','1px solid red');
-                $('.message').css('border','1px solid red');*/
-                alert('Please select any Employee OR Department!');
-                return false;
-            } 
-              
-            if(emp_id =='' || dept_id == '') {
-                alert('Please select any one from Employee and Department!');
-                return false;
-            }
-            
-            if(message == '') {
-                $('.message').css('border','1px solid red');
-                return false;
-            }
-            
-            if(emp_id != '' && dept_id != '') {
-                var arrEmp = [];
-                if (emp_id == 'All') {
-                    $("#emp_id > option").each(function() {
-                        if(this.value > 0){
-                            arrEmp.push(this.value);    
-                        }
-                    });
-                }else{
-                    var ids = $("#emp_id option:selected").val();
-                    arrEmp.push(ids);
-                }
-                $('.emparray').val(arrEmp);
-            }
-        });
+//        $('body').on('click','.sendSMS',function(){
+//            /*$('.emp_id').css('border','1px solid #e5e6e7');
+//            $('.message').css('border','1px solid #e5e6e7');*/
+//            var emp_id = $('.emp_id').val();
+//            var dept_id = $('.dept_id').val();
+//            var message = $('.message').val();
+//            
+//            if(!emp_id && !dept_id) {
+//                /*$('.emp_id').css('border','1px solid red');
+//                $('.message').css('border','1px solid red');*/
+//                alert('Please select any Employee OR Department!');
+//                return false;
+//            } 
+//              
+//            if(emp_id =='' || dept_id == '') {
+//                alert('Please select any one from Employee and Department!');
+//                return false;
+//            }
+//            
+//            if(message == '') {
+//                $('.message').css('border','1px solid red');
+//                return false;
+//            }
+//            
+//            if(emp_id != '' && dept_id != '') {
+//                var arrEmp = [];
+//                if (emp_id == 'All') {
+//                    $("#emp_id > option").each(function() {
+//                        if(this.value > 0){
+//                            arrEmp.push(this.value);    
+//                        }
+//                    });
+//                }else{
+//                    var ids = $("#emp_id option:selected").val();
+//                    arrEmp.push(ids);
+//                }
+//                $('.emparray').val(arrEmp);
+//            }
+//        });
 
         var dataArr = {};
         var columnWidth = {"width": "10%", "targets": 0};

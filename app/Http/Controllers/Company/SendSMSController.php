@@ -70,9 +70,16 @@ class SendSMSController extends Controller
             $result = $newSMS->sendNewSMS($request, $companyId->id);
 
             if ($result) {
-                $return['status'] = 'success';
-                $return['message'] = 'New SMS sent successfully.';
-                $return['redirect'] = route('sms-list');
+                $newSMS = new SendSMS();
+                $resultApi = $newSMS->sendNewSMSApi($request, $companyId->id);
+                if ($result) {
+                    $return['status'] = 'success';
+                    $return['message'] = 'New SMS sent successfully.';
+                    $return['redirect'] = route('sms-list');
+                } else {
+                    $return['status'] = 'error';
+                    $return['message'] = 'Something went wrong!';
+                }
             } else {
                 $return['status'] = 'error';
                 $return['message'] = 'Something went wrong!';
