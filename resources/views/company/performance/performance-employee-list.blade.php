@@ -172,7 +172,7 @@
                               @endforeach
                               @else
                               <tr class="gradeU">
-                                    <td colspan="7" colspan="text-center" style="text-align: center !important;"> 
+                                    <td colspan="9" colspan="text-center" style="text-align: center !important;"> 
                                        <span class="text-danger" >No record Found</span>
                                     </td>
                                 </tr>

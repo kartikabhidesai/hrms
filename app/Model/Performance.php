@@ -261,22 +261,28 @@ class Performance extends Model {
     public function lastPerformance($id){
         $result = Performance::select('performances.*')
                 ->where('performances.employee_id', '=', $id)
-                ->orderBy('created_at', 'desc')
-                ->first()->toarray();
-//        return $result;
-        if(count($result) > 0){
-          $emp_total = (int)$result['availability'] + 
-                     (int)$result['dependability'] + 
-                     (int)$result['job_knowledge'] + 
-                     (int)$result['quality'] + 
-                     (int)$result['productivity'] + 
-                     (int)$result['working_relationship'] + 
-                     (int)$result['honesty'] ;
-            $perstange = ($emp_total*100)/35 ;
-            return $perstange;  
-        }else{
+                ->orderBy('performances.created_at', 'desc')
+                ->get();
+        if(count($result) <= 0){
             return "0";  
+        }else{
+            $result = Performance::select('performances.*')
+                    ->where('performances.employee_id', '=', $id)
+                    ->orderBy('created_at', 'desc')
+                    ->first()->toarray();
+            if(count($result) > 0){
+                $emp_total = (int)$result['availability'] + 
+                           (int)$result['dependability'] + 
+                           (int)$result['job_knowledge'] + 
+                           (int)$result['quality'] + 
+                           (int)$result['productivity'] + 
+                           (int)$result['working_relationship'] + 
+                           (int)$result['honesty'] ;
+                  $perstange = ($emp_total*100)/35 ;
+                  return $perstange;  
+              }else{
+                  return "0";  
+              }
         }
-        
     }
 }
