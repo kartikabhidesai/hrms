@@ -510,14 +510,14 @@
 								{{ Form::text('branch', $details->branch, array('class' => 'form-control branch' ,'required')) }}
 							</div>
 						</div>
-						<div class="form-group">
-							<div class="col-lg-offset-3 col-lg-9">
-								<button class="btn btn-sm btn-primary" type="submit">Save</button>
-							</div>
-						</div>
+						
 				</div>
 			</div>
 		</div>
+                
+                 <div class="col-12">
+                    <center><button class="btn btn-primary  btn-block" type="submit">Save</button></center>
+                </div>
 	{{ Form::close() }}
 	</div>
 </div>

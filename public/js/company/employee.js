@@ -34,10 +34,8 @@ var Employee = function() {
         var rules = {
             name: {required: true},
             first_name: {required: true},
-            // emp_pic: {required: true},
             Phone: {required: true,number:true},
             email: {required: true,email:true},
-//            national_id:{required: true},
             id:{required: true},
             gender: {required: true},
             religion: {required: true},
@@ -53,14 +51,13 @@ var Employee = function() {
         handleFormValidate(form, rules, function(form) {
             handleAjaxFormSubmit(form,true);
         });
-         var form = $('#editEmployee');
+        
+        var form = $('#editEmployee');
         var rules = {
             name: {required: true},
             first_name: {required: true},
-            // emp_pic: {required: true},
             Phone: {required: true,number:true},
             email: {required: true,email:true},
-//            national_id:{required: true},
             id:{required: true},
             gender: {required: true},
             religion: {required: true},
