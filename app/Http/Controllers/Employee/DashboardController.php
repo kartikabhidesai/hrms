@@ -29,10 +29,11 @@ class DashboardController extends Controller {
        
         $data['login_user'] = $session['logindata'][0];       
         $logged_in_user_id = $session['logindata'][0]['id'];
-          print_r($logged_in_user_id);
+        
+        $logged_in_user = Employee::select('*')->where('user_id', $logged_in_user_id)->first();
+        print_r($logged_in_user);
         
         die();
-        $logged_in_user = Employee::select('*')->where('user_id', $logged_in_user_id)->first();
         $objAnnouncementList =new Announcement();
         $announcementList = $objAnnouncementList->annousmentList($logged_in_user['company_id']);
         print_r($logged_in_user);
