@@ -31,7 +31,7 @@ class DashboardController extends Controller {
         $logged_in_user = Employee::select('*')->where('user_id', $logged_in_user_id)->first();
         $objAnnouncementList =new Announcement();
         $announcementList = $objAnnouncementList->annousmentList($logged_in_user['company_id']);
-        print_r($logged_in_user->id);
+        print_r($logged_in_user);
         
         die();
         $latest_task = Task::select('*')->where('employee_id',$logged_in_user->id)->orderBy('id','desc')->first();
