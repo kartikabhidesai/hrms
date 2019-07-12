@@ -37,7 +37,7 @@ class Notification extends Model {
             2 => 'nf.created_at',
         );
         $query = Notification::from('notification as nf')
-                ->where('nf.user_id',$userid);
+                        ->where('nf.user_id',$userid);
         if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
             $searchVal = $requestData['search']['value'];
             $query->where(function($query) use ($columns, $searchVal, $requestData) {
