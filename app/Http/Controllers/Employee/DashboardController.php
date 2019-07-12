@@ -24,14 +24,16 @@ class DashboardController extends Controller {
 
     public function dashboard(Request $request) {
 
-        //$logged_in_user=Auth::guard('employee')->user()->id;
+//        $logged_in_user=Auth::guard('employee')->user()->id;
         $session = $request->session()->all();
         $data['login_user'] = $session['logindata'][0];
         $logged_in_user_id = $session['logindata'][0]['id'];
         $logged_in_user = Employee::select('*')->where('user_id', $logged_in_user_id)->first();
         $objAnnouncementList =new Announcement();
         $announcementList = $objAnnouncementList->annousmentList($logged_in_user['company_id']);
-
+        print_r($logged_in_user->id);
+        
+        die();
         $latest_task = Task::select('*')->where('employee_id',$logged_in_user->id)->orderBy('id','desc')->first();
         $latest_advance_salary_request = Advancesalary::select('*')->where('employee_id',$logged_in_user->id)->orderBy('id','desc')->first();
        
