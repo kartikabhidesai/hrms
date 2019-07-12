@@ -42,6 +42,7 @@ class RoleController extends Controller {
             'title' => 'Role',
             'breadcrumb' => array(
                 'Home' => route("company-dashboard"),
+                
                 'Role' => 'Role'));
         return view('company.role.list', $data);
     }
@@ -88,6 +89,7 @@ class RoleController extends Controller {
             'title' => 'Role',
             'breadcrumb' => array(
                 'Home' => route("company-dashboard"),
+                'Role List' => route("company-role-list"),
                 'Add Role' => 'company-add-role'));
         return view('company.role.add', $data);
     }
