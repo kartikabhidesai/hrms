@@ -171,7 +171,7 @@
                                     </div>
                                 </div>
                                 @endif
-						<div class="form-group appId">
+<!--						<div class="form-group appId">
                                                     <label class="col-lg-3 control-label">ID</label>
                                                     <div class="col-sm-9"> 
                                                         <select class="form-control selectId" id="national_id" name="national_id">
@@ -180,24 +180,15 @@
                                                             <option value="2" {{ $details->type_of_id == 2 ? 'selected' : '' }}>Iqama ID</option>
                                                         </select>
                                                     </div>
-						</div>
+						</div>-->
                                     
                                                 <div class="typeDiv">
-                                                    @if( $details->type_of_id == 1)
-                                                        <div class="form-group">
-                                                            <label class="col-lg-3 control-label">National ID</label>
-                                                                <div class="col-sm-9">
-                                                                    <input placeholder="National Id" class="form-control id" required="" name="id" value="{{ $details->natonal_iqama_id }}" type="text" aria-required="true">
-                                                                </div>
-                                                        </div>
-                                                    @else
-                                                        <div class="form-group">
-                                                            <label class="col-lg-3 control-label">Iqama ID</label>
-                                                                <div class="col-sm-9">
-                                                                    <input placeholder="Iqama Id" class="form-control id" required="" name="id" type="text" value="{{ $details->natonal_iqama_id }}" aria-required="true">
-                                                                </div>
-                                                        </div>
-                                                    @endif
+                                                    <div class="form-group">
+                                                        <label class="col-lg-3 control-label">Iqama ID</label>
+                                                            <div class="col-sm-9">
+                                                                <input placeholder="Iqama Id" class="form-control id" required="" name="id" type="text" value="{{ $details->natonal_iqama_id }}" aria-required="true">
+                                                            </div>
+                                                    </div>
                                                 </div>
                                     
 						<div class="form-group">

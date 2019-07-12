@@ -122,7 +122,7 @@ class Employee extends Model {
         $objEmployee->passport_expire_date = date('Y-m-d', strtotime($request->input('passport_expire_date')));
         $objEmployee->job_title = $request->input('job_title');
         $objEmployee->employee_type = $request->input('employee_type');
-        $objEmployee->type_of_id = $request->input('national_id');
+//        $objEmployee->type_of_id = $request->input('national_id');
         $objEmployee->natonal_iqama_id = $request->input('id');
         $objEmployee->created_at = date('Y-m-d H:i:s');
         $objEmployee->updated_at = date('Y-m-d H:i:s');
@@ -201,7 +201,7 @@ class Employee extends Model {
         $objEmployee->permanent_address = $request->input('permanent_address');
         $objEmployee->nationality = $request->input('nationality');
         $objEmployee->martial_status = $request->input('martial_status');
-        $objEmployee->type_of_id = $request->input('national_id');
+//        $objEmployee->type_of_id = $request->input('national_id');
         $objEmployee->natonal_iqama_id = $request->input('id');
         
         if($emp_pic != NULL || $emp_pic != ''){

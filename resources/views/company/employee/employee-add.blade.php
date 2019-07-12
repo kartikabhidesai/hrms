@@ -105,48 +105,48 @@
 							</div>
 						</div>
 						 	<div class="form-group">
-						 		<label class="col-sm-3 control-label">Martial Status</label>
-                                <div class="col-sm-9"> 
-                                {{ Form::select('martial_status', $martialArray , null, array('class' => 'form-control martial_status', 'id' => 'martial_status')) }}
-                                </div>
-                            </div>
-                        <div class="form-group">
-							<label class="col-lg-3 control-label">Photo</label>
-								  <div class="col-sm-9"> 
-                                <div class="fileinput fileinput-new input-group " data-provides="fileinput">
-							    <div class="form-control" data-trigger="fileinput">
-							        <i class="glyphicon glyphicon-file fileinput-exists"></i>
-							    <span class="fileinput-filename"></span>
-							    </div>
-							    <span class="input-group-addon btn btn-default btn-file">
-							        <span class="fileinput-new">Select file</span>
-							        <span class="fileinput-exists">Change</span>
-							        <input type="file" name="emp_pic"/>
-							    </span>
-							    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-								</div> 
-							</div>
-						</div>
+                                                            <label class="col-sm-3 control-label">Martial Status</label>
+                                                            <div class="col-sm-9"> 
+                                                            {{ Form::select('martial_status', $martialArray , null, array('class' => 'form-control martial_status', 'id' => 'martial_status')) }}
+                                                            </div>
+                                                        </div>
+                                                            <div class="form-group">
+                                                                <label class="col-lg-3 control-label">Photo</label>
+                                                                <div class="col-sm-9"> 
+                                                                    <div class="fileinput fileinput-new input-group " data-provides="fileinput">
+                                                                        <div class="form-control" data-trigger="fileinput">
+                                                                            <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                                                                        <span class="fileinput-filename"></span>
+                                                                        </div>
+                                                                        <span class="input-group-addon btn btn-default btn-file">
+                                                                            <span class="fileinput-new">Select file</span>
+                                                                            <span class="fileinput-exists">Change</span>
+                                                                            <input type="file" name="emp_pic"/>
+                                                                        </span>
+                                                                        <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                                                    </div> 
+                                                                </div>
+                                                            </div>
 
-						<div class="form-group">
-							<label class="col-lg-3 control-label">Driver License</label>
-						  	<div class="col-sm-9"> 
-                            	<div class="fileinput fileinput-new input-group " data-provides="fileinput">
-							    	<div class="form-control" data-trigger="fileinput">
-							        	<i class="glyphicon glyphicon-file fileinput-exists"></i>
-							    		<span class="fileinput-filename"></span>
-							    	</div>
-								    <span class="input-group-addon btn btn-default btn-file">
-								        <span class="fileinput-new">Select file</span>
-								        <span class="fileinput-exists">Change</span>
-								        <input type="file" name="driver_license"/>
-								    </span>
-						    		<a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-								</div> 
-							</div>
-						</div>
+                                                    <div class="form-group">
+                                                            <label class="col-lg-3 control-label">Driver License</label>
+                                                            <div class="col-sm-9"> 
+                                                                <div class="fileinput fileinput-new input-group " data-provides="fileinput">
+                                                                    <div class="form-control" data-trigger="fileinput">
+                                                                            <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                                                                            <span class="fileinput-filename"></span>
+                                                                    </div>
+                                                                    <span class="input-group-addon btn btn-default btn-file">
+                                                                        <span class="fileinput-new">Select file</span>
+                                                                        <span class="fileinput-exists">Change</span>
+                                                                        <input type="file" name="driver_license"/>
+                                                                    </span>
+                                                                    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                                                </div> 
+                                                            </div>
+                                                    </div>
 
-						<div class="form-group appId">
+<!--						<div class="form-group appId">
                                                     <label class="col-lg-3 control-label">ID</label>
                                                     <div class="col-sm-9"> 
                                                         <select class="form-control selectId" id="national_id" name="national_id">
@@ -155,10 +155,15 @@
                                                             <option value="2">Iqama ID</option>
                                                         </select>
                                                     </div>
-						</div>
+						</div>-->
                                                 
                                             <div class="typeDiv">
-
+                                                <div class="form-group">
+                                                    <label class="col-lg-3 control-label">Iqama ID</label>
+                                                        <div class="col-sm-9">
+                                                            <input placeholder="Iqama Id" class="form-control id" required="" name="id" type="text" aria-required="true">
+                                                        </div>
+                                                </div>
                                             </div>
                                                 
 
