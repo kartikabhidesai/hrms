@@ -63,8 +63,12 @@ var Training = function () {
     }
 
     var addTraining = function(){
-
-         var form = $('#addTraining');
+        
+        $('body').on('click','.removeBtn',function(){
+            $(this).parent().parent().remove(); 
+        });
+        
+        var form = $('#addTraining');
         var rules = {
             location: {required: true},
             budget: {required: true},
@@ -78,57 +82,8 @@ var Training = function () {
         });
 
         var empCount=1;
-        addDepartment(empCount);
-        // getemployee(empCount);
-        $('body').on('click', '.add-emp', function () {
-            empCount++;
-            addDepartment(empCount);
-        });
-
-        // function addDepartment(eid){
-        //     $("#emp-info").append('<div class="row" id="employee'+eid+'">\
-        //         <div class="col-lg-1"></div>\
-        //         <div class="col-lg-3">\
-        //             <div class="form-group mr-1">\
-        //             <select id="Department'+eid+'" name="departmentid[]" onchange="getemployee('+eid+')" class="form-control"></select>\
-        //             </div>\
-        //         </div>\
-        //         <div class="col-lg-3">\
-        //             <div class="form-group mr-1">\
-        //             <select id="Employee'+eid+'"  name="employeeid[]" class="form-control"></select>\
-        //             </div>\
-        //         </div>\
-        //         <div class="col-lg-2" style="text-align: center;">\
-        //             <a class="btn btn-sm btn-danger" onclick="removeEmployee('+eid+')" ><i class="fa fa-minus"></i></a>\
-        //         </div>\
-        //         <div class="col-lg-2">\
-        //         </div>\
-        //     </div>');
-
-        //     $.ajax({
-        //         type: "POST",
-        //         headers: {
-        //             'X-CSRF-TOKEN': $('input[name="_token"]').val(),
-        //         },
-        //         url: baseurl + "company/department-ajaxAction",
-        //         data: {'action': 'getCompnanyDepartmentList'},
-        //         success: function (data) {
-        //             var output = JSON.parse(data);
-        //             var len = output.length;
-        //             // console.log(output);
-        //                 $("#Department"+eid).empty();
-        //                 for( var i = 0; i<len; i++){
-        //                     var id = output[i]['id'];
-        //                     var name = output[i]['department_name'];
-        //                     $("#Department"+eid).append("<option value='"+id+"'>"+name+"</option>");
-        //                 }
-        //                 $("#Department"+eid).on("change", getemployee(eid));
-        //         }
-        //     });
-        // } 
-
-
-        function addDepartment(eid){
+        addDepartmentfirst(empCount);
+        function addDepartmentfirst(eid){
             $("#emp-info").append('<div class="row" id="employee'+eid+'">\
                 <div class="col-lg-1"></div>\
                 <div class="col-lg-3">\
@@ -141,26 +96,49 @@ var Training = function () {
                     <select id="Employee'+eid+'"  data-id="'+eid+'"  name="employeeid[]" class="form-control employee"></select>\
                     </div>\
                 </div>\
+                <div class="col-lg-2">\
+                </div>\
+            </div>');
+
+             handleEmployee(eid);
+        }
+        // getemployee(empCount);
+        $('body').on('click', '.add-emp', function () {
+            empCount++;
+            addDepartment(empCount);
+        });
+        
+        function addDepartment(eid){
+            $("#emp-info").append('<div class="row removediv" id="employee'+eid+'">\
+                <div class="col-lg-1"></div>\
+                <div class="col-lg-3">\
+                    <div class="form-group mr-1">\
+                    <select id="Department'+eid+'" data-id="'+eid+'" name="departmentid[]"  class="form-control department"></select>\
+                    </div>\
+                </div>\
+                <div class="col-lg-3">\
+                    <div class="form-group mr-1">\
+                    <select id="Employee'+eid+'"  data-id="'+eid+'"  name="employeeid[]" class="form-control employee"></select>\
+                    </div>\
+                </div>\
                 <div class="col-lg-2" style="text-align: center;">\
-                    <a class="btn btn-sm btn-danger" ><i class="fa fa-minus"></i></a>\
+                    <a class="btn btn-sm btn-danger removeBtn" ><i class="fa fa-minus"></i></a>\
                 </div>\
                 <div class="col-lg-2">\
                 </div>\
             </div>');
 
-             // handleEmployee(eid);
              handleEmployee(eid);
         }
 
         $("body").on('click', '.department', function () {
-            // var dept =  $('.department option:selected').attr('data-id');
-            // var deptVal =  $(this).val();
             var deptVal =  $(this).attr('data-id');
             if(deptVal > 0){
                 getemployee(deptVal);    
             }
         });
-
+        
+        
         function handleEmployee(eid ) { 
            var deptVal =  $('department option:selected').val(); 
            $.ajax({
@@ -212,9 +190,6 @@ var Training = function () {
             });
         }
 
-        // $("#empCount").on("change",  getemployee(eid));
-
-       
     }
 
     return {

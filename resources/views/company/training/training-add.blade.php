@@ -122,30 +122,5 @@
         
 	</div>
 </div>
-<script>
-var empCount=1;
-        function getinput1(){
-        $("#emp-info").append('<div class="row" id="employee'+empCount+'">\
-                <div class="col-lg-1"></div>\
-                <div class="col-lg-3">\
-                    <div class="form-group mr-1">\
-                    {{ Form::select("department[]", $department , null, array("placeholder"=>"Select Depatment", "class" => "form-control department", "id" => "department")) }}\
-                    </div>\
-                </div>\
-                <div class="col-lg-3">\
-                    <div class="form-group mr-1">\
-                    {{ Form::select("employee[]",["" => "Select Employee"] + $employee , isset($employeeId) ? $employeeId : "", array("class" => "form-control ", "id" => "employee")) }}\
-                    </div>\
-                </div>\
-                <div class="col-lg-2" style="text-align: center;">\
-                    <a class="btn btn-sm btn-danger" onclick="removeEmployee('+empCount+')" ><i class="fa fa-minus"></i></a>\
-                </div>\
-                <div class="col-lg-2">\
-                </div>\
-            </div>');
-        }
-        function removeEmployee(id){
-            $('#employee'+id).remove();
-        }
-            </script>
+
 @endsection

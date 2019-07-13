@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <div class="wrapper wrapper-content animated fadeInRight">
-    <div class="row">
+<!--    <div class="row">
        <div class="col-lg-12">  
         <div class="ibox float-e-margins">
             <div class="ibox-title">
@@ -34,7 +34,7 @@
   </div>
 </div>
 </div>
-</div>
+</div>-->
 
 <div class="row">
 
@@ -55,6 +55,7 @@
                                
                                 <th>Name</th>
                                 <th>Description</th>
+                                <th>Notification Type</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -65,7 +66,7 @@
                                 <tr class="gradeU">
                                     <td>{{$row->notification_name}}</td>
                                     <td>{{$row->description}}</td>
-                                   
+                                    <td>{{$row->description}}</td>
                                     <td class="center">
                                     <input type="checkbox" class="custom-switch" <?php if($row->status==1){ echo "checked"; } ?> name="{{$row->id}}">
                                     </td>

@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Pay Slip</title>
+        <title>Job Offer</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <style>
             .main-header{

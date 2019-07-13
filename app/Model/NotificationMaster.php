@@ -30,10 +30,10 @@ class NotificationMaster extends Model {
 
     public function getEmployeeNotificationList($userid) {
         $query =DB::table('user_notification as un')
-                ->join('notification_master as nm', 'nm.id', '=', 'un.notification_master_id')
-                ->where('un.company_id',$userid)
-                ->select(array('un.id','nm.notification_name','nm.description','un.status'))
-                ->get();
+                    ->join('notification_master as nm', 'nm.id', '=', 'un.notification_master_id')
+                    ->where('un.company_id',$userid)
+                    ->select(array('un.id','nm.notification_name','nm.description','un.status'))
+                    ->get();
         // $data = array();
         
         return $query;
