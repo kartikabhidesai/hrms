@@ -92,10 +92,10 @@ $currentRoute = Route::current()->getName();
                     <span class="nav-label">Training</span></a>
                 </li>
                 
-                <li class="{{ ($currentRoute == 'award' || $currentRoute == 'award-add' ? 'active' : '') }}">
+<!--                <li class="{{ ($currentRoute == 'award' || $currentRoute == 'award-add' ? 'active' : '') }}">
                     <a href="{{ route('award') }}"><i class="fa fa-bullhorn"></i>
                     <span class="nav-label">Award</span></a>
-                </li>
+                </li>-->
                 
                  <li class="{{ ($currentRoute == 'employee-sent-notification' || $currentRoute == 'employee-notification-list' ? 'active' : '') }}">
                     <a href="{{ route('employee-sent-notification') }}"><i class="fa fa-bell"></i>

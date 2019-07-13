@@ -54,7 +54,6 @@
                             <tr>
                                
                                 <th>Name</th>
-                                <th>Description</th>
                                 <th>Notification Type</th>
                                 <th>Action</th>
                             </tr>
@@ -65,7 +64,6 @@
                                 @foreach($notifiactionList as $row)
                                 <tr class="gradeU">
                                     <td>{{$row->notification_name}}</td>
-                                    <td>{{$row->description}}</td>
                                     <td>{{$row->description}}</td>
                                     <td class="center">
                                     <input type="checkbox" class="custom-switch" <?php if($row->status==1){ echo "checked"; } ?> name="{{$row->id}}">

@@ -100,7 +100,7 @@ var Training = function () {
                 </div>\
             </div>');
 
-             handleEmployee(eid);
+             handleEmployee(eid); 
         }
         // getemployee(empCount);
         $('body').on('click', '.add-emp', function () {
