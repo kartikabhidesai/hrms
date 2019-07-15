@@ -48,7 +48,7 @@ class AnnouncementController extends Controller {
     public function anounment_add(Request $request) {
 
         if ($request->isMethod('post')) {
-            print_r($request);exit;
+//            print_r($request);exit;
             $objAnnoucement = new Announcement();
             $userData = Auth::guard('company')->user();
             
@@ -103,6 +103,7 @@ class AnnouncementController extends Controller {
             'title' => 'Announcement List',
             'breadcrumb' => array(
                 'Home' => route("company-dashboard"),
+                'Announcement list'=> route("announcement"),
                 'Announcemnet' => 'Announcement-add'));
 
         return view('company.announcement.announcement-add', $data);

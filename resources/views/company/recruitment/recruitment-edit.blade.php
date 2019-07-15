@@ -14,7 +14,7 @@
                         <div class="col-lg-12">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label class="col-lg-2 control-label">Task</label>
+                                    <label class="col-lg-2 control-label">Job Name</label>
                                     <div class="col-lg-10">
                                     <input type="hidden" name="editId" value="{{  $details->id }}">
                                         <input type="text" class="form-control" name="task" value="{{  $details->task }}">

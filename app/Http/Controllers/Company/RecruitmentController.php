@@ -40,7 +40,7 @@ class RecruitmentController extends Controller {
         $companyId = Company::select('id')->where('user_id', $userId)->first();
         $objDepart = new Department();
         $data['department'] = $objDepart->getDepartment($companyId->id);
-        $data['experince']=['0'=>'High','1'=>'Medium','2'=>'Low'];
+        $data['experince']=['0'=>'0-1','1'=>'1-3','2'=>'3-5','3'=>'5-10','4'=>'10+'];
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/recruitment.js','jquery.form.min.js');
         $data['funinit'] = array('Recruitment.init()');
@@ -114,7 +114,7 @@ class RecruitmentController extends Controller {
         
         $objDepart = new Department();
         $data['department'] = $objDepart->getDepartment($companyId->id);
-        $data['experince']=['0'=>'High','1'=>'Medium','2'=>'Low'];
+        $data['experince']=['0'=>'0-1','1'=>'1-3','2'=>'3-5','3'=>'5-10','4'=>'10+'];
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/recruitment.js','jquery.form.min.js');
         $data['funinit'] = array('Recruitment.add()');
@@ -172,7 +172,7 @@ class RecruitmentController extends Controller {
         
         $objDepart = new Department();
         $data['department'] = $objDepart->getDepartment($companyId->id);
-        $data['experince']=['0'=>'High','1'=>'Medium','2'=>'Low'];
+        $data['experince']=['0'=>'0-1','1'=>'1-3','2'=>'3-5','3'=>'5-10','4'=>'10+'];
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/recruitment.js','jquery.form.min.js');
         $data['funinit'] = array('Recruitment.add()');

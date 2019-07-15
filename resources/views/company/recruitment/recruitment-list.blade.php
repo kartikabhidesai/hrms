@@ -18,7 +18,7 @@
                             <thead>
                                 <tr>
                                     <th>Recruitment ID</th>
-                                    <th>Task Name</th>
+                                    <th>Job Name</th>
                                     <th>Responsibility</th>
                                     <th>Experience Level</th>
                                     <th>Start Date - End Date</th>
