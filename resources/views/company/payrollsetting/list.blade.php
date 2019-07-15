@@ -68,7 +68,7 @@
                          <div class="form-group">
                             <label class="col-sm-2 control-label">Salary Payment Date</label>
                             <div class="col-sm-9">
-                                <input type="text" name="payment_date"  class="form-control">
+                                <input type="text" name="payment_date"  id="payment_date" class="form-control">
                             </div>
                         </div>
                      </div>

@@ -97,9 +97,9 @@ return [
     ],
   
     'task_status'=>[
-        '0'=>'In Progress',
-        '1'=>'Pending', 
-        '2'=>'Complete',
+        '1'=>'In Progress',
+        '2'=>'Pending', 
+        '3'=>'Complete',
     ],
 
     'task_progress'=>[

@@ -998,6 +998,7 @@ function reverseDateV2(FormateOfDate) {
 
 $(function() 
 {
+     $( "#payment_date" ).datepicker({ format: 'dd/MM',autoclose: true });
      $( "#date" ).datepicker({ format: 'dd-mm-yyyy',autoclose: true });
      $( "#from_date" ).datepicker({ format: 'dd-mm-yyyy',autoclose: true });
      $( "#to_date" ).datepicker({ format: 'dd-mm-yyyy',autoclose: true });

@@ -20,6 +20,7 @@
                                     <th>Deadline Date</th>
                                     <th>Priority</th>
                                     <th>Info</th>
+                                    <th>Location</th>
                                     <th>View</th>
                                     <th>Update</th>
                                 </tr>
@@ -56,7 +57,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-12">
-                                <label class="col-sm-3 control-label"> About Total </label>
+                                <label class="col-sm-3 control-label"> About Task </label>
                                 <div class="col-sm-9">
                                     <span class="about_task"></span>
                                 </div>
@@ -106,7 +107,20 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Task Status</label>
                             <div class="col-sm-9">
-                                {{ Form::select('task_status', $task_status , null, array('class' => 'form-control m-b c-select task_status', 'id' => 'task_status')) }}
+                                <select class="form-control m-b c-select task_status" id="task_status" name="task_status" >
+                                    <option value="1">In_Progress</option>
+                                    <option value="2">Pending</option>
+                                    <option value="3">Complete</option>
+                                </select>
+                               
+                            </div>
+                        </div>
+                         
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Location</label>
+                            <div class="col-sm-9">
+                               {{ Form::text('location' , null, array('class' => 'form-control m-b c-select location', 'id' => 'location')) }}
+                               
                             </div>
                         </div>
                         <div class="form-group">
@@ -118,6 +132,8 @@
                                 </div>
                             </div>
                         </div>
+                         
+                        
                     </div>
                 </div>
             </div>

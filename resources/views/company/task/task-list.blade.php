@@ -2,6 +2,51 @@
 @section('content')
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
+        <div class="col-lg-4 ">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-success pull-right"></span>
+                    <h5>High Priority</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">{{ $highPriority }}</h1>
+                    <div class="stat-percent font-bold text-success"></div>
+                    <small></small>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-info pull-right"></span>
+                    <h5>Normal Priority</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">{{ $normalPriority }}</h1>
+                    <div class="stat-percent font-bold text-info"></div>
+                    <small></small>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-success pull-right"></span>
+                    <h5>Low Priority</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">{{ $lowPriority }}</h1>
+                    <div class="stat-percent font-bold text-success"></div>
+                    <small></small>
+                </div>
+            </div>
+        </div>
+
+       
+    </div>
+    <div class="row">
         <div class="col-lg-12">
             {{ csrf_field() }}
             <div class="ibox float-e-margins">
@@ -35,9 +80,9 @@
                                 <div class="col-lg-10">
                                     <select name="department" id="status" class="form-control status">
                                         <option value="">Select Status</option>
-                                        <option value="0" {{ ( $status == '0' ? 'selected="selected"' : '') }}>In Progess</option>
-                                        <option value="1" {{ ( $status == '1' ? 'selected="selected"' : '') }}>Pending</option>
-                                        <option value="2" {{ ( $status == '2' ? 'selected="selected"' : '') }}>Complete</option>
+                                        <option value="1" {{ ( $status == '1' ? 'selected="selected"' : '') }}>In Progess</option>
+                                        <option value="2" {{ ( $status == '2' ? 'selected="selected"' : '') }}>Pending</option>
+                                        <option value="3" {{ ( $status == '3' ? 'selected="selected"' : '') }}>Complete</option>
                                     </select>
                                 </div>
                             </div>
@@ -62,6 +107,7 @@
                                     <th>Status</th>
                                     <th>Complete Progress</th>
                                     <th>Info</th>
+                                    <th>Location</th>
                                     <th>Emoloyee File</th>
                                     <th>Action</th>
                                 </tr>

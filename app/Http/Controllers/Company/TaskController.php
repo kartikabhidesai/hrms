@@ -29,14 +29,19 @@ class TaskController extends Controller {
     {
         
         $session = $request->session()->all();
-
+        
         $items = Session::get('notificationdata');
         $userID = $this->loginUser;
+        
+        $companyId = Company::select('id')->where('user_id', $userID->id)->first();
+       
         $objNotification = new Notification();
         $items=$objNotification->SessionNotificationCount($userID->id);        
         Session::put('notificationdata', $items);
-         
-
+        $objtaskpriority = new Task();
+        $data['highPriority'] = $objtaskpriority->highPriority($companyId['id']);
+        $data['normalPriority'] = $objtaskpriority->normalPriority($companyId['id']);
+        $data['lowPriority'] = $objtaskpriority->lowPriority($companyId['id']);
         $data['priority'] = "";
         $data['status'] = "";
         

@@ -61,6 +61,7 @@ var Task = function () {
                 $('.task_id').val(output.id);
                 $('.complete_progress').val(output.complete_progress);
                 $('.task_status').val(output.task_status);
+                $('.location').val(output.location);
                 if(output.emp_updated_file!=null)
                 {
                     $('.fileName').show();

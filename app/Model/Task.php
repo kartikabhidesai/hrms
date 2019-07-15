@@ -43,22 +43,24 @@ class Task extends Model {
     }
 
     public function getTaskList($request, $companyId) {
+        
         $requestData = $_REQUEST;
         $data = $request->input('data');
 
-        if ($data['priority'] != NULL) {
+        if ($data['priority'] != NULL ) {
             $priority = $data['priority'];
         } else {
             $priority = "";
         }
 
         /* Don't remove this code as it's in-progress */
-         if($data['status'] != NULL) {
+         if($data['status'] != NULL || $data['status'] == 0) {
           $status = $data['status'];
           } else {
           $status = "";
           } 
-
+          
+          
         $columns = array(
             // datatable column index  => database column name
             0 => 'tasks.id',
@@ -66,13 +68,14 @@ class Task extends Model {
             2 => 'tasks.employee_id',
             3 => 'tasks.priority',
             4 => 'tasks.about_task',
+            5 => 'tasks.location',
         );
         $query = Task::join('employee as emp', 'tasks.employee_id', '=', 'emp.id')
                 ->where('tasks.company_id', $companyId);
         if ($priority) {
             $query->where('tasks.priority', "=", $priority);
         }
-
+        
         /* Don't remove this code as it's in-progress */
         if($status){
             $query->where('tasks.task_status', "=", $status);
@@ -103,21 +106,22 @@ class Task extends Model {
 
         $resultArr = $query->skip($requestData['start'])
                 ->take($requestData['length'])
-                ->select('tasks.id', 'tasks.assign_date', 'tasks.deadline_date', 'tasks.task_status', 'tasks.file', 'tasks.task', 'tasks.priority','tasks.complete_progress', 'tasks.about_task', 'tasks.emp_updated_file','tasks.task_status', 'emp.name as emp_name')
+                ->select('tasks.id','tasks.location', 'tasks.assign_date', 'tasks.deadline_date', 'tasks.task_status', 'tasks.file', 'tasks.task', 'tasks.priority','tasks.complete_progress', 'tasks.about_task', 'tasks.emp_updated_file','tasks.task_status', 'emp.name as emp_name')
                 ->get();
         // print_r($resultArr);exit();
         $data = array();
 
         $task_status = Config::get('constants.task_status');
         foreach ($resultArr as $key => $row) {
-            $actionHtml = '<a href="#taskDetailsModel" data-toggle="modal" data-id="'.$row['id'].'" title="Details" class="btn btn-default link-black text-sm taskDetails" data-toggle="tooltip" data-original-title="Show"><i class="fa fa-eye"></i></a>';
+            $actionHtml = '<a href="#taskDetailsModel" data-toggle="modal" data-id="'.$row['id'].'" title="Details" class="link-black text-sm taskDetails" data-toggle="tooltip" data-original-title="Show"><i class="fa fa-eye"></i></a>';
             $nestedData = array();
             $nestedData[] = $row["task"];
             $nestedData[] = $row["emp_name"];
             $nestedData[] = $row["priority"];
-            $nestedData[] = $row["task_status"] ? $task_status[$row["task_status"]] : 'N.A.';
+            $nestedData[] = $row["task_status"] ? $task_status[$row["task_status"]] : 'New';
             $nestedData[] = $row["complete_progress"].'%';
             $nestedData[] = $row["about_task"];
+            $nestedData[] = $row["location"];
             $nestedData[] = $row["emp_updated_file"] ? '<a target="_blank" href="'. '/uploads/tasks/'. $row["emp_updated_file"] .'">View File</a>' : 'N.A.';
             $nestedData[] = $actionHtml;
             $data[] = $nestedData;
@@ -141,6 +145,7 @@ class Task extends Model {
             2 => 'tasks.employee_id',
             3 => 'tasks.priority',
             4 => 'tasks.about_task',
+            4 => 'tasks.location',
         );
         $query = Task::where('tasks.employee_id', $empId);
 
@@ -169,7 +174,7 @@ class Task extends Model {
 
         $resultArr = $query->skip($requestData['start'])
                 ->take($requestData['length'])
-                ->select('tasks.assign_date', 'tasks.deadline_date', 'tasks.task', 'tasks.priority', 'tasks.about_task', 'tasks.id')
+                ->select('tasks.assign_date','tasks.location', 'tasks.deadline_date', 'tasks.task', 'tasks.priority', 'tasks.about_task', 'tasks.id')
                 ->get();
 
         $data = array();
@@ -184,6 +189,7 @@ class Task extends Model {
             $nestedData[] = date('m/d/Y', strtotime($row["deadline_date"]));
             $nestedData[] = $row["priority"];
              $nestedData[] = $row["about_task"];
+             $nestedData[] = $row["location"];
             $nestedData[] = $viewTaskHtml;
             $nestedData[] = $updateTaskHtml;
             $data[] = $nestedData;
@@ -199,7 +205,7 @@ class Task extends Model {
     }
 
     public function getEmpviewTaskDetail($taskId,$Empid) {
-        $result = Task::select('task', 'file', 'about_task', 'complete_progress','emp_updated_file', 'file', 'task_status','id')->where('employee_id', $Empid)->where('id', $taskId)->first();
+        $result = Task::select('task', 'file', 'about_task','location' ,'complete_progress','emp_updated_file', 'file', 'task_status','id')->where('employee_id', $Empid)->where('id', $taskId)->first();
         return $result;
     }
 
@@ -215,6 +221,7 @@ class Task extends Model {
         $objTask->emp_updated_file = $name;
         $objTask->complete_progress = $request->complete_progress;
         $objTask->task_status = $request->task_status;
+        $objTask->location = $request->location;
         $objTask->save();
         if ($objTask) {
             return TRUE;
@@ -228,5 +235,25 @@ class Task extends Model {
         $result = Task::select('task','company_id','id')->where('deadline_date', $dates)->where('task_status','!=', '2')->get()->toArray();
         return $result;
     }
-
+    
+    public function highPriority($companyid){
+        $result = Task::where('priority','HIGH')
+                    ->where('company_id',$companyid)
+                    ->count();
+        return $result;
+    }
+    
+    public function normalPriority($companyid){
+        $result = Task::where('priority','NORMAL')
+                        ->where('company_id',$companyid)
+                        ->count();
+        return $result;
+    }
+    
+    public function lowPriority($companyid){
+        $result = Task::where('priority','LOW')
+                        ->where('company_id',$companyid)
+                        ->count();
+        return $result;
+    }
 }

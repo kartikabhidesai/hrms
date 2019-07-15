@@ -70,8 +70,7 @@ class TasksController extends Controller {
                 'Home' => route("employee-dashboard"),
                 'Task List' => 'Task List'));
         $data['task_progress'] = Config::get('constants.task_progress');
-        $data['task_status'] = ['In_Progress', 'Pending', 'Complete'];
-        
+        $data['task_status'] = ['In Progress', 'Pending', 'Complete'];
         return view('employee.task.task-list', $data);
     }
 
