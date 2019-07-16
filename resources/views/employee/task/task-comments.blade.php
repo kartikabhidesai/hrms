@@ -30,11 +30,11 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-6">
-                                Employee Name : {{ $taskDetails[0]['name'] }} {{ $taskDetails[0]['father_name'] }}
+                             <div class="col-lg-6">
+                                Assign Date : {{ date("d-m-Y",strtotime($taskDetails[0]['assign_date'])) }}
                             </div>
                             <div class="col-lg-6">
-                                Assign Date : {{ date("d-m-Y",strtotime($taskDetails[0]['assign_date'])) }}
+                               Deadline Date : {{ date("d-m-Y",strtotime($taskDetails[0]['deadline_date'])) }}
                             </div>
                         </div>
                         
