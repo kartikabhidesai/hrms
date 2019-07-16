@@ -127,7 +127,18 @@ var Task = function () {
             }
         });
     });
-
+    var commentList =  function(){
+            var form = $('#addTaskComment');
+            var rules = {
+                comments: {required: true}
+            };
+            handleFormValidate(form, rules, function(form) {
+                 ajaxcall($(form).attr('action'), $(form).serialize(), function (output) {
+                    
+                    handleAjaxResponse(output);
+                });
+            });
+    }
     return {
         init: function () {
             handleList();
@@ -135,5 +146,8 @@ var Task = function () {
         add:function(){
           addTask();  
         },
+        comments:function(){
+            commentList();
+        }
     }
 }();

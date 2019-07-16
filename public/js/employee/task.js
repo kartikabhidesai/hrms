@@ -88,10 +88,25 @@ var Task = function () {
 
 
     };
+    
+    var commentlist = function(){
+        var form = $('#addEmpTaskComment');
+            var rules = {
+                comments: {required: true}
+            };
+            handleFormValidate(form, rules, function(form) {
+                 ajaxcall($(form).attr('action'), $(form).serialize(), function (output) {
+                    handleAjaxResponse(output);
+                });
+            });
+    };
     return {
         init: function () {
             handleList();
             updateTask();
-        }
+        },
+        comments:function(){
+            commentlist();
+        },
     }
 }();

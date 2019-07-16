@@ -74,7 +74,8 @@ $employeePrefix = "employee";
     Route::match(['get', 'post'], 'emp-task-list', ['as' => 'emp-task-list', 'uses' => 'Employee\TasksController@index']);
     Route::match(['get', 'post'], 'emp-task-ajaxAction', ['as' => 'emp-task-ajaxAction', 'uses' => 'Employee\TasksController@ajaxAction']);
     Route::match(['get', 'post'], 'emp-task-detail-download-attachment/{file_name}', ['as' => 'emp-task-detail-download-attachment/{file_name}', 'uses' => 'Employee\CommunicationController@downloadAttachment']);
-
+    Route::match(['get', 'post'], 'task-emp-comments/{id}', ['as' => 'task-emp-comments', 'uses' => 'Employee\TasksController@taskComment']);
+    
     /*Training*/
     Route::match(['get', 'post'], 'employee-training', ['as' => 'employee-training', 'uses' => 'Employee\TrainingController@index']);
     Route::match(['get', 'post'], 'employee-training-ajaxAction', ['as' => 'ajaxAction', 'uses' => 'Employee\TrainingController@ajaxAction']);

@@ -91,7 +91,9 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
     Route::match(['get', 'post'], 'task-list', ['as' => 'task-list', 'uses' => 'Company\TaskController@index']);
     Route::match(['get', 'post'], 'task-ajaxAction', ['as' => 'task-ajaxAction', 'uses' => 'Company\TaskController@ajaxAction']);
     Route::match(['get', 'post'], 'add-task', ['as' => 'add-task', 'uses' => 'Company\TaskController@addTask']);
-
+    Route::match(['get', 'post'], 'task-comments/{id}', ['as' => 'task-comments', 'uses' => 'Company\TaskController@taskComments']);
+    
+    
     Route::match(['get', 'post'], 'sent-notification', ['as' => 'sent-notification', 'uses' => 'Company\NotificationController@sentNotification']);
     Route::match(['get', 'post'], 'notification-list', ['as' => 'notification-list', 'uses' => 'Company\NotificationController@notificationList']);
     Route::match(['get', 'post'], 'notification-ajaxAction', ['as' => 'notification-ajaxAction', 'uses' => 'Company\NotificationController@ajaxAction']);

@@ -7,6 +7,7 @@ use App\Model\Employee;
 use App\Model\Department;
 use App\Model\Company;
 use App\Model\Task;
+use App\Model\TaskComments;
 use App\Model\NonWorkingDate;
 use App\Model\Notification;
 use App\Model\NotificationMaster;
@@ -171,5 +172,42 @@ class TaskController extends Controller {
         echo json_encode($taskDetails);
         exit;
     }
+    
+    public function taskComments(Request $request,$id){
+        
+        if ($request->isMethod('post')) {
+            $objTaskComment = new TaskComments();
+            $result = $objTaskComment->addComments($request);
+            if($result) {
+                $return['status'] = 'success';
+                $return['message'] = 'Task Comment successfully.';
+                // $rt='ticket-comments/'.$id;
+                $return['redirect'] = $id;
+            } else {
+                $return['status'] = 'error';
+                $return['message'] = 'Something will be wrong.';
+            }
 
+            echo json_encode($return);
+            exit;
+            
+        }
+        $objTaskComment = new TaskComments();
+        $task_comment = $objTaskComment->getTaskCommentDetails($id);
+        $data['ticket_comment'] = $task_comment;
+        $objTask = new Task();
+        $data['taskDetails']= $objTask->taskDetails($id);
+        $data['taskprocess'] = ['0'=>'New','1'=>'In Progess','2'=>'Pending','3'=>'Complete'];
+        $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
+        $data['js'] = array('company/task.js');
+        $data['funinit'] = array('Task.comments()');
+        $data['css'] = array('');
+        $data['header'] = array(
+            'title' => 'Task Comments',
+            'breadcrumb' => array(
+                'Home' => route("company-dashboard"),
+                'Task List' => route("task-list"),
+                'Task Comments' => 'Task Comments'));
+        return view('company.task.task-comments', $data);
+    }
 }

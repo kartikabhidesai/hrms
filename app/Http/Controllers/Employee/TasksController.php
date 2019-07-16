@@ -9,6 +9,7 @@ use App\Model\Employee;
 use App\Model\Company;
 use App\Model\Notification;
 use App\Model\NotificationMaster;
+use App\Model\TaskComments;
 use File;
 use Config;
 
@@ -72,6 +73,44 @@ class TasksController extends Controller {
         $data['task_progress'] = Config::get('constants.task_progress');
         $data['task_status'] = ['In Progress', 'Pending', 'Complete'];
         return view('employee.task.task-list', $data);
+    }
+    
+    public function taskComment(Request $request,$id){
+       if ($request->isMethod('post')) {
+         
+            $objTaskComment = new TaskComments();
+            $result = $objTaskComment->addComments($request);
+            if($result) {
+                $return['status'] = 'success';
+                $return['message'] = 'Task Comment successfully.';
+                // $rt='ticket-comments/'.$id;
+                $return['redirect'] = $id;
+            } else {
+                $return['status'] = 'error';
+                $return['message'] = 'Something will be wrong.';
+            }
+
+            echo json_encode($return);
+            exit;
+            
+        }
+        $objTaskComment = new TaskComments();
+        $task_comment = $objTaskComment->getTaskCommentDetails($id);
+        $data['ticket_comment'] = $task_comment;
+        $objTask = new Task();
+        $data['taskDetails']= $objTask->taskDetails($id);
+        $data['taskprocess'] = ['0'=>'New','1'=>'In Progess','2'=>'Pending','3'=>'Complete'];
+        $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
+        $data['js'] = array('employee/task.js');
+        $data['funinit'] = array('Task.comments()');
+        $data['css'] = array('');
+        $data['header'] = array(
+            'title' => 'Task Comments',
+            'breadcrumb' => array(
+                'Home' => route("employee-dashboard"),
+                'Task List' => route("emp-task-list"),
+                'Task Comments' => 'Task Comments'));
+        return view('employee.task.task-comments', $data);
     }
 
     public function ajaxAction(Request $request) {

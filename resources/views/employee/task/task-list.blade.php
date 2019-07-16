@@ -21,8 +21,7 @@
                                     <th>Priority</th>
                                     <th>Info</th>
                                     <th>Location</th>
-                                    <th>View</th>
-                                    <th>Update</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>

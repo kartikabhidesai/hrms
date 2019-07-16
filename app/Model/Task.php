@@ -113,7 +113,7 @@ class Task extends Model {
 
         $task_status = Config::get('constants.task_status');
         foreach ($resultArr as $key => $row) {
-            $actionHtml = '<a href="#taskDetailsModel" data-toggle="modal" data-id="'.$row['id'].'" title="Details" class="link-black text-sm taskDetails" data-toggle="tooltip" data-original-title="Show"><i class="fa fa-eye"></i></a>';
+            $actionHtml = '<a href="#taskDetailsModel" data-toggle="modal" data-id="'.$row['id'].'" title="Details" class="link-black text-sm taskDetails" data-toggle="tooltip" data-original-title="Show"><i class="fa fa-eye"></i></a><a href="task-comments/'.$row['id'].'" class="link-black text-sm" data-id="'.$row['id'].'" data-toggle="tooltip" data-original-title="View Details"> <i class="fa fa-comments"></i></a>';
             $nestedData = array();
             $nestedData[] = $row["task"];
             $nestedData[] = $row["emp_name"];
@@ -178,20 +178,22 @@ class Task extends Model {
                 ->get();
 
         $data = array();
-
+       
         foreach ($resultArr as $key => $row) {
-
-            $viewTaskHtml = '<a href="#taskDetailsModel" class="taskDetailsModel" data-toggle="modal" data-id="' . $row['id'] . '"  title="View Details" data-toggle="tooltip" data-original-title="View Details">View Details</a>';
-            $updateTaskHtml = '<a href="#updateTaskModel" class="updateTaskModel" data-toggle="modal" data-id="' . $row['id'] . '"  title="Update" data-toggle="tooltip" data-original-title="Update">Update</a>';
+          
+            
+            $actionHtml = '<a href="#taskDetailsModel" class="link-black text-sm taskDetailsModel" data-toggle="modal" data-id="' . $row['id'] . '"  title="View Details" data-toggle="tooltip" data-original-title="View Details">&nbsp;&nbsp;<i class="fa fa-eye"></i></a>'.
+                          '<a href="#updateTaskModel" class="link-black text-sm updateTaskModel" data-toggle="modal" data-id="' . $row['id'] . '"  title="Update" data-toggle="tooltip" data-original-title="Update">&nbsp;&nbsp;<i class="fa fa-edit"></i></a>'.
+                          '<a href="task-emp-comments/'.$row['id'].'" class="link-black text-sm" data-id="'.$row['id'].'" data-toggle="tooltip" data-original-title="View Details">&nbsp;&nbsp;<i class="fa fa-comments"></i></a>';
+            
             $nestedData = array();
             $nestedData[] = $row["task"];
             $nestedData[] = date('m/d/Y', strtotime($row["assign_date"]));
             $nestedData[] = date('m/d/Y', strtotime($row["deadline_date"]));
             $nestedData[] = $row["priority"];
-             $nestedData[] = $row["about_task"];
-             $nestedData[] = $row["location"];
-            $nestedData[] = $viewTaskHtml;
-            $nestedData[] = $updateTaskHtml;
+            $nestedData[] = $row["about_task"];
+            $nestedData[] = $row["location"];
+            $nestedData[] = $actionHtml;
             $data[] = $nestedData;
         }
 
@@ -255,5 +257,14 @@ class Task extends Model {
                         ->where('company_id',$companyid)
                         ->count();
         return $result;
+    }
+    
+    public function taskDetails($id){
+         $result = Task::select("tasks.*",'emp.name','emp.father_name','dep.department_name','dep.manager_name')
+                ->join('employee as emp', 'tasks.employee_id', '=', 'emp.id')
+                ->join('department as dep', 'tasks.department_id', '=', 'dep.id')
+                ->where('tasks.id',$id)
+                ->get();
+          return $result;
     }
 }

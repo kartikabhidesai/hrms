@@ -20,7 +20,7 @@ class TicketComment extends Model
     public function saveTicketComment($request)
     {    
     	if(Auth::guard('company')->check()) {
-    		$userData = Auth::guard('company')->user();
+            $userData = Auth::guard('company')->user();
             $getAuthCompanyId = Company::where('email', $userData->email)->first();
             
             $id = DB::table('ticket_comments')->insertGetId(['user_id' => $getAuthCompanyId->user_id,
