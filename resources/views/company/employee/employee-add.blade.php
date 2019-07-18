@@ -445,7 +445,7 @@
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Branch</label>
 							<div class="col-lg-9">
-								{{ Form::text('branch', null, array('class' => 'form-control branch' ,'required')) }}
+								{{ Form::text('branch', null, array('class' => 'form-control branch' )) }}
 							</div>
 						</div>
 				</div>
