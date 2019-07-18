@@ -245,12 +245,12 @@ class LeaveCategory extends Model {
     
     public function getTypeOfRequestTimeChangeRequest($id){
          $query = Employee::where('user_id',$id)
-                ->select('*')->get();
+                        ->select('*')->get();
         
         $company_id = $query[0]['company_id'];
         $gender = $query[0]['gender'];
         $martial_status = $query[0]['martial_status'];
-         
+      
         $type_of_request = LeaveCategory::select('leave_cat_name','id')
                         ->where('company_id',$company_id)
                         ->where('leave_type','time_change_request')
@@ -259,7 +259,6 @@ class LeaveCategory extends Model {
                         ->where('gender','All')
                         ->where('marital_status','All')
                         ->get()->toarray();
-        
         $type_of_request_new = LeaveCategory::select('leave_cat_name','id')
                         ->where('company_id',$company_id)
                         ->where('leave_type','time_change_request')

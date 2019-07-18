@@ -17,6 +17,7 @@ class AttendanceHistory extends Model
     public function getDataTableForHistoy($request)
     {
         $data=$request->input('data');
+        
          if($data['from_date'] != NULL){
             $fromDate=date('Y-m-d', strtotime($data['from_date']));
          }else{
@@ -27,7 +28,7 @@ class AttendanceHistory extends Model
          }else{
             $to_date=""; 
          }
-        
+       
         $department_id=$data['department_id'];
        
         $requestData = $_REQUEST;
@@ -52,11 +53,11 @@ class AttendanceHistory extends Model
 //            $where .= 'AND (`leaves`.`end_date` <= '.$to_date.' OR `time_change_requests`.`to_date` <= '.$to_date.' )';
 //        }
         $query = AttendanceHistory::select('attendance_history.id', 'employee.name', 'leaves.start_date', 'leaves.end_date', 'leaves.type_of_req_id', 'department.department_name', 'time_change_requests.request_type', 'time_change_requests.from_date', 'time_change_requests.to_date')
-                                                ->join('employee', 'attendance_history.employee_id', '=', 'employee.id')
-                                                ->join('department', 'employee.department', '=', 'department.id')
-                                                ->leftjoin('time_change_requests', 'attendance_history.time_change_request_id', '=', 'time_change_requests.id')
-                                                ->leftjoin('leaves', 'attendance_history.leave_id', '=', 'leaves.id')
-                                                ->where('attendance_history.company_id', $companyId->id);
+                                    ->leftjoin('employee', 'attendance_history.employee_id', '=', 'employee.id')
+                                    ->leftjoin('department', 'employee.department', '=', 'department.id')
+                                    ->leftjoin('time_change_requests', 'attendance_history.time_change_request_id', '=', 'time_change_requests.id')
+                                    ->leftjoin('leaves', 'attendance_history.leave_id', '=', 'leaves.id')
+                                    ->where('attendance_history.company_id', $companyId->id);
                                                 
                                                 if($department_id != "all"){
                                                     $query->where('employee.department',"=",$department_id);

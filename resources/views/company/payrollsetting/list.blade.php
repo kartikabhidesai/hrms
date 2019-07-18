@@ -68,7 +68,17 @@
                          <div class="form-group">
                             <label class="col-sm-2 control-label">Salary Payment Date</label>
                             <div class="col-sm-9">
-                                <input type="text" name="payment_date"  id="payment_date" class="form-control">
+                                @php
+                                    $data=['01/Month','02/Month','03/Month','04/Month','05/Month','06/Month','07/Month','08/Month','09/Month','10/Month','11/Month','12/Month','13/Month','14/Month','15/Month','16/Month','17/Month','18/Month','19/Month','20/Month','21/Month','22/Month','23/Month','24/Month','25/Month','26/Month','27/Month','28/Month','29/Month','30/Month','31/Month',];
+                                @endphp
+                                   
+                                    <select class="form-control" name="payment_date" >
+                                        <option value="">Select Salary Payment Date</option>
+                                         @for($i = 0; $i < count($data) ; $i++)
+                                            <option value="{{ $data[$i]}}">{{ $data[$i]}}</option>
+                                         @endfor
+                                    </select> 
+                                    
                             </div>
                         </div>
                      </div>

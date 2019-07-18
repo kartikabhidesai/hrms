@@ -193,6 +193,7 @@ class AttendanceController extends Controller
             $data['toDate']=$request->input('to_date');
             $data['department_id']=$request->input('department_id');
         }
+        
         $userid = $this->loginUser->id;
         $companyId = Company::select('id')->where('user_id', $userid)->first();
         $data['departmentList'] = Department::where('company_id', $companyId['id'])->get();
