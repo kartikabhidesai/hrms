@@ -110,7 +110,7 @@
                                                             {{ Form::select('martial_status', $martialArray , null, array('class' => 'form-control martial_status', 'id' => 'martial_status')) }}
                                                             </div>
                                                         </div>
-                                                            <div class="form-group">
+<!--                                                            <div class="form-group">
                                                                 <label class="col-lg-3 control-label">Photo</label>
                                                                 <div class="col-sm-9"> 
                                                                     <div class="fileinput fileinput-new input-group " data-provides="fileinput">
@@ -126,9 +126,15 @@
                                                                         <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
                                                                     </div> 
                                                                 </div>
-                                                            </div>
-
-                                                    <div class="form-group">
+                                                            </div>-->
+                                                            
+                                                            <div class="form-group">
+                                                                <label class="col-lg-3 control-label">Photo</label>
+                                                                <div class="col-sm-9">
+                                                                    <input type="file" class="form-control" name="emp_pic">
+                                                                </div>
+                                                            </div>    
+<!--                                                    <div class="form-group">
                                                             <label class="col-lg-3 control-label">Driver License</label>
                                                             <div class="col-sm-9"> 
                                                                 <div class="fileinput fileinput-new input-group " data-provides="fileinput">
@@ -144,6 +150,13 @@
                                                                     <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
                                                                 </div> 
                                                             </div>
+                                                    </div>-->
+
+                                                    <div class="form-group">
+                                                        <label class="col-lg-3 control-label">Driver License</label>
+                                                        <div class="col-sm-9">
+                                                            <input type="file" class="form-control" name="driver_license">
+                                                        </div>
                                                     </div>
 
 <!--						<div class="form-group appId">
@@ -159,7 +172,7 @@
                                                 
                                             <div class="typeDiv">
                                                 <div class="form-group">
-                                                    <label class="col-lg-3 control-label">Iqama ID</label>
+                                                    <label class="col-lg-3 control-label">National ID / Iqama ID</label>
                                                         <div class="col-sm-9">
                                                             <input placeholder="Iqama Id" class="form-control id" required="" name="id" type="text" aria-required="true">
                                                         </div>
@@ -176,7 +189,7 @@
 							</div>
 						</div>
 
-						<div class="form-group">
+<!--						<div class="form-group">
 							<label class="col-lg-3 control-label">Passport</label>
 								  <div class="col-sm-9"> 
                                 <div class="fileinput fileinput-new input-group " data-provides="fileinput">
@@ -192,7 +205,14 @@
 							    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
 								</div> 
 							</div>
-						</div>
+						</div>-->
+                                                <div class="form-group">
+                                                    <label class="col-lg-3 control-label">Passport</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="file" class="form-control" name="passport">
+                                                    </div>
+                                                </div>
+
 
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Passport Expire Date</label>
@@ -333,7 +353,7 @@
 				</div>
 				<div class="ibox-content">
 					 
-					  <div class="form-group">
+<!--					  <div class="form-group">
 							<label class="col-lg-3 control-label">Resume</label>
 								<div class="fileinput fileinput-new input-group col-lg-9" data-provides="fileinput">
 							    <div class="form-control" data-trigger="fileinput">
@@ -347,8 +367,14 @@
 							    </span>
 							    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
 								</div> 
-						</div>
-						  <div class="form-group">
+						</div>-->
+                                                    <div class="form-group">
+                                                        <label class="col-lg-3 control-label">Passport</label>
+                                                        <div class="col-sm-9">
+                                                            <input type="file" class="form-control" name="passport">
+                                                        </div>
+                                                    </div>
+<!--						  <div class="form-group">
 							<label class="col-lg-3 control-label">Offer Letter</label>
 								<div class="fileinput fileinput-new input-group col-lg-9" data-provides="fileinput">
 							    <div class="form-control" data-trigger="fileinput">
@@ -362,8 +388,14 @@
 							    </span>
 							    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
 								</div> 
-						</div>
-						  <div class="form-group">
+						</div>-->
+                                                <div class="form-group">
+                                                    <label class="col-lg-3 control-label">Offer Letter</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="file" class="form-control" name="offer_latter">
+                                                    </div>
+                                                </div>
+<!--						  <div class="form-group">
 							<label class="col-lg-3 control-label">Joining Letter</label>
 								<div class="fileinput fileinput-new input-group col-lg-9" data-provides="fileinput">
 							    <div class="form-control" data-trigger="fileinput">
@@ -377,8 +409,14 @@
 							    </span>
 							    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
 								</div> 
-						</div>
-						  <div class="form-group">
+						</div>-->
+                                                <div class="form-group">
+                                                    <label class="col-lg-3 control-label">Joining Letter</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="file" class="form-control" name="join_letter">
+                                                    </div>
+                                                </div>
+<!--						  <div class="form-group">
 							<label class="col-lg-3 control-label">Contect & Agerement</label>
 								<div class="fileinput fileinput-new input-group col-lg-9" data-provides="fileinput">
 							    <div class="form-control" data-trigger="fileinput">
@@ -392,9 +430,14 @@
 							    </span>
 							    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
 								</div> 
-						</div>
-
-						  <div class="form-group">
+						</div>-->
+                                                <div class="form-group">
+                                                    <label class="col-lg-3 control-label">Contect & Agerement</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="file" class="form-control" name="contect_agre">
+                                                    </div>
+                                                </div>
+<!--						  <div class="form-group">
 							<label class="col-lg-3 control-label">Other</label>
 								<div class="fileinput fileinput-new input-group col-lg-9" data-provides="fileinput">
 							    <div class="form-control" data-trigger="fileinput">
@@ -408,7 +451,13 @@
 							    </span>
 							    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
 								</div> 
-						</div>
+						</div>-->
+                                                <div class="form-group">
+                                                    <label class="col-lg-3 control-label">Other</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="file" class="form-control" name="other">
+                                                    </div>
+                                                </div>
 				</div>
 			</div>
 		</div>

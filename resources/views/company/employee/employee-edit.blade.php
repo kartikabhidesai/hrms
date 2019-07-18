@@ -120,9 +120,9 @@
                                     </div>
                                 </div>
                             
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label class="col-lg-3 control-label">Photo</label>
-                                    <div class="col-sm-9"> 
+                                   <div class="col-sm-9"> 
                                         <div class="fileinput fileinput-new input-group " data-provides="fileinput">
                                             <div class="form-control" data-trigger="fileinput">
                                                 <i class="glyphicon glyphicon-file fileinput-exists"></i>
@@ -135,16 +135,22 @@
                                             </span>
                                             <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
                                         </div> 
-                                    </div>
-                                    @if($details->photo != NULL || $details->photo != "")
-                                        <label class="col-lg-3 control-label">&nbsp;</label>
+                                    </div>-->
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Photo</label>
                                         <div class="col-sm-9">
-                                            <a href="{{ url('uploads/client/'.$details->photo) }}" download>
-                                               <label class="col-lg-3 control-label"> {{ $details->photo }}</label>
-                                            </a>
+                                            <input type="file" class="form-control" name="emp_pic">
                                         </div>
-                                    @endif
-                            </div>
+                                   
+                                        @if($details->photo != NULL || $details->photo != "")
+                                            <label class="col-lg-3 control-label">&nbsp;</label>
+                                            <div class="col-sm-9">
+                                                <a href="{{ url('uploads/client/'.$details->photo) }}" download>
+                                                   <label class="col-lg-3 control-label"> {{ $details->photo }}</label>
+                                                </a>
+                                            </div>
+                                        @endif
+                                    </div>
 
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">Driver License</label>
@@ -184,7 +190,7 @@
                                     
                                                 <div class="typeDiv">
                                                     <div class="form-group">
-                                                        <label class="col-lg-3 control-label">Iqama ID</label>
+                                                        <label class="col-lg-3 control-label">National ID / Iqama ID</label>
                                                             <div class="col-sm-9">
                                                                 <input placeholder="Iqama Id" class="form-control id" required="" name="id" type="text" value="{{ $details->natonal_iqama_id }}" aria-required="true">
                                                             </div>
