@@ -151,32 +151,26 @@
                                             </div>
                                         @endif
                                     </div>
-
-                            <div class="form-group">
-                                <label class="col-lg-3 control-label">Driver License</label>
-                                <div class="col-sm-9"> 
-                                    <div class="fileinput fileinput-new input-group " data-provides="fileinput">
-                                        <div class="form-control" data-trigger="fileinput">
-                                                <i class="glyphicon glyphicon-file fileinput-exists"></i>
-                                                <span class="fileinput-filename"></span>
+                            
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Driver License</label>
+                                        <div class="col-sm-9">
+                                            <input type="file" class="form-control" name="driver_license"/>
                                         </div>
-                                            <span class="input-group-addon btn btn-default btn-file">
-                                                <span class="fileinput-new">Select file</span>
-                                                <span class="fileinput-exists">Change</span>
-                                                <input type="file" name="driver_license"/>
-                                            </span>
-                                        <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-                                    </div> 
-                                </div>
-                                @if($details->driver_license != NULL || $details->driver_license != "")
-                                <label class="col-lg-3 control-label">&nbsp;</label>
-                                    <div class="col-sm-9">
-                                        <a href="{{ url('uploads/client/'.$details->driver_license) }}" download>
-                                            <label class="col-lg-3 pull-left"> {{ $details->driver_license }}</label>
-                                        </a>
+                                   
+                                        @if($details->driver_license != NULL || $details->driver_license != "")
+                                        <label class="col-lg-3 control-label">&nbsp;</label>
+                                            <div class="col-sm-9">
+                                                <a href="{{ url('uploads/client/'.$details->driver_license) }}" download>
+                                                    <label class="col-lg-3 pull-left"> {{ $details->driver_license }}</label>
+                                                </a>
+                                            </div>
+                                        @endif
                                     </div>
-                                </div>
-                                @endif
+
+                            <!--<div class="form-group">-->
+                                
+                                
 <!--						<div class="form-group appId">
                                                     <label class="col-lg-3 control-label">ID</label>
                                                     <div class="col-sm-9"> 
@@ -205,9 +199,23 @@
                                                             </div>
                                                     </div>
 						</div>
-
-						<div class="form-group">
+                                                <div class="form-group">
                                                     <label class="col-lg-3 control-label">Passport</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="file" name="passport" class="form-control">
+                                                    </div>
+
+                                                    @if($details->passport != NULL || $details->passport != '')
+                                                        <label class="col-lg-3 control-label">&nbsp;</label>
+                                                        <div class="col-sm-9">
+                                                            <a href="{{ url('uploads/client/'.$details->passport) }}" download>
+                                                                <label class="col-lg-3 pull-left"> {{ $details->passport }}</label>
+                                                            </a>
+                                                        </div>
+                                                    @endif
+                                                </div>
+<!--						<div class="form-group">
+                                                    
                                                     <div class="col-sm-9"> 
                                                         <div class="fileinput fileinput-new input-group " data-provides="fileinput">
                                                             <div class="form-control" data-trigger="fileinput">
@@ -222,16 +230,9 @@
                                                             <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
                                                         </div> 
                                                     </div>
-                                                    @if($details->passport != NULL || $details->passport != '')
-                                                        <label class="col-lg-3 control-label">&nbsp;</label>
-                                                        <div class="col-sm-9">
-                                                            <a href="{{ url('uploads/client/'.$details->passport) }}" download>
-                                                                <label class="col-lg-3 pull-left"> {{ $details->passport }}</label>
-                                                            </a>
-                                                        </div>
-                                                    @endif
                                                     
-						</div>
+                                                    
+						</div>-->
 
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Passport Expire Date</label>
@@ -241,7 +242,7 @@
 								</div>
 							</div>
 						</div>
-                            </div>
+<!--                            </div>-->
 			</div>
                 </div>	</div>
 		<div class="col-lg-6">
@@ -370,8 +371,22 @@
 					</div>
 				</div>
 				<div class="ibox-content">
-					 
-					  <div class="form-group">
+                                                        <div class="form-group">
+                                                           <label class="col-lg-3 control-label">Resume</label>
+                                                           <div class="col-sm-9">
+                                                               <input type="file" name="resume" class="form-control">
+                                                           </div>
+
+                                                           @if($details->resume_file != NULL || $details->resume_file != '')
+                                                               <label class="col-lg-3 control-label">&nbsp;</label>
+                                                               <div class="col-sm-9">
+                                                                   <a href="{{ url('uploads/client/'.$details->resume_file) }}" download>
+                                                                       <label class="col-lg-3 pull-left"> {{ $details->resume_file }}</label>
+                                                                   </a>
+                                                               </div>
+                                                           @endif
+                                                       </div>
+<!--					  <div class="form-group">
 							<label class="col-lg-3 control-label">Resume</label>
                                                             <div class="fileinput fileinput-new input-group col-lg-9" data-provides="fileinput">
                                                                 <div class="form-control" data-trigger="fileinput">
@@ -391,8 +406,25 @@
                                                                 <label class="col-lg-3 pull-left"> {{ $details->resume_file }}</label>
                                                             </a>
                                                         </div>
-						</div>
-						  <div class="form-group">
+						</div>-->
+
+                                                        <div class="form-group">
+                                                            <label class="col-lg-3 control-label">Offer Letter</label>
+                                                            <div class="col-sm-9">
+                                                                <input type="file" name="offer_latter" class="form-control">
+                                                            </div>
+
+                                                            @if($details->offer_letter != NULL || $details->offer_letter != '')
+                                                                <label class="col-lg-3 control-label">&nbsp;</label>
+                                                                <div class="col-sm-9">
+                                                                    <a href="{{ url('uploads/client/'.$details->offer_letter) }}" download>
+                                                                        <label class="col-lg-3 pull-left"> {{ $details->offer_letter }}</label>
+                                                                    </a>
+                                                                </div>
+                                                            @endif
+                                                       </div>
+
+<!--						  <div class="form-group">
 							<label class="col-lg-3 control-label">Offer Letter</label>
                                                         <div class="fileinput fileinput-new input-group col-lg-9" data-provides="fileinput">
                                                             <div class="form-control" data-trigger="fileinput">
@@ -412,8 +444,24 @@
                                                                 <label class="col-lg-3 pull-left"> {{ $details->offer_letter }}</label>
                                                             </a>
                                                         </div>
-						</div>
-						  <div class="form-group">
+						</div>-->
+                                                <div class="form-group">
+                                                    <label class="col-lg-3 control-label">Joining Letter</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="file" name="join_letter" class="form-control">
+                                                    </div>
+
+                                                    @if($details->joining_letter != NULL || $details->joining_letter != '')
+                                                        <label class="col-lg-3 control-label">&nbsp;</label>
+                                                        <div class="col-sm-9">
+                                                            <a href="{{ url('uploads/client/'.$details->joining_letter) }}" download>
+                                                                <label class="col-lg-3 pull-left"> {{ $details->joining_letter }}</label>
+                                                            </a>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                                
+<!--						  <div class="form-group">
 							<label class="col-lg-3 control-label">Joining Letter</label>
                                                         <div class="fileinput fileinput-new input-group col-lg-9" data-provides="fileinput">
                                                             <div class="form-control" data-trigger="fileinput">
@@ -433,8 +481,24 @@
                                                                 <label class="col-lg-3 pull-left"> {{ $details->joining_letter }}</label>
                                                             </a>
                                                         </div>
-						</div>
-						  <div class="form-group">
+						</div>-->
+                                                    <div class="form-group">
+                                                        <label class="col-lg-3 control-label">Contect & Agerement</label>
+                                                        <div class="col-sm-9">
+                                                            <input type="file" name="contect_agre" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    @if($details->contact_agreement != NULL || $details->contact_agreement != '')
+                                                        <div class="row">
+                                                            <label class="col-lg-3 control-label">&nbsp;</label>
+                                                            <div class="col-sm-9">
+                                                                <a href="{{ url('uploads/client/'.$details->contact_agreement) }}" download>
+                                                                    <label class="col-lg-3 pull-left"> {{ $details->contact_agreement }}</label>
+                                                                </a>
+                                                            </div>                                                            
+                                                        </div>
+                                                    @endif
+<!--                                                    <div class="form-group">
 							<label class="col-lg-3 control-label">Contect & Agerement</label>
                                                             <div class="fileinput fileinput-new input-group col-lg-9" data-provides="fileinput">
                                                                 <div class="form-control" data-trigger="fileinput">
@@ -454,9 +518,23 @@
                                                                 <label class="col-lg-3 pull-left"> {{ $details->contact_agreement }}</label>
                                                             </a>
                                                         </div>
-						</div>
+						</div>-->
+                                                    <div class="form-group">
+                                                        <label class="col-lg-3 control-label">Other</label>
+                                                        <div class="col-sm-9">
+                                                            <input type="file" name="other" class="form-control">
+                                                        </div>
 
-						  <div class="form-group">
+                                                        @if($details->other != NULL || $details->other != '')
+                                                            <label class="col-lg-3 control-label">&nbsp;</label>
+                                                            <div class="col-sm-9">
+                                                                <a href="{{ url('uploads/client/'.$details->other) }}" download>
+                                                                    <label class="col-lg-3 pull-left"> {{ $details->other }}</label>
+                                                                </a>
+                                                            </div>
+                                                        @endif
+                                                    </div>
+<!--						  <div class="form-group">
 							<label class="col-lg-3 control-label">Other</label>
                                                         <div class="fileinput fileinput-new input-group col-lg-9" data-provides="fileinput">
                                                             <div class="form-control" data-trigger="fileinput">
@@ -476,7 +554,7 @@
                                                                 <label class="col-lg-3 pull-left"> {{ $details->other }}</label>
                                                             </a>
                                                         </div>
-						</div>
+						</div>-->
 				</div>
 			</div>
 		</div>

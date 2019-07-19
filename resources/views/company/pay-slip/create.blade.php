@@ -15,7 +15,13 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Department:</label>
                         <div class="col-sm-9">
-                            {{ Form::select('department', $department , null, array('class' => 'form-control ', 'id' => 'department')) }}
+                            <select class="form-control" name="department" id="department">
+                                <option value="">Select department</option>
+                                @for($i = 1 ; $i <= count($department) ; $i++)
+                                    <option value="{{ $i }}">{{ $department[$i] }}</option>
+                                @endfor
+                            </select>
+                            
                         </div>
                     </div>
 
@@ -30,7 +36,9 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Month</label>
                         <div class="col-sm-9">
-                            {{ Form::select('months', $monthis , null, array('class' => 'form-control months', 'id' => 'months')) }}
+                           
+                            {{ Form::select('months', $monthis , $month, array('class' => 'form-control months', 'id' => 'months')) }}
+                          
                         </div>
                     </div>
 
@@ -39,7 +47,7 @@
                         <div class="col-sm-9">
                             <select class="form-control year" id="year" name="year">
                                 @for($i = 2019;$i<= 2022;$i++)
-                                <option value="{{  $i }}">{{  $i }}</option>
+                                <option value="{{  $i }}" {{ $i == $year ? 'selected' : '' }}>{{  $i }}</option>
                                 @endfor
                             </select>
                         </div>

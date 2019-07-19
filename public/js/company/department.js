@@ -57,25 +57,28 @@ var Department = function() {
         
         $('body').on('click','.add_designation',function(){
             var button='<div class="removediv">'+
-                            '<div class="form-group ">'+
-                            '<label class="col-lg-2 control-label"></label>'+
-                                '<div class="col-lg-8">'+
-                                    '<input name="designation[]" class="form-control" placeholder="Add more Designation" required>'+
+                            '<div class="row">'+
+                                '<div class="col-lg-6">'+
+                                    '<div class="form-group ">'+
+                                        '<label class="col-lg-4 control-label"></label>'+
+                                        '<div class="col-lg-8">'+
+                                            '<input name="designation[]" class="form-control" placeholder="Add more Designation" required>'+
+                                        '</div>'+
+                                    '</div>'+
                                 '</div>'+
-                                
-                            '</div>'+
-                            
-                            '<div class="form-group ">'+
-                            '<label class="col-lg-2 control-label"></label>'+
-                                '<div class="col-lg-8">'+
-                                    '<input name="supervisor_name[]" class="form-control" placeholder="Supervisor Name" required>'+
-                                '</div>'+
-                                '<div class="col-lg-2">'+
-                                    '<input type="button" class="red form-control removebtn" value="Remove">'+
+                                '<div class="col-lg-6">'+
+                                    '<div class="form-group ">'+
+                                        '<div class="col-lg-8">'+
+                                            '<input name="supervisor_name[]" class="form-control" placeholder="Supervisor Name" required>'+
+                                        '</div>'+
+                                        '<div class="col-lg-4">'+
+                                            '<input type="button" class="red form-control removebtn" value="Remove">'+
+                                        '</div>'+
+                                    '</div>'+
                                 '</div>'+
                             '</div>'+
                         '</div>';
-            $('.add_designation_div').prepend(button);
+            $('.add_designation_div').append(button);
         });
         
         $('body').on('click','.removebtn',function(){
@@ -97,23 +100,28 @@ var Department = function() {
         
         $('body').on('click','.add_designation',function(){
             var button='<div class="removediv">'+
-                            '<div class="form-group ">'+
-                            '<label class="col-lg-2 control-label"></label>'+
-                                '<div class="col-lg-8">'+
-                                    '<input name="designation[]" class="form-control" placeholder="Add more Designation" required>'+
+                            '<div class="col-lg-12">'+
+                            '<div class="row">'+
+                                '<div class="col-lg-6">'+
+                                    '<div class="form-group ">'+
+                                        '<label class="col-lg-4 control-label"></label>'+
+                                        '<div class="col-lg-8">'+
+                                            '<input name="designation[]" class="form-control" placeholder="Add more Designation" required>'+
+                                        '</div>'+
+                                    '</div>'+
                                 '</div>'+
-                                
+                                '<div class="col-lg-6">'+
+                                    '<div class="form-group ">'+
+                                        '<div class="col-lg-8">'+
+                                            '<input name="supervisor_name[]" class="form-control" placeholder="Supervisor Name" required>'+
+                                        '</div>'+
+                                        '<div class="col-lg-4">'+
+                                            '<input type="button" class="red form-control removebtn" value="Remove">'+
+                                        '</div>'+
+                                    '</div>'+
+                                '</div>'+
                             '</div>'+
-                            
-                            '<div class="form-group ">'+
-                            '<label class="col-lg-2 control-label"></label>'+
-                                '<div class="col-lg-8">'+
-                                    '<input name="supervisor_name[]" class="form-control" placeholder="Supervisor Name" required>'+
-                                '</div>'+
-                                '<div class="col-lg-2">'+
-                                    '<input type="button" class="red form-control removebtn" value="Remove">'+
-                                '</div>'+
-                            '</div>'+
+                           '</div>'+
                         '</div>';
             $('.add_designation_div').prepend(button);
         });

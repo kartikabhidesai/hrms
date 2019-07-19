@@ -54,7 +54,6 @@ class PayslipController extends Controller
         $data['detail'] = $this->loginUser;
         $objDepart = new Department();
         $data['department'] = $objDepart->getDepartment($companyId);   
-
         $objEmployee = new Employee();
         $data['employee'] = $objEmployee->getEmployee($companyId);
         $data['month']=$month;
@@ -63,7 +62,7 @@ class PayslipController extends Controller
         $data['employDetail'] = $objEmployee->getEmployDetailV2($companyId,$year, $month, $employee, $department);
         // print_r($data['employDetail']);exit;
         $data['monthis'] = Config::get('constants.months');
-
+      
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/pay_slip.js');
         $data['funinit'] = array('Paylip.init()');
