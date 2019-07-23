@@ -40,9 +40,12 @@ class TaskController extends Controller {
         $items=$objNotification->SessionNotificationCount($userID->id);        
         Session::put('notificationdata', $items);
         $objtaskpriority = new Task();
-        $data['highPriority'] = $objtaskpriority->highPriority($companyId['id']);
-        $data['normalPriority'] = $objtaskpriority->normalPriority($companyId['id']);
-        $data['lowPriority'] = $objtaskpriority->lowPriority($companyId['id']);
+        
+        $data['new'] = $objtaskpriority->newTask($companyId['id']);
+        $data['progress'] = $objtaskpriority->progressTask($companyId['id']);
+        $data['pending'] = $objtaskpriority->penddingTask($companyId['id']);
+        $data['complete'] = $objtaskpriority->completeTask($companyId['id']);
+        
         $data['priority'] = "";
         $data['status'] = "";
         

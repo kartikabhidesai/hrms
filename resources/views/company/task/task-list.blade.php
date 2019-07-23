@@ -2,42 +2,56 @@
 @section('content')
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
-        <div class="col-lg-4 ">
+        <div class="col-lg-3 ">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <span class="label label-success pull-right"></span>
-                    <h5>High Priority</h5>
+                    <h5>New Task</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">{{ $highPriority }}</h1>
+                    <h1 class="no-margins">{{ $new }}</h1>
                     <div class="stat-percent font-bold text-success"></div>
                     <small></small>
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-4">
+        <div class="col-lg-3">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <span class="label label-info pull-right"></span>
-                    <h5>Normal Priority</h5>
+                    <h5>Pending Task</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">{{ $normalPriority }}</h1>
+                    <h1 class="no-margins">{{ $pending }}</h1>
+                    <div class="stat-percent font-bold text-info"></div>
+                    <small></small>
+                </div>
+            </div>
+        </div>
+        
+         <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-info pull-right"></span>
+                    <h5>In progress Task</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">{{ $progress }}</h1>
                     <div class="stat-percent font-bold text-info"></div>
                     <small></small>
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-4">
+        <div class="col-lg-3">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <span class="label label-success pull-right"></span>
-                    <h5>Low Priority</h5>
+                    <h5>Completed Task</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">{{ $lowPriority }}</h1>
+                    <h1 class="no-margins">{{ $complete }}</h1>
                     <div class="stat-percent font-bold text-success"></div>
                     <small></small>
                 </div>
@@ -96,7 +110,7 @@
                         {{ Form::close() }}
                         <div class="ibox-tools">
                             <a href="{{ route('add-task') }}" class="btn btn-primary dim" ><i class="fa fa-plus"> Add</i></a>
-                    </div>
+                        </div>
                         <table class="table table-striped table-bordered table-hover dataTables-example" id="taskTable">
                             <thead>
                                 <tr>
@@ -113,29 +127,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- <tr>
-                                    <td>1</td>
-                                    <td>Design</td>
-                                    <td>ABC</td>
-                                    <td>High</td>
-                                    <td>Pending</td>
-                                    <td>50%</td>
-                                    <td>Abcdef Abcdef Abcdef</td>
-                                    <td>
-                                        <a href="" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-eye"></i></a></td>
-                                </tr>
-                                
-                                <tr>
-                                    <td>2</td>
-                                    <td>API</td>
-                                    <td>ABC</td>
-                                    <td>Normal</td>
-                                    <td>Pending</td>
-                                    <td>70%</td>
-                                    <td>AbcdefAbcdefAbcdef Abcdef Abcdef</td>
-                                    <td>
-                                        <a href="" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-eye"></i></a></td>
-                                </tr> -->
+                               
                             </tbody>
                         </table>
                     </div>

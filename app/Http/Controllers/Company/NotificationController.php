@@ -46,32 +46,32 @@ class NotificationController extends Controller
 
 	public function notificationList(Request $request)
 	{
-        $session = $request->session()->all();
-      
-        $items = Session::get('notificationdata');
-        
-        $userID = $this->loginUser;
-        
-        $objUpdateNotification = new Notification();
-        $result = $objUpdateNotification->UpdateNotification($userID->id);
-        
-        $objNotification = new Notification();
-        $items=$objNotification->SessionNotificationCount($userID->id);
+            $session = $request->session()->all();
 
-        Session::put('notificationdata', $items);
-        // print_r($request->session());
-        // exit;
-        $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
-        $data['js'] = array('company/notification.js','jquery.form.min.js');
-        $data['funinit'] = array('Notification.init()');
-        $data['css'] = array('');
-        $data['header'] = array(
-            'title' => 'View Notification',
-            'breadcrumb' => array(
-                'Home' => route("company-dashboard"),
-                'Sent Notification' => 'View Notification'));
-        return view('company.notification.notification-list', $data);
-    }
+            $items = Session::get('notificationdata');
+
+            $userID = $this->loginUser;
+
+            $objUpdateNotification = new Notification();
+            $result = $objUpdateNotification->UpdateNotification($userID->id);
+
+            $objNotification = new Notification();
+            $items=$objNotification->SessionNotificationCount($userID->id);
+
+            Session::put('notificationdata', $items);
+            // print_r($request->session());
+            // exit;
+            $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
+            $data['js'] = array('company/notification.js','jquery.form.min.js');
+            $data['funinit'] = array('Notification.init()');
+            $data['css'] = array('');
+            $data['header'] = array(
+                'title' => 'View Notification',
+                'breadcrumb' => array(
+                    'Home' => route("company-dashboard"),
+                    'Sent Notification' => 'View Notification'));
+            return view('company.notification.notification-list', $data);
+        }
     
     public function ajaxAction(Request $request) {
         $action = $request->input('action');

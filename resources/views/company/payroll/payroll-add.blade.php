@@ -19,14 +19,15 @@
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">Salary Grade</label>
                                 <div class="col-lg-9">
-                                    {{ Form::number('salary_grade', isset($arrayPayroll) ? $arrayPayroll['salary_grade'] : '', array('placeholder'=>'Salary Grade', 'class' => 'form-control' ,'required')) }}
+                                    
+                                    {{ Form::text('salary_grade', $payroll_setting[0]->grade, array('placeholder'=>'Salary Grade', 'class' => 'form-control' ,'required','readonly')) }}
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">Basic Salary</label>
                                 <div class="col-lg-9">
-                                    {{ Form::number('basic_salary', isset($arrayPayroll) ? $arrayPayroll['basic_salary'] : '', array('placeholder'=>'Basic Salary', 'class' => 'form-control' ,'required')) }}
+                                    {{ Form::text('basic_salary', $payroll_setting[0]->basic_salary, array('placeholder'=>'Basic Salary', 'class' => 'form-control' ,'required','readonly')) }}
                                 </div>
                             </div>
                             <div class="form-group">
@@ -117,7 +118,7 @@
                             <label class="col-lg-1 control-label">SAR</label>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group hidden">
                             <label class="col-lg-3 control-label">Award:</label>
                             <div class="col-lg-8">
                                 {{ Form::text('award',  isset($arrayPayroll) ? $arrayPayroll['award'] : '', array('placeholder'=>'Award', 'class' => 'form-control award','readonly'=>'readonly','id'=>'award')) }}

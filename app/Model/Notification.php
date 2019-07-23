@@ -69,7 +69,8 @@ class Notification extends Model {
         $objTypeOfRequest = new TypeOfRequest();
         $type_of_request = $objTypeOfRequest->getTypeOfRequestV2($userid);
         // $type_of_request=Config::get('constants.type_of_request');
-
+        print_r($resultArr);
+        exit();
 
         foreach ($resultArr as $row) {
 //           $actionHtml = $request->input('gender');

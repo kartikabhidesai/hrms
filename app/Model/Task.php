@@ -238,22 +238,29 @@ class Task extends Model {
         return $result;
     }
     
-    public function highPriority($companyid){
-        $result = Task::where('priority','HIGH')
+    public function newTask($companyid){
+        $result = Task::where('task_status','0')
                     ->where('company_id',$companyid)
                     ->count();
         return $result;
     }
     
-    public function normalPriority($companyid){
-        $result = Task::where('priority','NORMAL')
+    public function progressTask($companyid){
+        $result = Task::where('task_status','1')
                         ->where('company_id',$companyid)
                         ->count();
         return $result;
     }
     
-    public function lowPriority($companyid){
-        $result = Task::where('priority','LOW')
+    public function penddingTask($companyid){
+        $result = Task::where('task_status','2')
+                        ->where('company_id',$companyid)
+                        ->count();
+        return $result;
+    }
+    
+    public function completeTask($companyid){
+        $result = Task::where('task_status','3')
                         ->where('company_id',$companyid)
                         ->count();
         return $result;

@@ -76,7 +76,7 @@ class PayrollController extends Controller {
     }
 
     public function add(Request $request,$id) {
-
+        
         if($request->ajax()){
             /*echo '<pre>';
              print_r($request->extradeduction);exit;*/
@@ -123,6 +123,10 @@ class PayrollController extends Controller {
         }
 
         $data['monthis'] = Config::get('constants.months');
+         $data['payroll_setting'] = Employee::select("payroll_setting.grade","payroll_setting.basic_salary")
+                                ->leftjoin('payroll_setting', 'employee.joining_salary', '=', 'payroll_setting.id')
+                                ->where('employee.id',$id)->get();
+//        
         $data['employee'] = Employee::find($id);
         $data['detail'] = $this->loginUser;
         $data['header'] = array(
@@ -134,11 +138,16 @@ class PayrollController extends Controller {
         $data['js'] = array('company/payroll.js', 'ajaxfileupload.js', 'jquery.form.min.js');
         $data['funinit'] = array('Payroll.init()');
         $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
-
+        
         return view('company.payroll.payroll-add', $data);
     } 
     public function edit(Request $request,$id)
-    {
+    {   
+        $data['payroll_setting'] = Payroll::select("payroll_setting.grade","payroll_setting.basic_salary")
+                                ->leftjoin('employee', 'pay_roll.employee_id', '=', 'employee.id')
+                                ->leftjoin('payroll_setting', 'employee.joining_salary', '=', 'payroll_setting.id')
+                                ->where('pay_roll.id',$id)->get();
+     
         $payrollObj = new Payroll;
         $arrayPayroll = $payrollObj->getPayrollV2($id);
         $data['decodeJsonOfAllowance'] = json_decode($arrayPayroll[0]['extra_allowance']);

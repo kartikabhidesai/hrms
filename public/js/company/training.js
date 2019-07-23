@@ -83,6 +83,7 @@ var Training = function () {
 
         var empCount=1;
         addDepartmentfirst(empCount);
+        
         function addDepartmentfirst(eid){
             $("#emp-info").append('<div class="row" id="employee'+eid+'">\
                 <div class="col-lg-1"></div>\
@@ -156,7 +157,7 @@ var Training = function () {
                         for( var i = 0; i<len; i++){
                             var id = output[i]['id'];
                             var name = output[i]['department_name'];
-                            $("#Department"+eid).append("<option value='"+id+"'>"+name+"</option>");
+                            $("#Department"+eid).append("<option value=''>Select Department</option><option value='"+id+"'>"+name+"</option>");
                         }
                         // $("#Department"+eid).on("change", getemployee(eid));
                         setTimeout(function(){ 
@@ -168,6 +169,7 @@ var Training = function () {
         function getemployee(eid) {   
            
             var department = $('#Department'+eid).val();
+           
             $.ajax({
                 type: "POST",
                 headers: {
