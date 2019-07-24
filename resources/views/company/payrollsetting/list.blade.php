@@ -88,7 +88,7 @@
             <div class="col-lg-offset-1 col-lg-11">
                 &nbsp;&nbsp;&nbsp; 
                 <button class="btn btn-sm btn-defaut pull-right m-l" data-dismiss="modal">Close</button>
-                <button class="btn btn-sm btn-primary pull-right updatetask" type="submit">Update</button>
+                <button class="btn btn-sm btn-primary pull-right updatetask" type="submit">Save</button>
             </div>
         </div>
          {{ Form::close() }}
