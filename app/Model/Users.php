@@ -78,11 +78,12 @@ class Users extends Model {
 
      public function saveEditUserInfo($request, $userId)
      {
+          print_r($_FILES);
+            die();
         $name = '';
         $objUser = Users::find($userId);
         if($request->file()){
-            print_r($objUser);
-            die();
+           
             $existImage = public_path('/uploads/client/').$objUser->user_image;
             if (File::exists($existImage)) { // unlink or remove previous company image from folder
                 File::delete($existImage);
