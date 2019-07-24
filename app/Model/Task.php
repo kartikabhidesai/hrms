@@ -19,7 +19,8 @@ class Task extends Model {
         $objTask->task = $request->task;
         $objTask->priority = $request->priority;
         $objTask->about_task = $request->about_task;
-
+        $objTask->location = $request->location;
+        
         if ($request->file()) {
             $image = $request->file('file');
             $file = 'tasks' . time() . '.' . $image->getClientOriginalExtension();
@@ -110,10 +111,13 @@ class Task extends Model {
                 ->get();
         // print_r($resultArr);exit();
         $data = array();
-
+       
         $task_status = Config::get('constants.task_status');
         foreach ($resultArr as $key => $row) {
-            $actionHtml = '<a href="#taskDetailsModel" data-toggle="modal" data-id="'.$row['id'].'" title="Details" class="link-black text-sm taskDetails" data-toggle="tooltip" data-original-title="Show"><i class="fa fa-eye"></i></a><a href="task-comments/'.$row['id'].'" class="link-black text-sm" data-id="'.$row['id'].'" data-toggle="tooltip" data-original-title="View Details"> <i class="fa fa-comments"></i></a>';
+            $actionHtml = '<a href="#taskDetailsModel" data-toggle="modal" data-id="'.$row['id'].'" title="Details" class="link-black text-sm taskDetails" data-toggle="tooltip" data-original-title="Show"><i class="fa fa-eye"></i></a>'.
+                          '<a href="edit-task/'.$row['id'].'" class="link-black text-sm" data-id="'.$row['id'].'" data-toggle="tooltip" data-original-title="Edit Details">&nbsp;&nbsp;<i class="fa fa-edit"></i></a>'.
+                          '<a href="task-comments/'.$row['id'].'" class="link-black text-sm" data-id="'.$row['id'].'" data-toggle="tooltip" data-original-title="View Details"> <i class="fa fa-comments"></i></a>';
+            
             $nestedData = array();
             $nestedData[] = $row["task"];
             $nestedData[] = $row["emp_name"];
@@ -122,7 +126,7 @@ class Task extends Model {
             $nestedData[] = $row["complete_progress"].'%';
             $nestedData[] = $row["about_task"];
             $nestedData[] = $row["location"];
-            $nestedData[] = $row["emp_updated_file"] ? '<a target="_blank" href="'. '/uploads/tasks/'. $row["emp_updated_file"] .'">View File</a>' : 'N.A.';
+            $nestedData[] = $row["file"] ? '<a target="_blank" href="'. url('uploads/tasks/'. $row["file"]) .'">View File</a>' : 'N.A.';
             $nestedData[] = $actionHtml;
             $data[] = $nestedData;
         }
@@ -274,4 +278,41 @@ class Task extends Model {
                 ->get();
           return $result;
     }
+    
+    public function editTaskDetails($id){
+        $result = Task::select("tasks.*",'emp.name','emp.father_name','dep.department_name','dep.manager_name')
+                ->join('employee as emp', 'tasks.employee_id', '=', 'emp.id')
+                ->join('department as dep', 'tasks.department_id', '=', 'dep.id')
+                ->where('tasks.id',$id)
+                ->get();
+          return $result;
+    }
+    
+    public function editTask($request){
+        $name = '';
+        if($request->file()){
+            $image = $request->file('file');
+            $name = 'emp_tasks_'.time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/uploads/tasks/');
+            $image->move($destinationPath, $name);    
+        }
+        
+        $objTask = Task::firstOrNew(array('id'=>$request->input('editId')));
+        $objTask->department_id = $request->input('department');
+        $objTask->employee_id = $request->input('employee');
+        $objTask->assign_date = date('Y-m-d', strtotime($request->input('assign_date')));
+        $objTask->deadline_date = date('Y-m-d', strtotime($request->input('deadline_date')));
+        $objTask->task = $request->input('task');
+        $objTask->priority = $request->input('priority');
+        $objTask->about_task = $request->input('about_task');
+        $objTask->location = $request->input('location');
+        $objTask->file = $name;
+        $objTask->save();
+        if ($objTask) {
+            return TRUE;
+        } else {
+            return false;
+        }
+    }
 }
+

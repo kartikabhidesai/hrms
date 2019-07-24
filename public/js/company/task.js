@@ -1,30 +1,4 @@
 var Task = function () {
-    
-    // $("#to_date").on("change",function(){
-    //    
-    // });
-    // $("#to_date").on("change", function(e) {
-    //     var  date = $(this).val();
-    //     var  currentDate = true;
-    //         if(date !='' && currentDate == true){
-    //             console.log("onchange contents: " + date);    
-    //             var  currentDate = false;
-    //             $.ajax({
-    //             type: "POST",
-    //             headers: {
-    //                 'X-CSRF-TOKEN': $('input[name="_token"]').val(),
-    //             },
-    //             url: baseurl + "company/task-ajaxAction",
-    //             data: {'action': 'checkDate', 'date': date},
-    //             success: function(data) {
-    //                 var  output = JSON.parse(data);
-    //                 console.log(output);
-    //             }
-    //         });
-    //     }
-    // });
-
-
     checkNonWorkingDate('.nonWorking')
     var handleList = function () {
         var priority = $("#priority").val();
@@ -59,6 +33,7 @@ var Task = function () {
     }
 
     var addTask = function(){
+        
         var form = $('#addTask');
         var rules = {
             department: {required: true},
@@ -67,12 +42,15 @@ var Task = function () {
             designation: {required: true},
             deadline_date: {required: true},
             priority: {required: true},
-            about_task: {required: true}
+            about_task: {required: true},
+            location:{required:true},
         };
 
         handleFormValidate(form, rules, function(form) {
             handleAjaxFormSubmit(form,true);
         });
+        
+         
     }
 
     $("body").on('click', '.taskDetails', function () {
@@ -138,7 +116,27 @@ var Task = function () {
                     handleAjaxResponse(output);
                 });
             });
+    };
+    
+    var editDetails = function(){
+        
+        var form = $('#editTask');
+        var rules = {
+            department: {required: true},
+            assign_date: {required: true},
+            task: {required: true},
+            designation: {required: true},
+            deadline_date: {required: true},
+            priority: {required: true},
+            about_task: {required: true},
+            location:{required:true},
+        };
+
+        handleFormValidate(form, rules, function(form) {
+            handleAjaxFormSubmit(form,true);
+        });
     }
+    
     return {
         init: function () {
             handleList();
@@ -148,6 +146,9 @@ var Task = function () {
         },
         comments:function(){
             commentList();
-        }
+        },
+        edit:function(){
+            editDetails();
+        },
     }
 }();

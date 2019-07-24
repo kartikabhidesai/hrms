@@ -38,6 +38,13 @@
                                     <input type="text" class="form-control" name="task">
                                 </div>
                             </div>
+                            
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Location</label>
+                                <div class="col-lg-10">
+                                    <input type="text" class="form-control" name="location">
+                                </div>
+                            </div>
                         </div>
 
                         <div class="col-lg-6">
@@ -69,14 +76,17 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="form-group" >
+                                    <label class="col-lg-2 control-label">About Task</label>
+                                    <div class="col-lg-10">
+                                        <textarea class="form-control" name="about_task"></textarea>
+                                    </div>
+                            </div>
                         </div>
                         
-                        <div class="form-group" style="margin-left: 1px;margin-right: 1px">
-                                <label class="col-lg-1 control-label">About Task</label>
-                                <div class="col-lg-11">
-                                    <textarea class="form-control" name="about_task"></textarea>
-                                </div>
-                        </div>
+                        
+                    
+                        
                         <div class="form-group" style="margin-left: 1px;margin-right: 1px">
                                 <label class="col-lg-1 control-label">Files</label>
                                 <div class="col-lg-11">
@@ -97,4 +107,6 @@
         
 	</div>
 </div>
+
+
 @endsection

@@ -52,7 +52,7 @@ class SystemsettingController extends Controller {
         $companyId = Company::select('id')->where('user_id', $userId)->first();
         $objCompany = new Systemsetting();
         $data['current_cmpny_ss'] = Systemsetting::where('company_id', '=', $companyId->id)->first();
-       
+    
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/systemsetting.js', 'ajaxfileupload.js', 'jquery.form.min.js');
         $data['funinit'] = array('SysSetting.init()');

@@ -90,7 +90,6 @@ class LoginController extends Controller {
                     'user_image' => Auth::guard('employee')->user()->user_image
                 );
                 Session::push('logindata', $loginData);
-
                     $notificationData=array(
                     'notification_count' => $notificationCount,
                     'notification_list' => $notificationList);

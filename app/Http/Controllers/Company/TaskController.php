@@ -33,7 +33,7 @@ class TaskController extends Controller {
         
         $items = Session::get('notificationdata');
         $userID = $this->loginUser;
-        
+        $data['task_progress'] = Config::get('constants.task_progress');
         $companyId = Company::select('id')->where('user_id', $userID->id)->first();
        
         $objNotification = new Notification();
@@ -127,38 +127,82 @@ class TaskController extends Controller {
                 'Task Add' => 'Task'));
 
         return view('company.task.task-add', $data);
+    }   
+    public function editTask(Request $request , $id) {
+        $session = $request->session()->all();
+        $userId = $this->loginUser->id;
+        $companyId = Company::select('id')->where('user_id', $userId)->first();
+        $objTaskEdit =  new Task();
+        $data['editTask'] = $objTaskEdit->editTaskDetails($id);
+        
+        if ($request->isMethod('post')) {
+            $objTaskEdit =  new Task();
+            $result = $objTaskEdit->editTask($request);
+                if($result){
+                    $return['status'] = 'success';
+                    $return['message'] = 'Task upddated successfully.';
+                    $return['redirect'] = route('task-list');
+                } else {
+                    $return['status'] = 'error';
+                    $return['message'] = 'Somethin went wrong while creating new task!';
+                }
+                echo json_encode($return);
+            exit;
+        }
+        $objdepartment = new Department();
+        $objDesignation = new Employee();
+        $data['department'] = $objdepartment->getDepartment();
+        $data['employee'] = $objDesignation->getEmployee($companyId->id);
+        $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
+        $data['js'] = array('company/task.js', 'jquery.form.min.js');
+        $data['funinit'] = array('Task.edit()');
+        $data['css'] = array('');
+        $data['header'] = array(
+            'title' => 'Edit Task',
+            'breadcrumb' => array(
+                'Home' => route("company-dashboard"),
+                'Edit Task' => 'Edit Task')
+            );
+
+        return view('company.task.task-edit', $data);
+        
     }
 
     public function ajaxAction(Request $request) {
         $action = $request->input('action');
         $userID = $this->loginUser->id;
         $companyId = Company::select('id')->where('user_id', $userID)->first();
+      
         switch ($action) {
             case 'getdatatable':
+               
                 $objtask = new Task();
                 $taskList = $objtask->getTaskList($request, $companyId->id);
                 echo json_encode($taskList);
                 break;
+            
+            case 'taskDetails':
+            $result = $this->getTaskDetails($request->input('data'));
+            break; 
+        
+            case 'checkDate':
+                $nonWorkingDay = new NonWorkingDate();
+                $result = $nonWorkingDay->getNonWorkingDate($request->input('date'),$companyId);
+                if ($result) {
+                    $return['status'] = 'error';
+                    $return['message'] = $request->input('date'). ' is Non Working Date';
+                    $return['counts'] = $result;
+                } else {
+                    $return['status'] = '';
+                    $return['message'] = '';
+                    $return['counts'] = '0';
+                }
+                echo json_encode($return);
+                exit;
 
-                case 'taskDetails':
-                $result = $this->getTaskDetails($request->input('data'));
-                break; 
-                case 'checkDate':
-                    $nonWorkingDay = new NonWorkingDate();
-                    $result = $nonWorkingDay->getNonWorkingDate($request->input('date'),$companyId);
-                    if ($result) {
-                        $return['status'] = 'error';
-                        $return['message'] = $request->input('date'). ' is Non Working Date';
-                        $return['counts'] = $result;
-                    } else {
-                        $return['status'] = '';
-                        $return['message'] = '';
-                        $return['counts'] = '0';
-                    }
-                    echo json_encode($return);
-                    exit;
+                break;
 
-                    break;
+            
         }
     }
 

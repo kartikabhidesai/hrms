@@ -81,6 +81,7 @@ class Leave extends Model {
         );
         $query = Leave::from('leaves as lv')
                 ->join('employee as emp','lv.emp_id','=','emp.id')
+                ->join('leave_categories as leavCat','lv.type_of_req_id','=','leavCat.id')
                 ->join('department as depart', 'emp.department', '=', 'depart.id')
                 ->where('lv.emp_id',$userid);
         if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
@@ -107,8 +108,8 @@ class Leave extends Model {
         $totalFiltered = count($temp->get());
 
         $resultArr = $query->skip($requestData['start'])
-           ->take($requestData['length'])
-           ->select('depart.department_name','lv.id', 'lv.start_date','lv.end_date','lv.type_of_req_id', 'lv.reason')->get();
+                    ->take($requestData['length'])
+                    ->select('leavCat.leave_cat_name','leavCat.type','depart.department_name','lv.id', 'lv.start_date','lv.end_date','lv.type_of_req_id', 'lv.reason')->get();
         $data = array();
 
         $objTypeOfRequest = new TypeOfRequest();
@@ -124,6 +125,8 @@ class Leave extends Model {
             $actionHtml = '<a href="' . route('edit-leave', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
             $actionHtml .= '<a href="#deleteModel" data-toggle="modal" data-id="'.$row['id'].'" class="link-black text-sm leaveDelete" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';
             $nestedData = array();
+            $nestedData[] = $row["leave_cat_name"];
+            $nestedData[] = $row["type"];
             $nestedData[] = $row["department_name"];
             $nestedData[] = date('d-m-Y',strtotime($row["start_date"]));
             $nestedData[] = date('d-m-Y',strtotime($row["end_date"]));

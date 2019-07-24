@@ -62,23 +62,22 @@ class Notification extends Model {
         $totalFiltered = count($temp->get());
 
         $resultArr = $query->skip($requestData['start'])
-           ->take($requestData['length'])
-           ->select('nf.id', 'nf.message','nf.created_at')->get();
+                    ->take($requestData['length'])
+                    ->select('nf.id','nf.route', 'nf.message','nf.created_at')->get();
         $data = array();
 
         $objTypeOfRequest = new TypeOfRequest();
         $type_of_request = $objTypeOfRequest->getTypeOfRequestV2($userid);
         // $type_of_request=Config::get('constants.type_of_request');
-        print_r($resultArr);
-        exit();
+     
 
         foreach ($resultArr as $row) {
 //           $actionHtml = $request->input('gender');
         //    $actionHtml = '<a href="' . route('edit-notification', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
             $actionHtml = '<a href="#deleteModel" data-toggle="modal" data-id="'.$row['id'].'" class="link-black text-sm notificationDelete" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';
             $nestedData = array();
-            $nestedData[] = $row["id"];
-            $nestedData[] =$row["message"];
+            $nestedData[] =$row["id"];
+            $nestedData[] ='<a style="color:black" href="'.route($row["route"]).'">'.$row["message"].'</a>';
             $nestedData[] = date('d-m-Y',strtotime($row["created_at"]));
            
             

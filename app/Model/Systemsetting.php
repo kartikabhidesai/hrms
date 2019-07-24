@@ -21,10 +21,8 @@ class Systemsetting extends Model {
 
     public function addSystemSetting($request, $Companyid)
     {
-     
         $name = '';
         $objsys = Systemsetting::firstOrNew(array('company_id' => $Companyid));
-       
         $objsys->system_name = $request->system_name;
         $objsys->system_title = $request->system_title;
         $objsys->address = $request->address;
@@ -32,8 +30,7 @@ class Systemsetting extends Model {
         $objsys->email = $request->email;
         $objsys->language = $request->language;
         $objsys->company_id = $Companyid;
-        
-         $name = '';
+        $name = '';
         if ($request->file()) {
             $image = $request->file('image');
             $name = 'system_img' . time() . '.' . $image->getClientOriginalExtension();
