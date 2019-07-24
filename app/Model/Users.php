@@ -78,8 +78,8 @@ class Users extends Model {
 
      public function saveEditUserInfo($request, $userId)
      {
-          print_r($_FILES);
-            die();
+        print_r($_FILES);
+        exit();
         $name = '';
         $objUser = Users::find($userId);
         if($request->file()){
