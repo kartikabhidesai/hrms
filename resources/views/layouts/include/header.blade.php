@@ -18,6 +18,9 @@
     <link href="{{ asset('css/plugins/fullcalendar/fullcalendar.css') }}" rel="stylesheet">
     <link href="{{ asset('css/plugins/fullcalendar/fullcalendar.print.css') }}" rel="stylesheet" media='print'>
     
+    <link href="{{ asset('css/plugins/jasny/jasny-bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/plugins/codemirror/codemirror.css') }}" rel="stylesheet">
+    
     @if (!empty($css)) 
     @foreach ($css as $value) 
     @if(!empty($value))

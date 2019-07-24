@@ -16,6 +16,8 @@
                         <table class="table table-striped table-bordered table-hover dataTables-example" id="dataTables-leave">
                             <thead>
                                 <tr>
+                                    <th>Leave Name</th>
+                                    <th>Leave Type</th>
                                     <th>Department Name</th>
                                     <th>Start Date</th>
                                     <th>End Date</th>

@@ -11,7 +11,10 @@
 <script src="{{ asset('js/plugins/iCheck/icheck.min.js') }}"></script>
 <script src="{{ asset('js/plugins/fullcalendar/moment.min.js') }}"></script>
 <script src="{{ asset('js/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
+<script src="{{ asset('js/plugins/jasny/jasny-bootstrap.min.js') }}"></script>
 
+<script src="{{ asset('js/plugins/codemirror/codemirror.js') }}"></script>
+<script src="{{ asset('js/plugins/codemirror/mode/xml/xml.js') }}"></script>
 <!-- Custom and plugin javascript -->
 <script src="{{ asset('js/inspinia.js') }}"></script>
 <script src="{{ asset('js/plugins/pace/pace.min.js') }}"></script>

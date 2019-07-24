@@ -13,7 +13,7 @@ $currentRoute = Route::current()->getName();
                 if (!empty(Auth()->guard('employee')->user())) {
                     $data = Auth()->guard('employee')->user();
                 }
-                
+               
                 $filename= url('uploads/client/'.$data['user_image']);
                 $file_headers = @get_headers($filename);
 @endphp
@@ -30,7 +30,7 @@ $currentRoute = Route::current()->getName();
                             @endif
                         </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"> <span class="text-muted text-xs block"><strong class="font-bold"> {{ $session['logindata'][0]['name'] }} </strong> <b class="caret"></b></span> </span> </a>
+                            <span class="clear"> <span class="text-muted text-xs block"><strong class="font-bold"> {{ $data['name'] }} </strong> <b class="caret"></b></span> </span> </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
                             <li><a href="{{ route('update-profile') }}">Update Profile</a></li>
                             <li><a href="{{ route('change-password') }}">Change Password</a></li>
@@ -98,7 +98,7 @@ $currentRoute = Route::current()->getName();
                 </li>-->
                 
                  <li class="{{ ($currentRoute == 'employee-sent-notification' || $currentRoute == 'employee-notification-list' ? 'active' : '') }}">
-                    <a href="{{ route('employee-sent-notification') }}"><i class="fa fa-bell"></i>
+                    <a href="{{ route('employee-notification-list') }}"><i class="fa fa-bell"></i>
                     <span class="nav-label">Notification</span></a>
                  </li>
                  

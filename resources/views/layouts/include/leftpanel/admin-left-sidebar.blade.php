@@ -31,7 +31,7 @@ $file_headers = @get_headers($filename);
                         @endif
                     </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                        <span class="clear"> <span class="text-muted text-xs block"><strong class="font-bold"> {{ $session['logindata'][0]['name'] }} </strong> <b class="caret"></b></span> </span> </a>
+                        <span class="clear"> <span class="text-muted text-xs block"><strong class="font-bold"> {{ $data['name'] }} </strong> <b class="caret"></b></span> </span> </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
                         <li><a href="{{ route('update-profile') }}">Update Profile</a></li>
                         <li><a href="{{ route('change-password') }}">Change Password</a></li>

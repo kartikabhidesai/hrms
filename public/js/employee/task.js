@@ -47,7 +47,7 @@ var Task = function () {
     });
     $('body').on('click', '.updateTaskModel', function () {
         var data = $(this).attr('data-id');
-        console.log(data);
+       
         $.ajax({
             type: "POST",
             headers: {
