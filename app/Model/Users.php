@@ -80,7 +80,9 @@ class Users extends Model {
      {
         $name = '';
         $objUser = Users::find($userId);
-        if($request->file()){
+        if($request->file($objUser)){
+            print_r();
+            die();
             $existImage = public_path('/uploads/client/').$objUser->user_image;
             if (File::exists($existImage)) { // unlink or remove previous company image from folder
                 File::delete($existImage);
