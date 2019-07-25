@@ -81,14 +81,16 @@ class Users extends Model {
      
         $name = '';
         $objUser = Users::find($userId);
-        print_r($objUser->user_image);
-           exit();
+        
         if($request->file()){
            
             $existImage = public_path('/uploads/client/').$objUser->user_image;
             if (File::exists($existImage)) { // unlink or remove previous company image from folder
-                File::delete($existImage);
+//                ;
+                print_r(File::delete($existImage));
+            exit();
             }
+            
             $image = $request->file('profile_pic');
             $name = 'profile_img'.time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/uploads/client/');
