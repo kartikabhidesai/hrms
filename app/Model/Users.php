@@ -86,15 +86,15 @@ class Users extends Model {
            
             $existImage = public_path('/uploads/client/').$objUser->user_image;
             if (File::exists($existImage)) { // unlink or remove previous company image from folder
-//                ;
-                print_r(File::delete($existImage));
-            exit();
+                File::delete($existImage);
             }
             
             $image = $request->file('profile_pic');
             $name = 'profile_img'.time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/uploads/client/');
-            $image->move($destinationPath, $name);    
+            print_r($image->move($destinationPath, $name));
+            exit();
+//            $image->move($destinationPath, $name);    
             $objUser->user_image = $name;
         }
         // $objUser->name = !empty($request->input('newpassword')) ? Hash::make($request->input('newpassword')) : $request->input('oldpassword');
