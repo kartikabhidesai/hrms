@@ -81,7 +81,7 @@ class Users extends Model {
      
         $name = '';
         $objUser = Users::find($userId);
-        print_r($objUser);
+        print_r($objUser->user_image);
            exit();
         if($request->file()){
            
