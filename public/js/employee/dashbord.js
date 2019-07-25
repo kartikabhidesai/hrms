@@ -1,6 +1,49 @@
 var Dashboard = function () {
 
     var handleList = function () {
+        $('body').on('click', '.updateTaskModel', function () {
+        var data = $(this).attr('data-id');
+       
+        $.ajax({
+            type: "POST",
+            headers: {
+                'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+            },
+            url: baseurl + "employee/emp-task-ajaxAction",
+            data: {'action': 'getTaskDetails', 'data': data},
+            success: function (data) {
+                var output = JSON.parse(data);
+                console.log(output);
+                $('.task_id').val(output.id);
+                $('.complete_progress').val(output.complete_progress);
+                $('.task_status').val(output.task_status);
+                $('.location').val(output.location);
+                if(output.emp_updated_file!=null || output.emp_updated_file != '')
+                {
+                    $('.fileName').show();
+                    $('.fileName').attr('href',baseurl +'/uploads/tasks/'+output.emp_updated_file);
+                }else{
+                    // $('.fileName').attr('href',baseurl +'/uploads/tasks/'+output.emp_updated_file);
+                    $('.fileName').hide();
+                }
+            }
+        });
+        
+    });
+        
+        
+            var form = $('#updateTaskDash');
+            var rules = {
+                complete_progress: {required: true,number:true},
+                task_status: {required: true},
+                location: {required: true},
+            };
+            handleFormValidate(form, rules, function (form) {
+//               alert("HELLO");
+               handleAjaxFormSubmit(form, true);
+            });
+       
+        
         var dataArr = {};
         var columnWidth = {"width": "10%", "targets": 0};
 

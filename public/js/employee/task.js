@@ -80,6 +80,7 @@ var Task = function () {
         var rules = {
             complete_progress: {required: true,number:true},
             task_status: {required: true},
+            location: {required: true},
 
         };
         handleFormValidate(form, rules, function (form) {

@@ -127,7 +127,7 @@
                                 <label class="col-lg-2 control-label">Files</label>
                                 <div class="col-lg-9">
                                     <input type="file" class="form-control emp_updated_file" name="emp_updated_file" id="emp_updated_file">
-                                    <a href="javascript:;" target="_blank" name="fileName" class="fileName" id="fileName">View File</a>
+                                    <a href="javascript:;" target="_blank" name="fileName" class="fileName hidden" id="fileName">View File</a>
                                 </div>
                             </div>
                         </div>
