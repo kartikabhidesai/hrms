@@ -92,9 +92,7 @@ class Users extends Model {
             $image = $request->file('profile_pic');
             $name = 'profile_img'.time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/uploads/client/');
-            print_r($image->move($destinationPath, $name));
-            exit();
-//            $image->move($destinationPath, $name);    
+            $image->move($destinationPath, $name);    
             $objUser->user_image = $name;
         }
         // $objUser->name = !empty($request->input('newpassword')) ? Hash::make($request->input('newpassword')) : $request->input('oldpassword');
