@@ -16,7 +16,8 @@ use Response;
 use App\Model\Users;
 use App\Model\UserNotificationType;
 use App\Model\SendSMS;
-
+use App\Model\UserNotificationType;
+use App\Model\SendSMS;
 class CommunicationController extends Controller
 {
 	public function __construct() {
