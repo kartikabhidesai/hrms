@@ -8,6 +8,8 @@ use App\Model\Department;
 use App\Model\Company;
 use App\Model\Task;
 use App\Model\TaskComments;
+use App\Model\UserNotificationType;
+use App\Model\SendSMS;
 use App\Model\NonWorkingDate;
 use App\Model\Notification;
 use App\Model\NotificationMaster;
@@ -39,8 +41,8 @@ class TaskController extends Controller {
         $objNotification = new Notification();
         $items=$objNotification->SessionNotificationCount($userID->id);        
         Session::put('notificationdata', $items);
-        $objtaskpriority = new Task();
         
+        $objtaskpriority = new Task();
         $data['new'] = $objtaskpriority->newTask($companyId['id']);
         $data['progress'] = $objtaskpriority->progressTask($companyId['id']);
         $data['pending'] = $objtaskpriority->penddingTask($companyId['id']);
@@ -89,16 +91,46 @@ class TaskController extends Controller {
                     //notification add
                     $notificationMasterId=1;
                     $objNotificationMaster = new NotificationMaster();
-                    $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($userId,$notificationMasterId);
+                    $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatusNew($userId,$notificationMasterId);
                     
-                    if($NotificationUserStatus==1)
+                    if($NotificationUserStatus->status==1)
                     {
-                        $objNotification = new Notification();
-                        $taskName=$request->input('task')." is a new task.";
-                        $objEmployee = new Employee();
-                        $u_id=$objEmployee->getUseridById($request->input('employee'));
-                        $route_url="emp-task-list";
-                        $ret = $objNotification->addNotification($u_id,$taskName,$route_url,$notificationMasterId);
+                        
+                        $objUserNotificationType = new UserNotificationType();
+                        $result = $objUserNotificationType->checkMessage($NotificationUserStatus->id);
+       
+                        if($result[0]['status'] == 1){
+//                            SMS  Notification
+                            $notificationMasterId=1;
+                            $msg= "You have asign New Task.";
+                            $objSendSms = new SendSMS();
+                            $sendSMS = $objSendSms->sendSmsNotificaation($notificationMasterId,$request->input('employee'),$msg);
+                        }
+                        
+                        if($result[1]['status'] == 1){
+//                            EMAIL Notification
+                            $notificationMasterId=1;
+                            $msg= "You have asign New Task.";
+                            $objSendEmail = new Users();
+                            $sendEmail = $objSendEmail->sendEmailNotification($notificationMasterId,$request->input('employee'),$msg);
+                            
+                            
+                        }
+                        
+                        if($result[2]['status'] == 1){
+//                            chat Notification
+                        }
+                        
+                        if($result[3]['status'] == 1){
+//                            Systeam Notification 
+//                          $objNotification = new Notification();
+                            $taskName=$request->input('task')." is a new task.";
+                            $objEmployee = new Employee();
+                            $u_id=$objEmployee->getUseridById($request->input('employee'));
+                            $route_url="emp-task-list";
+                            $ret = $objNotification->addNotification($u_id,$taskName,$route_url,$notificationMasterId);  
+                        }
+                        
                     }
                     
                     $return['status'] = 'success';

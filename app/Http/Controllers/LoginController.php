@@ -11,6 +11,7 @@ use Session;
 use Redirect;
 use App\Model\AdminUserHasPermission;
 use App\Model\Users;
+use App\Model\SendSMS;
 use App\Model\Chat;
 use App\Model\Notification;
 
@@ -28,7 +29,11 @@ class LoginController extends Controller {
     public function __construct() {
         //$this->middleware('guest', ['except' => 'logout']);
     }
-
+    public function testingmail(){
+        $objSendSms = new SendSMS();
+        $sendSMS = $objSendSms->sendMailltesting();
+        exit;
+    }
     public function checkAuth(Request $request) {
         if (auth()->guard('admin')->user()) {
             return redirect()->route('admin-dashboard');

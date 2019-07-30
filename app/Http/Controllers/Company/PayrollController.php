@@ -18,7 +18,8 @@ use Illuminate\Support\Facades\Input;
 use App\Model\Payroll;
 use App\Model\Notification;
 use App\Model\NotificationMaster;
-
+use App\Model\UserNotificationType;
+use App\Model\SendSMS;
 class PayrollController extends Controller {
 
     public function __construct() {
@@ -95,20 +96,46 @@ class PayrollController extends Controller {
 
                 $notificationMasterId=2;
                 $objNotificationMaster = new NotificationMaster();
-                $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($company_id,$notificationMasterId);
+                $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatusNew($company_id,$notificationMasterId);
                 
-                if($NotificationUserStatus==1)
+                if($NotificationUserStatus->status==1)
                 {
+                        $objUserNotificationType = new UserNotificationType();
+                        $result = $objUserNotificationType->checkMessage($NotificationUserStatus->id);
+                       
+                        if($result[0]['status'] == 1){
+//                            SMS  Notification
+                            $notificationMasterId=1;
+                            $msg= "You have a new information in payroll.";
+                            $objSendSms = new SendSMS();
+                            $sendSMS = $objSendSms->sendSmsNotificaation($notificationMasterId,$id,$msg);
+                        }
+                        
+                        if($result[1]['status'] == 1){
+//                            EMAIL Notification
+                            $notificationMasterId=1;
+                            $msg= "You have a new information in payroll.";
+                            $objSendEmail = new Users();
+                            $sendEmail = $objSendEmail->sendEmailNotification($notificationMasterId,$id,$msg);
+                            
+                            
+                        }
+                        
+                        if($result[2]['status'] == 1){
+//                            chat Notification
+                        }
+                        
+                        if($result[3]['status'] == 1){
+                            $objNotification = new Notification();
+                            $objEmployee = new Employee();
+                            $empName=$objEmployee->getAllEmployee($id);
+                            $payrollName=$empName['name']." is a new information in payroll.";
 
-                    //notification add
-                    $objNotification = new Notification();
-                    $objEmployee = new Employee();
-                    $empName=$objEmployee->getAllEmployee($id);
-                    $payrollName=$empName['name']." is a new information in payroll.";
-                    
-                    $u_id=$objEmployee->getUseridById($id);
-                    $route_url="payroll-employee";
-                    $ret = $objNotification->addNotification($u_id,$payrollName,$route_url,$notificationMasterId);
+                            $u_id=$objEmployee->getUseridById($id);
+                            $route_url="payroll-employee";
+                            $ret = $objNotification->addNotification($u_id,$payrollName,$route_url,$notificationMasterId);
+                        
+                        }
                 }
                 
                 $return['status'] = 'success';

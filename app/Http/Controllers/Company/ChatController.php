@@ -12,7 +12,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Model\Company;
 use App\Model\Notification;
 use App\Model\NotificationMaster;
-
+//use App\Model\Users;
+use App\Model\UserNotificationType;
+use App\Model\SendSMS;
 
 class ChatController extends Controller{
     
@@ -23,8 +25,9 @@ class ChatController extends Controller{
             'breadcrumb' => array(
                 'Home' => route("company-dashboard"),
                 'Chat view' => 'Chat view'));
-                $data['funinit'] = array('Chat.init()');
+        $data['funinit'] = array('Chat.init()');
         $data['js'] = array('company/chat.js');
+        
         return view('company.chat.chat',$data);
     }
     
@@ -64,18 +67,45 @@ class ChatController extends Controller{
 
                 $notificationMasterId=20;
                 $objNotificationMaster = new NotificationMaster();
-                $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($logeduserId,$notificationMasterId);
+                $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatusNew($logeduserId,$notificationMasterId);
                 
-                if($NotificationUserStatus==1)
+                if($NotificationUserStatus->status==1 )
                 {
-                    //notification add
-                    $objNotification = new Notification();
-                    $objEmployee = new Employee();
-                    $chatMessage="Chat in  New Message.";
                     
-                    $route_url="employee-chat";
-                    $ret = $objNotification->addNotification($request->input('to_user_id'),$chatMessage,$route_url,$notificationMasterId);
-                }
+                        $objUserNotificationType = new UserNotificationType();
+                        $result = $objUserNotificationType->checkMessage($NotificationUserStatus->id);
+                        
+                        if($result[0]['status'] == 1){
+//                            SMS  Notification
+                            $notificationMasterId=1;
+                            $msg= "Chat in  New Message.";
+                            $objSendSms = new SendSMS();
+                            $sendSMS = $objSendSms->sendSmsNotificaationNew($notificationMasterId,$request->input('to_user_id'),$msg);
+                        }
+                        
+                        if($result[1]['status'] == 1){
+//                            EMAIL Notification
+                            $notificationMasterId=1;
+                            $msg= "Chat in  New Message.";
+                            $objSendEmail = new Users();
+                            $sendEmail = $objSendEmail->sendEmailNotificationNew($notificationMasterId,$request->input('to_user_id'),$msg);
+                        }
+                        
+                        if($result[2]['status'] == 1){
+//                            chat Notification
+                        }
+                        
+                        if($result[3]['status'] == 1){
+                        //notification add
+                        $objNotification = new Notification();
+                        $objEmployee = new Employee();
+                        $chatMessage="Chat in  New Message.";
+
+                        $route_url="employee-chat";
+                        $ret = $objNotification->addNotification($request->input('to_user_id'),$chatMessage,$route_url,$notificationMasterId);
+                
+                        }
+                    }
 
                 $user_fetch = $insertChat->fetchUserLastMessage($logeduserId,$request->input('to_user_id'));
                 return $user_fetch;

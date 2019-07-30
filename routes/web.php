@@ -64,6 +64,7 @@ Route::get('/twitter/share','TokenController@twShare');
 
 Route::match(['get', 'post'], 'exportxls', ['as' => 'exportxls', 'uses' => 'ExcelController@exportxls']);
 Route::match(['get', 'post'], 'login', ['as' => 'login', 'uses' => 'LoginController@auth']);
+Route::match(['get', 'post'], 'testingmail', ['as' => 'testingmail', 'uses' => 'LoginController@testingmail']);
 Route::match(['get', 'post'], 'order', ['as' => 'order', 'uses' => 'OrderController@index']);
 Route::match(['get', 'post'], 'logout', ['as' => 'logout', 'uses' => 'LoginController@getLogout']);
 Route::match(['get', 'post'], 'forgot-password', ['as' => 'forgot-password', 'uses' => 'LoginController@forgotpassword']);

@@ -3,17 +3,11 @@ var Notification = function () {
     var handleList = function () {
         var form = $('#taxId');
         var rules = {
-          // emp_id: {required: true},
           amount: {required: true,number:true}
         };
         handleFormValidate(form, rules, function (form) {
             handleAjaxFormSubmit(form);
         });
-
-
-
-         
-
         var columnWidth = {"width": "10%", "targets": 0};
 
             var arrList = {
@@ -70,7 +64,29 @@ var Notification = function () {
                     // document.getElementById("listener-text-table").innerHTML = "Switch " + name + " changed value to " + checked;
                 }
             });
-
+            
+            $('body').on('click', '.sentNoti', function() {
+                if(this.checked) {
+                    var checkBox = '1';
+                }else{
+                    var checkBox = '0';
+                }
+                var userNotificationId = $(this).data("id") ;
+                var notificationValue = $(this).data("value") ;
+                var data = {checkBox: checkBox,notificationValue:notificationValue,userNotificationId:userNotificationId, _token: $('#_token').val()};
+                $.ajax({
+                    type: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                    },
+                    url: baseurl + "company/notification-ajaxAction",
+                    data: {'action': 'setNotification', 'data': data},
+                    success: function(data) {
+                        handleAjaxResponse(data);
+                    }
+                });
+//                alert(userNotificationId);
+            });
             
 
             $('body').on('click', '.deleteNotification', function() {

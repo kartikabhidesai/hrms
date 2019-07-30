@@ -79,18 +79,13 @@ class NotificationController extends Controller
             case 'getdatatable':
                 $userID = $this->loginUser;
                 $objEmploye=new Employee();
-                // $userid=$objEmploye->getUserid($userID->id);
-                // print_r($userID);
-                // print_r($userID);exit;
                 $objNotification = new Notification();
                 $demoList = $objNotification->getNotificationDatatable($userID->id);
-                // print_r($demoList);
-                 echo json_encode($demoList);
+                echo json_encode($demoList);
                 break;
             case 'deleteNotification':
                 $result = $this->deleteNotification($request->input('data'));
                 break;
-
             case 'onOffNotification':
                 $id=$request->input('data')['id'];
                 $status=$request->input('data')['status'];
@@ -103,6 +98,20 @@ class NotificationController extends Controller
                 } else {
                     $return['status'] = 'success';
                     $return['message'] = 'Notification Off';
+                }
+                echo json_encode($return);
+                exit;
+                break;
+                
+            case 'setNotification':
+                $objNotificationMaster=new NotificationMaster();
+                $status=$objNotificationMaster->changeType($request);
+                if ($status) {
+                    $return['status'] = 'success';
+                    $return['message'] = 'Notification type change';
+                } else {
+                    $return['status'] = 'error';
+                    $return['message'] = 'something goes to wrong';
                 }
                 echo json_encode($return);
                 exit;

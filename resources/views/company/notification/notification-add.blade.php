@@ -63,15 +63,21 @@
                         
                             
                                 @foreach($notifiactionList as $row)
+                                @php 
+                                $typearray=[];
+                                $typearray=$row->type;
+                             
+                                @endphp
                                 <tr class="gradeU">
                                     <td>{{$row->notification_name}}</td>
                                     
                                     <td>{{$row->description}}</td>
                                     <td>
-                                        SMS <input type="checkbox" name=""> <br/> 
-                                        Chat <input type="checkbox" name=""><br/> 
-                                        In system notify <input type="checkbox" name="">
-                                    </td>
+                                        SMS <input type="checkbox" data-id="{{ $row->id }}" data-value="1" class="sentNoti" name="SMS" {{ (($typearray[0] == 1))? ' checked="checked"' : '' }}> <br/> 
+                                        Email <input type="checkbox" data-id="{{ $row->id }}" data-value="2" class="sentNoti" name="Email" {{ (($typearray[1] == 1))? ' checked="checked"' : '' }}> <br/> 
+                                        <!--Chat <input type="checkbox" data-id="{{ $row->id }}" data-value="3" class="sentNoti" name="Chat" {{ (($typearray[2] == 1))? ' checked="checked"' : '' }}><br/>--> 
+                                        In system notify <input data-value="4" data-id="{{ $row->id }}" class="sentNoti" type="checkbox" {{ (($typearray[3] == 1))? ' checked="checked"' : '' }} name="system">
+                                    </td> 
                                     <td class="center">
                                     <input type="checkbox" class="custom-switch" <?php if($row->status==1){ echo "checked"; } ?> name="{{$row->id}}">
                                     </td>

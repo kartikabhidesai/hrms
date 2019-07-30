@@ -76,8 +76,8 @@ class Users extends Model {
         return false;
     }
 
-     public function saveEditUserInfo($request, $userId)
-     {
+    public function saveEditUserInfo($request, $userId)
+    {
      
         $name = '';
         $objUser = Users::find($userId);
@@ -112,5 +112,46 @@ class Users extends Model {
         $objUser->password = !empty($request->input('new_password')) ? Hash::make($request->input('new_password')) : $request->input('old_password');
         $objUser->save();
         return TRUE;
+    }
+    
+    public function sendEmailNotification($notificationMasterId,$employeeId,$msg){
+            $result = Employee::select('email')
+                        ->where('employee.id',$employeeId)
+                        ->get();
+            
+            $email = $result[0]->email;
+            
+//            $mailData['data']='';
+            $mailData['data']['msg']=$msg;
+            $mailData['subject'] = $msg;
+            $mailData['attachment'] = array();
+            $mailData['template'] ="company.emails.notification";
+            $mailData['mailto'] = 'parthkhunt12@gmail.com';
+            $sendMail = new Sendmail;
+            $sendMail->sendSMTPMail($mailData);
+            
+    }
+    
+     public function sendEmailNotificationNew($notificationMasterId,$employeeId,$msg){
+          
+            $userDetails= Users::select("type","id","email")
+                        ->where("id",$employeeId)
+                        ->get();
+            
+            if($userDetails[0]->type != 'ADMIN'){
+                $email = $userDetails[0]->email;
+                $mailData['data']['msg']=$msg;
+                $mailData['subject'] = $msg;
+                $mailData['attachment'] = array();
+                $mailData['template'] ="company.emails.notification";
+                $mailData['mailto'] = 'parthkhunt12@gmail.com';
+                $sendMail = new Sendmail;
+                $sendMail->sendSMTPMail($mailData);
+            }
+            
+           
+//            $mailData['data']='';
+            
+            
     }
 }

@@ -19,10 +19,8 @@ var Chat = function () {
                             }else{
                                 var userimg=baseurl+"uploads/client/user.jpg";
                             }
-
                             $('.users-list').append("<div class='chat-user'><img class='chat-avatar' src='"+userimg+"' alt=''><div class='chat-user-name'><a data-id='"+data[i].id+"' data-user-name='"+data[i].name+"' class='user-message' href='javascript:void(0);'  >"+data[i].name+"</a></div></div>");
                         }
-                        
                     }
                 },
                 error: function(err) {
@@ -33,7 +31,6 @@ var Chat = function () {
 
         $("#search_user").keyup(function(){
             var search_name=$('#search_user').val();
-            console.log(search_name);
             $.ajax({
                 type: 'POST',
                 headers: {

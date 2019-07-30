@@ -400,7 +400,16 @@ class Advancesalary extends Model
             return false;
         }
     }
-    
+    public function getUseridByAdvanceSalaryIdNew($id) {
+        $result = Advancesalary::from('advance_salary_request as advance_salary')
+        ->join('employee as emp' ,'advance_salary.employee_id','=','emp.id')
+        ->select('emp.id')->where('advance_salary.id', $id)->get();
+        if (count($result) > 0) {
+            return $result[0]['id'];
+        } else {
+            return false;
+        }
+    }
     public function allRequestCount($companyId){
         $allRequestCount = ManageTimeChangeRequest::from('advance_salary_request as advance_salary')
                ->join('employee as emp' ,'advance_salary.employee_id','=','emp.id')

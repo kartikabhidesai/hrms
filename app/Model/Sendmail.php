@@ -60,9 +60,9 @@ class Sendmail extends Model
             $pathToFile = $mailData['attachment'];
            
             $mailsend = Mail::send($mailData['template'], ['data' => $mailData['data']], function ($m) use ($mailData,$pathToFile) {
-                 $m->from('kartikdesai123@gmail.com', 'Office Park');
+                 $m->from('kartikdesai123@gmail.com', 'HRMS Systeam');
       
-                 $m->to($mailData['mailto'], "Office Park")->subject($mailData['subject']);
+                 $m->to($mailData['mailto'], "HRMS Systeam")->subject($mailData['subject']);
                  if($pathToFile != ""){
                      // $m->attach($pathToFile);
                  }

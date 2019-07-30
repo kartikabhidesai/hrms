@@ -5,6 +5,7 @@ namespace App\Model;
 use Illuminate\Database\Eloquent\Model;
 use App\Model\UserHasPermission;
 use App\Model\Employee;
+use App\Model\Users;
 use Config;
 use Auth;
 use DB;
@@ -204,5 +205,53 @@ class SendSMS extends Model
         }
 
         return TRUE;
+    }
+    
+    public function sendSmsNotificaation($notificationMasterId,$employeeId,$msg){
+        
+        $result = Employee::select('phone')
+                        ->where('employee.id',$employeeId)
+                        ->get();
+        $phoneNumber = $result[0]->phone;
+        $url="http://5.189.169.241:5012/api/SendSMS?api_id=API241020424399&api_password=12345678&sms_type=T&encoding=T&sender_id=BLKSMS&phonenumber=".$phoneNumber."&textmessage=".$msg.""; 
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $curl_scraped_page = curl_exec($ch);
+        curl_close($ch);    
+        $json_decode = json_decode($curl_scraped_page);
+        
+    }
+    public function sendSmsNotificaationNew($notificationMasterId,$userId,$msg){
+        $userDetails= Users::select("type","id")
+                        ->where("id",$userId)
+                        ->get();
+        
+        if($userDetails[0]['type'] == 'EMPLOYEE'){
+            $result = Employee::select('phone')
+                        ->where('employee.user_id',$userDetails[0]->id)
+                        ->get();
+            
+            $phoneNumber = $result[0]->phone;
+           
+            $url="http://5.189.169.241:5012/api/SendSMS?api_id=API241020424399&api_password=12345678&sms_type=T&encoding=T&sender_id=BLKSMS&phonenumber=".$phoneNumber."&textmessage=".$msg.""; 
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $curl_scraped_page = curl_exec($ch);
+            curl_close($ch);    
+            $json_decode = json_decode($curl_scraped_page);
+        }
+    }  
+    
+    
+    public function sendMailltesting(){
+        
+        $mailData['data']='';
+        $mailData['subject'] = 'SENd MAill Testing';
+        $mailData['attachment'] = array();
+        $mailData['template'] ="emails.test";
+        $mailData['mailto'] = 'parthkhunt12@gmail.com';
+        $sendMail = new Sendmail;
+        return $sendMail->sendSMTPMail($mailData);
+        
     }
 }

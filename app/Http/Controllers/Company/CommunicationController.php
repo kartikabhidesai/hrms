@@ -13,6 +13,9 @@ use App\Model\NotificationMaster;
 use Session;
 use Auth;
 use Response;
+use App\Model\Users;
+use App\Model\UserNotificationType;
+use App\Model\SendSMS;
 
 class CommunicationController extends Controller
 {
@@ -75,24 +78,51 @@ class CommunicationController extends Controller
 
         if ($request->isMethod('post')) 
         {
+//            print_r($request->input('emp_id'));exit;
             $objCommunication = new Communication();
             $result = $objCommunication->addNewCommunicationCmp($request, $companyId->id);
 
             if ($result) {
                 $notificationMasterId=5;
                 $objNotificationMaster = new NotificationMaster();
-                $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($userid,$notificationMasterId);
-                
-                if($NotificationUserStatus==1)
-                {
-                    //notification add
-                    $objNotification = new Notification();
-                    $communicationName="Communication a message is received.";
-                    $objEmployee = new Employee();
-                    $u_id=$objEmployee->getUseridById($request->input('emp_id'));
-                    $route_url="emp-communication";
-                    $ret = $objNotification->addNotification($u_id,$communicationName,$route_url,$notificationMasterId);
-                }
+//                $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus(,$notificationMasterId);
+                $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatusNew($userid->id,$notificationMasterId);
+                    
+                    if($NotificationUserStatus->status==1)
+                    {
+                        $objUserNotificationType = new UserNotificationType();
+                        $result = $objUserNotificationType->checkMessage($NotificationUserStatus->id);
+       
+                        if($result[0]['status'] == 1){
+//                            SMS  Notification
+                            $notificationMasterId=1;
+                            $msg= "Communication a message is received.";
+                            $objSendSms = new SendSMS();
+                            $sendSMS = $objSendSms->sendSmsNotificaation($notificationMasterId,$request->input('emp_id'),$msg);
+                        }
+                        
+                        if($result[1]['status'] == 1){
+//                            EMAIL Notification
+                            $notificationMasterId=1;
+                            $msg= "Communication a message is received.";
+                            $objSendEmail = new Users();
+                            $sendEmail = $objSendEmail->sendEmailNotification($notificationMasterId,$request->input('emp_id'),$msg);
+                        }
+                        
+                        if($result[2]['status'] == 1){
+//                            chat Notification
+                        }
+                        
+                        if($result[3]['status'] == 1){
+                        //notification add
+                            $objNotification = new Notification();
+                            $communicationName="Communication a message is received.";
+                            $objEmployee = new Employee();
+                            $u_id=$objEmployee->getUseridById($request->input('emp_id'));
+                            $route_url="emp-communication";
+                            $ret = $objNotification->addNotification($u_id,$communicationName,$route_url,$notificationMasterId);
+                        }
+                    }
 
                 $return['status'] = 'success';
                 $return['message'] = 'New Communication Email sent successfully.';

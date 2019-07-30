@@ -12,7 +12,9 @@ use App\Model\Notification;
 use App\Model\NotificationMaster;
 use Config;
 use PDF;
-
+use App\Model\UserNotificationType;
+use App\Model\SendSMS;
+use App\Model\Users;
 class PerformanceController extends Controller {
 
     public function __construct() {
@@ -120,7 +122,7 @@ class PerformanceController extends Controller {
 
     public function addPerformance(Request $request) {
         if ($request->isMethod('post')) {
-           
+           $id=$request->input('employee_id');
             $objperformnce = new Performance();
             $userid = $this->loginUser->id;
             $companyId = Company::select('id')->where('user_id', $userid)->first();
@@ -133,17 +135,44 @@ class PerformanceController extends Controller {
 
                 $notificationMasterId=4;
                 $objNotificationMaster = new NotificationMaster();
-                $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($userid,$notificationMasterId);
-                
-                if($NotificationUserStatus==1)
+               $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatusNew($userid,$notificationMasterId);
+               
+                if($NotificationUserStatus->status==1)
                 {
-                    //notification add
-                    $objNotification = new Notification();
-                    $performanceName="Performance is a new evaluates update.";
-                    $objEmployee = new Employee();
-                    $u_id=$objEmployee->getUseridById($request->employee_id);
-                    $route_url="emp-performance";
-                    $ret = $objNotification->addNotification($u_id,$performanceName,$route_url,$notificationMasterId);
+                        $objUserNotificationType = new UserNotificationType();
+                        $result = $objUserNotificationType->checkMessage($NotificationUserStatus->id);
+                       
+                        if($result[0]['status'] == 1){
+//                            SMS  Notification
+                            $notificationMasterId=1;
+                            $msg= "Performance is a new evaluates update.";
+                            $objSendSms = new SendSMS();
+                            $sendSMS = $objSendSms->sendSmsNotificaation($notificationMasterId,$id,$msg);
+                        }
+                        
+                        if($result[1]['status'] == 1){
+//                            EMAIL Notification
+                            $notificationMasterId=1;
+                            $msg= "Performance is a new evaluates update.";
+                            $objSendEmail = new Users();
+                            $sendEmail = $objSendEmail->sendEmailNotification($notificationMasterId,$id,$msg);
+                            
+                            
+                        }
+                        
+                        if($result[2]['status'] == 1){
+//                            chat Notification
+                        }
+                        
+                        if($result[3]['status'] == 1){
+                            //notification add
+                            $objNotification = new Notification();
+                            $performanceName="Performance is a new evaluates update.";
+                            $objEmployee = new Employee();
+                            $u_id=$objEmployee->getUseridById($request->employee_id);
+                            $route_url="emp-performance";
+                            $ret = $objNotification->addNotification($u_id,$performanceName,$route_url,$notificationMasterId);
+                        }
                 }
 
                 $return['status'] = 'success';

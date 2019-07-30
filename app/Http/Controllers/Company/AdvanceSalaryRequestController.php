@@ -21,7 +21,8 @@ use Response;
 use Config;
 use Excel;
 use Session;
-
+use App\Model\UserNotificationType;
+use App\Model\SendSMS;
 class AdvanceSalaryRequestController extends Controller {
 
     public function __construct() {
@@ -154,7 +155,11 @@ class AdvanceSalaryRequestController extends Controller {
                 break;
             
             case 'approveRequest':
+                    
                     $id=$request->input('data')['id'];
+                    $objAdvancesalary = new Advancesalary();
+                    $employeeId=$objAdvancesalary->getUseridByAdvanceSalaryIdNew($id);
+                    
                     $objAdvancesalary=new Advancesalary();
                     $approveRequest=$objAdvancesalary->approveRequest($id);
                     if ($approveRequest) {
@@ -166,17 +171,46 @@ class AdvanceSalaryRequestController extends Controller {
 
                         $notificationMasterId=6;
                         $objNotificationMaster = new NotificationMaster();
-                        $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($userId,$notificationMasterId);
-                        
-                        if($NotificationUserStatus==1)
-                        {
+//                        $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($userId,$notificationMasterId);
+                        $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatusNew($userId,$notificationMasterId);
+                    
+                        if($NotificationUserStatus->status==1)
+                        {   
+                            $objUserNotificationType = new UserNotificationType();
+                            $result = $objUserNotificationType->checkMessage($NotificationUserStatus->id);
 
-                            //notification add                        
-                            $seleryRequestName="Company selery request approved.";
+                            if($result[0]['status'] == 1){
+    //                            SMS  Notification
+                                $notificationMasterId=1;
+                                $msg= "Company advance selery request approved.";
+                                $objSendSms = new SendSMS();
+                                $sendSMS = $objSendSms->sendSmsNotificaation($notificationMasterId,$employeeId,$msg);
+                            }
+
+                            if($result[1]['status'] == 1){
+    //                            EMAIL Notification
+                                $notificationMasterId=1;
+                                $msg= "Company advance selery request approved.";
+                                $objSendEmail = new Users();
+                                $sendEmail = $objSendEmail->sendEmailNotification($notificationMasterId,$employeeId,$msg);
+
+
+                            }
+
+                            if($result[2]['status'] == 1){
+    //                            chat Notification
+                            }
+
+                            if($result[3]['status'] == 1){
+    //                            Systeam Notification 
+                              $seleryRequestName="Company advance selery request approved.";
                             $u_id=$objAdvancesalary->getUseridByAdvanceSalaryId($id);
                             $objNotification = new Notification();
                             $route_url="advance-salary-request";
                             $ret = $objNotification->addNotification($u_id,$seleryRequestName,$route_url,$notificationMasterId);
+                            }
+                            //notification add                        
+                            
                         }
 
                         $return['status'] = 'success';
@@ -192,6 +226,9 @@ class AdvanceSalaryRequestController extends Controller {
                     
             case 'disapproveRequest':
                     $id=$request->input('data')['id'];
+                    $objAdvancesalary = new Advancesalary();
+                    $employeeId=$objAdvancesalary->getUseridByAdvanceSalaryIdNew($id);
+                    
                     $objAdvancesalary=new Advancesalary();
                     $disapproveRequest=$objAdvancesalary->disapproveRequest($id);
                     if ($disapproveRequest) {
@@ -202,16 +239,44 @@ class AdvanceSalaryRequestController extends Controller {
 
                         $notificationMasterId=6;
                         $objNotificationMaster = new NotificationMaster();
-                        $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($userId,$notificationMasterId);
-                        
-                        if($NotificationUserStatus==1)
-                        {
+//                        $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($userId,$notificationMasterId);
+                        $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatusNew($userId,$notificationMasterId);
+                    
+                        if($NotificationUserStatus->status==1)
+                        {   
+                            $objUserNotificationType = new UserNotificationType();
+                            $result = $objUserNotificationType->checkMessage($NotificationUserStatus->id);
+
+                            if($result[0]['status'] == 1){
+    //                            SMS  Notification
+                                $notificationMasterId=1;
+                                $msg= "Company Advance selery request rejected.";
+                                $objSendSms = new SendSMS();
+                                $sendSMS = $objSendSms->sendSmsNotificaation($notificationMasterId,$employeeId,$msg);
+                            }
+
+                            if($result[1]['status'] == 1){
+    //                            EMAIL Notification
+                                $notificationMasterId=1;
+                                $msg= "Company Advance selery request rejected.";
+                                $objSendEmail = new Users();
+                                $sendEmail = $objSendEmail->sendEmailNotification($notificationMasterId,$employeeId,$msg);
+
+
+                            }
+
+                            if($result[2]['status'] == 1){
+    //                            chat Notification
+                            }
+
+                            if($result[3]['status'] == 1){
                             //notification add                        
-                            $seleryRequestName="Company selery request rejected.";
+                            $seleryRequestName="Company Advance selery request rejected.";
                             $u_id=$objAdvancesalary->getUseridByAdvanceSalaryId($id);
                             $objNotification = new Notification();
                             $route_url="advance-salary-request";
                             $ret = $objNotification->addNotification($u_id,$seleryRequestName,$route_url,$notificationMasterId);
+                            }
                         }
 
                         $return['status'] = 'success';

@@ -13,8 +13,19 @@ use App\Model\Chat;
 class Chat extends Model{
     protected $table = 'chat_message';
     public function fetch_user($id){
+        
        $result = DB::table('users')->where('id','!=',$id)->get();
        return $result;
+       
+//       $result = DB::table('users')
+//                        ->select('users.*')
+//                        ->join('comapnies', 'users.id', '=', 'comapnies.user_id')
+//                        ->join('employee', 'comapnies.id', '=', 'employee.company_id')
+////                            ->where('users.id',$id)
+//                        ->get();
+//                print_r($result);
+//                die();
+//                return $result;
     }
 
     public function search_user_list($id,$search_name){
