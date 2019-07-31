@@ -11,6 +11,9 @@ use App\Model\Company;
 use App\Model\Attendance;
 use App\Model\Notification;
 use App\Model\NotificationMaster;
+use App\Model\UserNotificationType;
+use App\Model\SendSMS;
+use App\Model\Users;
 use Auth;
 use Route;
 class ManageTimeChangeRequestController extends Controller
@@ -60,25 +63,57 @@ class ManageTimeChangeRequestController extends Controller
                     break;
                 
                 case 'approveRequest':
-                    $userID = $this->loginUser;
                     $id=$request->input('data')['id'];
+                    $res= ManageTimeChangeRequest::select('employee_id')
+                            ->where('employee_id',$id)
+                            ->get()->toarray();
+                    $empId=$res[0]['employee_id'];
+                    $userID = $this->loginUser;
                     $objManageList=new ManageTimeChangeRequest();
                     $approveRequest=$objManageList->approveRequest($id);
+                    
                     if ($approveRequest) {
-
+                        
                         $notificationMasterId=9;
                         $objNotificationMaster = new NotificationMaster();
-                        $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($userID->id,$notificationMasterId);
-                        
-                        if($NotificationUserStatus==1)
+//                        $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($userID->id,$notificationMasterId);
+                        $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatusNew($userID->id,$notificationMasterId);
+                    
+                        if($NotificationUserStatus->status==1)
                         {
+                            $objUserNotificationType = new UserNotificationType();
+                            $result = $objUserNotificationType->checkMessage($NotificationUserStatus->id);
 
-                            //notification add                        
-                            $seleryRequestName="Company time change request approved.";
-                            $u_id=$objManageList->getUseridByManageTimeChangeRequestId($id);
-                            $route_url="manage-time-change-request";
-                            $objNotification = new Notification();
-                            $ret = $objNotification->addNotification($u_id,$seleryRequestName,$route_url,$notificationMasterId);
+                            if($result[0]['status'] == 1){
+    //                            SMS  Notification
+                                $notificationMasterId=9;
+                                $msg= "Company time change request approved.";
+                                $objSendSms = new SendSMS();
+                                $sendSMS = $objSendSms->sendSmsNotificaation($notificationMasterId,$empId,$msg);
+                            }
+
+                            if($result[1]['status'] == 1){
+    //                            EMAIL Notification
+                                $notificationMasterId=9;
+                                $msg= "Company time change request approved.";
+                                $objSendEmail = new Users();
+                                $sendEmail = $objSendEmail->sendEmailNotification($notificationMasterId,$empId,$msg);
+
+
+                            }
+
+                            if($result[2]['status'] == 1){
+    //                            chat Notification
+                            }
+
+                            if($result[3]['status'] == 1){
+                                //notification add                        
+                                $seleryRequestName="Company time change request approved.";
+                                $u_id=$objManageList->getUseridByManageTimeChangeRequestId($id);
+                                $route_url="manage-time-change-request";
+                                $objNotification = new Notification();
+                                $ret = $objNotification->addNotification($u_id,$seleryRequestName,$route_url,$notificationMasterId);
+                            }
                         }
                         
                         $return['status'] = 'success';
@@ -95,22 +130,52 @@ class ManageTimeChangeRequestController extends Controller
                case 'disapproveRequest':
                     $userID = $this->loginUser;
                     $id=$request->input('data')['id'];
+                    $res= ManageTimeChangeRequest::select('employee_id')
+                            ->where('employee_id',$id)
+                            ->get()->toarray();
+                    $empId=$res[0]['employee_id'];  
                     $objManageList=new ManageTimeChangeRequest();
                     $disapproveRequest=$objManageList->disapproveRequest($id);
                     if ($disapproveRequest) {
 
                         $notificationMasterId=9;
                         $objNotificationMaster = new NotificationMaster();
-                        $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($userID->id,$notificationMasterId);
-                        
-                        if($NotificationUserStatus==1)
+//                        $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($userID->id,$notificationMasterId);
+                        $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatusNew($userID->id,$notificationMasterId);
+                    
+                        if($NotificationUserStatus->status==1)
                         {
-                            //notification add                        
-                            $seleryRequestName="Company time change request rejected.";
-                            $u_id=$objManageList->getUseridByManageTimeChangeRequestId($id);
-                            $objNotification = new Notification();
-                            $route_url="manage-time-change-request";
-                            $ret = $objNotification->addNotification($u_id,$seleryRequestName,$route_url);
+                            $objUserNotificationType = new UserNotificationType();
+                            $result = $objUserNotificationType->checkMessage($NotificationUserStatus->id);
+
+                            if($result[0]['status'] == 1){
+    //                            SMS  Notification
+                               $notificationMasterId=9;
+                                $msg= "Company time change request rejected.";
+                                $objSendSms = new SendSMS();
+                                $sendSMS = $objSendSms->sendSmsNotificaation($notificationMasterId,$empId,$msg);
+                            }
+
+                            if($result[1]['status'] == 1){
+    //                            EMAIL Notification
+                                $notificationMasterId=9;
+                                $msg= "Company time change request rejected.";
+                                $objSendEmail = new Users();
+                                $sendEmail = $objSendEmail->sendEmailNotification($notificationMasterId,$empId,$msg);
+                            }
+
+                            if($result[2]['status'] == 1){
+    //                            chat Notification
+                            }
+
+                            if($result[3]['status'] == 1){
+                                //notification add                        
+                                $seleryRequestName="Company time change request rejected.";
+                                $u_id=$objManageList->getUseridByManageTimeChangeRequestId($id);
+                                $objNotification = new Notification();
+                                $route_url="manage-time-change-request";
+                                $ret = $objNotification->addNotification($u_id,$seleryRequestName,$route_url,$notificationMasterId);
+                            }
                         }
 
                         $return['status'] = 'success';

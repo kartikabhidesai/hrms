@@ -95,7 +95,7 @@ class CommunicationController extends Controller
        
                         if($result[0]['status'] == 1){
 //                            SMS  Notification
-                            $notificationMasterId=1;
+                            $notificationMasterId=5;
                             $msg= "Communication a message is received.";
                             $objSendSms = new SendSMS();
                             $sendSMS = $objSendSms->sendSmsNotificaation($notificationMasterId,$request->input('emp_id'),$msg);
@@ -103,7 +103,7 @@ class CommunicationController extends Controller
                         
                         if($result[1]['status'] == 1){
 //                            EMAIL Notification
-                            $notificationMasterId=1;
+                            $notificationMasterId=5;
                             $msg= "Communication a message is received.";
                             $objSendEmail = new Users();
                             $sendEmail = $objSendEmail->sendEmailNotification($notificationMasterId,$request->input('emp_id'),$msg);

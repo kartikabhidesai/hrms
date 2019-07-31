@@ -10,6 +10,9 @@ use App\Model\NonWorkingDate;
 use App\Model\Employee;
 use App\Model\Notification;
 use App\Model\NotificationMaster;
+use App\Model\Users;
+use App\Model\SendSMS;
+use App\Model\UserNotificationType;
 use Auth;
 use Config;
 
@@ -48,13 +51,13 @@ class AnnouncementController extends Controller {
     public function anounment_add(Request $request) {
 
         if ($request->isMethod('post')) {
-//            print_r($request);exit;
+//            print_r($request->input('assign_to'));exit;
             $objAnnoucement = new Announcement();
             $userData = Auth::guard('company')->user();
             
             $getAuthCompanyId = Company::where('email', $userData->email)->first();
             $logedcompanyId = $getAuthCompanyId->id;
-
+            
             $objNonWorkingDate = new NonWorkingDate();
             $resultNonWorkingDate = $objNonWorkingDate->getCompanyNonWorkingDateArrayList($logedcompanyId);
            
@@ -63,29 +66,62 @@ class AnnouncementController extends Controller {
                 $return['message'] = $request->input('start_date'). ' is Non Working Date';
             }else{
                 $result = $objAnnoucement->addAnnouncementData($request, $logedcompanyId);
-
                 if ($result) {
-
                     $notificationMasterId=10;
                     $objNotificationMaster = new NotificationMaster();
-                    $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($userData->id,$notificationMasterId);
+//                    $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($userData->id,$notificationMasterId);
+                    $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatusNew($userData->id,$notificationMasterId);
                     
-                    if($NotificationUserStatus==1)
-                    {
+                    if($NotificationUserStatus->status==1)
+                    {   
+                        $employeeList = Employee::select("id")
+                                       ->where('company_id',$logedcompanyId)
+                                       ->get();
+//                        print_r($employeeList);
+//                        die();
+                        foreach($employeeList as $value){
+                            $employeeId=$value->id;
+                            $objUserNotificationType = new UserNotificationType();
+                            $result = $objUserNotificationType->checkMessage($NotificationUserStatus->id);
 
+                            if($result[0]['status'] == 1){
+    //                            SMS  Notification
+                                $notificationMasterId=1;
+                                $msg= "You have a new Announcement.";
+                                $objSendSms = new SendSMS();
+                                $sendSMS = $objSendSms->sendSmsNotificaation($notificationMasterId,$employeeId,$msg);
+                            }
+
+                            if($result[1]['status'] == 1){
+    //                            EMAIL Notification
+                                $notificationMasterId=1;
+                                $msg= "You have a new Announcement.";
+                                $objSendEmail = new Users();
+                                $sendEmail = $objSendEmail->sendEmailNotification($notificationMasterId,$employeeId,$msg);
+
+
+                            }
+
+                            if($result[2]['status'] == 1){
+    //                            chat Notification
+                            }
+
+                            if($result[3]['status'] == 1){
+                                $objNotification = new Notification();
+                                $ticketName=$request->input('subject')." is a new Announcement.";
+                                $objEmployee = new Employee();
+//                                $u_id=$objEmployee->getUseridById($request->input('assign_to'));
+                                $route_url="employee-notification-list";
+                                $ret = $objNotification->addNotification($employeeId,$ticketName,$route_url,$notificationMasterId);
+                            }
+                        }
                         //notification add
-                        $objNotification = new Notification();
-                        $ticketName=$request->input('subject')." is a new Announcement.";
-                        $objEmployee = new Employee();
-                        $u_id=$objEmployee->getUseridById($request->input('assign_to'));
-                        $route_url="employee-notification-list";
-                        $ret = $objNotification->addNotification($u_id,$ticketName,$route_url,$notificationMasterId);
+                        
                     }
-
                     $return['status'] = 'success';
                     $return['message'] = 'Annoucement Add Successfully.';
                     $return['redirect'] = route('announcement');
-                } else {
+                }else{
                     $return['status'] = 'error';
                     $return['message'] = 'Something went wrong!';
                 }

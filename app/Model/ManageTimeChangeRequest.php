@@ -90,7 +90,7 @@ class ManageTimeChangeRequest extends Model
                    }
                });
         }
-      $temp = $query->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir']);
+        $temp = $query->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir']);
 
         $totalData = count($temp->get());
         $totalFiltered = count($temp->get());
@@ -198,8 +198,8 @@ class ManageTimeChangeRequest extends Model
         $totalFiltered = count($temp->get());
         // $type_of_request=Config::get('constants.type_of_request');
 
-          $objTypeOfRequest = new TypeOfRequest();
-        $type_of_request = $objTypeOfRequest->getTypeOfRequest($companyId);
+         $objTypeOfRequest = new TypeOfRequest();
+       
 
 
         $resultArr = $query->skip($requestData['start'])
@@ -213,7 +213,9 @@ class ManageTimeChangeRequest extends Model
                       'employee.date_of_joining', 
                       'time_change.status')->get();
         $data = array();
-        
+        $objLeaveCategrory =  new LeaveCategory();
+         $type_of_request = $objLeaveCategrory->getleaveCategoryListTable($resultArr[0]['request_type']);
+
         foreach ($resultArr as $row) {
           // print_r($row);exit;
             if($row["status"] == NULL){
@@ -236,7 +238,7 @@ class ManageTimeChangeRequest extends Model
             $nestedData[] = $row["date_of_submit"];
             $nestedData[] = $row["from_date"];
             $nestedData[] = $row["to_date"];
-            $nestedData[] = $type_of_request[$row["request_type"]];
+            $nestedData[] = $type_of_request;
             $nestedData[] = $row["total_hours"];
             $nestedData[] = $row["request_description"];
             $nestedData[] = date('M d, Y',strtotime($row["date_of_joining"]));

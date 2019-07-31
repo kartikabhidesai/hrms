@@ -105,7 +105,7 @@ class PayrollController extends Controller {
                        
                         if($result[0]['status'] == 1){
 //                            SMS  Notification
-                            $notificationMasterId=1;
+                            $notificationMasterId=2;
                             $msg= "You have a new information in payroll.";
                             $objSendSms = new SendSMS();
                             $sendSMS = $objSendSms->sendSmsNotificaation($notificationMasterId,$id,$msg);
@@ -113,7 +113,7 @@ class PayrollController extends Controller {
                         
                         if($result[1]['status'] == 1){
 //                            EMAIL Notification
-                            $notificationMasterId=1;
+                            $notificationMasterId=2;
                             $msg= "You have a new information in payroll.";
                             $objSendEmail = new Users();
                             $sendEmail = $objSendEmail->sendEmailNotification($notificationMasterId,$id,$msg);

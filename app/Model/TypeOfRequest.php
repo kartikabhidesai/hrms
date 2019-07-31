@@ -9,6 +9,7 @@ use Auth;
 use App\Model\UserHasPermission;
 use App\Model\Sendmail;
 use App\Model\Users;
+use App\Model\TypeOfRequest;
 use PDF;
 use Config;
 
@@ -37,6 +38,8 @@ class TypeOfRequest extends Model {
             $arrEmployee["addNew"]="Add New Type";
         return $arrEmployee;
     }  
+    
+      
     public function getTypeOfRequestV2($employee_id) {
         
         $arrEmployee = TypeOfRequest::whereNull('employee_id')->orWhere('employee_id', $employee_id)->pluck('request_name', 'id')->toArray();

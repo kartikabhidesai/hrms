@@ -144,7 +144,7 @@ class PerformanceController extends Controller {
                        
                         if($result[0]['status'] == 1){
 //                            SMS  Notification
-                            $notificationMasterId=1;
+                            $notificationMasterId=4;
                             $msg= "Performance is a new evaluates update.";
                             $objSendSms = new SendSMS();
                             $sendSMS = $objSendSms->sendSmsNotificaation($notificationMasterId,$id,$msg);
@@ -152,7 +152,7 @@ class PerformanceController extends Controller {
                         
                         if($result[1]['status'] == 1){
 //                            EMAIL Notification
-                            $notificationMasterId=1;
+                            $notificationMasterId=4;
                             $msg= "Performance is a new evaluates update.";
                             $objSendEmail = new Users();
                             $sendEmail = $objSendEmail->sendEmailNotification($notificationMasterId,$id,$msg);

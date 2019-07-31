@@ -181,7 +181,7 @@ class AdvanceSalaryRequestController extends Controller {
 
                             if($result[0]['status'] == 1){
     //                            SMS  Notification
-                                $notificationMasterId=1;
+                               $notificationMasterId=6;
                                 $msg= "Company advance selery request approved.";
                                 $objSendSms = new SendSMS();
                                 $sendSMS = $objSendSms->sendSmsNotificaation($notificationMasterId,$employeeId,$msg);
@@ -189,7 +189,7 @@ class AdvanceSalaryRequestController extends Controller {
 
                             if($result[1]['status'] == 1){
     //                            EMAIL Notification
-                                $notificationMasterId=1;
+                                $notificationMasterId=6;
                                 $msg= "Company advance selery request approved.";
                                 $objSendEmail = new Users();
                                 $sendEmail = $objSendEmail->sendEmailNotification($notificationMasterId,$employeeId,$msg);
@@ -249,7 +249,7 @@ class AdvanceSalaryRequestController extends Controller {
 
                             if($result[0]['status'] == 1){
     //                            SMS  Notification
-                                $notificationMasterId=1;
+                                $notificationMasterId=6;
                                 $msg= "Company Advance selery request rejected.";
                                 $objSendSms = new SendSMS();
                                 $sendSMS = $objSendSms->sendSmsNotificaation($notificationMasterId,$employeeId,$msg);
@@ -257,7 +257,7 @@ class AdvanceSalaryRequestController extends Controller {
 
                             if($result[1]['status'] == 1){
     //                            EMAIL Notification
-                                $notificationMasterId=1;
+                                $notificationMasterId=6;
                                 $msg= "Company Advance selery request rejected.";
                                 $objSendEmail = new Users();
                                 $sendEmail = $objSendEmail->sendEmailNotification($notificationMasterId,$employeeId,$msg);

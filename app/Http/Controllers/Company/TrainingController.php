@@ -11,6 +11,8 @@ use App\Model\TraningEmployeeDepartment;
 use App\Model\Notification;
 use App\Model\NotificationMaster;
 use App\User;
+use App\Model\UserNotificationType;
+use App\Model\SendSMS;
 use App\Model\Users;
 use App\Model\Employee;
 use Auth;
@@ -45,6 +47,7 @@ class TrainingController extends Controller
         $companyId = Company::select('id')->where('user_id', $userId)->first();
 
         if ($request->isMethod('post')) {
+            
             $objCompany = new Training();
             $ret = $objCompany->addTraining($request, $companyId->id);
 
@@ -52,18 +55,48 @@ class TrainingController extends Controller
                 $empId = $request->input('employeeid');
                 $notificationMasterId=7;
                 $objNotificationMaster = new NotificationMaster();
-                $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($userId,$notificationMasterId);
-                if($NotificationUserStatus==1)
+//                $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($userId,$notificationMasterId);
+                $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatusNew($userId,$notificationMasterId);
+                    
+                if($NotificationUserStatus->status==1)
                 {
                     foreach ($empId as $key => $value) {
-
+                      
+                        $objUserNotificationType = new UserNotificationType();
+                        $result = $objUserNotificationType->checkMessage($NotificationUserStatus->id);
+       
+                        if($result[0]['status'] == 1){
+//                            SMS  Notification
+                            $notificationMasterId=7;
+                            $msg= "Company has added a new training.";
+                            $objSendSms = new SendSMS();
+                            $sendSMS = $objSendSms->sendSmsNotificaation($notificationMasterId,$value,$msg);
+                        }
+                        
+                        if($result[1]['status'] == 1){
+//                            EMAIL Notification
+                            $notificationMasterId=7;
+                            $msg= "Company has added a new training.";
+                            $objSendEmail = new Users();
+                            $sendEmail = $objSendEmail->sendEmailNotification($notificationMasterId,$value,$msg);
+                            
+                            
+                        }
+                        
+                        if($result[2]['status'] == 1){
+//                            chat Notification
+                        }
+                        
+                        if($result[3]['status'] == 1){
                         //notification add
-                        $objNotification = new Notification();
-                        $trainingName="Company has added a new training.";
-                        $objEmployee = new Employee();
-                        $u_id=$objEmployee->getUseridById($empId[$key]);
-                        $route_url="employee-training";
-                        $ret = $objNotification->addNotification($u_id,$trainingName,$route_url,$notificationMasterId);
+                            $objNotification = new Notification();
+                            $trainingName="Company has added a new training.";
+                            $objEmployee = new Employee();
+                            $u_id=$objEmployee->getUseridById($empId[$key]);
+                            $route_url="employee-training";
+                            $ret = $objNotification->addNotification($u_id,$trainingName,$route_url,$notificationMasterId);
+                        
+                        }
                     }
                 }
 
