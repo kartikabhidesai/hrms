@@ -23,7 +23,7 @@ $currentRoute = Route::current()->getName();
                 <li class="nav-header">
                     <div class="dropdown profile-element"> 
                         <span>
-                            @if($file_headers[0] == 'HTTP/1.1 200 OK')
+                            @if($data['user_image'] != '' || $data['user_image'] != NULL)
                             <img class="img-circle" width="50" src="{{ asset('uploads/client/'.$data['user_image']) }}" alt="User's Profile Picture">
                             @else
                                 <img class="img-circle" width="50" src="{{ asset('img/profile_small.jpg') }}" alt="User's Profile Picture">

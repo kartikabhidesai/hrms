@@ -97,8 +97,7 @@ class Users extends Model {
         }
         // $objUser->name = !empty($request->input('newpassword')) ? Hash::make($request->input('newpassword')) : $request->input('oldpassword');
         $objUser->name = $request->input('first_name');
-        print_r($name);
-        die();
+        
         if ($objUser->save()) {
             return TRUE;
         } else {
