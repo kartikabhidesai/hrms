@@ -44,7 +44,43 @@ class Communication extends Model
         $newCommnucation->save();
         return TRUE;
     }
-
+    
+     public function addNewCommunicationCmpForward($request, $companyId)
+    {
+        // echo "<pre>new"; print_r($request->toArray()); exit();
+        $file = '';
+        $newCommnucation = new Communication();
+        $newCommnucation->communication_id = isset($request->communication_id) ? $request->communication_id : 0;
+        $newCommnucation->send_by = 'COMPANY';
+        $newCommnucation->company_id = $companyId;
+        $newCommnucation->send_emp_id = 0;
+        $newCommnucation->recieve_emp_id = $request->emp_id;
+        $newCommnucation->message = trim($request->summernote,'');
+        $newCommnucation->subject = $request->subject;
+        $file = '';
+        
+        if ($request->file('file')) {
+            $image = $request->file('file');
+            $file = 'communication' . time() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('/uploads/communication/');
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0777, true);
+            }
+            $image->move($destinationPath, $file);
+            $newCommnucation->file = '/uploads/communication/'.$file;
+        }
+        
+        if($request->oldFile != NULL || $request->oldFile != ''){
+            $newCommnucation->file = $request->oldFile;
+        }
+        
+        $newCommnucation->is_read = 0;
+        $newCommnucation->created_at = date('Y-m-d H:i:s');
+        $newCommnucation->created_at = date('Y-m-d H:i:s');
+        $newCommnucation->save();
+        return TRUE;
+    } 
+    
     public function addNewCommunicationEmp($request, $companyId, $empId)
     {
         $newCommnucation = new Communication();
@@ -81,7 +117,51 @@ class Communication extends Model
         $newCommnucation->save();
         return TRUE;
     }
+    
+    public function addNewCommunicationEmpNew($request, $companyId, $empId)
+    {
+        $newCommnucation = new Communication();
+        $newCommnucation->communication_id = isset($request->communication_id) ? $request->communication_id : 0;
 
+        if(isset($request->mail_to) && $request->mail_to == 'EMPLOYEE')
+        {
+            $newCommnucation->recieve_emp_id = $request->emp_id;
+        }
+        else
+        {
+            $newCommnucation->recieve_emp_id = '';   
+        }
+
+        $newCommnucation->send_by = 'EMPLOYEE';
+        $newCommnucation->company_id = $companyId;
+        $newCommnucation->send_emp_id = $empId;
+        $newCommnucation->message = trim($request->summernote, '');
+        $newCommnucation->subject = $request->subject;
+        $file = '';
+        
+        if ($request->file('file')) {
+            $image = $request->file('file');
+            $file = 'communication' . time() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('/uploads/communication/');
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0777, true);
+            }
+            $image->move($destinationPath, $file);
+            $newCommnucation->file = '/uploads/communication/'.$file;
+        }
+        
+        if($request->oldFile != NULL || $request->oldFile != ''){
+            $newCommnucation->file = $request->oldFile;
+        }
+        
+        $newCommnucation->is_read = 0;
+        $newCommnucation->created_at = date('Y-m-d H:i:s');
+        $newCommnucation->updated_at = date('Y-m-d H:i:s');
+        $newCommnucation->save();
+        return TRUE;
+    }
+
+    
     public function addNewCommunicationAdmin($request)
     {
         $file = '';
@@ -406,5 +486,12 @@ class Communication extends Model
         } else {
             return null;
         }
+    }
+    
+    public function getDetails($id){
+       $result= Communication::select("*")
+                            ->where("id",$id)
+                            ->get();
+       return $result[0];
     }
 }?>

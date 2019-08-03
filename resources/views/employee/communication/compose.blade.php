@@ -49,7 +49,7 @@
                     <div class="mail-body">
                         <form class="form-horizontal" method="get">
                             <div class="form-group"><label class="col-sm-2 control-label">To :</label>
-                                <div class="col-sm-5">
+                                <div class="col-sm-10">
                                     @if(isset($CommunicationData))
                                         <input type="hidden" name="mail_to" value="{{$CommunicationData->send_by}}">
                                     @endif
@@ -67,7 +67,7 @@
                                 @if($CommunicationData->send_emp_id != '' && $CommunicationData->send_emp_id != 0 && $CommunicationData->send_by == 'EMPLOYEE')
 
                                     <div class="form-group" id="emp_div"><label class="col-sm-2 control-label">Employees :</label>
-                                        <div class="col-sm-5">
+                                        <div class="col-sm-10">
                                             <input type="hidden" name="emp_id" value="{{$CommunicationData->send_emp_id}}">
                                             <select class="form-control" required="required" name="emp_id" id="emp_id" disabled="disabled">
                                                 <option value="">Select</option>
@@ -92,7 +92,7 @@
                             @else
 
                                 <div class="form-group" id="emp_div"><label class="col-sm-2 control-label">Employees :</label>
-                                    <div class="col-sm-5">
+                                    <div class="col-sm-10">
                                         <select class="form-control" required="required" name="emp_id" id="emp_id">
                                             <option value="">Select</option>
                                             @if(isset($companyEmployees) && !empty($companyEmployees))

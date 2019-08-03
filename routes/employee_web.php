@@ -64,6 +64,7 @@ $employeePrefix = "employee";
     Route::match(['get', 'post'], 'emp-trash', ['as' => 'emp-trash', 'uses' => 'Employee\CommunicationController@emptrashlist']);
     Route::match(['get', 'post'], 'emp-trashMail', ['as' => 'emp-trashMail', 'uses' => 'Employee\CommunicationController@empTrash']);
     Route::match(['get', 'post'], 'emp-compose', ['as' => 'emp-compose', 'uses' => 'Employee\CommunicationController@compose']);
+    Route::match(['get', 'post'], 'emp-forward/{id}', ['as' => 'emp-forward', 'uses' => 'Employee\CommunicationController@empForward']);
     Route::match(['get', 'post'], 'emp-communication-detail/{id}', ['as' => 'emp-communication-detail/{id}', 'uses' => 'Employee\CommunicationController@empCommunicationDetail']);
     Route::match(['get', 'post'], 'emp-communication-detail-trash/{id}', ['as' => 'emp-communication-detail-trash/{id}', 'uses' => 'Employee\CommunicationController@empCommunicationDetailTrash']);
     Route::match(['get', 'post'], 'send-emp-communication-detail/{id}', ['as' => 'send-emp-communication-detail/{id}', 'uses' => 'Employee\CommunicationController@sendEmpCommunicationDetail']);

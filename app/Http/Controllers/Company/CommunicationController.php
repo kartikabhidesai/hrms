@@ -329,4 +329,94 @@ class CommunicationController extends Controller
         $data['unread'] = $communicationobj->unreadEmailsForCommunication($logedcompanyId);
         return view('company.communication.communication-detail-trash', $data);
     }
+    
+    public function forword(Request $request,$id){
+        
+
+        $session = $request->session()->all();
+        $userid = Auth::guard('company')->user();
+        $companyId = Company::select('id')->where('user_id', $userid->id)->first();
+        
+        if ($request->isMethod('post')) 
+        {
+//            print_r($request->input('emp_id'));exit;
+            $objCommunication = new Communication();
+            $result = $objCommunication->addNewCommunicationCmpForward($request, $companyId->id);
+
+            if ($result) {
+                $notificationMasterId=5;
+                $objNotificationMaster = new NotificationMaster();
+//                $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus(,$notificationMasterId);
+                $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatusNew($userid->id,$notificationMasterId);
+                    
+                    if($NotificationUserStatus->status==1)
+                    {
+                        $objUserNotificationType = new UserNotificationType();
+                        $result = $objUserNotificationType->checkMessage($NotificationUserStatus->id);
+       
+                        if($result[0]['status'] == 1){
+//                            SMS  Notification
+                            $notificationMasterId=5;
+                            $msg= "Communication a message is received.";
+                            $objSendSms = new SendSMS();
+                            $sendSMS = $objSendSms->sendSmsNotificaation($notificationMasterId,$request->input('emp_id'),$msg);
+                        }
+                        
+                        if($result[1]['status'] == 1){
+//                            EMAIL Notification
+                            $notificationMasterId=5;
+                            $msg= "Communication a message is received.";
+                            $objSendEmail = new Users();
+                            $sendEmail = $objSendEmail->sendEmailNotification($notificationMasterId,$request->input('emp_id'),$msg);
+                        }
+                        
+                        if($result[2]['status'] == 1){
+//                            chat Notification
+                        }
+                        
+                        if($result[3]['status'] == 1){
+                        //notification add
+                            $objNotification = new Notification();
+                            $communicationName="Communication a message is received.";
+                            $objEmployee = new Employee();
+                            $u_id=$objEmployee->getUseridById($request->input('emp_id'));
+                            $route_url="emp-communication";
+                            $ret = $objNotification->addNotification($u_id,$communicationName,$route_url,$notificationMasterId);
+                        }
+                    }
+
+                $return['status'] = 'success';
+                $return['message'] = 'New Communication Email sent successfully.';
+                $return['redirect'] = route('communication');
+            } else {
+                $return['status'] = 'error';
+                $return['message'] = 'Something goes to wrong';
+            }
+            echo json_encode($return);
+            exit;
+        }
+        $unreadobj = new Communication();
+        $data['unread'] = $unreadobj->unreadEmailsForCommunication($companyId->id);
+        $session = $request->session()->all();
+        $userid = Auth::guard('company')->user();
+        $companyId = Company::select('id')->where('user_id', $userid->id)->first();
+        
+        $objCommunicationDetails= new Communication();
+        $data['details'] = $objCommunicationDetails->getDetails($id);
+        
+        $objEmployee = new Employee();
+        $data['employeeList'] = $objEmployee->getEmployeeList($companyId->id);
+        $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
+        $data['js'] = array('company/communication.js','ckeditor/ckeditor.js','plugins/summernote/summernote.min.js', 'jquery.form.min.js');
+        $data['funinit'] = array('Communication.forward()');
+        $data['css'] = array('plugins/summernote/summernote.css','plugins/summernote/summernote-bs3.css');
+        $data['header'] = array(
+            'title' => 'Email',
+            'breadcrumb' => array(
+                'Home' => route("company-dashboard"),
+                'Email' => route("communication"),
+                'Forword' => 'Forword'));
+
+        return view('company.communication.forword', $data);
+    }
 }

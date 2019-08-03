@@ -71,6 +71,24 @@ var Communication = function () {
     var trash_mail = function(){
         
     }
+    
+    var forward_mail = function(){
+        $('.summernote').summernote({
+            height: '250px',
+            placeholder: 'Enter your message here....'
+        });
+        
+        var form = $('#forwardFrom');
+        var rules = {
+            emp_id: {required: true},
+            subject: {required: true},
+            message: {required: true}
+        };
+
+        handleFormValidate(form, rules, function (form) {
+            handleAjaxFormSubmit(form, true);
+        });
+    }
 
     return {
         init: function () {
@@ -81,6 +99,9 @@ var Communication = function () {
         },
         trash:function(){
            trash_mail(); 
+        },
+        forward:function(){
+           forward_mail(); 
         },
     }
 }();

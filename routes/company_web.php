@@ -81,6 +81,8 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
     Route::match(['get', 'post'], 'trashMail', ['as' => 'trashMail', 'uses' => 'Company\CommunicationController@trashMail']);
     Route::match(['get', 'post'], 'mail-detail/{id}', ['as' => 'mail-detail/{id}', 'uses' => 'Company\CommunicationController@mailDetail']);
     
+    Route::match(['get', 'post'], 'forward/{id}', ['as' => 'forward/{id}', 'uses' => 'Company\CommunicationController@forword']);
+    
     Route::match(['get', 'post'], 'mail-detail-trash/{id}', ['as' => 'mail-detail-trash/{id}', 'uses' => 'Company\CommunicationController@mailDetailTrash']);
     
     Route::match(['get', 'post'], 'send-mail-detail/{id}', ['as' => 'send-mail-detail/{id}', 'uses' => 'Company\CommunicationController@sendMailDetail']);
