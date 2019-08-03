@@ -58,71 +58,43 @@ class AttendanceHistory extends Model
                                     ->leftjoin('time_change_requests', 'attendance_history.time_change_request_id', '=', 'time_change_requests.id')
                                     ->leftjoin('leaves', 'attendance_history.leave_id', '=', 'leaves.id')
                                     ->where('attendance_history.company_id', $companyId->id);
-                                                
-                                                if($department_id != "all"){
-                                                    $query->where('employee.department',"=",$department_id);
-                                                }
-                                                
-                                                if($fromDate != NULL && $to_date != NULL){
-                                                    $query->where(function($query1) use ($fromDate, $to_date) {
-                                                        $query1->Where(function($query1) use ($fromDate, $to_date) {
-                                                                $query1->where('leaves.start_date', '>=', $fromDate);
-                                                                $query1->Where('leaves.start_date', '<=', $to_date);
-                                                            });                                
-                                                        $query1->orWhere(function($query1) use ($fromDate, $to_date) {
-                                                                $query1->where('leaves.end_date', '>=', $fromDate);
-                                                                $query1->Where('leaves.end_date', '<=', $to_date);
-                                                            });
-                                                        $query1->orWhere(function($query1) use ($fromDate, $to_date) {
-                                                                $query1->where('leaves.start_date', '<=', $fromDate);
-                                                                $query1->Where('leaves.end_date', '>=', $to_date);
-                                                            });
-                                                    });
+                                    if($department_id != "all"){
+                                        $query->where('employee.department',"=",$department_id);
+                                    }
 
-                                                    $query->orWhere(function($query2) use ($fromDate, $to_date) {
-                                                        $query2->Where(function($query2) use ($fromDate, $to_date) {
-                                                                $query2->where('time_change_requests.from_date', '>=', $fromDate);
-                                                                $query2->Where('time_change_requests.from_date', '<=', $to_date);
-                                                            });                                
-                                                        $query2->orWhere(function($query2) use ($fromDate, $to_date) {
-                                                                $query2->where('time_change_requests.to_date', '>=', $fromDate);
-                                                                $query2->Where('time_change_requests.to_date', '<=', $to_date);
-                                                            });
-                                                        $query2->orWhere(function($query2) use ($fromDate, $to_date) {
-                                                                $query2->where('time_change_requests.from_date', '<=', $fromDate);
-                                                                $query2->Where('time_change_requests.to_date', '>=', $to_date);
-                                                            });
-                                                    });
+                                    if($fromDate != NULL && $to_date != NULL){
+                                        $query->where(function($query1) use ($fromDate, $to_date) {
+                                            $query1->Where(function($query1) use ($fromDate, $to_date) {
+                                                    $query1->where('leaves.start_date', '>=', $fromDate);
+                                                    $query1->Where('leaves.start_date', '<=', $to_date);
+                                                });                                
+                                            $query1->orWhere(function($query1) use ($fromDate, $to_date) {
+                                                    $query1->where('leaves.end_date', '>=', $fromDate);
+                                                    $query1->Where('leaves.end_date', '<=', $to_date);
+                                                });
+                                            $query1->orWhere(function($query1) use ($fromDate, $to_date) {
+                                                    $query1->where('leaves.start_date', '<=', $fromDate);
+                                                    $query1->Where('leaves.end_date', '>=', $to_date);
+                                                });
+                                        });
 
-                                                }
-                                                
-                                                // if($fromDate != NULL){
-                                                //     $query->where('leaves.start_date','<=',$fromDate);
-                                                //     $query->orWhere('leaves.end_date' , '>=' ,$to_date);
+                                        $query->orWhere(function($query2) use ($fromDate, $to_date) {
+                                            $query2->Where(function($query2) use ($fromDate, $to_date) {
+                                                    $query2->where('time_change_requests.from_date', '>=', $fromDate);
+                                                    $query2->Where('time_change_requests.from_date', '<=', $to_date);
+                                                });                                
+                                            $query2->orWhere(function($query2) use ($fromDate, $to_date) {
+                                                    $query2->where('time_change_requests.to_date', '>=', $fromDate);
+                                                    $query2->Where('time_change_requests.to_date', '<=', $to_date);
+                                                });
+                                            $query2->orWhere(function($query2) use ($fromDate, $to_date) {
+                                                    $query2->where('time_change_requests.from_date', '<=', $fromDate);
+                                                    $query2->Where('time_change_requests.to_date', '>=', $to_date);
+                                                });
+                                        });
 
-                                                //     $query->where('time_change_requests.from_date','<=',$fromDate);
-                                                //     $query->orWhere('time_change_requests.to_date' , '>=' ,$to_date);
-                                                //     // $query->where('leaves.start_date','>=',$fromDate);
-                                                //     // $query->Where('time_change_requests.from_date','>=',$fromDate);
-                                                // }
-
-                                                // if($fromDate != NULL){
-                                                //     $query->where('leaves.start_date','<=',$fromDate);
-                                                //     $query->orWhere('time_change_requests.from_date','<=',$fromDate);
-                                                // }
-
-                                                // if($to_date != NULL){
-                                                //     $query->orwhere('leaves.end_date','<=',$to_date);
-                                                //     $query->Where('time_change_requests.to_date','<=',$to_date);
-                                                // }
-
-                                                // if($to_date != NULL){
-                                                //     $query->where('leaves.end_date','>=',$to_date);
-                                                //     $query->orWhere('time_change_requests.to_date','>=',$to_date);
-                                                // }
-                                                
-
-                                               
+                                    }
+          
         if (!empty($requestData['search']['value'])) {
             $searchVal = $requestData['search']['value'];
             $query->where(function($query) use ($columns, $searchVal, $requestData) {
@@ -152,17 +124,21 @@ class AttendanceHistory extends Model
         $resultArr = $query->skip($requestData['start'])
                             ->take($requestData['length'])
                             ->get();
-        //print_r($resultArr);exit;
+//        print_r($resultArr);exit;
         $data = array();
         foreach ($resultArr as $row) {
+            $objLeaveCategrory = new LeaveCategory;
+            $type_of_request_new = $objLeaveCategrory->getleaveCategoryListTable($row['request_type']);
+            
             $actionHtml ='';
             $actionHtml .= '<a href="#historyDetailsModel" class="historyDetailsModel" data-toggle="modal" data-id="'.$row['id'].'"  title="Review" data-toggle="tooltip" data-original-title="Review" >Review</a>';
             $nestedData = array();
+            $nestedData[] = $row["type_of_req_id"] ? "Leave Request" : "Time Chnage Request";
             $nestedData[] = $row["start_date"] ? $row["start_date"] : $row["from_date"];
             $nestedData[] = $row["end_date"] ? $row["end_date"] : $row["to_date"];
             $nestedData[] = $row["name"];
             $nestedData[] = $row["department_name"];
-            $nestedData[] = (($row["type_of_req_id"] != '') ? $type_of_request[$row["type_of_req_id"]] : (($row["request_type"] != '')?$type_of_request[$row["request_type"]]:''));
+            $nestedData[] = $type_of_request_new;
             $desigArr = [];
             $nestedData[] = $actionHtml;
             $data[] = $nestedData;

@@ -219,7 +219,7 @@ class AttendanceController extends Controller
                 $objAttendanceHistory = new AttendanceHistory();
                 $historyList = $objAttendanceHistory->getDataTableForHistoy($request);
                 echo json_encode($historyList);
-            break;
+                break;
             case 'getHistoryDetails':
                 $result = $this->getHistoryDetails($request->input('data'));
                 break;

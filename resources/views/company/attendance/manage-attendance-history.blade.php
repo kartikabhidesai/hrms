@@ -69,6 +69,7 @@
                             <table class="table table-striped table-bordered table-hover dataTables-example" id="attendanceHistoryList">
                                 <thead>
                                     <tr>
+                                        <th>Type of Request</th>
                                         <th>From Date</th>
                                         <th>To Date</th>
                                         <th>Name Of Employee</th>
@@ -124,5 +125,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div></div>
 @endsection
