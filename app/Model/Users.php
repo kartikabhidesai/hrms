@@ -149,9 +149,5 @@ class Users extends Model {
                 $sendMail->sendSMTPMail($mailData);
             }
             
-           
-//            $mailData['data']='';
-            
-            
     }
 }

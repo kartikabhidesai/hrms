@@ -82,7 +82,7 @@ var Chat = function () {
                     $('#message').val("");
                     if(data.chat_message!="")
                     {
-                        console.log(data.created_at);
+//                        console.log(data.created_at);
                         $('.user-message-list').append("<div class='chat-message right'>\
                         <img class='message-avatar' src='"+baseurl+"uploads/client/"+data.user_image+"' alt='"+data.name+"' >\
                         <div class='message'>\
@@ -120,7 +120,7 @@ var Chat = function () {
                     {
                         $('.user-message-list').empty();
                     }
-                    console.log(page_no);
+//                    console.log(page_no);
                     page_no++;
                     $('#page_no').val(page_no);
                     if(data){

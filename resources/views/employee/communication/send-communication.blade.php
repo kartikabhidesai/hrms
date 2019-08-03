@@ -72,18 +72,19 @@
                                         <a href="{{ url('/employee/send-emp-communication-detail/'.$emailList['id']) }}">{{ $emailList['recieve_emp_id'] == 0 || $emailList['recieve_emp_id'] == null ? $emailList['companyName'] : $emailList['employeeName'] }}</a>
                                     </td>
                                     <td>
-                                        <a href="#">{{ $emailList['subject'] ? $emailList['subject'] : strip_tags($emailList['employeeName']) }}</a>
+                                        <a href="{{ url('/employee/send-emp-communication-detail/'.$emailList['id']) }}">{{ $emailList['subject'] ? $emailList['subject'] : strip_tags($emailList['employeeName']) }}</a>
                                     </td>
                                     @if($emailList['file'])
-                                        <td class=""><i class="fa fa-paperclip"></i></td>
+                                    <td class=""><a href="{{ url('/employee/send-emp-communication-detail/'.$emailList['id']) }}"><i class="fa fa-paperclip"></i></a></td>
                                     @else
                                         <td class=""></td>
                                     @endif
                                     <td>
-                                        {{ strlen(strip_tags($emailList['message'])) > 18 ? substr(strip_tags($emailList['message']),0,18)."..." : strip_tags($emailList['message']) }}
+                                        <a href="{{ url('/employee/send-emp-communication-detail/'.$emailList['id']) }}">
+                                            {{ strlen(strip_tags($emailList['message'])) > 18 ? substr(strip_tags($emailList['message']),0,18)."..." : strip_tags($emailList['message']) }}</a>
                                     </td>
                                     <td class="text-right mail-date">
-                                        {{ date('Y-m-d H:i A', strtotime($emailList['created_at'])) }}
+                                        <a href="{{ url('/employee/send-emp-communication-detail/'.$emailList['id']) }}">{{ date('Y-m-d H:i A', strtotime($emailList['created_at'])) }}</a>
                                     </td>
                                 </tr>
                             @endforeach

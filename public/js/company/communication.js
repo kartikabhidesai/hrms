@@ -25,9 +25,9 @@ var Communication = function () {
             });
         });
 
-        $('.chat-user').on("click", function () {
-            console.log($(this).attr("data-id"));
-        });
+//        $('.chat-user').on("click", function () {
+//            console.log($(this).attr("data-id"));
+//        });
 
         var form = $('#new_communication');
         var rules = {
