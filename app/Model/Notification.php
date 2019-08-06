@@ -15,7 +15,8 @@ class Notification extends Model {
     protected $table = 'notification';
 
     public function addNotification($user_id,$message,$route,$notificationMasterId) {
-
+        
+       
         $objNotification = new Notification();
         $objNotification->user_id = $user_id;
         $objNotification->notification_master_id = $notificationMasterId;
@@ -70,14 +71,24 @@ class Notification extends Model {
         $type_of_request = $objTypeOfRequest->getTypeOfRequestV2($userid);
         // $type_of_request=Config::get('constants.type_of_request');
      
-
+        
+        
         foreach ($resultArr as $row) {
+            $mystring = $row["route"];
+            $findme   = '/';
+            $pos = strpos($mystring, $findme);
+            if($pos){
+                
+                $routeHtml = '<a style="color:black" href="'.url($row["route"]).'">'.$row["message"].'</a>';
+            }else{
+                $routeHtml = '<a style="color:black" href="'.route($row["route"]).'">'.$row["message"].'</a>';
+            }
 //           $actionHtml = $request->input('gender');
         //    $actionHtml = '<a href="' . route('edit-notification', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
             $actionHtml = '<a href="#deleteModel" data-toggle="modal" data-id="'.$row['id'].'" class="link-black text-sm notificationDelete" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';
             $nestedData = array();
             $nestedData[] =$row["id"];
-            $nestedData[] ='<a style="color:black" href="'.route($row["route"]).'">'.$row["message"].'</a>';
+            $nestedData[] =$routeHtml;
             $nestedData[] = date('d-m-Y',strtotime($row["created_at"]));
            
             

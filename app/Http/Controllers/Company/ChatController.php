@@ -31,6 +31,19 @@ class ChatController extends Controller{
         return view('company.chat.chat',$data);
     }
     
+    public function indexnew(Request $request,$userId){
+        
+        $data['header'] = array(
+            'title' => 'Chat',
+            'breadcrumb' => array(
+                'Home' => route("company-dashboard"),
+                'Chat view' => 'Chat view'));
+        $data['funinit'] = array('Chat.initdefultopen('.$userId.')');
+        $data['js'] = array('company/chat.js');
+        
+        return view('company.chat.chat',$data);
+    }
+    
     public function ajaxAction(Request $request){
         
         $action = $request->input('action');
@@ -67,14 +80,14 @@ class ChatController extends Controller{
 
                 $notificationMasterId=20;
                 $objNotificationMaster = new NotificationMaster();
-                $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatusNew($logeduserId,$notificationMasterId);
+                $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatusNew($logeduserId,"5");
                 
                 if($NotificationUserStatus->status==1 )
                 {
-                    
+                       
                         $objUserNotificationType = new UserNotificationType();
                         $result = $objUserNotificationType->checkMessage($NotificationUserStatus->id);
-                        
+                       
                         if($result[0]['status'] == 1){
 //                            SMS  Notification
                             $notificationMasterId=1;
@@ -96,13 +109,29 @@ class ChatController extends Controller{
                         }
                         
                         if($result[3]['status'] == 1){
+                            $userData = Auth::guard('company')->user();
+                            $getAuthCompanyId = Company::where('email', $userData->email)->first();
+                            $logeduserId = $getAuthCompanyId->user_id;
+                            $objUser =  new Users();
+                            $result = $objUser->getUserType($request->input('to_user_id'));
+                            if($result == "ADMIN"){
+                                $route_url='admin-chat' ;
+                            }
+                            
+                            if($result == "EMPLOYEE"){
+                                $route_url=strtolower($result)."/employee-chatnew/".$logeduserId ;
+                            }
+                            
+                            if($result == "COMPANY"){
+                                $route_url=strtolower($result)."/chatnew/".$logeduserId ;
+                            }
                         //notification add
-                        $objNotification = new Notification();
-                        $objEmployee = new Employee();
-                        $chatMessage="Chat in  New Message.";
+                            $objNotification = new Notification();
+                            $objEmployee = new Employee();
+                            $chatMessage="Chat in  New Message.";
 
-                        $route_url="employee-chat";
-                        $ret = $objNotification->addNotification($request->input('to_user_id'),$chatMessage,$route_url,$notificationMasterId);
+                            
+                            $ret = $objNotification->addNotification($request->input('to_user_id'),$chatMessage,$route_url,$notificationMasterId);
                 
                         }
                     }
@@ -119,7 +148,6 @@ class ChatController extends Controller{
                 $user_fetch = $chatObj->fetchUserMessageList($logeduserId,$request->input('to_user_id'));
                 return $user_fetch;
                 break;
-            case '':
         }
         
     }

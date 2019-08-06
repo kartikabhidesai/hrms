@@ -30,7 +30,8 @@ class DashboardController extends Controller {
         $data['task_progress'] = Config::get('constants.task_progress');
         $data['task_status'] = ['In Progress', 'Pending', 'Complete'];
         $session = $request->session()->all();
-        
+//        print_r($session);
+//        die();
         if ($request->isMethod('post')) {
             $session = $request->session()->all();
             $userID=$session['logindata'][0]['id'];
@@ -111,7 +112,6 @@ class DashboardController extends Controller {
         $data['latest_task'] = @$latest_task;
         $data['employee_data'] = @$logged_in_user;
         $data['advance_salary_request'] = @$latest_advance_salary_request;
-       
         $data['announcementList'] = $announcementList;
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('employee/dashbord.js', 'ajaxfileupload.js','jquery.form.min.js');

@@ -161,6 +161,7 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
 
     /* chat */
     Route::match(['get', 'post'], 'chat', ['as' => 'chat', 'uses' => 'Company\ChatController@index']);
+    Route::match(['get', 'post'], 'chatnew/{id}', ['as' => 'chatnew', 'uses' => 'Company\ChatController@indexnew']);
     Route::match(['get', 'post'], 'chat-ajaxAction', ['as' => 'chat-ajaxAction', 'uses' => 'Company\ChatController@ajaxAction']);
     
     Route::match(['get', 'post'], 'report-list', ['as' => 'report-list', 'uses' => 'Company\ReportController@index']);

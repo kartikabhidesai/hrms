@@ -40,7 +40,7 @@ class NotificationController extends Controller
         
         $objNotificationMaster = new NotificationMaster();
         $data['notifiactionList'] = $objNotificationMaster->getEmployeeNotificationList($userID->id);
-
+        
         return view('company.notification.notification-add', $data);
     }
 

@@ -99,6 +99,7 @@ $employeePrefix = "employee";
 
     /* chat */
     Route::match(['get', 'post'], 'employee-chat', ['as' => 'employee-chat', 'uses' => 'Employee\ChatController@index']);
+    Route::match(['get', 'post'], 'employee-chatnew/{id}', ['as' => 'employee-chatnew', 'uses' => 'Employee\ChatController@indexNew']);
     Route::match(['get', 'post'], 'chat-ajaxAction', ['as' => 'employee-chat-ajaxAction', 'uses' => 'Employee\ChatController@ajaxAction']);
     
     

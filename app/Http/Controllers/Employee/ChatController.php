@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Employee;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\Chat;
+use App\Model\Users;
 use Illuminate\Support\Facades\Auth;
 use App\Model\Company;
 use App\Model\Employee;
@@ -24,6 +25,19 @@ class ChatController extends Controller{
                 'Chat view' => 'Chat view'));
                 $data['funinit'] = array('Chat.init()');
         $data['js'] = array('employee/chat.js');
+        return view('employee.chat.chat',$data);
+    }
+    
+    public function indexNew(Request $request,$userId){
+        $data['header'] = array(
+            'title' => 'Chat',
+            'breadcrumb' => array(
+                'Home' => route("employee-dashboard"),
+                'Chat view' => 'Chat view'));
+        
+        $data['funinit'] = array('Chat.initdefultopen('.$userId.')');
+        $data['js'] = array('employee/chat.js');
+        
         return view('employee.chat.chat',$data);
     }
     
@@ -68,13 +82,29 @@ class ChatController extends Controller{
                 $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($logedCompanyId,$notificationMasterId);
                 
                 if($NotificationUserStatus==1)
-                {
+                {   
+                    $userData = Auth::guard('employee')->user();
+                    $getAuthEmployeeId = Employee::where('email', $userData->email)->first();
+                    $logeduserId = $getAuthEmployeeId->user_id;
+                    $objUser =  new Users();
+                    $result = $objUser->getUserType($request->input('to_user_id'));
+                    if($result == "ADMIN"){
+                        $route_url='admin-chat' ;
+                    }
+
+                    if($result == "EMPLOYEE"){
+                        $route_url=strtolower($result)."/employee-chatnew/".$logeduserId ;
+                    }
+
+                    if($result == "COMPANY"){
+                        $route_url=strtolower($result)."/chatnew/".$logeduserId ;
+                    }
                     //notification add
                     $objNotification = new Notification();
                     $objEmployee = new Employee();
                     $chatMessage="Chat in  New Message.";
                     
-                    $route_url="chat";
+                    
                     $ret = $objNotification->addNotification($request->input('to_user_id'),$chatMessage,$route_url,$notificationMasterId);
                 }
 
@@ -90,7 +120,7 @@ class ChatController extends Controller{
                 $user_fetch = $chatObj->fetchUserMessageList($logeduserId,$request->input('to_user_id'));
                 return $user_fetch;
                 break;
-            case '':
+            
         }
         
     }

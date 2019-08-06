@@ -108,9 +108,9 @@ class NotificationMaster extends Model {
         $data=$request->input('data');
         
         $objSavedata=DB::table('user_notification_type')
-                            ->where('user_notification_type',$data['notificationValue'])
-                            ->where('user_notification_id',$data['userNotificationId'])
-                            ->update(['status'=>$data['checkBox']]);
+                        ->where('user_notification_type',$data['notificationValue'])
+                        ->where('user_notification_id',$data['userNotificationId'])
+                        ->update(['status'=>$data['checkBox']]);
         return ($objSavedata);
     }
      

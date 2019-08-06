@@ -150,4 +150,11 @@ class Users extends Model {
             }
             
     }
+    
+    public function getUserType($userId){
+        $id= Users::select("type")
+                    ->where('id',$userId)
+                    ->get();
+        return $id[0]->type;
+    }
 }

@@ -103,7 +103,24 @@ $currentRoute = Route::current()->getName();
                                 @for($i=0; $i < $countNotific; $i++)
                                 <li>
                                     @if(!empty($session['notificationdata'][0]['notification_list'][$i]['route'])) 
-                                            <a class="notification-count" href="{{ route($session['notificationdata'][0]['notification_list'][$i]['route']) }}" data-id="{{ $session['logindata'][0]['id'] }}" notification-id="{{ $session['notificationdata'][0]['notification_list'][$i]['id'] }}">
+                                    @php
+                                    $mystring = $session['notificationdata'][0]['notification_list'][$i]['route'];
+                                    $findme   = '/';
+                                    $pos = strpos($mystring, $findme);
+                                        if($pos){
+                                        
+                                    @endphp
+                                    <a class="notification-count" href="{{ url($session['notificationdata'][0]['notification_list'][$i]['route']) }}" data-id="{{ $session['logindata'][0]['id'] }}" notification-id="{{ $session['notificationdata'][0]['notification_list'][$i]['id'] }}">
+                                    @php
+                                        }
+                                        else{
+                                    @endphp
+                                    <a class="notification-count" href="{{ route($session['notificationdata'][0]['notification_list'][$i]['route']) }}" data-id="{{ $session['logindata'][0]['id'] }}" notification-id="{{ $session['notificationdata'][0]['notification_list'][$i]['id'] }}">
+                                    @php
+                                        
+                                        }
+                                    @endphp
+                                    
                                     @else 
                                         @if(!empty(Auth()->guard('employee')->user())) 
                                         <a class="notification-count" href="{{ route('employee-notification-list') }}" data-id="{{ $session['logindata'][0]['id'] }}" notification-id="{{ $session['notificationdata'][0]['notification_list'][$i]['id'] }}">
