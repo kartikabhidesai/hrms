@@ -7,11 +7,28 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Doctrine\DBAL\Driver\SQLSrv\LastInsertId;
+use App\Model\Employee;
 use App\Model\Users;
 use App\Model\Chat;
 
 class Chat extends Model{
     protected $table = 'chat_message';
+    public function fetch_user_new($id){
+       $emp_id= Employee::select("company_id")
+                        ->where('user_id',$id)
+                        ->get();
+       $companyId = $emp_id[0]->company_id ;
+       
+       $result = DB::table('users')
+                    ->join('comapnies', 'users.id', '=', 'comapnies.user_id')
+                    ->join('employee', 'comapnies.id', '=', 'employee.company_id')
+                    ->where("comapnies.id",$companyId)
+                    ->where("users.type","!=","ADMIN")
+                    ->where('users.id','!=',$id)->get();
+       
+        return $result;
+    
+    }
     public function fetch_user($id){
         
        $result = DB::table('users')->where('id','!=',$id)->get();

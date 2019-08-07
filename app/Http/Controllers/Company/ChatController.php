@@ -129,10 +129,7 @@ class ChatController extends Controller{
                             $objNotification = new Notification();
                             $objEmployee = new Employee();
                             $chatMessage="Chat in  New Message.";
-
-                            
                             $ret = $objNotification->addNotification($request->input('to_user_id'),$chatMessage,$route_url,$notificationMasterId);
-                
                         }
                     }
 

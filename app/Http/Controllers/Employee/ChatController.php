@@ -50,7 +50,7 @@ class ChatController extends Controller{
                 $getAuthEmployeeId = Employee::where('email', $userData->email)->first();
                 $logeduserId = $getAuthEmployeeId->user_id;
                 $chatObj = new chat();
-                $user_fetch = $chatObj->fetch_user($logeduserId);
+                $user_fetch = $chatObj->fetch_user_new($logeduserId);
                 return $user_fetch;
                 break;
             case 'search_user_list':

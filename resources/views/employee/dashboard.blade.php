@@ -59,8 +59,11 @@
                             <div class="contact-box">
                                 <a href="javascript:void(0);">
                                     <div class="col-sm-12 text-center">
-                                        <span style="font-size: 60px;"><b>4.2</b></span>
-                                        <span style="font-size: 15px;">/5</span>
+                                        @php
+                                             $rate = ($totalCompletedTask * 10)/$totalTask;
+                                        @endphp
+                                        <span style="font-size: 60px;"><b>{{ $rate }}</b></span>
+                                        <span style="font-size: 15px;">/{{ "10" }}</span>
                                         <p style="font-size: 15px;">Your completion rate of tasks</p>
                                     </div>
                                     <div class="clearfix"></div>

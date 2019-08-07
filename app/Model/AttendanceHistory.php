@@ -127,8 +127,14 @@ class AttendanceHistory extends Model
 //        print_r($resultArr);exit;
         $data = array();
         foreach ($resultArr as $row) {
-            $objLeaveCategrory = new LeaveCategory;
-            $type_of_request_new = $objLeaveCategrory->getleaveCategoryListTable($row['request_type']);
+            if($row['type_of_req_id'] && $row['type_of_req_id'] != NULL){
+               $objLeaveCategrory = new LeaveCategory;
+                $type_of_request_new = $objLeaveCategrory->getleaveCategoryListTable($row['type_of_req_id']);
+            }
+            if($row['request_type'] && $row['request_type'] != NULL){
+                $objLeaveCategrory = new LeaveCategory;
+                $type_of_request_new = $objLeaveCategrory->getleaveCategoryListTable($row['request_type']);
+            }
             
             $actionHtml ='';
             $actionHtml .= '<a href="#historyDetailsModel" class="historyDetailsModel" data-toggle="modal" data-id="'.$row['id'].'"  title="Review" data-toggle="tooltip" data-original-title="Review" >Review</a>';

@@ -240,11 +240,12 @@ class LeaveCategory extends Model {
                             ->where('id',$id)
                             ->get()
                             ->toarray();
+        
          return $type_of_request[0]['leave_cat_name'];
     }   
     
     public function getTypeOfRequestTimeChangeRequest($id){
-         $query = Employee::where('user_id',$id)
+        $query = Employee::where('user_id',$id)
                         ->select('*')->get();
         
         $company_id = $query[0]['company_id'];

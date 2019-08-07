@@ -152,13 +152,17 @@ var Training = function () {
                 success: function (data) {
                     var output = JSON.parse(data);
                     var len = output.length;
-                    // console.log(output);
+//                     console.log(output);
+//                     exit;
                         $("#Department"+eid).empty();
+                        var temphtml="<option value=''>Select Department</option>";
                         for( var i = 0; i<len; i++){
                             var id = output[i]['id'];
                             var name = output[i]['department_name'];
-                            $("#Department"+eid).append("<option value=''>Select Department</option><option value='"+id+"'>"+name+"</option>");
+                            var temp ="<option value='"+id+"'>"+name+"</option>";
+                            temphtml = temphtml + temp;
                         }
+                        $("#Department"+eid).append(temphtml);
                         // $("#Department"+eid).on("change", getemployee(eid));
                         setTimeout(function(){ 
                             getemployee(eid);
