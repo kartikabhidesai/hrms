@@ -61,9 +61,9 @@ class AnnouncementController extends Controller {
             $objNonWorkingDate = new NonWorkingDate();
             $resultNonWorkingDate = $objNonWorkingDate->getCompanyNonWorkingDateArrayList($logedcompanyId);
            
-            if(in_array(date('Y-m-d',strtotime($request->input('start_date'))), $resultNonWorkingDate)) {
+            if(in_array(date('Y-m-d',strtotime($request->input('expiry_date'))), $resultNonWorkingDate)) {
                 $return['status'] = 'error';
-                $return['message'] = $request->input('start_date'). ' is Non Working Date';
+                $return['message'] = $request->input('expiry_date'). ' is Non Working Date';
             }else{
                 $result = $objAnnoucement->addAnnouncementData($request, $logedcompanyId);
                 if ($result) {

@@ -123,7 +123,7 @@ class TaskController extends Controller {
                         
                         if($result[3]['status'] == 1){
 //                            Systeam Notification 
-//                          $objNotification = new Notification();
+                            $objNotification = new Notification();
                             $taskName=$request->input('task')." is a new task.";
                             $objEmployee = new Employee();
                             $u_id=$objEmployee->getUseridById($request->input('employee'));

@@ -28,7 +28,7 @@
             <div class="mail-box-header">
                 <div class="pull-right tooltip-demo">
                     <a href="{{url('')}}/company/compose?communication_id={{$cmpMailDetail->id}}" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Reply"><i class="fa fa-reply"></i> Reply</a>
-                    <a href="#" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Print email"><i class="fa fa-print"></i> </a>
+                    
                     <a href="#deleteMail"  data-id="{{ $id }}" data-toggle="modal" class="btn btn-white btn-sm deleteMail" data-original-title="Delete"> <i class="fa fa-trash"></i></a>
                     
                 </div>
@@ -79,8 +79,7 @@
                 <div class="mail-body text-right tooltip-demo">
                         <a class="btn btn-sm btn-white" href="{{url('')}}/company/compose?communication_id={{$cmpMailDetail->id}}"><i class="fa fa-reply"></i> Reply</a>
                         <a class="btn btn-sm btn-white" href="{{url('')}}/company/forward/{{$cmpMailDetail->id}}"><i class="fa fa-arrow-right"></i> Forward</a>
-                        <button title="" data-placement="top" data-toggle="tooltip" type="button" data-original-title="Print" class="btn btn-sm btn-white"><i class="fa fa-print"></i> Print</button>
-                        <button title="" data-placement="top" data-toggle="tooltip" data-original-title="Trash" class="btn btn-sm btn-white"><i class="fa fa-trash-o"></i> Remove</button>
+                        
                 </div>
                 <div class="clearfix"></div>
             </div>

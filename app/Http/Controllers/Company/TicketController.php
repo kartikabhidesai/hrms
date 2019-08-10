@@ -74,6 +74,7 @@ class TicketController extends Controller
     }
     
     public function add(Request $request){
+        
         $session = $request->session()->all();
         $objEmployee = new Employee();
         $userid = $this->loginUser->id;
@@ -81,8 +82,6 @@ class TicketController extends Controller
         $employee_list = $objEmployee->getEmployeeList($companyId->id);
         $objDepartment = new Department();
         $data['department'] = $objDepartment->getAllDepartment($companyId->id);
-        
-        
         if ($request->isMethod('post')) {
            
             $objNonWorkingDate = new NonWorkingDate();

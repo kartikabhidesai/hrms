@@ -65,6 +65,7 @@
                     <div class="form-group">
                         <label class="col-lg-2 control-label">Email</label>
                         <div class="col-lg-10">
+                            
                             @if($current_cmpny_ss == null || $current_cmpny_ss == '')
                                 {{ Form::text('email', null, array('placeholder'=>'Email', 'class' => 'form-control' ,'required')) }}
                             @else
@@ -76,10 +77,20 @@
                     <div class="form-group">
                         <label class="col-lg-2 control-label">Language</label>
                         <div class="col-lg-10">
+                            
                             @if($current_cmpny_ss == null || $current_cmpny_ss == '')
-                                {{ Form::text('language', null, array('placeholder'=>'Language', 'class' => 'form-control' ,'required')) }}
+                                <select class="form-control" id="language" name="language">
+                                    <option value="">Select Language</option>
+                                    <option value="English">English</option>
+                                    <option value="Arabic">Arabic</option>
+                                </select>
                             @else
-                                {{ Form::text('language', $current_cmpny_ss->language, array('placeholder'=>'Language', 'class' => 'form-control' ,'required')) }}
+                                <select class="form-control" id="language" name="language">
+                                    <option value="" >Select Language</option>
+                                    <option value="English" {{ $current_cmpny_ss->language== 'English' ? 'selected' : '' }}>English</option>
+                                    <option value="Arabic" {{ $current_cmpny_ss->language == 'Arabic' ? 'selected' : '' }}>Arabic</option>
+                                </select>
+                            
                             @endif
                             
                         </div>

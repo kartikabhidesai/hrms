@@ -74,8 +74,7 @@
                 <div class="mail-body text-right tooltip-demo">
                         <a class="btn btn-sm btn-white" href="{{url('')}}/company/compose?communication_id={{$cmpMailDetail->id}}"><i class="fa fa-reply"></i> Reply</a>
                         <a class="btn btn-sm btn-white" href="mail_compose.html"><i class="fa fa-arrow-right"></i> Forward</a>
-                        <button title="" data-placement="top" data-toggle="tooltip" type="button" data-original-title="Print" class="btn btn-sm btn-white"><i class="fa fa-print"></i> Print</button>
-                        <button title="" data-placement="top" data-toggle="tooltip" data-original-title="Trash" class="btn btn-sm btn-white"><i class="fa fa-trash-o"></i> Remove</button>
+                        
                 </div>
                 <div class="clearfix"></div>
             </div>
