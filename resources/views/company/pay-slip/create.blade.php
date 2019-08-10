@@ -17,9 +17,9 @@
                         <div class="col-sm-9">
                             <select class="form-control" name="department" id="department">
                                 <option value="">Select department</option>
-                                @for($i = 1 ; $i <= count($department) ; $i++)
-                                    <option value="{{ $i }}">{{ $department[$i] }}</option>
-                                @endfor
+                                @foreach($department as $key => $value)
+                                    <option value="{{ $key }}">{{ $value }}</option>
+                                @endforeach
                             </select>
                             
                         </div>

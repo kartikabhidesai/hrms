@@ -53,7 +53,8 @@ class PayslipController extends Controller
 
         $data['detail'] = $this->loginUser;
         $objDepart = new Department();
-        $data['department'] = $objDepart->getDepartment($companyId);   
+        $data['department'] = $objDepart->getDepartment($companyId); 
+        
         $objEmployee = new Employee();
         $data['employee'] = $objEmployee->getEmployee($companyId);
         $data['month']=$month;

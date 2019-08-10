@@ -397,38 +397,13 @@ class Employee extends Model {
 
     public function getEmployDetailV2($userId, $year, $month, $employee, $department) {
         
-       
-//        Employee::select('employee.*,pay_roll.*')
-//                ->leftjoin('pay_roll', 'employee.id', '=', 'pay_roll.employee_id')
-//                ->whereIn('pay_roll.month',$month)
-//                ->get();
         
         $sql = Employee::select('employee.name', 'employee.employee_id', 'employee.company_id', 'employee.id as emp_id', 'pay_roll.remarks', 'pay_roll.month', 'pay_roll.year')
                 ->leftjoin('pay_roll', 'employee.id', '=', 'pay_roll.employee_id');
          
             $sql->where('pay_roll.month', $month);
             $sql->where('pay_roll.year', $year);
-         
-//        if (!empty($year) && empty($month)) {
-//            $sql->orWhere(function($sql) use($year) {
-//                $sql->orWhere(function($sql) use($year) {
-//                    $sql->whereBetween('employee.date_of_joining', [date($year . '-01-01'), date($year . '-12-31')]);
-//                });
-//                $sql->orWhere(function($sql) use($year) {
-//                    $sql->whereBetween('employee.date_of_joining', [date($year . '-01-01'), date($year . '-12-31')]);
-//                });
-//            });
-//        }
-        // if (!empty($year) && !empty($month)) {
-        // $sql->orWhere(function($sql) use($year, $month) {
-        //     $sql->orWhere(function($sql) use($year, $month) {
-        //         $sql->whereBetween('date_of_joining', [date($year . '-' . $month . '-01'), date($year . '-' . $month . '-31')]);
-        //                     });
-        //     $sql->orWhere(function($sql) use($year, $month) {
-        //         $sql->whereBetween('date_of_joining', [date($year . '-' . $month . '-01'), date($year . '-' . $month . '-31')]);
-        //     });
-        // });
-        // }
+            
         if (!empty($employee) && $employee !== 'all') {
             $sql->where('employee.id', $employee);
         }
