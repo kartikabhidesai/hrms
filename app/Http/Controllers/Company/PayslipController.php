@@ -28,16 +28,19 @@ class PayslipController extends Controller
         $companyId = $getAuthCompanyId->id;
         if ($request->isMethod('post')) {
             $postData = $request->input();
+            
             $empArray = $postData['empchk'];
             $dataPdf = array();
+            
             foreach ($empArray as $key => $value) {
                 $objPayroll = new Payroll();
                 $employeeArr = $objPayroll->getPayslipPdfDetail($postData,$value);
-                   // dd($employeeArr[0]);
+//                    dd($employeeArr[0]);
                 if(!empty($employeeArr)){
                     $dataPdf[] = $employeeArr[0];
                 }
             }
+       
             if(count($dataPdf) > 0){
                 $data['empPdfArray'] = $dataPdf;
                 $file= date('d-m-YHis')."payslip.pdf";
@@ -46,6 +49,7 @@ class PayslipController extends Controller
                 return $pdf->download($file);    
             }
         }
+        
         $department = (empty($request->get('department'))) ? '' : $request->get('department');
         $employee = (empty($request->get('employee'))) ? '' : $request->get('employee');
         $year = (empty($request->get('year'))) ? date('Y') : $request->get('year');
@@ -80,7 +84,7 @@ class PayslipController extends Controller
     public function createPDF(){
         for($i = 0; $i < 5;$i++){
             $data = array();
-            $file= public_path(). "/uploads/admin/info$i.pdf";
+            $file= public_path(). "/uploads/admin/info".$i."pdf";
             $pdf = PDF::loadView('company.pay-slip.invoice-pdf1', $data);
             // return $pdf->download($file);    
             return $pdf->stream('whateveryourviewname.pdf');

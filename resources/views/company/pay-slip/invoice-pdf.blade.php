@@ -1,3 +1,4 @@
+
 <html>
     <head>
         <meta charset="utf-8">
@@ -30,13 +31,14 @@
     
     <body>
         @foreach($empPdfArray as $row => $employeeArr)
+        
         <div class="invoice-box">
             <table width="100%">
                 <tr>
                     <td class="main-header"><span >HRMS</span></td>
                 </tr>
                 <tr>
-                    <td  colspan="2"><h2>Payslip</h2><b>Net Pay {{ $employeeArr['salary_grade'] + $employeeArr['basic_salary']  + $employeeArr['over_time'] + $employeeArr['housing']+ $employeeArr['medical'] + $employeeArr['transportation'] + $employeeArr['travel'] }}</b></td>
+                    <td  colspan="2"><h2>Payslip</h2><b>Net Pay {{  $employeeArr['basic_salary']  + $employeeArr['over_time'] + $employeeArr['housing']+ $employeeArr['medical'] + $employeeArr['transportation'] + $employeeArr['travel'] }}</b></td>
                     <td >Employee Name  <br/>{{ $employeeArr['empName'] }}</td>
                     <td >Company Name <br/>{{ $employeeArr['company_name'] }}</td>
                     <td >payroll Date <br/> {{ date('d-m-Y',strtotime($employeeArr['due_date'])) }}</td>
@@ -66,26 +68,31 @@
                         <td> Basic Pay {{ $employeeArr['basic_salary'] }}</td>
                         <td class="padding-l-5">Employee in constributions {{ $employeeArr['salary_grade'] }} </td>
                         <td class="padding-l-5"> Gross Pay  -</td>
-                        @if(isset($employeeArr['extra_allowance']))
+                        
+                        @if(isset($employeeArr['extra_allowance']) && ($employeeArr['extra_allowance'] != 'null'))
                             <td class="padding-l-5">
                                 @foreach(json_decode($employeeArr['extra_allowance']) as $key => $value)
                                     {{ $key }} : {{ $value }} <br>
                                 @endforeach
                             </td>
+                        @else
+                        <td class="padding-l-5"><center> -</center> </td>
                         @endif
 
-                        @if(isset($employeeArr['extra_deduction']))
+                        @if(isset($employeeArr['extra_deduction']) && ($employeeArr['extra_deduction'] != 'null'))
                             <td class="padding-l-5">
                                 @foreach(json_decode($employeeArr['extra_deduction']) as $key => $value)
                                     {{ $key }} : {{ $value }} <br>
                                 @endforeach
                             </td>
+                         @else
+                            <td class="padding-l-5"><center> - </center></td>
                         @endif
                     </tr>  
                     <tr>
-                        <td> Total Payments  ${{ $employeeArr['salary_grade'] + $employeeArr['basic_salary'] }}</td>
+                        <td> Total Payments  ${{  $employeeArr['basic_salary'] }}</td>
                         <td class="padding-l-5">Total Deductions</td>
-                        <td class="padding-l-5">Net Pay {{ $employeeArr['salary_grade'] + $employeeArr['basic_salary'] + $employeeArr['over_time'] + $employeeArr['housing']+ $employeeArr['medical'] + $employeeArr['transportation'] + $employeeArr['travel'] }}</td>
+                        <td class="padding-l-5">Net Pay {{ $employeeArr['basic_salary'] + $employeeArr['over_time'] + $employeeArr['housing']+ $employeeArr['medical'] + $employeeArr['transportation'] + $employeeArr['travel'] }}</td>
                     </tr>
                 </tbody>
             </table>
