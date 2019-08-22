@@ -60,7 +60,12 @@
                                 <a href="javascript:void(0);">
                                     <div class="col-sm-12 text-center">
                                         @php
-                                             $rate = ($totalCompletedTask * 10)/$totalTask;
+                                            if($totalTask != 0){
+                                                $rate = ($totalCompletedTask * 10)/$totalTask;
+                                            }else{
+                                                $rate = 0;
+                                            }
+                                             
                                         @endphp
                                         <span style="font-size: 60px;"><b>{{ $rate }}</b></span>
                                         <span style="font-size: 15px;">/{{ "10" }}</span>

@@ -123,7 +123,8 @@ class TrainingController extends Controller
             'title' => 'Training Add',
             'breadcrumb' => array(
                 'Home' => route("company-dashboard"),
-                'Training Add' => 'Training'));
+                'Training List' => route("training"),
+                'Add Training' => 'Training'));
 
         return view('company.training.training-add', $data);
     }

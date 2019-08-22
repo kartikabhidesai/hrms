@@ -11,24 +11,19 @@ var Chat = function () {
                 url: baseurl+"employee/chat-ajaxAction",
                 data: {'action': 'fetch_user'},
                 success: function(data) {
-                    
                     if(data){
                         for(i = 0; i< data.length; i++){
-
-                            if(data[i].user_image!=""){
-                                // var userimg=baseurl+"uploads/client/"+data[i].user_image;
-                                var userimg=baseurl+"uploads/client/user.jpg";
+                            var userimg = '';
+                            if(data[i].user_image == "" || data[i].user_image == null){
+                                 userimg=baseurl+"uploads/client/user.png";
                             }else{
-                                var userimg=baseurl+"uploads/client/user.jpg";
+                                userimg=baseurl+"uploads/client/"+data[i].user_image;
                             }
-
-                            $('.users-list').append("<div class='chat-user'><img class='chat-avatar' src='"+userimg+"' alt=''><div class='chat-user-name'><a data-id='"+data[i].id+"' data-user-name='"+data[i].name+"' class='user-message' href='javascript:void(0);'  >"+data[i].name+"</a></div></div>");
+                            $('.users-list').append("<div class='chat-user'><a data-id='"+data[i].id+"' data-user-name='"+data[i].name+"' class='user-message' href='javascript:void(0);'  ><img class='chat-avatar' src='"+userimg+"' alt=''></a><div class='chat-user-name'><a data-id='"+data[i].id+"' data-user-name='"+data[i].name+"' class='user-message' href='javascript:void(0);'  >"+data[i].name+"</a></div></div>");
                         }
-                        
                     }
                 },
                 error: function(err) {
-                    //alert("error"+JSON.stringify(err));
                 }
             });
         }
@@ -48,10 +43,10 @@ var Chat = function () {
                         $('.users-list').empty();
                         for(i = 0; i< data.length; i++){
                             if(data[i].user_image!=""){
-                            // var userimg=baseurl+"uploads/client/"+data[i].user_image;
-                            var userimg=baseurl+"uploads/client/user.jpg";
+                             var userimg=baseurl+"uploads/client/"+data[i].user_image;
+//                                var userimg=baseurl+"uploads/client/user.png";
                             }else{
-                                var userimg=baseurl+"uploads/client/user.jpg";
+                                var userimg=baseurl+"uploads/client/user.png";
                             }
 
                             $('.users-list').append("<div class='chat-user'><img class='chat-avatar' src='"+userimg+"' alt=''><div class='chat-user-name'><a data-id='"+data[i].id+"' data-user-name='"+data[i].name+"' class='user-message' href='javascript:void(0);'  >"+data[i].name+"</a></div></div>");
@@ -66,6 +61,7 @@ var Chat = function () {
         });
 
         $('body').on('click', '.user-message', function () {
+            
             var to_user_id = $(this).attr('data-id');
             var to_user_name = $(this).attr('data-user-name');
             $('#to_user_name').html(to_user_name);
@@ -74,6 +70,7 @@ var Chat = function () {
         });
 
         $('.send_chat').on("click", function () {
+           
             var to_user_id = $('#to_user_id').val();
             var message = $('#message').val();
             $.ajax({
@@ -87,9 +84,15 @@ var Chat = function () {
                     $('#message').val("");
                     if(data.chat_message!="")
                     {
+                        var userimg ='';
+                        if(data.user_image == "" || data.user_image == null){
+                            userimg="user.png";
+                        }else{
+                            userimg=data.user_image;
+                        }
                         console.log(data.created_at);
                         $('.user-message-list').append("<div class='chat-message right'>\
-                        <img class='message-avatar' src='"+baseurl+"uploads/client/"+data.user_image+"' alt='"+data.name+"' >\
+                        <img class='message-avatar' src='"+baseurl+"uploads/client/"+userimg+"' alt='"+data.name+"' >\
                         <div class='message'>\
                             <a class='message-author' href='#'>"+data.name+"</a>\
                             <span class='message-date'>"+data.created_at+"</span>\
@@ -130,11 +133,16 @@ var Chat = function () {
                     $('#page_no').val(page_no);
                     if(data){
                         for(i = 0; i< data.length; i++){
-
+                             var userimg ='';
+                            if(data[i].user_image == "" || data[i].user_image == null){
+                                userimg="user.png";
+                            }else{
+                                userimg=data[i].user_image;
+                            }
                             if(data[i].to_user_id!=to_user_id)
                             {
                                 $('.user-message-list').prepend("<div class='chat-message left'>\
-                                            <img class='message-avatar' src='"+baseurl+"uploads/client/"+data[i].user_image+"' alt='"+data[i].name+"' >\
+                                            <img class='message-avatar' src='"+baseurl+"uploads/client/"+userimg+"' alt='"+data[i].name+"' >\
                                             <div class='message'>\
                                                 <a class='message-author' href='#'>"+data[i].name+"</a>\
                                                 <span class='message-date'>"+data[i].created_at+"</span>\
@@ -142,7 +150,7 @@ var Chat = function () {
                                             </div></div>");
                             }else{
                                 $('.user-message-list').prepend("<div class='chat-message right'>\
-                                            <img class='message-avatar' src='"+baseurl+"uploads/client/"+data[i].user_image+"' alt='"+data[i].name+"' >\
+                                            <img class='message-avatar' src='"+baseurl+"uploads/client/"+userimg+"' alt='"+data[i].name+"' >\
                                             <div class='message'>\
                                                 <a class='message-author' href='#'>"+data[i].name+"</a>\
                                                 <span class='message-date'>"+data[i].created_at+"</span>\
@@ -235,6 +243,7 @@ var Chat = function () {
         });
 
         $('.send_chat').on("click", function () {
+            
             var to_user_id = $('#to_user_id').val();
             var message = $('#message').val();
             $.ajax({

@@ -10,23 +10,48 @@ use Doctrine\DBAL\Driver\SQLSrv\LastInsertId;
 use App\Model\Employee;
 use App\Model\Users;
 use App\Model\Chat;
-
+use App\Model\Company;
 class Chat extends Model{
     protected $table = 'chat_message';
     public function fetch_user_new($id){
-       $emp_id= Employee::select("company_id")
-                        ->where('user_id',$id)
-                        ->get();
-       $companyId = $emp_id[0]->company_id ;
-       
-       $result = DB::table('users')
+        $emp_id= Employee::select("company_id")
+                         ->where('user_id',$id)
+                         ->get();
+        
+        $companyId = $emp_id[0]->company_id ;
+        
+//        $user_id= Company::select("user_id")
+//                         ->where('id',$companyId)
+//                         ->get();
+//       
+//        $result = DB::table('users')
+//                ->join('comapnies', 'users.id', '=', 'comapnies.user_id')
+//                ->join('employee', 'comapnies.id', '=', 'employee.company_id')
+//                ->where('users.id','!=',$id)
+//                ->where("comapnies.id",$companyId)
+//                ->whereIn("users.id",$user_id)
+//                ->get();
+//            return $result;
+       $comapnies = DB::table('users')
                     ->join('comapnies', 'users.id', '=', 'comapnies.user_id')
-                    ->join('employee', 'comapnies.id', '=', 'employee.company_id')
+//                    ->join('employee', 'comapnies.id', '=', 'employee.company_id')
                     ->where("comapnies.id",$companyId)
                     ->where("users.type","!=","ADMIN")
-                    ->where('users.id','!=',$id)->get();
+                    ->where('users.id','!=',$id)
+                    ->select("users.*")
+                    ->get()->toarray();
        
-        return $result;
+       
+       $employee = DB::table('users')
+                    ->join('employee', 'users.id', '=', 'employee.user_id')
+                    ->where("employee.company_id",$companyId)
+                    ->where("users.type","!=","ADMIN")
+                    ->where('users.id','!=',$id)
+                    ->select("users.*")
+                    ->get()->toarray();
+       
+        array_push($employee,$comapnies[0]);
+        return  $employee ;
     
     }
     public function fetch_user($id){

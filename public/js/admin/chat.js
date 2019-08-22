@@ -14,14 +14,15 @@ var Chat = function () {
                     if(data){
                         for(i = 0; i< data.length; i++){
 
-                            if(data[i].user_image!=""){
-                                // var userimg=baseurl+"uploads/client/"+data[i].user_image;
-                                var userimg=baseurl+"uploads/client/user.jpg";
+                            if(data[i].user_image =="" || data[i].user_image == null){
+                                 var userimg=baseurl+"uploads/client/user.png";
+//                                var userimg=baseurl+"uploads/client/user.jpg";
                             }else{
-                                var userimg=baseurl+"uploads/client/user.jpg";
+                                var userimg=baseurl+"uploads/client/"+data[i].user_image;
+                                
                             }
 
-                            $('.users-list').append("<div class='chat-user'><img class='chat-avatar' src='"+userimg+"' alt=''><div class='chat-user-name'><a data-id='"+data[i].id+"'  data-user-name='"+data[i].name+"' class='user-message' href='javascript:void(0);'  >"+data[i].name+"</a></div></div>");
+                            $('.users-list').append("<div class='chat-user'><a data-id='"+data[i].id+"'  data-user-name='"+data[i].name+"' class='user-message' href='javascript:void(0);'  ><img class='chat-avatar' src='"+userimg+"' alt=''></a><div class='chat-user-name'><a data-id='"+data[i].id+"'  data-user-name='"+data[i].name+"' class='user-message' href='javascript:void(0);'  >"+data[i].name+"</a></div></div>");
                         }
                         
                     }
@@ -86,9 +87,15 @@ var Chat = function () {
                     $('#message').val("");
                     if(data.chat_message!="")
                     {
-                        console.log(data.created_at);
+                            if(data.user_image == "" || data.user_image == null){
+                                 var userimg="user.png";
+//                                var userimg=baseurl+"uploads/client/user.jpg";
+                            }else{
+                                var userimg=data.user_image;
+                                
+                            }
                         $('.user-message-list').append("<div class='chat-message right'>\
-                        <img class='message-avatar' src='"+baseurl+"uploads/client/"+data.user_image+"' alt='"+data.name+"' >\
+                        <img class='message-avatar' src='"+baseurl+"uploads/client/"+userimg+"' alt='"+data.name+"' >\
                         <div class='message'>\
                             <a class='message-author' href='#'>"+data.name+"</a>\
                             <span class='message-date'>"+data.created_at+"</span>\
@@ -129,7 +136,12 @@ var Chat = function () {
                     $('#page_no').val(page_no);
                     if(data){
                         for(i = 0; i< data.length; i++){
-
+                            if(data[i].user_image == "" || data[i].user_image == null){
+                                 var userimg="user.png";
+//                                var userimg=baseurl+"uploads/client/user.jpg";
+                            }else{
+                                var userimg=data[i].user_image;
+                            }
                             if(data[i].to_user_id!=to_user_id)
                             {
                                 $('.user-message-list').prepend("<div class='chat-message left'>\

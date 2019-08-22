@@ -29,8 +29,8 @@ class ChatController extends Controller{
             'breadcrumb' => array(
                 'Home' => route("admin-dashboard"),
                 'Chat view' => 'Chat view'));
-                $data['funinit'] = array('Chat.init()');
         $data['js'] = array('admin/chat.js');
+        $data['funinit'] = array('Chat.init()');
         return view('admin.chat.chat',$data);
     }
     
