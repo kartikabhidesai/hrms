@@ -55,19 +55,34 @@ class Chat extends Model{
     
     }
     public function fetch_user($id){
+        $emp_id= Company::select("id")
+                        ->where('user_id',$id)
+                        ->get();
         
-       $result = DB::table('users')->where('id','!=',$id)->get();
+        $companyId = $emp_id[0]->id ;
+        
+       $result = DB::table('users')
+                ->join('employee', 'users.id', '=', 'employee.user_id')
+                ->where('users.id','!=',$id)
+                ->where('employee.company_id',$companyId)
+                ->where('users.type', '!=','COMPANY')
+                ->get()->toarray();
+       
+        $admin = DB::table('users')
+                ->where('id','!=',$id)
+                ->where('type','ADMIN')
+                ->get()->toarray();
+        array_push($result,$admin[0]);
+       return $result;
+    }
+    public function fetch_user_admin($id){
+        
+       $result = DB::table('users')
+                ->where('id','!=',$id)
+                ->where('type','COMPANY')
+                ->get();
        return $result;
        
-//       $result = DB::table('users')
-//                        ->select('users.*')
-//                        ->join('comapnies', 'users.id', '=', 'comapnies.user_id')
-//                        ->join('employee', 'comapnies.id', '=', 'employee.company_id')
-////                            ->where('users.id',$id)
-//                        ->get();
-//                print_r($result);
-//                die();
-//                return $result;
     }
 
     public function search_user_list($id,$search_name){

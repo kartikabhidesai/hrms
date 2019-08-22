@@ -9,14 +9,13 @@ var Chat = function () {
                     'X-CSRF-TOKEN': $('input[name="_token"]').val()
                 },
                 url: baseurl + "company/chat-ajaxAction",
-                data: {'action': 'fetch_user'},
+                    data: {'action': 'fetch_user'},
                 success: function(data) {
                    
                     if(data){
                         for(i = 0; i< data.length; i++){
                             
-                            if(data[i].user_image == null){
-                                
+                            if(data[i].user_image == null || data[i].user_image == ''){
                                 var userimg=baseurl+"uploads/client/user.png";
                             }else{
                                 var userimg=baseurl+"uploads/client/" +data[i].user_image;
@@ -45,11 +44,11 @@ var Chat = function () {
                     if(data){
                         $('.users-list').empty();
                         for(i = 0; i< data.length; i++){
-                            if(data[i].user_image!=""){
-                            // var userimg=baseurl+"uploads/client/"+data[i].user_image;
-                            var userimg=baseurl+"uploads/client/user.jpg";
+                            if(data[i].user_image == null || data[i].user_image == ''){
+                                var userimg=baseurl+"uploads/client/user.png";
                             }else{
-                                var userimg=baseurl+"uploads/client/user.jpg";
+                                var userimg=baseurl+"uploads/client/" +data[i].user_image;
+//                                var userimg=baseurl+"uploads/client/user.jpg";
                             }
 
                             $('.users-list').append("<div class='chat-user'><img class='chat-avatar' src='"+userimg+"' alt=''><div class='chat-user-name'><a data-id='"+data[i].id+"' data-user-name='"+data[i].name+"' class='user-message' href='javascript:void(0);'  >"+data[i].name+"</a></div></div>");
@@ -174,11 +173,11 @@ var Chat = function () {
                 success: function(data) {
                     if(data){
                         for(i = 0; i< data.length; i++){
-                            if(data[i].user_image!=""){
-                            // var userimg=baseurl+"uploads/client/"+data[i].user_image;
-                            var userimg=baseurl+"uploads/client/user.jpg";
+                            if(data[i].user_image == "" || data[i].user_image == null){
+                             
+                             var userimg=baseurl+"uploads/client/user.png";
                             }else{
-                                var userimg=baseurl+"uploads/client/user.jpg";
+                               var userimg=baseurl+"uploads/client/"+data[i].user_image;
                             }
                             $('.users-list').append("<div class='chat-user'><img class='chat-avatar' src='"+userimg+"' alt=''><div class='chat-user-name'><a data-id='"+data[i].id+"' data-user-name='"+data[i].name+"' class='user-message' href='javascript:void(0);'  >"+data[i].name+"</a></div></div>");
                         }
@@ -205,11 +204,11 @@ var Chat = function () {
                     if(data){
                         $('.users-list').empty();
                         for(i = 0; i< data.length; i++){
-                            if(data[i].user_image!=""){
-                            // var userimg=baseurl+"uploads/client/"+data[i].user_image;
-                            var userimg=baseurl+"uploads/client/user.jpg";
+                            if(data[i].user_image =="" || data[i].user_image == null){
+                            
+                                var userimg=baseurl+"uploads/client/user.png";
                             }else{
-                                var userimg=baseurl+"uploads/client/user.jpg";
+                                var userimg=baseurl+"uploads/client/"+data[i].user_image;
                             }
 
                             $('.users-list').append("<div class='chat-user'><img class='chat-avatar' src='"+userimg+"' alt=''><div class='chat-user-name'><a data-id='"+data[i].id+"' data-user-name='"+data[i].name+"' class='user-message' href='javascript:void(0);'  >"+data[i].name+"</a></div></div>");
