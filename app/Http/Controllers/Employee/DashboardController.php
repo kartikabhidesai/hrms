@@ -122,10 +122,10 @@ class DashboardController extends Controller {
         $data['employee_data'] = @$logged_in_user;
         $data['advance_salary_request'] = @$latest_advance_salary_request;
         $data['announcementList'] = $announcementList;
-        $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
+        $data['pluginjs'] = array('plugins/slick/slick.min.js');
         $data['js'] = array('employee/dashbord.js', 'ajaxfileupload.js','jquery.form.min.js');
         $data['funinit'] = array('Dashboard.init()');
-        $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
+        $data['css'] = array('plugins/slick/slick.css','plugins/slick/slick-theme.css','plugins/jasny/jasny-bootstrap.min.css');
         $data['detail'] = $this->loginUser;
         $data['header'] = array(
             'title' => 'Employee Dashboard',

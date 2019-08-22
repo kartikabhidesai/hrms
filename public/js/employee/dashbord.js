@@ -1,6 +1,13 @@
 var Dashboard = function () {
 
     var handleList = function () {
+        $('.slick_demo_3').slick({
+                infinite: true,
+                speed: 500,
+                fade: true,
+                cssEase: 'linear',
+                adaptiveHeight: true
+            });
         $('body').on('click', '.updateTaskModel', function () {
         var data = $(this).attr('data-id');
        

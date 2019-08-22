@@ -1,7 +1,10 @@
 var DailyAttendance = function () {
     
   var handleList = function () {
-     
+            
+          
+            
+
       dateFormate('.date')
       var form = $('#manageDailyAttendance');
       var rules = {

@@ -179,11 +179,43 @@
                     </div>
                 </div>
                 @if(count($announcementList) > 0)
-                <div class="ibox-content" style="overflow-y: scroll; height:400px;">
-                    <div class="ibox-title">
-                        <h5>Announcement List</h5>
+                <div class="ibox-content" >
+                     <div class="row">
+                        <div class="col-lg-10 col-lg-offset-1">
+                            <div class="ibox">
+                                <div class="ibox-title" style="border-style: none; */">
+                                    <h5>Announcement List</h5>
+                                </div>
+                                <div class="slick_demo_3">
+                                    @php 
+                                        $i =0;
+                                    @endphp
+                                    @foreach($announcementList as $key => $value)
+                                         @php 
+                                            $i++;
+                                        @endphp
+                                        <div>
+                                            <div class="ibox-content">
+                                                <h2>{{ $value['title'] }}</h2>
+                                                <p>
+                                                    {{ $value['content'] }}
+                                                    
+                                                </p>
+                                                <span class="pull-left">
+                                                    <b>Start Date : {{ date("d-m-Y", strtotime($value['date'])) }}</b>
+                                                </span>
+                                                <span class="pull-right">
+                                                    <b>Expiry Date : {{ date("d-m-Y", strtotime($value['expiry_date'])) }}</b>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                            
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                            <div class="panel-body">
+<!--                            <div class="panel-body">
                                 <div class="panel-group" id="accordion">
                                     @php 
                                         $i =0;
@@ -210,13 +242,14 @@
                                         </div>
                                     @endforeach
                                 </div>
-                            </div>
-                        </div>
+                            </div>-->
+                </div>
                 @endif
             </div>
             
         </div>
     </div>
+    
 </div>
 
 <div id="task_write_comment_modal" class="modal fade" aria-hidden="true">
@@ -535,6 +568,7 @@
     {
         $('#advance-salary-request-modal').modal('show');
     }
+    
 </script>
 
 @endsection
