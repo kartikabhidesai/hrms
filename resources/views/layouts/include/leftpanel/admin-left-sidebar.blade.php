@@ -98,6 +98,26 @@ $file_headers = @get_headers($filename);
                     </li>
                 </ul>
             </li>
+            
+            <li class="{{ ($currentRoute == 'communication' ? 'active' : '') }} {{ ($currentRoute == 'compose' ? 'active' : '') }} {{ ($currentRoute == 'mail-detail' ? 'active' : '') }} {{ ($currentRoute == 'mail-detail/*' ? 'active' : '') }} {{ ($currentRoute == 'communication' || $currentRoute == 'admin-chat' ? 'active' : '') }}">
+                <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Communication</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li class="{{ ($currentRoute == 'communication' ? 'active' : '') }} {{ ($currentRoute == 'compose' ? 'active' : '') }} {{ ($currentRoute == 'mail-detail' ? 'active' : '') }} {{ ($currentRoute == 'mail-detail/*' ? 'active' : '') }}">
+                        <a href="{{ url('').'/admin/communication' }}"><i class="fa fa-history"></i>
+                            <span class="nav-label">Email</span></a>
+                    </li>
+                    
+                    <li class="{{ ($currentRoute == 'sms-list' ? 'active' : '') }} {{ ($currentRoute == 'new-sms' ? 'active' : '') }}">
+                        <a href="{{ url('').'/admin/sms-list' }}"><i class="fa fa-envelope"></i>
+                            <span class="nav-label">Send SMS</span></a>
+                    </li>
+                    
+                    <li class="{{ ($currentRoute == 'admin-chat' ? 'active' : '') }}">
+                        <a href="{{ route('admin-chat') }}"><i class="fa fa-comments"></i>
+                            <span class="nav-label">Chat</span></a>
+                    </li>
+                </ul>
+            </li>
 
             <li class="{{ ($currentRoute == 'payment-list' ? 'active' : '') }}">
                 <a href="{{ route('payment-list') }}"><i class="fa fa-percent"></i>
@@ -108,18 +128,18 @@ $file_headers = @get_headers($filename);
                 <a href="{{ route('plan-management') }}"><i class="fa fa-percent"></i>
                     <span class="nav-label">Plan Management</span></a>
             </li> 
+            
+            <li class="{{ ($currentRoute == 'admin-notification' ? 'active' : '') }}">
+                <a href="{{ route('admin-notification') }}"><i class="fa fa-bell"></i>
+                    <span class="nav-label">Notification</span></a>
+            </li> 
+            
             <li class="{{ ($currentRoute == 'add-role' || $currentRoute == 'edit-role' || $currentRoute == 'role-list' ? 'active' : '') }}">
                 <a href="{{ route('role-list') }}"><i class="fa  fa-american-sign-language-interpreting"></i>
                     <span class="nav-label">Role</span></a>
             </li>
-            <li class="{{ ($currentRoute == 'sms-list' ? 'active' : '') }} {{ ($currentRoute == 'new-sms' ? 'active' : '') }}">
-                <a href="{{ url('').'/admin/sms-list' }}"><i class="fa fa-envelope"></i>
-                    <span class="nav-label">Send SMS</span></a>
-            </li> 
-            <li class="{{ ($currentRoute == 'communication' ? 'active' : '') }} {{ ($currentRoute == 'compose' ? 'active' : '') }} {{ ($currentRoute == 'mail-detail' ? 'active' : '') }} {{ ($currentRoute == 'mail-detail/*' ? 'active' : '') }}">
-                <a href="{{ url('').'/admin/communication' }}"><i class="fa fa-history"></i>
-                    <span class="nav-label">Communication</span></a>
-            </li>
+            
+            
 
              <li class="{{ ($currentRoute == 'social-media'   ? 'active' : '') }} ">
                 <a href="{{ url('').'/admin/social-media' }}"><i class="fa fa-comments"></i>
@@ -171,10 +191,7 @@ $file_headers = @get_headers($filename);
                 </li> 
             @endif
         @endif
-        <li class="{{ ($currentRoute == 'admin-chat' ? 'active' : '') }}">
-                <a href="{{ route('admin-chat') }}"><i class="fa fa-comments"></i>
-                    <span class="nav-label">Chat</span></a>
-            </li>
+        
 
 </ul>
 

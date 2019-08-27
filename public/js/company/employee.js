@@ -1,6 +1,27 @@
 var Employee = function() {
     var handleList = function() {
      
+        $('body').on('change', '.changeDepartment', function() {
+            var department = $('.changeDepartment').val();
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                },
+                url: baseurl + "company/employee-ajaxAction",
+                data: {'action': 'changeDepartment', 'department': department},
+                success: function(data) {
+                    var  output = JSON.parse(data);
+                    var temp_html = '';
+                    var html ='<select class="form-control designation" id="designation" name="designation"><option selected="selected" value="">Select Designation</option>';
+                    for(var i = 0; i < output.length ; i++){
+                        temp_html = '<option value="'+output[i].id+'">'+ output[i].designation_name +'</option>';
+                        html = html + temp_html;
+                    }       
+                    $('.designationhtml').html(html+'</select>');
+                }
+            });
+        });
         $('body').on('click', '.empDelete', function() {
             var id = $(this).data('id');
             setTimeout(function() {

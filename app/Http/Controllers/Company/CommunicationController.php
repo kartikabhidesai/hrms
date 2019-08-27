@@ -87,12 +87,12 @@ class CommunicationController extends Controller
                 $objNotificationMaster = new NotificationMaster();
 //                $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus(,$notificationMasterId);
                 $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatusNew($userid->id,$notificationMasterId);
-                    
+              
                     if($NotificationUserStatus->status==1)
                     {
                         $objUserNotificationType = new UserNotificationType();
                         $result = $objUserNotificationType->checkMessage($NotificationUserStatus->id);
-       
+                        
                         if($result[0]['status'] == 1){
 //                            SMS  Notification
                             $notificationMasterId=5;
@@ -114,13 +114,14 @@ class CommunicationController extends Controller
                         }
                         
                         if($result[3]['status'] == 1){
+                           
                         //notification add
                             $objNotification = new Notification();
                             $communicationName="Communication a message is received.";
-                            $objEmployee = new Employee();
-                            $u_id=$objEmployee->getUseridById($request->input('emp_id'));
+//                            $objEmployee = new Employee();
+//                            $u_id=$objEmployee->getUseridById($request->input('emp_id'));
                             $route_url="emp-communication";
-                            $ret = $objNotification->addNotification($u_id,$communicationName,$route_url,$notificationMasterId);
+                            $ret = $objNotification->addNotification($request->input('emp_id'),$communicationName,$route_url,$notificationMasterId);
                         }
                     }
 
@@ -136,7 +137,7 @@ class CommunicationController extends Controller
         }
 
         $objEmployee = new Employee();
-        $data['employeeList'] = $objEmployee->getEmployeeList($companyId->id);
+        $data['employeeList'] = array_reverse($objEmployee->getEmployeeList($companyId->id));
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/communication.js','ckeditor/ckeditor.js','plugins/summernote/summernote.min.js', 'jquery.form.min.js');
         $data['funinit'] = array('Communication.compose_mail()');

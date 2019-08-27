@@ -51,7 +51,7 @@
                                             @if($employeeList)
                                                 <option value="">Select employee</option>
                                                 @foreach($employeeList as $emp)
-                                                    <option value="{{ $emp->id }}">{{ $emp->name }}</option>
+                                                    <option value="{{ $emp['id'] }}">{{ $emp['name'] }}</option>
                                                 @endforeach
                                             @else
                                                 <option value="">No Employee present</option>

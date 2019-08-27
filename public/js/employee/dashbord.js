@@ -8,6 +8,108 @@ var Dashboard = function () {
                 cssEase: 'linear',
                 adaptiveHeight: true
             });
+        $('body').on('click', '.shareLocation', function () {
+            var data = $(this).attr('data-id');
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                },
+                url: baseurl + "employee/emp-task-ajaxAction",
+                data: {'action': 'getTaskDetails', 'data': data},
+                success: function (data) {
+                    var output = JSON.parse(data);
+                    $('.location').val(output.location);
+                    $('.chnagelocation').removeClass('hidden');
+                    $('.changeType').val("shareLocation");
+                    $('.chnagetask_status').addClass('hidden');
+                    $('.emp_updated_file').addClass('hidden');
+                    $('.task_id').val(output.id);
+                }
+            });
+
+        });  
+        $('body').on('click', '.setStatus', function () {
+            var data = $(this).attr('data-id');
+           
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                },
+                url: baseurl + "employee/emp-task-ajaxAction",
+                data: {'action': 'getTaskDetails', 'data': data},
+                success: function (data) {
+                    var output = JSON.parse(data);
+//                    console.log(output.task_status);exit;
+                    
+                    $('.task_id').val(output.id);
+                    
+                    $('.changeType').val("setStatus");
+                    $('.chnagelocation').addClass('hidden');
+                    $('.emp_updated_file').addClass('hidden');
+                    $('.chnagetask_status').removeClass('hidden');
+                    var temp_html="";
+                     if(output.task_status == 1){
+                         temp_html='<select class="form-control m-b c-select task_status " id="task_status" name="task_status" >'+
+                                    '<option value="">Select Task Status</option>'+
+                                    '<option value="1" selected>In Progress</option>'+
+                                    '<option value="2">Pending</option>'+
+                                    '<option value="3">Complete</option>'+
+                                '</select>';
+                    }
+                     if(output.task_status == 2){
+                         temp_html='<select class="form-control m-b c-select task_status " id="task_status" name="task_status" >'+
+                                    '<option value="">Select Task Status</option>'+
+                                    '<option value="1">In Progress</option>'+
+                                    '<option value="2" selected>Pending</option>'+
+                                    '<option value="3">Complete</option>'+
+                                '</select>';
+                    }
+                     if(output.task_status == 3){
+                         temp_html='<select class="form-control m-b c-select task_status " id="task_status" name="task_status" >'+
+                                    '<option value="">Select Task Status</option>'+
+                                    '<option value="1">In Progress</option>'+
+                                    '<option value="2">Pending</option>'+
+                                    '<option value="3" selected>Complete</option>'+
+                                '</select>';
+                    }
+                    $(".statushtml").html(temp_html);
+                }
+            });
+
+        });  
+        
+        $('body').on('click', '.uploadMedia', function () {
+            var data = $(this).attr('data-id');
+           
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                },
+                url: baseurl + "employee/emp-task-ajaxAction",
+                data: {'action': 'getTaskDetails', 'data': data},
+                success: function (data) {
+                    var output = JSON.parse(data);
+                    $('.task_id').val(output.id);
+                    $('.changeType').val("uploadMedia");
+                    $('.emp_updated_file').removeClass('hidden');
+                    $('.chnagelocation').addClass('hidden');
+                    $('.chnagetask_status').addClass('hidden');
+                    if(output.emp_updated_file == null || output.emp_updated_file == '')
+                    {
+                        $('.fileName').hide();
+                        
+                    }else{
+                        // $('.fileName').attr('href',baseurl +'/uploads/tasks/'+output.emp_updated_file);
+                        $('.fileName').show();
+                        $('.fileName').attr('href',baseurl+'/uploads/tasks/'+output.emp_updated_file);
+                    }
+                }
+            });
+
+        });
         $('body').on('click', '.updateTaskModel', function () {
         var data = $(this).attr('data-id');
        
@@ -46,9 +148,10 @@ var Dashboard = function () {
                 location: {required: true},
             };
             handleFormValidate(form, rules, function (form) {
-//               alert("HELLO");
                handleAjaxFormSubmit(form, true);
             });
+            
+            
        
         
         var dataArr = {};

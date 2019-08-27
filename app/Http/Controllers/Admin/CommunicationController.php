@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Employee;
+use App\Model\Users;
 use App\Model\Company;
 use App\Model\Communication;
 use App\Model\CommunicationReply;
@@ -54,17 +55,19 @@ class CommunicationController extends Controller
         }
 
         if ($request->isMethod('post')) {
+           $objUSer = new Users();
+           $userId=$objUSer->getUserId($request->input('cmp_id'));
+          
+           
             $objCommunication = new Communication();
-            $result = $objCommunication->addNewCommunicationAdmin($request);
-
-            if ($result) {
-
+            $mailId = $objCommunication->addNewCommunicationAdmin($request);
+            if ($mailId) {
                 //notification add
                 $objNotification = new Notification();
                 $communicationName="Communication a message is received.";
                 $objEmployee = new Employee();
                 $u_id=$objEmployee->getUseridById($request->input('emp_id'));
-                $ret = $objNotification->addNotification($request->cmp_id,$communicationName,'company/compose',11);
+                $ret = $objNotification->addNotification($userId,$communicationName,'mail-detail/'.$mailId,11);
                 $return['status'] = 'success';
                 $return['message'] = 'New Communication Email sent successfully.';
                 $return['redirect'] = route('communication');
@@ -75,6 +78,8 @@ class CommunicationController extends Controller
             echo json_encode($return);
             exit;
         }
+        
+        $objCommunication = new Communication();
         $data['unread'] = $objCommunication->unreadEmailsForCommunicationAdmin();
         $data['companyList'] = Company::select('id','company_name')->get();
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');

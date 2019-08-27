@@ -16,7 +16,6 @@ class Notification extends Model {
 
     public function addNotification($user_id,$message,$route,$notificationMasterId) {
         
-       
         $objNotification = new Notification();
         $objNotification->user_id = $user_id;
         $objNotification->notification_master_id = $notificationMasterId;
@@ -24,9 +23,7 @@ class Notification extends Model {
         $objNotification->route =  $route;
         $objNotification->created_at = date('Y-m-d H:i:s');
         $objNotification->updated_at = date('Y-m-d H:i:s');
-        $objNotification->save();
-
-        return TRUE;
+        return $objNotification->save();
     }
 
     public function getNotificationDatatable($userid) {

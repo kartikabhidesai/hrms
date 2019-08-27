@@ -22,8 +22,8 @@ class UserNotificationType extends Model {
     
     public function checkMessage($id){
         $result= UserNotificationType::select('status')
-                            ->where('user_notification_id',$id)
-                            ->get()->toarray();
+                ->where('user_notification_id',$id)
+                ->get()->toarray();
         return $result;
     }
 }

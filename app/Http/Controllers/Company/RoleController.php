@@ -55,8 +55,9 @@ class RoleController extends Controller {
         $data['companyId']=$companyId['id'];
         
         $objEmployeelist = new Employee();
-        $data['employeeList'] =  $objEmployeelist->getEmployeeList($companyId['id']);
+        $data['employeeList'] =  $objEmployeelist->getEmployeeListNew($companyId['id']);
        
+        
         if($request->isMethod('post')){
             
             $objAdminRole=new AdminRole();
@@ -140,6 +141,7 @@ class RoleController extends Controller {
             'title' => 'Role',
             'breadcrumb' => array(
                 'Home' => route("company-dashboard"),
+                'Role List' => route("company-role-list"),
                 'Edit Role' => 'company-edit-role'));
         return view('company.role.edit', $data);
     }

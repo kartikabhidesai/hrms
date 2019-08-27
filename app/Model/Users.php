@@ -12,13 +12,39 @@ use App\Model\OrderInfo;
 use App\Model\Category;
 use App\Model\Service;
 use App\Model\Users;
+use App\Model\Company;
 use PDF;
 use Config;
 use File;
 
 class Users extends Model {
     protected $table = 'users';
-   
+    
+    public function editUsersEmployee($request,$id){
+        
+        $userId= Employee::select('user_id')->where('id',$id)->get();
+//        print_r();die();
+        $objUser = Demo::find($request->input('edit_id'));
+        $objUser = Users::find($userId[0]->user_id);
+        if ($request->file('emp_pic')) {
+            $image = $request->file('emp_pic');
+            $emp_pic = 'employee' . time() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('/uploads/client/');
+            $image->move($destinationPath, $emp_pic);
+            $objUser->name = $request->input('name');
+            $objUser->user_image = $emp_pic;
+        }
+        $objUser->name = $request->input('name');
+        $objUser->updated_at = date('Y-m-d H:i:s');
+        $objUser->save();
+    }
+
+    public function getUserId($id){
+        $userId = Company::select('user_id')->where('id',$id)->get();
+        return $userId[0]->user_id;
+        
+    }
+
     public function saveUserInfo($request) {
         $newpassword = ($request->input('password') != '') ? $request->input('password') : null;
         $newpass = Hash::make($newpassword);
@@ -37,10 +63,20 @@ class Users extends Model {
         $objUser = new Users();
          $dublicateCheck = Users::where('email', '=',  $request->input('email'))
                 ->count();
+         
         if ($dublicateCheck == 0) {
+            $emp_pic = '';
+            if ($request->file('emp_pic')) {
+                $image = $request->file('emp_pic');
+                $emp_pic = 'employee' . time() . '.' . $image->getClientOriginalExtension();
+                $destinationPath = public_path('/uploads/client/');
+                $image->move($destinationPath, $emp_pic);
+            }
+            
             $objUser->name = $request->input('name');
             $objUser->email = $request->input('email');
             $objUser->type = 'EMPLOYEE';
+            $objUser->user_image = $emp_pic;
             $objUser->password = Hash::make($request->input('id'));
             $objUser->created_at = date('Y-m-d H:i:s');
             $objUser->updated_at = date('Y-m-d H:i:s');

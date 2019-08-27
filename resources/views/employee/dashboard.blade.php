@@ -78,7 +78,7 @@
                     </div>
 
                     <div class="row">
-
+                        @if(!is_null($latest_task))
                         <div class="col-lg-4">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
@@ -90,19 +90,45 @@
                                         @endif
                                     </h5>
                                 </div>
-                                <div class="panel-body text-center">
-                                    <div class="col-lg-6 panel">
-                                        @if(!is_null($latest_task))
-                                                <a href="#updateTaskModel" class="link-black text-sm updateTaskModel" data-toggle="modal" data-id="{{ $latest_task->id }}" title="Update" data-original-title="Update">Edit Task</i></a>
-                                        @else
-                                            Write a comment
-                                        @endif
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-content">
+                                        <div class="row">
+                                            <div class="col-xs-6">
+                                                <h4><a href="{{ route("task-emp-comments",$latest_task->id) }}">Write Comments</a></h4>
+                                            </div>
+
+                                            <div class="col-xs-6">
+                                                <h4><a href="#updateTaskModel" class="link-black text-sm uploadMedia" data-toggle="modal" data-id="{{ $latest_task->id }}" title="Update" data-original-title="Update">Upload Media</a></h4>
+                                            </div>
+                                        </div>
                                     </div>
-                                    
+                                   
+                                    <div class="ibox-content">
+                                        <div class="row">
+                                            
+                                            <div class="col-xs-6">
+                                                <h4><a href="#updateTaskModel" class="link-black text-sm shareLocation" data-toggle="modal" data-id="{{ $latest_task->id }}" title="Update" data-original-title="Update">Share Location</a></h4>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <h4><a href="#updateTaskModel" class="link-black text-sm setStatus" data-toggle="modal" data-id="{{ $latest_task->id }}" title="Update" data-original-title="Update">Set Status</a></h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        @else
+                        <div class="col-lg-4">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title">
+                                            No Any Task
+                                    </h5>
                                 </div>
                             </div>
                         </div>
-
+                    @endif
                         <div class="col-lg-8">
 
                             <div class="col-lg-2">
@@ -215,34 +241,6 @@
                             </div>
                         </div>
                     </div>
-<!--                            <div class="panel-body">
-                                <div class="panel-group" id="accordion">
-                                    @php 
-                                        $i =0;
-                                    @endphp
-                                    @foreach($announcementList as $key => $value)
-                                         @php 
-                                            $i++;
-                                        @endphp
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne{{ $i }}">
-                                                <h5 class="panel-title">
-                                                        {{ $value['title'] }}
-                                                        <span class="pull-right">Date : {{ date("d-m-Y", strtotime($value['date'])) }}</span>
-                                                </h5>
-                                                </a>
-                                            </div>
-                                            <div id="collapseOne{{ $i }}" class="panel-collapse collapse in">
-                                                <div class="panel-body">
-                                                    {{ $value['content'] }}<br><br>
-                                                    <b>Expiry Date : {{ date("d-m-Y", strtotime($value['expiry_date'])) }}</b>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>-->
                 </div>
                 @endif
             </div>
@@ -495,35 +493,29 @@
                 <div class="row">
                     <div class="col-sm-12">
                          <input type="hidden" class="form-control task_id" name="task_id" id="task_id">
-                        <div class="form-group">
+                         <input type="hidden" class="form-control changeType" name="changeType" >
+                        
 
-                            <label class="col-sm-2 control-label">Complete Progress</label>
-                            <div class="col-sm-9">
-                                {{ Form::select('complete_progress', $task_progress , null, array('class' => 'form-control m-b c-select complete_progress', 'id' => 'complete_progress')) }}
-                            </div>
-
-                        </div>
-
-                        <div class="form-group">
+                        <div class="form-group chnagetask_status">
                             <label class="col-sm-2 control-label">Task Status</label>
-                            <div class="col-sm-9">
-                                <select class="form-control m-b c-select task_status" id="task_status" name="task_status" >
-                                    <option value="1">In_Progress</option>
+                            <div class="col-sm-9 statushtml">
+                                <select class="form-control m-b c-select task_status " id="task_status" name="task_status" >
+                                    <option value="">Select Task Status</option>
+                                    <option value="1">In Progress</option>
                                     <option value="2">Pending</option>
                                     <option value="3">Complete</option>
                                 </select>
-                               
                             </div>
                         </div>
                          
-                        <div class="form-group">
+                        <div class="form-group chnagelocation">
                             <label class="col-sm-2 control-label">Location</label>
                             <div class="col-sm-9">
                                {{ Form::text('location' , null, array('class' => 'form-control m-b c-select location', 'id' => 'location')) }}
                                
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group emp_updated_file">
                             <div class="form-group" style="margin-left: 1px;margin-right: 1px">
                                 <label class="col-lg-2 control-label">Files</label>
                                 <div class="col-lg-9">
@@ -547,6 +539,8 @@
         </div>
     </div>
 </div>
+
+
 <script type="text/javascript">
     function func_write_comment()
     {

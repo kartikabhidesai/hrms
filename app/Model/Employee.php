@@ -15,6 +15,14 @@ use Config;
 class Employee extends Model {
 
     protected $table = 'employee';
+    public function employeeList($request,$companyId){
+        $departmentId = $request->input('department');
+        $employeeList = Employee::select("name","father_name","id")
+                        ->where('company_id',$companyId)
+                        ->where('department',$departmentId)
+                        ->get();
+        return $employeeList;
+    }
 
     public function addEmployee($request, $userId, $companyId) {
       
@@ -22,8 +30,7 @@ class Employee extends Model {
         if ($request->file('emp_pic')) {
             $image = $request->file('emp_pic');
             $emp_pic = 'employee' . time() . '.' . $image->getClientOriginalExtension();
-            $destinationPath = public_path('/uploads/client/');
-            $image->move($destinationPath, $emp_pic);
+            
         }
         $resume = '';
         if ($request->file('resume')) {
@@ -136,8 +143,7 @@ class Employee extends Model {
         if ($request->file('emp_pic')) {
             $image = $request->file('emp_pic');
             $emp_pic = 'employee' . time() . '.' . $image->getClientOriginalExtension();
-            $destinationPath = public_path('/uploads/client/');
-            $image->move($destinationPath, $emp_pic);
+           
         }
         $resume = '';
         if ($request->file('resume')) {
@@ -474,10 +480,32 @@ class Employee extends Model {
     
     public function getEmployeeList($companyId)
     {
-        $result = Employee::select('id','user_id','name')
-                            ->where('company_id',$companyId)
-                            ->get();
-
+        $result = Users::select('users.id','users.name')
+                            ->join('employee', 'users.id', '=', 'employee.user_id')
+                            ->where('users.type','EMPLOYEE')
+                            ->where('employee.company_id',$companyId)
+                            ->get()->toarray();
+        
+        $admin = Users::select('id','name')
+                            ->where('type','ADMIN')
+                            ->get()->toarray();
+        array_push($result,$admin[0]);
+       
+        if($result) {
+            return $result;
+        } else {
+            return null;
+        }
+    }
+    
+     public function getEmployeeListNew($companyId)
+    {
+        $result = Users::select('employee.user_id','users.name')
+                ->join('employee', 'users.id', '=', 'employee.user_id')
+                ->where('users.type','EMPLOYEE')
+                ->where('employee.company_id',$companyId)
+                ->get()->toarray();
+       
         if($result) {
             return $result;
         } else {

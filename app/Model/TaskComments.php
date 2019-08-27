@@ -38,9 +38,10 @@ class TaskComments extends Model {
     }
     
     public function getTaskCommentDetails($id){
-        $result = TaskComments::select("*")
-                                ->where('task_id',$id)
-                                ->get();
+        $result = TaskComments::select("task_comments.*","users.user_image as photo")
+                ->leftjoin('users', 'task_comments.user_id', '=', 'users.id')
+                ->where('task_comments.task_id',$id)
+                ->get();
         return $result;
     
     }

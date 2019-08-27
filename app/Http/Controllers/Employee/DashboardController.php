@@ -32,15 +32,9 @@ class DashboardController extends Controller {
         $session = $request->session()->all();
         $data['login_user'] = $session['logindata'][0];       
         $logged_in_user_id = $session['logindata'][0]['id'];
-        $emp_id= Employee::select("id")
-                                ->where('user_id',$logged_in_user_id)
-                                ->get();
-        
-        $data['totalTask'] = Task::where('employee_id',$emp_id[0]->id)
-                            ->count();
-        $data['totalCompletedTask'] = Task::where('employee_id',$emp_id[0]->id)
-                            ->where('task_status',3)
-                            ->count();
+        $emp_id= Employee::select("id")->where('user_id',$logged_in_user_id)->get();
+        $data['totalTask'] = Task::where('employee_id',$emp_id[0]->id)->count();
+        $data['totalCompletedTask'] = Task::where('employee_id',$emp_id[0]->id)->where('task_status',3)->count();
         if ($request->isMethod('post')) {
             $session = $request->session()->all();
             $userID=$session['logindata'][0]['id'];
@@ -48,7 +42,6 @@ class DashboardController extends Controller {
             $objEmploye = new Task();
             $res = $objEmploye->updateTaskDetailEmp($request, $empId->id);
             if ($res) {
-
                 $objCompany = new Company();
                 $u_id=$objCompany->getUseridById($empId->company_id);
 
@@ -78,19 +71,16 @@ class DashboardController extends Controller {
         }
         
         
-        $leave= Leave::select("*")
-                    ->leftjoin('employee', 'leaves.emp_id', '=', 'employee.id')
+        $leave= Leave::select("*")->leftjoin('employee', 'leaves.emp_id', '=', 'employee.id')
                     ->leftjoin('users', 'employee.user_id', '=', 'users.id')
                     ->where('users.id',$logged_in_user_id)
                     ->get()->count();
-        $manageTimeChangeRequest= ManageTimeChangeRequest::select("*")
-                    ->leftjoin('employee', 'time_change_requests.employee_id', '=', 'employee.id')
+        $manageTimeChangeRequest= ManageTimeChangeRequest::select("*")->leftjoin('employee', 'time_change_requests.employee_id', '=', 'employee.id')
                     ->leftjoin('users', 'employee.user_id', '=', 'users.id')
                     ->where('users.id',$logged_in_user_id)
                     ->get()->count();
         $data['totalLeave']=$manageTimeChangeRequest + $leave;
-        $remaningDay= Employee::select("payroll_setting.payment_date")
-                              ->leftjoin('payroll_setting', 'employee.joining_salary', '=', 'payroll_setting.id')
+        $remaningDay= Employee::select("payroll_setting.payment_date")->leftjoin('payroll_setting', 'employee.joining_salary', '=', 'payroll_setting.id')
                               ->where('employee.user_id',$logged_in_user_id)
                               ->get();
         $temp_data=substr($remaningDay[0]->payment_date, 0, 2);

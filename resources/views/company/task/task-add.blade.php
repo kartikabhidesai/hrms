@@ -50,7 +50,7 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label class="col-lg-2 control-label">Employee</label>
-                                <div class="col-lg-10">
+                                <div class="col-lg-10 employeeHtml">
                                     {{ Form::select('employee', $employee , null, array('placeholder'=>'Select Employee', 'class' => 'form-control employee', 'id' => 'employee')) }}
                                 </div>
                             </div>
@@ -95,9 +95,13 @@
                         </div>
                     <br>
                         <div class="form-group">
-                            <div class="col-lg-offset-1 col-lg-10">
-                                <button class="btn btn-sm btn-primary" type="submit">Send Task</button>
+                            <div class="col-lg-6">
+                                <label class="col-lg-1 control-label">&nbsp;</label>
+                                 <div class="col-lg-offset-1 col-lg-10">
+                                    <button class="btn btn-sm btn-primary" type="submit">Send Task</button>
+                                </div>
                             </div>
+                           
                         </div>
                     
 	               {{ Form::close() }}

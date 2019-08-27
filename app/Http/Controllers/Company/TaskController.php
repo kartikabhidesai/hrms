@@ -76,7 +76,6 @@ class TaskController extends Controller {
         $companyId = Company::select('id')->where('user_id', $userId)->first();
 
         if ($request->isMethod('post')) {
-            
             $objNonWorkingDate = new NonWorkingDate();
             $resultNonWorkingDate = $objNonWorkingDate->getCompanyNonWorkingDateArrayList($companyId->id);
            
@@ -207,15 +206,20 @@ class TaskController extends Controller {
       
         switch ($action) {
             case 'getdatatable':
-               
                 $objtask = new Task();
                 $taskList = $objtask->getTaskList($request, $companyId->id);
                 echo json_encode($taskList);
                 break;
             
+            case 'getemployee':
+                $objEmployee = new Employee();
+                $employeeList = $objEmployee->employeeList($request,$companyId->id);
+                echo json_encode($employeeList);
+                break;
+            
             case 'taskDetails':
-            $result = $this->getTaskDetails($request->input('data'));
-            break; 
+                $result = $this->getTaskDetails($request->input('data'));
+                break; 
         
             case 'checkDate':
                 $nonWorkingDay = new NonWorkingDate();
@@ -271,9 +275,11 @@ class TaskController extends Controller {
             exit;
             
         }
+        
         $objTaskComment = new TaskComments();
         $task_comment = $objTaskComment->getTaskCommentDetails($id);
         $data['ticket_comment'] = $task_comment;
+        
         $objTask = new Task();
         $data['taskDetails']= $objTask->taskDetails($id);
         $data['taskprocess'] = ['0'=>'New','1'=>'In Progess','2'=>'Pending','3'=>'Complete'];

@@ -33,7 +33,27 @@ var Task = function () {
     }
 
     var addTask = function(){
-        
+        $("body").on('change', '.department', function () {
+            var department = $('.department').val();
+            $.ajax({
+            type: "POST",
+            headers: {
+                'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+            },
+            url: baseurl + "company/task-ajaxAction",
+            data: {'action': 'getemployee', 'department': department},
+                success: function(data) {
+                    var output = JSON.parse(data);
+                    var temp_html = '';
+                    var html ='<select class="form-control employee" id="employee" name="employee"><option selected="selected" value="">Select Employee</option>';
+                    for(var i = 0; i < output.length ; i++){
+                        temp_html = '<option value="'+output[i].id+'">'+ output[i].name +' '+ output[i].father_name+'</option>';
+                        html = html + temp_html;
+                    }       
+                    $('.employeeHtml').html(html+'</select>');
+                }
+            });
+        });
         var form = $('#addTask');
         var rules = {
             department: {required: true},
@@ -64,7 +84,7 @@ var Task = function () {
             data: {'action': 'taskDetails', 'data': data},
             success: function(data) {
                 var  output = JSON.parse(data);
-                console.log(output);
+//                console.log(output);
                 if(output.task === null) {
                     $('.taskName').hide();
                 } else {

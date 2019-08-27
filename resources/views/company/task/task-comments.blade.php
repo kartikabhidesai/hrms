@@ -85,9 +85,9 @@
                                         <div class="social-avatar">
                                             <a href="" class="pull-left">
                                                 @if(!empty($row['photo']))
-                                                <img alt="image" src="{{ asset('uploads/client/'.$row['photo']) }}">
+                                                    <img alt="image" src="{{ asset('uploads/client/'.$row['photo']) }}">
                                                 @else
-                                                <img alt="image" src="{{ asset('img/profile_small.jpg') }}">
+                                                    <img alt="image" src="{{ asset('img/profile_small.jpg') }}">
                                                 @endif
                                             </a>
                                             <div class="media-body">

@@ -126,7 +126,7 @@ class Task extends Model {
             $nestedData[] = $row["complete_progress"].'%';
             $nestedData[] = $row["about_task"];
             $nestedData[] = $row["location"];
-            $nestedData[] = $row["file"] ? '<a target="_blank" href="'. url('uploads/tasks/'. $row["file"]) .'">View File</a>' : 'N.A.';
+            $nestedData[] = $row["file"] ? '<a target="_blank" href="'. url($row["file"]) .'">View File</a>' : 'N.A.';
             $nestedData[] = $actionHtml;
             $data[] = $nestedData;
         }
@@ -216,23 +216,47 @@ class Task extends Model {
     }
 
     public function updateTaskDetailEmp($request, $empid) {
-        $name = '';
-        if($request->file()){
-            $image = $request->file('emp_updated_file');
-            $name = 'emp_tasks_'.time().'.'.$image->getClientOriginalExtension();
-            $destinationPath = public_path('/uploads/tasks/');
-            $image->move($destinationPath, $name);    
+//         print_r($request->input());
+//         die();
+        if($request->input('changeType') == 'shareLocation'){
+            $objTask = Task::firstOrNew(array('employee_id' => $empid,'id'=>$request->input('task_id')));
+            $objTask->location = $request->location;
+            $objTask->save();
+            if ($objTask) {
+                return TRUE;
+            } else {
+                return false;
+            }
         }
-        $objTask = Task::firstOrNew(array('employee_id' => $empid,'id'=>$request->task_id));
-        $objTask->emp_updated_file = $name;
-        $objTask->complete_progress = $request->complete_progress;
-        $objTask->task_status = $request->task_status;
-        $objTask->location = $request->location;
-        $objTask->save();
-        if ($objTask) {
-            return TRUE;
-        } else {
-            return false;
+        if($request->input('changeType') == 'setStatus'){
+            $objTask = Task::firstOrNew(array('employee_id' => $empid,'id'=>$request->input('task_id')));
+            $objTask->task_status = $request->task_status;
+            $objTask->save();
+            if ($objTask) {
+                return TRUE;
+            } else {
+                return false;
+            }
+        }
+        if($request->input('changeType') == 'uploadMedia'){
+            if($request->file()){
+                $name = '';
+                $image = $request->file('emp_updated_file');
+                $name = 'emp_tasks_'.time().'.'.$image->getClientOriginalExtension();
+                $destinationPath = public_path('/uploads/tasks/');
+                $image->move($destinationPath, $name);
+               
+                $objTask = Task::firstOrNew(array('employee_id' => $empid,'id'=>$request->input('task_id')));
+                $objTask->emp_updated_file = $name;
+                $objTask->save();
+                if ($objTask) {
+                    return TRUE;
+                }else {
+                    return false;
+                }
+            }else{
+                return TRUE;
+            }
         }
     }
 

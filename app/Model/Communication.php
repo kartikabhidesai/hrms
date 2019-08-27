@@ -17,7 +17,7 @@ class Communication extends Model
 
     public function addNewCommunicationCmp($request, $companyId)
     {
-        // echo "<pre>new"; print_r($request->toArray()); exit();
+     
         $file = '';
         $newCommnucation = new Communication();
         $newCommnucation->communication_id = isset($request->communication_id) ? $request->communication_id : 0;
@@ -186,8 +186,13 @@ class Communication extends Model
         $newCommnucation->is_read = 0;
         $newCommnucation->created_at = date('Y-m-d H:i:s');
         $newCommnucation->created_at = date('Y-m-d H:i:s');
-        $newCommnucation->save();
-        return TRUE;
+        if($newCommnucation->save()){
+             return $newCommnucation->id;
+        }else{
+            return false;
+           
+        }
+        
     }
 
     public function employeeEmailsForCommunication($empId)

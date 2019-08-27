@@ -300,17 +300,17 @@
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Department</label>
 							<div class="col-lg-9">
-								{{ Form::select('department', $ArrDepartment , $details->department, array('placeholder'=>'Depatment', 'class' => 'form-control department', 'id' => 'department')) }}
+								{{ Form::select('department', $ArrDepartment , $details->department, array('placeholder'=>'Depatment', 'class' => 'form-control department changeDepartment', 'id' => 'department')) }}
 							</div>
 						</div>
 						<input type="hidden" name="oldpassword" value="{{  $details->password }}">
 						<input type="hidden" name="editId" value="{{  $details->id }}">
 						 	<div class="form-group">
 						 		<label class="col-sm-3 control-label">Designation</label>
-                                <div class="col-sm-9"> 
-                                	{{ Form::select('designation', $ArrDesignation , $details->designation, array('placeholder'=>'Designatopn', 'class' => 'form-control designation', 'id' => 'designation')) }}
-                                </div>
-                       		</div>
+                                                                <div class="col-sm-9 designationhtml"> 
+                                                                        {{ Form::select('designation', $ArrDesignation , $details->designation, array('placeholder'=>'Designatopn', 'class' => 'form-control designation', 'id' => 'designation')) }}
+                                                                </div>
+                                                                </div>
 						 	<div class="form-group" id="data_1">
 						 		<label class="col-sm-3 control-label">Date Of joining</label>
                                 <div class="col-sm-9"> 

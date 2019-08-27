@@ -103,8 +103,11 @@
                         </div>
                     <br>
                         <div class="form-group">
-                            <div class="col-lg-offset-1 col-lg-10">
-                                <button class="btn btn-sm btn-primary" type="submit">Save Task</button>
+                            <div class="col-lg-6">
+                                <label class="col-lg-1 control-label">&nbsp;</label>
+                                <div class="col-lg-offset-1 col-lg-10">
+                                    <button class="btn btn-sm btn-primary" type="submit">Save Task</button>
+                                </div>
                             </div>
                         </div>
                     

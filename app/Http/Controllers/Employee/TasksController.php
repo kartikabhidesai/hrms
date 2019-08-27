@@ -129,6 +129,7 @@ class TasksController extends Controller {
                 $taskId = $request->input('data');
                 $objEmploye = new Task();
                 $taskViewDetail = $objEmploye->getEmpviewTaskDetail($taskId,$empId->id);
+                
                 echo json_encode($taskViewDetail);
                 break;
         }

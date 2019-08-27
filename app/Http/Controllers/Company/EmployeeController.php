@@ -56,7 +56,7 @@ class EmployeeController extends Controller {
             }elseif ($userId) {
                 $objEmployee = new Employee();
                 $empId = $objEmployee->addEmployee($request,$userId, $companyId->id);
-                // $ret = $objEmployee->updateEmpId($empId,$userId);
+                
                 $return['status'] = 'success';
                 $return['message'] = 'Employee created successfully.';
                 $return['redirect'] = route('employee-list');
@@ -111,7 +111,8 @@ class EmployeeController extends Controller {
         $data['testarray'] = $objPayrollsetting->getPayrollSetting();
         
         if ($request->isMethod('post')) {
-            
+            $objEmployee = new Users();
+            $res = $objEmployee->editUsersEmployee($request,$id);
             $objEmployee = new Employee();
             $res = $objEmployee->editEmployee($request,$id);
             if ($res) {
@@ -190,6 +191,14 @@ class EmployeeController extends Controller {
                 $companyId = Company::select('id')->where('user_id', $userid)->first();
                 $demoList = $objEmployee->getEmployeeDatatable($request, $companyId->id);
                 echo json_encode($demoList);
+                break;
+            case 'changeDepartment':
+               
+                $objEmployee = new Employee();
+                $userid = $this->loginUser->id;
+                $designationList = Designation::select("id","designation_name")->where('department_id',$request->input('department'))->get();
+                
+                echo json_encode($designationList);
                 break;
             case 'deleteEmp':
                 

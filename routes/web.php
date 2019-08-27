@@ -151,6 +151,10 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function() {
     Route::match(['get', 'post'], 'manage-account', ['as' => 'manage-account','uses' => 'Admin\SocialMediaController@manageAccount']);
     Route::match(['get', 'post'], 'new-post', ['as' => 'new-post','uses' => 'Admin\SocialMediaController@newPost']);
     Route::match(['get', 'post'], 'socialMedia-ajaxAction', ['uses' => 'Admin\SocialMediaController@ajaxAction']);
+    
+    Route::match(['get', 'post'], 'admin-notification', ['as' => 'admin-notification', 'uses' => 'Admin\NotificationController@index']);
+    Route::match(['get', 'post'], 'notification-ajaxAction', ['as' => 'notification-ajaxAction', 'uses' => 'Admin\NotificationController@ajaxAction']);
+//    Route::match(['get', 'post'], 'admin-notification', ['uses' => 'Admin\SocialMediaController@ajaxAction']);
 
     // Report Routes
     Route::match(['get', 'post'], 'admin-report-list', ['as' => 'admin-report-list', 'uses' => 'Admin\ReportController@index']);
