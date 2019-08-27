@@ -132,7 +132,7 @@
                         <div class="col-lg-8">
 
                             <div class="col-lg-2">
-                                <div class="panel panel-default">
+                                <div class="panel panel-default" style="height: 115px;">
                                     <a href="javascript:void(0);" onclick="func_bank_details()">
                                         <div class="text-center">
                                             <div style="font-size:50px;" class="text-center">
@@ -146,7 +146,7 @@
                             </div>
 
                             <div class="col-lg-2">
-                                <div class="panel panel-default">
+                                <div class="panel panel-default" style="height: 115px;">
                                     <a href="{{url('employee/employee-leave')}}">
                                         <div class="text-center">
                                             <div style="font-size:50px;" class="text-center">
@@ -160,7 +160,7 @@
                             </div>
 
                             <div class="col-lg-2">
-                                <div class="panel panel-default">
+                                <div class="panel panel-default" style="height: 115px;">
                                     <a href="javascript:void(0);" onclick="func_advance_salary_request()">
                                         <div class="text-center">
                                             <div style="font-size:50px;" class="text-center">
@@ -174,7 +174,7 @@
                             </div>
 
                             <div class="col-lg-2">
-                                <div class="panel panel-default">
+                                <div class="panel panel-default" style="height: 115px;">
                                     <a href="javascript:void(0);">
                                         <div class="text-center">
                                             <div style="font-size:50px;" class="text-center">
@@ -189,7 +189,7 @@
 
 
                             <div class="col-lg-2">
-                                <div class="panel panel-default">
+                                <div class="panel panel-default" style="height: 115px;">
                                     <a href="javascript:void(0);">
                                         <div class="text-center">
                                             <div style="font-size:50px;" class="text-center">
