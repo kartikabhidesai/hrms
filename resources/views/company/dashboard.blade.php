@@ -204,7 +204,7 @@
                         <div class="col-lg-4">
                             <div class="tabs-container">
                                 <ul class="nav nav-tabs">
-                                    <li class="active"><a data-toggle="tab" href="#tab-1"> {{ $title }} - {{ $date }}</a></li>
+                                    <li class="active"><a data-toggle="tab" href="#tab-1"> Events </a></li>
                                     <li class=""><a data-toggle="tab" href="#tab-2">Overdue Task</a></li>
                                 </ul>
                                 <div class="tab-content">
@@ -214,10 +214,17 @@
                                                 <div class="col-lg-4">
                                                      <strong><i class="fa fa-check-circle fa-4x" aria-hidden="true"></i></strong>
                                                 </div>
-                                                <div class="col-lg-8">
-                                                    <h3><strong>{{ $birthday }}</strong></h3>
-                                                    <h3><strong>Events</strong></h3>
-                                                </div>
+                                                @if($upcomingevnt['title'])
+                                                    <div class="col-lg-8">
+                                                            <h3><strong>Title : {{ $upcomingevnt['title'] }}</strong></h3>
+                                                            <h3><strong>Date : {{ date("d-m-Y",strtotime($upcomingevnt['event_date'])) }}</strong></h3>
+                                                    </div>
+                                                @else
+                                                    <div class="col-lg-8">
+                                                            <h3><strong>0</strong></h3>
+                                                            <h3><strong>Upcoming Event</strong></h3>
+                                                    </div>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -344,41 +351,39 @@
                         </div>
                         
                         <div class="col-lg-6">
-                                    
-                                        <div class="ibox-content">
-                                                
-                                                    <h5>Announcement List</h5>
-                                               
-                                                <div class="panel-body">
-                                                    <div class="panel-group" id="accordion">
-                                                        @php 
-                                                            $i =0;
-                                                        @endphp
-                                                        @foreach($annousmentList as $key => $value)
-                                                             @php 
-                                                                $i++;
-                                                            @endphp
-                                                            <div class="panel panel-default">
-                                                                <div class="panel-heading">
-                                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne{{ $i }}">
-                                                                    <h5 class="panel-title">
-                                                                            {{ $value['title'] }}
-                                                                            <span class="pull-right">Date : {{ date("d-m-y", strtotime($value['date'])) }}</span>
-                                                                    </h5>
-                                                                    </a>
-                                                                </div>
-                                                                <div id="collapseOne{{ $i }}" class="panel-collapse collapse in">
-                                                                    <div class="panel-body">
-                                                                        {{ $value['content'] }}<br><br>
-                                                                        <b>Expiry Date : {{ date("d-m-y", strtotime($value['expiry_date'])) }}</b>
-                                                                    </div>
-                                                                </div>
+                            @if(count($annousmentList) > 0)
+                                <div class="ibox-content" >
+                                    <div class="row">
+                                       <div class="col-lg-10 col-lg-offset-1">
+                                           <div class="ibox">
+                                               <h3>Announcement List</h3>
+                                                <div class="slick_demo_3">
+                                                    
+                                                    @foreach($annousmentList as $key => $value)
+
+                                                        <div>
+                                                            <div class="ibox-content">
+                                                                <h2>{{ $value['title'] }}</h2>
+                                                                <p>
+                                                                    {{ $value['content'] }}
+
+                                                                </p>
+                                                                <span class="pull-left">
+                                                                    <b>Start Date : {{ date("d-m-Y", strtotime($value['date'])) }}</b>
+                                                                </span>
+                                                                <span class="pull-right">
+                                                                    <b>Expiry Date : {{ date("d-m-Y", strtotime($value['expiry_date'])) }}</b>
+                                                                </span>
                                                             </div>
-                                                        @endforeach
-                                                    </div>
+                                                        </div>
+                                                    @endforeach
                                                 </div>
-                                            </div>
-                                </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                            @endif
+                        </div>
                             
                     </div>
                     

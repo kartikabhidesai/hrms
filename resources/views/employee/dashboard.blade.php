@@ -7,25 +7,7 @@
 
 
             <div class="ibox float-e-margins">
-                <div class="ibox-title text-center">
-                    <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class="fa fa-wrench"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-user">
-                            <li><a href="#">Config option 1</a>
-                            </li>
-                            <li><a href="#">Config option 2</a>
-                            </li>
-                        </ul>
-                        <a class="close-link">
-                            <i class="fa fa-times"></i>
-                        </a>
-                    </div>
-                </div>
+                
                 <div class="ibox-content" style="">
 
                     <div class="row">
@@ -209,17 +191,13 @@
                      <div class="row">
                         <div class="col-lg-10 col-lg-offset-1">
                             <div class="ibox">
-                                <div class="ibox-title" style="border-style: none; */">
-                                    <h5>Announcement List</h5>
-                                </div>
+                                <h3>Announcement List</h3>
                                 <div class="slick_demo_3">
                                     @php 
                                         $i =0;
                                     @endphp
                                     @foreach($announcementList as $key => $value)
-                                         @php 
-                                            $i++;
-                                        @endphp
+                                        
                                         <div>
                                             <div class="ibox-content">
                                                 <h2>{{ $value['title'] }}</h2>
