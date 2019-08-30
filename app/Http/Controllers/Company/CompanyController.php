@@ -28,6 +28,7 @@ class CompanyController extends Controller {
 
     public function dashboard(Request $request) {
         $month= date('m');
+        $year= date('Y');
         $session = $request->session()->all();
         $companyId=  Company::select('id')->where('user_id', $session['logindata'][0]['id'])->first();
         
@@ -68,21 +69,14 @@ class CompanyController extends Controller {
         $eventfirst = CalendarEvent::where('company_id', $companyId['id'])
                                 ->where('event_date', 'like', '%-'.$month.'-%')
                                 ->where('event_date', '>=', date('Y-m-d'))
+                                ->orderBy('event_date', 'asc')
                                 ->get()->first();
-//        print_r();die();
-//        
-        if(isset($eventfirst)){
-            $data['title']=$eventfirst['title'];
-            $data['date']=date('d-m-Y', strtotime($eventfirst['event_date']));
-        }else{
-            if(isset($birth)){
-                $data['title']='Birthdate';
-                $data['date']=date('d-m-Y', strtotime($birth['date_of_birth']));
-            }else{
-                $data['title']='Events';
-                $data['date']=date('F') ;
-            }
-        }
+        $eventfirstnew = CalendarEvent::where('company_id', $companyId['id'])
+                                ->where('event_date', '>=', date('Y-m-d'))
+                                ->orderBy('event_date', 'asc')
+                                ->get()->first();
+        
+        $data['upcomingevnt']=$eventfirstnew;
         
         $event = CalendarEvent::where('company_id', $companyId['id'])
                                 ->where('event_date', 'like', '%-'.$month.'-%')
@@ -95,17 +89,14 @@ class CompanyController extends Controller {
                                 ->where('deadline_date', '<', date('Y-m-d'))
                                 ->count();
         
-        $data['salaryPayment']=Payroll::where('employee.company_id', $companyId['id'])
-                                        ->join('employee', 'employee.id', '=', 'pay_roll.employee_id')
-                                        ->sum('pay_roll.salary_grade');
-        
-        $data['salaryPayment']=Payroll::where('employee.company_id', $companyId['id'])
-                                        ->join('employee', 'employee.id', '=', 'pay_roll.employee_id')
-                                        ->sum('pay_roll.salary_grade');
-        
-         $data['otherPayment']=Payroll::where('employee.company_id', $companyId['id'])
-                                        ->join('employee', 'employee.id', '=', 'pay_roll.employee_id')
-                                        ->sum('pay_roll.over_time');
+        $data['salaryPayment']=Payroll::join('employee', 'employee.id', '=', 'pay_roll.employee_id')
+                            ->where('employee.company_id', $companyId['id'])
+                            ->where('pay_roll.month', $month-1)
+                            ->where('pay_roll.year',$year)
+                            ->sum('pay_roll.basic_salary');
+        $data['otherPayment']=Payroll::where('employee.company_id', $companyId['id'])
+                            ->join('employee', 'employee.id', '=', 'pay_roll.employee_id')
+                            ->sum('pay_roll.over_time');
         $data['totalEmployee']= Employee::where('company_id', $companyId['id'])
                                 ->count();
         
@@ -123,7 +114,10 @@ class CompanyController extends Controller {
 
         $data['recruitment'] = Recruitment::where('company_id',$companyId['id'])->where('status',0)->get()->count();
         $data['leaves'] = Leave::where('cmp_id',$companyId['id'])->where('start_date','>=',date('Y-m-d'))->get()->count();
-        
+        $data['pluginjs'] = array('plugins/slick/slick.min.js');
+        $data['js'] = array('company/dashbord.js', 'ajaxfileupload.js','jquery.form.min.js');
+        $data['funinit'] = array('Dashboard.init()');
+        $data['css'] = array('plugins/slick/slick.css','plugins/slick/slick-theme.css','plugins/jasny/jasny-bootstrap.min.css');
         $data['header'] = array(
             'title' => 'Dashboard',
             'breadcrumb' => array(

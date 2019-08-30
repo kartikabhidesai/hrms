@@ -11,8 +11,6 @@ var Company = function() {
         })
 
         $('body').on('click', '.yes-sure', function() {
-            
-            
             var id = $(this).attr('data-id');
             var data = {id: id, _token: $('#_token').val()};
             $.ajax({
