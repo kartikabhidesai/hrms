@@ -462,8 +462,9 @@ class Employee extends Model {
 
     //chetan creaated
     public function getAllEmployeeofCompany($loggedIncmpid,  $department, $employee) {
-        $sql = Employee::select('employee.*', 'department.department_name')
-                ->join('department', 'employee.department', '=', 'department.id');
+        $sql = Employee::select('employee.*', 'department.department_name', 'payroll_setting.basic_salary', 'payroll_setting.grade')
+                ->join('department', 'employee.department', '=', 'department.id')
+                ->join('payroll_setting', 'employee.joining_salary', '=', 'payroll_setting.id');
         if(isset($department)  && $department > 0){
             $sql->where('employee.department', $department);    
         }

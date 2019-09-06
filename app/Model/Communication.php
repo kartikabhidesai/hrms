@@ -5,6 +5,7 @@ namespace App\Model;
 use Illuminate\Database\Eloquent\Model;
 use App\Model\UserHasPermission;
 use App\Model\Communication;
+use App\Model\Users;
 use Config;
 use Auth;
 use DB;
@@ -379,6 +380,34 @@ class Communication extends Model
             })
             ->orderBy('communication.id','desc')
             ->get();
+
+        if(count($getListOfEmailOfCmp) > 0) {
+            return $getListOfEmailOfCmp;
+        } else {
+            return null;
+        }
+    }
+    
+    public function sendCompanyEmailsNew($cmpId)
+    {
+        $getListOfEmailOfCmp = Communication::select("users.name",'communication.*')
+                                ->join('users','communication.recieve_emp_id','=','users.id')
+                                ->orderBy('communication.id','desc')
+                                ->get();
+//        print_r($getListOfEmailOfCmp);
+//        die();
+        
+//        $getListOfEmailOfCmp = Communication::select('employee.name as employeeName','comapnies.company_name as companyName','communication.*')
+//            ->leftjoin('employee','communication.recieve_emp_id','employee.id')
+//            ->leftjoin('comapnies','communication.company_id','comapnies.id')
+//            ->where('communication.company_id', $cmpId)
+//            ->where('communication.send_by', 'COMPANY')
+//            ->where(function($q){
+//                $q->where('communication.send_emp_id',0);
+//                $q->orwhereNull('communication.send_emp_id');
+//            })
+//            ->orderBy('communication.id','desc')
+//            ->get();
 
         if(count($getListOfEmailOfCmp) > 0) {
             return $getListOfEmailOfCmp;

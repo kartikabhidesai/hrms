@@ -89,7 +89,7 @@
                                                     </div>
                                                     <h3><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;&nbsp;Present Employee
                                                         <br/>
-                                                        <small class="m-r"><a href="#"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i>&nbsp;&nbsp; More Info </a> </small>
+                                                        <small class="m-r"><a href="{{ "attendance-report" }}"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i>&nbsp;&nbsp; More Info </a> </small>
                                                     </h3>
                                                 </div>
                                             </div>
@@ -101,7 +101,7 @@
                                                     </div>
                                                     <h3><i class="fa fa-long-arrow-right" aria-hidden="true"></i>&nbsp;&nbsp;Absent Employee
                                                         <br/>
-                                                        <small class="m-r"><a href="#"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i>&nbsp;&nbsp; More Info </a> </small>
+                                                        <small class="m-r"><a href="attendance-report"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i>&nbsp;&nbsp; More Info </a> </small>
                                                     </h3>
                                                 </div>
                                             </div>
@@ -115,7 +115,7 @@
                                                     </div>
                                                     <h3><i class="fa fa-long-arrow-right" aria-hidden="true"></i>&nbsp;&nbsp;Total Employee
                                                         <br/>
-                                                        <small class="m-r"><a href="#"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i>&nbsp;&nbsp; More Info </a> </small>
+                                                        <small class="m-r"><a href="attendance-report"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i>&nbsp;&nbsp; More Info </a> </small>
                                                     </h3>
                                                 </div>
                                             </div>

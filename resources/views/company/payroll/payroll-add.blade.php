@@ -40,9 +40,7 @@
                             <div class="form-group" id="data_1">
                                 <label class="col-sm-3 control-label">Due Date</label>
                                 <div class="col-sm-9"> 
-                                    <div class="input-group date">
-                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" value="<?=  isset($arrayPayroll) ? $arrayPayroll['due_date']: '' ?>" name="due_date" id="" placeholder="Select Date of joingng" class="form-control" value="">
-                                    </div>
+                                    {{ Form::text('due_date', $payroll_setting[0]->payment_date, array('placeholder'=>'Salary Payment Date', 'class' => 'form-control' ,'required','readonly')) }}
                                 </div>
                             </div>
 

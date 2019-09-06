@@ -219,7 +219,7 @@ class CommunicationController extends Controller
         $getAuthCompanyId = Company::where('email', $userData->email)->first();
         $logedcompanyId = $getAuthCompanyId->id; 
         $communicationobj = new Communication();
-        $cmpMails = $communicationobj->sendCompanyEmails($logedcompanyId);
+        $cmpMails = $communicationobj->sendCompanyEmailsNew($logedcompanyId);
         $unreadobj = new Communication();
         $data['unread'] = $unreadobj->unreadEmailsForCommunication($logedcompanyId);
         $data['cmpMails'] = $cmpMails ? $cmpMails->toArray() : [];

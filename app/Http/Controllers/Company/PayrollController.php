@@ -150,10 +150,10 @@ class PayrollController extends Controller {
         }
 
         $data['monthis'] = Config::get('constants.months');
-         $data['payroll_setting'] = Employee::select("payroll_setting.grade","payroll_setting.basic_salary")
+        $data['payroll_setting'] = Employee::select("payroll_setting.grade","payroll_setting.basic_salary","payroll_setting.payment_date")
                                 ->leftjoin('payroll_setting', 'employee.joining_salary', '=', 'payroll_setting.id')
                                 ->where('employee.id',$id)->get();
-//        
+   
         $data['employee'] = Employee::find($id);
         $data['detail'] = $this->loginUser;
         $data['header'] = array(

@@ -54,7 +54,7 @@ class PayslipController extends Controller
         $employee = (empty($request->get('employee'))) ? '' : $request->get('employee');
         $year = (empty($request->get('year'))) ? date('Y') : $request->get('year');
         $month = (empty($request->get('month'))) ? date('m') : $request->get('month');
-
+   
         $data['detail'] = $this->loginUser;
         $objDepart = new Department();
         $data['department'] = $objDepart->getDepartment($companyId); 
@@ -65,7 +65,7 @@ class PayslipController extends Controller
         $data['year']=$year;
         
         $data['employDetail'] = $objEmployee->getEmployDetailV2($companyId,$year, $month, $employee, $department);
-        // print_r($data['employDetail']);exit;
+        
         $data['monthis'] = Config::get('constants.months');
       
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');

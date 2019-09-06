@@ -70,11 +70,12 @@ class CommunicationController extends Controller
                 $ret = $objNotification->addNotification($userId,$communicationName,'mail-detail/'.$mailId,11);
                 $return['status'] = 'success';
                 $return['message'] = 'New Communication Email sent successfully.';
-                $return['redirect'] = route('communication');
+                $return['redirect'] = route('admin-compose');
             } else {
                 $return['status'] = 'error';
                 $return['message'] = 'Something goes to wrong';
             }
+            
             echo json_encode($return);
             exit;
         }

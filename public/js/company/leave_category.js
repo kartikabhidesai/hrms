@@ -47,6 +47,15 @@ var LeaveCategory = function () {
 
     var addNewLeaveCategory = function () {
         var form = $('#addLeaveCategoryType');
+        $("input[name$='applicable_for']").click(function () {
+
+            if ($(this).val() == "Role/Location") {
+                $('.role').show();
+            } else {
+                $('.role').hide();
+            }
+
+        });
         var rules = {
             leave_cat_name: {required: true},
             type: {required: true},

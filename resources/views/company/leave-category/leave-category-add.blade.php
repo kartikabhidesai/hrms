@@ -83,7 +83,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group role">
                         <label class="col-lg-2 control-label">Role:</label>
                         <div class="col-lg-8">
                             <select class="form-control" name="role" id="role">

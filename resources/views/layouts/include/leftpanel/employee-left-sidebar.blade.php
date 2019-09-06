@@ -24,7 +24,7 @@ $currentRoute = Route::current()->getName();
                     <div class="dropdown profile-element"> 
                         <span>
                             @if($data['user_image'] != '' || $data['user_image'] != NULL)
-                            <img class="img-circle" width="50" src="{{ asset('uploads/client/'.$data['user_image']) }}" alt="User's Profile Picture">
+                                <img class="img-circle" width="50" src="{{ asset('uploads/client/'.$data['user_image']) }}" alt="User's Profile Picture">
                             @else
                                 <img class="img-circle" width="50" src="{{ asset('img/profile_small.jpg') }}" alt="User's Profile Picture">
                             @endif

@@ -45,8 +45,8 @@ class CommunicationController extends Controller
         $userData = Auth::guard('employee')->user();
         $getAuthEmpId = Employee::where('email', $userData->email)->first();
         
-        $logedEmpId = $getAuthEmpId->id; 
-        $empMails = $communicationobj->employeeEmailsForCommunication($logedEmpId);
+        $logedEmpId = $getAuthEmpId->user_id; 
+        $empMails = $communicationobj->employeeEmailsForCommunication($getAuthEmpId->user_id);
         $data['unread'] = $communicationobj->unreadEmailsForCommunicationEmployee($logedEmpId);
         $data['empMails'] = $empMails ? $empMails->toArray() : [];
 

@@ -137,7 +137,7 @@ class TaskController extends Controller {
                     $return['redirect'] = route('task-list');
                 } else {
                     $return['status'] = 'error';
-                    $return['message'] = 'Somethin went wrong while creating new task!';
+                    $return['message'] = 'Something went wrong while creating new task!';
                 }
             }
             echo json_encode($return);
@@ -155,6 +155,7 @@ class TaskController extends Controller {
             'title' => 'Task Add',
             'breadcrumb' => array(
                 'Home' => route("company-dashboard"),
+                'Task List' => route("task-list"),
                 'Task Add' => 'Task'));
 
         return view('company.task.task-add', $data);

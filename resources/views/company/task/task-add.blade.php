@@ -51,7 +51,10 @@
                             <div class="form-group">
                                 <label class="col-lg-2 control-label">Employee</label>
                                 <div class="col-lg-10 employeeHtml">
-                                    {{ Form::select('employee', $employee , null, array('placeholder'=>'Select Employee', 'class' => 'form-control employee', 'id' => 'employee')) }}
+                                    <select class="form-control employee" id="employee" name="employee">\
+                                        <option selected="selected" value="">Select Employee</option>
+                                    </select>
+                                   
                                 </div>
                             </div>
                             

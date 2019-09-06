@@ -70,7 +70,7 @@
                                 <tr class="unread">
                                     <td>
                                         {{-- <input type="hidden" name="mail_id" value="{{ $emailList['id'] }}"> --}}
-                                        <a href="{{ url('/company/send-mail-detail/'.$emailList['id']) }}">{{ $emailList['recieve_emp_id'] == 0 || $emailList['recieve_emp_id'] == null ? $emailList['companyName'] : $emailList['employeeName'] }}</a>
+                                        <a href="{{ url('/company/send-mail-detail/'.$emailList['id']) }}">{{ $emailList['name'] }}</a>
                                     </td>
                                     <td>
                                          <a href="{{ url('/company/send-mail-detail/'.$emailList['id']) }}">{{ $emailList['subject'] ? $emailList['subject'] : strip_tags($emailList['employeeName']) }}</a>
