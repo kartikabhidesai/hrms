@@ -86,9 +86,13 @@ class Chat extends Model{
     }
 
     public function search_user_list($id,$search_name){
-        $result = DB::table('users')->where('id','!=',$id)->where('name','like','%'.$search_name.'%')->get();
+        $result = DB::table('users')
+                ->where('id','!=',$id)
+                ->where('name','like','%'.$search_name.'%')
+                ->where("users.type","!=","ADMIN")
+                ->get();
         return $result;
-     }
+    }
     
     public function update_last_activity(){
         $result = DB::table('login_details')->where('id','=',$id)->update('last_active','=', now());

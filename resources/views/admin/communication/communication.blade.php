@@ -65,7 +65,7 @@
                     <tbody>
                         @if($cmpMails)
                             @foreach($cmpMails as $emailList)
-                                <tr class="unread">
+                                <tr class="unread text-center">
                                     <td class="mail-ontact">
                                         <a href="{{ url('/admin/mail-detail/'.$emailList['id']) }}">{{ $emailList['companyName'] }}</a>
                                     </td>
@@ -75,7 +75,7 @@
                                         </a>
                                     </td>
                                     @if($emailList['file'])
-                                        <td class=""><i class="fa fa-paperclip"></i></td>
+                                    <td class=""><a href="{{ url('/admin/mail-detail/'.$emailList['id']) }}"><i class="fa fa-paperclip"></i></a></td>
                                     @else
                                         <td class=""></td>
                                     @endif
@@ -84,7 +84,7 @@
                                             {{ strlen(strip_tags($emailList['message'])) > 18 ? substr(strip_tags($emailList['message']),0,18)."..." : strip_tags($emailList['message']) }}
                                         </a>
                                     </td>
-                                    <td class="text-right mail-date">
+                                    <td class="text-center mail-date">
                                         <a href="{{ url('/admin/mail-detail/'.$emailList['id']) }}">
                                             {{ date('Y-m-d H:i A', strtotime($emailList['created_at'])) }}
                                         </a>

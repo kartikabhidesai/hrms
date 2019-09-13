@@ -124,6 +124,8 @@ class Payroll extends Model {
 
     public function getPayslipmodalDetail($Data)
     {
+        print_r($Data);
+        die();
         $result = Payroll::select('pay_roll.*', 'employee.id as emp_id', 'employee.name as empName', 'comapnies.company_name')
                             ->leftjoin('employee', 'employee.id', '=', 'pay_roll.employee_id')
                             ->leftjoin('department', 'employee.department', '=', 'department.id')
@@ -133,7 +135,6 @@ class Payroll extends Model {
                             ->where('pay_roll.employee_id', $Data['employeeid'])
                             ->get()
                             ->toArray();
-
         return json_encode($result);
     }
 

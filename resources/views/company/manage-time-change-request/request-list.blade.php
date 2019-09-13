@@ -137,12 +137,12 @@
             <div class="modal-content">
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-sm-12"><h3 class="m-t-none m-b">Delete Record</h3>
-                            <b>Are You sure want to approve time change request ?</b><br/>
+                        <div class="col-sm-12"><h3 class="m-t-none m-b">Approve Request</h3>
+                            <b>Are You sure want to approve advance salary request ?</b><br/>
                             <form role="form">
                                 <div>
                                     <button class="btn btn-sm btn-primary pull-right m-l" data-dismiss="modal">Cancel</button>
-                                    <button class="btn btn-sm btn-danger pull-right yesapprove m-l" type="button"><strong><i class="fa fa-trash"></i> Approve </strong></button>
+                                    <button class="btn btn-sm btn-danger pull-right yesapprove m-l" type="button"><strong>Approve</strong></button>
                                 </div>
                             </form>
                         </div>

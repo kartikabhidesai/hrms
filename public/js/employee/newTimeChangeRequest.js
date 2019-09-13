@@ -9,7 +9,7 @@ var Timechange = function () {
             from_date: {required: true},
             to_date:{required: true},
             typeRequest: {required: true},
-            total_hrs:{required: true},
+//            total_hrs:{required: true},
             reuest_note:{required: true},
             request_name:{required: true},
         };

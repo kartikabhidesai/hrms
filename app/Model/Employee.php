@@ -406,10 +406,34 @@ class Employee extends Model {
         
         $sql = Employee::select('employee.name', 'employee.employee_id', 'employee.company_id', 'employee.id as emp_id', 'pay_roll.remarks', 'pay_roll.month', 'pay_roll.year')
                 ->leftjoin('pay_roll', 'employee.id', '=', 'pay_roll.employee_id');
-         
-            $sql->where('pay_roll.month', $month);
-            $sql->where('pay_roll.year', $year);
+                if($month != null || $month != ''){
+                    $sql->where('pay_roll.month', $month);
+                }
+                
+                 if($year != null || $year != ''){
+                    $sql->where('pay_roll.year', $year);
+                }
             
+            
+            
+        if (!empty($employee) && $employee !== 'all') {
+            $sql->where('employee.id', $employee);
+        }
+        if (!empty($department)) {
+            $sql->where('employee.department', $department);
+        }
+
+        $sql->where('employee.company_id', $userId);
+        $result = $sql->get();
+        return $result;
+    }
+    
+    public function getEmployDetailV2New($userId, $employee, $department) {
+        
+        
+        $sql = Employee::select('employee.name', 'employee.employee_id', 'employee.company_id', 'employee.id as emp_id', 'pay_roll.remarks', 'pay_roll.month', 'pay_roll.year')
+                ->leftjoin('pay_roll', 'employee.id', '=', 'pay_roll.employee_id');
+         
         if (!empty($employee) && $employee !== 'all') {
             $sql->where('employee.id', $employee);
         }

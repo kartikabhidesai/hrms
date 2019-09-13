@@ -19,7 +19,7 @@ class Recruitment extends Model
 {
     protected $table = 'recruitment';
 
-    public function addRecruitment ($request,$companyId)
+    public function addRecruitment ($request,$companyId,$data)
     {  
         // print_r($request);exit;
     	$newRecruitment = new Recruitment();

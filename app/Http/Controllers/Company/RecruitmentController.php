@@ -81,7 +81,9 @@ class RecruitmentController extends Controller {
         $companyId = Company::select('id')->where('user_id', $userId)->first();
 
         if ($request->isMethod('post')) {
-             $data['recrutment'] = $request->input();
+            $data['recrutment'] = $request->input();
+            $objRecruitment = new Recruitment();
+            $demoList = $objRecruitment->addRecruitment($request, $companyId->id, $data);
             $file = 'recrutment'.time().'.pdf';
             // return view('company.recruitment.recruitment-list', $data);
             $pdf = PDF::loadView('company.recruitment.recrutment-pdf', compact('data'));

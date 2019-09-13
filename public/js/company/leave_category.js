@@ -83,6 +83,13 @@ var LeaveCategory = function () {
 
     var editLeaveCategory=function(){
         var form = $('#editLeaveCategoryType');
+        $("input[name$='applicable_for']").click(function () {
+            if ($(this).val() == "Employee") {
+                $('.custom_role').addClass('hidden');
+            } else {
+               $('.custom_role').removeClass('hidden');
+            }
+        });
         var rules = {
             leave_cat_name: {required: true},
             type: {required: true},

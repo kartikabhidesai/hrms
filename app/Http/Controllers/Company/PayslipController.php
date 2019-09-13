@@ -22,7 +22,7 @@ class PayslipController extends Controller
     }
 
     public function create(Request $request)
-    {   
+    {    
         $userData = Auth::guard('company')->user();
         $getAuthCompanyId = Company::where('email', $userData->email)->first();
         $companyId = $getAuthCompanyId->id;
@@ -52,8 +52,8 @@ class PayslipController extends Controller
         
         $department = (empty($request->get('department'))) ? '' : $request->get('department');
         $employee = (empty($request->get('employee'))) ? '' : $request->get('employee');
-        $year = (empty($request->get('year'))) ? date('Y') : $request->get('year');
-        $month = (empty($request->get('month'))) ? date('m') : $request->get('month');
+        $year = (empty($request->get('year'))) ? '' : $request->get('year');
+        $month = (empty($request->get('month'))) ? '' : $request->get('month');
    
         $data['detail'] = $this->loginUser;
         $objDepart = new Department();
@@ -64,7 +64,7 @@ class PayslipController extends Controller
         $data['month']=$month;
         $data['year']=$year;
         
-        $data['employDetail'] = $objEmployee->getEmployDetailV2($companyId,$year, $month, $employee, $department);
+        $data['employDetail'] = $objEmployee->getEmployDetailV2($companyId,$year,$month, $employee, $department);
         
         $data['monthis'] = Config::get('constants.months');
       
