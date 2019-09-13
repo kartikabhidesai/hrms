@@ -98,10 +98,11 @@ class Department extends Model
         return $arrDepartment;
     }
 
-    public function getdatatable(){
+    public function getdatatable($companyId){
+        
         $requestData = $_REQUEST;
         $userData = Auth::guard('company')->user();
-        $companyId = Company::where('email', $userData->email)->first();
+//        $companyId = Company::where('email', $userData->email)->first();
         $columns = array(
             // datatable column index  => database column name
             0 => 'department.department_name',
@@ -112,7 +113,8 @@ class Department extends Model
             5 => 'department.company_id'
         );
 
-        $query = Department::leftjoin('designation', 'designation.department_id', '=', 'department.id');
+        $query = Department::leftjoin('designation', 'designation.department_id', '=', 'department.id')
+                             ->where('department.company_id',$companyId);
         if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
             $searchVal = $requestData['search']['value'];
             $query->where(function($query) use ($columns, $searchVal, $requestData) {

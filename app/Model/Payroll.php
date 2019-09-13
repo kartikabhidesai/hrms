@@ -33,7 +33,7 @@ class Payroll extends Model {
             $objPayroll->basic_salary = $request->input('basic_salary');
             $objPayroll->over_time = $request->input('over_time');
             // $objPayroll->department = $departmentId->id;
-            $objPayroll->due_date = date('Y-m-d', strtotime($request->input('due_date')));
+            $objPayroll->due_date = $request->input('due_date');
             $objPayroll->housing = $request->input('housing');
             $objPayroll->medical = $request->input('medical');
             $objPayroll->transportation = $request->input('transportation');
@@ -73,7 +73,7 @@ class Payroll extends Model {
             $objPayroll->basic_salary = $request->input('basic_salary');
             $objPayroll->over_time = $request->input('over_time');
             // $objPayroll->department = $departmentId->id;
-            $objPayroll->due_date = date('Y-m-d', strtotime($request->input('due_date')));
+            $objPayroll->due_date = $request->input('due_date');
             $objPayroll->housing = $request->input('housing');
             $objPayroll->medical = $request->input('medical');
             $objPayroll->transportation = $request->input('transportation');
@@ -124,17 +124,18 @@ class Payroll extends Model {
 
     public function getPayslipmodalDetail($Data)
     {
-        print_r($Data);
-        die();
+       
         $result = Payroll::select('pay_roll.*', 'employee.id as emp_id', 'employee.name as empName', 'comapnies.company_name')
                             ->leftjoin('employee', 'employee.id', '=', 'pay_roll.employee_id')
                             ->leftjoin('department', 'employee.department', '=', 'department.id')
                             ->leftjoin('comapnies', 'comapnies.id', '=', 'employee.company_id')
-                            ->where('pay_roll.month', $Data['month'])
-                            ->where('pay_roll.year', $Data['year'])
+//                            ->where('pay_roll.month', $Data['month'])
+//                            ->where('pay_roll.year', $Data['year'])
                             ->where('pay_roll.employee_id', $Data['employeeid'])
                             ->get()
                             ->toArray();
+        
+        
         return json_encode($result);
     }
 

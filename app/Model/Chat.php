@@ -49,8 +49,10 @@ class Chat extends Model{
                     ->where('users.id','!=',$id)
                     ->select("users.*")
                     ->get()->toarray();
+       if($comapnies){
+           array_push($employee,$comapnies[0]);
+       }
        
-        array_push($employee,$comapnies[0]);
         return  $employee ;
     
     }
@@ -84,6 +86,35 @@ class Chat extends Model{
        return $result;
        
     }
+    
+     public function search_user_listnew($id,$search_name){
+         $emp_id= Company::select("id")
+                        ->where('user_id',$id)
+                        ->get();
+        
+        $companyId = $emp_id[0]->id ;
+        
+       $result = DB::table('users')
+                ->join('employee', 'users.id', '=', 'employee.user_id')
+                ->where('users.id','!=',$id)
+                ->where('users.name','like','%'.$search_name.'%')
+                ->where('employee.company_id',$companyId)
+                ->where('users.type', '!=','COMPANY')
+                ->get()->toarray();
+       
+        $admin = DB::table('users')
+                ->where('id','!=',$id)
+                ->where('name','like','%'.$search_name.'%')
+                ->where('type','ADMIN')
+                ->get()->toarray();
+
+        if($admin){
+             array_push($result,$admin[0]);
+        }
+       
+       return $result;
+     
+    }
 
     public function search_user_list($id,$search_name){
         $result = DB::table('users')
@@ -92,6 +123,38 @@ class Chat extends Model{
                 ->where("users.type","!=","ADMIN")
                 ->get();
         return $result;
+    }
+    public function search_user_list_emp($id,$search_name){
+         $emp_id= Employee::select("company_id")
+                         ->where('user_id',$id)
+                         ->get();
+        
+        $companyId = $emp_id[0]->company_id ;
+        
+       $comapnies = DB::table('users')
+                    ->join('comapnies', 'users.id', '=', 'comapnies.user_id')
+//                    ->join('employee', 'comapnies.id', '=', 'employee.company_id')
+                    ->where('users.name','like','%'.$search_name.'%')
+                    ->where("comapnies.id",$companyId)
+                    ->where("users.type","!=","ADMIN")
+                    ->where('users.id','!=',$id)
+                    ->select("users.*")
+                    ->get()->toarray();
+       
+       
+       $employee = DB::table('users')
+                    ->join('employee', 'users.id', '=', 'employee.user_id')
+                    ->where("employee.company_id",$companyId)
+                    ->where('users.name','like','%'.$search_name.'%')
+                    ->where("users.type","!=","ADMIN")
+                    ->where('users.id','!=',$id)
+                    ->select("users.*")
+                    ->get()->toarray();
+       if($comapnies){
+           array_push($employee,$comapnies[0]);
+       }
+        
+        return  $employee ;
     }
     
     public function update_last_activity(){

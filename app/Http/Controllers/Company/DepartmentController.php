@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Company;
 use App\User;
 use App\Model\Users;
+use App\Model\Company;
 use App\Model\Department;
 use App\Model\Designation;
 use App\Http\Controllers\Controller;
@@ -21,6 +22,7 @@ class DepartmentController extends Controller {
     public function index(Request $request) 
     {
         $session = $request->session()->all();
+        
         
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/department.js');
@@ -108,11 +110,17 @@ class DepartmentController extends Controller {
 
     public function ajaxAction(Request $request) 
     {
+        $session = $request->session()->all();
         $action = $request->input('action');
         switch ($action) {
             case 'getdatatable':
+                
+                $userId =$session['logindata'][0]['id'] ;
+                $companyId = Company::select("id")
+                              ->where("user_id",$userId)
+                              ->get();
                 $objEmployee = new Department();
-                $demoList = $objEmployee->getdatatable();
+                $demoList = $objEmployee->getdatatable($companyId[0]->id);
                 echo json_encode($demoList);
             break;
             case 'deleteDepartment':

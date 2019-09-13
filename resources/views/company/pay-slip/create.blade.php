@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+
 <div class="wrapper wrapper-content animated fadeInRight">
     {{ Form::open( array('method' => 'post', 'class' => 'form-horizontal', 'id' => 'paySlip' )) }}
     <div class="row">
@@ -18,7 +19,7 @@
                             <select class="form-control" name="department" id="department">
                                 <option value="">Select department</option>
                                 @foreach($department as $key => $value)
-                                    <option value="{{ $key }}">{{ $value }}</option>
+                                    <option value="{{ $key }}" {{ $key == $selectdepartment ? 'selected="selected"' : '' }}>{{ $value }}</option>
                                 @endforeach
                             </select>
                             
@@ -28,7 +29,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Employee Name:</label>
                         <div class="col-sm-9">
-                            {{ Form::select('employee', ['' => 'Select employee'] + ['all' => 'All employee'] + $employee , null, array('class' => 'form-control ', 'id' => 'employee')) }}
+                            {{ Form::select('employee', ['' => 'Select employee'] + ['all' => 'All employee'] + $employee , $selectemployee, array('class' => 'form-control ', 'id' => 'employee')) }}
                         </div>
                     </div>
                     <input type="hidden" name="emparray[]" id="emparray" class="emparray">
@@ -36,8 +37,21 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Month</label>
                         <div class="col-sm-9">
-                           
-                            {{ Form::select('months', $monthis , $month, array('class' => 'form-control months', 'id' => 'months')) }}
+                            <select class="form-control months" id="months" name="months">
+                                    <option value="">Select Month</option>
+                                    <option value="1" {{ $selectmonth == 1  ? 'selected="selected"' : '' }}>January</option>
+                                    <option value="2" {{ $selectmonth == 2  ? 'selected="selected"' : '' }}>February</option>
+                                    <option value="3" {{ $selectmonth == 3  ? 'selected="selected"' : '' }}>March</option>
+                                    <option value="4" {{ $selectmonth == 4  ? 'selected="selected"' : '' }}>April</option>
+                                    <option value="5" {{ $selectmonth == 5  ? 'selected="selected"' : '' }}>May</option>
+                                    <option value="6" {{ $selectmonth == 6  ? 'selected="selected"' : '' }}>Jun</option>
+                                    <option value="7" {{ $selectmonth == 7  ? 'selected="selected"' : '' }}>July</option>
+                                    <option value="8" {{ $selectmonth == 8  ? 'selected="selected"' : '' }}>August</option>
+                                    <option value="9" {{ $selectmonth == 9  ? 'selected="selected"' : '' }}>September</option>
+                                    <option value="10" {{ $selectmonth == 10  ? 'selected="selected"' : '' }}>October</option>
+                                    <option value="11" {{ $selectmonth == 11  ? 'selected="selected"' : '' }}>November</option>
+                                    <option value="12" {{ $selectmonth == 12  ? 'selected="selected"' : '' }}>December</option>
+                            </select>
                           
                         </div>
                     </div>
@@ -46,8 +60,12 @@
                         <label class="col-sm-2 control-label">Year</label>
                         <div class="col-sm-9">
                             <select class="form-control year" id="year" name="year">
-                                @for($i = 2019;$i<= 2022;$i++)
-                                <option value="{{  $i }}" {{ $i == $year ? 'selected' : '' }}>{{  $i }}</option>
+                                @php 
+                                    $currentYear = date("Y");
+                                @endphp
+                                <option value="">Select Year</option>
+                                @for($i = 2019;$i<= ($currentYear + 2);$i++)
+                                <option value="{{  $i }}" {{ $i == $selectyear ? 'selected' : '' }}>{{  $i }}</option>
                                 @endfor
                             </select>
                         </div>

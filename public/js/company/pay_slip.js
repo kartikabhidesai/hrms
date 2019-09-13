@@ -36,9 +36,8 @@ var Paylip = function () {
             var data = [];
 
             var empid = $(this).attr('data-id');
-            var month = $(this).attr('data-month');
-            var year = $(this).attr('data-year');
-            var data = {id: empid, month: month, year: year};
+            
+            var data = {id: empid};
             $.ajax({
                 type: "POST",
                 headers: {
@@ -55,7 +54,8 @@ var Paylip = function () {
                     $.each(myJSON, function (i,val) {
                         trHTML += '<tr class="text-center"><td>' + val.empName+ '</td><td>' + val.company_name+ '</td><td>' + val.due_date+ '</td><td>' + val.remarks+ '</td><td>' + val.salary_grade+ '</td><td>' + val.over_time+ '</td></tr>';
                     });
-                    console.log(trHTML);
+                   
+                    $('.employeemodaldata').empty();
                     $('.employeemodaldata').append(trHTML);
 
 

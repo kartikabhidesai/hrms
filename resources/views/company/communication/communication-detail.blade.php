@@ -59,7 +59,8 @@
                         <div class="attachment">
                             <div class="file-box">
                                 <div class="file">
-                                    <a href="{{ url('/company/download-attachment/'.str_replace('/uploads/communication/', '', $cmpMailDetail->file)) }}">
+                                   
+                                        <a href="{{ url($cmpMailDetail->file) }}" download>
                                         <span class="corner"></span>
                                         <div class="icon">
                                             <i class="fa fa-file"></i>

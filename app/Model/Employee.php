@@ -405,7 +405,7 @@ class Employee extends Model {
         
         
         $sql = Employee::select('employee.name', 'employee.employee_id', 'employee.company_id', 'employee.id as emp_id', 'pay_roll.remarks', 'pay_roll.month', 'pay_roll.year')
-                ->leftjoin('pay_roll', 'employee.id', '=', 'pay_roll.employee_id');
+                ->join('pay_roll', 'employee.id', '=', 'pay_roll.employee_id');
                 if($month != null || $month != ''){
                     $sql->where('pay_roll.month', $month);
                 }
