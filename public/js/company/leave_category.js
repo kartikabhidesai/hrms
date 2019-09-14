@@ -206,7 +206,7 @@ var LeaveCategory = function () {
             success: function (data) {
                 var output = JSON.parse(data);
                  $('#role').empty();
-                 $('#role').append($("<option></option>").text('Select Role'));
+                 $('#role').append($("<option></option>").attr("value",'').text('Select Role'));
                  var leaverole = $('#leaverole').val();
                  
                 $.each(output, function (key, value) {
@@ -216,7 +216,11 @@ var LeaveCategory = function () {
                                     .text(value.role_name));
 
                 });
-                $("#role").val(leaverole);
+                
+               
+                    $("#role").val(leaverole);
+              
+                
             }
         });
     }
@@ -233,7 +237,7 @@ var LeaveCategory = function () {
                 var output = JSON.parse(data);
                 var leavework_location = $('#leavework_location').val();
                 $('#work_location').empty();
-                $('#work_location').append($("<option></option>").text('Select Work Location'));
+                $('#work_location').append($("<option></option>").attr("value",'').text('Select Work Location'));
                 $.each(output, function (key, value) {
                     $('#work_location')
                             .append($("<option></option>")
@@ -258,7 +262,7 @@ var LeaveCategory = function () {
                 var output = JSON.parse(data);
                 var leaveperiod = $('#leaveperiod').val();
                  $('#period').empty();
-                 $('#period').append($("<option></option>").text('Select Period'));
+                 $('#period').append($("<option></option>").attr("value",'').text('Select Period'));
                 $.each(output, function (key, value) {
                     $('#period')
                             .append($("<option></option>")
