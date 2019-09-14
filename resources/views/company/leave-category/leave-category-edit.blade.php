@@ -5,7 +5,10 @@
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         {{ Form::open( array('method' => 'post', 'class' => 'form-horizontal','files' => true, 'id' => 'editLeaveCategoryType' )) }}
-        <input type="text" name="editId" class="hidden" value="{{ $leaveDetails[0]['id']}}">
+        <input id='editId' type="text" name="editId" class="hidden" value="{{ $leaveDetails[0]['id']}}">
+        <input id='leaverole' type="text" name="leaverole" class="hidden" value="{{ $leaveDetails[0]['role']}}">
+        <input id='leavework_location' type="text" name="leavework_location" class="hidden" value="{{ $leaveDetails[0]['work_location']}}">
+        <input id='leaveperiod' type="text" name="leaveperiod" class="hidden" value="{{ $leaveDetails[0]['period']}}">
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
@@ -79,7 +82,7 @@
                         <label class="col-lg-2 control-label">Role:</label>
                         <div class="col-lg-8">
                             <select class="form-control" name="role" id="role">
-                                <option value="">Selelect Role</option>
+                                <option value="">Select Role</option>
                             </select>
                         </div>
                         <div class="col-lg-2">

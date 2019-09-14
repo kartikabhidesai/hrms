@@ -205,14 +205,18 @@ var LeaveCategory = function () {
             data: {'action': 'getRoleCompanyList'},
             success: function (data) {
                 var output = JSON.parse(data);
+                 $('#role').empty();
+                 $('#role').append($("<option></option>").text('Select Role'));
+                 var leaverole = $('#leaverole').val();
+                 
                 $.each(output, function (key, value) {
                     $('#role')
                             .append($("<option></option>")
-                                    .attr("value", key.id)
+                                    .attr("value", value.id)
                                     .text(value.role_name));
 
                 });
-
+                $("#role").val(leaverole);
             }
         });
     }
@@ -227,16 +231,17 @@ var LeaveCategory = function () {
             data: {'action': 'getWorkLocationCompanyList'},
             success: function (data) {
                 var output = JSON.parse(data);
-                console.log(output);
-                //$('#work_location').empty();
+                var leavework_location = $('#leavework_location').val();
+                $('#work_location').empty();
+                $('#work_location').append($("<option></option>").text('Select Work Location'));
                 $.each(output, function (key, value) {
                     $('#work_location')
                             .append($("<option></option>")
-                                    .attr("value", key.id)
+                                    .attr("value", value.id)
                                     .text(value.work_location_name));
 
                 });
-
+                $("#work_location").val(leavework_location);
             }
         });
     }
@@ -251,16 +256,17 @@ var LeaveCategory = function () {
             data: {'action': 'getPeriodList'},
             success: function (data) {
                 var output = JSON.parse(data);
-                console.log(output);
-                // $('#period').empty();
+                var leaveperiod = $('#leaveperiod').val();
+                 $('#period').empty();
+                 $('#period').append($("<option></option>").text('Select Period'));
                 $.each(output, function (key, value) {
                     $('#period')
                             .append($("<option></option>")
-                                    .attr("value", key.id)
+                                    .attr("value", value.id)
                                     .text(value.period));
 
                 });
-
+                $("#period").val(leaveperiod);
             }
         });
     }
