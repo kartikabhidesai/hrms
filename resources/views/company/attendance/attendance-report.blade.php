@@ -124,27 +124,34 @@
                         </thead>
 
                         <tbody>
-                            @foreach($getAttedanceReport as $data)
-                                <tr>
-                                    <td style="text-align: center;"> {{ $data->name }} </td>
-                                    <td style="text-align: center;"> 0 / 1 </td>
+                            @foreach($employeAttandanceData as $key => $value)
+                            <tr>
+                                    <td style="text-align: center;"> {{ $key }} </td>
+                                    <td style="text-align: center;"> {{ count($value) - 1  }} / {{ cal_days_in_month(CAL_GREGORIAN, $month, $get_year) }} </td>
                                     @for($day=1; $day<=cal_days_in_month(CAL_GREGORIAN, $month, $get_year); $day++)
-                                        @if($day == date('j', strtotime($data->date)) && $data->attendance == 'present')
-                                            <td style="text-align: center;"><i class="fa fa-circle" style="color: #00a651;"></i></td>
-                                        @endif
-                                        @if($day == date('j', strtotime($data->date)) && $data->attendance == 'absent')
-                                            <td style="text-align: center;"><i class="fa fa-circle" style="color: #ee4749;"></i></td>
+                                        @if(in_array($day,$value['date']))
+                                            @for($j=0;$j < count($value);$j++)
+                                                @if(isset($value[$j]))
+                                                    @if($day == date('j', strtotime($value[$j]['date'])) && $value[$j]['attendance'] == 'present')
+                                                        <td style="text-align: center;"><i class="fa fa-circle" style="color: #00a651;"></i></td>
+                                                    @endif
+                                                    @if($day == date('j', strtotime($value[$j]['date'])) && $value[$j]['attendance'] == 'absent')
+                                                        <td style="text-align: center;"><i class="fa fa-circle" style="color: #ee4749;"></i></td>
+                                                    @endif
+                                                @endif
+                                            @endfor
                                         @else
-                                            <td style="text-align: center;"></td>
+                                             <td style="text-align: center;"></td>
                                         @endif
                                     @endfor
                                 </tr>
                             @endforeach
+                            
                         </tbody>
                     </table>
                     
                     <center>
-                        <a href="#" class="btn btn-primary" target="_blank"> Print Attendance Sheet </a>
+                        <a href="javascript:;" class="btn btn-primary printattandance" onclick = "window.print()"> Print Attendance Sheet </a>
                     </center>
                 </div>
             </div>

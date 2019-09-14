@@ -154,7 +154,7 @@ class AttendanceController extends Controller
                                                         ->whereYear('attendance.date', '=', $request->year)
                                                         ->whereMonth('attendance.date', '=', $request->month)
                                                         // ->where('department_id', $departmentName->id)
-                                                        ->get();
+                                                        ->get()->toArray();
             } else {
                 $departmentName = Department::select('id', 'department_name')->where('id', $request->get('departentId'))->first();
                 $data['departmentname'] = $departmentName['department_name'];
@@ -164,11 +164,20 @@ class AttendanceController extends Controller
                                                         ->whereYear('attendance.date', '=', $request->year)
                                                         ->whereMonth('attendance.date', '=', $request->month)
                                                         ->where('employee.department', $departmentName->id)
-                                                        ->get();
+                                                        ->get()->toArray();
                 // dd($data['getAttedanceReport']);
             }
         }
 
+        $employeAttandanceData = array();
+        
+        for($i=0;$i<count($data['getAttedanceReport']);$i++){
+            $employeename = $data['getAttedanceReport'][$i]['name'];
+            $employeAttandanceData[$employeename][]=$data['getAttedanceReport'][$i];
+            $employeAttandanceData[$employeename]['date'][]= date('j', strtotime($data['getAttedanceReport'][$i]['date']));
+        }
+//        print_r($employeAttandanceData);exit;
+        $data['employeAttandanceData'] = $employeAttandanceData;
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/attendance_report.js', 'jquery.form.min.js');
         $data['funinit'] = array('AttendanceReport.init()');
