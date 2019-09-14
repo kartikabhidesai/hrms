@@ -139,6 +139,7 @@ class Announcement extends Model {
     
     public function annousmentList($id){
         $resut= Announcement::select('title','content','date','expiry_date')
+                    ->orderBy('id', 'desc')
                     ->where('company_id',$id)
                     ->where('expiry_date', '>=', date('Y-m-d').' 00:00:00')
                     ->get();

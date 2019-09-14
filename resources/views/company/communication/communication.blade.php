@@ -58,7 +58,7 @@
                     <tbody>
                         @if($cmpMails)
                             @foreach($cmpMails as $emailList)
-                            <tr class="unread">
+                            <tr class="unread text-center">
                                 <td>
                                     <a href="{{ url('/company/mail-detail/'.$emailList['id']) }}">
                                         <input type="hidden" name="mail_id" value="{{ $emailList['id'] }}">
@@ -80,7 +80,7 @@
                                         {{ strlen(strip_tags($emailList['message'])) > 18 ? substr(strip_tags($emailList['message']),0,18)."..." : strip_tags($emailList['message']) }}
                                     </a>
                                 </td>
-                                <td class="text-right mail-date">
+                                <td class="mail-date">
                                     <a href="{{ url('/company/mail-detail/'.$emailList['id']) }}">
                                         {{ date('Y-m-d H:i A', strtotime($emailList['created_at'])) }}
                                     </a>

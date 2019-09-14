@@ -24,7 +24,7 @@ var Paylip = function () {
                 arrEmp.push(empId);
                 // arrInvoice.push(invoiceNo);
             });
-            console.log(arrEmp);
+           
             if (arrEmp.length > 0) {
                 $("#emparray").val(arrEmp);
                 $('#paySlip').submit();
@@ -36,8 +36,9 @@ var Paylip = function () {
             var data = [];
 
             var empid = $(this).attr('data-id');
+            var payrollId = $(this).attr('data-payrollId');
             
-            var data = {id: empid};
+            var data = {id: empid,payrollId:payrollId};
             $.ajax({
                 type: "POST",
                 headers: {

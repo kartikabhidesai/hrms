@@ -115,13 +115,13 @@
 
                     @foreach($employDetail as $row => $val)
                     <tr>
-                        <td><input type="checkbox" value="{{ $val->emp_id }}" class="empId" id="empId" name="empchk[]"></td>
+                        <td><input type="checkbox" value="{{ $val->payrollId }}" class="empId" id="empId" name="empchk[]"></td>
                         <td>{{ $val->name }}</td>
                         <td>{{ $val->employee_id }}</td>
                         <td>{{ $val->remarks ? $val->remarks : 'N.A.' }}</td>
                         <!-- <td>{{ $val->month }}</td>
                         <td>{{ $val->year }}</td> -->
-                        <td class="text-center"><a data-toggle="modal" class="btn btn-primary review" data-id="{{ $val->emp_id }}" data-month="{{$month}}" data-year="{{$year}}" href="#modal-form">Review</a></td>
+                        <td class="text-center"><a data-toggle="modal" class="btn btn-primary review" data-id="{{ $val->emp_id }}" data-payrollId="{{$val->payrollId}}" data-year="{{$year}}" href="#modal-form">Review</a></td>
 
                     </tr>
                     @endforeach

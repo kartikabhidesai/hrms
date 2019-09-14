@@ -176,7 +176,7 @@
                                                    </div>
                                                    <h3><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;&nbsp;Completed Task
                                                        <br/>
-                                                       <small class="m-r"><a href="{{ route('daily-attendance')}}"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i>&nbsp;&nbsp; More Info </a> </small>
+                                                       <small class="m-r"><a href="{{ route('task-list')}}"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i>&nbsp;&nbsp; More Info </a> </small>
                                                    </h3>
                                                </div>
                                            </div>
@@ -188,7 +188,7 @@
                                                    </div>
                                                    <h3><i class="fa fa-long-arrow-right" aria-hidden="true"></i>&nbsp;&nbsp;Total Task
                                                        <br/>
-                                                       <small class="m-r"><a href="{{ route('daily-attendance')}}"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i>&nbsp;&nbsp; More Info </a> </small>
+                                                       <small class="m-r"><a href="{{ route('task-list')}}"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i>&nbsp;&nbsp; More Info </a> </small>
                                                    </h3>
                                                </div>
                                            </div>

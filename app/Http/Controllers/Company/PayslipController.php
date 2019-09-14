@@ -27,6 +27,8 @@ class PayslipController extends Controller
         $getAuthCompanyId = Company::where('email', $userData->email)->first();
         $companyId = $getAuthCompanyId->id;
         if ($request->isMethod('post')) {
+//            print_r($request->input());
+//            die();
             $postData = $request->input();
             
             $empArray = $postData['empchk'];
@@ -34,7 +36,7 @@ class PayslipController extends Controller
             
             foreach ($empArray as $key => $value) {
                 $objPayroll = new Payroll();
-                $employeeArr = $objPayroll->getPayslipPdfDetail($postData,$value);
+                $employeeArr = $objPayroll->getPayslipPdfDetailPDF($postData,$value);
 //                    dd($employeeArr[0]);
                 if(!empty($employeeArr)){
                     $dataPdf[] = $employeeArr[0];
@@ -117,6 +119,7 @@ class PayslipController extends Controller
         switch ($action) {
             case 'getempmodaldata':
                 $data['employeeid']=$request->input('data.id');
+                $data['payrollId']=$request->input('data.payrollId');
                 
                 $objPayroll = new Payroll();
                 $empmodaldata=$objPayroll->getPayslipmodalDetail($data);

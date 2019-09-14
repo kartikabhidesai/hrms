@@ -448,12 +448,13 @@ border-radius: 4px;
                                     </div>
                                 </div>
                                 
-
+                                @php $currYear = date('Y'); @endphp
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Year</label>
                                     <div class="col-sm-9">
                                         <select class="form-control year" id="year" name="year">
-                                            @for($i = 2019;$i<= 2022;$i++)
+                                            <option value="">Select Year</option>
+                                            @for($i = 2019;$i<= ($currYear+3) ;$i++)
                                             <option value="{{  $i }}">{{  $i }}</option>
                                             @endfor
                                         </select>
@@ -463,13 +464,27 @@ border-radius: 4px;
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Month</label>
                                     <div class="col-sm-9">
-                                        {{ Form::select('months', $monthis , null, array('class' => 'form-control months', 'id' => 'months')) }}
+                                        <select class="form-control months" id="months" name="months">
+                                            <option value="">Select Month</option>
+                                            <option value="1">January</option>
+                                            <option value="2">February</option>
+                                            <option value="3">March</option>
+                                            <option value="4">April</option>
+                                            <option value="5">May</option>
+                                            <option value="6">Jun</option>
+                                            <option value="7">July</option>
+                                            <option value="8">August</option>
+                                            <option value="9">September</option>
+                                            <option value="10">October</option>
+                                            <option value="11">November</option>
+                                            <option value="12">December</option>
+                                        </select>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <div class="col-lg-offset-1 col-lg-10">
-                                        <button class="btn btn-sm btn-primary" type="submit">Submit</button>
+                                        <button class="btn btn-sm btn-primary pull-right" type="submit">Save</button>
                                     </div>
                                 </div>
                             </div>

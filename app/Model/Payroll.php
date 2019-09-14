@@ -104,6 +104,7 @@ class Payroll extends Model {
 
     public function getPayrollV2($id)
     {
+        print_r($id);die();
         return Payroll::select('pay_roll.*')->where('id', '=', $id)->get()->toArray();
     }
 
@@ -121,6 +122,20 @@ class Payroll extends Model {
         
         return $result;
     }
+    public function getPayslipPdfDetailPDF($postData, $id)
+    {
+        
+        $result = Payroll::select('pay_roll.*', 'employee.id as emp_id', 'employee.name as empName', 'comapnies.company_name')
+                            ->leftjoin('employee', 'employee.id', '=', 'pay_roll.employee_id')
+                            ->leftjoin('department', 'employee.department', '=', 'department.id')
+                            ->leftjoin('comapnies', 'comapnies.id', '=', 'employee.company_id')
+                            ->where('pay_roll.id', $id)
+//                            ->where('pay_roll.employee_id', $id)
+                            ->get()
+                            ->toArray();
+      
+        return $result;
+    }
 
     public function getPayslipmodalDetail($Data)
     {
@@ -132,6 +147,7 @@ class Payroll extends Model {
 //                            ->where('pay_roll.month', $Data['month'])
 //                            ->where('pay_roll.year', $Data['year'])
                             ->where('pay_roll.employee_id', $Data['employeeid'])
+                            ->where('pay_roll.id', $Data['payrollId'])
                             ->get()
                             ->toArray();
         

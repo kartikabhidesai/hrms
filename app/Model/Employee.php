@@ -404,7 +404,7 @@ class Employee extends Model {
     public function getEmployDetailV2($userId, $year, $month, $employee, $department) {
         
         
-        $sql = Employee::select('employee.name', 'employee.employee_id', 'employee.company_id', 'employee.id as emp_id', 'pay_roll.remarks', 'pay_roll.month', 'pay_roll.year')
+        $sql = Employee::select('employee.name', 'employee.employee_id', 'employee.company_id', 'employee.id as emp_id', 'pay_roll.remarks','pay_roll.id as payrollId', 'pay_roll.month', 'pay_roll.year')
                 ->join('pay_roll', 'employee.id', '=', 'pay_roll.employee_id');
                 if($month != null || $month != ''){
                     $sql->where('pay_roll.month', $month);
@@ -425,6 +425,7 @@ class Employee extends Model {
 
         $sql->where('employee.company_id', $userId);
         $result = $sql->get();
+        
         return $result;
     }
     

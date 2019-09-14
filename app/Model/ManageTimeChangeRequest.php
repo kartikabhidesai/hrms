@@ -170,10 +170,10 @@ class ManageTimeChangeRequest extends Model
         //         ->where('time_change.company_id',$companyId);
 
           $query = ManageTimeChangeRequest::from('time_change_requests as time_change')
-                ->join('employee', 'time_change.employee_id', '=', 'employee.id')
-                ->join('department as depart', 'employee.department', '=', 'depart.id')
-                ->leftjoin('type_of_request', 'time_change.request_type', '=', 'type_of_request.id')
-                ->where('time_change.company_id',$companyId);
+                        ->join('employee', 'time_change.employee_id', '=', 'employee.id')
+                        ->join('department as depart', 'employee.department', '=', 'depart.id')
+                        ->leftjoin('type_of_request', 'time_change.request_type', '=', 'type_of_request.id')
+                        ->where('time_change.company_id',$companyId);
 
          if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
             $searchVal = $requestData['search']['value'];
@@ -213,9 +213,11 @@ class ManageTimeChangeRequest extends Model
                       'employee.date_of_joining', 
                       'time_change.status')->get();
         $data = array();
-        $objLeaveCategrory =  new LeaveCategory();
+        if(count($resultArr) > 0){
+             $objLeaveCategrory =  new LeaveCategory();
          $type_of_request = $objLeaveCategrory->getleaveCategoryListTable($resultArr[0]['request_type']);
-
+        }
+        
         foreach ($resultArr as $row) {
           // print_r($row);exit;
             if($row["status"] == NULL){
