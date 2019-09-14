@@ -62,7 +62,7 @@
                             <form role="form">
                                 <div>
                                     <button class="btn btn-sm btn-primary pull-right m-l" data-dismiss="modal">Cancel</button>
-                                    <button class="btn btn-sm btn-danger pull-right yesapprove m-l" type="button"><strong></strong></button>
+                                    <button class="btn btn-sm btn-danger pull-right yesapprove m-l" type="button"><strong>Approve</strong></button>
                                 </div>
                             </form>
                         </div>
