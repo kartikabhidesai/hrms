@@ -188,7 +188,7 @@ class RoleController extends Controller {
 
                     $objEmployeelist = new Employee();
                     $data['employeeList'] =  $objEmployeelist->getEmployeeList($companyId['id']);
-
+                    
                     $result = view('company.role.existingEmployee',$data);
                     echo $result;
                     break; 

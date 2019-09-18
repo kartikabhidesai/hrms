@@ -33,7 +33,7 @@
                             <select class="form-control" name="employeeId" id="employeeId">
                                 <option value="">Select employee</option>
                                 @foreach($employeeList as $key => $value)
-                                <option value="{{ $value['user_id'] }}">{{ $value['name']  }}</option>
+                                <option value="{{ $value['id'] }}">{{ $value['name']  }}</option>
                                 @endforeach
                             </select>
                             

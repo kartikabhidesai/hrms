@@ -208,7 +208,6 @@ var LeaveCategory = function () {
                  $('#role').empty();
                  $('#role').append($("<option></option>").attr("value",'').text('Select Role'));
                  var leaverole = $('#leaverole').val();
-                 
                 $.each(output, function (key, value) {
                     $('#role')
                             .append($("<option></option>")
@@ -236,7 +235,6 @@ var LeaveCategory = function () {
             success: function (data) {
                 var output = JSON.parse(data);
                 var leavework_location = $('#leavework_location').val();
-                $('#work_location').empty();
                 $('#work_location').append($("<option></option>").attr("value",'').text('Select Work Location'));
                 $.each(output, function (key, value) {
                     $('#work_location')
