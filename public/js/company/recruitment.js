@@ -99,8 +99,7 @@ var Recruitment = function () {
            ajaxcall($(form).attr('action'), $(form).serialize(), function (output) {
                
                var data = JSON.parse(output);
-               console.log(data.file);
-               exit();
+               
                window.open(data.file, '_blank');
                handleAjaxResponse(output);
 //               console.log(data.file);
