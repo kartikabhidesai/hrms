@@ -88,9 +88,10 @@ class RecruitmentController extends Controller {
             $file = 'recrutment'.time().'.pdf';
             // return view('company.recruitment.recruitment-list', $data);
             $pdf = PDF::loadView('company.recruitment.recrutment-pdf', compact('data'));
-            $pdfname = url('public/uploads')."/".time().".pdf";
-//            print_r();
-//            die();
+            $time = time().".pdf";
+            $pdfname = public_path('uploads/recruitmentpdf')."/".$time;
+            print_r(url('public/uploads/recruitmentpdf')."/".$time);
+            die();
              if ($pdf->save($pdfname)) {
                  $return['status'] = 'success';
                  $return['message'] = 'Recruitment created successfully.';
