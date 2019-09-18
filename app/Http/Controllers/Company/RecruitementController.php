@@ -38,7 +38,7 @@ class RecruitementController extends Controller {
         $data['experince']=['0'=>'High','1'=>'Medium','2'=>'Low'];
         $objEmployee = new Employee();
         $data['employee'] = $objEmployee->getEmployee($companyId->id);
-        $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
+        $data['pluginjs'] = array('validate/jquery.validate.min.js');
         $data['js'] = array('company/performance.js');
         $data['funinit'] = array('Performance.init()');
         $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');

@@ -99,7 +99,6 @@ class RoleController extends Controller {
         $session = $request->session()->all();
         $data['roleArray'] = AdminRole::find($id);
         if($request->isMethod('post')){
-           
             $objEmail=new AdminRole();
             $result=$objEmail->editCompanyRole($request);
             if($result > 1){

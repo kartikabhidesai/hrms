@@ -84,24 +84,24 @@ class RecruitmentController extends Controller {
             $data['recrutment'] = $request->input();
             $objRecruitment = new Recruitment();
             $demoList = $objRecruitment->addRecruitment($request, $companyId->id, $data);
+            
             $file = 'recrutment'.time().'.pdf';
             // return view('company.recruitment.recruitment-list', $data);
             $pdf = PDF::loadView('company.recruitment.recrutment-pdf', compact('data'));
-            return $pdf->download($file);
+            $pdfname = public_path('uploads/recruitmentpdf')."/".time().".pdf";
 
-            // $objRecruitment = new Recruitment();
-            // $ret = $objRecruitment->addRecruitment($request, $companyId->id);
-
-            // if ($ret) {
-            //     $return['status'] = 'success';
-            //     $return['message'] = 'Recruitment created successfully.';
-            //     $return['redirect'] = route('recruitment');
-            // } else {
-            //     $return['status'] = 'error';
-            //     $return['message'] = 'Somethin went wrong while creating new training!';
-            // }
-            // echo json_encode($return);
-            // exit;
+             if ($pdf->save($pdfname)) {
+                 $return['status'] = 'success';
+                 $return['message'] = 'Recruitment created successfully.';
+                 $return['file'] = $pdfname;
+                 $return['redirect'] = route('recruitment');
+             } else {
+                 $return['status'] = 'error';
+                 $return['message'] = 'Somethin went wrong while creating new training!';
+             }
+             echo json_encode($return);
+//             return  $pdf->download($file);
+             exit;
         }
 
         $data['detail'] = $this->loginUser;
@@ -117,8 +117,8 @@ class RecruitmentController extends Controller {
         $objDepart = new Department();
         $data['department'] = $objDepart->getDepartment($companyId->id);
         $data['experince']=['0'=>'0-1','1'=>'1-3','2'=>'3-5','3'=>'5-10','4'=>'10+'];
-        $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
-        $data['js'] = array('company/recruitment.js','jquery.form.min.js');
+        $data['pluginjs'] = array('/plugins/validate/jquery.validate.min.js');
+        $data['js'] = array('company/recruitment.js','ajaxfileupload.js', 'jquery.form.min.js');
         $data['funinit'] = array('Recruitment.add()');
         $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
 

@@ -14,33 +14,33 @@
                         <div class="col-lg-12">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label class="col-lg-2 control-label">Job Name</label>
-                                    <div class="col-lg-10">
+                                    <label class="col-lg-3 control-label">Job Name</label>
+                                    <div class="col-lg-9">
                                         <input type="text" class="form-control" required="" name="task">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-lg-2 control-label">Department</label>
-                                    <div class="col-lg-10">
+                                    <label class="col-lg-3 control-label">Department</label>
+                                    <div class="col-lg-9">
                                         {{ Form::select('department', $department , null, array('placeholder'=>'Select Depatment', 'class' => 'form-control department', 'id' => 'department')) }}
                                     </div>
                                 </div>
                                 <input type="hidden" name="dept" value="" class="dept" id="dept">
                                 <div class="form-group">
-                                    <label class="col-lg-2 control-label">Responsibility</label>
-                                    <div class="col-lg-10">
+                                    <label class="col-lg-3 control-label">Responsibility</label>
+                                    <div class="col-lg-9">
                                         <textarea class="form-control" required="" name="responsibility"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-lg-2 control-label">Requirement</label>
-                                    <div class="col-lg-10">
+                                    <label class="col-lg-3 control-label">Requirement</label>
+                                    <div class="col-lg-9">
                                         <textarea class="form-control" required="" name="requirement"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">Experience Level</label>
-                                    <div class="col-sm-10">
+                                    <label class="col-sm-3 control-label">Experience Level</label>
+                                    <div class="col-sm-9">
                                         <select class="form-control" required="" id="experience_level" name="experience_level">
                                             @foreach($experince as $key=>$val)
                                             <option value="{{$val}}">{{$val}}</option>
@@ -48,9 +48,9 @@
                                         </select>
                                     </div>
                                 </div>
-                             
+
                                 <div class="form-group col-lg-12">
-                                    <label class="col-sm-2 control-label">Job Time</label>
+                                    <label class="col-sm-3 control-label">Job Time</label>
                                     <div class="col-sm-9">
                                         <label class="radio-inline">
                                             {{ Form::radio('jobtime', 'parttime', false , ['class' => 'parttime','id' => 'parttime']) }} Part time
@@ -61,7 +61,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group col-lg-12">
-                                    <label class="col-sm-2 control-label">Contract</label>
+                                    <label class="col-sm-3 control-label">Contract</label>
                                     <div class="col-sm-9">
                                         <label class="radio-inline">
                                             {{ Form::radio('contract', 'permanant', true , ['class' => 'permanant','id' => 'permanant']) }} Permanant
@@ -72,20 +72,20 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-lg-2 control-label">Salary</label>
-                                    <div class="col-lg-10">
+                                    <label class="col-lg-3 control-label">Salary</label>
+                                    <div class="col-lg-9">
                                         <input type="number" class="form-control" required="" name="salary">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-lg-2 control-label">Email</label>
-                                    <div class="col-lg-10">
+                                    <label class="col-lg-3 control-label">Email</label>
+                                    <div class="col-lg-9">
                                         <input type="email" class="form-control" required="" name="email">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-lg-2 control-label">Conact us</label>
-                                    <div class="col-lg-10">
+                                    <label class="col-lg-3 control-label">Conact us</label>
+                                    <div class="col-lg-9">
                                         <input type="text" class="form-control" required="" name="conatact_us">
                                     </div>
                                 </div>
@@ -94,7 +94,7 @@
                                 <div class="form-group" id="data_1">
                                     <label class="col-sm-2 control-label">Start Date</label>
                                     <div class="col-sm-9">
-                                    <div class="input-group ">
+                                        <div class="input-group ">
                                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="start_date" required="" id="start_date"  class="form-control start_date" placeholder="Start date" autocomplete="off">
                                         </div>
                                     </div>
@@ -125,8 +125,7 @@
                 </div>
             </div>
         </div>
+        {{ Form::close() }}
     </div>
-    {{ Form::close() }}
-</div>
 
-@endsection
+    @endsection

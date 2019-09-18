@@ -37,7 +37,7 @@ class Demo extends Model {
     }
  public function editDemo($request) {
       
-       $name = '';
+        $name = '';
         if($request->file()){
             $image = $request->file('demo_pic');
             $name = 'admin'.time().'.'.$image->getClientOriginalExtension();

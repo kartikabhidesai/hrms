@@ -78,7 +78,7 @@ var Recruitment = function () {
           
         })   
 
-        var form = $('#addRecruitment1');
+        var form = $('#addRecruitment');
         var rules = {
             task: {required: true},
             department: {required: true},
@@ -95,8 +95,15 @@ var Recruitment = function () {
             job_id: {required: true}
         };
 
-        handleFormValidate(form, rules, function(form) {
-            // handleAjaxFormSubmit(form);
+         handleFormValidate(form, rules, function(form) {
+           ajaxcall($(form).attr('action'), $(form).serialize(), function (output) {
+               var data = JSON.parse(output);
+               window.open(data.file, '_blank');
+               handleAjaxResponse(output);
+//               console.log(data.file);
+//               exit();
+
+                });
         });
 
         var form = $('#editRecruitment');
