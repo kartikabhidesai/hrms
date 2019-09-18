@@ -191,7 +191,7 @@
                      <div class="row">
                         <div class="col-lg-10 col-lg-offset-1">
                             <div class="ibox">
-                                <h3>Announcement List</h3>
+                                <h3>Announcement</h3>
                                 <div class="slick_demo_3">
                                     @php 
                                         $i =0;

@@ -285,14 +285,7 @@ class Communication extends Model
     {
         $getListOfEmailOfCmp = Communication::select('communication.*','comapnies.company_name as companyName')
                                         ->join('comapnies','communication.company_id','comapnies.id')
-                                        ->where(function($q){
-                                            $q->where('communication.send_emp_id',0);
-                                            $q->orwhereNull('communication.send_emp_id');
-                                        })
-                                        ->where(function($q){
-                                            $q->where('communication.recieve_emp_id',0);
-                                            $q->orwhereNull('communication.recieve_emp_id');
-                                        })
+                                        ->where('communication.recieve_emp_id',1)
                                         ->where('communication.send_by','COMPANY')
                                         ->orderBy('communication.id','desc')
                                         ->get();

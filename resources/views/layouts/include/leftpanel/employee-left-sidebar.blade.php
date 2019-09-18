@@ -148,7 +148,7 @@ $currentRoute = Route::current()->getName();
                             </li>
                         @endif
                         
-                        @if(in_array(15, $roles))
+                        @if(in_array(14, $roles))
                             <li class="{{ ( $currentRoute == 'employee-company-advance-salary-request'  || $currentRoute == 'employee-add-advance-salary-request' ? 'active' : '') }}">
                                 <a href="{{ route('employee-company-advance-salary-request') }}"><i class="fa fa-money" ></i> <span class="nav-label">Advance Salary Request</span></a>
                             </li>
@@ -174,7 +174,7 @@ $currentRoute = Route::current()->getName();
                             </li>
                         @endif
 
-                        @if(in_array(19, $roles))
+                        @if(in_array(16, $roles))
                             <li class="{{ ($currentRoute == 'employee-daily-attendance' ? 'active' : '') }}">
                                 <a href="{{ route('employee-daily-attendance') }}"><i class="fa fa-thumb-tack"></i>
                                 <span class="nav-label">Daily Attendance</span></a>

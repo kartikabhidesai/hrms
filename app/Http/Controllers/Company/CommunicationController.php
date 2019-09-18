@@ -78,6 +78,7 @@ class CommunicationController extends Controller
 
         if ($request->isMethod('post')) 
         {
+            
 //            print_r($request->input('emp_id'));exit;
             $objCommunication = new Communication();
             $result = $objCommunication->addNewCommunicationCmp($request, $companyId->id);
