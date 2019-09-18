@@ -97,6 +97,8 @@ var Recruitment = function () {
 
          handleFormValidate(form, rules, function(form) {
            ajaxcall($(form).attr('action'), $(form).serialize(), function (output) {
+               console.log(data.file);
+               exit();
                var data = JSON.parse(output);
                window.open(data.file, '_blank');
                handleAjaxResponse(output);
