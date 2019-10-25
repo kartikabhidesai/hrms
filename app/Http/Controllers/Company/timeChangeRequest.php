@@ -30,10 +30,11 @@ class ManageTimeChangeRequestController extends Controller
         $userID = $this->loginUser;
         $companyId = Company::select('id')->where('user_id', $userID->id)->first();
         $objManageList = new ManageTimeChangeRequest();
+        $data['arrNew'] = $objManageList->getStatusCount($companyId->id,null);
         $data['arrRejectCount'] = $objManageList->getStatusCount($companyId->id,'reject');
         $data['arrApproveCount'] = $objManageList->getStatusCount($companyId->id,'approve');
         $data['arrRemovedCount'] = $objManageList->getStatusCount($companyId->id,'removed');
-        $data['arrNewCount'] = $objManageList->getStatusCount($companyId->id,null);
+        $data['arrNewCount'] = $objManageList->getStatusCount($companyId->id,'new');
         $data['arrModifiedCount'] = $objManageList->getStatusCount($companyId->id,'modified');
         $data['arrCanclledCount'] = $objManageList->getStatusCount($companyId->id,'canclled');
         // print_r($arrRejectCount);exit;

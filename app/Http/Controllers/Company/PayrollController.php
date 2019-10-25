@@ -28,29 +28,36 @@ class PayrollController extends Controller {
     }
 
     public function index(Request $request) {
+        
         $data['detail'] = $this->loginUser;
-        $data['header'] = array(
-            'title' => 'Payroll Employee List',
-            'breadcrumb' => array(
-                'Home' => route("company-dashboard")));
+        
        
         $data['departmentId'] = (empty($request->get('department'))) ? '' : $request->get('department');
         $data['employeeId'] = (empty($request->get('employee'))) ? '' : $request->get('employee');
         
         $EmpObj = new Employee;
         $userid = $this->loginUser->id; 
+        
         $companyId = Company::select('id')->where('user_id', $userid)->first();
+        
         $data['allemployee'] = $EmpObj->getAllEmployeeofCompany($companyId->id, $data['departmentId'] , $data['employeeId']);
         
         $objDepart = new Department();
         $data['department'] = $objDepart->getDepartment($companyId->id);   
-
-        $objEmployee = new Employee();
-        $data['employee'] = $objEmployee->getEmployee($companyId->id);
+        if($data['employeeId']  != null){
+            $objEmployee = new Employee();
+            $data['employee'] = $objEmployee->departmentchange($companyId->id,$data['departmentId']);
+        }
+        
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/payroll.js');
         $data['funinit'] = array('Payroll.init()');
         $data['css'] = array('');
+        $data['header'] = array(
+            'title' => 'Payroll Employee List',
+            'breadcrumb' => array(
+                'Home' => route("company-dashboard"))
+        );
         return view('company.payroll.payroll-list', $data);
     }
 
@@ -245,6 +252,16 @@ class PayrollController extends Controller {
     {
         $action = $request->input('action');
         switch ($action) {
+            
+            case 'departmentchange':
+                $data['detail'] = $this->loginUser;
+                $userid = $this->loginUser->id; 
+                $companyId = Company::select('id')->where('user_id', $userid)->first();
+                $objEmployee = new Employee();
+                $result = $objEmployee->departmentchange($companyId->id,$request->input('val'));
+                echo json_encode($result);
+                exit;
+                break; 
             
             case 'deletePayroll':
                 $result = $this->deletePayroll($request->input('data'));

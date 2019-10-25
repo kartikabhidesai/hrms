@@ -1,5 +1,27 @@
 var Payroll = function () {
     var handleList = function () {
+        
+        $('body').on("change",".department",function(){
+            var val = $(this).val();
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                },
+                url: baseurl + "company/payroll-ajaxAction",
+                data: {'action': 'departmentchange', 'val': val},
+                success: function(data) {
+                    var output = JSON.parse(data);
+                    var employeelist = '<option value="All">All Employee</option>';
+                    for(var i = 0 ; i < output.length ; i++){
+                        var temphtml = '';
+                        var temphtml = '<option value="'+ output[i].id +'">'+ output[i].name +' '+ output[i].father_name +'</option>';
+                        employeelist = employeelist +  temphtml ;
+                    }
+                    $(".employeelist").html(employeelist);
+                }
+            });
+        });
         var form = $('#addPayroll');
         var rules = {
             salary_grade: {required: true},

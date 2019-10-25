@@ -111,17 +111,25 @@ class EmployeeController extends Controller {
         $data['testarray'] = $objPayrollsetting->getPayrollSetting();
         
         if ($request->isMethod('post')) {
-            $objEmployee = new Users();
-            $res = $objEmployee->editUsersEmployee($request,$id);
-            $objEmployee = new Employee();
-            $res = $objEmployee->editEmployee($request,$id);
-            if ($res) {
-                $return['status'] = 'success';
-                $return['message'] = 'Employee updated successfully.';
-                $return['redirect'] = route('employee-list');
-            } else {
+            $objUser = new Users();
+            $checkemail = $objUser->checkmail($request,$id);
+            
+            if($checkemail == "invaild"){
                 $return['status'] = 'error';
-                $return['message'] = 'something will be wrong.';
+                $return['message'] = 'Email address already exits.';
+            }else{
+                $objEmployee = new Users();
+                $res = $objEmployee->editUsersEmployee($request,$id);
+                $objEmployee = new Employee();
+                $res = $objEmployee->editEmployee($request,$id);
+                if ($res) {
+                    $return['status'] = 'success';
+                    $return['message'] = 'Employee updated successfully.';
+                    $return['redirect'] = route('employee-list');
+                } else {
+                    $return['status'] = 'error';
+                    $return['message'] = 'something will be wrong.';
+                } 
             }
             echo json_encode($return);
             exit;

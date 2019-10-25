@@ -259,7 +259,7 @@
                                 <div class="form-group">
                                         <label class="col-lg-3 control-label">Email</label>
                                         <div class="col-lg-9">
-                                                {{ Form::text('email', $details->email , array('placeholder'=>'Email','class' => 'form-control email' ,'readonly')) }}
+                                                {{ Form::text('email', $details->email , array('placeholder'=>'Email','class' => 'form-control email' )) }}
                                         </div>
                                 </div>
                                 <div class="form-group">

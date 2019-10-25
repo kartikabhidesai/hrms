@@ -35,6 +35,7 @@ class Users extends Model {
             $objUser->user_image = $emp_pic;
         }
         $objUser->name = $request->input('name');
+        $objUser->email = $request->input('email');
         $objUser->updated_at = date('Y-m-d H:i:s');
         $objUser->save();
     }
@@ -192,5 +193,18 @@ class Users extends Model {
                     ->where('id',$userId)
                     ->get();
         return $id[0]->type;
+    }
+    
+    public function checkmail($request,$id){
+        $userId= Employee::select('user_id')->where('id',$id)->get();
+      
+        $result = Users::where("email",$request->input('email'))
+                        ->where("id","!=",$userId[0]->user_id)
+                        ->count();
+        if($result == 0){
+           return "vaild";
+        }else{
+            return "invaild";
+        }
     }
 }

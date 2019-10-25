@@ -461,8 +461,19 @@ class Employee extends Model {
         $arrEmployee = Employee::where('company_id', $company_id)
                 ->pluck('name', 'id')
                 ->toArray();
+        
         return $arrEmployee;
     }   
+    
+    public function getEmployeenew($company_id) {
+//         echo $company_id;exit;
+        $arrEmployee = Employee::where('company_id', $company_id)
+                    ->select('name','father_name','id')
+                    ->get();
+        
+        return $arrEmployee;
+    }   
+    
     public function getEmployeeByDept($dept,$company_id='') {
         // echo $dept; echo " - "; echo $company_id; exit;
         if(strtolower($dept) == 'all' && strtolower($company_id) == 'all')
@@ -546,5 +557,15 @@ class Employee extends Model {
         } else {
             return false;
         }
+    }
+    
+    public function departmentchange($companyId,$id){
+       
+        $employeeList = Employee::select("name","father_name","id")
+                        ->where('company_id',$companyId)
+                        ->where('department',$id)
+                        ->get();
+       
+        return $employeeList;
     }
 }

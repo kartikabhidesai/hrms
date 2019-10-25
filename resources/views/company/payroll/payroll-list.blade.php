@@ -16,14 +16,28 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Department:</label>
                     <div class="col-sm-9">
-                        {{ Form::select('department', ['all' => 'All Department'] +$department , isset($departmentId) ? $departmentId : null , array('class' => 'form-control ', 'id' => 'department')) }}
+                        {{ Form::select('department', ['all' => 'All Department'] +$department , isset($departmentId) ? $departmentId : null , array('class' => 'form-control department', 'id' => 'department')) }}
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Employee Name:</label>
                     <div class="col-sm-9">
-                        {{ Form::select('employee',['all' => 'All employee'] + $employee , isset($employeeId) ? $employeeId : '', array('class' => 'form-control ', 'id' => 'employee')) }}
+                        
+                        @if($employeeId != null)
+                            <select class="form-control employeelist" id="employee" name="employee">
+                                <option value="all">All employee</option>
+                                @for($i = 0; $i < count($employee) ; $i++)
+                                    <option value="{{ $employee[$i]->id }}" {{ (( $employee[$i]->id == $employeeId))? ' selected="selected"' : '' }} >{{ $employee[$i]->name }} {{ $employee[$i]->father_name }}</option>
+                                @endfor
+                            </select>
+                          
+                        @else
+                            <select class="form-control employeelist" id="employee" name="employee">
+                                <option value="all">All employee</option>
+                            </select>
+                        @endif
+                        
                     </div>
                 </div>
                 <input type="hidden" name="emparray[]" id="emparray" class="emparray">

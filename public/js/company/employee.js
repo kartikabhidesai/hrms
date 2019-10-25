@@ -55,9 +55,9 @@ var Employee = function() {
         var rules = {
             name: {required: true},
             first_name: {required: true},
-            Phone: {required: true,number:true},
+            phone: {required: true,digits: true},
             email: {required: true,email:true},
-            id:{required: true},
+            id:{required: true,digits: true},
             gender: {required: true},
             religion: {required: true},
             martial_status: {required: true},
@@ -77,9 +77,9 @@ var Employee = function() {
         var rules = {
             name: {required: true},
             first_name: {required: true},
-            Phone: {required: true,number:true},
+            phone: {required: true,digits: true},
             email: {required: true,email:true},
-            id:{required: true},
+            id:{required: true,digits: true},
             gender: {required: true},
             religion: {required: true},
             martial_status: {required: true},
