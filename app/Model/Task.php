@@ -322,7 +322,7 @@ class Task extends Model {
             $name = 'emp_tasks_'.time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/uploads/tasks/');
             $image->move($destinationPath, $name);   
-            $objTask->file = $name;
+            $objTask->file ='uploads/tasks/'.$name;
         }
         $objTask->department_id = $request->input('department');
         $objTask->employee_id = $request->input('employee');
