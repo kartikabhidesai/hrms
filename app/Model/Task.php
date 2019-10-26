@@ -312,16 +312,18 @@ class Task extends Model {
           return $result;
     }
     
-    public function editTask($request){
+    public function editTask($request,$id){
         $name = '';
+        
+        
+        $objTask = Task::find($id);
         if($request->file()){
             $image = $request->file('file');
             $name = 'emp_tasks_'.time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/uploads/tasks/');
-            $image->move($destinationPath, $name);    
+            $image->move($destinationPath, $name);   
+            $objTask->file = $image;
         }
-        
-        $objTask = Task::firstOrNew(array('id'=>$request->input('editId')));
         $objTask->department_id = $request->input('department');
         $objTask->employee_id = $request->input('employee');
         $objTask->assign_date = date('Y-m-d', strtotime($request->input('assign_date')));
@@ -330,7 +332,6 @@ class Task extends Model {
         $objTask->priority = $request->input('priority');
         $objTask->about_task = $request->input('about_task');
         $objTask->location = $request->input('location');
-        $objTask->file = $name;
         $objTask->save();
         if ($objTask) {
             return TRUE;

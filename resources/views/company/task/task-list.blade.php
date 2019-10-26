@@ -94,6 +94,7 @@
                                 <div class="col-lg-10">
                                     <select name="department" id="status" class="form-control status">
                                         <option value="">Select Status</option>
+                                        <option value="0" {{ ( $status == '0' ? 'selected="selected"' : '') }}>New</option>
                                         <option value="1" {{ ( $status == '1' ? 'selected="selected"' : '') }}>In Progess</option>
                                         <option value="2" {{ ( $status == '2' ? 'selected="selected"' : '') }}>Pending</option>
                                         <option value="3" {{ ( $status == '3' ? 'selected="selected"' : '') }}>Complete</option>

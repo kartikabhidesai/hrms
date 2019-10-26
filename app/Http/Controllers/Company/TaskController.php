@@ -169,8 +169,10 @@ class TaskController extends Controller {
         $data['editTask'] = $objTaskEdit->editTaskDetails($id);
         
         if ($request->isMethod('post')) {
+            
+            
             $objTaskEdit =  new Task();
-            $result = $objTaskEdit->editTask($request);
+            $result = $objTaskEdit->editTask($request,$id);
                 if($result){
                     $return['status'] = 'success';
                     $return['message'] = 'Task upddated successfully.';
