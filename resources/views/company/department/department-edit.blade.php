@@ -78,8 +78,6 @@ $designation=$detail->designation;
                                                     <option  value="{{ $value['name'] }} {{ $value['father_name'] }}" {{ (( $value['name'].' '.$value['father_name'] == $designation[$i]['supervisor_name'] ))? 'selected="selected"' : '' }}>{{ $value['name'] }} {{ $value['father_name'] }}</option>
                                                 @endforeach
                                             </select>
-                                            
-
                                         </div>
                                     </div>
                                 </div>
@@ -98,7 +96,13 @@ $designation=$detail->designation;
                                             <div class="col-lg-6"> 
                                                 <div class="form-group">
                                                     <div class="col-lg-8">
-                                                            {{ Form::text('supervisor_name[]', $designation[$i]['supervisor_name'], array('placeholder'=>'Supervisor Name', 'class' => 'form-control ' ,'required')) }}
+                                                            <select class="form-control supervisor_name" id="supervisor_name" name="supervisor_name[]">
+                                                                <option selected="selected" value="">Select Manager Name</option>
+                                                                @foreach($employeelist as $key => $value)
+                                                                    <option  value="{{ $value['name'] }} {{ $value['father_name'] }}" {{ (( $value['name'].' '.$value['father_name'] == $designation[$i]['supervisor_name'] ))? 'selected="selected"' : '' }}>{{ $value['name'] }} {{ $value['father_name'] }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        
                                                     </div>
                                                     <div class="col-lg-4">
                                                         <input type="button" class="red form-control removebtn" value="Remove">
