@@ -79,15 +79,15 @@ class TaskController extends Controller {
             
             $objNonWorkingDate = new NonWorkingDate();
             $resultNonWorkingDate = $objNonWorkingDate->getCompanyNonWorkingDateArrayList($companyId->id);
-            print_r($resultNonWorkingDate);
-            die();
+            
             if(in_array(date('Y-m-d',strtotime($request->input('assign_date'))), $resultNonWorkingDate)) {
                 $return['status'] = 'error';
                 $return['message'] = $request->input('assign_date'). ' is Non Working Date';
             }else{
                 $objCompany = new Task();
                 $ret = $objCompany->addTask($request, $companyId->id);
-
+                print_r($ret);
+                die();
                 if ($ret) {
                     //notification add
                     $notificationMasterId=1;
