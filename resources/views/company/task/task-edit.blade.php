@@ -95,7 +95,7 @@
                             @if($editTask[0]->file != NULL || $editTask[0]->file != "")
                                 <label class="col-lg-1 control-label"></label>
                                 <div class="col-sm-11">
-                                    <a href="{{ url('uploads/tasks/'.$editTask[0]->file) }}" download>
+                                    <a href="{{ url($editTask[0]->file) }}" download>
                                        <label class="col-lg-3 control-label">{{ $editTask[0]->file }}</label>
                                     </a>
                                 </div>
