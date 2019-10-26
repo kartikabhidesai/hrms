@@ -76,9 +76,11 @@ class TaskController extends Controller {
         $companyId = Company::select('id')->where('user_id', $userId)->first();
 
         if ($request->isMethod('post')) {
+            
             $objNonWorkingDate = new NonWorkingDate();
             $resultNonWorkingDate = $objNonWorkingDate->getCompanyNonWorkingDateArrayList($companyId->id);
-           
+            print_r($resultNonWorkingDate);
+            die();
             if(in_array(date('Y-m-d',strtotime($request->input('assign_date'))), $resultNonWorkingDate)) {
                 $return['status'] = 'error';
                 $return['message'] = $request->input('assign_date'). ' is Non Working Date';
