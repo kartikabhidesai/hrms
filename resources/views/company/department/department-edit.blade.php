@@ -102,7 +102,6 @@ $designation=$detail->designation;
                                                                     <option  value="{{ $value['name'] }} {{ $value['father_name'] }}" {{ (( $value['name'].' '.$value['father_name'] == $designation[$i]['supervisor_name'] ))? 'selected="selected"' : '' }}>{{ $value['name'] }} {{ $value['father_name'] }}</option>
                                                                 @endforeach
                                                             </select>
-                                                        
                                                     </div>
                                                     <div class="col-lg-4">
                                                         <input type="button" class="red form-control removebtn" value="Remove">
@@ -115,10 +114,12 @@ $designation=$detail->designation;
                             @endif
                         @endfor
                         {{ Form::hidden('edit_id', $detail->id, array('class' => '')) }}
-                            <div class="add_designation_div">
-                                <div class="form-group">
-                                    <div class="col-lg-offset-2 col-lg-8">
-                                        <input class="btn btn-sm add_designation" type="button" value="Add More Designation">
+                            <div class="col-lg-12">
+                                <div class="add_designation_div">
+                                    <div class="form-group">
+                                        <div class="col-lg-offset-2 col-lg-8">
+                                            <input class="btn btn-sm add_designation" type="button" value="Add More Designation">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
