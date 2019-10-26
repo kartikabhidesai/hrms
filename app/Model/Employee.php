@@ -23,6 +23,15 @@ class Employee extends Model {
                         ->get();
         return $employeeList;
     }
+    
+    public function allemployeelist($companyId){
+        
+        $employeeList = Employee::select("name","father_name","id")
+                        ->where('company_id',$companyId)
+                        ->get();
+        
+        return $employeeList;
+    }
 
     public function addEmployee($request, $userId, $companyId) {
       

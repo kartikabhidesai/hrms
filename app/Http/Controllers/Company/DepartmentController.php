@@ -6,6 +6,7 @@ use App\Model\Users;
 use App\Model\Company;
 use App\Model\Department;
 use App\Model\Designation;
+use App\Model\Employee;
 use App\Http\Controllers\Controller;
 use Auth;
 use Route;
@@ -56,6 +57,13 @@ class DepartmentController extends Controller {
         }
 
         $session = $request->session()->all();
+        $userId =$session['logindata'][0]['id'] ;
+        $companyId = Company::select("id")
+                              ->where("user_id",$userId)
+                              ->get();
+        
+        $objEmployee = new Employee();
+        $data['employeelist'] = $objEmployee->allemployeelist($companyId[0]->id);
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/department.js', 'jquery.form.min.js');
         $data['funinit'] = array('Department.add()');
@@ -94,6 +102,13 @@ class DepartmentController extends Controller {
         }
 
         $session = $request->session()->all();
+        $userId =$session['logindata'][0]['id'] ;
+        $companyId = Company::select("id")
+                              ->where("user_id",$userId)
+                              ->get();
+        
+        $objEmployee = new Employee();
+        $data['employeelist'] = $objEmployee->allemployeelist($companyId[0]->id);
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/department.js', 'jquery.form.min.js');
         $data['funinit'] = array('Department.edit()');
@@ -128,6 +143,19 @@ class DepartmentController extends Controller {
                 break;
             case 'getCompnanyDepartmentList':
                 $result = $this->getCompnanyDepartmentList1();                
+                break;
+            
+            case 'employeelist':
+                $session = $request->session()->all();
+                $userId =$session['logindata'][0]['id'] ;
+                $companyId = Company::select("id")
+                                      ->where("user_id",$userId)
+                                      ->get();
+
+                $objEmployee = new Employee();
+                $employeelist = $objEmployee->allemployeelist($companyId[0]->id);
+                echo json_encode($employeelist);
+                exit();
                 break;
 
         }

@@ -25,7 +25,13 @@
                                 <div class="form-group">
                                     <label class="col-lg-4 control-label">Manager Name</label>
                                     <div class="col-lg-8">
-                                            {{ Form::text('manager_name', null, array('placeholder'=>'Manager Name', 'class' => 'form-control ' ,'required')) }}
+                                        <select class="form-control manager_name" id="manager_name" name="manager_name">
+                                            <option selected="selected" value="">Select Manager Name</option>
+                                            @foreach($employeelist as $key => $value)
+                                                <option  value="{{ $value['name'] }} {{ $value['father_name'] }}">{{ $value['name'] }} {{ $value['father_name'] }}</option>
+                                            @endforeach
+                                        </select>
+                                           
                                     </div>
                                 </div>
                             </div>
@@ -33,7 +39,13 @@
                                 <div class="form-group">
                                     <label class="col-lg-4 control-label">Co-Manager Name</label>
                                     <div class="col-lg-8">
-                                            {{ Form::text('comanager_name', null, array('placeholder'=>'Co Manager Name', 'class' => 'form-control ' ,'required')) }}
+                                        <select class="form-control comanager_name" id="comanager_name" name="comanager_name">
+                                            <option selected="selected" value="">Select Manager Name</option>
+                                            @foreach($employeelist as $key => $value)
+                                                <option  value="{{ $value['name'] }} {{ $value['father_name'] }}">{{ $value['name'] }} {{ $value['father_name'] }}</option>
+                                            @endforeach
+                                        </select>
+                                           
                                     </div>
                                 </div>
                             </div>
@@ -51,7 +63,13 @@
                                 <div class="form-group">
                                     <label class="col-lg-4 control-label">Supervisor Name</label>
                                     <div class="col-lg-8">
-                                            {{ Form::text('supervisor_name[]', null, array('placeholder'=>'Supervisor Name', 'class' => 'form-control ' ,'required')) }}
+                                        <select class="form-control supervisor_name" id="supervisor_name" name="supervisor_name[]">
+                                            <option selected="selected" value="">Select Manager Name</option>
+                                            @foreach($employeelist as $key => $value)
+                                                <option  value="{{ $value['name'] }} {{ $value['father_name'] }}">{{ $value['name'] }} {{ $value['father_name'] }}</option>
+                                            @endforeach
+                                        </select>
+                                         
                                     </div>
                                 </div>
                             </div>

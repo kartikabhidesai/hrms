@@ -56,7 +56,24 @@ var Department = function() {
         });
         
         $('body').on('click','.add_designation',function(){
-            var button='<div class="removediv">'+
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                },
+                url: baseurl + "company/department-ajaxAction",
+                data: {'action': 'employeelist'},
+                success: function(data) {
+                    var employeelist = JSON.parse(data);
+                    var optionHTML = '<option value="">Select Supervisor</option>';
+                    for(var i = 0 ; i < employeelist.length ; i++)
+                    {
+                        var temp = "";
+                        var temp = "<option value='" + employeelist[i].name +" "+ employeelist[i].father_name +"' >" + employeelist[i].name +" "+ employeelist[i].father_name +"</option>";
+                        optionHTML = optionHTML + temp ;
+                    }
+                    
+                    var button='<div class="removediv">'+
                             '<div class="row">'+
                                 '<div class="col-lg-6">'+
                                     '<div class="form-group ">'+
@@ -69,7 +86,9 @@ var Department = function() {
                                 '<div class="col-lg-6">'+
                                     '<div class="form-group ">'+
                                         '<div class="col-lg-8">'+
-                                            '<input name="supervisor_name[]" class="form-control" placeholder="Supervisor Name" required>'+
+                                            '<select class="form-control supervisor_name" id="supervisor_name" name="supervisor_name[]">'+
+                                                 optionHTML +
+                                            '</select>'+
                                         '</div>'+
                                         '<div class="col-lg-4">'+
                                             '<input type="button" class="red form-control removebtn" value="Remove">'+
@@ -78,7 +97,12 @@ var Department = function() {
                                 '</div>'+
                             '</div>'+
                         '</div>';
-            $('.add_designation_div').append(button);
+                
+                    $('.add_designation_div').append(button);
+                }
+            });
+            
+            
         });
         
         $('body').on('click','.removebtn',function(){
@@ -99,7 +123,24 @@ var Department = function() {
         });
         
         $('body').on('click','.add_designation',function(){
-            var button='<div class="removediv">'+
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                },
+                url: baseurl + "company/department-ajaxAction",
+                data: {'action': 'employeelist'},
+                success: function(data) {
+                    var employeelist = JSON.parse(data);
+                    var optionHTML = '<option value="">Select Supervisor</option>';
+                    for(var i = 0 ; i < employeelist.length ; i++)
+                    {
+                        var temp = "";
+                        var temp = "<option value='" + employeelist[i].name +" "+ employeelist[i].father_name +"' >" + employeelist[i].name +" "+ employeelist[i].father_name +"</option>";
+                        optionHTML = optionHTML + temp ;
+                    }
+                    
+                    var button='<div class="removediv">'+
                             '<div class="col-lg-12">'+
                             '<div class="row">'+
                                 '<div class="col-lg-6">'+
@@ -113,7 +154,9 @@ var Department = function() {
                                 '<div class="col-lg-6">'+
                                     '<div class="form-group ">'+
                                         '<div class="col-lg-8">'+
-                                            '<input name="supervisor_name[]" class="form-control" placeholder="Supervisor Name" required>'+
+                                            '<select class="form-control supervisor_name" id="supervisor_name" name="supervisor_name[]">'+
+                                                 optionHTML +
+                                            '</select>'+
                                         '</div>'+
                                         '<div class="col-lg-4">'+
                                             '<input type="button" class="red form-control removebtn" value="Remove">'+
@@ -121,9 +164,12 @@ var Department = function() {
                                     '</div>'+
                                 '</div>'+
                             '</div>'+
-                           '</div>'+
+                            '</div>'+
                         '</div>';
-            $('.add_designation_div').prepend(button);
+                
+                    $('.add_designation_div').prepend(button);
+                }
+            });
         });
         
         $('body').on('click','.removebtn',function(){

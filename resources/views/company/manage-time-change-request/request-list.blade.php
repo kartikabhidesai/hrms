@@ -7,7 +7,7 @@
 </style>
 <div class="wrapper wrapper-content animated fadeInRight">
      <div class="row">
-         <div class="col-lg-2">
+         <div class="col-lg-4">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <span class="label label-info pull-right"></span>
@@ -21,7 +21,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-2">
+            <div class="col-lg-4">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <span class="label label-success pull-right"></span>
@@ -35,7 +35,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-2">
+<!--            <div class="col-lg-2">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <span class="label label-success pull-right"></span>
@@ -47,8 +47,8 @@
                         <small></small>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-2">
+            </div>-->
+            <div class="col-lg-4">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <span class="label label-success pull-right"></span>
@@ -61,7 +61,7 @@
                     </div>
                 </div>
             </div>
-           <div class="col-lg-2">
+<!--           <div class="col-lg-2">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <span class="label label-success pull-right"></span>
@@ -86,7 +86,7 @@
                         <small></small>
                     </div>
                 </div>
-            </div>
+            </div>-->
         </div>
 
 	<div class="row">
