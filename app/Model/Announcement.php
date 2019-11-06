@@ -68,10 +68,10 @@ class Announcement extends Model {
                     $searchVal = $requestData['search']['value'];
                     if ($requestData['columns'][$key]['searchable'] == 'true') {
                         if ($flag == 0) {
-                            $query->where($value, 'like', '%' . $searchVal . '%');
+                            $query->where($value, 'like', $searchVal . '%');
                             $flag = $flag + 1;
                         } else {
-                            $query->orWhere($value, 'like', '%' . $searchVal . '%');
+                            $query->orWhere($value, 'like', $searchVal . '%');
                         }
                     }
                 }

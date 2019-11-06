@@ -356,6 +356,7 @@ function handleFormValidate(form, rules, submitCallback, showToaster) {
 //            }
 //        },
         submitHandler: function (form) {
+             $(".submitbtn").attr("disabled", true);
             if (typeof submitCallback !== 'undefined' && typeof submitCallback == 'function') {
                 submitCallback(form);
             } else {

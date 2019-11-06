@@ -66,6 +66,7 @@ var Announcement = function () {
 
         };
         handleFormValidate(form, rules, function (form) {
+           
             handleAjaxFormSubmit(form, true);
         });
     }
