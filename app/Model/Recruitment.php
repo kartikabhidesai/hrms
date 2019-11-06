@@ -66,11 +66,13 @@ class Recruitment extends Model
         $userData = Auth::guard('company')->user();
         $companyId = Company::where('email', $userData->email)->first();
         $columns = array(
-            // datatable column index  => database column name
             0 => 'recruitment.id',
             1 => 'recruitment.task',
             2 => 'recruitment.responsibility',
-            
+            3 => 'recruitment.experience_level',
+            4 => 'recruitment.start_date',
+            5 => 'recruitment.expire_date',
+            6 => 'recruitment.job_id',
         );
         $query = Recruitment::from('recruitment')->where('company_id', $companyId->id);
         // $query = Recruitment::with(['department'])->where('company_id', $companyId->id); /*using eloquent relationship*/
@@ -107,16 +109,10 @@ class Recruitment extends Model
             $actionHtml .= '<a href="' . route('recruitment-edit', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
             $actionHtml .= '<a href="#deleteModel" data-toggle="modal" data-id="'.$row['id'].'" class="link-black text-sm recruitmentDelete" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';
             $nestedData = array();
-            $nestedData[] = $row['id'];
+            $nestedData[] = $row['job_id'];
             $nestedData[] = $row["task"];
             $nestedData[] = $row["responsibility"];
-            if($row["experience_level"] == 0) {
-                $nestedData[] = 'High';
-            } else if($row["experience_level"] == 1) {
-                $nestedData[] = 'Medium';
-            } else {
-                $nestedData[] = 'Low';
-            }
+            $nestedData[] = $row["experience_level"];
             $nestedData[] = $row["start_date"]." - ".$row["expire_date"];
             $nestedData[] = $actionHtml;
             $data[] = $nestedData;
