@@ -71,7 +71,7 @@
                                     	<option value="">Select</option>
                                     	@if(!empty($employee_list))
                                     		@foreach($employee_list as $el)
-                                    			<option value="{{$el->id}}">{{$el->name}}</option>
+                                    			<option value="{{$el['id']}}">{{$el['name']}}</option>
                                     		@endforeach
                                     	@endif
                                 	</select>

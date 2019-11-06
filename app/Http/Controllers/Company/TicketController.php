@@ -152,6 +152,7 @@ class TicketController extends Controller
         }
 
         $data['employee_list'] = $employee_list;
+        
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/ticket.js', 'jquery.form.min.js');
         $data['funinit'] = array('Ticket.add()');
