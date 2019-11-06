@@ -83,7 +83,8 @@ class TicketController extends Controller
         $objDepartment = new Department();
         $data['department'] = $objDepartment->getAllDepartment($companyId->id);
         if ($request->isMethod('post')) {
-           
+            print_r($request->input());
+            die();
             $objNonWorkingDate = new NonWorkingDate();
             $resultNonWorkingDate = $objNonWorkingDate->getCompanyNonWorkingDateArrayList($companyId->id);
            
