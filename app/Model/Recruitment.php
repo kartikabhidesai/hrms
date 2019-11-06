@@ -66,13 +66,12 @@ class Recruitment extends Model
         $userData = Auth::guard('company')->user();
         $companyId = Company::where('email', $userData->email)->first();
         $columns = array(
-            0 => 'recruitment.id',
+            0 => 'recruitment.job_id',
             1 => 'recruitment.task',
             2 => 'recruitment.responsibility',
             3 => 'recruitment.experience_level',
             4 => 'recruitment.start_date',
             5 => 'recruitment.expire_date',
-            6 => 'recruitment.job_id',
         );
         $query = Recruitment::from('recruitment')->where('company_id', $companyId->id);
         // $query = Recruitment::with(['department'])->where('company_id', $companyId->id); /*using eloquent relationship*/
