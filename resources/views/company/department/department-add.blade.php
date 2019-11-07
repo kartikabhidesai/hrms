@@ -17,7 +17,7 @@
                         <div class="form-group">
                             <label class="col-lg-2 control-label">Department Name</label>
                             <div class="col-lg-10">
-                                    {{ Form::text('department_name', null, array('placeholder'=>'Department Name', 'class' => 'form-control department_name' ,'required')) }}
+                                    {{ Form::text('department_name', null, array('placeholder'=>'Department Name', 'class' => 'form-control department_name' )) }}
                             </div>
                         </div>
                         <div class="row">
