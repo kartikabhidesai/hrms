@@ -52,6 +52,8 @@ class Systemsetting extends Model {
     }
     
     public function deleteImage($request){
+        print_r($request);
+        die();
         $result = DB::table('system_settings')
                     ->where('company_id',$request['id'])
                     ->update(['image' => null,
