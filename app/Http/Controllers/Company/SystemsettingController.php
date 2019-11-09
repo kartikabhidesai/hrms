@@ -71,8 +71,7 @@ class SystemsettingController extends Controller {
     
     
     public function ajaxAction(Request $request){
-        print_r($request->input());
-        die();
+        
         $action = $request->input('action');
         
         switch ($action) {
