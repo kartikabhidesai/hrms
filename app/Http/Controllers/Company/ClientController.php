@@ -63,7 +63,9 @@ class ClientController extends Controller {
         }
 
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
-        $data['js'] = array('company/client.js', 'jquery.form.min.js', 'jquery.timepicker.js');
+        $data['js'] = array( 'ajaxfileupload.js',
+                            'company/client.js', 
+                            'jquery.form.min.js','jquery.timepicker.js');
         $data['funinit'] = array('Client.add()');
         $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css', 'jquery.timepicker.css');
         $data['header'] = array(

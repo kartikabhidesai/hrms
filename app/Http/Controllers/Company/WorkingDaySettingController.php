@@ -82,7 +82,9 @@ class WorkingDaySettingController extends Controller {
                 if ($newEvent) {
 	                $return['status'] = 'success';
 	                $return['message'] = 'Non Working Date created successfully.';
+	                $return['jscode'] = '$(".submitbtn:visible").attr("disabled","disabled");';
 	                $return['redirect'] = route('working-day-setting');
+                        
 	            } else {
 	                $return['status'] = 'error';
 	                $return['message'] = 'Something went wrong while creating new Event!';

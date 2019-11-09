@@ -278,7 +278,7 @@ function showToster(status, message) {
 }
 
 function handleAjaxResponse(output) {
-
+    
     output = JSON.parse(output);
 
     if (output.message != '') {
@@ -356,7 +356,7 @@ function handleFormValidate(form, rules, submitCallback, showToaster) {
 //            }
 //        },
         submitHandler: function (form) {
-             $(".submitbtn").attr("disabled", true);
+            $(".submitbtn:visible").attr("disabled","disabled");
             if (typeof submitCallback !== 'undefined' && typeof submitCallback == 'function') {
                 submitCallback(form);
             } else {

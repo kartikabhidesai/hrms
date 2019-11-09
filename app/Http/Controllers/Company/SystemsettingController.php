@@ -26,6 +26,7 @@ class SystemsettingController extends Controller {
         $data['sysSetting'] = $objSysSetting->getSystemSetting();
 
         if ($request->isMethod('post')) {
+           
             $objSysSetting = new Systemsetting();
             $userId = $this->loginUser->id;
             $companyId = Company::select('id')->where('user_id', $userId)->first();
@@ -48,8 +49,10 @@ class SystemsettingController extends Controller {
             echo json_encode($return);
             exit;
         }
+        
         $userId = $this->loginUser->id;
         $companyId = Company::select('id')->where('user_id', $userId)->first();
+        
         $objCompany = new Systemsetting();
         $data['current_cmpny_ss'] = Systemsetting::where('company_id', '=', $companyId->id)->first();
     
@@ -64,6 +67,30 @@ class SystemsettingController extends Controller {
                 'System-setting' => 'System-setting'));
 
         return view('company.system-setting.set-system-settings', $data);
+    }
+    
+    
+    public function ajaxAction(Request $request){
+        
+        $action = $request->input('action');
+        
+        switch ($action) {
+            case 'deleteImage':
+                $objSystemsetting = new Systemsetting();
+                $result = $objSystemsetting->deleteImage($request->input('data'));
+                if ($result) {
+                    $return['status'] = 'success';
+                    $return['message'] = 'System Setting image successfully deleted.';
+
+                    $return['redirect'] = route('system-setting');
+                } else {
+                    $return['status'] = 'error';
+                    $return['message'] = 'Somethin went wrong!';
+                }
+                echo json_encode($return);
+                exit;
+               
+        }
     }
 
 }

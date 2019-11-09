@@ -67,15 +67,16 @@ var Client = function () {
             zipcode: {required: true},
             state: {required: true},
             city: {required: true},
-            
         };
         handleFormValidate(form, rules, function (form) {
-            handleAjaxFormSubmit(form, true);
+            var options = {
+                resetForm: false, // reset the form after successful submit
+                    success: function (output) {
+                            handleAjaxResponse(output);
+                    }
+                };
+            $(form).ajaxSubmit(options);
         });
-
-
-
-
     }
 
     return {
