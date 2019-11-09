@@ -74,7 +74,16 @@
                     <div class="form-group">
                             <label class="col-lg-2 control-label">Nationality</label>
                             <div class="col-lg-9">
-                                    {{ Form::select('nationality', $nationalityArray , null , array('class' => 'form-control nationality','required', 'id' => 'nationality')) }}
+                                <select class="form-control nationality" required="" id="nationality" name="nationality" aria-required="true">
+                                    <option value="" selected="selected">Choose an option...</option>
+                                    @for($i = 0;$i < count($nationalityArray) ; $i++ )
+                                        <option value="{{ $nationalityArray[$i]->id }}">{{ $nationalityArray[$i]->country_name }}</option>
+                                    
+                                    @endfor
+                                    
+                                    
+                                </select>
+                                    
                             </div>
                     </div>
 

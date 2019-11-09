@@ -72,7 +72,7 @@ var Role = function() {
                         employeeType: {required: true},
                         name: {required: true},
                         first_name: {required: true},
-                        Phone: {required: true,number:true},
+                        phone: {required: true,digits: true},
                         email: {required: true,email:true},
                         gender: {required: true},
                         religion: {required: true},
