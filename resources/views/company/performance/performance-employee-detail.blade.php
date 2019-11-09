@@ -454,7 +454,7 @@ border-radius: 4px;
                                     <div class="col-sm-9">
                                         <select class="form-control year" id="year" name="year">
                                             <option value="">Select Year</option>
-                                            @for($i = 2019;$i<= ($currYear+3) ;$i++)
+                                            @for($i = ( $currYear-1 );$i<= ($currYear) ;$i++)
                                             <option value="{{  $i }}">{{  $i }}</option>
                                             @endfor
                                         </select>
