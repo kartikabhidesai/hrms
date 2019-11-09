@@ -53,9 +53,9 @@ var Client = function () {
         var rules = {
             name: {required: true},
             nation_id: {required: true},
-            phone_number: {required: true,digit:true},
+            phone_number: {required: true,digits:true},
             work: {required: true},
-            mobile_number: {required: true,digit:true},
+            mobile_number: {required: true,digits:true},
             comapany: {required: true},
             email: {required: true,email:true},
             date_of_joining: {required: true},

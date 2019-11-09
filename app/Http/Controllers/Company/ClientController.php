@@ -53,6 +53,7 @@ class ClientController extends Controller {
             if ($result) {
                 $return['status'] = 'success';
                 $return['message'] = 'Client Add Successfully.';
+                $return['jscode'] = '$(".submitbtn:visible").attr("disabled","disabled");';
                 $return['redirect'] = route('client');
             } else {
                 $return['status'] = 'error';
@@ -63,9 +64,11 @@ class ClientController extends Controller {
         }
 
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
-        $data['js'] = array( 'ajaxfileupload.js',
-                            'company/client.js', 
-                            'jquery.form.min.js','jquery.timepicker.js');
+        $data['js'] = array('ajaxfileupload.js',
+                            'jquery.form.min.js',
+                            'jquery.timepicker.js',
+                            'company/client.js',
+                        );
         $data['funinit'] = array('Client.add()');
         $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css', 'jquery.timepicker.css');
         $data['header'] = array(
