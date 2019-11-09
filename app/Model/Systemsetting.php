@@ -52,14 +52,14 @@ class Systemsetting extends Model {
     }
     
     public function deleteImage($request){
-        print_r($request);
-        die();
+       
         $result = DB::table('system_settings')
                     ->where('company_id',$request['id'])
                     ->update(['image' => null,
                             'updated_at' => date('Y-m-d H:i:s')
                         ]);
-        
+         print_r($result);
+        die();
         if($result){
             if(file_exists(public_path('/uploads/systems/'.$request['image']))){
                 unlink(public_path('/uploads/systems/'.$request['image']));
