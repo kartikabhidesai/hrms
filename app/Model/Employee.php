@@ -383,16 +383,17 @@ class Employee extends Model {
     }
 
     public function getAllEmployeeForPerformance($id = NULL) {
-
+       
         if ($id) {
-
+          
             $result = Employee::select('employee.*', 'department.department_name','designation.supervisor_name')
-                                ->join('department', 'employee.department', '=', 'department.id')
-                                ->join('designation', 'designation.id', '=', 'employee.designation')
+                                ->leftjoin('department', 'employee.department', '=', 'department.id')
+                                ->leftjoin('designation', 'designation.id', '=', 'employee.designation')
                                 ->where('employee.id', '=', $id)
                                 ->get()
                                 ->first()
                                 ->toArray();
+            
         } else {
 
             $result = Employee::select('employee.*', 'department.department_name')

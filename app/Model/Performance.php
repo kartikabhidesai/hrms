@@ -97,7 +97,8 @@ class Performance extends Model {
             3 => 'employee.doj',
         );
         $query = Employee::select('employee.*', 'department.department_name')
-        ->join('department', 'employee.department', '=', 'department.id');
+                        ->join('department', 'employee.department', '=', 'department.id')
+                        ->where('employee.company_id',$companyId);
         if(isset($department)  && $department > 0){
             $query->where('employee.department', $department);    
         }
