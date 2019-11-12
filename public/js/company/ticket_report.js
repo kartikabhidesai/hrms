@@ -107,7 +107,7 @@ var TicketReport = function () {
                     if (obj.length == 0) {
                         $('#emp_id').append('<option value="">No Record Found</option>').val('');
                     }else{
-                        $('#emp_id').append('<option value="All">Select All</option>').val('All');
+                        $('#emp_id').append('<option value="">Select Employee</option><option value="All">Select All</option>');
                     }
                     $.each(obj, function(i, item) {
                         $('#emp_id').append($('<option>', {

@@ -16,6 +16,7 @@ use Route;
 use APP;
 use Config;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RoleController extends Controller {
 
@@ -173,7 +174,11 @@ class RoleController extends Controller {
                     $data['statusArray'] = Config::get('constants.statusArray');
                     $data['genderArray'] = Config::get('constants.genderArray');
                     $data['martialArray'] = Config::get('constants.martialArray');
-                    $data['nationalityArray'] = Config::get('constants.nationalityArray');
+                    
+                    $data['nationalityArray']=DB::table('country')
+                                            ->select('country_name','id')
+                                            ->get()->toarray();
+                    
                     $userid = $this->loginUser->id;
                     $companyId = Company::select('id')->where('user_id', $userid)->first();
                     $data['companyId']=$companyId['id'];

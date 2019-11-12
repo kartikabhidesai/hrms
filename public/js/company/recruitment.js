@@ -37,8 +37,6 @@ var Recruitment = function () {
             'ajaxAction': 'getdatatable',
             'postData': dataArr,
             'hideColumnList': [],
-            'noSearchApply': [0],
-            'noSortingApply': [3],
             'defaultSortColumn': 0,
             'defaultSortOrder': 'desc',
             'setColumnWidth': columnWidth

@@ -6,7 +6,7 @@
             {{ csrf_field() }}
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Manage Holiday Report</h5>
+                    <h5>History of Downloaded Report</h5>
                 </div>
                  <div class="ibox-content">
                        {{ Form::open( array('method' => 'post', 'class' => 'form-horizontal', 'id' => 'ticketSystem' )) }}  
@@ -47,7 +47,7 @@
             {{ csrf_field() }}
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Manage Ticket Report</h5>
+                    <h5>History of Downloaded Report</h5>
                 </div>
                 <div class="ibox-content">
                     <div class="table-responsive">

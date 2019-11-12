@@ -74,10 +74,10 @@
                                 @if(isset($planmanagement))
                                         <option value="">Select</option>
                                     @foreach($planmanagement as $value)
-                                        @if($value->code == $detail->subcription)
-                                            <option value="{{$value->code}}" selected>{{$value->code}}</option>
+                                        @if({{$value->title}} == $detail->subcription)
+                                            <option value="{{$value->title}}" selected>{{$value->title}}</option>
                                         @else
-                                            <option value="{{$value->code}}">{{$value->code}}</option>
+                                            <option value="{{$value->title}}">{{$value->title}}</option>
                                         @endif
                                     @endforeach
                                 @endif

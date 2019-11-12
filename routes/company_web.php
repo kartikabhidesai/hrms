@@ -121,6 +121,7 @@ Route::group(['prefix' => $companyPrefix, 'middleware' => ['company']], function
 
     /* System-setting */
     Route::match(['get', 'post'], 'system-setting', ['as' => 'system-setting', 'uses' => 'Company\SystemsettingController@index']);
+    Route::match(['get', 'post'], 'systemseting-ajaxAction', ['as' => 'systemseting-ajaxAction', 'uses' => 'Company\SystemsettingController@ajaxAction']);
 
     /* Recruitement */
 

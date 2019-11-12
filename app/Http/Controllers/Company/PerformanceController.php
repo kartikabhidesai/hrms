@@ -94,7 +94,6 @@ class PerformanceController extends Controller {
 
     public function employeePerList($id,Request $request) {
         
-       
         $data['detail'] = $this->loginUser;
         $performanceObj = new Performance;
         $data['employeePerfirmance'] = $performanceObj->getEmployeePerformanceList($id);

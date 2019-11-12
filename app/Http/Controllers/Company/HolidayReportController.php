@@ -80,9 +80,7 @@ class HolidayReportController extends Controller {
                             }
                         }
                     }
-
-                    // echo "<pre>"; print_r($final_data); exit();
-
+                    
                     $objHolidayReport = new HolidayReport();
                     $addHolidayReport = $objHolidayReport->addHolidayReport($postData,$companyId->id);    
 
@@ -92,6 +90,7 @@ class HolidayReportController extends Controller {
                     $data['empPdfArray'] = $final_data;
                     $file= date('dmYHis')."holiday-report.pdf";
                     $pdf = PDF::loadView('company.holiday-report.holiday-pdf', $data);
+                    
                     return $pdf->download($file);    
                 }
             }

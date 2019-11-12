@@ -86,7 +86,7 @@
                     <div class="form-group">
                         <div class="col-lg-12">
                             <div class="col-lg-8 col-lg-offset-2">
-                                <button class="btn btn-sm btn-primary" type="submit">Edit Annoucement</button>
+                                <button class="btn btn-sm btn-primary submitbtn" type="submit">Edit Annoucement</button>
                                 <button type="button" class="btn btn-sm btn-info">Reset</button>
                                 <button type="button" class="btn btn-sm btn-danger">Cancel</button>
                             </div>

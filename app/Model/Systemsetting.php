@@ -3,7 +3,7 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Facades\DB;
 class Systemsetting extends Model {
 
     protected $table = 'system_settings';
@@ -21,6 +21,7 @@ class Systemsetting extends Model {
 
     public function addSystemSetting($request, $Companyid)
     {
+        
         $name = '';
         $objsys = Systemsetting::firstOrNew(array('company_id' => $Companyid));
         $objsys->system_name = $request->system_name;
@@ -49,5 +50,23 @@ class Systemsetting extends Model {
             return false;
         }
     }
-
+    
+    public function deleteImage($request){
+        
+        $result = DB::table('system_settings')
+                    ->where('company_id',$request['id'])
+                    ->update(['image' => null,
+                        'updated_at' => date('Y-m-d H:i:s')
+                    ]);
+        if($result){
+            if(file_exists(public_path('/uploads/systems/'.$request['image']))){
+                unlink(public_path('/uploads/systems/'.$request['image']));
+                return true;
+            }else{
+                return true;
+            }
+        }else{
+            return false;
+        }
+    }
 }

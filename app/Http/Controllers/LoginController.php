@@ -14,7 +14,7 @@ use App\Model\Users;
 use App\Model\SendSMS;
 use App\Model\Chat;
 use App\Model\Notification;
-
+use Illuminate\Support\Facades\Hash;
 class LoginController extends Controller {
 
     use AuthenticatesUsers;
@@ -289,5 +289,9 @@ class LoginController extends Controller {
         $roleList = $objAdminPermission->permissionListAdmin($id);
         $request->session()->put('userRole', $roleList);
     }
-
+    
+    public function createpassword(Request $request){
+        
+        print_r(Hash::make('123'));
+    }
 }

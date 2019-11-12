@@ -83,7 +83,8 @@ class TicketController extends Controller
         $objDepartment = new Department();
         $data['department'] = $objDepartment->getAllDepartment($companyId->id);
         if ($request->isMethod('post')) {
-           
+//            print_r($request->input());
+//            die();
             $objNonWorkingDate = new NonWorkingDate();
             $resultNonWorkingDate = $objNonWorkingDate->getCompanyNonWorkingDateArrayList($companyId->id);
            
@@ -94,49 +95,49 @@ class TicketController extends Controller
                 $objTicket = new Ticket();
                 $result = $objTicket->saveTicket($request);
                 if($result) {
-
-                    $notificationMasterId=8;
-                    $objNotificationMaster = new NotificationMaster();
-//                    $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($userid,$notificationMasterId);
-                    $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatusNew($userid,$notificationMasterId);
-                    
-                    if($NotificationUserStatus->status==1)
-                    {
-                        $objUserNotificationType = new UserNotificationType();
-                        $result = $objUserNotificationType->checkMessage($NotificationUserStatus->id);
-       
-                        if($result[0]['status'] == 1){
-//                            SMS  Notification
-                            $notificationMasterId=8;
-                            $msg= "You have a new ticket.";
-                            $objSendSms = new SendSMS();
-                            $sendSMS = $objSendSms->sendSmsNotificaation($notificationMasterId,$request->input('assign_to'),$msg);
-                        }
-                        
-                        if($result[1]['status'] == 1){
-//                            EMAIL Notification
-                            $notificationMasterId=8;
-                            $msg= "You have a new ticket.";
-                            $objSendEmail = new Users();
-                            $sendEmail = $objSendEmail->sendEmailNotification($notificationMasterId,$request->input('assign_to'),$msg);
-                            
-                            
-                        }
-                        
-                        if($result[2]['status'] == 1){
-//                            chat Notification
-                        }
-                        
-                        if($result[3]['status'] == 1){
-                        //notification add
-                            $objNotification = new Notification();
-                            $ticketName=$request->input('subject')." is a new ticket.";
-                            $objEmployee = new Employee();
-                            $u_id=$objEmployee->getUseridById($request->input('assign_to'));
-                            $route_url="ticket-list-emp";
-                            $ret = $objNotification->addNotification($u_id,$ticketName,$route_url,$notificationMasterId);
-                        }
-                    }
+//
+//                    $notificationMasterId=8;
+//                    $objNotificationMaster = new NotificationMaster();
+////                    $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($userid,$notificationMasterId);
+//                    $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatusNew($userid,$notificationMasterId);
+//                    
+//                    if($NotificationUserStatus->status==1)
+//                    {
+//                        $objUserNotificationType = new UserNotificationType();
+//                        $result = $objUserNotificationType->checkMessage($NotificationUserStatus->id);
+//       
+//                        if($result[0]['status'] == 1){
+////                            SMS  Notification
+//                            $notificationMasterId=8;
+//                            $msg= "You have a new ticket.";
+//                            $objSendSms = new SendSMS();
+//                            $sendSMS = $objSendSms->sendSmsNotificaation($notificationMasterId,$request->input('assign_to'),$msg);
+//                        }
+//                        
+//                        if($result[1]['status'] == 1){
+////                            EMAIL Notification
+//                            $notificationMasterId=8;
+//                            $msg= "You have a new ticket.";
+//                            $objSendEmail = new Users();
+//                            $sendEmail = $objSendEmail->sendEmailNotification($notificationMasterId,$request->input('assign_to'),$msg);
+//                            
+//                            
+//                        }
+//                        
+//                        if($result[2]['status'] == 1){
+////                            chat Notification
+//                        }
+//                        
+//                        if($result[3]['status'] == 1){
+//                        //notification add
+//                            $objNotification = new Notification();
+//                            $ticketName=$request->input('subject')." is a new ticket.";
+//                            $objEmployee = new Employee();
+//                            $u_id=$objEmployee->getUseridById($request->input('assign_to'));
+//                            $route_url="ticket-list-emp";
+//                            $ret = $objNotification->addNotification($u_id,$ticketName,$route_url,$notificationMasterId);
+//                        }
+//                    }
 
                     $return['status'] = 'success';
                     $return['message'] = 'Ticket created successfully.';
@@ -152,6 +153,7 @@ class TicketController extends Controller
         }
 
         $data['employee_list'] = $employee_list;
+        
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/ticket.js', 'jquery.form.min.js');
         $data['funinit'] = array('Ticket.add()');

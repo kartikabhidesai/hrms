@@ -48,8 +48,8 @@ var Department = function() {
         var rules = {
             department_name: {required: true},
             designation: {required: true},
-            manager_name: {required: true},
-            comanager_name: {required: true},
+//            manager_name: {required: true},
+//            comanager_name: {required: true},
         };
         handleFormValidate(form, rules, function(form) {
             handleAjaxFormSubmit(form,true);
@@ -115,8 +115,8 @@ var Department = function() {
         var rules = {
             department_name: {required: true},
             designation: {required: true},
-            manager_name: {required: true},
-            comanager_name: {required: true},
+//            manager_name: {required: true},
+//            comanager_name: {required: true},
         };
         handleFormValidate(form, rules, function(form) {
             handleAjaxFormSubmit(form,true);

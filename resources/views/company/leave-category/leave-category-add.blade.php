@@ -200,7 +200,7 @@
                    
                     <div class="form-group">
                         <div class="col-lg-offset-5 col-lg-6">
-                            <button class="btn btn-sm btn-primary" type="submit">Submit</button>
+                            <button class="btn btn-sm btn-primary submitbtn" type="submit">Submit</button>
                         </div>
                     </div>
                 </div>
