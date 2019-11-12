@@ -109,8 +109,7 @@ class Department extends Model
             1 => 'department.manager_name',
             2 => 'department.co_manager_name',
             3 => 'designation.designation_name',
-            4 => 'department.id',
-            5 => 'department.company_id'
+            4 => 'designation.supervisor_name'
         );
 
         $query = Department::leftjoin('designation', 'designation.department_id', '=', 'department.id')
