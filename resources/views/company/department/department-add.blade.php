@@ -86,7 +86,7 @@
                         
                         <div class="form-group">
                             <div class="col-lg-offset-2 col-lg-10">
-                                <button class="btn btn-sm btn-primary" type="submit">Save Department</button>
+                                <button class="btn btn-sm btn-primary submitbtn" type="submit">Save Department</button>
                             </div>
                         </div>
 	               {{ Form::close() }}
