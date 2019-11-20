@@ -19,8 +19,9 @@
                 
                 <div class="form-group">
                     <select name="subcription" class="form-control" >
-                        @foreach($subcription as $key=>$val)
-                        <option value="{{ $key }}">{{ $val }}</option>
+                        <option value="">Select your Plan</option>
+                        @foreach($planmanagement as $key=>$val)
+                            <option value="{{ $val['id'] }}">{{ $val['title'] }}</option>
                         @endforeach
                     </select>
                    
@@ -45,7 +46,7 @@
                    
                 </div>
                 {{ csrf_field() }}
-                <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
+                <button type="submit" class="btn btn-primary block full-width m-b submitbtn">Login</button>
             </form>
             <p class="m-t"> <small>HRMS  &copy; {{ date('Y') }}</small> </p>
         </div>

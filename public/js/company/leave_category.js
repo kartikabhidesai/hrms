@@ -112,13 +112,18 @@ var LeaveCategory = function () {
         getWorkLocationList();
         getPeriodList();
     };
-    $('body').on('click', '.addRole', function () {
-        var form = $('#addRole');
-        var rules = {
-            role_name: {required: true}
-        };
+    $('body').on('click', '.addRoleModel', function () {
+        $("#role_name").val('');
+    });
+    $('body').on('click', '.addRole', function () {       
+//        var form = $('#addRole');
+//        var rules = {
+//            role_name: {required: true}
+//        };
         var role_name = $("#role_name").val();
         if (role_name != '') {
+            $("#role_name").css("border","1px solid #e5e6e7");
+            $(this).attr("disabled","disabled");
             $.ajax({
                 type: "POST",
                 headers: {
@@ -127,6 +132,7 @@ var LeaveCategory = function () {
                 url: baseurl + "company/leave-category-ajaxAction",
                 data: {'action': 'addRoleName', 'role_name': role_name},
                 success: function (data) {
+                     $(this).removeAttr("disabled");
                     var output = JSON.parse(data);
                     handleAjaxResponse(data);
                     $('#addRoleModel').modal('hide');
@@ -134,11 +140,19 @@ var LeaveCategory = function () {
                 }
             });
         } else {
-
+            $("#role_name").css("border","1px solid red");
+            $(this).removeAttr("disabled");
         }
 
     });
 
+    $('body').on('click', '.addWork_locationbtn', function () {
+         $("#work_location_name").val('');
+    });
+    $('body').on('click', '.addperiodModelbtn', function () {
+         $("#new_period").val('');
+    });
+    
     $('body').on('click', '.addWork_location', function () {
         var form = $('#addWork');
         var rules = {
@@ -146,6 +160,8 @@ var LeaveCategory = function () {
         };
         var work_name = $("#work_location_name").val();
         if (work_name != '') {
+            $("#work_location_name").css("border","1px solid #e5e6e7");
+            $(this).attr("disabled","disabled");
             $.ajax({
                 type: "POST",
                 headers: {
@@ -154,6 +170,7 @@ var LeaveCategory = function () {
                 url: baseurl + "company/leave-category-ajaxAction",
                 data: {'action': 'addWorkName', 'work_name': work_name},
                 success: function (data) {
+                     $(this).removeAttr("disabled");
                     var output = JSON.parse(data);
                     handleAjaxResponse(data);
                     $('#addWorkLocationModel').modal('hide');
@@ -161,7 +178,8 @@ var LeaveCategory = function () {
                 }
             });
         } else {
-
+            $("#work_location_name").css("border","1px solid red");
+            $(this).removeAttr("disabled");
         }
 
     });
@@ -173,8 +191,10 @@ var LeaveCategory = function () {
             period: {required: true}
         };
         var period = $("#new_period").val();
-
+        
         if (period != '') {
+            $("#new_period").css("border","1px solid #e5e6e7");
+            $(this).attr("disabled","disabled");
             $.ajax({
                 type: "POST",
                 headers: {
@@ -183,6 +203,7 @@ var LeaveCategory = function () {
                 url: baseurl + "company/leave-category-ajaxAction",
                 data: {'action': 'addPeriod', 'period': period},
                 success: function (data) {
+                     $(this).removeAttr("disabled");
                     var output = JSON.parse(data);
                     handleAjaxResponse(data);
                     $('#addperiodModel').modal('hide');
@@ -190,7 +211,8 @@ var LeaveCategory = function () {
                 }
             });
         } else {
-
+             $("#new_period").css("border","1px solid red");
+            $(this).removeAttr("disabled");
         }
 
     });
@@ -235,7 +257,7 @@ var LeaveCategory = function () {
             success: function (data) {
                 var output = JSON.parse(data);
                 var leavework_location = $('#leavework_location').val();
-                $('#work_location').append($("<option></option>").attr("value",'').text('Select Work Location'));
+//                $('#work_location').append($("<option></option>").attr("value",'').text('Select Work Location'));
                 $.each(output, function (key, value) {
                     $('#work_location')
                             .append($("<option></option>")
