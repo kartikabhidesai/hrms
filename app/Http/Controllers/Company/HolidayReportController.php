@@ -41,32 +41,7 @@ class HolidayReportController extends Controller {
             $objHolidayReport = new HolidayReport();
             $dataPdf = $objHolidayReport->generateHolidayReport($request,$companyId->id);        
 
-            // if( $postData['emp_id'] == 'All' && $postData['dept_id'] == 'All'){
-            //     $objHolidayReport = new HolidayReport();
-            //     $ticketArr = $objHolidayReport->getAllEmployeeForHoliday($companyId->id);        
-            //     $empEmplodeArray = explode(',', $ticketArr[0]['empId']);
-            // }else{
-            //     $empArray = $postData['emparray'];    
-            //     $empEmplodeArray = explode(',', $empArray);
-            // }
-
-            // foreach ($empEmplodeArray as $key => $value) 
-            // {
-            //     $objHolidayReport = new HolidayReport();
-            //     if(empty($postData['downloadstatus'])){
-            //         $employeeArr = $objHolidayReport->addHolidayReport($postData,$value);    
-            //     }
-            //     $employeeArr = $objHolidayReport->getHolidayReportPdfDetail($postData,$value);  
-            //     foreach ($employeeArr as $key => $value) {
-            //             if(!empty($employeeArr)){
-            //                 $dataPdf[] = $value;
-            //             }
-            //         }
-            // }
-                // echo '<pre/>';
-            // print_r($dataPdf);exit;
-
-
+           
                 if(count($dataPdf) > 0)
                 {
                     $final_data = [];

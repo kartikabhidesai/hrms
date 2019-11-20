@@ -17,16 +17,19 @@ class SettingController extends Controller {
         $session = $request->session()->all();
          $objSetting=new Setting();
          $data['setting']=$objSetting->getSetting();
+         
         if($request->isMethod('post')){
             $objSetting=new Setting();
             $result=$objSetting->saveSetting($request);
             if($result){
                 $return['status'] = 'success';
                 $return['message'] = 'Website Setting created successfully.';
+                $return['jscode'] ='$(".submitbtn:visible").attr("disabled","disabled");';
                 $return['redirect'] = route('setting');
             }else{
                 $return['status'] = 'error';
                 $return['message'] = "Something goes to wrong.";
+                $return['jscode'] ='$(".submitbtn").removeAttr("disabled");';
             }
               echo json_encode($return);
             exit;

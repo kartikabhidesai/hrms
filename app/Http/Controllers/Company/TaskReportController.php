@@ -34,9 +34,12 @@ class TaskReportController extends Controller {
         $data['getAllEmpOfCompany'] = Employee::where('company_id', $companyId->id)->get();
         $data['departments'] = Department::where('company_id', $companyId['id'])->get();
         $dataPdf = array();
+        
         if ($request->isMethod('post')) {
+            
+            
+            
             $postData = $request->input();
-            // print_r($postData);exit;
             $empArray = $postData['emparray'];
             
             // print_r($postData);exit;
@@ -131,7 +134,7 @@ class TaskReportController extends Controller {
             }
             
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
-        $data['js'] = array('company/task-report.js');
+        $data['js'] = array('company/task-report.js','ajaxfileupload.js','jquery.form.min.js');
         $data['funinit'] = array('TaskReport.init()');
         $data['css'] = array('');
         $data['header'] = array(

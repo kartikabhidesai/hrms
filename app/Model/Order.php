@@ -25,21 +25,24 @@ class Order extends Model {
            
             if(!empty($findCompany || $findUser || $findOrder )) {
                 return "emailExits";
+            }else{
+                
+                $newOrder=new Order();
+                $newOrder->company_name=$request->input('company_name');
+                $newOrder->company_email=$request->input('company_email');
+                $newOrder->subcription=$request->input('subcription');
+                $newOrder->request_type=$request->input('request_type');
+                $newOrder->payment_type=$request->input('payment_type');
+                $newOrder->created_at = date('Y-m-d H:i:s');
+                $newOrder->updated_at = date('Y-m-d H:i:s');
+                if($newOrder->save()){
+                    return "added";
+                }else{
+                    return "wrong";
+                }
             }
-        
-          $newOrder=new Order();
-          $newOrder->company_name=$request->input('company_name');
-          $newOrder->company_email=$request->input('company_email');
-          $newOrder->subcription=$request->input('subcription');
-          $newOrder->request_type=$request->input('request_type');
-          $newOrder->payment_type=$request->input('payment_type');
-          $newOrder->created_at = date('Y-m-d H:i:s');
-          $newOrder->updated_at = date('Y-m-d H:i:s');
-          if($newOrder->save()){
-              return "added";
-          }else{
-              return "wrong";
-          }
+            
+          
           
     }
     
@@ -50,13 +53,14 @@ class Order extends Model {
             0 => 'order.id',
             1 => 'order.company_name',
             2 => 'order.company_email',
-            3 => 'order.subcription',
+            3 => 'plan_managent.title',
             4 => 'order.request_type',
             5=> 'order.payment_type',
             6=>'order.status',
         );
 
-        $query = Order::from('order');
+        $query = Order::from('order')
+                    ->leftjoin('plan_managent','plan_managent.id','=','order.subcription');
         if (!empty($requestData['search']['value'])) {
             // if there is a search parameter, $requestData['search']['value'] contains search parameter
             $searchVal = $requestData['search']['value'];
@@ -83,7 +87,7 @@ class Order extends Model {
 
         $resultArr = $query->skip($requestData['start'])
                            ->take($requestData['length'])
-                           ->select('order.id', 'order.company_name', 'order.subcription', 'order.company_email','order.request_type', 'order.payment_type','order.status','order.created_at')->get();
+                           ->select('order.id', 'order.company_name', 'order.subcription', 'order.company_email','order.request_type', 'order.payment_type','order.status','order.created_at','plan_managent.title')->get();
        
         $subcription =Config::get('constants.subcription');
         $request_type =Config::get('constants.request_type');
@@ -94,7 +98,7 @@ class Order extends Model {
         foreach ($resultArr as $row) {
             
             if($row["status"] == NULL){
-                $actionHtml = '<a href="#approveModel" data-toggle="modal" data-company_email="'.$row['company_email'].'" data-subcription="'.$subcription[$row["subcription"]].'"  data-company_name="'.$row['company_name'].'"   data-id="'.$row['id'].'"  title="Approve" class="btn btn-default link-black text-sm approve" data-toggle="tooltip" data-original-title="Approve" ><i class="fa fa-check"></i></a><a href="#disapproveModel" data-toggle="modal" data-id="'.$row['id'].'"  title="Reject" class="btn btn-default link-black text-sm disapprove" data-toggle="tooltip" data-original-title="Approve" ><i class="fa fa-close"></i></a>';
+                $actionHtml = '<a href="#approveModel" data-toggle="modal" data-company_email="'.$row['company_email'].'" data-subcription="'.$row["title"].'"  data-company_name="'.$row['company_name'].'"   data-id="'.$row['id'].'"  title="Approve" class="btn btn-default link-black text-sm approve" data-toggle="tooltip" data-original-title="Approve" ><i class="fa fa-check"></i></a><a href="#disapproveModel" data-toggle="modal" data-id="'.$row['id'].'"  title="Reject" class="btn btn-default link-black text-sm disapprove" data-toggle="tooltip" data-original-title="Approve" ><i class="fa fa-close"></i></a>';
             }else{
                 if($row["status"] == 'approve'){
                     $actionHtml='<span class="label label-success">Approved</span>';
@@ -109,7 +113,7 @@ class Order extends Model {
             $nestedData[] = $row["company_name"];            
             $nestedData[] = $row["company_email"];
             $nestedData[] = date('d-m-Y',strtotime($row["created_at"]));
-            $nestedData[] = $row["subcription"];
+            $nestedData[] = $row["title"];
             $nestedData[] = $request_type[$row["request_type"]];
             $nestedData[] = $payment_type[$row["payment_type"]];
             $nestedData[] = $actionHtml;$nestedData[] = $action;

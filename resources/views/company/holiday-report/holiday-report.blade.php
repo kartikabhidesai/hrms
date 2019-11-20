@@ -65,8 +65,7 @@
                                     <td> {{ $val['holiday_report_number'] }}</td>
                                     <td> {{ $val['download_date'] }}</td>
                                     <td class="center">
-                                        <a href="javascript:;"  data-id="{{ $val['id'] }}"  data-department="{{ $val['id'] }}"  class="link-black text-sm singlePdfDownload" data-toggle="tooltip" data-original-title="View"><i class="fa fa-eye"></i>
-                                        </a>
+                                      
                                         <a href="#deleteModel" data-toggle="modal" data-id="{{ $val['id'] }}" class="link-black text-sm ticketDelete" data-original-title="Delete">
                                             <i class="fa fa-trash"></i>
                                         </a>

@@ -43,7 +43,7 @@ class ComapnyController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function addNewCompany(Request $request) {
-        $planmanagement = PlanManagement::get();
+        
         if ($request->isMethod('post')) {
 
             $objCompany = new Company();
@@ -54,14 +54,17 @@ class ComapnyController extends Controller {
                 $objNotificationMaster->addNotificationMasterUser();
                 $return['status'] = 'success';
                 $return['message'] = 'Record created successfully.';
+                $return['jscode'] ='$(".submitbtn:visible").attr("disabled","disabled");';
                 $return['redirect'] = route('list-company');
             } else {
                 $return['status'] = 'error';
                 $return['message'] = 'This email is already registerd!';
+                $return['jscode'] ='$(".submitbtn").removeAttr("disabled");';
             }
             echo json_encode($return);
             exit;
         }
+        $planmanagement = PlanManagement::get();
         $data['planmanagement'] = $planmanagement;
         
         $data['status'] = Config::get('constants.status');

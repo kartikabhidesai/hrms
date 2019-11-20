@@ -6,7 +6,7 @@ var Order = function() {
             subcription: {required: true},
             request_type: {required: true},
             payment_type: {required: true},
-            company_email: {required: true},
+            company_email: {required: true,email:true},
         };
         handleFormValidate(form, rules, function(form) {
             handleAjaxFormSubmit(form,true);
