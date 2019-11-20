@@ -15,7 +15,7 @@ class AddTypeOfReqIdToLeavesTable extends Migration
     {
         
         Schema::table('leaves', function (Blueprint $table) {
-           $table->string("type_of_req_id",255)->change();
+           $table->string("type_of_req_id",255);
         });
     }
 

@@ -15,6 +15,7 @@ class AddDepIdToLeavesTable extends Migration
     {
         Schema::table('leaves', function (Blueprint $table) {
             //
+            $table->integer('cmp_id')->after('id');
              $table->integer('dep_id')->after('cmp_id');
             
         });
@@ -29,7 +30,7 @@ class AddDepIdToLeavesTable extends Migration
     {
         Schema::table('leaves', function (Blueprint $table) {
             //
-            $table->dropColumn('dep_id');
+//            $table->dropColumn('dep_id');
         });
     }
 }

@@ -14,6 +14,7 @@ use App\Model\Users;
 use App\Model\OrderInfo;
 use App\Model\OutgoingCalls;
 use Config;
+use App\Model\PlanManagement;
 class OrderController extends Controller {
 
     use AuthenticatesUsers;
@@ -36,19 +37,25 @@ class OrderController extends Controller {
             if ($result == 'added') {
                 $return['status'] = 'success';
                 $return['message'] = 'Order Created Succeessfully.';
+                $return['jscode'] ='$(".submitbtn:visible").attr("disabled","disabled");';
                 $return['redirect'] = route('order');
             } else {
                 if ($result == 'emailExits') {
                     $return['status'] = 'error';
+                    $return['jscode'] ='$(".submitbtn").removeAttr("disabled");';
                     $return['message'] = 'Email already exists';
                 }else{
                     $return['status'] = 'error';
+                    $return['jscode'] ='$(".submitbtn").removeAttr("disabled");';
                     $return['message'] = 'Something goes to wrong.Try again';
                 }
             }
             echo json_encode($return);
             exit;
         }
+        $planmanagement = PlanManagement::get();
+        $data['planmanagement'] = $planmanagement;
+        
         $data['subcription']=Config::get('constants.subcription');
         $data['request_type']=Config::get('constants.request_type');
         

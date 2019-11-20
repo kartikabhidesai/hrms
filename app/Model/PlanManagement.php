@@ -3,7 +3,7 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Config;
 class PlanManagement extends Model
 {
     protected $table = 'plan_managent';
@@ -53,7 +53,8 @@ class PlanManagement extends Model
         $resultArr = $query->select('plan_managent.*')->get();
 
         $data = array();
-
+        $planduration = Config::get('constants.plan_duration');
+        
         foreach ($resultArr as $row) {
 
             $actionHtml = '<a href="' . url('admin/plan_management-edit/'.$row['id']).'" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
@@ -63,8 +64,8 @@ class PlanManagement extends Model
             $nestedData[] = $row["code"];
             $nestedData[] = $row["title"];
             $nestedData[] = $row["charge"];
-            $nestedData[] = $row["expiration"];
-            $nestedData[] = $row["duration"];
+            $nestedData[] = date("d-m-Y",strtotime($row["expiration"]));
+            $nestedData[] = $planduration[$row["duration"]];
             $nestedData[] = $actionHtml;
             $data[] = $nestedData;
         }

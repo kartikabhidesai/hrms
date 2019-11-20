@@ -146,6 +146,14 @@ return [
         '0' => 'Location 1',
         '1' => 'Location 2'
     ],
+    
+    
+    'plan_duration' => [
+        '1' => 'Month',
+        '2' => '3 Month',
+        '3' => '6 Month',
+        '4' => '1 Year',
+    ],
 
     'ClientPath' => public_path() . '/uploads/client/',
     'EmployeePath' => public_path() . '/uploads/employee/',

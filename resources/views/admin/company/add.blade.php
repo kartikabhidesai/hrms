@@ -94,7 +94,7 @@
                     	
                     <div class="form-group">
                         <div class="col-lg-offset-2 col-lg-9">
-                            <button class="btn btn-sm btn-primary" type="submit">Save</button>
+                            <button class="btn btn-sm btn-primary submitbtn" type="submit">Save</button>
                         </div>
                     </div>
                     {{ Form::close() }}

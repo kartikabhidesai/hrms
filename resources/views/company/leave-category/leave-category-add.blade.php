@@ -91,7 +91,7 @@
                             </select>
                         </div>
                         <div class="col-lg-2">
-                            <a href="#addRoleModel" class="btn btn-sm btn-primary" data-toggle="modal" title="Add" data-original-title="Add" ><i class="fa fa-plus"></i></a>
+                            <a href="#addRoleModel" class="btn btn-sm btn-primary addRoleModel" data-toggle="modal" title="Add" data-original-title="Add" ><i class="fa fa-plus"></i></a>
                         </div>
                     </div>
 
@@ -99,11 +99,11 @@
                         <label class="col-lg-2 control-label">Work Location:</label>
                         <div class="col-lg-8">
                             <select class="form-control" name="work_location" id="work_location">
-                                <option value="">Select Location</option>
+                                <option value="">Select Work Location</option>
                             </select>
                         </div>
                         <div class="col-lg-2">
-                            <a href="#addWorkLocationModel" class="btn btn-sm btn-primary" data-toggle="modal" title="Add" data-original-title="Add" ><i class="fa fa-plus"></i></a>
+                            <a href="#addWorkLocationModel" class="btn btn-sm btn-primary addWork_locationbtn" data-toggle="modal" title="Add" data-original-title="Add" ><i class="fa fa-plus"></i></a>
                         </div>
                     </div>
 
@@ -146,7 +146,7 @@
                             </select>
                         </div>
                         <div class="col-lg-2">
-                            <a href="#addperiodModel" class="btn btn-sm btn-primary" data-toggle="modal" title="Add" data-original-title="Add" ><i class="fa fa-plus"></i></a>
+                            <a href="#addperiodModel" class="btn btn-sm btn-primary addperiodModelbtn" data-toggle="modal" title="Add" data-original-title="Add" ><i class="fa fa-plus"></i></a>
                         </div>
                     </div>
 
@@ -263,7 +263,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-sm btn-default pull-right m-l " data-dismiss="modal">Close</button>
-                <a class="btn btn-sm btn-primary pull-right addWork_location m-l" >Add</a>
+                <a class="btn btn-sm btn-primary pull-right addWork_location m-l addWorkLocationModel" >Add</a>
             </div>
         </div>
     </div>
@@ -292,7 +292,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-sm btn-default pull-right m-l " data-dismiss="modal">Close</button>
-                <a class="btn btn-sm btn-primary pull-right addPeriod m-l" >Edit</a>
+                <a class="btn btn-sm btn-primary pull-right addPeriod m-l" >Add</a>
             </div>
         </div>
     </div>
