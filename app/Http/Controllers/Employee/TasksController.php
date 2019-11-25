@@ -23,30 +23,33 @@ class TasksController extends Controller {
     public function index(Request $request) {
 
         if ($request->isMethod('post')) {
+//             print_r($request->input());
+//             exit;
             $userID = $this->loginUser->id;
             $empId = Employee::select('id','name','company_id')->where('user_id', $userID)->first();
             $objEmploye = new Task();
             // print_r($request);
             // print_r($empId);
             // exit;
-            $res = $objEmploye->updateTaskDetailEmp($request, $empId->id);
+//            $res = $objEmploye->updateTaskDetailEmp($request, $empId->id);
+            $res = $objEmploye->updatetaskByemployee($request, $empId->id);
             if ($res) {
 
-                $objCompany = new Company();
-                $u_id=$objCompany->getUseridById($empId->company_id);
-
-                $notificationMasterId=15;
-                $objNotificationMaster = new NotificationMaster();
-                $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($u_id,$notificationMasterId);
-                
-                if($NotificationUserStatus==1)
-                {
-                    $taskRequestName=$empId->name." update the task.";
-                    
-                    $route_url="task-list";
-                    $objNotification = new Notification();
-                    $ret = $objNotification->addNotification($u_id,$taskRequestName,$route_url,$notificationMasterId);
-                }
+//                $objCompany = new Company();
+//                $u_id=$objCompany->getUseridById($empId->company_id);
+//
+//                $notificationMasterId=15;
+//                $objNotificationMaster = new NotificationMaster();
+//                $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($u_id,$notificationMasterId);
+//                
+//                if($NotificationUserStatus==1)
+//                {
+//                    $taskRequestName=$empId->name." update the task.";
+//                    
+//                    $route_url="task-list";
+//                    $objNotification = new Notification();
+//                    $ret = $objNotification->addNotification($u_id,$taskRequestName,$route_url,$notificationMasterId);
+//                }
 
                 $return['status'] = 'success';
                 $return['message'] = 'Task updated successfully.';

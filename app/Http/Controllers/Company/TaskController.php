@@ -77,70 +77,80 @@ class TaskController extends Controller {
 
         if ($request->isMethod('post')) {
             
-            $objNonWorkingDate = new NonWorkingDate();
-            $resultNonWorkingDate = $objNonWorkingDate->getCompanyNonWorkingDateArrayList($companyId->id);
+            $startdate = date("Y-m-d",strtotime($request->input('assign_date')));
+            $enddate = date("Y-m-d",strtotime($request->input('deadline_date')));
             
-            if(in_array(date('Y-m-d',strtotime($request->input('assign_date'))), $resultNonWorkingDate)) {
+            if($startdate > $enddate){
                 $return['status'] = 'error';
-                $return['message'] = $request->input('assign_date'). ' is Non Working Date';
+                $return['message'] = "Task Deadline date must be grater than assign date";
             }else{
-                $objCompany = new Task();
-                $ret = $objCompany->addTask($request, $companyId->id);
-                
-                if ($ret) {
-//                    //notification add
-//                    $notificationMasterId=1;
-//                    $objNotificationMaster = new NotificationMaster();
-//                    $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatusNew($userId,$notificationMasterId);
-//                    
-//                    if($NotificationUserStatus->status==1)
-//                    {
-//                        
-//                        $objUserNotificationType = new UserNotificationType();
-//                        $result = $objUserNotificationType->checkMessage($NotificationUserStatus->id);
-//       
-//                        if($result[0]['status'] == 1){
-////                            SMS  Notification
-//                            $notificationMasterId=1;
-//                            $msg= "You have asign New Task.";
-//                            $objSendSms = new SendSMS();
-//                            $sendSMS = $objSendSms->sendSmsNotificaation($notificationMasterId,$request->input('employee'),$msg);
-//                        }
-//                        
-//                        if($result[1]['status'] == 1){
-////                            EMAIL Notification
-//                            $notificationMasterId=1;
-//                            $msg= "You have asign New Task.";
-//                            $objSendEmail = new Users();
-//                            $sendEmail = $objSendEmail->sendEmailNotification($notificationMasterId,$request->input('employee'),$msg);
-//                            
-//                            
-//                        }
-//                        
-//                        if($result[2]['status'] == 1){
-////                            chat Notification
-//                        }
-//                        
-//                        if($result[3]['status'] == 1){
-////                            Systeam Notification 
-//                            $objNotification = new Notification();
-//                            $taskName=$request->input('task')." is a new task.";
-//                            $objEmployee = new Employee();
-//                            $u_id=$objEmployee->getUseridById($request->input('employee'));
-//                            $route_url="emp-task-list";
-//                            $ret = $objNotification->addNotification($u_id,$taskName,$route_url,$notificationMasterId);  
-//                        }
-//                        
-//                    }
-                    
-                    $return['status'] = 'success';
-                    $return['message'] = 'Task created successfully.';
-                    $return['redirect'] = route('task-list');
-                } else {
+                $objNonWorkingDate = new NonWorkingDate();
+                $resultNonWorkingDate = $objNonWorkingDate->getCompanyNonWorkingDateArrayList($companyId->id);
+
+                if(in_array(date('Y-m-d',strtotime($request->input('assign_date'))), $resultNonWorkingDate)) {
                     $return['status'] = 'error';
-                    $return['message'] = 'Something went wrong while creating new task!';
-                }
+                    $return['message'] = $request->input('assign_date'). ' is Non Working Date';
+                }else{
+
+                    $objCompany = new Task();
+                    $ret = $objCompany->addTask($request, $companyId->id);
+
+                    if ($ret) {
+    //                    //notification add
+    //                    $notificationMasterId=1;
+    //                    $objNotificationMaster = new NotificationMaster();
+    //                    $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatusNew($userId,$notificationMasterId);
+    //                    
+    //                    if($NotificationUserStatus->status==1)
+    //                    {
+    //                        
+    //                        $objUserNotificationType = new UserNotificationType();
+    //                        $result = $objUserNotificationType->checkMessage($NotificationUserStatus->id);
+    //       
+    //                        if($result[0]['status'] == 1){
+    ////                            SMS  Notification
+    //                            $notificationMasterId=1;
+    //                            $msg= "You have asign New Task.";
+    //                            $objSendSms = new SendSMS();
+    //                            $sendSMS = $objSendSms->sendSmsNotificaation($notificationMasterId,$request->input('employee'),$msg);
+    //                        }
+    //                        
+    //                        if($result[1]['status'] == 1){
+    ////                            EMAIL Notification
+    //                            $notificationMasterId=1;
+    //                            $msg= "You have asign New Task.";
+    //                            $objSendEmail = new Users();
+    //                            $sendEmail = $objSendEmail->sendEmailNotification($notificationMasterId,$request->input('employee'),$msg);
+    //                            
+    //                            
+    //                        }
+    //                        
+    //                        if($result[2]['status'] == 1){
+    ////                            chat Notification
+    //                        }
+    //                        
+    //                        if($result[3]['status'] == 1){
+    ////                            Systeam Notification 
+    //                            $objNotification = new Notification();
+    //                            $taskName=$request->input('task')." is a new task.";
+    //                            $objEmployee = new Employee();
+    //                            $u_id=$objEmployee->getUseridById($request->input('employee'));
+    //                            $route_url="emp-task-list";
+    //                            $ret = $objNotification->addNotification($u_id,$taskName,$route_url,$notificationMasterId);  
+    //                        }
+    //                        
+    //                    }
+
+                        $return['status'] = 'success';
+                        $return['message'] = 'Task created successfully.';
+                        $return['redirect'] = route('task-list');
+                    } else {
+                        $return['status'] = 'error';
+                        $return['message'] = 'Something went wrong while creating new task!';
+                    }
+                }  
             }
+            
             echo json_encode($return);
             exit;
         }
@@ -161,7 +171,10 @@ class TaskController extends Controller {
 
         return view('company.task.task-add', $data);
     }   
+    
     public function editTask(Request $request , $id) {
+        
+        
         $session = $request->session()->all();
         $userId = $this->loginUser->id;
         $companyId = Company::select('id')->where('user_id', $userId)->first();
@@ -169,18 +182,33 @@ class TaskController extends Controller {
         $data['editTask'] = $objTaskEdit->editTaskDetails($id);
         
         if ($request->isMethod('post')) {
+            $startdate = date("Y-m-d",strtotime($request->input('assign_date')));
+            $enddate = date("Y-m-d",strtotime($request->input('deadline_date')));
             
-            
-            $objTaskEdit =  new Task();
-            $result = $objTaskEdit->editTask($request,$id);
-                if($result){
-                    $return['status'] = 'success';
-                    $return['message'] = 'Task upddated successfully.';
-                    $return['redirect'] = route('task-list');
-                } else {
+            if($startdate > $enddate){
+                $return['status'] = 'error';
+                $return['message'] = "Task Deadline date must be grater than assign date";
+            }else{
+                $objNonWorkingDate = new NonWorkingDate();
+                $resultNonWorkingDate = $objNonWorkingDate->getCompanyNonWorkingDateArrayList($companyId->id);
+
+                if(in_array(date('Y-m-d',strtotime($request->input('assign_date'))), $resultNonWorkingDate)) {
                     $return['status'] = 'error';
-                    $return['message'] = 'Somethin went wrong while creating new task!';
+                    $return['message'] = $request->input('assign_date'). ' is Non Working Date';
+                }else{
+                    $objTaskEdit =  new Task();
+                    $result = $objTaskEdit->editTask($request,$id);
+                    if($result){
+                        $return['status'] = 'success';
+                        $return['message'] = 'Task upddated successfully.';
+                        $return['redirect'] = route('edit-task',$id);
+                    } else {
+                        $return['status'] = 'error';
+                        $return['message'] = 'Somethin went wrong while creating new task!';
+                    }  
                 }
+            }
+            
                 echo json_encode($return);
             exit;
         }
@@ -224,6 +252,21 @@ class TaskController extends Controller {
             case 'taskDetails':
                 $result = $this->getTaskDetails($request->input('data'));
                 break; 
+            
+            case 'deleteImage':
+                $data = $request->input('data');
+                $objSystemsetting = new Task();
+                $result = $objSystemsetting->deleteImage($request->input('data'));
+                if ($result) {
+                    $return['status'] = 'success';
+                    $return['message'] = 'Task image successfully deleted.';
+                    $return['redirect'] = route('edit-task',$data['id']);
+                } else {
+                    $return['status'] = 'error';
+                    $return['message'] = 'Somethin went wrong!';
+                }
+                echo json_encode($return);
+                exit;
         
             case 'checkDate':
                 $nonWorkingDay = new NonWorkingDate();

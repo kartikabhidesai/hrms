@@ -37,7 +37,7 @@ var Task = function () {
                 if(output.file!=null)
                 {
                     $('.dwnltaskfileBtn').show();
-                    $('.dwnltaskfile').attr('href', baseurl +  output.file);
+                    $('.dwnltaskfile').attr('href', baseurl +"uploads/tasks/"+  output.file);
                 }else{
                     $('.dwnltaskfileBtn').hide();
                 }

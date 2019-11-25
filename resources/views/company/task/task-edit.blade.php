@@ -22,7 +22,7 @@
                                     {{ Form::select('department', $department , $editTask[0]->department_id, array('placeholder'=>'Select Depatment', 'class' => 'form-control department', 'id' => 'department')) }}
                                 </div>
                             </div>
-                            <input  class="form-control hidden" id="editId"  name="editId" type="text" value="3" aria-required="true" aria-describedby="editId-error" aria-invalid="false">
+                            <input  class="form-control hidden" id="editId"  name="editId" type="text" value="{{ $editTask[0]->id }} " aria-required="true" aria-describedby="editId-error" aria-invalid="false">
                             <div class="form-group">
                                 <label class="col-lg-2 control-label">Assign Date</label>
                                 <div class="col-lg-10">
@@ -95,9 +95,10 @@
                             @if($editTask[0]->file != NULL || $editTask[0]->file != "")
                                 <label class="col-lg-1 control-label"></label>
                                 <div class="col-sm-11">
-                                    <a href="{{ url($editTask[0]->file) }}" download>
-                                       <label class="col-lg-3 control-label">{{ $editTask[0]->file }}</label>
+                                    <a href="{{ url("/uploads/tasks/".$editTask[0]->file) }}" download>
+                                       <label class="col-lg-3">{{ $editTask[0]->file }}</label>
                                     </a>
+                                    <a href="#deleteImage" style="color:red" data-toggle="modal" data-image="{{ $editTask[0]->file }}" data-id="{{ $editTask[0]->id }}" class="pull-right deleteimage"><i class="fa fa-times-circle"></i></a>
                                 </div>
                             @endif
                         </div>
@@ -119,5 +120,24 @@
 	</div>
 </div>
 
+<div id="deleteImage" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12"><h3 class="m-t-none m-b">Delete Image</h3>
+                        <b>Are You sure want to delete image.</b><br/>
+                        <form role="form">
+                            <div>
+                                <button class="btn btn-sm btn-primary pull-right m-l" data-dismiss="modal">Cancel</button>
+                                <button class="btn btn-sm btn-danger pull-right yes-sure-image m-l" type="button"><strong><i class="fa fa-trash"></i> Delete </strong></button>
+                            </div>
+                        </form>
+                    </div>
 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
