@@ -1,6 +1,7 @@
 var Performance = function () {
     var handleList = function () {
-   
+//        
+    
     var form = $('#performance');
         var rules = {
           amount: {required: true}
@@ -336,8 +337,10 @@ var Performance = function () {
           }); 
         }
     });    
-
-      var emparray = $("#employee").val();
+    
+   
+   
+        var emparray = $("#employee").val();
         var department = $("#department").val();
         var dataArr = {"emparray" : emparray, "department" : department};
         var columnWidth = {"width": "10%", "targets": 0};
