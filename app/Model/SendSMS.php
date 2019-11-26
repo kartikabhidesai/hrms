@@ -249,7 +249,7 @@ class SendSMS extends Model
         $mailData['subject'] = 'SENd MAill Testing';
         $mailData['attachment'] = array();
         $mailData['template'] ="emails.test";
-        $mailData['mailto'] = 'parthkhunt12@gmail.com';
+        $mailData['mailto'] = 'mandaliyabansi123@gmail.com';
         $sendMail = new Sendmail;
         return $sendMail->sendSMTPMail($mailData);
         

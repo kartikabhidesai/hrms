@@ -58,9 +58,9 @@ class Sendmail extends Model
       //   return true;
       // }
             $pathToFile = $mailData['attachment'];
-           
-            $mailsend = Mail::send($mailData['template'], ['data' => $mailData['data']], function ($m) use ($mailData,$pathToFile) {
-                 $m->from('officetestg106@gmail.com', 'HRMS Systeam');
+           $frommail = env('MAIL_USERNAME');
+            $mailsend = Mail::send($mailData['template'], ['data' => $mailData['data']], function ($m) use ($mailData,$pathToFile,$frommail) {
+                 $m->from($frommail, 'HRMS Systeam');
       
                  $m->to($mailData['mailto'], "HRMS Systeam")->subject($mailData['subject']);
                  if($pathToFile != ""){
