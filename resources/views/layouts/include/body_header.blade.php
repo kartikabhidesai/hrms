@@ -1,8 +1,8 @@
 @php
 $currentRoute = Route::current()->getName();
-    $session = Session::all();
+     $session = Session::all();
 
-    if (!empty(Auth()->guard('admin')->user())) {
+                if (!empty(Auth()->guard('admin')->user())) {
                     $data = Auth()->guard('admin')->user();
                 }
                 if (!empty(Auth()->guard('company')->user())) {
@@ -79,17 +79,16 @@ $currentRoute = Route::current()->getName();
                             @endif
                         <li>
                             <div class="text-center link-block">
-                            @if(!empty(Auth()->guard('employee')->user())) 
-                             <a href="{{ route('employee-notification-list') }}">
-                            @else
-                                @if(!empty(Auth()->guard('admin')->user()))
-                                <!--admin-notification-->
-                                   <a href="{{ route('admin-notification') }}">
+                                @if(!empty(Auth()->guard('employee')->user())) 
+                                    <a href="{{ route('employee-notification-list') }}">
                                 @else
-                                    <a href="{{ route('notification-list') }}">
-                                @endif
-                                
-                            @endif 
+                                    @if(!empty(Auth()->guard('admin')->user()))
+                                       <a href="{{ route('admin-notification') }}">
+                                    @else
+                                        <a href="{{ route('notification-list') }}">
+                                    @endif
+
+                                @endif 
                                     <strong>See All Alerts</strong>
                                     <i class="fa fa-angle-right"></i>
                                 </a>
