@@ -298,7 +298,10 @@ class PayrollController extends Controller {
             if ($result) {
                 $return['status'] = 'success';
                 $return['message'] = 'Record deleted successfully.';
-                $return['jscode'] = "location.reload(true);";
+                $return['jscode'] = "setTimeout(function(){
+                        $('#deleteModel').modal('hide');
+                        location.reload(true);
+                    },1000)";
             } else {
                 $return['status'] = 'error';
                 $return['message'] = 'Something will be wrong.';
