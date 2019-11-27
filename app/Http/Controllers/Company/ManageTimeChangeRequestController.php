@@ -63,10 +63,12 @@ class ManageTimeChangeRequestController extends Controller
                     break;
                 
                 case 'approveRequest':
+                    
                     $id=$request->input('data')['id'];
                     $res= ManageTimeChangeRequest::select('employee_id')
-                            ->where('employee_id',$id)
+                            ->where('id',$id)
                             ->get()->toarray();
+                    
                     $empId=$res[0]['employee_id'];
                     $userID = $this->loginUser;
                     $objManageList=new ManageTimeChangeRequest();
@@ -83,7 +85,7 @@ class ManageTimeChangeRequestController extends Controller
                         {
                             $objUserNotificationType = new UserNotificationType();
                             $result = $objUserNotificationType->checkMessage($NotificationUserStatus->id);
-
+                            
                             if($result[0]['status'] == 1){
     //                            SMS  Notification
                                 $notificationMasterId=9;
@@ -131,7 +133,7 @@ class ManageTimeChangeRequestController extends Controller
                     $userID = $this->loginUser;
                     $id=$request->input('data')['id'];
                     $res= ManageTimeChangeRequest::select('employee_id')
-                            ->where('employee_id',$id)
+                            ->where('id',$id)
                             ->get()->toarray();
                     $empId=$res[0]['employee_id'];  
                     $objManageList=new ManageTimeChangeRequest();
@@ -147,7 +149,7 @@ class ManageTimeChangeRequestController extends Controller
                         {
                             $objUserNotificationType = new UserNotificationType();
                             $result = $objUserNotificationType->checkMessage($NotificationUserStatus->id);
-
+                            
                             if($result[0]['status'] == 1){
     //                            SMS  Notification
                                $notificationMasterId=9;

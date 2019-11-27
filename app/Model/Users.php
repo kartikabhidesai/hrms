@@ -163,7 +163,24 @@ class Users extends Model {
             $mailData['subject'] = $msg;
             $mailData['attachment'] = array();
             $mailData['template'] ="company.emails.notification";
-            $mailData['mailto'] = 'parthkhunt12@gmail.com';
+            $mailData['mailto'] = $email;
+            $sendMail = new Sendmail;
+            $sendMail->sendSMTPMail($mailData);
+            
+    }
+    public function sendEmailNotificationaddticket($notificationMasterId,$employeeId,$msg){
+            $result = Employee::select('email')
+                        ->where('employee.user_id',$employeeId)
+                        ->get();
+            
+            $email = $result[0]->email;
+            
+//            $mailData['data']='';
+            $mailData['data']['msg']=$msg;
+            $mailData['subject'] = $msg;
+            $mailData['attachment'] = array();
+            $mailData['template'] ="company.emails.notification";
+            $mailData['mailto'] = $email;
             $sendMail = new Sendmail;
             $sendMail->sendSMTPMail($mailData);
             
@@ -181,7 +198,7 @@ class Users extends Model {
                 $mailData['subject'] = $msg;
                 $mailData['attachment'] = array();
                 $mailData['template'] ="company.emails.notification";
-                $mailData['mailto'] = 'parthkhunt12@gmail.com';
+                $mailData['mailto'] = $email;
                 $sendMail = new Sendmail;
                 $sendMail->sendSMTPMail($mailData);
             }

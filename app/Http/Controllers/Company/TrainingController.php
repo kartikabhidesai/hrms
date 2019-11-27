@@ -47,11 +47,12 @@ class TrainingController extends Controller
         $companyId = Company::select('id')->where('user_id', $userId)->first();
 
         if ($request->isMethod('post')) {
-            
+           
             $objCompany = new Training();
             $ret = $objCompany->addTraining($request, $companyId->id);
 
             if ($ret) {
+                
                 $empId = $request->input('employeeid');
                 $notificationMasterId=7;
                 $objNotificationMaster = new NotificationMaster();
