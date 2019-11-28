@@ -92,7 +92,8 @@ class TrainingController extends Controller
                 $objTraining = new Training();
                 $userID = $this->loginUser->id;
                 $empId = Employee::select('id')->where('user_id', $userID)->first();
-               
+                print_r($empId);
+                die();
                 $demoList = $objTraining->getTrainingEmployeeDatatable($request, $empId->id);
                 echo json_encode($demoList);
                 break;
