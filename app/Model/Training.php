@@ -11,8 +11,7 @@ class Training extends Model
 
     public function addTraining($request, $companyId)
     {
-        print_r($request->input());
-        die();
+       
         $newTraining = new Training();
     	$newTraining->company_id = $companyId;
     	$newTraining->location = $request->location;
