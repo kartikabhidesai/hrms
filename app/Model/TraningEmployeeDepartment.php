@@ -9,8 +9,7 @@ class TraningEmployeeDepartment extends Model {
 
     protected $table = 'training_emp_dept';
     public function addTraningDetails($request,$traningId) {
-         print_r($request->input());
-        die();
+        
         $deptId = $request->input('departmentid');
         $employeeid = $request->input('employeeid');
         foreach ($deptId as $key => $value) {
