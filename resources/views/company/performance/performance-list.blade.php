@@ -62,19 +62,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- @if(count($allEmployee) > 0)
-                        @foreach($allEmployee as $singleemp)
-                            <tr>
-                                <td>{{$singleemp->name}}</td>
-                                <td>{{$singleemp->department_name}}</td>
-                             
-                                <td>{{ date('d-m-Y',strtotime($singleemp->date_of_joining)) }}</td>
-                                <td>
-                                    <a href="{{ route('employee-performance-list',array('id'=>$singleemp->id)) }}" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-eye"></i></a>
-                                </td>
-                            </tr>
-                        @endforeach
-                    @endif -->
+                   
                 </tbody>
             </table>
         </div>

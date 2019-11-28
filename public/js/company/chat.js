@@ -81,18 +81,20 @@ var Chat = function () {
                 url: baseurl + "company/chat-ajaxAction",
                 data: {'action': 'insert_chat', 'to_user_id':to_user_id, 'message':message},
                 success: function(data) {
+                    
                     $('#message').val("");
                     if(data.chat_message!="")
                     {
-//                        console.log(data.created_at);
+                       
                         $('.user-message-list').append("<div class='chat-message right'>\
-                        <img class='message-avatar' src='"+baseurl+"uploads/client/"+data.user_image+"' alt='"+data.name+"' >\
+                        <img class='message-avatar' src='" +baseurl+"uploads/client/"+data.user_image+ "' alt='"+data.name+"' >\
                         <div class='message'>\
-                            <a class='message-author' href='#'>"+data.name+"</a>\
-                            <span class='message-date'>"+data.created_at+"</span>\
-                            <span class='message-content'>"+data.chat_message+"</span>\
+                            <a class='message-author' href='#'>"+ data.name +"</a>\
+                            <span class='message-date'>"+ data.created_at +"</span>\
+                            <span class='message-content'>"+ data.chat_message +"</span>\
                         </div></div>");
                     }
+                    
                 }
             });
         });

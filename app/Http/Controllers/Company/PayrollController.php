@@ -300,7 +300,7 @@ class PayrollController extends Controller {
                 $return['message'] = 'Record deleted successfully.';
                 $return['jscode'] = "setTimeout(function(){
                         $('#deleteModel').modal('hide');
-                        $('#DepartmentDatatables').DataTable().ajax.reload();
+                        location.reload(true);
                     },1000)";
             } else {
                 $return['status'] = 'error';

@@ -4,7 +4,7 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 use Config;
-
+use Illuminate\Support\Facades\DB;
 class Task extends Model {
 
     protected $fillable = ['employee_id', 'task_status', 'complete_progress', 'emp_updated_file'];
@@ -29,7 +29,7 @@ class Task extends Model {
                 mkdir($destinationPath, 0777, true);
             }
             $image->move($destinationPath, $file);
-            $objTask->file = '/uploads/tasks/' . $file;
+            $objTask->file = $file;
         }
 
         $objTask->created_at = date('Y-m-d H:i:s');
@@ -216,8 +216,8 @@ class Task extends Model {
     }
 
     public function updateTaskDetailEmp($request, $empid) {
-//         print_r($request->input());
-//         die();
+         print_r($request->input());
+         die();
         if($request->input('changeType') == 'shareLocation'){
             $objTask = Task::firstOrNew(array('employee_id' => $empid,'id'=>$request->input('task_id')));
             $objTask->location = $request->location;
@@ -322,7 +322,7 @@ class Task extends Model {
             $name = 'emp_tasks_'.time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/uploads/tasks/');
             $image->move($destinationPath, $name);   
-            $objTask->file ='uploads/tasks/'.$name;
+            $objTask->file =$name;
         }
         $objTask->department_id = $request->input('department');
         $objTask->employee_id = $request->input('employee');
@@ -331,6 +331,48 @@ class Task extends Model {
         $objTask->task = $request->input('task');
         $objTask->priority = $request->input('priority');
         $objTask->about_task = $request->input('about_task');
+        $objTask->location = $request->input('location');
+        $objTask->save();
+        if ($objTask) {
+            return TRUE;
+        } else {
+            return false;
+        }
+    }
+    
+    public function deleteImage($request){
+        
+        $result = DB::table('tasks')
+                    ->where('id',$request['id'])
+                    ->update(['file' => null,
+                        'updated_at' => date('Y-m-d H:i:s')
+                    ]);
+        if($result){
+            if(file_exists(public_path('/uploads/tasks/'.$request['image']))){
+                unlink(public_path('/uploads/tasks/'.$request['image']));
+                return true;
+            }else{
+                return true;
+            }
+        }else{
+            return false;
+        }
+    }
+    
+    public function updatetaskByemployee($request,$empId){
+//        print_r($request->file());
+//        exit;
+//        
+        $objTask = Task::find($request->input('task_id'));
+        if($request->file()){
+            $image = $request->file('emp_updated_file');
+            $name = 'emp_tasks_'.time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/uploads/tasks/');
+            $image->move($destinationPath, $name);   
+            $objTask->file =$name;
+        }
+        $objTask->complete_progress = $request->input('complete_progress');
+        $objTask->task_status = $request->input('task_status');
         $objTask->location = $request->input('location');
         $objTask->save();
         if ($objTask) {

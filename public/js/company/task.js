@@ -1,5 +1,5 @@
 var Task = function () {
-    checkNonWorkingDate('.nonWorking')
+//    checkNonWorkingDate('.nonWorking')
     var handleList = function () {
         var priority = $("#priority").val();
         var status = $("#status").val();
@@ -140,6 +140,32 @@ var Task = function () {
     
     var editDetails = function(){
         
+        $('body').on('click', '.deleteimage', function() {
+            // $('#deleteModel').modal('show');
+            var id = $(this).data('id');
+            var image = $(this).data('image');
+            setTimeout(function() {
+                $('.yes-sure-image:visible').attr('data-id', id);
+                $('.yes-sure-image:visible').attr('data-image', image);
+            }, 500);
+        })
+
+        $('body').on('click', '.yes-sure-image', function() {
+            var id = $(this).attr('data-id');
+            var image = $(this).attr('data-image');
+            var data = {image:image,id: id, _token: $('#_token').val()};
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                },
+                url: baseurl + "company/task-ajaxAction",
+                data: {'action': 'deleteImage', 'data': data},
+                success: function(data) {
+                    handleAjaxResponse(data);
+                }
+            });
+        });
         var form = $('#editTask');
         var rules = {
             department: {required: true},

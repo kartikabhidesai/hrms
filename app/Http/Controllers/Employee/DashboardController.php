@@ -27,15 +27,18 @@ class DashboardController extends Controller {
     }
 
     public function dashboard(Request $request) {
+        
         $data['task_progress'] = Config::get('constants.task_progress');
         $data['task_status'] = ['In Progress', 'Pending', 'Complete'];
         $session = $request->session()->all();
+        
         $data['login_user'] = $session['logindata'][0];       
         $logged_in_user_id = $session['logindata'][0]['id'];
         $emp_id= Employee::select("id")->where('user_id',$logged_in_user_id)->get();
         $data['totalTask'] = Task::where('employee_id',$emp_id[0]->id)->count();
         $data['totalCompletedTask'] = Task::where('employee_id',$emp_id[0]->id)->where('task_status',3)->count();
         if ($request->isMethod('post')) {
+            
             $session = $request->session()->all();
             $userID=$session['logindata'][0]['id'];
             $empId = Employee::select('id','name','company_id')->where('user_id', $userID)->first();

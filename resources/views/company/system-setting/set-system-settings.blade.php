@@ -107,7 +107,7 @@
                                     <a href="{{ url('uploads/systems/'.$current_cmpny_ss->image) }}" download>
                                         <label class="col-lg-3 pull-left"> {{ $current_cmpny_ss->image }}</label>
                                     </a>
-                                    <a href="#deleteImage" data-toggle="modal" data-image="{{ $current_cmpny_ss->image }}" data-id="{{ $current_cmpny_ss->id }}" class="pull-right deleteimage"><label>Delete Image</label></a>
+                                    <a href="#deleteImage" style="color:red" data-toggle="modal" data-image="{{ $current_cmpny_ss->image }}" data-id="{{ $current_cmpny_ss->id }}" class="pull-right deleteimage"><i class="fa fa-times-circle"></i></a>
                                 </div>
                             @endif
                          @endif

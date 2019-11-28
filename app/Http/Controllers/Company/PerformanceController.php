@@ -24,10 +24,12 @@ class PerformanceController extends Controller {
 
     public function index(Request $request) {
         $data['detail'] = $this->loginUser;
+        
         $data['header'] = array(
             'title' => 'Performance Employee List',
             'breadcrumb' => array(
-                'Home' => route("admin-dashboard")));
+                'Home' => route("admin-dashboard"))
+        );
 
         $data['departmentId'] = (empty($request->get('department'))) ? '' : $request->get('department');
         $data['employeeId'] = (empty($request->get('employee'))) ? '' : $request->get('employee');
@@ -36,6 +38,7 @@ class PerformanceController extends Controller {
         $userid = $this->loginUser->id;
         $companyId = Company::select('id')->where('user_id', $userid)->first();
         if ($request->isMethod('post')) {
+            
             $postData = $request->input();
             $empArray = $postData['empchk'];
             // print_r($empArray);exit;
@@ -59,6 +62,7 @@ class PerformanceController extends Controller {
             }
             
         }
+        
         $data['allEmployee'] = $EmpObj->getAllEmployeeofCompany($companyId->id, $data['departmentId'], $data['employeeId']);
 
         $objDepart = new Department();

@@ -99,12 +99,16 @@ class Payroll extends Model {
 
     public function getPayroll($id)
     {
-        return Payroll::select('pay_roll.*')->where('employee_id', '=', $id)->get()->toArray();
+        return Payroll::select('pay_roll.*')
+                    ->where('employee_id', '=', $id)
+                    ->orderBy('id', 'asc')
+                    ->get()                    
+                    ->toArray();
     }
 
     public function getPayrollV2($id)
     {
-        print_r($id);die();
+//        print_r($id);die();
         return Payroll::select('pay_roll.*')->where('id', '=', $id)->get()->toArray();
     }
 

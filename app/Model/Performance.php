@@ -72,29 +72,29 @@ class Performance extends Model {
     }
 
    public function getPerformanceList($request, $companyId) {
-
+        
         $requestData = $_REQUEST;
         $data = $request->input('data');
-   
+        
         if ($data['department'] != NULL) {
             $department = $data['department'];
         } else {
             $department = "";
         }
-
         /* Don't remove this code as it's in-progress */
          if($data['emparray'] != NULL  ) {
-          $emparray = $data['emparray'];
+             
+            $emparray = $data['emparray'];
           } else {
-          $emparray = "";
+            $emparray = "";
           } 
 
         $columns = array(
             // datatable column index  => database column name
             0 => 'employee.id',
-            1 => 'employee.employee_name',
-            2 => 'employee.company_name',
-            3 => 'employee.doj',
+            1 => 'employee.name',
+            2 => 'department.department_name',
+            3 => 'employee.date_of_joining',
         );
         $query = Employee::select('employee.*', 'department.department_name')
                         ->join('department', 'employee.department', '=', 'department.id')
@@ -102,8 +102,9 @@ class Performance extends Model {
         if(isset($department)  && $department > 0){
             $query->where('employee.department', $department);    
         }
-        if(isset($employee) && $employee > 0){
-            $query->where('employee.id', $employee);
+        if(isset($emparray) && $emparray > 0){
+            
+            $query->where('employee.id', $emparray);
         }       
        
 
@@ -134,7 +135,7 @@ class Performance extends Model {
                 ->take($requestData['length'])
                 ->select('employee.*','employee.name as employee_name','employee.date_of_joining as doj','department.department_name')
                 ->get();
-        // print_r($resultArr);exit();
+//         print_r($resultArr);exit();
         $data = array();
 
         foreach ($resultArr as $key => $row) {
