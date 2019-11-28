@@ -123,6 +123,8 @@ class Training extends Model
         return $json_data;
     } 
     public function getTrainingEmployeeDatatable($request, $employeeId) {
+        print_r($employeeId);
+        die();
         $requestData = $_REQUEST;
         $columns = array(
             // datatable column index  => database column name
