@@ -123,8 +123,7 @@ class Training extends Model
         return $json_data;
     } 
     public function getTrainingEmployeeDatatable($request, $employeeId) {
-        print_r($employeeId);
-        die();
+        
         $requestData = $_REQUEST;
         $columns = array(
             // datatable column index  => database column name
@@ -136,7 +135,7 @@ class Training extends Model
         );
         $query = Training::from('training as ra')
                 ->join('training_emp_dept', 'training_emp_dept.training_id', '=', 'ra.id')
-                ->join('employee', 'employee.id', '=', 'ra.company_id')
+                ->join('employee', 'employee.id', '=', "training_emp_dept.employee_id")
                 ->where('training_emp_dept.employee_id', $employeeId);
 
         if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
