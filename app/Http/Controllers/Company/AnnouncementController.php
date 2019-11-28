@@ -63,6 +63,7 @@ class AnnouncementController extends Controller {
            
             if(in_array(date('Y-m-d',strtotime($request->input('expiry_date'))), $resultNonWorkingDate)) {
                 $return['status'] = 'error';
+                $return['jscode'] = '$(".submitbtn:visible").removeAttr("disabled");';
                 $return['message'] = $request->input('expiry_date'). ' is Non Working Date';
             }else{
                 $result = $objAnnoucement->addAnnouncementData($request, $logedcompanyId);
@@ -120,9 +121,11 @@ class AnnouncementController extends Controller {
                     }
                     $return['status'] = 'success';
                     $return['message'] = 'Annoucement Add Successfully.';
+                    $return['jscode'] = '$(".submitbtn:visible").attr("disabled","disabled");';
                     $return['redirect'] = route('announcement');
                 }else{
                     $return['status'] = 'error';
+                    $return['jscode'] = '$(".submitbtn:visible").removeAttr("disabled");';
                     $return['message'] = 'Something went wrong!';
                 }
             }

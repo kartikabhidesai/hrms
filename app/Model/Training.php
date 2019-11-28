@@ -11,6 +11,8 @@ class Training extends Model
 
     public function addTraining($request, $companyId)
     {
+        print_r($request->input());
+        die();
         $newTraining = new Training();
     	$newTraining->company_id = $companyId;
     	$newTraining->location = $request->location;
@@ -163,7 +165,6 @@ class Training extends Model
                         ->take($requestData['length'])
                         ->select('ra.id', 'ra.location', 'ra.department_id', 'ra.budget', 'ra.requirement', 'ra.number', 'ra.type', 'ra.created_at')->get();
         $data = array();
-
         foreach ($resultArr as $row) {
             // $actionHtml = $request->input('location');
             // $actionHtml .= '<a href="' . route('training-edit', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
