@@ -73,14 +73,15 @@ class CommunicationController extends Controller
             $result = $objCommunication->addNewCommunicationEmp($request, $empId->company_id, $empId->id);
 
             if ($result) {
-
+                    
                     $objCompany = new Company();
                     $company_id=$objCompany->getUseridById($empId->company_id);
 
                     $notificationMasterId=11;
                     $objNotificationMaster = new NotificationMaster();
                     $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatus($company_id,$notificationMasterId);
-                    
+                    print_r($NotificationUserStatus);
+                    die();
                     if($NotificationUserStatus==1)
                     {
                         //notification add

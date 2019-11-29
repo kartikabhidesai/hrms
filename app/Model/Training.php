@@ -11,6 +11,7 @@ class Training extends Model
 
     public function addTraining($request, $companyId)
     {
+       
         $newTraining = new Training();
     	$newTraining->company_id = $companyId;
     	$newTraining->location = $request->location;
@@ -122,6 +123,7 @@ class Training extends Model
         return $json_data;
     } 
     public function getTrainingEmployeeDatatable($request, $employeeId) {
+        
         $requestData = $_REQUEST;
         $columns = array(
             // datatable column index  => database column name
@@ -133,7 +135,7 @@ class Training extends Model
         );
         $query = Training::from('training as ra')
                 ->join('training_emp_dept', 'training_emp_dept.training_id', '=', 'ra.id')
-                ->join('employee', 'employee.id', '=', 'ra.company_id')
+                ->join('employee', 'employee.id', '=', "training_emp_dept.employee_id")
                 ->where('training_emp_dept.employee_id', $employeeId);
 
         if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
@@ -163,7 +165,6 @@ class Training extends Model
                         ->take($requestData['length'])
                         ->select('ra.id', 'ra.location', 'ra.department_id', 'ra.budget', 'ra.requirement', 'ra.number', 'ra.type', 'ra.created_at')->get();
         $data = array();
-
         foreach ($resultArr as $row) {
             // $actionHtml = $request->input('location');
             // $actionHtml .= '<a href="' . route('training-edit', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
