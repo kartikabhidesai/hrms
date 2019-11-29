@@ -223,7 +223,7 @@ class TicketController extends Controller
 
         $ticketDetails = Ticket::select('department.department_name as departmentName','tickets.manager_name','tickets.code', 'tickets.subject', 'tickets.status', 'tickets.priority', 'tickets.details', 'tickets.created_by', 'tickets.assign_to', 'emp.name as emp_name')
                             ->join('department','department.id','tickets.department_id')
-                            ->join('employee as emp', 'tickets.assign_to', '=', 'emp.id')
+                            ->join('employee as emp', 'emp.user_id', '=' ,'tickets.assign_to')
                             ->where('tickets.id', $postData)
                             ->first();
 
@@ -238,7 +238,7 @@ class TicketController extends Controller
 
         $ticketDetails = Ticket::select('department.department_name as departmentName','tickets.manager_name','tickets.id','tickets.code', 'tickets.subject', 'tickets.status', 'tickets.priority', 'tickets.details', 'tickets.created_by', 'tickets.assign_to', 'emp.name as emp_name')
                             ->join('department','department.id','tickets.department_id')            
-                            ->join('employee as emp', 'tickets.assign_to', '=', 'emp.id')
+                            ->join('employee as emp', 'tickets.assign_to', '=', 'emp.user_id')
                             ->where('tickets.id', $postData)
                             ->first();
 

@@ -119,7 +119,7 @@ class Ticket extends Model
             $companyId = Company::where('email', $userData->email)->first();
            
             $query = Ticket::join('department','department.id','tickets.department_id')
-                            ->join('employee','employee.id','tickets.assign_to')
+                            ->join('employee','employee.user_id','tickets.assign_to')
                             ->join('comapnies','comapnies.id','tickets.company_id')
                             ->with(['ticketAttachments'])
                             ->where('tickets.company_id', $companyId->id)
