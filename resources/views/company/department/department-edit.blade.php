@@ -33,7 +33,7 @@ $designation=$detail->designation;
                                         <select class="form-control manager_name" id="manager_name" name="manager_name">
                                             <option selected="selected" value="">Select Manager Name</option>
                                             @foreach($employeelist as $key => $value)
-                                                <option  value="{{ $value['name'] }} {{ $value['father_name'] }}" {{ (( $value['name'].' '.$value['father_name'] == $detail->manager_name ))? 'selected="selected"' : '' }} >{{ $value['name'] }} {{ $value['father_name'] }}</option>
+                                                <option  value="{{ $value['id'] }} " {{ (( $value['id'] == $detail->manager_name ))? 'selected="selected"' : '' }} >{{ $value['name'] }} {{ $value['father_name'] }}</option>
                                             @endforeach
                                         </select>
                                         
@@ -48,7 +48,7 @@ $designation=$detail->designation;
                                         <select class="form-control comanager_name" id="comanager_name" name="comanager_name">
                                             <option selected="selected" value="">Select Manager Name</option>
                                             @foreach($employeelist as $key => $value)
-                                                <option  value="{{ $value['name'] }} {{ $value['father_name'] }}" {{ (( $value['name'].' '.$value['father_name'] == $detail->co_manager_name ))? 'selected="selected"' : '' }}>{{ $value['name'] }} {{ $value['father_name'] }}</option>
+                                                <option  value="{{ $value['id'] }}" {{ (( $value['id'] == $detail->co_manager_name ))? 'selected="selected"' : '' }}>{{ $value['name'] }} {{ $value['father_name'] }}</option>
                                             @endforeach
                                         </select>
                                             
@@ -75,7 +75,7 @@ $designation=$detail->designation;
                                             <select class="form-control supervisor_name" id="supervisor_name" name="supervisor_name[]">
                                                 <option selected="selected" value="">Select Manager Name</option>
                                                 @foreach($employeelist as $key => $value)
-                                                    <option  value="{{ $value['name'] }} {{ $value['father_name'] }}" {{ (( $value['name'].' '.$value['father_name'] == $designation[$i]['supervisor_name'] ))? 'selected="selected"' : '' }}>{{ $value['name'] }} {{ $value['father_name'] }}</option>
+                                                    <option  value="{{ $value['id'] }}" {{ (( $value['id'] == $designation[$i]['supervisor_name'] ))? 'selected="selected"' : '' }}>{{ $value['name'] }} {{ $value['father_name'] }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -99,7 +99,7 @@ $designation=$detail->designation;
                                                             <select class="form-control supervisor_name" id="supervisor_name" name="supervisor_name[]">
                                                                 <option selected="selected" value="">Select Manager Name</option>
                                                                 @foreach($employeelist as $key => $value)
-                                                                    <option  value="{{ $value['name'] }} {{ $value['father_name'] }}" {{ (( $value['name'].' '.$value['father_name'] == $designation[$i]['supervisor_name'] ))? 'selected="selected"' : '' }}>{{ $value['name'] }} {{ $value['father_name'] }}</option>
+                                                                    <option  value="{{ $value['id'] }}" {{ (( $value['id'] == $designation[$i]['supervisor_name'] ))? 'selected="selected"' : '' }}>{{ $value['name'] }} {{ $value['father_name'] }}</option>
                                                                 @endforeach
                                                             </select>
                                                     </div>

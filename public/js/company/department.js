@@ -69,7 +69,7 @@ var Department = function() {
                     for(var i = 0 ; i < employeelist.length ; i++)
                     {
                         var temp = "";
-                        var temp = "<option value='" + employeelist[i].name +" "+ employeelist[i].father_name +"' >" + employeelist[i].name +" "+ employeelist[i].father_name +"</option>";
+                        var temp = "<option value='" + employeelist[i].id +"' >" + employeelist[i].name +" "+ employeelist[i].father_name +"</option>";
                         optionHTML = optionHTML + temp ;
                     }
                     
@@ -136,7 +136,7 @@ var Department = function() {
                     for(var i = 0 ; i < employeelist.length ; i++)
                     {
                         var temp = "";
-                        var temp = "<option value='" + employeelist[i].name +" "+ employeelist[i].father_name +"' >" + employeelist[i].name +" "+ employeelist[i].father_name +"</option>";
+                        var temp = "<option value='" + employeelist[i].id +"' >" + employeelist[i].name +" "+ employeelist[i].father_name +"</option>";
                         optionHTML = optionHTML + temp ;
                     }
                     

@@ -15,32 +15,31 @@ use PDF;
 use Config;
 use File;
 
-class Department extends Model
-{
+class Department extends Model {
+
     protected $table = 'department';
 
-    public function saveDepartment($request)
-    {    
-       
-    	if(Auth::guard('company')->check()) {
-    		$userData = Auth::guard('company')->user();
-    		$getAuthCompanyId = Company::where('email', $userData->email)->first();
-    	}       
+    public function saveDepartment($request) {
+
+        if (Auth::guard('company')->check()) {
+            $userData = Auth::guard('company')->user();
+            $getAuthCompanyId = Company::where('email', $userData->email)->first();
+        }
 
         $id = DB::table('department')->insertGetId(
-                    ['department_name' => $request->input('department_name'),
+                ['department_name' => $request->input('department_name'),
                     'company_id' => $getAuthCompanyId->id,
                     'manager_name' => $request->input('manager_name'),
                     'co_manager_name' => $request->input('comanager_name'),
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
-                    ]
-                );
+                ]
+        );
         $designation = $request->input('designation');
         $supervisor = $request->input('supervisor_name');
-        for($i=0;$i<count($request->input('designation'));$i++) {
+        for ($i = 0; $i < count($request->input('designation')); $i++) {
             $objDesignation = new Designation();
-            if($designation[$i] != "") {
+            if ($designation[$i] != "") {
                 $objDesignation->department_id = $id;
                 $objDesignation->designation_name = $designation[$i];
                 $objDesignation->supervisor_name = $supervisor[$i];
@@ -51,55 +50,51 @@ class Department extends Model
         }
         return TRUE;
     }
-    
-    public function getDepartment()
-    {
+
+    public function getDepartment() {
         $userData = Auth::guard('company')->user();
         $getAuthCompanyId = Company::where('email', $userData->email)->first();
 
         $arrDepartment = Department::
-                            // where('company_id', $company_id)
-                            where('company_id', $getAuthCompanyId->id)
-                            ->pluck('department_name', 'id')
-                            ->toArray();
-                
+                // where('company_id', $company_id)
+                where('company_id', $getAuthCompanyId->id)
+                ->pluck('department_name', 'id')
+                ->toArray();
+
         return $arrDepartment;
-    }
-    
-    public function getAllDepartment($companyId){
-        $department = Department::select("department_name","id")
-                    ->where('company_id', $companyId)
-                    ->get();
-        return $department;
-        
     }
 
-    public function getDepartmentCompany($company_Id)
-    {
+    public function getAllDepartment($companyId) {
+        $department = Department::select("department_name", "id")
+                ->where('company_id', $companyId)
+                ->get();
+        return $department;
+    }
+
+    public function getDepartmentCompany($company_Id) {
         $arrDepartment = Department::
-                            // where('company_id', $company_id)
-                            where('company_id', $company_Id)
-                            ->pluck('department_name', 'id')
-                            ->toArray();
-               
+                // where('company_id', $company_id)
+                where('company_id', $company_Id)
+                ->pluck('department_name', 'id')
+                ->toArray();
+
         return $arrDepartment;
     }
-    
-    public function getEmployeeDepartment()
-    {
+
+    public function getEmployeeDepartment() {
         $userData = Auth::guard('employee')->user();
         $getAuthCompanyId = Employee::where('email', $userData->email)->first();
         $arrDepartment = Department::
-                            // where('company_id', $company_id)
-                            where('company_id', $getAuthCompanyId['company_id'])
-                            ->pluck('department_name', 'id')
-                            ->toArray();
-                
+                // where('company_id', $company_id)
+                where('company_id', $getAuthCompanyId['company_id'])
+                ->pluck('department_name', 'id')
+                ->toArray();
+
         return $arrDepartment;
     }
 
-    public function getdatatable($companyId){
-        
+    public function getdatatable($companyId) {
+
         $requestData = $_REQUEST;
         $userData = Auth::guard('company')->user();
 //        $companyId = Company::where('email', $userData->email)->first();
@@ -113,7 +108,10 @@ class Department extends Model
         );
 
         $query = Department::leftjoin('designation', 'designation.department_id', '=', 'department.id')
-                             ->where('department.company_id',$companyId);
+                ->leftjoin('employee as em', 'em.id', '=', 'department.manager_name')
+                ->leftjoin('employee as emp', 'emp.id', '=', 'department.co_manager_name')
+                ->leftjoin('employee as empl', 'empl.id', '=', 'designation.supervisor_name')
+                ->where('department.company_id', $companyId);
         if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
             $searchVal = $requestData['search']['value'];
             $query->where(function($query) use ($columns, $searchVal, $requestData) {
@@ -122,37 +120,36 @@ class Department extends Model
                     $searchVal = $requestData['search']['value'];
                     if ($requestData['columns'][$key]['searchable'] == 'true') {
                         if ($flag == 0) {
-                            $query->where($value, 'like','%'.$searchVal.'%');
+                            $query->where($value, 'like', '%' . $searchVal . '%');
                             $flag = $flag + 1;
                         } else {
-                            $query->orWhere($value, 'like', '%'.$searchVal.'%');
+                            $query->orWhere($value, 'like', '%' . $searchVal . '%');
                         }
                     }
                 }
             });
         }
-        
+
         $temp = $query->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir']);
-         $query->groupBy('department.id');
+        $query->groupBy('department.id');
         $totalData = count($temp->get());
         $totalFiltered = count($temp->get());
         $resultArr = $query->skip($requestData['start'])
-                            ->take($requestData['length'])           
-                            ->select('department.manager_name', 'department.co_manager_name', 'department.id', 'department.company_id','department.department_name',DB::raw('GROUP_CONCAT(designation.designation_name) AS designation_name'),DB::raw('GROUP_CONCAT(designation.supervisor_name) AS supervisor_name'))
-                            ->get();
-
+                ->take($requestData['length'])
+                ->select('em.name as manager_name', 'emp.name as co_manager_name', 'department.id', 'department.company_id', 'department.department_name', DB::raw('GROUP_CONCAT(designation.designation_name) AS designation_name'), DB::raw('GROUP_CONCAT(empl.name) AS supervisor_name'))
+                ->get();
         $data = array();
-       
+
         foreach ($resultArr as $row) {
-            $actionHtml ='';
+            $actionHtml = '';
             $actionHtml .= '<a href="' . route('department-edit', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
-            $actionHtml .= '<a href="#deleteModel" data-toggle="modal" data-id="'.$row['id'].'" class="link-black text-sm deleteDepartment" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';
+            $actionHtml .= '<a href="#deleteModel" data-toggle="modal" data-id="' . $row['id'] . '" class="link-black text-sm deleteDepartment" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';
             $nestedData = array();
             $nestedData[] = $row["department_name"];
             $nestedData[] = $row["manager_name"];
             $nestedData[] = $row["co_manager_name"];
-            $nestedData[] =  $row["designation_name"];
-            $nestedData[] =  $row["supervisor_name"];
+            $nestedData[] = $row["designation_name"];
+            $nestedData[] = $row["supervisor_name"];
 //            $nestedData[] = '1';
             $nestedData[] = $actionHtml;
             $data[] = $nestedData;
@@ -165,8 +162,9 @@ class Department extends Model
             "data" => $data   // total data array
         );
         return $json_data;
-    }   
-    public function getdatatableV2(){
+    }
+
+    public function getdatatableV2() {
         $requestData = $_REQUEST;
         $userData = Auth::guard('company')->user();
         $companyId = Company::where('email', $userData->email)->first();
@@ -178,7 +176,7 @@ class Department extends Model
         );
 
         // $query = Department::join('designation', 'designation.department_id', '=', 'department.id');  /*using join*/
-        $query = Department::with(['designation'])->where('company_id', $companyId->id); /*using eloquent relationship*/
+        $query = Department::with(['designation'])->where('company_id', $companyId->id); /* using eloquent relationship */
         // ->groupBy('designation.department_id');
         if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
             $searchVal = $requestData['search']['value'];
@@ -197,20 +195,20 @@ class Department extends Model
                 }
             });
         }
-        
+
         $temp = $query->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir']);
         $totalData = count($temp->get());
         $totalFiltered = count($temp->get());
         $resultArr = $query->skip($requestData['start'])
-                            ->take($requestData['length'])           
-                            // ->select('department.id', 'department.department_name','designation_name')
-                            ->get();
+                ->take($requestData['length'])
+                // ->select('department.id', 'department.department_name','designation_name')
+                ->get();
 
         $data = array();
         foreach ($resultArr as $row) {
-            $actionHtml ='';
+            $actionHtml = '';
             $actionHtml .= '<a href="' . route('department-edit', array('id' => $row['id'])) . '" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit" > <i class="fa fa-edit"></i></a>';
-            $actionHtml .= '<a href="#deleteModel" data-toggle="modal" data-id="'.$row['id'].'" class="link-black text-sm deleteDepartment" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';
+            $actionHtml .= '<a href="#deleteModel" data-toggle="modal" data-id="' . $row['id'] . '" class="link-black text-sm deleteDepartment" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>';
             $nestedData = array();
             $nestedData[] = $row["department_name"];
             $desigArr = [];
@@ -232,41 +230,40 @@ class Department extends Model
         return $json_data;
     }
 
-    /*Relationship for designation*/
-    public function designation()
-    {
+    /* Relationship for designation */
+
+    public function designation() {
         return $this->hasMany('App\Model\Designation');
     }
 
-    public function editDepartment($request)
-    {
-        
+    public function editDepartment($request) {
+
         $name = '';
         $id = $request->input('edit_id');
 
-        if($request->input('designation') == null) {
-        	return false;
+        if ($request->input('designation') == null) {
+            return false;
         }
-        /*find & update department*/
+        /* find & update department */
         $findDepartment = Department::where('id', $id)
-                        ->update([
-                                'department_name' => $request->department_name,
-                                'manager_name' => $request->input('manager_name'),
-                                'co_manager_name' => $request->input('comanager_name'),
-                                'updated_at' => date('Y-m-d H:i:s')]);
+                ->update([
+            'department_name' => $request->department_name,
+            'manager_name' => $request->input('manager_name'),
+            'co_manager_name' => $request->input('comanager_name'),
+            'updated_at' => date('Y-m-d H:i:s')]);
 
-        /*find & update designations*/
+        /* find & update designations */
         $findDesignation = Designation::where('department_id', $id)->get();
 
-        foreach($findDesignation as $designation) {
+        foreach ($findDesignation as $designation) {
             $deleteDesignation = $designation->delete();
         }
 
         $designation = $request->input('designation');
         $supervisor = $request->input('supervisor_name');
-        for($i=0;$i<count($request->input('designation'));$i++){
+        for ($i = 0; $i < count($request->input('designation')); $i++) {
             $objDesignation = new Designation();
-            if($designation[$i] != ""){
+            if ($designation[$i] != "") {
                 $objDesignation->department_id = $id;
                 $objDesignation->designation_name = $designation[$i];
                 $objDesignation->supervisor_name = $supervisor[$i];
@@ -278,20 +275,20 @@ class Department extends Model
         return TRUE;
     }
 
-    public function getDepartmentByCompany($company_id)
-    {
+    public function getDepartmentByCompany($company_id) {
         $arrDepartment = Department::where('company_id', $company_id)
-                            ->pluck('department_name', 'id')
-                            ->toArray();
+                ->pluck('department_name', 'id')
+                ->toArray();
         // print_r($arrDepartment);exit;
         return $arrDepartment;
     }
-    
-    public function changeManager($request){
-        
+
+    public function changeManager($request) {
+
         $managerName = Department::where("id", $request)
-                        ->select('manager_name')
-                        ->get();
-                return $managerName;
+                ->select('manager_name')
+                ->get();
+        return $managerName;
     }
+
 }
