@@ -208,7 +208,7 @@ class SendSMS extends Model
     }
     
     public function userdetailsmail(){
-        $to = "somebody@example.com, somebodyelse@example.com";
+        $to = "parthkhunt12@gmail.com";
         $subject = "HTML email";
 
         $message = "
