@@ -33,6 +33,12 @@ var Task = function () {
     }
 
     var addTask = function(){
+
+        $("body").on('change', '#from_date', function () {
+            
+            $( "#to_date" ).prop( "disabled", false );
+        });
+
         $("body").on('change', '.department', function () {
             var department = $('.department').val();
             $.ajax({
