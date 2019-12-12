@@ -4,7 +4,7 @@ var Chat = function () {
         setInterval(function(){
 //            fetch_user();
             autorefresh();
-        }, 5000);
+        }, 2000);
         
         fetch_user();
         function autorefresh(){
