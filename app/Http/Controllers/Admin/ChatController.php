@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Http\Request;
 use App\Model\Chat;
-// use Illuminate\Support\Facades\Auth;
 use App\Model\Company;
 use App\User;
 use App\Model\Users;
@@ -14,23 +14,31 @@ use Route;
 use APP;
 
 
-
 class ChatController extends Controller{
-
     public function __construct() {
-        // parent::__construct();
         $this->middleware('admin');
     }
     
-    public function index(){
-        
+    public function index(Request $request){
+        $userData = Auth::guard('admin')->user();
+        $data['userid'] = $userData->id;
+       
+        if(isset($_COOKIE['chatuserid'])){
+            $data['chat'] = "yes";
+            $objChatHistory =  new Chat();
+            $data['chatdetails'] = $objChatHistory->gethistroy($userData->id,$_COOKIE['chatuserid']);
+           
+        }else{
+            $data['chat'] = "no";
+            $data['chatdetails'] = '';
+        }
         $data['header'] = array(
             'title' => 'Chat',
             'breadcrumb' => array(
                 'Home' => route("admin-dashboard"),
                 'Chat view' => 'Chat view'));
         $data['js'] = array('admin/chat.js');
-        $data['funinit'] = array('Chat.init()');
+        $data['funinit'] = array('Chat.init()');                   
         return view('admin.chat.chat',$data);
     }
     
@@ -38,6 +46,7 @@ class ChatController extends Controller{
         
         $action = $request->input('action');
         switch($action){
+            
             case 'fetch_user':
                 $userData = Auth::guard('admin')->user();
                 $getAuthAdminId = User::where('email', $userData->email)->first();
@@ -46,6 +55,26 @@ class ChatController extends Controller{
                 $user_fetch = $chatObj->fetch_user_admin($logeduserId);
                 return $user_fetch;
                 break;
+            case 'autorefresh':
+                if(isset($_COOKIE['chatuserid'])){
+                     $userData = Auth::guard('admin')->user();
+                    $sendid = $userData->id;
+                    $reciverid = $_COOKIE['chatuserid'];
+                    $objChatHistory =  new Chat();
+                    $data['chatdetails'] = $objChatHistory->gethistroy($sendid,$reciverid);
+                    $data['reciverid'] = $reciverid;
+                    return json_encode($data);
+                    break;
+                }else{
+                    return "false";
+                    break;
+                }
+               
+                
+            case 'setuserid':
+                setcookie("chatuserid", $request->input('to_user_id'), time() + (86400 * 30),  "/","");
+                setcookie("chatusername", $request->input('to_user_name'), time() + (86400 * 30),  "/","");
+            
             case 'search_user_list':
                 $userData = Auth::guard('admin')->user();
                 $getAuthAdminId = User::where('email', $userData->email)->first();

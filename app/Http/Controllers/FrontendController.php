@@ -12,15 +12,13 @@ use Redirect;
 use Config;
 use App\Model\PlanManagement;
 use App\Model\PlanFeature;
-use App\Model\SendSMS;
+
 class FrontendController extends Controller {
 
     public function __construct() {
     }
     
     public function index(){
-        $objsendmail = new SendSMS();
-        $data['userdetails'] = $objsendmail->userdetailsmail();
         $data['duration'] = array('1' => 'Month', '2' => '3 Month', '3' => '6 Month', '4' => 'Year',);
        
         $planObj = new PlanManagement();
