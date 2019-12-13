@@ -27,7 +27,7 @@ var Chat = function () {
                                 var userimg=baseurl+"uploads/client/" +data[i].user_image;
 //                                var userimg=baseurl+"uploads/client/user.jpg";
                             }
-                            $('.users-list').append("<div class='chat-user'><a data-id='"+ data[0].userid +"' data-user-name='"+data[i].name+"' class='user-message' href='javascript:void(0);'  ><img class='chat-avatar' src='"+userimg+"' alt=''><div class='chat-user-name'>"+data[i].name+"</div></a></div>");
+                            $('.users-list').append("<div class='chat-user'><a data-id='"+ data[i].userid +"' data-user-name='"+data[i].name+"' class='user-message' href='javascript:void(0);'  ><img class='chat-avatar' src='"+userimg+"' alt=''><div class='chat-user-name'>"+data[i].name+"</div></a></div>");
                         }
                     }
                 },
