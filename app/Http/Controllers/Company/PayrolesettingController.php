@@ -41,10 +41,12 @@ class PayrolesettingController extends Controller {
             if ($result) {
                 $return['status'] = 'success';
                 $return['message'] = 'New greade created successfully.';
+                $return['jscode'] = '$(".submitbtn:visible").attr("disabled","disabled");';
                 $return['redirect'] = route('payroll-setting');
             } else {
                 $return['status'] = 'error';
                 $return['message'] = 'Something goes to wrong';
+                $return['jscode'] ='$(".submitbtn").removeAttr("disabled");';
             }
             echo json_encode($return);
             exit;

@@ -36,7 +36,7 @@
 						 		<label class="col-sm-3 control-label">Date Of birth</label>
                                 <div class="col-sm-9"> 
                                 	<div class="input-group date">
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="date_of_birth" id="" placeholder="Select Date of joingng" class="form-control" value="" autocomplete="off">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="date_of_birth" id="" placeholder="Select Date of birthday" class="form-control" value="" autocomplete="off">
                                 </div>
                                 </div>
                             </div>
@@ -502,7 +502,7 @@
 		</div>
                 
                 <div class="col-12">
-                    <center><button class="btn btn-primary  btn-block" type="submit">Save</button></center>
+                    <center><button class="submitbtn btn btn-primary  btn-block" type="submit">Save</button></center>
                 </div>
 	{{ Form::close() }}
 	</div>
