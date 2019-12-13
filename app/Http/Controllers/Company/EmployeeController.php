@@ -61,10 +61,13 @@ class EmployeeController extends Controller {
 
                 $return['status'] = 'success';
                 $return['message'] = 'Employee created successfully.';
+                $return['jscode'] = '$(".submitbtn:visible").attr("disabled","disabled");';
+                
                 $return['redirect'] = route('employee-list');
             } else {
                 $return['status'] = 'error';
                 $return['message'] = 'something will be wrong.';
+                $return['jscode'] ='$(".submitbtn").removeAttr("disabled");';
             }
             echo json_encode($return);
             exit;

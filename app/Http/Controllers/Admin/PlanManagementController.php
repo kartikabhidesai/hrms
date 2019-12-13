@@ -68,10 +68,11 @@ class PlanManagementController extends Controller {
         $data['css'] = array('');
         $data['duration'] = array('1' => 'Month', '2' => '3 Month', '3' => '6 Month', '4' => 'Year',);
         $data['header'] = array(
-            'title' => 'System-Setting',
+            'title' => 'Add New Plan',
             'breadcrumb' => array(
                 'Home' => route("company-dashboard"),
-                'System-setting' => 'System-setting'));
+                'Plan List' => route("plan-management"),
+                'Add New Plan' => 'Add New Plan'));
 
         return view('admin.plan-management.plan-management-add', $data);
     }
