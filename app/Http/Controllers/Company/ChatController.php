@@ -131,7 +131,7 @@ class ChatController extends Controller{
                             $notificationMasterId=20;
                             $msg= "Chat in  New Message.";
                             $objSendSms = new SendSMS();
-                            $sendSMS = $objSendSms->sendSmsNotificaationNew($notificationMasterId,$reciveid[0]->user_id,$msg);
+                            $sendSMS = $objSendSms->sendSmsNotificaationNew($notificationMasterId,$reciveid,$msg);
                         }
                         
                         if($result[1]['status'] == 1){
@@ -140,7 +140,7 @@ class ChatController extends Controller{
                             $notificationMasterId=20;
                             $msg= "Chat in  New Message.";
                             $objSendEmail = new Users();
-                            $sendEmail = $objSendEmail->sendEmailNotificationNew($notificationMasterId,$reciveid[0]->user_id,$msg);
+                            $sendEmail = $objSendEmail->sendEmailNotificationNew($notificationMasterId,$reciveid,$msg);
                         }
                         
                         if($result[2]['status'] == 1){
@@ -153,7 +153,7 @@ class ChatController extends Controller{
                             $getAuthCompanyId = Company::where('email', $userData->email)->first();
                             $logeduserId = $getAuthCompanyId->user_id;
                             $objUser =  new Users();
-                            $result = $objUser->getUserType($reciveid[0]->user_id);
+                            $result = $objUser->getUserType($reciveid);
                             if($result == "ADMIN"){
                                 $route_url='admin-chat' ;
                             }
@@ -169,7 +169,7 @@ class ChatController extends Controller{
                             $objNotification = new Notification();
                             $objEmployee = new Employee();
                             $chatMessage="Chat in  New Message.";
-                            $ret = $objNotification->addNotification($reciveid[0]->user_id,$chatMessage,$route_url,$notificationMasterId);
+                            $ret = $objNotification->addNotification($reciveid,$chatMessage,$route_url,$notificationMasterId);
                         }
                     }
 
