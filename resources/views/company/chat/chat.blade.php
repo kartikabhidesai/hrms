@@ -1,6 +1,10 @@
 @extends('layouts.app')
 @section('content')
+<?php
+print_r($_COOKIE['company_chatuserid']);
+die();
 
+?>
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         <div class="col-lg-12">
