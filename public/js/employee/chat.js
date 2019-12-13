@@ -222,7 +222,7 @@ var Chat = function () {
                             }
                             if(data[i].to_user_id!=to_user_id)
                             {
-                                $('.user-message-list').prepend("<div class='chat-message left'>\
+                                $('.user-message-list').append("<div class='chat-message left'>\
                                             <img class='message-avatar' src='"+baseurl+"uploads/client/"+userimg+"' alt='"+data[i].name+"' >\
                                             <div class='message'>\
                                                 <a class='message-author' href='#'>"+data[i].name+"</a>\
@@ -230,7 +230,7 @@ var Chat = function () {
                                                 <span class='message-content'>"+data[i].chat_message+"</span>\
                                             </div></div>");
                             }else{
-                                $('.user-message-list').prepend("<div class='chat-message right'>\
+                                $('.user-message-list').append("<div class='chat-message right'>\
                                             <img class='message-avatar' src='"+baseurl+"uploads/client/"+userimg+"' alt='"+data[i].name+"' >\
                                             <div class='message'>\
                                                 <a class='message-author' href='#'>"+data[i].name+"</a>\
