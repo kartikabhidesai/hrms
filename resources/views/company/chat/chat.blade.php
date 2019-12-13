@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <?php
-print_r($_COOKIE['company_chatuserid']);
+print_r($_COOKIE);
 die();
 
 ?>
