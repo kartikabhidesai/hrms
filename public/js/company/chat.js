@@ -18,8 +18,8 @@ var Chat = function () {
                 url: baseurl + "company/chat-ajaxAction",
                     data: {'action': 'fetch_user'},
                 success: function(data) {
-//                   console.log(data[0].userid);
-//                   exit;
+                   console.log(data[0].userid);
+                   exit;
                     if(data){
                         for(var i = 0; i< data.length; i++){
                             
