@@ -16,7 +16,18 @@ use App\Model\NotificationMaster;
 
 class ChatController extends Controller{
     
-    public function index(){
+    public function index(Request $request){
+        $userData = Auth::guard('employee')->user();
+        $data['userid'] = $userData->id;
+        
+        if(isset($_COOKIE['employee_chatuserid'])){
+            $data['chat'] = "yes";
+            $objChatHistory =  new Chat();
+            $data['chatdetails'] = $objChatHistory->gethistroy($userData->id,$_COOKIE['employee_chatuserid']);
+        }else{
+            $data['chat'] = "no";
+            $data['chatdetails'] = '';
+        }
         
         $data['header'] = array(
             'title' => 'Chat',
@@ -66,6 +77,25 @@ class ChatController extends Controller{
                 $last_active = $updateActivity->update_last_activity();
                 return json_encode($last_active);
                 break;
+            case 'setuserid':
+                setcookie("employee_chatuserid", $request->input('to_user_id'), time() + (86400 * 30),  "/","");
+                setcookie("employee_chatusername", $request->input('to_user_name'), time() + (86400 * 30),  "/","");
+                
+            case 'autorefresh':
+                if(isset($_COOKIE['employee_chatuserid'])){
+                     $userData = Auth::guard('employee')->user();
+                    $sendid = $userData->id;
+                    $reciverid = $_COOKIE['employee_chatuserid'];
+                    $objChatHistory =  new Chat();
+                    $data['chatdetails'] = $objChatHistory->gethistroy($sendid,$reciverid);
+                    $data['reciverid'] = $reciverid;
+                    return json_encode($data);
+                    break;
+                }else{
+                    return "false";
+                    break;
+                }
+                
             case 'insert_chat':
                 $userData = Auth::guard('employee')->user();
                 $getAuthEmployeeId = Employee::where('email', $userData->email)->first();
