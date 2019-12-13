@@ -59,7 +59,7 @@ class ComapnyController extends Controller {
             } else {
                 $return['status'] = 'error';
                 $return['message'] = 'This email is already registerd!';
-                $return['jscode'] ='$(".submitbtn").removeAttr("disabled");';
+                $return['jscode'] = '$(".submitbtn").removeAttr("disabled");';
             }
             echo json_encode($return);
             exit;

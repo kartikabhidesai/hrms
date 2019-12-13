@@ -1,15 +1,15 @@
-var Ticket = function() {
-    var handleList = function() {
-       
-       $('body').on('click', '.deleteTicket', function() {
-            // $('#deleteModel').modal('show');
+var Ticket = function () {
+    var handleList = function () {
+
+        $('body').on('click', '.deleteTicket', function () {
+// $('#deleteModel').modal('show');
             var id = $(this).data('id');
-            setTimeout(function() {
+            setTimeout(function () {
                 $('.yes-sure:visible').attr('data-id', id);
             }, 500);
         })
 
-        $('body').on('click', '.yes-sure', function() {
+        $('body').on('click', '.yes-sure', function () {
             var id = $(this).attr('data-id');
             var data = {id: id, _token: $('#_token').val()};
             $.ajax({
@@ -19,19 +19,17 @@ var Ticket = function() {
                 },
                 url: baseurl + "company/ticket-ajaxAction",
                 data: {'action': 'deleteTicket', 'data': data},
-                success: function(data) {
+                success: function (data) {
                     handleAjaxResponse(data);
                 }
             });
         });
-
         var dataArr = {};
         var columnWidth = {"width": "10%", "targets": 0};
         var priority = $("#priority").val();
         var status = $("#status").val();
-        var dataArr = {"priority" : priority, "status" : status};
-       
-            var arrList = {
+        var dataArr = {"priority": priority, "status": status};
+        var arrList = {
             'tableID': '#TicketDatatables',
             'ajaxURL': baseurl + "company/ticket-ajaxAction",
             'ajaxAction': 'getdatatable',
@@ -44,18 +42,14 @@ var Ticket = function() {
             'setColumnWidth': columnWidth
         };
         getDataTable(arrList);
-
         $('body').on('click', '.filler', function () {
             var priority = $('#priority option:selected').val();
             var status = $('#status option:selected').val();
             var querystring = (priority == '' && typeof priority === 'undefined') ? '&priority=' : '&priority=' + priority;
-            
             /*Don't remove this code as it's in-progress*/
             querystring += (status == '' && typeof status === 'undefined') ? '&status=' : '&status=' + status;
-            
             location.href = baseurl + 'company/ticket-list?' + querystring;
         });
-
         $("body").on('click', '.ticketDetails', function () {
             var data = $(this).attr('data-id');
             $.ajax({
@@ -65,55 +59,55 @@ var Ticket = function() {
                 },
                 url: baseurl + "company/ticket-ajaxAction",
                 data: {'action': 'ticketDetails', 'data': data},
-                success: function(data) {
-                    var  output = JSON.parse(data);
+                success: function (data) {
+                    var output = JSON.parse(data);
                     console.log(output);
-                    if(output.code === null) {
+                    if (output.code === null) {
                         $('.code').hide();
                     } else {
                         $('.code').show();
                         $('.code').html(output.code);
                     }
-                    if(output.assign_to === null) {
+                    if (output.assign_to === null) {
                         $('.assignedTo').hide();
                     } else {
                         $('.assignedTo').html(output.emp_name);
                     }
-                    if(output.priority === null) {
+                    if (output.priority === null) {
                         $('.priorityDetail').hide();
                     } else {
                         $('.priorityDetail').html(output.priority);
                     }
-                    if(output.subject === null) {
+                    if (output.subject === null) {
                         $('.subject').hide();
                     } else {
                         $('.subject').html(output.subject);
                     }
-                    if(output.status === null) {
+                    if (output.status === null) {
                         $('.status').hide();
                     } else {
                         $('.status').html(output.status);
                     }
-                    
-                    if(output.departmentName === null) {
+
+                    if (output.departmentName === null) {
                         $('.departmentName').hide();
                     } else {
                         $('.departmentName').html(output.departmentName);
                     }
-                    
-                    if(output.manager_name === null) {
+
+                    if (output.manager_name === null) {
                         $('.managerName').hide();
                     } else {
                         $('.managerName').html(output.manager_name);
                     }
-                    
-                    
-                    if(output.details === null) {
+
+
+                    if (output.details === null) {
                         $('.details').hide();
                     } else {
                         $('.details').html(output.details);
                     }
-                    if(output.created_by === null) {
+                    if (output.created_by === null) {
                         $('.createdBy').hide();
                     } else {
                         $('.createdBy').html(output.created_by);
@@ -121,201 +115,189 @@ var Ticket = function() {
                 }
             });
         });
-
-
         $("body").on('click', '.ticketEdit', function () {
-                var data = $(this).attr('data-id');
-                $.ajax({
-                    type: "POST",
-                    headers: {
-                        'X-CSRF-TOKEN': $('input[name="_token"]').val(),
-                    },
-                    url: baseurl + "company/ticket-ajaxAction",
-                    data: {'action': 'ticketEdit', 'data': data},
-                    success: function(data) {
-                        var  output = JSON.parse(data);
-                        console.log(output);
-                        if(output.code === null) {
-                            $('.code').hide();
-                        } else {
-                            $('.code').show();
-                            $('.code').html(output.code);
-                        }
-                        if(output.assign_to === null) {
-                            $('.assignedTo').hide();
-                        } else {
-                            $('.assignedTo').html(output.emp_name);
-                        }
-                        if(output.priority === null) {
-                            $('.priorityDetail').hide();
-                        } else {
-                            $('.priorityDetail').html(output.priority);
-                        }
-                        if(output.subject === null) {
-                            $('.subject').hide();
-                        } else {
-                            $('.subject').html(output.subject);
-                        }
-                        if(output.status === null) {
-                            $('.status').hide();
-                        } else {
-                            $('.status').html(output.status);
-                        }
-                        if(output.details === null) {
-                            $('.details').hide();
-                        } else {
-                            $('.details').html(output.details);
-                        }
-                        if(output.created_by === null) {
-                            $('.createdBy').hide();
-                        } else {
-                            $('.createdBy').html(output.created_by);
-                        }
+            var data = $(this).attr('data-id');
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                },
+                url: baseurl + "company/ticket-ajaxAction",
+                data: {'action': 'ticketEdit', 'data': data},
+                success: function (data) {
+                    var output = JSON.parse(data);
+                    console.log(output);
+                    if (output.code === null) {
+                        $('.code').hide();
+                    } else {
+                        $('.code').show();
+                        $('.code').html(output.code);
                     }
-                });
+                    if (output.assign_to === null) {
+                        $('.assignedTo').hide();
+                    } else {
+                        $('.assignedTo').html(output.emp_name);
+                    }
+                    if (output.priority === null) {
+                        $('.priorityDetail').hide();
+                    } else {
+                        $('.priorityDetail').html(output.priority);
+                    }
+                    if (output.subject === null) {
+                        $('.subject').hide();
+                    } else {
+                        $('.subject').html(output.subject);
+                    }
+                    if (output.status === null) {
+                        $('.status').hide();
+                    } else {
+                        $('.status').html(output.status);
+                    }
+                    if (output.details === null) {
+                        $('.details').hide();
+                    } else {
+                        $('.details').html(output.details);
+                    }
+                    if (output.created_by === null) {
+                        $('.createdBy').hide();
+                    } else {
+                        $('.createdBy').html(output.created_by);
+                    }
+                }
             });
- 
-
+        });
     };
-    
-    var addlist = function() {
-        
-            $("body").on("change",".department",function(){
-                var val = $(this).val();
-                $.ajax({
-                    type: "POST",
-                    headers: {
-                        'X-CSRF-TOKEN': $('input[name="_token"]').val(),
-                    },
-                    url: baseurl + "company/ticket-ajaxAction",
-                    data: {'action': 'changeManager', 'value': val},
-                    success: function(data) {
-                         var  output = JSON.parse(data);
-                         var html ='<option value="">Select Manager</option>';
-                         for(var i = 0 ; i < output.length; i++){
-                             var temp = "";
-                             temp = '<option value="'+ output[i].manager_name +'">'+ output[i].manager_name +'</option>';
-                             html = html + temp;
-                         }
-                         $(".manager").html(html);
-                         
+    var addlist = function () {
+
+        $("body").on("change", ".department", function () {
+            var val = $(this).val();
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                },
+                url: baseurl + "company/ticket-ajaxAction",
+                data: {'action': 'changeManager', 'value': val},
+                success: function (data) {
+                    var output = JSON.parse(data);
+                    var html = '<option value="">Select Manager</option>';
+                    for (var i = 0; i < output.length; i++) {
+                        var temp = "";
+                        temp = '<option value="' + output[i].manager_name + '">' + output[i].manager_name + '</option>';
+                        html = html + temp;
                     }
-                });
+                    $(".manager").html(html);
+                }
             });
-            // var unavailableDates = ["09-04-2019", "14-04-2019", "15-04-2019"];
+        });
+        // var unavailableDates = ["09-04-2019", "14-04-2019", "15-04-2019"];
 
-            // function unavailable(date) {
-            //     dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
-            //     if ($.inArray(dmy, unavailableDates) == -1) {
-            //         return [true, ""];
-            //     } else {
-            //         return [false, "", "Unavailable"];
-            //     }
-            // }
-    
-            // $("#due_date").datepicker({
-            //     dateFormat: 'dd-MM-yyyy',
-            //     beforeShowDay: unavailable
-            // });
+        // function unavailable(date) {
+        //     dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+        //     if ($.inArray(dmy, unavailableDates) == -1) {
+        //         return [true, ""];
+        //     } else {
+        //         return [false, "", "Unavailable"];
+        //     }
+        // }
 
-            // var arrayD = ['04/14/2019','04/15/2019','04/16/2019'];
-          
-            // console.log(Date());
-            $("#due_date").datepicker({
-                format: 'mm/dd/yyyy',
-                autoclose:true,
-                weekStart:1,
-                firstDay:1,
-                startDate:new Date(),
-                todayBtn:true,
-                // datesDisabled:arrayD
-            });
-        
+        // $("#due_date").datepicker({
+        //     dateFormat: 'dd-MM-yyyy',
+        //     beforeShowDay: unavailable
+        // });
+
+        // var arrayD = ['04/14/2019','04/15/2019','04/16/2019'];
+
+        // console.log(Date());
+        $("#due_date").datepicker({
+            format: 'mm/dd/yyyy',
+            autoclose: true,
+            weekStart: 1,
+            firstDay: 1,
+            startDate: new Date(),
+            todayBtn: true,
+            // datesDisabled:arrayD
+        });
         var form = $('#ticket-add');
         var rules = {
             ticket_name: {required: true},
             designation: {required: true},
         };
-        handleFormValidate(form, rules, function(form) {
-            handleAjaxFormSubmit(form,true);
+        handleFormValidate(form, rules, function (form) {
+            handleAjaxFormSubmit(form, true);
         });
-
         function truncateDate(date) {
             return new Date(date.getFullYear(), date.getMonth(), date.getDate());
-          }
-        
-        $('body').on('click','.add_designation',function(){
-            var button='<div class="form-group removediv">'+
-                            '<label class="col-lg-2 control-label"></label>'+
-                                '<div class="col-lg-8">'+
-                                    '<input type="file" name="ticket_attachment[]" class="form-control" placeholder="Add more Attachment" required>'+
-                                '</div>'+
-                                '<div class="col-lg-2">'+
-                                    '<input type="button" class="red form-control removebtn" value="Remove">'+
-                                '</div>'+
-                            '</div>';
+        }
+
+        $('body').on('click', '.add_designation', function () {
+            var button = '<div class="form-group removediv">' +
+                    '<label class="col-lg-2 control-label"></label>' +
+                    '<div class="col-lg-8">' +
+                    '<input type="file" name="ticket_attachment[]" class="form-control" placeholder="Add more Attachment" required>' +
+                    '</div>' +
+                    '<div class="col-lg-2">' +
+                    '<input type="button" class="red form-control removebtn" value="Remove">' +
+                    '</div>' +
+                    '</div>';
             $('.add_designation_div').prepend(button);
         });
-        
-        $('body').on('click','.removebtn',function(){
+        $('body').on('click', '.removebtn', function () {
             $(this).closest('.removediv').remove();
         });
+        
+        $('form').submit(function () {
+            $(this).find("button[type='submit']").prop('disabled', true);
+        });
     };
-
-    var editlist = function() {
+    var editlist = function () {
         var form = $('#ticket-edit');
         var rules = {
             ticket_name: {required: true},
             designation: {required: true},
         };
-        handleFormValidate(form, rules, function(form) {
-            handleAjaxFormSubmit(form,true);
+        handleFormValidate(form, rules, function (form) {
+            handleAjaxFormSubmit(form, true);
         });
-        
-        $('body').on('click','.add_designation',function(){
-            var button='<div class="form-group removediv">'+
-                            '<label class="col-lg-2 control-label"></label>'+
-                                '<div class="col-lg-8">'+
-                                    '<input type="file" name="ticket_attachment[]" class="form-control" placeholder="Add more Attachment" required>'+
-                                '</div>'+
-                                '<div class="col-lg-2">'+
-                                    '<input type="button" class="red form-control removebtn" value="Remove">'+
-                                '</div>'+
-                            '</div>';
+        $('body').on('click', '.add_designation', function () {
+            var button = '<div class="form-group removediv">' +
+                    '<label class="col-lg-2 control-label"></label>' +
+                    '<div class="col-lg-8">' +
+                    '<input type="file" name="ticket_attachment[]" class="form-control" placeholder="Add more Attachment" required>' +
+                    '</div>' +
+                    '<div class="col-lg-2">' +
+                    '<input type="button" class="red form-control removebtn" value="Remove">' +
+                    '</div>' +
+                    '</div>';
             $('.add_designation_div').prepend(button);
         });
-        
-        $('body').on('click','.removebtn',function(){
+        $('body').on('click', '.removebtn', function () {
             $(this).closest('.removediv').remove();
         });
-
-        $('body').on('click','.editRemovebtn',function(){
+        $('body').on('click', '.editRemovebtn', function () {
             $(this).closest('.editRemovediv').remove();
         });
     };
-
-    var addCommentsList = function() {
+    var addCommentsList = function () {
         var form = $('#addTicketComment');
         var rules = {
             comment: {required: true}
         };
-        handleFormValidate(form, rules, function(form) {
-            handleAjaxFormSubmit(form,true);
+        handleFormValidate(form, rules, function (form) {
+            handleAjaxFormSubmit(form, true);
         });
-        
     };
-
     return {
-        init: function() {
+        init: function () {
             handleList();
         },
-        add :function(){
+        add: function () {
             addlist();
         },
-        edit :function(){
+        edit: function () {
             editlist();
         },
-        addComments :function(){
+        addComments: function () {
             addCommentsList();
         },
     }

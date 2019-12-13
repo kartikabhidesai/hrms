@@ -105,7 +105,7 @@
                         
                         <div class="form-group">
                             <div class="col-lg-offset-2 col-lg-10">
-                                <button class="btn btn-sm btn-primary" type="submit">Send Ticket</button>
+                                <button class="btn btn-sm btn-primary btnSubmit" type="submit">Send Ticket</button>
                             </div>
                         </div>
 	               {{ Form::close() }}

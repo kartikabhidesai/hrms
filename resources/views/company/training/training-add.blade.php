@@ -111,7 +111,7 @@
                     <br>
                         <div class="form-group">
                             <div class="col-lg-offset-1 col-lg-10">
-                                <button class="btn btn-sm btn-primary" type="submit">Save Training</button>
+                                <button class="submitbtn btn btn-sm btn-primary" type="submit">Save Training</button>
                             </div>
                         </div>
                     
