@@ -131,7 +131,8 @@ var Chat = function () {
         $('body').on('click', '.user-message', function () {
             var to_user_id = $(this).attr('data-id');
             var to_user_name = $(this).attr('data-user-name');
-           
+           alert(to_user_id);
+           alert(to_user_name);
             $.ajax({
                 type: 'POST',
                 headers: {
