@@ -9,6 +9,7 @@ var Chat = function () {
         }, 2000);
         
         function fetch_user() {
+            $('.users-list').html('');
             $.ajax({
                 type: 'POST',
                 headers: {
