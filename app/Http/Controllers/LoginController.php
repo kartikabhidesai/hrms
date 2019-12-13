@@ -182,6 +182,8 @@ class LoginController extends Controller {
     public function resetGuard() {
         setcookie("chatuserid", "", time() - 3600, "/","", 0);
         setcookie("chatusername", "", time() - 3600, "/","", 0);
+        setcookie("company_chatuserid", "", time() - 3600, "/","", 0);
+        setcookie("company_chatusername", "", time() - 3600, "/","", 0);
         Auth::logout();
         Auth::guard('admin')->logout();
         Auth::guard('company')->logout();

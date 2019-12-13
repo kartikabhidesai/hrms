@@ -19,7 +19,19 @@ use App\Model\SendSMS;
 class ChatController extends Controller{
     
     public function index(){
-        
+        $userData = Auth::guard('company')->user();
+        $data['userid'] = $userData->id;
+       
+        if(isset($_COOKIE['company_chatuserid'])){
+           
+            $data['chat'] = "yes";
+            $objChatHistory =  new Chat();
+            $data['chatdetails'] = $objChatHistory->gethistroy($userData->id,$_COOKIE['company_chatuserid']);
+           
+        }else{
+            $data['chat'] = "no";
+            $data['chatdetails'] = '';
+        }
         $data['header'] = array(
             'title' => 'Chat',
             'breadcrumb' => array(
@@ -70,8 +82,30 @@ class ChatController extends Controller{
                 $last_active = $updateActivity->update_last_activity();
                 return json_encode($last_active);
                 break;
+            case 'setuserid':
+                setcookie("company_chatuserid", $request->input('to_user_id'), time() + (86400 * 30),  "/","");
+                setcookie("company_chatusername", $request->input('to_user_name'), time() + (86400 * 30),  "/","");
+                
+            case 'autorefresh':
+                    if(isset($_COOKIE['company_chatuserid'])){
+                        $userData = Auth::guard('company')->user();
+                        $sendid = $userData->id;
+                        $reciverid = $_COOKIE['company_chatuserid'];
+                        $objChatHistory =  new Chat();
+                        $data['chatdetails'] = $objChatHistory->gethistroy($sendid,$reciverid);
+                        $data['reciverid'] = $reciverid;
+                        return json_encode($data);
+                        break;
+                    }else{
+                        return "false";
+                        break;
+                    }
+                
             case 'insert_chat':
-                $reciveid = Employee::select('user_id')->where('id',$request->input('to_user_id'))->get();
+//                print_r($request->input());
+//                exit;
+                $reciveid = $request->input('to_user_id');
+//                Employee::select('user_id')->where('id',$request->input('to_user_id'))->get();
                 
                 $userData = Auth::guard('company')->user();
                 $getAuthCompanyId = Company::where('email', $userData->email)->first();
@@ -85,61 +119,61 @@ class ChatController extends Controller{
                 $objNotificationMaster = new NotificationMaster();
                 $NotificationUserStatus=$objNotificationMaster->checkNotificationUserStatusNew($logeduserId,"5");
                 
-                if($NotificationUserStatus->status==1 )
-                {
-                  
-                        $objUserNotificationType = new UserNotificationType();
-                        $result = $objUserNotificationType->checkMessage($NotificationUserStatus->id);
-                             
-                        if($result[0]['status'] == 1){
-                           
-//                            SMS  Notification
-                            $notificationMasterId=20;
-                            $msg= "Chat in  New Message.";
-                            $objSendSms = new SendSMS();
-                            $sendSMS = $objSendSms->sendSmsNotificaationNew($notificationMasterId,$reciveid[0]->user_id,$msg);
-                        }
-                        
-                        if($result[1]['status'] == 1){
-                         
-//                            EMAIL Notification
-                            $notificationMasterId=20;
-                            $msg= "Chat in  New Message.";
-                            $objSendEmail = new Users();
-                            $sendEmail = $objSendEmail->sendEmailNotificationNew($notificationMasterId,$reciveid[0]->user_id,$msg);
-                        }
-                        
-                        if($result[2]['status'] == 1){
-//                            chat Notification
-                        }
-                        
-                        if($result[3]['status'] == 1){
-                            
-                            $userData = Auth::guard('company')->user();
-                            $getAuthCompanyId = Company::where('email', $userData->email)->first();
-                            $logeduserId = $getAuthCompanyId->user_id;
-                            $objUser =  new Users();
-                            $result = $objUser->getUserType($reciveid[0]->user_id);
-                            if($result == "ADMIN"){
-                                $route_url='admin-chat' ;
-                            }
-                            
-                            if($result == "EMPLOYEE"){
-                                $route_url=strtolower($result)."/employee-chatnew/".$logeduserId ;
-                            }
-                            
-                            if($result == "COMPANY"){
-                                $route_url=strtolower($result)."/chatnew/".$logeduserId ;
-                            }
-                        //notification add
-                            $objNotification = new Notification();
-                            $objEmployee = new Employee();
-                            $chatMessage="Chat in  New Message.";
-                            $ret = $objNotification->addNotification($reciveid[0]->user_id,$chatMessage,$route_url,$notificationMasterId);
-                        }
-                    }
+//                if($NotificationUserStatus->status==1 )
+//                {
+//                  
+//                        $objUserNotificationType = new UserNotificationType();
+//                        $result = $objUserNotificationType->checkMessage($NotificationUserStatus->id);
+//                             
+//                        if($result[0]['status'] == 1){
+//                           
+////                            SMS  Notification
+//                            $notificationMasterId=20;
+//                            $msg= "Chat in  New Message.";
+//                            $objSendSms = new SendSMS();
+//                            $sendSMS = $objSendSms->sendSmsNotificaationNew($notificationMasterId,$reciveid[0]->user_id,$msg);
+//                        }
+//                        
+//                        if($result[1]['status'] == 1){
+//                         
+////                            EMAIL Notification
+//                            $notificationMasterId=20;
+//                            $msg= "Chat in  New Message.";
+//                            $objSendEmail = new Users();
+//                            $sendEmail = $objSendEmail->sendEmailNotificationNew($notificationMasterId,$reciveid[0]->user_id,$msg);
+//                        }
+//                        
+//                        if($result[2]['status'] == 1){
+////                            chat Notification
+//                        }
+//                        
+//                        if($result[3]['status'] == 1){
+//                            
+//                            $userData = Auth::guard('company')->user();
+//                            $getAuthCompanyId = Company::where('email', $userData->email)->first();
+//                            $logeduserId = $getAuthCompanyId->user_id;
+//                            $objUser =  new Users();
+//                            $result = $objUser->getUserType($reciveid[0]->user_id);
+//                            if($result == "ADMIN"){
+//                                $route_url='admin-chat' ;
+//                            }
+//                            
+//                            if($result == "EMPLOYEE"){
+//                                $route_url=strtolower($result)."/employee-chatnew/".$logeduserId ;
+//                            }
+//                            
+//                            if($result == "COMPANY"){
+//                                $route_url=strtolower($result)."/chatnew/".$logeduserId ;
+//                            }
+//                        //notification add
+//                            $objNotification = new Notification();
+//                            $objEmployee = new Employee();
+//                            $chatMessage="Chat in  New Message.";
+//                            $ret = $objNotification->addNotification($reciveid[0]->user_id,$chatMessage,$route_url,$notificationMasterId);
+//                        }
+//                    }
 
-                $user_fetch = $insertChat->fetchUserLastMessage($logeduserId,$reciveid[0]->user_id);
+                $user_fetch = $insertChat->fetchUserLastMessage($logeduserId,$reciveid);
                
                 return $user_fetch;
                 // return json_encode($insertData);

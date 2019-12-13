@@ -2,6 +2,12 @@ var Chat = function () {
 
     var handleList = function () {
         fetch_user();
+        
+        setInterval(function(){
+            fetch_user();
+            autorefresh();
+        }, 2000);
+        
         function fetch_user() {
             $.ajax({
                 type: 'POST',
@@ -11,9 +17,10 @@ var Chat = function () {
                 url: baseurl + "company/chat-ajaxAction",
                     data: {'action': 'fetch_user'},
                 success: function(data) {
-                   
+//                   console.log(data[0].userid);
+//                   exit;
                     if(data){
-                        for(i = 0; i< data.length; i++){
+                        for(var i = 0; i< data.length; i++){
                             
                             if(data[i].user_image == null || data[i].user_image == ''){
                                 var userimg=baseurl+"uploads/client/user.png";
@@ -21,7 +28,7 @@ var Chat = function () {
                                 var userimg=baseurl+"uploads/client/" +data[i].user_image;
 //                                var userimg=baseurl+"uploads/client/user.jpg";
                             }
-                            $('.users-list').append("<div class='chat-user'><a data-id='"+data[i].id+"' data-user-name='"+data[i].name+"' class='user-message' href='javascript:void(0);'  ><img class='chat-avatar' src='"+userimg+"' alt=''><div class='chat-user-name'>"+data[i].name+"</div></a></div>");
+                            $('.users-list').append("<div class='chat-user'><a data-id='"+ data[0].userid +"' data-user-name='"+data[i].name+"' class='user-message' href='javascript:void(0);'  ><img class='chat-avatar' src='"+userimg+"' alt=''><div class='chat-user-name'>"+data[i].name+"</div></a></div>");
                         }
                     }
                 },
@@ -30,7 +37,65 @@ var Chat = function () {
                 }
             });
         } 
+        
+        function autorefresh(){
+            $.ajax({
+                type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val()
+                },
+                url: baseurl + "company/chat-ajaxAction",
+                data: {'action': 'autorefresh'},
+                success: function(data) {
+                    var output = JSON.parse(data);
+                    var data= output.chatdetails;
+                    var page_no = 0;
+                    if(data == 'false'){
+                        
+                    }else{
+                        $('#to_user_id').val(output.reciverid);
+                    if(page_no==1)
+                    {
+                        $('.user-message-list').empty();
+                    }
+                    
+                    page_no++;
+                    $('#page_no').val(page_no);
+                    if(data){
+                            $('.user-message-list').html('');
+                            for(var i = 0; i< data.length; i++){
+                               
+                                if(data[i].user_image == "" || data[i].user_image == null){
+                                     var userimg="user.png";
+    //                                var userimg=baseurl+"uploads/client/user.jpg";
+                                }else{
+                                    var userimg=data[i].user_image;
+                                }
+                                if(data[i].to_user_id!=output.reciverid)
+                                {
+                                    $('.user-message-list').append("<div class='chat-message left'>\
+                                                <img class='message-avatar' src='"+baseurl+"uploads/client/"+userimg+"' alt='"+data[i].name+"' >\
+                                                <div class='message'>\
+                                                    <a class='message-author' href='#'>"+data[i].name+"</a>\
+                                                    <span class='message-date'>"+data[i].created_at+"</span>\
+                                                    <span class='message-content'>"+data[i].chat_message+"</span>\
+                                                </div></div>");
+                                }else{
+                                    $('.user-message-list').append("<div class='chat-message right'>\
+                                                <img class='message-avatar' src='"+baseurl+"uploads/client/"+userimg+"' alt='"+data[i].name+"' >\
+                                                <div class='message'>\
+                                                    <a class='message-author' href='#'>"+data[i].name+"</a>\
+                                                    <span class='message-date'>"+data[i].created_at+"</span>\
+                                                    <span class='message-content'>"+data[i].chat_message+"</span>\
+                                                </div></div>");
+                                }
+                            }
 
+                        }
+                    }
+                }
+            });
+        }
         $("#search_user").keyup(function(){
             var search_name=$('#search_user').val();
             $.ajax({
@@ -65,6 +130,19 @@ var Chat = function () {
         $('body').on('click', '.user-message', function () {
             var to_user_id = $(this).attr('data-id');
             var to_user_name = $(this).attr('data-user-name');
+           
+            $.ajax({
+                type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val()
+                },
+                url: baseurl + "company/chat-ajaxAction",
+                data: {'action': 'setuserid','to_user_id':to_user_id,'to_user_name':to_user_name},
+                success: function(data) {
+                    
+                },
+            });
+            
             $('#to_user_name').html(to_user_name);
             var page=1;
             chetuserlist(to_user_id,page);

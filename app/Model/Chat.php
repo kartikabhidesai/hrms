@@ -64,12 +64,14 @@ class Chat extends Model{
         $companyId = $emp_id[0]->id ;
         
        $result = DB::table('users')
+                ->select("*",'users.id as userid')
                 ->join('employee', 'users.id', '=', 'employee.user_id')
                 ->where('users.id','!=',$id)
                 ->where('employee.company_id',$companyId)
                 ->where('users.type', '!=','COMPANY')
-                ->get()->toarray();
-       
+                ->get()
+                ->toarray();
+        
         $admin = DB::table('users')
                 ->where('id','!=',$id)
                 ->where('type','ADMIN')
