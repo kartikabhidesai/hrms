@@ -159,6 +159,7 @@ var Chat = function () {
                 data: {'action': 'insert_chat', 'to_user_id':to_user_id, 'message':message},
                 success: function(data) {
                     
+                    $('#message').val("");
                     $('#message').val(" ");
                     if(data.chat_message!="")
                     {
