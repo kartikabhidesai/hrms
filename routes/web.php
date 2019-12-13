@@ -22,6 +22,15 @@ Route::get('/optimize', function() {
 });
 
 //Route cache:
+Route::get('clear', function() {
+    $exitCode = Artisan::call('cache:clear');
+    $exitCode1 = Artisan::call('route:clear');
+    $exitCode2 = Artisan::call('config:clear');
+    $exitCode3 = Artisan::call('view:clear');
+    return '<h1>cache route config view cleared</h1>';
+});
+
+//Route cache:
 Route::get('/route-cache', function() {
     $exitCode = Artisan::call('route:cache');
     return '<h1>Routes cached</h1>';
