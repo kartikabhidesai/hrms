@@ -75,7 +75,9 @@ class Chat extends Model{
         $admin = DB::table('users')
                 ->where('id','!=',$id)
                 ->where('type','ADMIN')
-                ->get()->toarray();
+                ->select("*",'id as userid')
+                ->get()
+                ->toarray();
         array_push($result,$admin[0]);
        return $result;
     }
