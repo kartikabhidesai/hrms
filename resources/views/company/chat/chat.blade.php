@@ -62,7 +62,7 @@
                                                 <input type="hidden" name="page_no"  id="page_no" value="2">
                                                 <div class="chat-message-form">
                                                     <div class="form-group" >
-                                                        <textarea class="form-control" rows="2" name="message" id="message" placeholder="Enter message text"></textarea>
+                                                        <textarea style="height: 54px;" class="form-control" rows="2" name="message" id="message" placeholder="Enter message text"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
