@@ -44,7 +44,14 @@ class ChatController extends Controller{
     }
     
     public function indexnew(Request $request,$userId){
-        
+        if(isset($userId)){
+            $data['chat'] = "yes";
+            $objChatHistory =  new Chat();
+            $data['chatdetails'] = $objChatHistory->gethistroy($userData->id,$userId);
+        }else{
+            $data['chat'] = "no";
+            $data['chatdetails'] = '';
+        }
         $data['header'] = array(
             'title' => 'Chat',
             'breadcrumb' => array(
