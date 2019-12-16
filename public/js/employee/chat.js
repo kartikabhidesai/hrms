@@ -128,7 +128,7 @@ var Chat = function () {
         });
 
         $('body').on('click', '.user-message', function () {
-            
+            $(".message").val('');
             var to_user_id = $(this).attr('data-id');
             var to_user_name = $(this).attr('data-user-name');
             
