@@ -18,7 +18,7 @@
         <div class="col-lg-12">
             <div class="ibox chat-view">
                 <div class="ibox-title">
-                    <small class="pull-right text-muted">Last message:  Mon Jan 26 2015 - 18:39:23</small>
+                   
                     <span id="to_user_name" > {{ (isset($_COOKIE['company_chatusername']) ? $_COOKIE['company_chatusername'] : 'Chat Room Panel') }} <span > 
                             </div>
                             <div class="ibox-content">
