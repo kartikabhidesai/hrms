@@ -44,6 +44,8 @@ class ChatController extends Controller{
     }
     
     public function indexnew(Request $request,$userId){
+         $userData = Auth::guard('company')->user();
+        $data['userid'] = $userData->id;
         if(isset($userId)){
             $data['chat'] = "yes";
             $objChatHistory =  new Chat();
