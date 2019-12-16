@@ -1,6 +1,8 @@
 var Chat = function () {
 
     var handleList = function () {
+        $('.chat-discussion').scrollTop($('.chat-discussion')[0].scrollHeight);
+
         fetch_user();
         
         setInterval(function(){
@@ -127,6 +129,7 @@ var Chat = function () {
         });
 
         $('body').on('click', '.user-message', function () {
+            $('.chat-discussion').scrollTop($('.chat-discussion')[0].scrollHeight);
             var to_user_id = $(this).attr('data-id');
             var to_user_name = $(this).attr('data-user-name');
            
