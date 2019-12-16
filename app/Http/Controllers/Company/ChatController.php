@@ -44,7 +44,9 @@ class ChatController extends Controller{
     }
     
     public function indexnew(Request $request,$userId){
-         $userData = Auth::guard('company')->user();
+        $objUsers= new Users();
+        $data['reciverdetails'] = $objUsers->getreciverdetails($userId);
+        $userData = Auth::guard('company')->user();
         $data['userid'] = $userData->id;
         if(isset($userId)){
            $data['chat'] = "no";
@@ -61,7 +63,7 @@ class ChatController extends Controller{
         $data['funinit'] = array('Chat.initdefultopen('.$userId.')');
         $data['js'] = array('company/chat.js');
         
-        return view('company.chat.chat',$data);
+        return view('company.chat.chatnew',$data);
     }
     
     public function ajaxAction(Request $request){
@@ -93,7 +95,8 @@ class ChatController extends Controller{
             case 'setuserid':
                 setcookie("company_chatuserid", $request->input('to_user_id'), time() + (86400 * 30),  "/","");
                 setcookie("company_chatusername", $request->input('to_user_name'), time() + (86400 * 30),  "/","");
-                
+                return "true";
+                break;
             case 'autorefresh':
                     if(isset($_COOKIE['company_chatuserid'])){
                         $userData = Auth::guard('company')->user();
@@ -110,7 +113,7 @@ class ChatController extends Controller{
                     }
                 
             case 'insert_chat':
-//                print_r($request->input());
+//                print_r();
 //                exit;
                 $reciveid = $request->input('to_user_id');
 //                Employee::select('user_id')->where('id',$request->input('to_user_id'))->get();
@@ -181,7 +184,7 @@ class ChatController extends Controller{
                         }
                     }
 
-                $user_fetch = $insertChat->fetchUserLastMessage($logeduserId,$reciveid);
+                $user_fetch = $insertChat->fetchUserLastMessage($logeduserId,$request->input('to_user_id'));
                
                 return $user_fetch;
                 // return json_encode($insertData);

@@ -191,7 +191,8 @@ class Chat extends Model {
                         ->join('users', 'chat_message.from_user_id', '=', 'users.id')
                         ->where([['chat_message.to_user_id', '=', $toUser], ['chat_message.from_user_id', '=', $fromUser]])
                         ->orWhere([['chat_message.from_user_id', '=', $toUser], ['chat_message.to_user_id', '=', $fromUser]])
-                        ->orderBy('chat_message.created_at', 'ASC')->first();
+                        ->orderBy('chat_message.created_at', 'DESC')
+                        ->first();
         return $result;
     }
 

@@ -224,4 +224,11 @@ class Users extends Model {
             return "invaild";
         }
     }
+    
+    public function getreciverdetails($id){
+       $result = Users::select("name")
+                        ->where("id",$id)
+                        ->get();
+       return $result;
+    }
 }
