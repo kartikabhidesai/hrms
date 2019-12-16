@@ -7,6 +7,7 @@ var Chat = function () {
         }, 2000);
 
         fetch_user();
+        
         function autorefresh() {
             $.ajax({
                 type: 'POST',
@@ -27,7 +28,6 @@ var Chat = function () {
                         {
                             $('.user-message-list').empty();
                         }
-
                         page_no++;
                         $('#page_no').val(page_no);
                         if (data) {
@@ -65,6 +65,7 @@ var Chat = function () {
                 }
             });
         }
+        
         function fetch_user() {
             $.ajax({
                 type: 'POST',
@@ -74,6 +75,7 @@ var Chat = function () {
                 url: "chat-ajaxAction",
                 data: {'action': 'fetch_user'},
                 success: function (data) {
+                    
                     $('.users-list').html("");
                     if (data) {
                         for (i = 0; i < data.length; i++) {
@@ -89,10 +91,7 @@ var Chat = function () {
                             $('.users-list').append("<div class='chat-user' id='user-char-"+data[i].id +"'><a data-id='" + data[i].id + "'  data-user-name='" + data[i].name + "' class='user-message' href='javascript:void(0);'  ><img class='chat-avatar' src='" + userimg + "' alt=''></a><div class='chat-user-name'><a data-id='" + data[i].id + "'  data-user-name='" + data[i].name + "' class='user-message' href='javascript:void(0);'  >" + data[i].name + "</a></div></div>");
                             $('#user-char-'+data[i].id+' img').load(userimg, function(response, status, xhr) {
                            
-                              if (status == "error") 
-                                  $(this).attr('src', baseurl + "uploads/client/user.png");
-                              else
-                                  $(this).attr('src', userimg);
+                            
                               });
                         }
 

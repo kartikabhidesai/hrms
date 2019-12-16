@@ -47,9 +47,8 @@ class ChatController extends Controller{
          $userData = Auth::guard('company')->user();
         $data['userid'] = $userData->id;
         if(isset($userId)){
-            $data['chat'] = "yes";
-            $objChatHistory =  new Chat();
-            $data['chatdetails'] = $objChatHistory->gethistroy($userData->id,$userId);
+           $data['chat'] = "no";
+            $data['chatdetails'] = '';
         }else{
             $data['chat'] = "no";
             $data['chatdetails'] = '';
@@ -59,7 +58,7 @@ class ChatController extends Controller{
             'breadcrumb' => array(
                 'Home' => route("company-dashboard"),
                 'Chat view' => 'Chat view'));
-        $data['funinit'] = array('Chat.initdefultopen('.$userId.')');
+        $data['funinit'] = array('Chat.initdefultopen('.$userId.')','Chat.init()');
         $data['js'] = array('company/chat.js');
         
         return view('company.chat.chat',$data);
