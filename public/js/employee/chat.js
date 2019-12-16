@@ -130,8 +130,6 @@ var Chat = function () {
         $('body').on('click', '.user-message', function () {
             
             var to_user_id = $(this).attr('data-id');
-            alert(to_user_id);
-            
             var to_user_name = $(this).attr('data-user-name');
             
             $.ajax({
@@ -147,6 +145,7 @@ var Chat = function () {
             });
             
             $('#to_user_name').html(to_user_name);
+            $('#to_user_id').val(to_user_id);
             var page=1;
             chetuserlist(to_user_id,page);
         });
