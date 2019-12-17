@@ -116,7 +116,7 @@ class ChatController extends Controller{
                         $sendid = $userData->id;
                         $objChatHistory =  new Chat();
                         $data['chatdetails'] = $objChatHistory->gethistroy($sendid,$request->input('to_user_id'));
-                        $data['reciverid'] = $reciverid;
+                        $data['reciverid'] = $request->input('to_user_id');
                         return json_encode($data);
                         break;
                     
