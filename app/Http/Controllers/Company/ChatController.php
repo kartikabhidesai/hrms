@@ -112,13 +112,10 @@ class ChatController extends Controller{
                         break;
                     }
             case 'autorefreshuser':
-                        print_r($request->input());
-                        exit;
                         $userData = Auth::guard('company')->user();
                         $sendid = $userData->id;
-                        $reciverid = $_COOKIE['company_chatuserid'];
                         $objChatHistory =  new Chat();
-                        $data['chatdetails'] = $objChatHistory->gethistroy($sendid,$reciverid);
+                        $data['chatdetails'] = $objChatHistory->gethistroy($sendid,$request->input('to_user_id'));
                         $data['reciverid'] = $reciverid;
                         return json_encode($data);
                         break;
