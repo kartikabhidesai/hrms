@@ -20,7 +20,7 @@
                         <label class="col-sm-2 control-label">Employee Name</label>
                         <div class="col-sm-9">
                             <input type="text" name="dep_id" placeholder="Employee Name" class="form-control" value="{{ $empdetails[0]['dep_id']}}" readonly>
-                            <input type="text" name="cmp_id" placeholder="Employee Name" class="form-control" value="{{ $empdetails[0]['company_id']}}" readonly>
+                            <input type="hidden" name="cmp_id" placeholder="Employee id" class="form-control" value="{{ $empdetails[0]['emp_id']}}" readonly>
                             
                         </div>
                     </div>
