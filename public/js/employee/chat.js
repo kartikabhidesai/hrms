@@ -3,6 +3,7 @@ var Chat = function () {
     var handleList = function () {
         $('.chat-discussion').scrollTop($('.chat-discussion')[0].scrollHeight);
         
+        var to_user_id = $('#to_user_id').val();
         fetch_user();
         setInterval(function(){
 //            fetch_user();
@@ -157,8 +158,7 @@ var Chat = function () {
         });
 
         $('.send_chat').on("click", function () {
-           
-            var to_user_id = $('#to_user_id').val();
+           var to_user_id = $('#to_user_id').val();
             var message = $('#message').val();
             
             $.ajax({
@@ -258,6 +258,7 @@ var Chat = function () {
 //    Employee
     var initdefultopen = function (userid) {
         
+            var to_user_id = $('#to_user_id').val();
         $('.chat-discussion').scrollTop($('.chat-discussion')[0].scrollHeight);
         setInterval(function(){
 //            fetch_user();
@@ -396,9 +397,9 @@ var Chat = function () {
             chetuserlist(to_user_id,page);
         });
 
-        $('.send_chat').on("click", function () {
-            
-            var to_user_id = $('#to_user_id').val();
+        
+        $('body').on('click', '.send_chat', function () {    
+//            var to_user_id = $('#to_user_id').val();
             var message = $('#message').val();
             $.ajax({
                 type: 'POST',
