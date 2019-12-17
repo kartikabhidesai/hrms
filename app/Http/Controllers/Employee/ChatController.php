@@ -42,6 +42,8 @@ class ChatController extends Controller{
     public function indexNew(Request $request,$userId){
         $objUsers= new Users();
         $data['reciverdetails'] = $objUsers->getreciverdetails($userId);
+        print_r($data['reciverdetails']);
+        die();
         $userData = Auth::guard('employee')->user();
         $data['userid'] = $userData->id;
         
