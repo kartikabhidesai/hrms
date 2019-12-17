@@ -387,7 +387,8 @@ var Chat = function () {
 //            chetuserlist(to_user_id,page);
         });
 
-        $('.send_chat').on("click", function () {
+       
+        $('body').on('click', '.send_chat', function () {
             var to_user_id = $('#to_user_id').val();
             alert(to_user_id);
             $(".send_chat").attr("disabled","disabled");
