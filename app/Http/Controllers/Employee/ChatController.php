@@ -40,6 +40,18 @@ class ChatController extends Controller{
     }
     
     public function indexNew(Request $request,$userId){
+        
+        $userData = Auth::guard('employee')->user();
+        $data['userid'] = $userData->id;
+        
+        if(isset($_COOKIE['employee_chatuserid'])){
+            $data['chat'] = "no";
+            $data['chatdetails'] = '';
+        }else{
+            $data['chat'] = "no";
+            $data['chatdetails'] = '';
+        }
+        
         $data['header'] = array(
             'title' => 'Chat',
             'breadcrumb' => array(
