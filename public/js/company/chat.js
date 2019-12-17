@@ -242,6 +242,8 @@ var Chat = function () {
 //    Company
     var handleListNew = function (userid) {
         $('.chat-discussion').scrollTop($('.chat-discussion')[0].scrollHeight);
+        
+        
          var to_user_id = $('#to_user_id').val();
          setInterval(function(){
 //            fetch_user();
