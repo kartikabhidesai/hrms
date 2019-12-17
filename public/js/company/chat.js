@@ -4,7 +4,6 @@ var Chat = function () {
         $('.chat-discussion').scrollTop($('.chat-discussion')[0].scrollHeight);
 
         fetch_user();
-        
         setInterval(function(){
 //            fetch_user();
             autorefresh();
@@ -243,6 +242,10 @@ var Chat = function () {
 //    Company
     var handleListNew = function (userid) {
         
+        setInterval(function(){
+//            fetch_user();
+            autorefresh();
+        }, 2000);
         fetch_user(userid);
         function fetch_user(userid) {
             $.ajax({
