@@ -253,7 +253,7 @@ var Chat = function () {
                     'X-CSRF-TOKEN': $('input[name="_token"]').val()
                 },
                 url: baseurl + "company/chat-ajaxAction",
-                data: {'action': 'autorefresh'},
+                data: {'action': 'autorefreshuser','to_user_id':to_user_id},
                 success: function(data) {
                     var output = JSON.parse(data);
                     var data= output.chatdetails;
