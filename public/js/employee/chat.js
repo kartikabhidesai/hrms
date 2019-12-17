@@ -389,12 +389,24 @@ var Chat = function () {
         });
 
         $('body').on('click', '.user-message', function () {
+//            
             $('.chat-discussion').scrollTop($('.chat-discussion')[0].scrollHeight);
             var to_user_id = $(this).attr('data-id');
             var to_user_name = $(this).attr('data-user-name');
             $('#to_user_name').html(to_user_name);
-            var page=1;
-            chetuserlist(to_user_id,page);
+            $.ajax({
+                type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val()
+                },
+                url: baseurl+"employee/chat-ajaxAction",
+                data: {'action': 'setuserid','to_user_id':to_user_id,'to_user_name':to_user_name},
+                success: function(data) {
+                    window.location.replace(baseurl + "company/chat");
+                },
+            });
+            
+            window.location.replace(baseurl + "company/chat");
         });
 
         
