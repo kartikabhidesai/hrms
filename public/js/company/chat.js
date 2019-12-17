@@ -242,7 +242,6 @@ var Chat = function () {
 //    Company
     var handleListNew = function (userid) {
          var to_user_id = $('#to_user_id').val();
-         alert(to_user_id);
          setInterval(function(){
 //            fetch_user();
             autorefresh();
