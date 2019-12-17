@@ -63,7 +63,7 @@ class ChatController extends Controller{
         $data['funinit'] = array('Chat.initdefultopen('.$userId.')');
         $data['js'] = array('employee/chat.js');
         
-        return view('employee.chat.chat',$data);
+        return view('employee.chat.chatnew',$data);
     }
     
     public function ajaxAction(Request $request){
