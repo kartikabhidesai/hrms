@@ -82,10 +82,13 @@ class AdvanceSalaryRequestController extends Controller {
                 }
 
                 $return['status'] = 'success';
+                $return['jscode'] = '$(".submitbtn:visible").attr("disabled","disabled");';
                 $return['message'] = 'New Advance Salary  Request created successfully.';
+                
                 $return['redirect'] = route('advance-salary-request');
             } else {
                 $return['status'] = 'error';
+                $return['jscode'] ='$(".submitbtn").removeAttr("disabled");';
                 $return['message'] = 'Something goes to wrong';
             }
             echo json_encode($return);
