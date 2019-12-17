@@ -58,8 +58,8 @@ class Advancesalary extends Model
             
         );
          $query = ManageTimeChangeRequest::from('advance_salary_request as advance_salary')
-                 ->join('employee as emp','advance_salary.employee_id','=','emp.id')
-                 ->join('department as depart', 'emp.department', '=', 'depart.id')
+                 ->leftjoin('employee as emp','advance_salary.employee_id','=','emp.id')
+                 ->leftjoin('department as depart', 'emp.department', '=', 'depart.id')
                  ->where('advance_salary.employee_id',$employeeid);
          
           if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
