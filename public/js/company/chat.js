@@ -389,6 +389,7 @@ var Chat = function () {
             $(".send_chat").attr("disabled","disabled");
             $(".send_chatbtn").text("Sending");
             var to_user_id = $('#to_user_id').val();
+            alert(to_user_id);
             var message = $('#message').val();
             $.ajax({
                 type: 'POST',
