@@ -58,7 +58,7 @@
                                         <form method="POST">
                                             <div class="col-md-9" style="padding: 0px;">
                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                <input type="hidden" name="to_user_id"  id="to_user_id" value="{{ (isset($_COOKIE['company_chatuserid']) ? $_COOKIE['company_chatuserid'] : '') }}">
+                                                <input type="hidden" name="to_user_id"  id="to_user_id" value="{{ $reciverdetails[0]->id }}">
                                                 <input type="hidden" name="page_no"  id="page_no" value="2">
                                                 <div class="chat-message-form">
                                                     <div class="form-group" >

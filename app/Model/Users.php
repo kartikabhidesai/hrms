@@ -226,7 +226,7 @@ class Users extends Model {
     }
     
     public function getreciverdetails($id){
-       $result = Users::select("name")
+       $result = Users::select("name","id")
                         ->where("id",$id)
                         ->get();
        return $result;
