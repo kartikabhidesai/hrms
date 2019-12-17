@@ -241,6 +241,12 @@ var Chat = function () {
     }
 //    Company
     var handleListNew = function (userid) {
+          var to_user_id = $('#to_user_id').val();
+            alert(to_user_id);
+         setInterval(function(){
+//            fetch_user();
+            autorefresh();
+        }, 2000);
         function autorefresh(){
             $.ajax({
                 type: 'POST',
@@ -299,10 +305,7 @@ var Chat = function () {
                 }
             });
         }
-        setInterval(function(){
-//            fetch_user();
-            autorefresh();
-        }, 2000);
+       
         fetch_user(userid);
         function fetch_user(userid) {
             $.ajax({
