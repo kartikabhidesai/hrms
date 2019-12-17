@@ -60,6 +60,8 @@ class AdvanceSalaryRequestController extends Controller {
         
         $objEmployee=new Employee();
         $data['empdetails']=$objEmployee->getEmploydetails($logindata['id']);
+        print_r($data['empdetails']);
+        exit;
         if ($request->isMethod('post')) {
             print_r($request->input());
             exit;
