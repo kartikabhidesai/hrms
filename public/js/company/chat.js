@@ -241,8 +241,7 @@ var Chat = function () {
     }
 //    Company
     var handleListNew = function (userid) {
-          var to_user_id = $('#to_user_id').val();
-            alert(to_user_id);
+         
          setInterval(function(){
 //            fetch_user();
             autorefresh();
@@ -389,10 +388,11 @@ var Chat = function () {
         });
 
         $('.send_chat').on("click", function () {
-            $(".send_chat").attr("disabled","disabled");
-            $(".send_chatbtn").text("Sending");
             var to_user_id = $('#to_user_id').val();
             alert(to_user_id);
+            $(".send_chat").attr("disabled","disabled");
+            $(".send_chatbtn").text("Sending");
+            
             var message = $('#message').val();
             $.ajax({
                 type: 'POST',
