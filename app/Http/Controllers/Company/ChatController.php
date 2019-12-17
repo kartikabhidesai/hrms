@@ -101,6 +101,9 @@ class ChatController extends Controller{
                     if(isset($_COOKIE['company_chatuserid'])){
                         $userData = Auth::guard('company')->user();
                         $sendid = $userData->id;
+                        print_r($sendid);
+                        print_r($reciverid);
+                        die();
                         $reciverid = $_COOKIE['company_chatuserid'];
                         $objChatHistory =  new Chat();
                         $data['chatdetails'] = $objChatHistory->gethistroy($sendid,$reciverid);
