@@ -103,7 +103,6 @@ class ChatController extends Controller{
                         $sendid = $userData->id;
                         print_r($sendid);
                         print_r($reciverid);
-                        die();
                         $reciverid = $_COOKIE['company_chatuserid'];
                         $objChatHistory =  new Chat();
                         $data['chatdetails'] = $objChatHistory->gethistroy($sendid,$reciverid);
