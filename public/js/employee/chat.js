@@ -402,11 +402,11 @@ var Chat = function () {
                 url: baseurl+"employee/chat-ajaxAction",
                 data: {'action': 'setuserid','to_user_id':to_user_id,'to_user_name':to_user_name},
                 success: function(data) {
-                    window.location.replace(baseurl + "company/chat");
+                    window.location.replace(baseurl + "employee/employee-chat");
                 },
             });
             
-            window.location.replace(baseurl + "company/chat");
+            window.location.replace(baseurl + "employee/employee-chat");
         });
 
         
