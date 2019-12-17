@@ -18,7 +18,7 @@
         <div class="col-lg-12">
             <div class="ibox chat-view">
                 <div class="ibox-title">
-                    <
+                    
                     <span id="to_user_name" > {{ (isset($_COOKIE['chatusername']) ? $_COOKIE['chatusername'] : 'Chat Room Panel') }} <span > 
                             </div>
                             <div class="ibox-content">

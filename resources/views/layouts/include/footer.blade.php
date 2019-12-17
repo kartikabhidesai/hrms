@@ -67,6 +67,7 @@
     @endforeach
             @endif
     });
+    $('.chat-discussion').scrollTop($('.chat-discussion')[0].scrollHeight);
 </script>
 @section('scripts')
 @show

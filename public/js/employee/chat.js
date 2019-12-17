@@ -2,6 +2,7 @@ var Chat = function () {
 
     var handleList = function () {
         $('.chat-discussion').scrollTop($('.chat-discussion')[0].scrollHeight);
+        
         fetch_user();
         setInterval(function(){
 //            fetch_user();
@@ -68,7 +69,7 @@ var Chat = function () {
         }
         
         function fetch_user() {
-            
+            $('.chat-discussion').scrollTop($('.chat-discussion')[0].scrollHeight);
             $('.users-list').html('');
             
             $.ajax({
@@ -80,14 +81,14 @@ var Chat = function () {
                 data: {'action': 'fetch_user'},
                 success: function(data) {
                     if(data){
-                        for(i = 0; i< data.length; i++){
+                        for(var i = 0; i< data.length; i++){
                             var userimg = '';
                             if(data[i].user_image == "" || data[i].user_image == null){
                                  userimg=baseurl+"uploads/client/user.png";
                             }else{
                                 userimg=baseurl+"uploads/client/"+data[i].user_image;
                             }
-                            $('.users-list').append("<div class='chat-user'><a data-id='"+data[i].id+"' data-user-name='"+data[i].name+"' class='user-message' href='javascript:void(0);'  ><img class='chat-avatar' src='"+userimg+"' alt=''></a><div class='chat-user-name'><a data-id='"+data[i].id+"' data-user-name='"+data[i].name+"' class='user-message' href='javascript:void(0);'  >"+data[i].name+"</a></div></div>");
+                            $('.users-list').append("<a data-id='"+data[i].id+"' data-user-name='"+data[i].name+"' class='user-message' href='javascript:void(0);'><div class='chat-user'><img class='chat-avatar' src='"+userimg+"' alt=''><div class='chat-user-name'>"+data[i].name+"</div></div></a>");
                         }
                     }
                 },
@@ -129,7 +130,9 @@ var Chat = function () {
         });
 
         $('body').on('click', '.user-message', function () {
+            
             $('.chat-discussion').scrollTop($('.chat-discussion')[0].scrollHeight);
+            
             $("#message").val('');
             $("#message").text('');
             var to_user_id = $(this).attr('data-id');
@@ -213,7 +216,7 @@ var Chat = function () {
                     {
                         $('.user-message-list').empty();
                     }
-                    console.log(page_no);
+                    
                     page_no++;
                     $('#page_no').val(page_no);
                     if(data){
@@ -254,7 +257,9 @@ var Chat = function () {
     }
 //    Employee
     var initdefultopen = function (userid) {
+        
         $('.chat-discussion').scrollTop($('.chat-discussion')[0].scrollHeight);
+        
         fetch_user(userid);
         function fetch_user(userid) {
             $.ajax({
@@ -276,7 +281,7 @@ var Chat = function () {
                                 var userimg=baseurl+"uploads/client/user.jpg";
                             }
 
-                            $('.users-list').append("<div class='chat-user'><img class='chat-avatar' src='"+userimg+"' alt=''><div class='chat-user-name'><a data-id='"+data[i].id+"' data-user-name='"+data[i].name+"' class='user-message' href='javascript:void(0);'  >"+data[i].name+"</a></div></div>");
+                            $('.users-list').append("<a data-id='"+data[i].id+"' data-user-name='"+data[i].name+"' class='user-message' href='javascript:void(0);'  ><div class='chat-user'><img class='chat-avatar' src='"+userimg+"' alt=''><div class='chat-user-name'>"+data[i].name+"</div></div></a>");
                         }
                         var page = 1;
                         chetuserlist(userid,page);

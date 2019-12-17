@@ -243,13 +243,13 @@ var Chat = function () {
     var handleListNew = function (userid) {
         $('.chat-discussion').scrollTop($('.chat-discussion')[0].scrollHeight);
         
-        
-         var to_user_id = $('#to_user_id').val();
+        var to_user_id = $('#to_user_id').val();
          setInterval(function(){
 //            fetch_user();
             autorefresh();
         }, 2000);
         function autorefresh(){
+            $('.chat-discussion').scrollTop($('.chat-discussion')[0].scrollHeight);
             $.ajax({
                 type: 'POST',
                 headers: {
@@ -370,7 +370,9 @@ var Chat = function () {
         });
 
         $('body').on('click', '.user-message', function () {
+            
             $('.chat-discussion').scrollTop($('.chat-discussion')[0].scrollHeight);
+            
             var to_user_id = $(this).attr('data-id');
             var to_user_name = $(this).attr('data-user-name');
             
@@ -386,14 +388,11 @@ var Chat = function () {
                 },
             });
              window.location.replace(baseurl + "company/chat");
-//            $('#to_user_name').html(to_user_name);
-//            var page=1;
-//            chetuserlist(to_user_id,page);
         });
 
        
         $('body').on('click', '.send_chat', function () {
-           
+           $('.chat-discussion').scrollTop($('.chat-discussion')[0].scrollHeight);
             $(".send_chat").attr("disabled","disabled");
             $(".send_chatbtn").text("Sending");
             
@@ -426,6 +425,8 @@ var Chat = function () {
         });
         
         $('.user-message-list').scroll(function() {
+            $('.chat-discussion').scrollTop($('.chat-discussion')[0].scrollHeight);
+
             var scroll = $('.user-message-list').scrollTop();
 
             if (scroll == 0) {
@@ -437,6 +438,8 @@ var Chat = function () {
 
         
         function chetuserlist(to_user_id,page_no) {
+            $('.chat-discussion').scrollTop($('.chat-discussion')[0].scrollHeight);
+
             $.ajax({
                 type: 'POST',
                 headers: {
