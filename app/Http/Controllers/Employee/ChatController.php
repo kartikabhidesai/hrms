@@ -164,7 +164,6 @@ class ChatController extends Controller{
                 $user_fetch = $chatObj->fetchUserMessageList($logeduserId,$request->input('to_user_id'));
                 return $user_fetch;
                 break;
-            
         }
         
     }

@@ -78,7 +78,6 @@ class AdvanceSalaryRequestController extends Controller {
         }
         
         $data['css'] = array('');
-
         return view('company.advancesalaryrquest.request-list', $data);
     }
     
@@ -215,9 +214,11 @@ class AdvanceSalaryRequestController extends Controller {
 
                         $return['status'] = 'success';
                         $return['message'] = 'Advance salary request approved';
+                        $return['jscode'] = '$(".yesapprove:visible").attr("disabled","disabled");';
                         $return['redirect'] = route('campany-advance-salary-request');
                     } else {
                         $return['status'] = 'error';
+                        $return['jscode'] ='$(".yesapprove").removeAttr("disabled");';
                         $return['message'] = 'Something goes to wrong';
                     }
                     echo json_encode($return);

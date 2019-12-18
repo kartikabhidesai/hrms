@@ -9,6 +9,9 @@ var Advancesalaryrequest = function (){
         })
 
         $('body').on('click', '.yesapprove', function() {
+            
+            $(".yesapprove").attr("disabled","disabled");
+            
             var id = $(this).attr('data-id');
             var data = {id: id, _token: $('#_token').val()};
             $.ajax({
