@@ -231,4 +231,11 @@ class Users extends Model {
                         ->get();
        return $result;
     }
+    
+    public function getdetails($id){
+       $result = Users::select("*")
+                        ->where("id",$id)
+                        ->get();
+       return $result;
+    }
 }
