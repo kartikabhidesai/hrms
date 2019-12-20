@@ -128,8 +128,7 @@ class ChatController extends Controller{
                 
                 $userData = Auth::guard('company')->user();
                 $getAuthCompanyId = Company::where('email', $userData->email)->first();
-                print_r($getAuthCompanyId);
-                die();
+               
                 $logeduserId = $getAuthCompanyId->user_id;
                 
                 $insertChat = new chat();

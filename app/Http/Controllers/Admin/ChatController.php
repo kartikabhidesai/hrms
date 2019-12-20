@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Model\Chat;
 use App\Model\Company;
 use App\User;
+use App\Model\SendSMS;
+use App\Model\Notification;
 use App\Model\Users;
 use Auth;
 use Route;
@@ -89,12 +91,35 @@ class ChatController extends Controller{
                 return json_encode($last_active);
                 break;
             case 'insert_chat':
-                $userData = Auth::guard('admin')->user();
-                $getAuthAdminId = User::where('email', $userData->email)->first();
-                $logeduserId = 1;
-                $insertChat = new chat();
-                $insertData = $insertChat->insert_chat($logeduserId,$request);
-                $user_fetch = $insertChat->fetchUserLastMessage($logeduserId,$request->input('to_user_id'));
+                
+                    $userData = Auth::guard('admin')->user();
+                    $getAuthAdminId = User::where('email', $userData->email)->first();
+                    $logeduserId = $userData->id;
+                    $insertChat = new chat();
+                    $insertData = $insertChat->insert_chat($logeduserId,$request);
+                    $user_fetch = $insertChat->fetchUserLastMessage($logeduserId,$request->input('to_user_id'));
+                
+                    
+                    $notificationMasterId=22;
+                    $msg= "Chat in  New Message from ".$userData->name;
+                    $objSendEmail = new Users();
+                    $sendEmail = $objSendEmail->sendEmailNotificationNewByadmin($notificationMasterId,$request->input('to_user_id'),$msg);
+                   
+                    
+                    $userData = Auth::guard('admin')->user();
+                   
+                    $logeduserId = $userData->id;
+                    $objUser =  new Users();
+                    $result = $objUser->getUserType($request->input('to_user_id'));
+                    $route_url=strtolower($result)."/chatnew/".$logeduserId ;
+                    
+                    //notification add                    
+                    $objNotification = new Notification();
+                    $chatMessage= "Chat in  New Message from ".$userData->name;
+                    $ret = $objNotification->addNotification($request->input('to_user_id'),$chatMessage,$route_url,$notificationMasterId);
+                    
+                    
+                    
                 return $user_fetch;
                 // return json_encode($insertData);
                 break;

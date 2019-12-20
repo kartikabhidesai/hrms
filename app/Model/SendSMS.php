@@ -241,7 +241,7 @@ class SendSMS extends Model
         $userDetails= Users::select("type","id")
                         ->where("id",$userId)
                         ->get();
-                
+        
         if($userDetails[0]['type'] == 'EMPLOYEE'){
             $result = Employee::select('phone')
                         ->where('employee.user_id',$userDetails[0]->id)

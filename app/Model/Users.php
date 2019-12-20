@@ -198,10 +198,26 @@ class Users extends Model {
                 $mailData['subject'] = $msg;
                 $mailData['attachment'] = array();
                 $mailData['template'] ="company.emails.notification";
-                $mailData['mailto'] = $email;
+                $mailData['mailto'] = "=parthkhunt12@gmail.com";
                 $sendMail = new Sendmail;
                 $sendMail->sendSMTPMail($mailData);
             }
+            
+    }
+     public function sendEmailNotificationNewByadmin($notificationMasterId,$employeeId,$msg){
+            
+            $userDetails= Users::select("type","id","email")
+                        ->where("id",$employeeId)
+                        ->get();
+            
+            $email = $userDetails[0]->email;
+            $mailData['data']['msg']=$msg;
+            $mailData['subject'] = $msg;
+            $mailData['attachment'] = array();
+            $mailData['template'] ="company.emails.notification";
+            $mailData['mailto'] = "parthkhunt12@gmail.com";
+            $sendMail = new Sendmail;
+            $sendMail->sendSMTPMail($mailData);
             
     }
     
