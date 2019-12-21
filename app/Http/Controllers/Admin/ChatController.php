@@ -44,6 +44,30 @@ class ChatController extends Controller{
         return view('admin.chat.chat',$data);
     }
     
+    public function chatnew(Request $request,$id){
+        
+        $objUsers= new Users();
+        $data['reciverdetails'] = $objUsers->getreciverdetails($id);
+        
+        
+        $userData = Auth::guard('admin')->user();
+        $data['userid'] = $userData->id;
+        
+        $data['chat'] = "no";
+        $objChatHistory =  new Chat();
+        $data['chatdetails'] = $objChatHistory->gethistroy($userData->id,$id);
+            
+            
+        $data['header'] = array(
+            'title' => 'Chat',
+            'breadcrumb' => array(
+                'Home' => route("admin-dashboard"),
+                'Chat view' => 'Chat view'));
+        $data['js'] = array('admin/chat.js');
+        $data['funinit'] = array('Chat.initnew('.$id.')');                   
+        return view('admin.chat.chatnew',$data);
+    }
+    
     public function ajaxAction(Request $request){
         
         $action = $request->input('action');
@@ -71,6 +95,14 @@ class ChatController extends Controller{
                     return "false";
                     break;
                 }
+            case 'autorefreshuser':
+                $userData = Auth::guard('admin')->user();
+                $sendid = $userData->id;
+                $objChatHistory =  new Chat();
+                $data['chatdetails'] = $objChatHistory->gethistroy($sendid,$request->input('to_user_id'));
+                $data['reciverid'] = $request->input('to_user_id');
+                return json_encode($data);
+                break;
                
                 
             case 'setuserid':
@@ -82,16 +114,17 @@ class ChatController extends Controller{
                 $getAuthAdminId = User::where('email', $userData->email)->first();
                 $logeduserId = $getAuthAdminId->id;
                 $chatObj = new chat();
-                $user_fetch = $chatObj->search_user_list($logeduserId,$request->input('search_name'));
+                $user_fetch = $chatObj->search_user_listbyadmin($logeduserId,$request->input('search_name'));
                 return $user_fetch;
                 break;
+            
             case 'update_last_activity':
                 $updateActivity = new chat();
                 $last_active = $updateActivity->update_last_activity();
                 return json_encode($last_active);
                 break;
-            case 'insert_chat':
-                
+            
+            case 'insert_chat':                
                     $userData = Auth::guard('admin')->user();
                     $getAuthAdminId = User::where('email', $userData->email)->first();
                     $logeduserId = $userData->id;

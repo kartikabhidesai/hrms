@@ -130,6 +130,15 @@ class Chat extends Model {
                 ->get();
         return $result;
     }
+    public function search_user_listbyadmin($id, $search_name) {
+        $result = DB::table('users')
+                ->where('id', '!=', $id)
+                ->where('name', 'like', '%' . $search_name . '%')
+                ->where("users.type", "!=", "ADMIN")
+                ->where("users.type", "!=", "EMPLOYEE")
+                ->get();
+        return $result;
+    }
 
     public function search_user_list_emp($id, $search_name) {
         $emp_id = Employee::select("company_id")

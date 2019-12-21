@@ -180,6 +180,7 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function() {
 
      // Chet
      Route::match(['get', 'post'], 'admin-chat', ['as' => 'admin-chat', 'uses' => 'Admin\ChatController@index']);
+     Route::match(['get', 'post'], 'admin-chatnew/{id}', ['as' => 'admin-chatnew', 'uses' => 'Admin\ChatController@chatnew']);
      Route::match(['get', 'post'], 'chat-ajaxAction', ['as' => 'admin-chat-ajaxAction', 'uses' => 'Admin\ChatController@ajaxAction']);
 
      /* Calendar */

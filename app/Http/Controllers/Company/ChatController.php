@@ -49,6 +49,7 @@ class ChatController extends Controller{
        
         $userData = Auth::guard('company')->user();
         $data['userid'] = $userData->id;
+        
         if(isset($userId)){
            $data['chat'] = "no";
             $data['chatdetails'] = '';
@@ -135,10 +136,11 @@ class ChatController extends Controller{
                 $insertData = $insertChat->insert_chat($logeduserId,$request);
                 $objUser = new Users();
                 $usertype = $objUser->getdetails($reciveid);
+                
                 if($usertype[0]->type == 'ADMIN' || $usertype[0]->type == 'admin' ){
                     
                     $notificationMasterId=20;
-                    $msg= "Chat in  New Message from s.";
+                    $msg= "Chat in  New Message from ";
                     $objSendSms = new SendSMS();
                     $sendSMS = $objSendSms->sendSmsNotificaationNew($notificationMasterId,$reciveid,$msg);
                     
@@ -154,7 +156,7 @@ class ChatController extends Controller{
                     $objUser =  new Users();
                     $result = $objUser->getUserType($reciveid);
                     if($result == "ADMIN"){
-                        $route_url='admin-chat' ;
+                        $route_url='admin-chatnew/'.$logeduserId;
                     }
 
                     if($result == "EMPLOYEE"){
@@ -181,7 +183,6 @@ class ChatController extends Controller{
                         $result = $objUserNotificationType->checkMessage($NotificationUserStatus->id);
 
                         if($result[0]['status'] == 1){
-
     //                            SMS  Notification
                             $notificationMasterId=20;
                             $msg= "Chat in  New Message.";
