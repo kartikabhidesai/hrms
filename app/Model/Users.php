@@ -198,24 +198,64 @@ class Users extends Model {
                 $mailData['subject'] = $msg;
                 $mailData['attachment'] = array();
                 $mailData['template'] ="company.emails.notification";
-                $mailData['mailto'] = "=parthkhunt12@gmail.com";
+                $mailData['mailto'] = "parthkhunt12@gmail.com";
                 $sendMail = new Sendmail;
                 $sendMail->sendSMTPMail($mailData);
             }
             
     }
-     public function sendEmailNotificationNewByadmin($notificationMasterId,$employeeId,$msg){
+     public function sendEmailNotificationByadmin($notificationMasterId,$employeeId,$msg,$message){
+          
+                $userDetails= Users::select("type","id","email","name")
+                        ->where("id",$employeeId)
+                        ->get();
             
-            $userDetails= Users::select("type","id","email")
+            
+                $email = $userDetails[0]->email;
+                $mailData['data']['msg']=$msg;
+                $mailData['data']['recivername']=$userDetails[0]->name;
+                $mailData['data']['message']=$message;
+                $mailData['subject'] = $msg;
+                $mailData['attachment'] = array();
+                $mailData['template'] ="company.emails.admin_chat_notification";
+                $mailData['mailto'] = "parthkhunt12@gmail.com";
+                $sendMail = new Sendmail;
+                $sendMail->sendSMTPMail($mailData);
+            
+            
+    }
+     public function sendEmailNotificationToadmin($notificationMasterId,$employeeId,$msg,$message){
+         
+            $userDetails= Users::select("type","id","email",'name')
+                        ->where("id",$employeeId)
+                        ->get();
+           
+            $email = $userDetails[0]->email;
+            $mailData['data']['recivername']=$userDetails[0]->name;
+            $mailData['data']['message']=$message;
+            $mailData['data']['msg']=$msg;
+            $mailData['subject'] = $msg;
+            $mailData['attachment'] = array();
+            $mailData['template'] ="company.emails.notification";
+            $mailData['mailto'] = $email;
+            $sendMail = new Sendmail;
+            $sendMail->sendSMTPMail($mailData);     
+    }
+    
+     public function sendEmailNotificationNewByadmin($notificationMasterId,$employeeId,$msg,$message){
+            
+            $userDetails= Users::select("type","id","email",'name')
                         ->where("id",$employeeId)
                         ->get();
             
             $email = $userDetails[0]->email;
             $mailData['data']['msg']=$msg;
+            $mailData['data']['recivername']=$userDetails[0]->name;
+            $mailData['data']['message']=$message;
             $mailData['subject'] = $msg;
             $mailData['attachment'] = array();
-            $mailData['template'] ="company.emails.notification";
-            $mailData['mailto'] = "parthkhunt12@gmail.com";
+            $mailData['template'] ="emails.notification";
+            $mailData['mailto'] = $email;
             $sendMail = new Sendmail;
             $sendMail->sendSMTPMail($mailData);
             

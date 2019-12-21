@@ -136,7 +136,7 @@ class ChatController extends Controller{
                     $notificationMasterId=22;
                     $msg= "Chat in  New Message from ".$userData->name;
                     $objSendEmail = new Users();
-                    $sendEmail = $objSendEmail->sendEmailNotificationNewByadmin($notificationMasterId,$request->input('to_user_id'),$msg);
+                    $sendEmail = $objSendEmail->sendEmailNotificationNewByadmin($notificationMasterId,$request->input('to_user_id'),$msg,$request->input('message'));
                    
                     
                     $userData = Auth::guard('admin')->user();

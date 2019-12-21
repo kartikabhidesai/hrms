@@ -113,7 +113,6 @@ var Chat = function () {
                                 var userimg=baseurl+"uploads/client/user.png";
                             }else{
                                 var userimg=baseurl+"uploads/client/" +data[i].user_image;
-//                                var userimg=baseurl+"uploads/client/user.jpg";
                             }
 
                             $('.users-list').append("<div class='chat-user'><img class='chat-avatar' src='"+userimg+"' alt=''><div class='chat-user-name'><a data-id='"+data[i].id+"' data-user-name='"+data[i].name+"' class='user-message' href='javascript:void(0);'  >"+data[i].name+"</a></div></div>");
@@ -122,7 +121,6 @@ var Chat = function () {
                     }
                 },
                 error: function(err) {
-                    //alert("error"+JSON.stringify(err));
                 }
             });
         });
@@ -184,7 +182,6 @@ var Chat = function () {
             if (scroll == 0) {
                 var to_user_id = $('#to_user_id').val();
                 var page_no = $('#page_no').val();
-                // chetuserlist(to_user_id,page_no);
             }
         });
 
@@ -203,7 +200,6 @@ var Chat = function () {
                     {
                         $('.user-message-list').empty();
                     }
-//                    console.log(page_no);
                     page_no++;
                     $('#page_no').val(page_no);
                     if(data){
@@ -232,7 +228,6 @@ var Chat = function () {
                     }
                 },
                 error: function(err) {
-                    //alert("error"+JSON.stringify(err));
                 }
             });
         } 

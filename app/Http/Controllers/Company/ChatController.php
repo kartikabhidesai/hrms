@@ -124,10 +124,10 @@ class ChatController extends Controller{
                     
                 
             case 'insert_chat':
-                
+               
                 $reciveid = $request->input('to_user_id');
-                
                 $userData = Auth::guard('company')->user();
+                
                 $getAuthCompanyId = Company::where('email', $userData->email)->first();
                
                 $logeduserId = $getAuthCompanyId->user_id;
@@ -138,16 +138,16 @@ class ChatController extends Controller{
                 $usertype = $objUser->getdetails($reciveid);
                 
                 if($usertype[0]->type == 'ADMIN' || $usertype[0]->type == 'admin' ){
-                    
+                   
                     $notificationMasterId=20;
-                    $msg= "Chat in  New Message from ";
+                    $msg= "Chat in  New Message from ".$userData->name;
                     $objSendSms = new SendSMS();
                     $sendSMS = $objSendSms->sendSmsNotificaationNew($notificationMasterId,$reciveid,$msg);
                     
                     $notificationMasterId=20;
-                    $msg= "Chat in  New Message.";
+                    $msg= "Chat in  New Message from ".$userData->name;
                     $objSendEmail = new Users();
-                    $sendEmail = $objSendEmail->sendEmailNotificationNew($notificationMasterId,$reciveid,$msg);
+                    $sendEmail = $objSendEmail->sendEmailNotificationByadmin($notificationMasterId,$reciveid,$msg,$request->input('message'));
                     
                     
                     $userData = Auth::guard('company')->user();
@@ -169,7 +169,7 @@ class ChatController extends Controller{
                     //notification add
                     $objNotification = new Notification();
                     $objEmployee = new Employee();
-                    $chatMessage="Chat in  New Message.";
+                    $chatMessage="Chat in  New Message from ".$userData->name;
                     $ret = $objNotification->addNotification($reciveid,$chatMessage,$route_url,$notificationMasterId);
                     
                 }else{
