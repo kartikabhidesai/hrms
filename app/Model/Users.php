@@ -174,8 +174,6 @@ class Users extends Model {
                         ->get();
             
             $email = $result[0]->email;
-            
-//            $mailData['data']='';
             $mailData['data']['msg']=$msg;
             $mailData['subject'] = $msg;
             $mailData['attachment'] = array();
@@ -191,7 +189,6 @@ class Users extends Model {
             $userDetails= Users::select("type","id","email")
                         ->where("id",$employeeId)
                         ->get();
-            
             if($userDetails[0]->type != 'ADMIN'){
                 $email = $userDetails[0]->email;
                 $mailData['data']['msg']=$msg;
@@ -218,7 +215,7 @@ class Users extends Model {
                 $mailData['subject'] = $msg;
                 $mailData['attachment'] = array();
                 $mailData['template'] ="company.emails.admin_chat_notification";
-                $mailData['mailto'] = "parthkhunt12@gmail.com";
+                $mailData['mailto'] = $email;
                 $sendMail = new Sendmail;
                 $sendMail->sendSMTPMail($mailData);
             
