@@ -156,7 +156,7 @@ class ChatController extends Controller{
                     $objUser =  new Users();
                     $result = $objUser->getUserType($reciveid);
                     if($result == "ADMIN"){
-                        $route_url='admin-chatnew/'.$logeduserId;
+                        $route_url='admin/admin-chatnew/'.$logeduserId;
                     }
 
                     if($result == "EMPLOYEE"){
