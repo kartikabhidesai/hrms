@@ -192,7 +192,7 @@ class Training extends Model
         
         $query = Training::from('training as ra')
                 ->join('training_emp_dept', 'training_emp_dept.training_id', '=', 'ra.id')
-                ->join('employee', 'employee.id', '=', 'ra.company_id')
+                ->join('employee', 'employee.company_id', '=', 'ra.company_id')
                 ->join('department as depart', 'ra.department_id', '=', 'depart.id')
                 ->where('ra.id', $postData['id']);
         $result = $query->select('ra.id', 'ra.location', 'depart.department_name','ra.department_id', 'ra.budget', 'ra.requirement', 'ra.number', 'ra.type', 'ra.created_at')->get()->toArray();  
