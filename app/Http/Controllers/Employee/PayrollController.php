@@ -37,13 +37,13 @@ class PayrollController extends Controller {
 
     public function payrollEmpList() {
         $id = Auth()->guard('employee')->user()['id'];
-        
+
 //        $session = $request->session()->all();
-        
+
         $items = Session::get('notificationdata');
         $userid = $this->loginUser->id;
         $objNotification = new Notification();
-        $items=$objNotification->SessionNotificationCount($userid);        
+        $items = $objNotification->SessionNotificationCount($userid);
         Session::put('notificationdata', $items);
 
 
@@ -51,33 +51,35 @@ class PayrollController extends Controller {
         $data['detail'] = $this->loginUser;
         $EmpObj = new Employee;
         $data['singleemployee'] = $EmpObj->getAllEmployee($empId->id);
-         $data['header'] = array(
-            'title' => 'Payroll '. $data['singleemployee']['name'] .' List',
+        $data['header'] = array(
+            'title' => 'Payroll ' . $data['singleemployee']['name'] . ' List',
             'breadcrumb' => array(
-                'Home' => route("admin-dashboard")));
+                'Home' => route("admin-dashboard"),
+                'Payroll' => "payroll"),
+            );
         $EmpObj = new Employee;
 
         $PayrollObj = new Payroll;
         $data['arrayPayroll'] = $PayrollObj->getPayroll($empId->id);
         $data['empId'] = $empId->id;
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
-        $data['js'] = array('company/payroll.js', 'ajaxfileupload.js', 'jquery.form.min.js');
+        $data['js'] = array('Employee/payroll.js', 'ajaxfileupload.js', 'jquery.form.min.js');
         $data['funinit'] = array('Payroll.init()');
         $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
         //print_r($data['singleemployee']);exit;
         return view('employee.payroll.payroll-employee-list', $data);
     }
 
-    public function add(Request $request,$id) {
+    public function add(Request $request, $id) {
 
-        if($request->ajax()){
-        // if ($request->isMethod('post')) {
+        if ($request->ajax()) {
+            // if ($request->isMethod('post')) {
             $payrollobj = new Payroll();
-            $ret = $payrollobj->addnewpayroll($request,$id);
+            $ret = $payrollobj->addnewpayroll($request, $id);
             if ($ret) {
                 $return['status'] = 'success';
                 $return['message'] = 'Payroll added successfully.';
-                $return['redirect'] = route('payroll-emp-detail',array('id'=> $id));
+                $return['redirect'] = route('payroll-emp-detail', array('id' => $id));
             } else {
                 $return['status'] = 'error';
                 $return['message'] = 'something will be wrong.';
@@ -98,20 +100,21 @@ class PayrollController extends Controller {
         $data['funinit'] = array('Payroll.init()');
         $data['css'] = array('plugins/jasny/jasny-bootstrap.min.css');
         return view('employee.payroll.payroll-add', $data);
-    } 
-    public function edit(Request $request,$id) {
+    }
+
+    public function edit(Request $request, $id) {
         $payrollObj = new Payroll;
         $arrayPayroll = $payrollObj->getPayrollV2($id);
         $data['arrayPayroll'] = $arrayPayroll[0];
         $data['employee'] = Employee::find($data['arrayPayroll']['employee_id']);
-        if($request->ajax()){
-        // if ($request->isMethod('post')) {
+        if ($request->ajax()) {
+            // if ($request->isMethod('post')) {
             $payrollobj = new Payroll();
-            $ret = $payrollobj->editPayroll($request,$id);
+            $ret = $payrollobj->editPayroll($request, $id);
             if ($ret) {
                 $return['status'] = 'success';
                 $return['message'] = 'Payroll added successfully.';
-                $return['redirect'] = route('payroll-emp-detail',array('id'=> $request->input('empId')));
+                $return['redirect'] = route('payroll-emp-detail', array('id' => $request->input('empId')));
             } else {
                 $return['status'] = 'error';
                 $return['message'] = 'something will be wrong.';
@@ -133,21 +136,25 @@ class PayrollController extends Controller {
         return view('employee.payroll.payroll-add', $data);
     }
 
-    public function ajaxAction(Request $request) 
-    {
+    public function ajaxAction(Request $request) {
+        
         $action = $request->input('action');
         switch ($action) {
-            
+
             case 'deletePayroll':
                 $result = $this->deletePayroll($request->input('data'));
+                break;
+
+            case 'getdatatable':
+                $objPayroll = new Payroll();
+                $demoList = $objPayroll->getPayrollEmpDatatable($request['data']['id']);
+                echo json_encode($demoList);
                 break;
         }
     }
 
-    public function deletePayroll($postData) 
-    {
-        if ($postData) 
-        {
+    public function deletePayroll($postData) {
+        if ($postData) {
             $result = Payroll::where('id', $postData['id'])->delete();
             if ($result) {
                 $return['status'] = 'success';

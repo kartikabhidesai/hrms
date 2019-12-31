@@ -69,7 +69,7 @@
             </tr>
         </thead>
         <tbody>
-            @if(count($allemployee) > 0)
+<!--            @if(count($allemployee) > 0)
             @foreach($allemployee as $singleemp)
 
             <tr>
@@ -86,7 +86,7 @@
                 </td>
             </tr>
             @endforeach
-            @endif
+            @endif-->
 
         </tbody>
     </table>

@@ -56,7 +56,7 @@ $file_headers = @get_headers($filename);
                     <span class="nav-label">Department</span></a>
             </li> 
             
-            <li class="{{ ( $currentRoute == 'payroll-list' ||  $currentRoute == 'payroll-setting' || $currentRoute == 'pay-slip' || $currentRoute == 'campany-advance-salary-request' ? 'active' : '') }} {{ ( $currentRoute == 'approved-advance-salary-request' ? 'active' : '') }}">
+            <li class="{{ ( $currentRoute == 'payroll-list' ||  $currentRoute == 'payroll-emp-detail' ||  $currentRoute == 'payroll-setting' || $currentRoute == 'pay-slip' || $currentRoute == 'campany-advance-salary-request' ? 'active' : '') }} {{ ( $currentRoute == 'approved-advance-salary-request' ? 'active' : '') }}">
                 <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Salary</span> <span class="fa arrow"></span></a>
                 
                 <ul class="nav nav-second-level">

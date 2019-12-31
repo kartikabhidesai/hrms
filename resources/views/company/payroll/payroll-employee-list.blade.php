@@ -58,7 +58,7 @@
                 <div class="ibox-content">
 
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover dataTables-example" id="payrollDatatables">
+                        <table class="table table-striped table-bordered table-hover dataTables-example" id="payrollEmployeeDatatables">
                             <thead>
                                 <tr>
                                     <th>Basic Salary</th>
@@ -72,7 +72,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($arrayPayroll as $tow => $val)
+<!--                                @foreach($arrayPayroll as $tow => $val)
                                 <tr>
                                   
                                     <td>{{ $val['basic_salary'] }}</td>
@@ -96,14 +96,14 @@
                                     <td>{{$singleemployee['status']}}</td>
                                     <td>{{$val['travel']}}</td>
                                     <td>
-                                       <!--  <a href="{{ route('payroll-emp-detail',array('id'=>$singleemployee['id'])) }}" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-trash"></i></a> -->
+                                         <a href="{{ route('payroll-emp-detail',array('id'=>$singleemployee['id'])) }}" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-trash"></i></a> 
                                        <a href="{{ route('payroll-edit',array('id'=> $val['id'])) }}" class="link-black text-sm" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-edit"></i></a>
                                         <a href="#deleteModel" data-toggle="modal" data-id="{{ $val['id'] }}" class="link-black text-sm empDelete" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>
                                         </td>
                                     </td>
                                     
                                 </tr>
-                                @endforeach
+                                @endforeach-->
                             </tbody>
                         </table>
                     </div>

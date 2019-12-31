@@ -183,7 +183,7 @@ var Ticket = function () {
                     var html = '<option value="">Select Manager</option>';
                     for (var i = 0; i < output.length; i++) {
                         var temp = "";
-                        temp = '<option value="' + output[i].manager_name + '">' + output[i].manager_name + '</option>';
+                        temp = '<option value="' + output[i].id + '">' + output[i].name +'&nbsp;'+ output[i].father_name + '</option>';
                         html = html + temp;
                     }
                     $(".manager").html(html);

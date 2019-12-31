@@ -39,7 +39,7 @@ class TrainingController extends Controller
         $data['funinit'] = array('Training.init()');
         $data['css'] = array('');
         $data['header'] = array(
-            'title' => 'Company',
+            'title' => 'Training List',
             'breadcrumb' => array(
                 'Home' => route("admin-dashboard"),
                 'Training' => 'Training'));

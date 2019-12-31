@@ -1,7 +1,26 @@
 var Payroll = function () {
     var handleList = function () {
-        
-        $('body').on("change",".department",function(){
+
+        var empid = $('#employee').val();
+        var deptid = $('#department').val();
+
+        var dataArr = {'empid': empid, 'deptid': deptid};
+        var columnWidth = {"width": "10%", "targets": 0};
+        var arrList = {
+            'tableID': '#payrollDatatables',
+            'ajaxURL': baseurl + "company/payroll-ajaxAction",
+            'ajaxAction': 'getdatatable',
+            'postData': dataArr,
+            'hideColumnList': [],
+            'noSearchApply': [6],
+            'noSortingApply': [6],
+            'defaultSortColumn': 0,
+            'defaultSortOrder': 'desc',
+            'setColumnWidth': columnWidth
+        };
+        getDataTablenew(arrList);
+
+        $('body').on("change", ".department", function () {
             var val = $(this).val();
             $.ajax({
                 type: "POST",
@@ -10,13 +29,13 @@ var Payroll = function () {
                 },
                 url: baseurl + "company/payroll-ajaxAction",
                 data: {'action': 'departmentchange', 'val': val},
-                success: function(data) {
+                success: function (data) {
                     var output = JSON.parse(data);
                     var employeelist = '<option value="All">All Employee</option>';
-                    for(var i = 0 ; i < output.length ; i++){
+                    for (var i = 0; i < output.length; i++) {
                         var temphtml = '';
-                        var temphtml = '<option value="'+ output[i].id +'">'+ output[i].name +' '+ output[i].father_name +'</option>';
-                        employeelist = employeelist +  temphtml ;
+                        var temphtml = '<option value="' + output[i].id + '">' + output[i].name + ' ' + output[i].father_name + '</option>';
+                        employeelist = employeelist + temphtml;
                     }
                     $(".employeelist").html(employeelist);
                 }
@@ -37,18 +56,18 @@ var Payroll = function () {
             handleAjaxFormSubmit(form, true);
         });
         dateFormate('.date')
-            
-        $('.add_allowance').on('click', function(){
+
+        $('.add_allowance').on('click', function () {
             var allowance = $('.allowance').val();
-            var inputBox='<div class="form-group removediv allowance[]">'+
-                            '<label class="col-lg-3 control-label">'+allowance+'</label>'+
-                                '<div class="col-lg-8">'+
-                                    '<input name="extraallowance['+allowance+']" class="form-control" placeholder='+allowance+' required>'+
-                                '</div>'+
-                                '<div class="col-lg-1 control-label">'+
-                                    '<a class="link-black text-sm removebtn"><i class="fa fa-trash"></i></a>'+
-                                '</div>'+
-                            '</div>';
+            var inputBox = '<div class="form-group removediv allowance[]">' +
+                    '<label class="col-lg-3 control-label">' + allowance + '</label>' +
+                    '<div class="col-lg-8">' +
+                    '<input name="extraallowance[' + allowance + ']" class="form-control" placeholder=' + allowance + ' required>' +
+                    '</div>' +
+                    '<div class="col-lg-1 control-label">' +
+                    '<a class="link-black text-sm removebtn"><i class="fa fa-trash"></i></a>' +
+                    '</div>' +
+                    '</div>';
             $('.add_designation_div').prepend(inputBox);
             $('#addMoreAllowanceModel').modal('hide');
             var allowance = [];
@@ -56,21 +75,21 @@ var Payroll = function () {
             $('.allowance').val('');
         });
 
-        $('body').on('click','.removebtn',function(){
+        $('body').on('click', '.removebtn', function () {
             $(this).closest('.removediv').remove();
         });
 
-        $('.add_deduction').on('click', function(){
+        $('.add_deduction').on('click', function () {
             var deduction = $('.deduction').val();
-            var inputBox='<div class="form-group removedeductiondiv deduction[]">'+
-                            '<label class="col-lg-3 control-label">'+deduction+'</label>'+
-                                '<div class="col-lg-8">'+
-                                    '<input name="extradeduction['+deduction+']" class="form-control" placeholder='+deduction+' required>'+
-                                '</div>'+
-                                '<div class="col-lg-1 control-label">'+
-                                    '<a class="link-black text-sm removeDeductionbtn"><i class="fa fa-trash"></i></a>'+
-                                '</div>'+
-                            '</div>';
+            var inputBox = '<div class="form-group removedeductiondiv deduction[]">' +
+                    '<label class="col-lg-3 control-label">' + deduction + '</label>' +
+                    '<div class="col-lg-8">' +
+                    '<input name="extradeduction[' + deduction + ']" class="form-control" placeholder=' + deduction + ' required>' +
+                    '</div>' +
+                    '<div class="col-lg-1 control-label">' +
+                    '<a class="link-black text-sm removeDeductionbtn"><i class="fa fa-trash"></i></a>' +
+                    '</div>' +
+                    '</div>';
             $('.add_deduction_div').prepend(inputBox);
             $('#addDeductionModel').modal('hide');
             var deduction = [];
@@ -78,18 +97,18 @@ var Payroll = function () {
             $('.deduction').val('');
         });
 
-        $('body').on('click','.removeDeductionbtn',function(){
+        $('body').on('click', '.removeDeductionbtn', function () {
             $(this).closest('.removedeductiondiv').remove();
         });
-        
-        $('body').on('click', '.empDelete', function() {
+
+        $('body').on('click', '.empDelete', function () {
             var id = $(this).data('id');
-            setTimeout(function() {
+            setTimeout(function () {
                 $('.yes-sure:visible').attr('data-id', id);
             }, 500);
         })
 
-        $('body').on('click', '.yes-sure', function() {
+        $('body').on('click', '.yes-sure', function () {
             var id = $(this).attr('data-id');
             var data = {id: id, _token: $('#_token').val()};
             $.ajax({
@@ -99,17 +118,17 @@ var Payroll = function () {
                 },
                 url: baseurl + "company/payroll-ajaxAction",
                 data: {'action': 'deletePayroll', 'data': data},
-                success: function(data) {
+                success: function (data) {
                     handleAjaxResponse(data);
                 }
             });
         });
 
-        $('body').on('change', '#months,#year', function() {
+        $('body').on('change', '#months,#year', function () {
             var months = $('#months').val();
             var year = $('#year').val();
             var empid = $('#empId').val();
-            if(months != '' && year != '' && empid != '')
+            if (months != '' && year != '' && empid != '')
             {
                 $.ajax({
                     type: "POST",
@@ -117,8 +136,8 @@ var Payroll = function () {
                         'X-CSRF-TOKEN': $('input[name="_token"]').val(),
                     },
                     url: baseurl + "company/payroll-check-award",
-                    data: { empid:empid, months: months,year: year, _token: $('#_token').val() },
-                    success: function(data) {
+                    data: {empid: empid, months: months, year: year, _token: $('#_token').val()},
+                    success: function (data) {
                         $('#award').val(data);
                         // handleAjaxResponse(data);
                     }
@@ -137,48 +156,48 @@ var Payroll = function () {
 
         $('body').on('click', '.clearBtn', function () {
             location.href = baseurl + 'company/payroll-list';
-        });   
+        });
         $('body').on('click', '.updateBankModel', function () {
             var id = $(this).attr('data-id');
-            var dataArr = { _token: $('#_token').val(),'id':id};
-                $.ajax({
-                    type: "POST",
-                    headers: {
-                        'X-CSRF-TOKEN': $('input[name="_token"]').val(),
-                    },
-                    url: baseurl + "company/payroll-ajaxAction",
-                    data: {'action': 'getBankDetails', 'data': dataArr},
-                    success: function(data) {
-                        var  output = JSON.parse(data);
-                        console.log(output)
-                        console.log(output.branch)
-                        $('.empId').val(output.id);
-                        $('.account_holder_name').val(output.account_holder_name);
-                        $('.account_number').val(output.account_number);
-                        $('.bank_name').val(output.bank_name);
-                        $('.branch').val(output.branch);
-                    }
-                });
+            var dataArr = {_token: $('#_token').val(), 'id': id};
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                },
+                url: baseurl + "company/payroll-ajaxAction",
+                data: {'action': 'getBankDetails', 'data': dataArr},
+                success: function (data) {
+                    var output = JSON.parse(data);
+                    console.log(output)
+                    console.log(output.branch)
+                    $('.empId').val(output.id);
+                    $('.account_holder_name').val(output.account_holder_name);
+                    $('.account_number').val(output.account_number);
+                    $('.bank_name').val(output.bank_name);
+                    $('.branch').val(output.branch);
+                }
+            });
         });
 
-         $('#updateBank').validate({
-             rules: {
+        $('#updateBank').validate({
+            rules: {
                 account_holder_name: {required: true},
                 account_number: {required: true},
                 bank_name: {required: true},
                 branch: {required: true},
             },
             messages: {},
-            errorPlacement: function(error, element) {
+            errorPlacement: function (error, element) {
             },
-            submitHandler: function(form) {
+            submitHandler: function (form) {
                 var account_holder_name = $('.account_holder_name').val();
                 var account_number = $('.account_number').val();
                 var bank_name = $('.bank_name').val();
                 var branch = $('.branch').val();
                 var id = $('.empId').val();
                 var dataArr = {'account_holder_name': account_holder_name, 'account_number': account_number,
-                    'bank_name': bank_name, 'branch': branch,_token: $('#_token').val(),'id':id};
+                    'bank_name': bank_name, 'branch': branch, _token: $('#_token').val(), 'id': id};
                 $.ajax({
                     type: "POST",
                     headers: {
@@ -186,16 +205,63 @@ var Payroll = function () {
                     },
                     url: baseurl + "company/payroll-ajaxAction",
                     data: {'action': 'saveBankDetails', 'data': dataArr},
-                    success: function(data) {
+                    success: function (data) {
                         handleAjaxResponse(data);
                     }
                 });
             }
         });
     }
+
+    var handleempList = function (id) {
+
+
+        var dataArr = {'id': id};
+        var columnWidth = {"width": "10%", "targets": 0};
+        var arrList = {
+            'tableID': '#payrollEmployeeDatatables',
+            'ajaxURL': baseurl + "company/payroll-ajaxAction",
+            'ajaxAction': 'getEmpdatatable',
+            'postData': dataArr,
+            'hideColumnList': [],
+            'noSearchApply': [],
+            'noSortingApply': [7],
+            'defaultSortColumn': 0,
+            'defaultSortOrder': 'desc',
+            'setColumnWidth': columnWidth
+        };
+        getDataTablenew(arrList);
+
+        $('body').on('click', '.empDelete', function () {
+            var id = $(this).data('id');
+            setTimeout(function () {
+                $('.yes-sure:visible').attr('data-id', id);
+            }, 500);
+        })
+
+        $('body').on('click', '.yes-sure', function () {
+            var id = $(this).attr('data-id');
+            var data = {id: id, _token: $('#_token').val()};
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                },
+                url: baseurl + "company/payroll-ajaxAction",
+                data: {'action': 'deletePayroll', 'data': data},
+                success: function (data) {
+                    handleAjaxResponse(data);
+                }
+            });
+        });
+    }
+
     return {
         init: function () {
             handleList();
+        },
+        empinit: function (id) {
+            handleempList(id);
         }
     }
 }();

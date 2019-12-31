@@ -43,7 +43,9 @@ class PerformanceController extends Controller {
         $data['header'] = array(
             'title' => 'Performance for ' . $data['singleemployee']['name'],
             'breadcrumb' => array(
-                'Home' => route("admin-dashboard")));
+                'Home' => route("admin-dashboard"),
+                'Performance' => ""),
+            );
 
         $data['empId'] = $id['id'];
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');

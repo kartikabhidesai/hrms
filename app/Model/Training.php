@@ -5,47 +5,46 @@ namespace App\Model;
 use Illuminate\Database\Eloquent\Model;
 use App\Model\TraningEmployeeDepartment;
 use DB;
-class Training extends Model
-{
+
+class Training extends Model {
+
     protected $table = 'training';
 
-    public function addTraining($request, $companyId)
-    {
-       
+    public function addTraining($request, $companyId) {
+
         $newTraining = new Training();
-    	$newTraining->company_id = $companyId;
-    	$newTraining->location = $request->location;
-    	$newTraining->department_id = $request->department_id;
+        $newTraining->company_id = $companyId;
+        $newTraining->location = $request->location;
+        $newTraining->department_id = $request->department_id;
         $newTraining->budget = $request->budget;
         $newTraining->requirement = $request->requinment;
-    	$newTraining->number = $request->numbers;
-    	$newTraining->type = $request->Types;
-    	$newTraining->save();
+        $newTraining->number = $request->numbers;
+        $newTraining->type = $request->Types;
+        $newTraining->save();
 
-    	if($newTraining) {
+        if ($newTraining) {
             $lastId = $newTraining->id;
             $objNew = new TraningEmployeeDepartment();
-            $objNew->addTraningDetails($request,$lastId);
-    		return TRUE;
-    	} else {
-    		return FALSE;
-    	}
+            $objNew->addTraningDetails($request, $lastId);
+            return TRUE;
+        } else {
+            return FALSE;
+        }
     }
 
-    public function getCompanyTraining($companyId)
-    {
-        
-        $getListOfTraining = Training::select('location','department_id','budget','requirement','number','type')
-                                        ->where('company_id', $companyId)
-                                        ->get();
+    public function getCompanyTraining($companyId) {
 
-        if(count($getListOfTraining) > 0) {
+        $getListOfTraining = Training::select('location', 'department_id', 'budget', 'requirement', 'number', 'type')
+                ->where('company_id', $companyId)
+                ->get();
+
+        if (count($getListOfTraining) > 0) {
 
             foreach ($getListOfTraining as $key => $value) {
-                $dd=date('Y, m, d',strtotime($value['start']));
-                $getListOfTrainingList[]=array('title'=>$value['title'],'start'=>$dd);
+                $dd = date('Y, m, d', strtotime($value['start']));
+                $getListOfTrainingList[] = array('title' => $value['title'], 'start' => $dd);
             }
-                
+
             return $getListOfTrainingList;
         } else {
             return null;
@@ -65,8 +64,8 @@ class Training extends Model
                 ->leftjoin('training_emp_dept', 'training_emp_dept.training_id', '=', 'ra.id')
                 // ->leftjoin('employee', 'employee.id', '=', 'training_emp_dept.employee_id')
                 ->where('ra.company_id', $companyId)
-                // ->groupBy('ra.id')
-                ;
+        // ->groupBy('ra.id')
+        ;
 
         if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
             $searchVal = $requestData['search']['value'];
@@ -93,7 +92,7 @@ class Training extends Model
 
         $resultArr = $query->skip($requestData['start'])
                         ->take($requestData['length'])
-                        ->select('ra.id', 'ra.location', 'ra.department_id', 'ra.budget', 'ra.requirement', 'ra.number', 'ra.type', 'ra.created_at')->get(); 
+                        ->select('ra.id', 'ra.location', 'ra.department_id', 'ra.budget', 'ra.requirement', 'ra.number', 'ra.type', 'ra.created_at')->get();
         // $resultArr = $query->skip($requestData['start'])
         //                 ->take($requestData['length'])
         //                 ->select('ra.id', 'ra.location', 'ra.department_id', 'ra.budget', 'ra.requirement', 'ra.number', 'ra.type', 'ra.created_at',DB::raw('GROUP_CONCAT(training_emp_dept.id SEPARATOR ",") AS service_name_data'),DB::raw('GROUP_CONCAT(employee.name SEPARATOR " | ") AS employeeName'))->get();
@@ -107,7 +106,7 @@ class Training extends Model
             $nestedData = array();
             $nestedData[] = $row["location"];
             $nestedData[] = $row["budget"];
-            $nestedData[] = $row["requirement"];         
+            $nestedData[] = $row["requirement"];
             $nestedData[] = $actionHtml;
             $data[] = $nestedData;
         }
@@ -121,9 +120,10 @@ class Training extends Model
         );
 
         return $json_data;
-    } 
+    }
+
     public function getTrainingEmployeeDatatable($request, $employeeId) {
-        
+
         $requestData = $_REQUEST;
         $columns = array(
             // datatable column index  => database column name
@@ -172,7 +172,7 @@ class Training extends Model
             $nestedData = array();
             $nestedData[] = $row["location"];
             $nestedData[] = $row["budget"];
-            $nestedData[] = $row["requirement"];         
+            $nestedData[] = $row["requirement"];
             $nestedData[] = $actionHtml;
             $data[] = $nestedData;
         }
@@ -188,14 +188,15 @@ class Training extends Model
         return $json_data;
     }
 
-    public function getTrainingDetails($postData){
-        
+    public function getTrainingDetails($postData) {
+
         $query = Training::from('training as ra')
                 ->join('training_emp_dept', 'training_emp_dept.training_id', '=', 'ra.id')
                 ->join('employee', 'employee.company_id', '=', 'ra.company_id')
                 ->join('department as depart', 'ra.department_id', '=', 'depart.id')
                 ->where('ra.id', $postData['id']);
-        $result = $query->select('ra.id', 'ra.location', 'depart.department_name','ra.department_id', 'ra.budget', 'ra.requirement', 'ra.number', 'ra.type', 'ra.created_at')->get()->toArray();  
-        return  $result;     
+        $result = $query->select('ra.id', 'ra.location', 'depart.department_name', 'ra.department_id', 'ra.budget', 'ra.requirement', 'ra.number', 'ra.type', 'ra.created_at')->get()->toArray();
+        return $result;
     }
+
 }

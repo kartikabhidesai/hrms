@@ -26,18 +26,18 @@
                 </div>
                 <div class="ibox-content">
                     <select class="form-control time_period" id="time_period" name="time_period" data-empid="{{$empId}}">
-                    <option value="">select</option>
-                    <option value="1-month">1 Month</option>
-                    <option value="3-months">3 Months</option>
-                    <option value="6-months">6 Months</option>
-                    <option value="1-year">1 Year</option>
-                    <option value="3-year">3 Years</option>
-                    <option value="5-year">5 Years</option>
-                     
-                      
-                      
-                      
-                     
+                        <option value="">select</option>
+                        <option value="1-month">1 Month</option>
+                        <option value="3-months">3 Months</option>
+                        <option value="6-months">6 Months</option>
+                        <option value="1-year">1 Year</option>
+                        <option value="3-year">3 Years</option>
+                        <option value="5-year">5 Years</option>
+
+
+
+
+
                     </select>
                 </div>
             </div>
@@ -49,7 +49,7 @@
                 <div class="ibox-title">
                     <h5>Performance: {{ $singleemployee['name'] }}</h5>
                     <div class="ibox-tools">
-                      <a href="{{ route('performance-emp-detail',array('id'=>$empId)) }}" class="btn btn-primary dim" ><i class="fa fa-plus"> Add</i></a>
+                        <a href="{{ route('performance-emp-detail',array('id'=>$empId)) }}" class="btn btn-primary dim" ><i class="fa fa-plus"> Add</i></a>
 
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     </div>
@@ -69,7 +69,7 @@
                                     <tr>
                                         <td style="padding-top: 20px;"><b>Supervisor:</b> {{ $singleemployee['supervisor_name'] }}</td>
                                         <td style="padding-top: 20px;"><b>Branch:</b> Riyad</td>
-                                        <td style="padding-top: 20px;"><b>Date:</b> 09/09/2018</td>
+                                        <td style="padding-top: 20px;"><b>Date:</b>{{ ' '.date('d-M-Y') }}</td>
                                     </tr>
                                 </table>
                             </div>
@@ -81,110 +81,110 @@
                     <div class="col-lg-12s rating">
                         <div class="ibox float-e-margins">
                             <div class="ibox-content">
-                             <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover dataTables-example" id="">
-                            <thead>
-                                <tr>
-                                    <th>Task</th>
-                                    <th>Note & Details</th>
-                                    <th>Month</th>
-                                    <th>Year</th>
-                                    <th>Availibility</th>
-                                    <th>Quality</th>
-                                    <th>Honesty</th>
-                                    <th>Dependability</th>
-                                    <th>Job Knowledge</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                              @if(count($employeePerfirmance) > 0)
-                              @foreach($employeePerfirmance as $row => $value)
-                       
-                                <tr class="gradeU">
-                                    <td> 
-                                       <?= $value['id'] ?>
-                                    </td>
-                                    <td> 
-                                       <?= $value['notes_and_details'] ?>
-                                    </td>
-                                    <td> 
-                                       <?= $monthis[$value['month']] ?>
-                                    </td>
-                                    <td> 
-                                       <?= $value['year'] ?>
-                                    </td> 
-                                    <td> 
-                                       <ul id='availability'>
-                                          @for($i = 1; $i <= 5;$i++)
-                                              @if($i <= $value['availability'])
-                                                 <i class='fa fa-star fa-fw' style="color: #FFCC36;"></i>
-                                              @else
-                                                 <i class='fa fa-star fa-fw'></i> 
-                                              @endif   
-                                          @endfor
-                                        </ul>
-                                    </td>
-                                    <td> 
-                                       <ul id='quality'>
-                                          @for($i = 1; $i <= 5;$i++)
-                                              @if($i <= $value['quality'])
-                                                 <i class='fa fa-star fa-fw' style="color: #FFCC36;"></i>
-                                              @else
-                                                 <i class='fa fa-star fa-fw'></i> 
-                                              @endif   
-                                          @endfor
-                                        </ul>
-                                    </td>
-                                    <td> 
-                                       <ul id='honesty'>
-                                          @for($i = 1; $i <= 5;$i++)
-                                              @if($i <= $value['honesty'])
-                                                 <i class='fa fa-star fa-fw' style="color: #FFCC36;"></i>
-                                              @else
-                                                 <i class='fa fa-star fa-fw'></i> 
-                                              @endif   
-                                          @endfor
-                                        </ul>
-                                    </td>
-                                     <td> 
-                                       <ul id='dependability'>
-                                          @for($i = 1; $i <= 5;$i++)
-                                              @if($i <= $value['dependability'])
-                                                 <i class='fa fa-star fa-fw' style="color: #FFCC36;"></i>
-                                              @else
-                                                 <i class='fa fa-star fa-fw'></i> 
-                                              @endif   
-                                          @endfor
-                                        </ul>
-                                    </td> 
-                                    <td> 
-                                       <ul id='job_knowledge'>
-                                          @for($i = 1; $i <= 5;$i++)
-                                              @if($i <= $value['job_knowledge'])
-                                                 <i class='fa fa-star fa-fw' style="color: #FFCC36;"></i>
-                                              @else
-                                                 <i class='fa fa-star fa-fw'></i> 
-                                              @endif   
-                                          @endfor
-                                        </ul>
-                                    </td>
-                                </tr>
-                              @endforeach
-                              @else
-                              <tr class="gradeU">
-                                    <td colspan="9" colspan="text-center" style="text-align: center !important;"> 
-                                       <span class="text-danger" >No record Found</span>
-                                    </td>
-                                </tr>
-                              @endif
-                              </tbody>
-                            </table>
-                        </div>
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover dataTables-example" id="">
+                                        <thead>
+                                            <tr>
+                                                <th>Task</th>
+                                                <th>Note & Details</th>
+                                                <th>Month</th>
+                                                <th>Year</th>
+                                                <th>Availibility</th>
+                                                <th>Quality</th>
+                                                <th>Honesty</th>
+                                                <th>Dependability</th>
+                                                <th>Job Knowledge</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if(count($employeePerfirmance) > 0)
+                                            @foreach($employeePerfirmance as $row => $value)
+
+                                            <tr class="gradeU">
+                                                <td> 
+                                                    <?= $value['id'] ?>
+                                                </td>
+                                                <td> 
+                                                    <?= $value['notes_and_details'] ?>
+                                                </td>
+                                                <td> 
+                                                    <?= $monthis[$value['month']] ?>
+                                                </td>
+                                                <td> 
+                                                    <?= $value['year'] ?>
+                                                </td> 
+                                                <td> 
+                                                    <ul id='availability' style="padding-inline-start: 0px;">
+                                                        @for($i = 1; $i <= 5;$i++)
+                                                        @if($i <= $value['availability'])
+                                                        <i class='fa fa-star fa-fw' style="color: #FFCC36;"></i>
+                                                        @else
+                                                        <i class='fa fa-star fa-fw'></i> 
+                                                        @endif   
+                                                        @endfor
+                                                    </ul>
+                                                </td>
+                                                <td> 
+                                                    <ul id='quality' style="padding-inline-start: 0px;">
+                                                        @for($i = 1; $i <= 5;$i++)
+                                                        @if($i <= $value['quality'])
+                                                        <i class='fa fa-star fa-fw' style="color: #FFCC36;"></i>
+                                                        @else
+                                                        <i class='fa fa-star fa-fw'></i> 
+                                                        @endif   
+                                                        @endfor
+                                                    </ul>
+                                                </td>
+                                                <td> 
+                                                    <ul id='honesty' style="padding-inline-start: 0px;">
+                                                        @for($i = 1; $i <= 5;$i++)
+                                                        @if($i <= $value['honesty'])
+                                                        <i class='fa fa-star fa-fw' style="color: #FFCC36;"></i>
+                                                        @else
+                                                        <i class='fa fa-star fa-fw'></i> 
+                                                        @endif   
+                                                        @endfor
+                                                    </ul>
+                                                </td>
+                                                <td> 
+                                                    <ul id='dependability' style="padding-inline-start: 0px;">
+                                                        @for($i = 1; $i <= 5;$i++)
+                                                        @if($i <= $value['dependability'])
+                                                        <i class='fa fa-star fa-fw' style="color: #FFCC36;"></i>
+                                                        @else
+                                                        <i class='fa fa-star fa-fw'></i> 
+                                                        @endif   
+                                                        @endfor
+                                                    </ul>
+                                                </td> 
+                                                <td> 
+                                                    <ul id='job_knowledge' style="padding-inline-start: 0px;">
+                                                        @for($i = 1; $i <= 5;$i++)
+                                                        @if($i <= $value['job_knowledge'])
+                                                        <i class='fa fa-star fa-fw' style="color: #FFCC36;"></i>
+                                                        @else
+                                                        <i class='fa fa-star fa-fw'></i> 
+                                                        @endif   
+                                                        @endfor
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                            @else
+                                            <tr class="gradeU">  
+                                                <td colspan="9" colspan="text-center" style="text-align: center !important;"> 
+                                                    <span class="text-danger" >No record Found</span>
+                                                </td>
+                                            </tr>
+                                            @endif
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    
+
                 </form>
             </div>
         </div>

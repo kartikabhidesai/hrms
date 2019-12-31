@@ -64,7 +64,7 @@
                                     <label class="col-lg-4 control-label">Supervisor Name</label>
                                     <div class="col-lg-8">
                                         <select class="form-control supervisor_name" id="supervisor_name" name="supervisor_name[]">
-                                            <option selected="selected" value="">Select Manager Name</option>
+                                            <option selected="selected" value="">Select Supervisor Name</option>
                                             @foreach($employeelist as $key => $value)
                                                 <option  value="{{ $value['id'] }}">{{ $value['name'] }} {{ $value['father_name'] }}</option>
                                             @endforeach

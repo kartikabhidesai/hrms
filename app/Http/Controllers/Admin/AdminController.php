@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 class AdminController extends Controller {
 
     public function __construct() {
-         parent::__construct();
+        parent::__construct();
         $this->middleware('admin');
     }
 
@@ -22,7 +22,9 @@ class AdminController extends Controller {
         $data['header'] = array(
             'title' => 'Dashboard',
             'breadcrumb' => array(
-                'Home' => route("admin-dashboard")));
+                'Home' => route("admin-dashboard"),
+                'Dashboard' => "dashboard")
+        );
         return view('admin.dashboard', $data);
     }
 

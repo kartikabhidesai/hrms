@@ -45,20 +45,20 @@
                             <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
                         </div> 
                         @php
-                            $filename= url('uploads/client/'.$detail->company_image);
-                            $file_headers = @get_headers($filename);
+                        $filename= url('uploads/client/'.$detail->company_image);
+                        $file_headers = @get_headers($filename);
                         @endphp
                         @if($file_headers[0] == 'HTTP/1.1 200 OK')
-                            <div class="col-lg-2 control-label pull-right"> 
+                        <div class="col-lg-2 control-label pull-right"> 
                             <a href="{{ $filename }}" target="_blank" class="btn btn-sm btn-info" >View File</a>
                         </div>
-                            @else
-                                 <div class="col-lg-2 control-label pull-right"> 
-                                <a href="javascript:;" class="btn btn-sm btn-info" >View File</a>
+                        @else
+                        <div class="col-lg-2 control-label pull-right"> 
+                            <a href="javascript:;" class="btn btn-sm btn-info" >View File</a>
                         </div>
-                            @endif
+                        @endif
 
-                       
+
                     </div>
 
                     <div class="form-group">
@@ -72,14 +72,14 @@
                         <div class="col-sm-9">
                             <select id="subcription" name="subcription" class="form-control m-b" required>
                                 @if(isset($planmanagement))
-                                        <option value="">Select</option>
-                                    @foreach($planmanagement as $value)
-                                        @if({{$value->title}} == $detail->subcription)
-                                            <option value="{{$value->title}}" selected>{{$value->title}}</option>
-                                        @else
-                                            <option value="{{$value->title}}">{{$value->title}}</option>
-                                        @endif
-                                    @endforeach
+                                <option value="">Select</option>
+                                @foreach($planmanagement as $value)
+                                @if($value->title == $detail->subcription)
+                                <option value="{{$value->title}}" selected>{{$value->title}}</option>
+                                @else
+                                <option value="{{$value->title}}">{{$value->title}}</option>
+                                @endif
+                                @endforeach
                                 @endif
                             </select>
                         </div>
@@ -94,9 +94,9 @@
                     <div class="form-group" id="data_1">
                         <label class="col-sm-2 control-label">Expiry Date</label>
                         <div class="col-sm-9"> 
-                                    <div class="input-group date">
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="expiry_at" value="{{ isset($detail) && !empty($detail['expiry_at']) ? date('d-m-Y',strtotime( $detail['expiry_at'])) : '' }}" id="expiry_at" placeholder="expiry date" class="form-control expiry_at dateField" autocomplete="off">
-                                </div>
+                            <div class="input-group date">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="expiry_at" value="{{ isset($detail) && !empty($detail['expiry_at']) ? date('d-m-Y',strtotime( $detail['expiry_at'])) : '' }}" id="expiry_at" placeholder="expiry date" class="form-control expiry_at dateField" autocomplete="off">
+                            </div>
                         </div>
                     </div>  
                     {{ Form::hidden('edit_id', $detail->id, array('class' => '')) }}

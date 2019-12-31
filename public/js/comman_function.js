@@ -890,6 +890,53 @@ function getDataTable(arr) {
 //    onLoadDefaultColumnSet(dataTable);
 //    hideShowDatatableColumn(dataTable);
 }
+function getDataTablenew(arr) {
+
+    var dataTable = $(arr.tableID).DataTable({
+        "scrollX": true,
+        "processing": true,
+        "serverSide": true,
+        "bAutoWidth": false,
+        "bLengthChange": false,
+        "bInfo": true,
+        "language": {
+            "search": "_INPUT_",
+            "searchPlaceholder": "Search..."
+        },
+        "order": [[(arr.defaultSortColumn) ? arr.defaultSortColumn : '0', (arr.defaultSortOrder) ? arr.defaultSortOrder : 'desc']],
+        "columnDefs": [
+            {
+                "targets": arr.hideColumnList,
+                "visible": false
+            },
+            {
+                "targets": arr.noSortingApply,
+                "orderable": false
+            },
+            {
+                "targets": arr.noSearchApply,
+                "searchable": false
+            },
+            (arr.setColumnWidth) ? arr.setColumnWidth : ''
+        ],
+        "ajax": {
+            url: arr.ajaxURL,
+            method: "POST",
+            headers: {
+                'X-CSRF-TOKEN': $('input[name="_token"]').val()
+            },
+            data: {'action': arr.ajaxAction, 'arraydata':arr.data,'data': arr.postData},
+            error: function () {  // error handling
+                $(".row-list-error").html("");
+                $(arr.tableID).append('<tbody class="row-list-error"><tr><td colspan="4" style="text-align: center;"><p style="color:red;">Sorry, No Record Found</p></td></tr></tbody>');
+                $(arr.tableID + "processing").css("display", "none");
+            }
+        }
+    });
+
+//    onLoadDefaultColumnSet(dataTable);
+//    hideShowDatatableColumn(dataTable);
+}
 
 function onLoadDefaultColumnSet(dataTable) {
     $('.custom-column').each(function () {

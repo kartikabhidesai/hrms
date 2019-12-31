@@ -15,31 +15,31 @@ use Config;
 class Employee extends Model {
 
     protected $table = 'employee';
-    public function employeeList($request,$companyId){
+
+    public function employeeList($request, $companyId) {
         $departmentId = $request->input('department');
-        $employeeList = Employee::select("name","father_name","id")
-                        ->where('company_id',$companyId)
-                        ->where('department',$departmentId)
-                        ->get();
+        $employeeList = Employee::select("name", "father_name", "id")
+                ->where('company_id', $companyId)
+                ->where('department', $departmentId)
+                ->get();
         return $employeeList;
     }
-    
-    public function allemployeelist($companyId){
-        
-        $employeeList = Employee::select("name","father_name","id")
-                        ->where('company_id',$companyId)
-                        ->get();
-        
+
+    public function allemployeelist($companyId) {
+
+        $employeeList = Employee::select("name", "father_name", "id")
+                ->where('company_id', $companyId)
+                ->get();
+
         return $employeeList;
     }
 
     public function addEmployee($request, $userId, $companyId) {
-      
+
         $emp_pic = '';
         if ($request->file('emp_pic')) {
             $image = $request->file('emp_pic');
             $emp_pic = 'employee' . time() . '.' . $image->getClientOriginalExtension();
-            
         }
         $resume = '';
         if ($request->file('resume')) {
@@ -147,12 +147,11 @@ class Employee extends Model {
     }
 
     public function editEmployee($request, $id) {
-      
+
         $emp_pic = '';
         if ($request->file('emp_pic')) {
             $image = $request->file('emp_pic');
             $emp_pic = 'employee' . time() . '.' . $image->getClientOriginalExtension();
-           
         }
         $resume = '';
         if ($request->file('resume')) {
@@ -218,14 +217,13 @@ class Employee extends Model {
         $objEmployee->martial_status = $request->input('martial_status');
 //        $objEmployee->type_of_id = $request->input('national_id');
         $objEmployee->natonal_iqama_id = $request->input('id');
-        
-        if($emp_pic != NULL || $emp_pic != ''){
+
+        if ($emp_pic != NULL || $emp_pic != '') {
             $objEmployee->photo = $emp_pic;
         }
-        
+
         $objEmployee->email = $request->input('email');
         $objEmployee->password = empty($request->input('id')) ? $request->input('oldpassword') : Hash::make($request->input('id'));
-        ;
         $objEmployee->employee_id = $request->input('employee_id');
         $objEmployee->department = $request->input('department');
         $objEmployee->designation = $request->input('designation');
@@ -237,38 +235,38 @@ class Employee extends Model {
         $objEmployee->account_number = $request->input('account_number');
         $objEmployee->bank_name = $request->input('bank_name');
         $objEmployee->branch = $request->input('branch');
-        if($resume != NULL || $resume != ''){
+        if ($resume != NULL || $resume != '') {
             $objEmployee->resume_file = $resume;
         }
-        
-        if($offer_latter != NULL || $offer_latter != ''){
+
+        if ($offer_latter != NULL || $offer_latter != '') {
             $objEmployee->offer_letter = $offer_latter;
         }
-        
-        if($join_letter != NULL || $join_letter != ''){
+
+        if ($join_letter != NULL || $join_letter != '') {
             $objEmployee->joining_letter = $join_letter;
         }
-        
-        if($contect_agre != NULL || $contect_agre != ''){
+
+        if ($contect_agre != NULL || $contect_agre != '') {
             $objEmployee->contact_agreement = $contect_agre;
         }
-        
-        if($other != NULL || $other != ''){
-             $objEmployee->other = $other;
+
+        if ($other != NULL || $other != '') {
+            $objEmployee->other = $other;
         }
         /* Edit newly added fields to DB */
         $objEmployee->religion = $request->input('religion');
-        
-        if($driver_license != NULL || $driver_license != ''){
+
+        if ($driver_license != NULL || $driver_license != '') {
             $objEmployee->driver_license = $driver_license;
         }
-       
+
         $objEmployee->iqama_expire_date = date('Y-m-d', strtotime($request->input('iqama_expire_date')));
-        
-        if($passport != NULL || $passport != ''){
+
+        if ($passport != NULL || $passport != '') {
             $objEmployee->passport = $passport;
         }
-        
+
         $objEmployee->passport_expire_date = date('Y-m-d', strtotime($request->input('passport_expire_date')));
         $objEmployee->job_title = $request->input('job_title');
         $objEmployee->employee_type = $request->input('employee_type');
@@ -278,7 +276,7 @@ class Employee extends Model {
     }
 
     public function editBankDetails($postData) {
-        
+
         $objEmployee = Employee::find($postData['id']);
         $objEmployee->account_holder_name = $postData['account_holder_name'];
         $objEmployee->account_number = $postData['account_number'];
@@ -383,17 +381,16 @@ class Employee extends Model {
     }
 
     public function getAllEmployeeForPerformance($id = NULL) {
-       
+
         if ($id) {
-          
-            $result = Employee::select('employee.*', 'department.department_name','designation.supervisor_name')
-                                ->leftjoin('department', 'employee.department', '=', 'department.id')
-                                ->leftjoin('designation', 'designation.id', '=', 'employee.designation')
-                                ->where('employee.id', '=', $id)
-                                ->get()
-                                ->first()
-                                ->toArray();
-            
+
+            $result = Employee::select('employee.*', 'department.department_name', 'designation.supervisor_name')
+                    ->leftjoin('department', 'employee.department', '=', 'department.id')
+                    ->leftjoin('designation', 'designation.id', '=', 'employee.designation')
+                    ->where('employee.id', '=', $id)
+                    ->get()
+                    ->first()
+                    ->toArray();
         } else {
 
             $result = Employee::select('employee.*', 'department.department_name')
@@ -412,20 +409,20 @@ class Employee extends Model {
     }
 
     public function getEmployDetailV2($userId, $year, $month, $employee, $department) {
-        
-        
-        $sql = Employee::select('employee.name', 'employee.employee_id', 'employee.company_id', 'employee.id as emp_id', 'pay_roll.remarks','pay_roll.id as payrollId', 'pay_roll.month', 'pay_roll.year')
+
+
+        $sql = Employee::select('employee.name', 'employee.employee_id', 'employee.company_id', 'employee.id as emp_id', 'pay_roll.remarks', 'pay_roll.id as payrollId', 'pay_roll.month', 'pay_roll.year')
                 ->join('pay_roll', 'employee.id', '=', 'pay_roll.employee_id');
-                if($month != null || $month != ''){
-                    $sql->where('pay_roll.month', $month);
-                }
-                
-                 if($year != null || $year != ''){
-                    $sql->where('pay_roll.year', $year);
-                }
-            
-            
-            
+        if ($month != null || $month != '') {
+            $sql->where('pay_roll.month', $month);
+        }
+
+        if ($year != null || $year != '') {
+            $sql->where('pay_roll.year', $year);
+        }
+
+
+
         if (!empty($employee) && $employee !== 'all') {
             $sql->where('employee.id', $employee);
         }
@@ -435,16 +432,16 @@ class Employee extends Model {
 
         $sql->where('employee.company_id', $userId);
         $result = $sql->get();
-        
+
         return $result;
     }
-    
+
     public function getEmployDetailV2New($userId, $employee, $department) {
-        
-        
+
+
         $sql = Employee::select('employee.name', 'employee.employee_id', 'employee.company_id', 'employee.id as emp_id', 'pay_roll.remarks', 'pay_roll.month', 'pay_roll.year')
                 ->leftjoin('pay_roll', 'employee.id', '=', 'pay_roll.employee_id');
-         
+
         if (!empty($employee) && $employee !== 'all') {
             $sql->where('employee.id', $employee);
         }
@@ -471,35 +468,28 @@ class Employee extends Model {
         $arrEmployee = Employee::where('company_id', $company_id)
                 ->pluck('name', 'id')
                 ->toArray();
-        
+
         return $arrEmployee;
-    }   
-    
+    }
+
     public function getEmployeenew($company_id) {
 //         echo $company_id;exit;
         $arrEmployee = Employee::where('company_id', $company_id)
-                    ->select('name','father_name','id')
-                    ->get();
-        
+                ->select('name', 'father_name', 'id')
+                ->get();
+
         return $arrEmployee;
-    }   
-    
-    public function getEmployeeByDept($dept,$company_id='') {
+    }
+
+    public function getEmployeeByDept($dept, $company_id = '') {
         // echo $dept; echo " - "; echo $company_id; exit;
-        if(strtolower($dept) == 'all' && strtolower($company_id) == 'all')
-        {
+        if (strtolower($dept) == 'all' && strtolower($company_id) == 'all') {
             $arrEmployee = Employee::pluck('name', 'id')->toArray();
-        }
-        elseif (($company_id == '' || strtolower($company_id) == 'all') && strtolower($dept) != 'all' && $dept != '') 
-        {
+        } elseif (($company_id == '' || strtolower($company_id) == 'all') && strtolower($dept) != 'all' && $dept != '') {
             $arrEmployee = Employee::where('department', $dept)->pluck('name', 'id')->toArray();
-        }
-        elseif ($company_id != '' && strtolower($company_id) != 'all' && (strtolower($dept) == 'all' || $dept == '')) 
-        {
+        } elseif ($company_id != '' && strtolower($company_id) != 'all' && (strtolower($dept) == 'all' || $dept == '')) {
             $arrEmployee = Employee::where('company_id', $company_id)->pluck('name', 'id')->toArray();
-        }
-        else
-        {
+        } else {
             $arrEmployee = Employee::where('department', $dept)->where('company_id', $company_id)->pluck('name', 'id')->toArray();
         }
         // echo "<pre>"; print_r($arrEmployee); exit();
@@ -507,53 +497,49 @@ class Employee extends Model {
     }
 
     //chetan creaated
-    public function getAllEmployeeofCompany($loggedIncmpid,  $department, $employee) {
+    public function getAllEmployeeofCompany($loggedIncmpid, $department, $employee) {
         $sql = Employee::select('employee.*', 'department.department_name', 'payroll_setting.basic_salary', 'payroll_setting.grade')
                 ->join('department', 'employee.department', '=', 'department.id')
                 ->join('payroll_setting', 'employee.joining_salary', '=', 'payroll_setting.id');
-        if(isset($department)  && $department > 0){
-            $sql->where('employee.department', $department);    
+        if (isset($department) && $department > 0) {
+            $sql->where('employee.department', $department);
         }
-        if(isset($employee) && $employee > 0){
+        if (isset($employee) && $employee > 0) {
             $sql->where('employee.id', $employee);
         }
-        
-        $arrEmployee =  $sql->where('employee.company_id', $loggedIncmpid)->get();         
-                    
+
+        $arrEmployee = $sql->where('employee.company_id', $loggedIncmpid)->get();
+
 
         return $arrEmployee;
     }
-    
-    
-    public function getEmployeeList($companyId)
-    {
-        $result = Users::select('users.id','users.name')
-                            ->join('employee', 'users.id', '=', 'employee.user_id')
-                            ->where('users.type','EMPLOYEE')
-                            ->where('employee.company_id',$companyId)
-                            ->get()->toarray();
-        
-        $admin = Users::select('id','name')
-                            ->where('type','ADMIN')
-                            ->get()->toarray();
-        array_push($result,$admin[0]);
-       
-        if($result) {
+
+    public function getEmployeeList($companyId) {
+        $result = Users::select('users.id', 'users.name')
+                        ->join('employee', 'users.id', '=', 'employee.user_id')
+                        ->where('users.type', 'EMPLOYEE')
+                        ->where('employee.company_id', $companyId)
+                        ->get()->toarray();
+        $admin = Users::select('id', 'name')
+                        ->where('type', 'ADMIN')
+                        ->get()->toarray();
+        array_push($result, $admin[0]);
+
+        if ($result) {
             return $result;
         } else {
             return null;
         }
     }
-    
-     public function getEmployeeListNew($companyId)
-    {
-        $result = Users::select('employee.user_id','users.name')
-                ->join('employee', 'users.id', '=', 'employee.user_id')
-                ->where('users.type','EMPLOYEE')
-                ->where('employee.company_id',$companyId)
-                ->get()->toarray();
-       
-        if($result) {
+
+    public function getEmployeeListNew($companyId) {
+        $result = Users::select('employee.user_id', 'users.name')
+                        ->join('employee', 'users.id', '=', 'employee.user_id')
+                        ->where('users.type', 'EMPLOYEE')
+                        ->where('employee.company_id', $companyId)
+                        ->get()->toarray();
+
+        if ($result) {
             return $result;
         } else {
             return null;
@@ -568,14 +554,108 @@ class Employee extends Model {
             return false;
         }
     }
-    
-    public function departmentchange($companyId,$id){
-       
-        $employeeList = Employee::select("name","father_name","id")
-                        ->where('company_id',$companyId)
-                        ->where('department',$id)
-                        ->get();
-       
+
+    public function departmentchange($companyId, $id) {
+
+        $employeeList = Employee::select("name", "father_name", "id")
+                ->where('company_id', $companyId)
+                ->where('department', $id)
+                ->get();
+
         return $employeeList;
     }
+
+    public function getPayslipDatatable($companyId, $request) {
+
+        $requestData = $_REQUEST;
+        $columns = array(
+            // datatable column index  => database column name
+            0 => 'employee.id',
+            1 => 'employee.name', 'employee.father_name',
+            2 => 'employee.employee_id',
+        );
+
+        $query = Employee::from('employee')
+                ->leftjoin('pay_roll', 'pay_roll.employee_id', '=', 'employee.id')
+                ->where('company_id', $companyId);
+
+        if ($request['data']['month'] != null || $request['data']['month'] != '') {
+            $query->where('pay_roll.month', $request['data']['month']);
+        }
+
+        if ($request['data']['year'] != null || $request['data']['year'] != '') {
+            $query->where('pay_roll.year', $request['data']['year']);
+        }
+
+
+
+        if (!empty($request['data']['empid']) && $request['data']['empid'] !== 'all') {
+            $query->where('employee.id', $request['data']['empid']);
+        }
+        if (!empty($request['data']['deptid'])) {
+            $query->where('employee.department', $request['data']['deptid']);
+        }
+
+        if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
+            $searchVal = $requestData['search']['value'];
+            $query->where(function($query) use ($columns, $searchVal, $requestData) {
+                $flag = 0;
+                foreach ($columns as $key => $value) {
+                    $searchVal = $requestData['search']['value'];
+                    if ($requestData['columns'][$key]['searchable'] == 'true') {
+                        if ($flag == 0) {
+                            $query->where($value, 'like', '%' . $searchVal . '%');
+                            $flag = $flag + 1;
+                        } else {
+                            $query->orWhere($value, 'like', '%' . $searchVal . '%');
+                        }
+                    }
+                }
+            });
+        }
+
+        $temp = $query->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir']);
+
+        $totalData = count($temp->get());
+        $totalFiltered = count($temp->get());
+
+        $resultArr = $query->skip($requestData['start'])
+                ->take($requestData['length'])
+                ->select('employee.id', 'employee.name', 'employee.father_name', 'employee.employee_id', 'pay_roll.remarks', 'pay_roll.id as payrollId')
+                ->get();
+        // $resultArr = $query->skip($requestData['start'])
+        //                 ->take($requestData['length'])
+        //                 ->select('ra.id', 'ra.location', 'ra.department_id', 'ra.budget', 'ra.requirement', 'ra.number', 'ra.type', 'ra.created_at',DB::raw('GROUP_CONCAT(training_emp_dept.id SEPARATOR ",") AS service_name_data'),DB::raw('GROUP_CONCAT(employee.name SEPARATOR " | ") AS employeeName'))->get();
+        $data = array();
+
+        foreach ($resultArr as $row) {
+
+            if ($row["remarks"] == '') {
+                $remarks = 'N.A.';
+            }else{
+                $remarks = $row["remarks"];
+            }
+            $checkbox = '<input type="checkbox" value="' . $row['id'] . '" class="empId" id="empId" name="empchk[]">';
+            $actionHtml = "";
+            $actionHtml .= '<a data-toggle="modal" class="btn btn-primary review" data-id="' . $row["id"] . '" data-payrollId="' . $row["payrollId"] . '" data-year="{{$year}}" href="#modal-form">Review</a>';
+            $nestedData = array();
+            $nestedData[] = $checkbox;
+            $nestedData[] = $row["name"] . " " . $row["father_name"];
+            $nestedData[] = $row["employee_id"];
+            $nestedData[] = $remarks;
+            $nestedData[] = $actionHtml;
+            $data[] = $nestedData;
+        }
+        // echo "<pre>";print_r($data);exit;
+
+        $json_data = array(
+            "draw" => intval($requestData['draw']), // for every request/draw by clientside , they send a number as a parameter, when they recieve a response/data they first check the draw number, so we are sending same number in draw. 
+            "recordsTotal" => intval($totalData), // total number of records
+            "recordsFiltered" => intval($totalFiltered), // total number of records after searching, if there is no searching then totalFiltered = totalData
+            "data" => $data   // total data array
+        );
+
+        return $json_data;
+    }
+
 }

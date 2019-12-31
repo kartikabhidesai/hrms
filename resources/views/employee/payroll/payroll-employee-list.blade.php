@@ -74,7 +74,7 @@
                             <tbody>
                                 @foreach($arrayPayroll as $tow => $val)
                                 <tr>
-                                  
+
                                     <td>{{ $val['basic_salary'] }}</td>
                                     <td>
                                         {{ $val['month'] == '1' ? 'January' : '' }} 
@@ -100,7 +100,7 @@
                                         <a href="#deleteModel" data-toggle="modal" data-id="{{ $val['id'] }}" class="link-black text-sm empDelete" data-toggle="tooltip" data-original-title="Delete" > <i class="fa fa-trash"></i></a>
                                         </td>
                                     </td> -->
-                                    
+
                                 </tr>
                                 @endforeach
                             </tbody>

@@ -153,10 +153,10 @@
                                 <b>Assigned To: </b><span class="m-t-none m-b assignedTo"></span><br/>
                             </div>
                             <div class="priorityDiv">
-                                <b>Priority: </b><span class="m-t-none m-b priority"></span><br/>
+                                <b>Priority: </b><span class="m-t-none m-b prioritydiv"></span><br/>
                             </div>
                             <div class="statusDiv">
-                                <b>Status: </b><span class="m-t-none m-b status"></span><br/>
+                                <b>Status: </b><span class="m-t-none m-b statusdiv"></span><br/>
                             </div>
                             <div class="progressDiv">
                                 <b>Complete Progress: </b><span class="m-t-none m-b progress"></span><br/>

@@ -35,12 +35,13 @@ class AttendanceHistory extends Model {
 
         $columns = array(
             // datatable column index  => database column name
-            0 => 'employee.name',
+            0 => 'leaves.type_of_req_id',
             1 => 'leaves.start_date',
             2 => 'leaves.end_date',
-            3 => 'leaves.type_of_req_id',
+            3 => 'employee.name',
             4 => 'department.department_name',
-            5 => 'employee.name',
+            5 => 'leaves.type_of_req_id',
+           
         );
         $query = AttendanceHistory::select('attendance_history.id', 'employee.name', 'leaves.start_date', 'leaves.end_date', 'leaves.type_of_req_id', 'department.department_name', 'time_change_requests.request_type', 'time_change_requests.from_date', 'time_change_requests.to_date')
                 ->leftjoin('employee', 'attendance_history.employee_id', '=', 'employee.id')
@@ -48,7 +49,7 @@ class AttendanceHistory extends Model {
                 ->leftjoin('time_change_requests', 'attendance_history.time_change_request_id', '=', 'time_change_requests.id')
                 ->leftjoin('leaves', 'attendance_history.leave_id', '=', 'leaves.id')
                 ->where('attendance_history.company_id', $companyId->id);
-        if ($department_id != "all") {
+        if ($department_id != "all" &&  $department_id != "") {
             $query->where('employee.department', "=", $department_id);
         }
 
@@ -114,6 +115,7 @@ class AttendanceHistory extends Model {
         $resultArr = $query->skip($requestData['start'])
                 ->take($requestData['length'])
                 ->get();
+        
 //        print_r($resultArr);exit;
         $data = array();
         foreach ($resultArr as $row) {

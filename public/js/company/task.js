@@ -103,9 +103,9 @@ var Task = function () {
                     $('.assignedTo').html(output.emp_name);
                 }
                 if(output.priority === null) {
-                    $('.priority').hide();
+                    $('.prioritydiv').hide();
                 } else {
-                    $('.priority').html(output.priority);
+                    $('.prioritydiv').html(output.priority);
                 }
                 if(output.about_task === null) {
                     $('.info').hide();
@@ -121,11 +121,11 @@ var Task = function () {
                     $('.statusDiv').hide();
                 } else {
                     if(output.task_status == 0) {
-                        $('.status').html('In-progress');
+                        $('.statusdiv').html('In-progress');
                     } if(output.task_status == 1) {
-                        $('.status').html('Pending');
+                        $('.statusdiv').html('Pending');
                     } if(output.task_status == 2) {
-                        $('.status').html('Complete');
+                        $('.statusdiv').html('Complete');
                     }
                 }
             }

@@ -49,8 +49,8 @@ var Payrollsetting = function () {
             'ajaxAction': 'getdatatable',
             'postData': dataArr,
             'hideColumnList': [],
-            'noSearchApply': [0],
-            'noSortingApply': [1],
+            'noSearchApply': [3],
+            'noSortingApply': [3],
             'defaultSortColumn': 0,
             'defaultSortOrder': 'desc',
             'setColumnWidth': columnWidth

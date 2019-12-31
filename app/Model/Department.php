@@ -290,5 +290,14 @@ class Department extends Model {
                 ->get();
         return $managerName;
     }
+    
+    public function changeManagerNew($request) {
+        
+        $managerName = DB::table("employee")
+                ->where('department', $request)
+                ->select('name', 'father_name', 'id')
+                ->get();
+        return $managerName;
+    }
 
 }

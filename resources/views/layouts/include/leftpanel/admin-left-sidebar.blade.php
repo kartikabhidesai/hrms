@@ -99,16 +99,16 @@ $file_headers = @get_headers($filename);
                 </ul>
             </li>
             
-            <li class="{{ ($currentRoute == 'communication' ? 'active' : '') }} {{ ($currentRoute == 'compose' ? 'active' : '') }} {{ ($currentRoute == 'mail-detail' ? 'active' : '') }} {{ ($currentRoute == 'mail-detail/*' ? 'active' : '') }} {{ ($currentRoute == 'communication' || $currentRoute == 'admin-chat' ? 'active' : '') }}">
+            <li class="{{ ($currentRoute == 'admin-communication' ? 'active' : '') }} {{ ($currentRoute == 'admin-sms-list' ? 'active' : '') }} {{ ($currentRoute == 'compose' ? 'active' : '') }} {{ ($currentRoute == 'mail-detail' ? 'active' : '') }} {{ ($currentRoute == 'mail-detail/*' ? 'active' : '') }} {{ ($currentRoute == 'communication' || $currentRoute == 'admin-chat' ? 'active' : '') }} {{ ($currentRoute == 'communication' || $currentRoute == 'new-sms' || $currentRoute == 'send-mail' ? 'active' : '') }}">
                 <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Communication</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li class="{{ ($currentRoute == 'communication' ? 'active' : '') }} {{ ($currentRoute == 'compose' ? 'active' : '') }} {{ ($currentRoute == 'mail-detail' ? 'active' : '') }} {{ ($currentRoute == 'mail-detail/*' ? 'active' : '') }}">
-                        <a href="{{ url('').'/admin/communication' }}"><i class="fa fa-history"></i>
+                    <li class="{{ ($currentRoute == 'admin-communication' ? 'active' : '') }} {{ ($currentRoute == 'compose' ? 'active' : '') }} {{ ($currentRoute == 'mail-detail' ? 'active' : '') }} {{ ($currentRoute == 'mail-detail/*' ? 'active' : '') }} {{ ($currentRoute == 'send-mail' ? 'active' : '') }}">
+                        <a href="{{ route('admin-communication') }}"><i class="fa fa-history"></i>
                             <span class="nav-label">Email</span></a>
                     </li>
                     
-                    <li class="{{ ($currentRoute == 'sms-list' ? 'active' : '') }} {{ ($currentRoute == 'new-sms' ? 'active' : '') }}">
-                        <a href="{{ url('').'/admin/sms-list' }}"><i class="fa fa-envelope"></i>
+                    <li class="{{ ($currentRoute == 'admin-sms-list' ? 'active' : '') }} {{ ($currentRoute == 'new-sms' ? 'active' : '') }}">
+                        <a href="{{ route('admin-sms-list') }}"><i class="fa fa-envelope"></i>
                             <span class="nav-label">Send SMS</span></a>
                     </li>
                     
@@ -124,7 +124,7 @@ $file_headers = @get_headers($filename);
                     <span class="nav-label">Payment</span></a>
             </li>
 
-            <li class="{{ ($currentRoute == 'plan-management' ? 'active' : '') }}">
+            <li class="{{ ($currentRoute == 'plan-management' || $currentRoute == 'add-plan' || $currentRoute == 'plan_management-edit' ? 'active' : '') }}">
                 <a href="{{ route('plan-management') }}"><i class="fa fa-percent"></i>
                     <span class="nav-label">Plan Management</span></a>
             </li> 

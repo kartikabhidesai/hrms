@@ -19,8 +19,8 @@ var ClientReport = function () {
             'ajaxAction': 'getdatatable',
             'postData': dataArr,
             'hideColumnList': [],
-            'noSearchApply': [0],
-            'noSortingApply': [1],
+            'noSearchApply': [2],
+            'noSortingApply': [2],
             'defaultSortColumn': 0,
             'defaultSortOrder': 'desc',
             'setColumnWidth': columnWidth

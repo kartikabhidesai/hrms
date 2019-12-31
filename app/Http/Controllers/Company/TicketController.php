@@ -54,12 +54,12 @@ class TicketController extends Controller
         $objTicketList = new Ticket();
 
         /*Don't remove this code*/
-        /*$data['arrNewCount'] = $objTicketList->getNewTaskCount($companyId->id, 'new');
-        $data['arrInprogressCount'] = $objTicketList->getInprogressTaskCount($companyId->id, 'inprogress');
-        $data['arrCompletedCount'] = $objTicketList->getCompletedTaskCount($companyId->id, 'completed');*/
-        $data['arrNewCount'] = 0;
-        $data['arrInprogressCount'] = 0;
-        $data['arrCompletedCount'] = 0;
+        $data['arrNewCount'] = $objTicketList->getNewTaskCount($companyId->id, 'new');
+        $data['arrInprogressCount'] = $objTicketList->getNewTaskCount($companyId->id, 'inprogress');
+        $data['arrCompletedCount'] = $objTicketList->getNewTaskCount($companyId->id, 'completed');
+//        $data['arrNewCount'] = 0;
+//        $data['arrInprogressCount'] = 0;
+//        $data['arrCompletedCount'] = 0;
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/ticket.js');
         $data['funinit'] = array('Ticket.init()');
@@ -190,7 +190,7 @@ class TicketController extends Controller
             case 'changeManager':
                 
                 $objDepartment = new Department();
-                $result = $objDepartment->changeManager($request->input('value'));
+                $result = $objDepartment->changeManagerNew($request->input('value'));
                 echo json_encode($result);
                 break;
             /*case 'deleteDepartment':

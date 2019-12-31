@@ -40,7 +40,9 @@ class ManageTimeChangeRequestController extends Controller
         $data['header'] = array(
             'title' => 'Manage Time Change Request List',
             'breadcrumb' => array(
-                'Home' => route("employee-dashboard")));
+                'Home' => route("employee-dashboard"),
+                'Manage Time Change Request' => ""),
+            );
         $timeRequestObj = new ManageTimeChangeRequest;
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('employee/newTimeChangeRequest.js', 'ajaxfileupload.js', 'jquery.form.min.js');

@@ -1,6 +1,27 @@
 var Paylip = function () {
 
     var handleList = function () {
+
+        var deptid = $('#department').val();
+        var month = $('#months').val();
+        var year = $('#year').val();
+        var empid = $('#employee').val();
+        var dataArr = {'deptid':deptid, 'empid':empid, 'month':month, 'year':year};
+        var columnWidth = {"width": "10%", "targets": 0};
+        var arrList = {
+            'tableID': '#requestlist',
+            'ajaxURL': baseurl + "company/payslip-ajaxAction",
+            'ajaxAction': 'getdatatable',
+            'postData': dataArr,
+            'hideColumnList': [],
+            'noSearchApply': [0],
+            'noSortingApply': [0,3,4],
+            'defaultSortColumn': [0],
+            'defaultSortOrder': 'desc',
+            'setColumnWidth': columnWidth
+        };
+        getDataTablenew(arrList);
+
         dateFormate('.date');
 
         $('body').on('change', '.checkAll', function () {
@@ -24,7 +45,7 @@ var Paylip = function () {
                 arrEmp.push(empId);
                 // arrInvoice.push(invoiceNo);
             });
-           
+
             if (arrEmp.length > 0) {
                 $("#emparray").val(arrEmp);
                 $('#paySlip').submit();
@@ -37,8 +58,8 @@ var Paylip = function () {
 
             var empid = $(this).attr('data-id');
             var payrollId = $(this).attr('data-payrollId');
-            
-            var data = {id: empid,payrollId:payrollId};
+
+            var data = {id: empid, payrollId: payrollId};
             $.ajax({
                 type: "POST",
                 headers: {
@@ -52,10 +73,10 @@ var Paylip = function () {
                     console.log(myJSON);
                     var trHTML = '';
 
-                    $.each(myJSON, function (i,val) {
-                        trHTML += '<tr class="text-center"><td>' + val.empName+ '</td><td>' + val.company_name+ '</td><td>' + val.due_date+ '</td><td>' + val.remarks+ '</td><td>' + val.salary_grade+ '</td><td>' + val.over_time+ '</td></tr>';
+                    $.each(myJSON, function (i, val) {
+                        trHTML += '<tr class="text-center"><td>' + val.empName + '</td><td>' + val.company_name + '</td><td>' + val.due_date + '</td><td>' + val.remarks + '</td><td>' + val.salary_grade + '</td><td>' + val.over_time + '</td></tr>';
                     });
-                   
+
                     $('.employeemodaldata').empty();
                     $('.employeemodaldata').append(trHTML);
 

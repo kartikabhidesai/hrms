@@ -134,8 +134,8 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function() {
     /*plan management*/
     Route::match(['get','post'],'plan-management',['as' => 'plan-management','uses'=>'Admin\PlanManagementController@index']);
     Route::match(['get','post'],'add-plan',['as' => 'add-plan','uses'=>'Admin\PlanManagementController@createPlan']);
-    Route::match(['get','post'],'plan_management-edit/{id}',['uses'=>'Admin\PlanManagementController@editPlan']);
-    Route::match(['get', 'post'], 'plan-management-ajaxAction', ['uses' => 'Admin\PlanManagementController@ajaxAction']); 
+    Route::match(['get','post'],'plan_management-edit/{id}',['as' => 'plan_management-edit', 'uses'=>'Admin\PlanManagementController@editPlan']);
+    Route::match(['get', 'post'], 'plan-management-ajaxAction', ['as' => 'plan-management-ajaxAction', 'uses' => 'Admin\PlanManagementController@ajaxAction']); 
     
     /* Role management */
     Route::match(['get','post'],'add-role',['as' => 'add-role','uses'=>'Admin\RoleController@add']);
@@ -144,17 +144,17 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function() {
     Route::match(['get', 'post'], 'role-ajaxAction', ['as' => 'role-ajaxAction', 'uses' => 'Admin\RoleController@ajaxAction']); 
 
     /* Send SMS/messages to admin */
-    Route::match(['get', 'post'], 'sendSMS-ajaxAction', ['uses' => 'Admin\SendSMSController@ajaxAction']);
-    Route::match(['get', 'post'], 'sms-list', ['uses' => 'Admin\SendSMSController@smsList']);
-    Route::match(['get', 'post'], 'new-sms', ['uses' => 'Admin\SendSMSController@newSMS']);
+    Route::match(['get', 'post'], 'sendSMS-ajaxAction', ['as' => 'sendSMS-ajaxAction', 'uses' => 'Admin\SendSMSController@ajaxAction']);
+    Route::match(['get', 'post'], 'admin-sms-list', ['as' => 'admin-sms-list', 'uses' => 'Admin\SendSMSController@smsList']);
+    Route::match(['get', 'post'], 'new-sms', ['as' => 'new-sms', 'uses' => 'Admin\SendSMSController@newSMS']);
 
     /* Communication Routes */
-    Route::match(['get', 'post'], 'communication', ['uses' => 'Admin\CommunicationController@communication']);
-    Route::match(['get', 'post'], 'compose', ['as' => 'admin-compose','uses' => 'Admin\CommunicationController@compose']);
-    Route::match(['get', 'post'], 'mail-detail/{id}', ['uses' => 'Admin\CommunicationController@mailDetail']);
-    Route::match(['get', 'post'], 'send-mail-detail/{id}', ['uses' => 'Admin\CommunicationController@sendMailDetail']);
-    Route::match(['get', 'post'], 'download-attachment/{file_name}',['uses'=>'Admin\CommunicationController@downloadAttachment']);
-    Route::match(['get', 'post'], 'send-mail', ['uses' => 'Admin\CommunicationController@sendMail']);
+    Route::match(['get', 'post'], 'communication', ['as' => 'admin-communication','uses' => 'Admin\CommunicationController@communication']);
+    Route::match(['get', 'post'], 'compose', ['as' => 'compose','uses' => 'Admin\CommunicationController@compose']);
+    Route::match(['get', 'post'], 'mail-detail/{id}', ['as' => 'mail-detail', 'uses' => 'Admin\CommunicationController@mailDetail']);
+    Route::match(['get', 'post'], 'send-mail-detail/{id}', ['as' => 'send-mail-detail', 'uses' => 'Admin\CommunicationController@sendMailDetail']);
+    Route::match(['get', 'post'], 'download-attachment/{file_name}',['as' => 'download-attachment', 'uses'=>'Admin\CommunicationController@downloadAttachment']);
+    Route::match(['get', 'post'], 'send-mail', ['as' => 'send-mail', 'uses' => 'Admin\CommunicationController@sendMail']);
     
 //    social Medoia Managment
     Route::match(['get', 'post'], 'social-media', ['uses' => 'Admin\SocialMediaController@index']);

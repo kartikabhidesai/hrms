@@ -106,7 +106,7 @@ class AdvanceSalaryRequestController extends Controller {
             'title' => 'New Advance Salary Request List',
             'breadcrumb' => array(
                 'Home' => route("employee-dashboard"),
-                'Advance Salary Request list' => route('advance-salary-request'),
+                'Advance Salary Request list' => route('campany-advance-salary-request'),
                 'New Advance Salary Request' => 'New Advance Salary Request'));
         $data['pluginjs'] = array('jQuery/jquery.validate.min.js');
         $data['js'] = array('company/advancesalaryrequest.js','ajaxfileupload.js', 'jquery.form.min.js');

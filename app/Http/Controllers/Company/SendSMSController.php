@@ -97,7 +97,7 @@ class SendSMSController extends Controller
             'title' => 'Send New SMS',
             'breadcrumb' => array(
                 'Home' => route("company-dashboard"),
-                'SMS List' => route("sms-list"),
+                'SMS List' => route("admin-sms-list"),
                 'Send New SMS' => 'Send New SMS'));
         return view('company.send-sms.send_new_sms', $data);
     }

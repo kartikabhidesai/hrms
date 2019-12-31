@@ -103,7 +103,7 @@ class TrainingController extends Controller {
             } else {
                 $return['status'] = 'error';
                 $return['message'] = 'Somethin went wrong while creating new training!';
-                $return['jscode'] ='$(".submitbtn").removeAttr("disabled");';
+                $return['jscode'] = '$(".submitbtn").removeAttr("disabled");';
             }
             echo json_encode($return);
             exit;

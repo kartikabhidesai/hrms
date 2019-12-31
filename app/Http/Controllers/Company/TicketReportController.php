@@ -33,10 +33,10 @@ class TicketReportController extends Controller {
         if ($request->isMethod('post')) 
         {
             $postData = $request->input();
-
+            
             $objTicketReport = new TicketReport();
             $dataPdf = $objTicketReport->generateTicketReport($request,$companyId->id); 
-
+            
             if(count($dataPdf) > 0){
 
 
