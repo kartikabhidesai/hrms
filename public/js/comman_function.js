@@ -890,6 +890,7 @@ function getDataTable(arr) {
 //    onLoadDefaultColumnSet(dataTable);
 //    hideShowDatatableColumn(dataTable);
 }
+
 function getDataTablenew(arr) {
 
     var dataTable = $(arr.tableID).DataTable({
